@@ -1,0 +1,16 @@
+﻿<ScrollViewer x:Class="Misp.Sourcing.Table.RPeriodNamePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:src="clr-namespace:Misp.Sourcing.Table" 
+             mc:Ignorable="d" VerticalScrollBarVisibility="Auto"
+             d:Height="Auto" d:DesignWidth="400">
+
+    <StackPanel x:Name="panel">
+        <src:RPeriodItemPanel x:Name="ItemPanel1" x:FieldModifier="public" />
+        <src:RPeriodItemPanel x:Name="ItemPanel2" x:FieldModifier="public"/>
+    </StackPanel>
+    
+</ScrollViewer>
+

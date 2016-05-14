@@ -1,0 +1,463 @@
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
+using Misp.Kernel.Domain.Browser;
+using Misp.Kernel.Service;
+using Misp.Kernel.Util;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Misp.Kernel.Ui.Dashboard
+{
+    /// <summary>
+    /// Interaction logic for DashboardView.xaml
+    /// </summary>
+    public partial class DashboardView : Grid
+    {
+
+        protected static int MAX_BLOCK = 6;
+
+        public List<DashboardBlock> DisplayedBlocks { get; set; }
+        public DashBoardService DashBoardService { get; set; }
+
+        public DashboardBlock ModelBlock { get; set; }
+        public DashboardBlock TableBlock { get; set; }
+        public DashboardBlock ReportBlock { get; set; }
+        public DashboardBlock TreeBlock { get; set; }
+        public DashboardBlock CombinedTreeBlock { get; set; }
+        public DashboardBlock TargetBlock { get; set; }
+        public DashboardBlock DesignBlock { get; set; }
+        public DashboardBlock CalculatedMeasureBlock { get; set; }
+        public DashboardBlock StructuredReportBlock { get; set; }
+        public DashboardBlock AutomaticUploadBlock { get; set; }
+        public DashboardBlock ReconciliationFilterBlock { get; set; }
+        //public DashboardBlock ReconciliationPostingBlock { get; set; }
+        //public DashboardBlock TransactionFileTypeBlock { get; set; }
+
+        public DashboardView()
+        {
+            this.DisplayedBlocks = new List<DashboardBlock>(0);
+            InitializeComponent();
+            BuildGuidedTourControl();
+            InitializeBlocks();
+        }
+
+        public void AddBlock(DashboardBlock block)
+        {
+            if (block == null) return;
+            if (DisplayedBlocks.Count >= MAX_BLOCK) return;
+            DashBoardConfiguration configuration = DashBoardService.getDashboardConfigurationByName(block.TitleLabel.Content.ToString());
+            if (configuration == null)
+            {
+                configuration = new DashBoardConfiguration(block.TitleLabel.Content.ToString(), DisplayedBlocks.Count);                
+            }
+            configuration.position = DisplayedBlocks.Count + 1;
+            block.Configuration = DashBoardService.saveDashboardConfiguration(configuration);           
+            
+            RefreshData(block);
+            this.DisplayedBlocks.Add(block);
+            Display(this.DisplayedBlocks);
+        }
+
+        public void RemoveBlock(DashboardBlock block)
+        {
+            if (block == null) return;
+            if (block.Configuration != null)
+            {
+                block.Configuration.position = DashBoardConfiguration.DEFAULT_POSITION;
+                block.Configuration = DashBoardService.saveDashboardConfiguration(block.Configuration);
+            }
+            block.Reset();
+            this.DisplayedBlocks.Remove(block);
+            Display(this.DisplayedBlocks);
+        }
+
+        public void Reset()
+        {
+            if (this.DisplayedBlocks != null) this.DisplayedBlocks.Clear();
+            this.MultiSelectorCombobox.SelectedItems = new Dictionary<string, object>(0);
+        }
+
+        public void Refresh()
+        {
+            if (DisplayedBlocks == null) DisplayedBlocks = new List<DashboardBlock>(0);
+            if (DisplayedBlocks.Count == 0)
+            {
+                Dictionary<string, object> dico = new Dictionary<string, object>(0);
+                List<DashBoardConfiguration> configurations = DashBoardService.getAllDashboardConfiguration();
+                if (configurations == null || configurations.Count == 0)
+                {
+                    if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
+                    {
+                        configurations.Add(new DashBoardConfiguration(this.ModelBlock.TitleLabel.Content.ToString(), 1));
+                        configurations.Add(new DashBoardConfiguration(this.AutomaticUploadBlock.TitleLabel.Content.ToString(), 2));
+                        configurations.Add(new DashBoardConfiguration(this.ReconciliationFilterBlock.TitleLabel.Content.ToString(), 3));
+                        configurations.Add(new DashBoardConfiguration(this.ReportBlock.TitleLabel.Content.ToString(), 4));
+                    }
+                    else
+                    {
+                        configurations.Add(new DashBoardConfiguration(this.ModelBlock.TitleLabel.Content.ToString(), 1));
+                        configurations.Add(new DashBoardConfiguration(this.TreeBlock.TitleLabel.Content.ToString(), 2));
+                        configurations.Add(new DashBoardConfiguration(this.TableBlock.TitleLabel.Content.ToString(), 3));
+                        configurations.Add(new DashBoardConfiguration(this.ReportBlock.TitleLabel.Content.ToString(), 4));
+                    }
+                    configurations = DashBoardService.saveListDashboardConfiguration(configurations);
+                    if (configurations == null) configurations = new List<DashBoardConfiguration>(0);
+                }
+                foreach (DashBoardConfiguration configuration in configurations)
+                {
+                    DashboardBlock block = GetBlockByConfiguration(configuration);
+                    if (block == null) continue;
+                    block.Configuration = configuration;
+                    if (DisplayedBlocks.Count >= MAX_BLOCK) break;
+                    if (configuration.position == DashBoardConfiguration.DEFAULT_POSITION) continue;
+                    if (dico.ContainsKey(block.TitleLabel.Content.ToString())) continue;
+                    DisplayedBlocks.Add(block);
+                    dico.Add(block.TitleLabel.Content.ToString(), block);
+                }
+                this.MultiSelectorCombobox.SelectedItems = dico;
+            }
+            foreach (DashboardBlock block in DisplayedBlocks) RefreshData(block);
+            Display(this.DisplayedBlocks);
+        }
+
+        
+
+        public void RefreshData(DashboardBlock block)
+        {
+            block.DashBoardService = DashBoardService;
+            block.RefreshData();
+        }
+
+        public void Display(List<DashboardBlock> blocks)
+        {
+            int blockCount = blocks.Count;
+            buildGrid(blockCount);
+            if (blockCount <= 0) return;
+            int n = 0;
+            foreach (DashboardBlock block in blocks)
+            {
+                n++;
+                if(n > 6) return;
+                int row = (n <= 2 || (n == 3 && blockCount > 4)) ? 0 : 1;
+                int col = 0;
+                if(n == 1 || (n == 3 && blockCount <= 4) || (n == 4 && blockCount > 4)) col = 0;
+                else if(n == 2 || n == 5)col = 1;
+                else if (n == 4 && blockCount == 4) col = 1;
+                else if (n == 3 && blockCount > 4) col = 3;
+                else if(n > 5) col = 3;
+
+                int rowSpan = 1;
+                int colSpan = 1;
+                //if (n == 3 && blockCount == 3) colSpan = 2;
+                //if (n == 3 && blockCount > 4) rowSpan = 2;
+                AddBlock(block, row, col, rowSpan, colSpan);
+            }
+        }
+
+        private void AddBlock(DashboardBlock block, int row, int col, int rowSpan, int colSpan)
+        {
+            Grid.SetRow(block, row);
+            Grid.SetColumn(block, col);
+            Grid.SetRowSpan(block, rowSpan);
+            Grid.SetColumnSpan(block, colSpan);
+            this.BlockGrid.Children.Add(block);
+        }
+
+        private void buildGrid(int blockCount)
+        {
+            this.BlockGrid.Children.Clear();
+            this.BlockGrid.RowDefinitions.Clear();
+            this.BlockGrid.ColumnDefinitions.Clear();
+
+            if (blockCount <= 0) return;
+            int row = 1;
+            int col = 1;
+            if (blockCount == 1) { row = 1; col = 1; }
+            else if (blockCount == 2) { row = 1; col = 2; }
+            else if (blockCount == 3) { row = 2; col = 2; }
+            else if (blockCount == 4) { row = 2; col = 2; }
+            else if (blockCount == 5) { row = 2; col = 3; }
+            else if (blockCount == 6) { row = 2; col = 3; }
+            else { row = 2; col = 3; }
+
+            for (int i = 1; i <= row; i++)
+            {
+                RowDefinition def = new RowDefinition();
+                def.Height = new GridLength(ModelBlock.Height + 30);//new GridLength(1, GridUnitType.Star);
+                this.BlockGrid.RowDefinitions.Add(def);
+            }
+
+            for (int i = 1; i <= col; i++)
+            {
+                ColumnDefinition def = new ColumnDefinition();
+                def.Width = new GridLength(ModelBlock.Width + 30);//new GridLength(1, GridUnitType.Star);
+                this.BlockGrid.ColumnDefinitions.Add(def);
+            }
+        }
+
+        private void InitializeBlocks()
+        {
+            this.ModelBlock = buildBlock("Models", "New Model", "Recent Models", FunctionalitiesCode.INITIATION_FUNCTIONALITY);
+
+            this.TableBlock = buildBlock("Input Tables", "New Input Table", "Recent Input Tables", FunctionalitiesCode.NEW_INPUT_TABLE_FUNCTIONALITY);
+            this.ReportBlock = buildBlock("Reports", "New Report", "Recent Reports", FunctionalitiesCode.NEW_REPORT_FUNCTIONALITY);
+            this.StructuredReportBlock = buildBlock("Structured Reports", "New Structured Report", "Recent Structured Reports", FunctionalitiesCode.NEW_STRUCTURED_REPORT_FUNCTIONALITY);
+            this.TreeBlock = buildBlock("Transformation Trees", "New Transformation Tree", "Recent Transformation Trees", FunctionalitiesCode.NEW_TRANSFORMATION_TREE_FUNCTIONALITY);
+            this.CombinedTreeBlock = buildBlock("Combined Transformation Trees", "New Combined Transformation Tree", "Recent Combined Transformation Trees", FunctionalitiesCode.NEW_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY);
+            this.TargetBlock = buildBlock("Targets", "New Target", "Recent Targets", FunctionalitiesCode.NEW_TARGET_FUNCTIONALITY);
+            this.DesignBlock = buildBlock("Designs", "New Design", "Recent Designs", FunctionalitiesCode.NEW_DESIGN_FUNCTIONALITY);
+            this.CalculatedMeasureBlock = buildBlock("Calculated Measures", "New Calculated Measure", "Recent Calculated Measures", FunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY);
+            this.AutomaticUploadBlock = buildBlock("Automatic Uploads", "New Automatic Upload", "Recent Automatic Uploads", FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY);
+            if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
+                this.ReconciliationFilterBlock = buildBlock("Reconciliation Filters", "Reconciliation Filter", "Recent Reconciliation Filters", FunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY);
+            
+            Dictionary<string, object> dico = new Dictionary<string, object>(0);
+            dico.Add(this.AutomaticUploadBlock.TitleLabel.Content.ToString(), this.AutomaticUploadBlock);
+            dico.Add(this.CalculatedMeasureBlock.TitleLabel.Content.ToString(), this.CalculatedMeasureBlock);
+            dico.Add(this.CombinedTreeBlock.TitleLabel.Content.ToString(), this.CombinedTreeBlock);
+            dico.Add(this.DesignBlock.TitleLabel.Content.ToString(), this.DesignBlock);
+            dico.Add(this.TableBlock.TitleLabel.Content.ToString(), this.TableBlock);
+            dico.Add(this.ModelBlock.TitleLabel.Content.ToString(), this.ModelBlock);
+            dico.Add(this.ReportBlock.TitleLabel.Content.ToString(), this.ReportBlock);
+            dico.Add(this.StructuredReportBlock.TitleLabel.Content.ToString(), this.StructuredReportBlock);
+            dico.Add(this.TargetBlock.TitleLabel.Content.ToString(), this.TargetBlock);
+            dico.Add(this.TreeBlock.TitleLabel.Content.ToString(), this.TreeBlock);
+            if (this.ReconciliationFilterBlock != null)
+                dico.Add(this.ReconciliationFilterBlock.TitleLabel.Content.ToString(), this.TreeBlock);
+            
+            this.MultiSelectorCombobox.ItemsSource = dico;
+            this.MultiSelectorCombobox.checkBoxHandler += OnSelectionChanged;
+
+        }
+
+        private void OnSelectionChanged(object item)
+        {
+            if (!(item is CheckBox)) return;
+            CheckBox checkbox = (CheckBox)item;
+
+            if (DisplayedBlocks.Count >= MAX_BLOCK && checkbox.IsChecked.HasValue && checkbox.IsChecked.Value)
+            {
+                MessageDisplayer.DisplayWarning("Dashboard", "You can't display more than " + MAX_BLOCK + " blocks.\nRemove one block and try again.");                
+                checkbox.IsChecked = false;
+                return;
+            }
+            string name = checkbox.Content.ToString();
+            DashboardBlock block = findBlock(name);
+            if (block == null) return;
+            if (checkbox.IsChecked.HasValue && checkbox.IsChecked.Value) AddBlock(block);
+            else RemoveBlock(block);
+        }
+
+        private DashboardBlock buildBlock(string title, string newLabel, string recentItemsLabel, string newFunctionCode)
+        {
+            DashboardBlock block = new DashboardBlock(newFunctionCode);
+            block.DashboardView = this;
+            block.TitleLabel.Content = title;
+            block.RecentItemsTextBlock.Text = recentItemsLabel;
+            buildNewControl(block, newLabel, newFunctionCode);
+            customizeMenu(block, newFunctionCode);
+            return block;
+        }
+
+        private DashboardBlock buildBlock(string title, Dictionary<string, object> newLabels, string recentItemsLabel, string newFunctionCode)
+        {
+            DashboardBlock block = new DashboardBlock(newFunctionCode);
+            block.DashboardView = this;
+            block.TitleLabel.Content = title;
+            block.RecentItemsTextBlock.Text = recentItemsLabel;
+            foreach (string newLabel in newLabels.Keys)
+            {
+                buildNewControl(block, newLabel, newLabels[newLabel].ToString());
+            }
+            customizeMenu(block, newFunctionCode);
+            return block;
+        }
+
+        private void customizeMenu(DashboardBlock block, string newFunctionCode)
+        {
+            if (string.IsNullOrWhiteSpace(newFunctionCode)) return;
+            block.contextMenu.Items.Clear();
+            if(newFunctionCode.Equals(FunctionalitiesCode.INITIATION_FUNCTIONALITY))
+            {
+                block.contextMenu.Items.Add(block.NewMenuItem);
+                block.contextMenu.Items.Add(block.OpenMenuItem);
+                block.contextMenu.Items.Add(block.HideMenuItem);
+                block.contextMenu.Items.Add(block.DeleteMenuItem); 
+                block.contextMenu.Items.Add(new Separator());
+                block.contextMenu.Items.Add(block.SelectAllMenuItem);
+                block.contextMenu.Items.Add(block.DeselectAllMenuItem);
+                block.contextMenu.Items.Add(block.OrderByMenuItem);
+                block.contextMenu.Items.Add(block.ConfigurationMenuItem);
+            }
+            else if(newFunctionCode.Equals(FunctionalitiesCode.NEW_INPUT_TABLE_FUNCTIONALITY)
+                || newFunctionCode.Equals(FunctionalitiesCode.NEW_TRANSFORMATION_TREE_FUNCTIONALITY)
+                || newFunctionCode.Equals(FunctionalitiesCode.NEW_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY))
+            {
+                block.contextMenu.Items.Add(block.NewMenuItem);
+                block.contextMenu.Items.Add(block.OpenMenuItem);
+                block.contextMenu.Items.Add(block.RunMenuItem);
+                block.contextMenu.Items.Add(block.ClearMenuItem);
+                //block.contextMenu.Items.Add(block.ClearAndRunMenuItem);
+                block.contextMenu.Items.Add(block.HideMenuItem);
+                block.contextMenu.Items.Add(block.DeleteMenuItem);
+                block.contextMenu.Items.Add(new Separator());
+                block.contextMenu.Items.Add(block.SelectAllMenuItem);
+                block.contextMenu.Items.Add(block.DeselectAllMenuItem);
+                block.contextMenu.Items.Add(block.OrderByMenuItem);
+                block.contextMenu.Items.Add(block.ConfigurationMenuItem);
+            }
+            else if (newFunctionCode.Equals(FunctionalitiesCode.NEW_REPORT_FUNCTIONALITY)
+                || newFunctionCode.Equals(FunctionalitiesCode.NEW_STRUCTURED_REPORT_FUNCTIONALITY))
+            {
+                block.contextMenu.Items.Add(block.NewMenuItem);
+                block.contextMenu.Items.Add(block.OpenMenuItem);
+                block.contextMenu.Items.Add(block.RunMenuItem);
+                block.contextMenu.Items.Add(block.HideMenuItem);
+                block.contextMenu.Items.Add(block.DeleteMenuItem);
+                block.contextMenu.Items.Add(new Separator());
+                block.contextMenu.Items.Add(block.SelectAllMenuItem);
+                block.contextMenu.Items.Add(block.DeselectAllMenuItem);
+                block.contextMenu.Items.Add(block.OrderByMenuItem);
+                block.contextMenu.Items.Add(block.ConfigurationMenuItem);
+            }
+            else if (newFunctionCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY))
+            {
+                block.contextMenu.Items.Add(block.NewMenuItem);
+                block.contextMenu.Items.Add(block.OpenMenuItem);
+                //block.contextMenu.Items.Add(block.RunMenuItem);
+                block.contextMenu.Items.Add(block.HideMenuItem);
+                block.contextMenu.Items.Add(block.DeleteMenuItem);
+                block.contextMenu.Items.Add(new Separator());
+                block.contextMenu.Items.Add(block.SelectAllMenuItem);
+                block.contextMenu.Items.Add(block.DeselectAllMenuItem);
+                block.contextMenu.Items.Add(block.OrderByMenuItem);
+                block.contextMenu.Items.Add(block.ConfigurationMenuItem);
+            }
+            else if (newFunctionCode.Equals(FunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY)
+                || newFunctionCode.Equals(FunctionalitiesCode.NEW_DESIGN_FUNCTIONALITY)
+                || newFunctionCode.Equals(FunctionalitiesCode.NEW_TARGET_FUNCTIONALITY))
+            {
+                block.contextMenu.Items.Add(block.NewMenuItem);
+                block.contextMenu.Items.Add(block.OpenMenuItem);
+                block.contextMenu.Items.Add(block.HideMenuItem);
+                block.contextMenu.Items.Add(block.DeleteMenuItem);
+                block.contextMenu.Items.Add(new Separator());
+                block.contextMenu.Items.Add(block.SelectAllMenuItem);
+                block.contextMenu.Items.Add(block.DeselectAllMenuItem);
+                block.contextMenu.Items.Add(block.OrderByMenuItem);
+                block.contextMenu.Items.Add(block.ConfigurationMenuItem);
+            }
+            else if (newFunctionCode.Equals(FunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY)
+                || newFunctionCode.Equals(FunctionalitiesCode.RECONCILIATION_POSTING_FUNCTIONALITY)
+                || newFunctionCode.Equals(FunctionalitiesCode.TRANSACTION_FILE_TYPES_FUNCTIONALITY))
+            {
+                block.contextMenu.Items.Add(block.NewMenuItem);
+                block.contextMenu.Items.Add(block.OpenMenuItem);
+                block.contextMenu.Items.Add(block.HideMenuItem);
+                block.contextMenu.Items.Add(block.DeleteMenuItem);
+                block.contextMenu.Items.Add(new Separator());
+                block.contextMenu.Items.Add(block.SelectAllMenuItem);
+                block.contextMenu.Items.Add(block.DeselectAllMenuItem);
+                block.contextMenu.Items.Add(block.ConfigurationMenuItem);
+            }
+        }
+        
+
+        private DashboardBlock GetBlockByConfiguration(DashBoardConfiguration configuration)
+        {
+            if (configuration == null || string.IsNullOrWhiteSpace(configuration.name)) return null;
+            if (this.ModelBlock.TitleLabel.Content.Equals(configuration.name)) return this.ModelBlock;
+            if (this.TableBlock.TitleLabel.Content.Equals(configuration.name)) return this.TableBlock;
+            if (this.ReportBlock.TitleLabel.Content.Equals(configuration.name)) return this.ReportBlock;
+            if (this.StructuredReportBlock.TitleLabel.Content.Equals(configuration.name)) return this.StructuredReportBlock;
+            if (this.TreeBlock.TitleLabel.Content.Equals(configuration.name)) return this.TreeBlock;
+            if (this.CombinedTreeBlock.TitleLabel.Content.Equals(configuration.name)) return this.CombinedTreeBlock;
+            if (this.TargetBlock.TitleLabel.Content.Equals(configuration.name)) return this.TargetBlock;
+            if (this.DesignBlock.TitleLabel.Content.Equals(configuration.name)) return this.DesignBlock;
+            if (this.AutomaticUploadBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticUploadBlock;
+            if (this.CalculatedMeasureBlock.TitleLabel.Content.Equals(configuration.name)) return this.CalculatedMeasureBlock;
+            if (this.ReconciliationFilterBlock != null && this.ReconciliationFilterBlock.TitleLabel.Content.Equals(configuration.name)) return this.ReconciliationFilterBlock;
+            return null;
+        }
+
+
+        protected void buildNewControl(DashboardBlock block, string newLabel, string newFunctionCode)
+        {
+            NavigationToken token = NavigationToken.GetCreateViewToken(newFunctionCode);
+            Run run1 = new Run(newLabel);
+            Hyperlink hyperLink = new Hyperlink(run1)
+            {
+                NavigateUri = new Uri("http://localhost//" + newLabel),
+                DataContext = token
+            };
+            block.NewItemTextBlock.Inlines.Add(hyperLink);
+            block.NewItemTextBlock.ToolTip = "Create a " + newLabel;
+            hyperLink.RequestNavigate += OnRequestNavigate;            
+        }
+
+        protected void OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            if (sender is Hyperlink)
+            {
+                Hyperlink link = (Hyperlink)sender;
+                object context = link.DataContext;
+                if (context is NavigationToken)
+                {
+                    NavigationToken token = (NavigationToken)context;
+                    HistoryHandler.Instance.openPage(token);
+                }
+            }
+        }
+
+        protected void BuildGuidedTourControl()
+        {
+            Run run1 = new Run("Guided Tour...");
+            Hyperlink hyperLink = new Hyperlink(run1)
+            {
+                NavigateUri = new Uri("http://www.b-cephal.com"),
+                DataContext = "Guided Tour"
+            };
+            GuidedTourTextBlock.Inlines.Add(hyperLink);
+            GuidedTourTextBlock.ToolTip = "Guided Tour";
+            hyperLink.RequestNavigate += OnGuidedTourRequestNavigate;
+        }
+
+        private void OnGuidedTourRequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
+        }
+
+        private DashboardBlock findBlock(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) return null;
+            if (name.Equals(this.ModelBlock.TitleLabel.Content)) return this.ModelBlock;
+            if (name.Equals(this.TableBlock.TitleLabel.Content)) return this.TableBlock;
+            if (name.Equals(this.ReportBlock.TitleLabel.Content)) return this.ReportBlock;
+            if (name.Equals(this.StructuredReportBlock.TitleLabel.Content)) return this.StructuredReportBlock;
+            if (name.Equals(this.TreeBlock.TitleLabel.Content)) return this.TreeBlock;
+            if (name.Equals(this.CombinedTreeBlock.TitleLabel.Content)) return this.CombinedTreeBlock;
+            if (name.Equals(this.TargetBlock.TitleLabel.Content)) return this.TargetBlock;
+            if (name.Equals(this.DesignBlock.TitleLabel.Content)) return this.DesignBlock;
+            if (name.Equals(this.CalculatedMeasureBlock.TitleLabel.Content)) return this.CalculatedMeasureBlock;
+            if (name.Equals(this.AutomaticUploadBlock.TitleLabel.Content)) return this.AutomaticUploadBlock;
+            if (this.ReconciliationFilterBlock != null && name.Equals(this.ReconciliationFilterBlock.TitleLabel.Content)) return this.ReconciliationFilterBlock;
+            return null;
+        }
+
+
+    }
+}

@@ -1,0 +1,125 @@
+﻿<UserControl x:Class="Misp.Reporting.StructuredReport.StructuredReportColumnForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:src="clr-namespace:Misp.Reporting.StructuredReport" 
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="500">
+
+    <Grid Margin="2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition x:Name="SpecialPanelRow" Height="30"/>
+            <RowDefinition x:Name="PeriodFormulaRow" Height="30"/>            
+            <RowDefinition x:Name="ItempPanelRow" Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="ColumnLabel" Grid.Column="0" Content="Column" />
+                <TextBox x:Name="ColumnTextBox" x:FieldModifier="public" Grid.Column="1" TextWrapping="NoWrap" IsEnabled="False" Margin="0,0,5,0"/>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="TypeLabel" Grid.Column="0" Content="Type" Margin="5,0,0,0"/>
+                <TextBox x:Name="TypeTextBox" x:FieldModifier="public" Grid.Column="1" TextWrapping="NoWrap" IsEnabled="False"/>
+            </Grid>
+        </Grid>
+
+        <CheckBox x:Name="ShowCheckBox" x:FieldModifier="public" IsChecked="True" Content="Show column" Grid.Row="1" Margin="60,5,0,0" />
+
+        <Grid Grid.Row="2" Margin="0 0 0 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="NameLabel" Grid.Column="0" Content="Name" />
+            <TextBox x:Name="NameTextBox" x:FieldModifier="public" Grid.Column="1" TextWrapping="NoWrap"/>
+        </Grid>
+
+        <Grid Grid.Row="3" x:Name="CellRefGrid" Margin="0 0 0 5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Value" Grid.Column="0"  />
+            <TextBox x:Name="CellRefTextBox" x:FieldModifier="public" Grid.Column="1" TextWrapping="NoWrap"/>
+        </Grid>
+
+        <Grid Grid.Row="3" x:Name="LoopGrid" Margin="0 0 0 5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Loop" Grid.Column="0"  />
+            <TextBox x:Name="LoopTextBox" x:FieldModifier="public" Grid.Column="1" TextWrapping="NoWrap" IsEnabled="False"/>
+        </Grid>
+
+        <Grid Grid.Row="3" x:Name="IncrementalGrid" Margin="0 0 0 5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Start at" Grid.Column="0"  />
+            <TextBox x:Name="StartAtTextBox" x:FieldModifier="public" Grid.Column="1" TextWrapping="NoWrap" />
+        </Grid>
+        <Grid Grid.Row="3" x:Name="FreeTextGrid" Margin="0 0 0 5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Free text" Grid.Column="0"  />
+            <TextBox x:Name="FreeTextBox" x:FieldModifier="public" Grid.Column="1" TextWrapping="NoWrap"/>
+        </Grid>
+
+        <Grid Grid.Row="4" x:Name="PeriodFormulaGrid" Margin="60 0 0 5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox x:FieldModifier="public" x:Name="PeriodFormulaOperationComboBox" Grid.Column="0"/>
+            <TextBox  x:FieldModifier="public" x:Name="PeriodFormulaNumberValueTextBox" Grid.Column="1" Margin="5 0 5 0"/>
+            <ComboBox x:FieldModifier="public" x:Name="PeriodFormulaGranulartityComBox" Grid.Column="2"/>
+            <Button x:Name="Button" Grid.Column="3" ToolTip="Remove formula" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
+                <Button.Template>
+                    <ControlTemplate>
+                        <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+
+        <Expander x:Name="ConditionsGroupBox" IsExpanded="True" Header="Conditions" Margin="0" Grid.Row="5">
+            <src:StructuredReportColumnItemListSelector x:Name="ItemForm" x:FieldModifier="public"/>
+        </Expander>
+
+    </Grid>
+</UserControl>

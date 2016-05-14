@@ -1,0 +1,35 @@
+﻿<StackPanel x:Class="Misp.Kernel.Ui.Base.PaginationPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="400">
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="4">
+        <StackPanel.Resources>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="FontFamily" Value="Webdings" />
+                <Setter Property="Width" Value="60" />
+                <Setter Property="Margin" Value="4,0,4,0" />
+            </Style>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="4,0,4,0" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="4,0,4,0" />
+                <Setter Property="Width" Value="40" />
+            </Style>
+        </StackPanel.Resources>
+        <Button x:FieldModifier="public" x:Name="GotoFirstPageButton" Content="9" />
+        <Button x:FieldModifier="public" x:Name="GotoPreviousPageButton" Content="3" />
+        <TextBlock Text="Page" />
+        <TextBlock x:FieldModifier="public" x:Name="CurrentPageTextBox" />
+        <Label Content=" / " />
+        <TextBlock x:FieldModifier="public" x:Name="PageCountTextBlock" />
+        <Button x:FieldModifier="public" x:Name="GotoNextPageButton" Content="4" />
+        <Button x:FieldModifier="public" x:Name="GotoLastPageButton" Content=":" />
+        <Label x:FieldModifier="public" x:Name="CommentLabel" />
+    </StackPanel>
+    <ScrollBar Visibility="Collapsed" x:FieldModifier="public" x:Name="ProgressBar" Orientation="Horizontal" Minimum="1" Maximum="{Binding Path=DataPage.pageCount}" Value="{Binding Path=DataPage.page}"/>
+</StackPanel>

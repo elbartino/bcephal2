@@ -1,0 +1,124 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:avalonDockProperties="clr-namespace:Xceed.Wpf.AvalonDock.Properties;assembly=Xceed.Wpf.AvalonDock"
+        xmlns:Ui="clr-namespace:Misp.Kernel.Domain;assembly=bcephal"
+        xmlns:Plan="clr-namespace:Misp.Planification.Tranformation"
+        xmlns:Animation="clr-namespace:Misp.Kernel.Util;assembly=bcephal"
+        xmlns:InstructionControls="clr-namespace:Misp.Planification.Tranformation.InstructionControls" x:Class="Misp.Planification.Tranformation.TreeActionDialog"
+        Title="Action Parametrisation" Height="700" Width="1000" WindowStartupLocation="CenterScreen" 
+        Icon="/bcephal;Component/Resources/Images/Logo/bcephal.ico" ShowInTaskbar="False">
+    <Grid >
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="77"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Action name " Grid.Column="0"/>
+                <TextBox Grid.Column="1" Width="250" HorizontalAlignment="Left" x:FieldModifier="public" x:Name="NameTextBox"/>
+            </Grid>
+
+            <Grid x:Name="mainGrid" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="378*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="500*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <avalonDock:DockingManager x:FieldModifier="public"  x:Name="dockingManager" Grid.Column="0" Grid.Row="0" Margin="0,0,10,0"
+                             AnchorablesSource="{Binding DockModel.Tools}"
+                             DocumentsSource="{Binding DockModel.Documents}"
+                             ActiveContent="{Binding DockModel.ActiveContent, Mode=TwoWay}"
+                             AnchorableContextMenu="{x:Null}">
+
+                    <avalonDock:DockingManager.Resources>
+                        <Style TargetType="{x:Type avalonDock:LayoutDocumentTabItem}">
+                            <Setter Property="ContextMenu">
+                                <Setter.Value>
+                                    <ContextMenu>
+                                        <MenuItem Header="Remove from workspace" />
+                                    </ContextMenu>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </avalonDock:DockingManager.Resources>
+                    <avalonDock:LayoutRoot>
+                        <avalonDock:LayoutPanel x:Name="dockPanel" Orientation="Horizontal">
+                            <avalonDock:LayoutAnchorablePane x:Name="leftPanel" DockWidth="200">
+                                <avalonDock:LayoutAnchorable x:Name="sideBarContainer" Title="Side Bar" CanClose="False" CanHide="False" CanFloat="False" />
+                            </avalonDock:LayoutAnchorablePane>
+                            <avalonDock:LayoutAnchorablePaneGroup x:Name="rigthPanelGroup" DockWidth="210" Orientation="Vertical">
+                                <avalonDock:LayoutAnchorablePane x:Name="rigthPanel" DockWidth="210">
+                                    <avalonDock:LayoutAnchorable x:Name="propertiesContainer" Title="Properties" CanClose="False" CanHide="False" CanFloat="False" />
+                                </avalonDock:LayoutAnchorablePane>
+                            </avalonDock:LayoutAnchorablePaneGroup>
+                        </avalonDock:LayoutPanel>
+                    </avalonDock:LayoutRoot>
+                </avalonDock:DockingManager>
+                <Grid x:Name="StatusBarGrid" Grid.Row="1" x:FieldModifier="public">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label x:Name="StatusLabel" Grid.Column="0" x:FieldModifier="public" Content="" HorizontalContentAlignment="Center"/>
+
+                    <StackPanel x:Name="StatusBarPanel" Grid.Column="1" HorizontalAlignment = "Right" Orientation = "Horizontal" >
+                        <Label x:Name="StatusBarLabel1" x:FieldModifier="public" Content="" Width="300"/>
+                        <Grid x:FieldModifier="public" x:Name="ProgressGrid1" Height="25" Margin="3" >
+                            <ProgressBar x:FieldModifier="public" x:Name="ProgressBar1" Value="0" Width="300"/>
+                            <TextBlock x:FieldModifier="public" x:Name="ProgressBarTextBlock1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        <Label x:Name="StatusBarLabel2" x:FieldModifier="public" HorizontalContentAlignment="Right" Content="" Width="200" Margin="10,0,5,0"/>
+                        <Grid x:FieldModifier="public" x:Name="ProgressGrid2" Height="25" Margin="3" >
+                            <ProgressBar x:FieldModifier="public" x:Name="ProgressBar2" Value="0" Maximum="100" Width="250"/>
+                            <TextBlock x:FieldModifier="public" x:Name="ProgressBarTextBlock2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <GridSplitter Height="5"  ResizeDirection="Rows"  Background="#FFFBF8F8"   Grid.Row="2"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+            <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" Background="#FFDBEEF4">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Conditions"  Grid.Row="0"/>
+                    <InstructionControls:BlockPanel x:FieldModifier="public" x:Name="InstructionsPanel" VerticalAlignment="Top" Margin="40 0 0 0" Grid.Row="2" />
+                </Grid>
+            </ScrollViewer>
+            <StackPanel Grid.Row="4" Margin="0,10,15,10" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Save" x:FieldModifier="public" x:Name="SaveButton" Height="25" Width="80" Margin="0,0,10,0"/>
+                <Button Content="Close" x:FieldModifier="public" x:Name="CancelButton" Height="25" Width="80" />
+            </StackPanel>
+        </Grid>
+        
+        <!-- Loading Panel -->
+        <Border Panel.ZIndex="1" Background="#0F000000" Name="BusyBorder" Opacity="1" Visibility="Hidden" x:FieldModifier="public">
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <ProgressBar Height="25" Width="300" Name="LoadingProgressBar" x:FieldModifier="public"/>
+                    <Label Content="step" HorizontalAlignment="Center" FontFamily="Calibri" FontSize="11" Name="LoadingLabel" x:FieldModifier="public"/>
+                </Grid>
+                <Animation:AnimatedGIFControl x:FieldModifier="public" x:Name="LoadingImage" ></Animation:AnimatedGIFControl>
+            </Grid>
+        </Border>
+        <!-- End Loading Panel-->
+
+    </Grid>
+</Window>
+

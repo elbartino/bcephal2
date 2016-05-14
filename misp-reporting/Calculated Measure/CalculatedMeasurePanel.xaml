@@ -1,0 +1,14 @@
+﻿<ScrollViewer x:Class="Misp.Reporting.Calculated_Measure.CalculatedMeasurePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:src="clr-namespace:Misp.Reporting.Calculated_Measure" 
+             mc:Ignorable="d"
+             d:Height="Auto" d:DesignWidth="200" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
+
+    <StackPanel x:Name="panel" >
+        <src:CalculatedMeasureItemPanel HorizontalAlignment="Center"/>
+        <src:CalculatedMeasureItemPanel HorizontalAlignment="Center"/>
+    </StackPanel>
+</ScrollViewer>

@@ -1,0 +1,119 @@
+﻿<ContextMenu x:Class="DiagramDesigner.DesignerContextMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:s="clr-namespace:DiagramDesigner"
+             mc:Ignorable="d">
+
+    <MenuItem Header="Add Object" x:Name="ObjectMenuItem" x:FieldModifier="public">
+        <MenuItem.Icon>
+            <Image Source="Resources/Images/Object.png" Width="16"/>
+        </MenuItem.Icon>
+    </MenuItem>
+    <MenuItem Header="Add Value Chain" x:Name="ValueChainMenuItem" x:FieldModifier="public">
+        <MenuItem.Icon>
+            <Image Source="Resources/Images/ValueChain.png" Width="16"/>
+        </MenuItem.Icon>
+    </MenuItem>
+    <Separator/>
+
+    <MenuItem Header="Edit"  x:Name="EditMenuItem" x:FieldModifier="public">
+        <MenuItem.Icon>
+            <Image Source="Resources/Images/Edit.png" Width="16"/>
+        </MenuItem.Icon>
+    </MenuItem>
+    <MenuItem Header="Cut"  x:Name="CutMenuItem" x:FieldModifier="public">
+        <MenuItem.Icon>
+            <Image Source="Resources/Images/Cut.png" Width="16"/>
+        </MenuItem.Icon>
+    </MenuItem>
+    <MenuItem Header="Copy"  x:Name="CopyMenuItem" x:FieldModifier="public">
+        <MenuItem.Icon>
+            <Image Source="Resources/Images/Copy.png" Width="16"/>
+        </MenuItem.Icon>
+    </MenuItem>
+    <MenuItem Header="Paste"  x:Name="PasteMenuItem" x:FieldModifier="public">
+        <MenuItem.Icon>
+            <Image Source="Resources/Images/Paste.png" Width="16"/>
+        </MenuItem.Icon>
+    </MenuItem>
+    <MenuItem Header="Delete"  x:Name="DeleteMenuItem" x:FieldModifier="public">
+        <MenuItem.Icon>
+            <Image Source="Resources/Images/Delete.png" Width="16"/>
+        </MenuItem.Icon>
+    </MenuItem>
+    <Separator/>
+
+    <MenuItem Header="Horizontal Alignment" x:Name="HorizontalAlignmentMenuItem" x:FieldModifier="public">
+        <MenuItem Header="Left" x:Name="LeftMenuItem" x:FieldModifier="public">
+            <MenuItem.Icon>
+                <Image Source="Resources/Images/AlignObjectsLeft.png" Width="16"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Center" x:Name="AlignHorizontalCenterMenuItem" x:FieldModifier="public">
+            <MenuItem.Icon>
+                <Image Source="Resources/Images/AlignObjectsCenteredHorizontal.png" Width="16"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Right" x:Name="RightMenuItem" x:FieldModifier="public">
+            <MenuItem.Icon>
+                <Image Source="Resources/Images/AlignObjectsRight.png" Width="16"/>
+            </MenuItem.Icon>
+        </MenuItem>
+    </MenuItem>
+
+    <MenuItem Header="Vertical Alignment" x:Name="VerticalAlignmentMenuItem" x:FieldModifier="public">
+        <MenuItem Header="Top" x:Name="TopMenuItem" x:FieldModifier="public">
+            <MenuItem.Icon>
+                <Image Source="Resources/Images/AlignObjectsTop.png" Width="16"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Center" x:Name="AlignVerticalCenterMenuItem" x:FieldModifier="public">
+            <MenuItem.Icon>
+                <Image Source="Resources/Images/AlignObjectsCenteredVertical.png" Width="16"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Bottom" x:Name="BottomMenuItem" x:FieldModifier="public">
+            <MenuItem.Icon>
+                <Image Source="Resources/Images/AlignObjectsBottom.png" Width="16"/>
+            </MenuItem.Icon>
+        </MenuItem>
+    </MenuItem>
+
+    <MenuItem Header="Grouping" x:Name="GroupingMenuItem" x:FieldModifier="public">
+        <MenuItem Header="Group" x:Name="GroupMenuItem" x:FieldModifier="public">
+            <MenuItem.Icon>
+                <Image Source="Resources/Images/Group.png" Width="16"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Ungroup" x:Name="UngroupMenuItem" x:FieldModifier="public">
+            <MenuItem.Icon>
+                <Image Source="Resources/Images/Ungroup.png" Width="16"/>
+            </MenuItem.Icon>
+        </MenuItem>
+    </MenuItem>
+    <MenuItem Header="Order" x:Name="OrderMenuItem" x:FieldModifier="public">
+        <MenuItem Header="Bring Forward" x:Name="BringForwardMenuItem" x:FieldModifier="public">
+            <MenuItem.Icon>
+                <Image Source="Resources/Images/BringForward.png" Width="16"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Bring To Front" x:Name="BringToFrontMenuItem" x:FieldModifier="public">
+            <MenuItem.Icon>
+                <Image Source="Resources/Images/BringToFront.png" Width="16"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Send Backward" x:Name="SendBackwardMenuItem" x:FieldModifier="public">
+            <MenuItem.Icon>
+                <Image Source="Resources/Images/SendBackward.png" Width="16"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Send To Back" x:Name="SendToBackMenuItem" x:FieldModifier="public">
+            <MenuItem.Icon>
+                <Image Source="Resources/Images/SendToBack.png" Width="16"/>
+            </MenuItem.Icon>
+        </MenuItem>
+    </MenuItem>
+    <MenuItem Header="Select All" x:Name="SelectAllMenuItem" x:FieldModifier="public"/>
+</ContextMenu>

@@ -1,0 +1,55 @@
+﻿<Border x:Class="Misp.Kernel.Ui.Dashboard.DashboardBlock"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             HorizontalAlignment="Center" VerticalAlignment="Center"
+             Style="{DynamicResource DashboradBlockStyle}"
+             d:DesignHeight="400" d:DesignWidth="400">
+
+    <Border.ContextMenu>
+        <ContextMenu  x:FieldModifier="public" x:Name="contextMenu">
+            <MenuItem x:FieldModifier="public" x:Name="NewMenuItem"         Header="New"/>
+            <MenuItem x:FieldModifier="public" x:Name="OpenMenuItem"        Header="Open"/>
+            <MenuItem x:FieldModifier="public" x:Name="RunMenuItem"         Header="Run"/>
+            <MenuItem x:FieldModifier="public" x:Name="ClearMenuItem"       Header="Clear"/>
+            <MenuItem x:FieldModifier="public" x:Name="ClearAndRunMenuItem" Header="Clear and Run"/>
+            <MenuItem x:FieldModifier="public" x:Name="HideMenuItem"        Header="Hide"/>
+            <MenuItem x:FieldModifier="public" x:Name="DeleteMenuItem"      Header="Delete"/>
+
+            <MenuItem x:FieldModifier="public" x:Name="SelectAllMenuItem"      Header="Select all"/>
+            <MenuItem x:FieldModifier="public" x:Name="DeselectAllMenuItem"    Header="Deselect all"/>
+            
+            <MenuItem x:FieldModifier="public" x:Name="OrderByMenuItem"      Header="Order by">
+                <MenuItem x:FieldModifier="public" x:Name="OrderByNameMenuItem"      Header="Name">
+                    <MenuItem x:FieldModifier="public" x:Name="OrderByNameAscMenuItem"  Header="Ascending"/>
+                    <MenuItem x:FieldModifier="public" x:Name="OrderByNameDescMenuItem" Header="Descending"/>
+                </MenuItem>
+                <MenuItem x:FieldModifier="public" x:Name="OrderByDateMenuItem"      Header="Last modification date">
+                    <MenuItem x:FieldModifier="public" x:Name="OrderByDateAscMenuItem"  Header="Ascending"/>
+                    <MenuItem x:FieldModifier="public" x:Name="OrderByDateDescMenuItem" Header="Descending"/>
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem x:FieldModifier="public" x:Name="ConfigurationMenuItem"      Header="Configuration"/>
+
+        </ContextMenu>
+    </Border.ContextMenu>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label          x:FieldModifier="public" x:Name="TitleLabel"              Content="Title"     Grid.Row="0" FontWeight="Bold" FontSize="14"/>
+        <TextBlock      x:FieldModifier="public" x:Name="NewItemTextBlock"        Text=""             Grid.Row="1" FontSize="13" Margin="25,0,0,0"/>
+        <TextBlock      x:FieldModifier="public" x:Name="RecentItemsTextBlock"    Text="Recent items" Grid.Row="2" FontSize="12" Margin="25,0,0,0"/>
+        <ScrollViewer   x:FieldModifier="public" x:Name="ScrollView"              Grid.Row="3" Margin="40,0,5,5">
+            <StackPanel x:FieldModifier="public" x:Name="ItemsPanel"                       />
+        </ScrollViewer>
+    </Grid>
+
+</Border>

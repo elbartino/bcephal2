@@ -1,0 +1,46 @@
+﻿<ScrollViewer x:Class="Misp.Initiation.Periodicity.PeriodNameTreeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="clr-namespace:EO.Wpf;assembly=EO.Wpf" 
+             xmlns:dom="clr-namespace:Misp.Kernel.Domain" 
+             mc:Ignorable="d" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <eo:TreeView x:Name="tree" x:FieldModifier="public"  
+            AllowEditItem="True" AllowDragItem="true" AllowDropItem="true" AllowDropBetweenItems="true" 
+            eo:TreeViewItem.EnterEditMode="OnEnterEditMode"
+            eo:TreeViewItem.ExitEditMode="OnExitEditMode"
+            BorderBrush="White">
+        <eo:TreeView.ItemContainerStyle>
+            <Style TargetType="{x:Type eo:TreeViewItem}">
+                <Setter Property="Foreground" Value="{Binding Path=Foreground}"/>
+                <Setter Property="FontSize" Value="{Binding Path=FontSize}"/>
+                <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded}"/>
+                <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+            </Style>
+        </eo:TreeView.ItemContainerStyle>
+        <eo:TreeView.ItemTemplate>
+            <HierarchicalDataTemplate DataType="dom:PeriodName" ItemsSource="{Binding Path=childrenListChangeHandler.Items}">
+                <Grid>
+                    <TextBlock Grid.Column="0" Text="{Binding Path=name, Mode=TwoWay}" VerticalAlignment="Center"></TextBlock>
+                </Grid>
+            </HierarchicalDataTemplate>
+        </eo:TreeView.ItemTemplate>
+        <eo:TreeView.ContextMenu>
+            <ContextMenu x:Name="menuContextuel" x:FieldModifier="public">
+                <MenuItem x:Name="newMenuItem" Header="New"/>
+                <MenuItem x:Name="copyMenuItem" Header="Copy" Visibility="Collapsed"/>
+                <MenuItem x:Name="cutMenuItem" Header="Cut" Visibility="Collapsed"/>
+                <MenuItem x:Name="pasteMenuItem" Header="Paste" Visibility="Collapsed"/>
+                <MenuItem x:Name="deleteMenuItem" Header="Delete"/>                
+                <Separator/>
+                <MenuItem x:Name="moveUpMenuItem" Header="Move up"/>
+                <MenuItem x:Name="moveDownMenuItem" Header="Move down"/>
+                <Separator/>
+                <MenuItem x:Name="propertiesMenuItem" Header="Properties"/>
+            </ContextMenu>
+        </eo:TreeView.ContextMenu>
+    </eo:TreeView>
+</ScrollViewer>

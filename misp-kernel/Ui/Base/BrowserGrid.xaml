@@ -1,0 +1,18 @@
+﻿<DataGrid x:Class="Misp.Kernel.Ui.Base.BrowserGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:filter="clr-namespace:DataGridFilterLibrary;assembly=DataGridFilterLibrary"
+             mc:Ignorable="d" 
+             Background="White" BorderBrush="White" HeadersVisibility="All" GridLinesVisibility="None"
+             RowHeaderWidth="20" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
+             CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True"
+             AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="False"
+             AlternatingRowBackground="LightBlue"
+             filter:DataGridExtensions.UseBackgroundWorkerForFiltering="True"
+             filter:DataGridExtensions.IsClearButtonVisible="False" 
+             filter:DataGridExtensions.IsFilterVisible="{Binding Path=IsChecked, ElementName=ShowHideFilterCheckBox, Mode=TwoWay}"                        
+             ColumnHeaderStyle="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type filter:DataGridHeaderFilterControl}, 
+		                       ResourceId=DataGridHeaderFilterControlStyle}}"
+             d:DesignHeight="300" d:DesignWidth="300" />

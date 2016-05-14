@@ -1,0 +1,117 @@
+﻿<Grid x:Class="Misp.Kernel.Ui.Base.FileOpenedView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             MinHeight="0" MaxHeight="800" MinWidth="0" MaxWidth="700">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="60" />
+    </Grid.RowDefinitions>
+
+    <Grid Grid.Row="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="0" Grid.Column="0" Style="{DynamicResource BluePanelStyle2}" VerticalAlignment="Center">
+            <Border.ContextMenu>
+                <ContextMenu x:Name="ModelContextMenu">
+                    <MenuItem x:Name="clearModelsMenuItem" Header="Clear"/>
+                    <MenuItem x:Name="orderModelsByNameMenuItem" Header="Order By Name"/>
+                </ContextMenu>
+            </Border.ContextMenu>
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+               
+                <Label x:Name="TitleLabel" x:FieldModifier="public" Content="Models" Grid.Row="0" FontWeight="Bold" FontSize="15"/>
+                <TextBlock x:Name="NewModelTextBlock" Grid.Row="1" Margin="30,0,0,0"/>
+                <TextBlock x:Name="ModelsTextBlock" Text="Recent Models" Grid.Row="2" Margin="30,0,0,0"/>
+                <StackPanel x:Name="ModelItemsPanel" x:FieldModifier="public" Grid.Row="3" Margin="50,0,0,0"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="0" Grid.Column="1" Style="{DynamicResource BluePanelStyle2}" VerticalAlignment="Center">
+            <Border.ContextMenu>
+                <ContextMenu x:Name="TreeContextMenu">
+                    <MenuItem x:Name="clearTreesMenuItem" Header="Clear" />
+                    <MenuItem x:Name="orderTreeByNameMenuItem" Header="Order By Name"/>
+                </ContextMenu>
+            </Border.ContextMenu>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+               
+                <Label Content="Tranformation Trees" Grid.Row="0" FontWeight="Bold" FontSize="15"/>
+                <TextBlock x:Name="NewTranformationTreeTextBlock" Grid.Row="1" Margin="30,0,0,0"/>
+                <TextBlock x:Name="TranformationTreesTextBlock" Text="Recent Trees" Grid.Row="2" Margin="30,0,0,0"/>
+                <StackPanel x:Name="TranformationTreeItemsPanel" x:FieldModifier="public" Grid.Row="3" Margin="50,0,0,0"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="0" Style="{DynamicResource BluePanelStyle2}" VerticalAlignment="Center">
+            <Border.ContextMenu >
+                <ContextMenu x:Name="TableContextMenu">
+                    <MenuItem x:Name="clearTableMenuItem" Header="Clear" />
+                    <MenuItem x:Name="orderTableByNameMenuItem" Header="Order By Name"/>
+                </ContextMenu>
+            </Border.ContextMenu>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+              
+                <Label Content="Tables" Grid.Row="0" FontWeight="Bold" FontSize="15"/>
+                <TextBlock x:Name="NewTableTextBlock" Grid.Row="1" Margin="30,0,0,0"/>
+                <TextBlock x:Name="TablesTextBlock" Text="Recent Tables" Grid.Row="2" Margin="30,0,0,0"/>
+                <StackPanel x:Name="TablesItemsPanel" x:FieldModifier="public" Grid.Row="3" Margin="50,0,0,0"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" Style="{DynamicResource BluePanelStyle2}" VerticalAlignment="Center">
+            <Border.ContextMenu>
+                <ContextMenu x:Name="ReportContextMenu">
+                    <MenuItem x:Name="clearReportMenuItem" Header="Clear" />
+                    <MenuItem x:Name="orderReportByNameMenuItem" Header="Order By Name" />
+                </ContextMenu>
+            </Border.ContextMenu>
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+              
+                <Label Content="Reports" Grid.Row="0" FontWeight="Bold" FontSize="15"/>
+                <TextBlock x:Name="NewReportTextBlock" Grid.Row="1" Margin="30,0,0,0"/>
+                <TextBlock x:Name="ReportsTextBlock" Text="Recent Reports" Grid.Row="2" Margin="30,0,0,0"/>
+                <StackPanel x:Name="ReportsItemsPanel" x:FieldModifier="public" Grid.Row="3" Margin="50,0,0,0"/>
+            </Grid>
+        </Border>
+    </Grid>
+
+    <Border Grid.Row="1" Style="{DynamicResource GuidedTourStyle}">
+        <TextBlock x:Name="GuidedTourTextBlock" Text="First time using B-CEPHAL? Follow this " 
+                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+    </Border>
+
+</Grid>

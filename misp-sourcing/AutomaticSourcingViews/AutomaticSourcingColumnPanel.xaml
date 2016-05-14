@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="Misp.Sourcing.AutomaticSourcingViews.AutomaticSourcingColumnPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:paramsType="clr-namespace:Misp.Sourcing.AutomaticSourcingViews" 
+             xmlns:MeasurePan="clr-namespace:Misp.Sourcing.Table"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="300">
+    
+    <Grid Background="White" x:Name="mainGrid" x:FieldModifier="public">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="95"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="labelType" Content="Select a type" />
+            <ComboBox x:Name="TypeComboBox" x:FieldModifier="public" Grid.Column="1"/>
+        </Grid>
+
+        <Grid x:Name="ScopeGrid" x:FieldModifier="public" Grid.Row="1" Margin="0, 10, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="95"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Attribute"  Grid.Column="0"/>
+            <TextBox x:Name="AttributeTextBox" x:FieldModifier="public" Grid.Column="1"/>
+        </Grid>
+
+        <Grid x:Name="TargetGrid" x:FieldModifier="public" Grid.Row="2" Margin="0, 10, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="95"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Choose a mode"/>
+            <ComboBox Grid.Column="1" x:Name="TargetTypeComboBox" x:FieldModifier="public"/>
+        </Grid>
+
+        <Grid Grid.Row="3" x:Name="NewTargetGrid" x:FieldModifier="public"  Margin="0, 10, 0, 0" >
+            <paramsType:NewTargetType   x:Name="newTargetElement" x:FieldModifier="public"  />
+        </Grid>
+        
+        <Grid x:Name="TagGrid" x:FieldModifier="public" Margin="0, 10, 0, 0" Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="95"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="nameTag" Content="Tag name" Grid.Column="0" />
+            <TextBox x:Name="TagNameTextBox" x:FieldModifier="public" Grid.Column="1"/>
+        </Grid>
+
+        <Grid x:Name="PeriodGrid" x:FieldModifier="public" Grid.Row="5" Margin="0, 10, 0, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="95"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Date format" />
+            <Label Grid.Row="1" Grid.Column="0" Content="Period name" Margin="0, 10, 0, 0"/>
+            <ComboBox x:FieldModifier="public" x:Name="FormatComboBox" Grid.Row="0" Grid.Column="1" />
+            <TextBox x:Name="PeriodNameTextBox" x:FieldModifier="public" Grid.Row="1" Grid.Column="1" Margin="0, 10, 0, 0"/>
+        </Grid>
+
+        <Grid x:Name="MeasureGrid" x:FieldModifier="public" Grid.Row="6" Margin="0, 10, 0, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Measure" />
+                <TextBox x:Name="MeasureTextBox" x:FieldModifier="public" IsEnabled="False" Grid.Column="1" TextWrapping="NoWrap" />
+            </Grid>
+            <GroupBox x:Name="AllocationGroupBox" Header="Allocation" Grid.Row="1">
+                <MeasurePan:AllocationPanel x:FieldModifier="public" x:Name="allocationPanel"/>
+            </GroupBox>
+        </Grid>
+        
+    </Grid>
+</UserControl>

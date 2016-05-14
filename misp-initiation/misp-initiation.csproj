@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BCF0B7CF-E3C5-49DE-9AFF-3366211DBAEC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Misp.Initiation</RootNamespace>
+    <AssemblyName>Misp.Initiation</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\misp-build\setup\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>bcephal.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\misp-diagram\misp-diagram.csproj">
+      <Project>{b437df5f-20e0-4082-a92e-5c1d9c31a8e9}</Project>
+      <Name>misp-dotnet-diagram</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\misp-kernel\misp-kernel.csproj">
+      <Project>{31bc49e1-cea7-41e9-a030-c99e180f235c}</Project>
+      <Name>misp-dotnet-kernel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="DataGridFilterLibrary">
+      <HintPath>..\misp-build\libs\dotnet\DataGridFilterLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="EO.Wpf, Version=3.0.21.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\EO.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="RestSharp">
+      <HintPath>..\misp-build\libs\dotnet\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.XML" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\misp-build\libs\dotnet\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\misp-build\libs\dotnet\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Archives\ArchiveController.cs" />
+    <Compile Include="Archives\SimpleArchiveDialog.xaml.cs">
+      <DependentUpon>SimpleArchiveDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Archives\AutomaticArchiveDialog.xaml.cs">
+      <DependentUpon>AutomaticArchiveDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Base\InitiationController.cs" />
+    <Compile Include="Base\InitiationEditor.cs" />
+    <Compile Include="Base\InitiationEditorView.xaml.cs">
+      <DependentUpon>InitiationEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Base\InitiationToolBar.cs" />
+    <Compile Include="Base\InitiationToolBarHandlerBuilder.cs" />
+    <Compile Include="Base\InitiationControllerFactory.cs" />
+    <Compile Include="Base\InitiationServiceFactory.cs" />
+    <Compile Include="Diagram\DiagramBlock.cs" />
+    <Compile Include="Diagram\DiagramCanvas.cs" />
+    <Compile Include="Diagram\DiagramView.xaml.cs">
+      <DependentUpon>DiagramView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Diagram\ObjectItem.xaml.cs">
+      <DependentUpon>ObjectItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Diagram\ValueChainItem.xaml.cs">
+      <DependentUpon>ValueChainItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Measure\MeasureGridToolBar.cs" />
+    <Compile Include="Measure\MeasureEditorController.cs" />
+    <Compile Include="Measure\MeasureEditorItem.cs" />
+    <Compile Include="Measure\MeasureForm.xaml.cs">
+      <DependentUpon>MeasureForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Measure\MeasureToolBar.cs" />
+    <Compile Include="Measure\MeasureToolBarHandlerBuilder.cs" />
+    <Compile Include="Measure\MeasureTree.cs" />
+    <Compile Include="Model\AttributeTree.cs" />
+    <Compile Include="Model\AttributeValueTree.cs" />
+    <Compile Include="Model\ModelToolBar.cs" />
+    <Compile Include="Model\ModelEditor.cs" />
+    <Compile Include="Model\ModelEditorItem.cs" />
+    <Compile Include="Model\ModelForm.xaml.cs">
+      <DependentUpon>ModelForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ModelsEditorController.cs" />
+    <Compile Include="Model\ModelToolBarHandlerBuilder.cs" />
+    <Compile Include="Periodicity\PeriodNameToolBar.cs" />
+    <Compile Include="Periodicity\PeriodNameEditorItem.cs" />
+    <Compile Include="Periodicity\PeriodNameController.cs" />
+    <Compile Include="Periodicity\PeriodNameEditor.cs" />
+    <Compile Include="Periodicity\PeriodNameForm.xaml.cs">
+      <DependentUpon>PeriodNameForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Periodicity\PeriodNameTreeView.xaml.cs">
+      <DependentUpon>PeriodNameTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Periodicity\PeriodsGrid.xaml.cs">
+      <DependentUpon>PeriodsGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Periodicity\StandardPeriodEditorDialog.xaml.cs">
+      <DependentUpon>StandardPeriodEditorDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlugIn.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Base\InitiationFunctionalitiesCode.cs" />
+    <Compile Include="Base\InitiationMenu.cs" />
+    <Compile Include="Service\InitiationResourcePath.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Styles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Archives\SimpleArchiveDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Archives\AutomaticArchiveDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Base\InitiationEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Diagram\DiagramView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Diagram\ObjectItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Diagram\ValueChainItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Measure\MeasureForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Model\ModelForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Periodicity\PeriodNameForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Periodicity\PeriodNameTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Periodicity\PeriodsGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Periodicity\StandardPeriodEditorDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Stencils\MispStencils.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Stencils\MispStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Stencils\MispToolbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bcephal.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

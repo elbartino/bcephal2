@@ -1,0 +1,38 @@
+﻿<Grid x:Class="Misp.Planification.Tranformation.LoopCondition.LoopCalculatedValuePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+            xmlns:table="clr-namespace:Misp.Sourcing.Table;assembly=Misp.Sourcing"
+            xmlns:tree="clr-namespace:Misp.Planification.Tranformation.InstructionControls"
+            xmlns:LoopConditions="clr-namespace:Misp.Planification.Tranformation.LoopCondition"
+             >
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <StackPanel Grid.Column="0">
+        <Grid Margin="0 5 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="measureLabel"  Content="Measure" VerticalAlignment="Bottom" Grid.Column="0"/>
+            <table:CellMeasurePanel  x:Name="CellMeasurePanel" x:FieldModifier="public" Grid.Column="1"/>
+        </Grid>
+        <GroupBox x:Name="periodGroupBox" x:FieldModifier="public" Header="Period" >
+            <table:PeriodPanel x:Name="periodPanel" />
+        </GroupBox>
+        <GroupBox x:Name="filterGroupBox" Header="Filter">
+            <table:TargetPanel x:Name="filterScopePanel" x:FieldModifier="public"/>
+        </GroupBox>
+    </StackPanel>
+    <GridSplitter Width="5" ResizeDirection="Columns" Background="#FFFBF8F8"  Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+    <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+        <StackPanel  Background="#FFFAC090" x:Name="ConditionPanel"  >
+        </StackPanel>
+    </ScrollViewer>
+</Grid>
+

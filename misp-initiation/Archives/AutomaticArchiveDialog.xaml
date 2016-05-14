@@ -1,0 +1,69 @@
+﻿<Window x:Class="Misp.Initiation.Archives.AutomaticArchiveDialog"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500"
+        Icon="/bcephal;Component/Resources/Images/Logo/bcephal.ico" WindowStartupLocation="CenterOwner" 
+            Title="Automatic Backup "  ResizeMode="NoResize"
+        Width="500" Height="230" >
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label  Content="Periodicity :" Grid.Column="0"  Grid.Row="0"/>
+                <ComboBox x:Name ="whenCombox" Grid.Column="1" Grid.Row="0"/>
+                <TextBox  x:Name ="minutesTextbox" Grid.Column="2" Grid.Row="0" Margin="5 0 0 0"/>
+                <CheckBox x:Name ="AtStartCombox" Grid.Column="1" Grid.Row="1" Content="At Start" Margin ="0 10 0 0"/>
+                <CheckBox x:Name ="AtCloseCombox" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Content="At Closing" Margin ="0 10 0 0"/>
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="0 10 0 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <Label  Content="Archive repository :" Grid.Column="0" />
+                <TextBox x:Name="archiveRepo" Grid.Column="1" />
+                <Button x:Name="browser" Grid.Column="2" Content="..." Margin="5 0 0 0"/>
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="0 10 0 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="70"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="maxArchiveLabel" Content="Max archive number :" Grid.Column="0" />
+                <TextBox x:Name="maxArchiveTextBox" Grid.Column="1" Margin="0 0 0 10" />
+            </Grid>
+            
+        </Grid>
+
+        <StackPanel Grid.Row="2" Margin="0 10 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="buttonOk" Content="OK" Width="80" HorizontalAlignment="Right"/>
+            <Button x:Name="buttonCancel" Content="Cancel" Width="80" HorizontalAlignment="Right" Margin="10 0 0 0"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

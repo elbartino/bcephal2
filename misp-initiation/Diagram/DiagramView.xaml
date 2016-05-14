@@ -1,0 +1,87 @@
+﻿<Grid x:Class="Misp.Initiation.Diagram.DiagramView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Dg="clr-namespace:DiagramDesigner;assembly=DiagramDesigner"
+             xmlns:Diagram="clr-namespace:Misp.Initiation.Diagram"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <Grid.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Stencils/MispStencils.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Grid.Resources>
+
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <DockPanel Grid.Column="0" LastChildFill="True" >
+        <!--<Grid DockPanel.Dock="Top" Margin="50,5,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <WrapPanel x:Name="toolbar" Grid.Row="0" Background="White" >
+                <ContentControl MouseLeftButtonUp="onAddNewObject" Width="50" Height="30" Margin="0,5,10,5">
+                    <Grid>
+                        <Path Style="{StaticResource ObjectForm}" ToolTip="Object" Fill="{StaticResource RadialBrushOrange}" >
+                            <Dg:DesignerItem.DragThumbTemplate>
+                                <ControlTemplate>
+                                    <Path Style="{StaticResource ObjectForm_DragThumb}"/>
+                                </ControlTemplate>
+                            </Dg:DesignerItem.DragThumbTemplate>
+                        </Path>
+                        <TextBlock FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Object" Visibility="Visible" TextWrapping="NoWrap"/>
+                    </Grid>
+                </ContentControl>
+                <ContentControl MouseLeftButtonUp="onAddNewValueChain" Width="50" Height="30" Margin="0,5,10,5">
+                    <Grid>
+                        <Path Style="{StaticResource ValueChainForm}" ToolTip="Value Chain" Fill="{StaticResource RadialBrushBlue}">
+                            <Dg:DesignerItem.DragThumbTemplate>
+                                <ControlTemplate>
+                                    <Path Style="{StaticResource ValueChainForm_DragThumb}"/>
+                                </ControlTemplate>
+                            </Dg:DesignerItem.DragThumbTemplate>
+                        </Path>
+                        <TextBlock FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Value Chain" Visibility="Visible" TextWrapping="Wrap"/>
+                    </Grid>
+                </ContentControl>
+            </WrapPanel>
+        </Grid>-->
+        <Grid Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" MaxHeight="180" Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Zoom"/>
+                <Slider Grid.Row="1" x:Name="zoomSlide"  Grid.Column="0" 
+                        Orientation="Vertical" HorizontalAlignment="Center" 
+                        TickPlacement="TopLeft" Maximum="1.5" Minimum="0.5" Value="1"
+                        ValueChanged="onZoom"/>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Rectangle Stroke="GhostWhite" StrokeThickness="1" Margin="1" RadiusX="3" RadiusY="3" Grid.RowSpan="2"/>
+                <ScrollViewer Margin="5,5,10,5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" BorderBrush="#FFC3C1C1">
+                    <Diagram:DiagramCanvas Focusable="true" x:Name="designerCanvas"
+                                   FocusVisualStyle="{x:Null}"     
+                                  
+                                   Drop="onDesignerCanvasDrop" Background="White"/>
+                </ScrollViewer>
+            </Grid>
+
+        </Grid>
+    </DockPanel>
+
+
+</Grid>

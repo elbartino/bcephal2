@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Misp.Reporting.Calculated_Measure.CalculatedMeasureOperationsGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:src="clr-namespace:Misp.Reporting.Calculated_Measure"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="200">
+    
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0"  BorderBrush="#FFE4DFDF" BorderThickness="1" Content="Operations" HorizontalAlignment="center" FontSize="14" Width="200"/>
+        <Grid Grid.Row="1">
+            <src:CalculatedMeasurePanel x:Name="OperationsPanel" x:FieldModifier="public" HorizontalAlignment="Center"/>
+                
+        </Grid>
+
+        </Grid>
+
+   
+</UserControl>

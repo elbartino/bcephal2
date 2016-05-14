@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Misp.Sourcing.Table.TargetItemPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:src="clr-namespace:Misp.Sourcing.Table" 
+             mc:Ignorable="d" 
+             d:DesignHeight="27" d:DesignWidth="300">
+    
+    <Grid x:Name="grid" Background="White" Margin="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="56"/>
+            <ColumnDefinition Width="45"/>
+            <ColumnDefinition x:Name="AttributeCol" Width="*"/>
+            <ColumnDefinition x:Name="ValueCol" Width="*"/>
+            <ColumnDefinition x:Name="FormulaCol" Width="*"/>
+            <ColumnDefinition Width="15"/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="label" Grid.Column="0" Content="Value 12"  HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <ComboBox x:Name="comboBox" Grid.Column="1" Margin="1" FontSize="9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="AttributeNameTextBox" IsEnabled="False" Grid.Column="2" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <TextBox x:Name="valueTextBox" IsEnabled="False" Grid.Column="3" Margin="1" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                 ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"   />
+        <TextBox x:Name="formulaTextBox" IsEnabled="False" Grid.Column="4" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
+
+        <Button x:Name="button" Grid.Column="5" ToolTip="Remove row" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
+            <Button.Template>
+                <ControlTemplate>
+                    <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </Grid>
+</UserControl>

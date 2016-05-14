@@ -1,0 +1,28 @@
+﻿<DataGrid x:Class="Misp.Initiation.Periodicity.PeriodsGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:filter="clr-namespace:DataGridFilterLibrary;assembly=DataGridFilterLibrary"   
+             mc:Ignorable="d" Width="Auto" Height="200" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" AlternatingRowBackground="#FFD9ECF7" RowBackground="#FFF1F8F9" HorizontalGridLinesBrush="#FFFDFBFB" VerticalGridLinesBrush="#FFFDFDFD" HeadersVisibility="Column" GridLinesVisibility="None"
+             BorderBrush="{x:Null}" Background="White"
+             filter:DataGridExtensions.UseBackgroundWorkerForFiltering="True"
+             filter:DataGridExtensions.IsClearButtonVisible="False" 
+             filter:DataGridExtensions.IsFilterVisible="{Binding Path=IsChecked, ElementName=ShowHideFilterCheckBox, Mode=TwoWay}"                        
+             ColumnHeaderStyle="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type filter:DataGridHeaderFilterControl}, 
+		                       ResourceId=DataGridHeaderFilterControlStyle}}"
+          
+          >
+
+    <!--ColumnHeaderStyle="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type filter:DataGridHeaderFilterControl}, 
+		                       ResourceId=DataGridHeaderFilterControlStyle}}"-->
+
+    
+
+    <DataGrid.Columns>
+        <DataGridTextColumn Binding="{Binding Path=gridPosition}" Header="N°" Width="60"/>
+        <DataGridTextColumn Binding="{Binding Path=name}" Header="Period Name" Width="0.9*"/>
+        <DataGridTextColumn Binding="{Binding Path=fromAsString}" Header="From" Width="0.9*"/>
+        <DataGridTextColumn Binding="{Binding Path=toAsString}" Header="To" Width="0.9*"/>
+    </DataGrid.Columns>        
+</DataGrid>

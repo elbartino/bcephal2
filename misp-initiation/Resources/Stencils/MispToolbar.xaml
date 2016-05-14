@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:DiagramDesigner;assembly=DiagramDesigner"
+                    xmlns:diagram="clr-namespace:Misp.Initiation.Diagram">
+
+    <WrapPanel x:Key="MispToolbar" Margin="0,5,0,5" Background="White">
+        
+        <Button Width="70" Height="35" Margin="3" HorizontalContentAlignment="Center"         
+                        CommandTarget="{Binding ElementName=MyDesigner}">
+            <Button.Content>
+                <Grid>
+                    <diagram:ObjectItem></diagram:ObjectItem>
+                </Grid>
+            </Button.Content>
+        </Button>
+
+        <Button Width="70" Height="35" Margin="3" 
+                        HorizontalContentAlignment="Center"
+                        CommandTarget="{Binding ElementName=MyDesigner}">
+            <Button.Content>
+                <Grid>
+                    <diagram:ValueChainItem></diagram:ValueChainItem>
+                </Grid>
+            </Button.Content>
+        </Button>
+    </WrapPanel>
+
+</ResourceDictionary>

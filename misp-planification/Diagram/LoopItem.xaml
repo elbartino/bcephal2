@@ -1,0 +1,29 @@
+﻿<Grid x:Class="Misp.Planification.Diagram.LoopItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Dg="clr-namespace:DiagramDesigner;assembly=DiagramDesigner"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="100">
+
+    <Grid.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Stencils/MispStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Grid.Resources>
+
+    <Path Style="{StaticResource LoopForm}" ToolTip="Loop" Fill="{StaticResource LoopRadialBrushOrange}" >
+        <Dg:DesignerItem.DragThumbTemplate>
+            <ControlTemplate>
+                <Path Style="{StaticResource LoopForm_DragThumb}"/>
+            </ControlTemplate>
+        </Dg:DesignerItem.DragThumbTemplate>
+    </Path>
+    
+    <TextBlock TextTrimming="WordEllipsis" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Loop" Visibility="Visible" TextWrapping="NoWrap" Foreground="White"/>
+    <TextBox FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Loop" Visibility="Hidden" TextWrapping="NoWrap" />
+
+</Grid>

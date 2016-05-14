@@ -1,0 +1,30 @@
+﻿<Window x:Class="Misp.Kernel.Util.PasteBcephalDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PasteBcephalDialog" Height="200" Width="250" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
+
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0">
+            <StackPanel Orientation="Vertical" Margin="15,13,15,33"   >
+                <RadioButton x:Name="pasteMeasure" Content="Measure" Margin="0,0,0,10"  />
+                <RadioButton x:Name="pastePeriod" Content="Period" Margin="0,0,0,10"  />
+                <RadioButton x:Name="pasteScope" Content="Scope" Margin="0,0,0,10"  />
+            </StackPanel>
+        </GroupBox>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1"  x:Name="okButton" Width="90"  Content="OK" VerticalAlignment="Bottom" Click="okButton_Click"   />
+            <Button Grid.Column="0"  x:Name="cancelButton" Width="90"  Content="Cancel" VerticalAlignment="Bottom" Click="cancelButton_Click"  />
+
+        </Grid>
+
+    </Grid>
+</Window>

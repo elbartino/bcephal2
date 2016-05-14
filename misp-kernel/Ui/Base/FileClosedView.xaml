@@ -1,0 +1,42 @@
+﻿<Grid x:Class="Misp.Kernel.Ui.Base.FileClosedView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Ui="clr-namespace:Misp.Kernel.Ui.Base"
+             mc:Ignorable="d" 
+             MinHeight="0" MaxHeight="400" MinWidth="0" MaxWidth="560">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="70" />
+    </Grid.RowDefinitions>
+
+
+    <Border Grid.Row="0" Style="{DynamicResource BluePanelStyle}">
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="TitleLabel" x:FieldModifier="public" Content="Files" Grid.Column="0" FontWeight="Bold" FontSize="15"/>
+                <TextBlock x:Name="ClearTextBlock" Grid.Column="1"/>
+            </Grid>            
+            <TextBlock x:Name="NewFileTextBlock" Grid.Row="1" Margin="30,0,0,0"/>
+            <TextBlock x:Name="RecentFilesTextBlock" Text="Recent Files" Grid.Row="2" Margin="30,0,0,0"/>
+            <StackPanel x:Name="ItemsPanel" x:FieldModifier="public" Grid.Row="3" Margin="50,0,0,0"/>
+        </Grid>
+    </Border>
+
+    <Border Grid.Row="1" Style="{DynamicResource GuidedTourStyle}">
+        <TextBlock x:Name="GuidedTourTextBlock" Text="First time using B-CEPHAL? Follow this " 
+                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+    </Border>
+
+</Grid>

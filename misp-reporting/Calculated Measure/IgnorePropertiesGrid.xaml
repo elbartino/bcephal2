@@ -1,0 +1,77 @@
+﻿<Grid x:Class="Misp.Reporting.Calculated_Measure.IgnorePropertiesGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="250" d:DesignWidth="300" >
+    
+    <Grid.RowDefinitions>
+        <RowDefinition Height="20"/>
+        <RowDefinition/>
+        <RowDefinition/>
+        <RowDefinition/>
+        <RowDefinition/>
+        <RowDefinition/>
+        <RowDefinition/>
+        <RowDefinition/>
+        <RowDefinition/>
+        <RowDefinition/>
+    </Grid.RowDefinitions>
+    <Label Grid.Row="2" Content="Ignore Properties" />
+    <Grid Grid.Row="3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="1" Content="Table" />
+        <Label Grid.Column="2" Content="Cell"/>
+    </Grid>
+    <Grid Grid.Row="4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Content="Object" />
+        <Border Grid.Column="1" BorderThickness="1" BorderBrush="#FFACA9A9"  />
+        <CheckBox Grid.Column="1" x:Name="ignoreTableObject" x:FieldModifier="public" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Border Grid.Column="2" BorderThickness="1" BorderBrush="#FFACA9A9"  />
+        <CheckBox Grid.Column="2" x:Name="ignoreCellObject" x:FieldModifier="public" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+    <Grid Grid.Row="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Content="VC" />
+        <Border Grid.Column="1" BorderThickness="1" BorderBrush="#FFACA9A9"  />
+        <CheckBox Grid.Column="1" x:Name="ignoreTableVC" x:FieldModifier="public" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Border Grid.Column="2" BorderThickness="1" BorderBrush="#FFACA9A9"  />
+        <CheckBox Grid.Column="2" x:Name="ignoreCellVC" x:FieldModifier="public" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+    <Grid Grid.Row="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Content="Period" />
+        <Border Grid.Column="1" BorderThickness="1" BorderBrush="#FFACA9A9"  />
+        <CheckBox Grid.Column="1" x:Name="ignoreTablePeriod" x:FieldModifier="public" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Border Grid.Column="2" BorderThickness="1" BorderBrush="#FFACA9A9"  />
+        <CheckBox Grid.Column="2" x:Name="ignoreCellPeriod" x:FieldModifier="public" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+    <Grid Grid.Row="8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Content="All" />
+        <Border Grid.Column="1" BorderThickness="1" BorderBrush="#FFACA9A9"  />
+        <CheckBox Grid.Column="1" x:Name="ignoreAll" x:FieldModifier="public" IsChecked="false" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+</Grid>

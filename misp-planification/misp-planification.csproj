@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2526D712-9035-4F4C-847C-2C22F30CD8BC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Misp.Planification</RootNamespace>
+    <AssemblyName>Misp.Planification</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\misp-build\setup\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EO.Wpf, Version=3.0.21.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\EO.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dev\misp-build\libs\dotnet\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\PlanificationControllerFactory.cs" />
+    <Compile Include="Base\PlanificationFunctionalitiesCode.cs" />
+    <Compile Include="Base\PlanificationMenu.cs" />
+    <Compile Include="Base\PlanificationResourcePath.cs" />
+    <Compile Include="Base\PlanificationServiceFactory.cs" />
+    <Compile Include="CombinedTransformationTree\CombinedTransformationTreeBrowserToolBar.cs" />
+    <Compile Include="CombinedTransformationTree\CombinedTransformationTreeGroup.cs" />
+    <Compile Include="CombinedTransformationTree\CombinedTransformationTreeBrowser.cs" />
+    <Compile Include="CombinedTransformationTree\CombinedTransformationTreeBrowserController.cs" />
+    <Compile Include="CombinedTransformationTree\CombinedTransformationTreeEditor.cs" />
+    <Compile Include="CombinedTransformationTree\CombinedTransformationTreeEditorController.cs" />
+    <Compile Include="CombinedTransformationTree\CombinedTransformationTreeEditorItem.cs" />
+    <Compile Include="CombinedTransformationTree\CombinedTransformationTreeForm.cs" />
+    <Compile Include="CombinedTransformationTree\CombinedTransformationTreePropertiesPanel.xaml.cs">
+      <DependentUpon>CombinedTransformationTreePropertiesPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CombinedTransformationTree\CombinedTransformationTreePropertyBar.cs" />
+    <Compile Include="CombinedTransformationTree\CombinedTransformationTreeSideBar.cs" />
+    <Compile Include="CombinedTransformationTree\CombineTransformationTreeToolBar.cs" />
+    <Compile Include="CombinedTransformationTree\RunMessageUtil.cs" />
+    <Compile Include="CombinedTransformationTree\TransformationTreeItemPanel.xaml.cs">
+      <DependentUpon>TransformationTreeItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CombinedTransformationTree\CombinedTransformationTreePanel.xaml.cs">
+      <DependentUpon>CombinedTransformationTreePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Diagram\DiagramCanvas.cs" />
+    <Compile Include="Diagram\LoopItem.xaml.cs">
+      <DependentUpon>LoopItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Diagram\ActionItem.xaml.cs">
+      <DependentUpon>ActionItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Diagram\TDesignerItem.cs" />
+    <Compile Include="PlugIn.cs" />
+    <Compile Include="PresentationView\PresentationBrowser.cs" />
+    <Compile Include="PresentationView\PresentationBrowserController.cs" />
+    <Compile Include="PresentationView\PresentationEditor.cs" />
+    <Compile Include="PresentationView\PresentationEditorController.cs" />
+    <Compile Include="PresentationView\PresentationEditorItem.cs" />
+    <Compile Include="PresentationView\PresentationForm.cs" />
+    <Compile Include="PresentationView\PresentationGroup.cs" />
+    <Compile Include="PresentationView\PresentationPropertiesPanel.xaml.cs">
+      <DependentUpon>PresentationPropertiesPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationView\PresentationPropertyBar.cs" />
+    <Compile Include="PresentationView\PresentationSideBar.cs" />
+    <Compile Include="PresentationView\PresentationToolBar.cs" />
+    <Compile Include="PresentationView\PresentationToolBarHandlerBuilder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Tranformation\InstructionControls\BlockPanel.xaml.cs">
+      <DependentUpon>BlockPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\InstructionControls\ExpressionPanel.xaml.cs">
+      <DependentUpon>ExpressionPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\InstructionControls\IfInstructionPanel.xaml.cs">
+      <DependentUpon>IfInstructionPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\InstructionControls\InstructionPanel.xaml.cs">
+      <DependentUpon>InstructionPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\InstructionControls\ThenOrElseItemPanel.xaml.cs">
+      <DependentUpon>ThenOrElseItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\LoopCondition\LoopCalculatedValuePanel.xaml.cs">
+      <DependentUpon>LoopCalculatedValuePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\LoopCondition\LoopConditionItemPanel.xaml.cs">
+      <DependentUpon>LoopConditionItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\LoopCondition\LoopConditionPanel.xaml.cs">
+      <DependentUpon>LoopConditionPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\ReportPanel.xaml.cs">
+      <DependentUpon>ReportPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\Run_all\LoadTransformationTreesDialog.xaml.cs">
+      <DependentUpon>LoadTransformationTreesDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\LoopDialogSideBar.cs" />
+    <Compile Include="Tranformation\LoopValueField.cs" />
+    <Compile Include="Tranformation\LoopValueItemField.xaml.cs">
+      <DependentUpon>LoopValueItemField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\LoopDialog.xaml.cs">
+      <DependentUpon>LoopDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\Run_all\RunAllTransformationTreesController.cs" />
+    <Compile Include="Tranformation\TransformationSlideDialog.xaml.cs">
+      <DependentUpon>TransformationSlideDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\TransformationTable\TransformationTableController.cs" />
+    <Compile Include="Tranformation\TransformationTable\TransformationTableBrowerController.cs" />
+    <Compile Include="Tranformation\TransformationTable\TransformationTableBrowser.cs" />
+    <Compile Include="Tranformation\TransformationTable\TransformationTableDialog.xaml.cs">
+      <DependentUpon>TransformationTableDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\TransformationTable\TransformationTableEditor.cs" />
+    <Compile Include="Tranformation\TransformationTable\TransformationTableEditorItem.cs" />
+    <Compile Include="Tranformation\TransformationTable\TransformationTableForm.cs" />
+    <Compile Include="Tranformation\TransformationTable\TransformationTableService.cs" />
+    <Compile Include="Tranformation\TransformationTable\TransformationTableSideBar.cs" />
+    <Compile Include="Tranformation\TransformationTreeBrowser.cs" />
+    <Compile Include="Tranformation\TransformationTreeBrowserController.cs" />
+    <Compile Include="Diagram\TransformationTreeDiagram.xaml.cs">
+      <DependentUpon>TransformationTreeDiagram.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\TransformationTreeEditor.cs" />
+    <Compile Include="Tranformation\TransformationTreeEditorController.cs" />
+    <Compile Include="Tranformation\TransformationTreeEditorItem.cs" />
+    <Compile Include="Tranformation\TransformationTreeForm.cs" />
+    <Compile Include="Tranformation\TransformationTreeGroup.cs" />
+    <Compile Include="Tranformation\TransformationTreePropertiePanel.xaml.cs">
+      <DependentUpon>TransformationTreePropertiePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tranformation\TransformationTreePropertyBar.cs" />
+    <Compile Include="Tranformation\TransformationTreeSideBar.cs" />
+    <Compile Include="Tranformation\TransformationTreeToolBar.cs" />
+    <Compile Include="Tranformation\TransformationTreeToolBarBuilder.cs" />
+    <Compile Include="Tranformation\TreeActionDialog.xaml.cs">
+      <DependentUpon>TreeActionDialog.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\misp-diagram\misp-diagram.csproj">
+      <Project>{b437df5f-20e0-4082-a92e-5c1d9c31a8e9}</Project>
+      <Name>misp-dotnet-diagram</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\misp-kernel\misp-kernel.csproj">
+      <Project>{31bc49e1-cea7-41e9-a030-c99e180f235c}</Project>
+      <Name>misp-dotnet-kernel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\misp-reporting\misp-reporting.csproj">
+      <Project>{76ab13f7-3e3a-4b6f-a372-336980c0a2b1}</Project>
+      <Name>misp-dotnet-reporting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\misp-sourcing\misp-sourcing.csproj">
+      <Project>{6ea88f04-668f-4dbc-bc20-79f028d049d4}</Project>
+      <Name>misp-dotnet-sourcing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="CombinedTransformationTree\CombinedTransformationTreePropertiesPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CombinedTransformationTree\TransformationTreeItemPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CombinedTransformationTree\CombinedTransformationTreePanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Diagram\LoopItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Diagram\TransformationTreeDiagram.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Diagram\ActionItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PresentationView\PresentationPropertiesPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Stencils\MispStencils.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Stencils\MispStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tranformation\InstructionControls\BlockPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tranformation\InstructionControls\ExpressionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tranformation\InstructionControls\IfInstructionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tranformation\InstructionControls\InstructionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tranformation\InstructionControls\ThenOrElseItemPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tranformation\LoopCondition\LoopCalculatedValuePanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tranformation\LoopCondition\LoopConditionItemPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tranformation\LoopCondition\LoopConditionPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tranformation\ReportPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tranformation\Run_all\LoadTransformationTreesDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tranformation\LoopValueItemField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tranformation\LoopDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tranformation\TransformationSlideDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tranformation\TransformationTable\TransformationTableDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tranformation\TransformationTreePropertiePanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tranformation\TreeActionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Action.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Loop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.PowerPoint">
+      <Guid>{91493440-5A91-11CF-8700-00AA0060263B}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

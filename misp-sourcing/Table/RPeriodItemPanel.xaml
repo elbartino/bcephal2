@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="Misp.Sourcing.Table.RPeriodItemPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="27" d:DesignWidth="290">
+    <Grid x:Name="grid" Background="White" Margin="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="56"/>
+            <ColumnDefinition x:Name="OperatorCol"  MinWidth="40" Width="1.3*" x:FieldModifier="public"/>
+            <ColumnDefinition x:Name="ValueCol" MinWidth="105" Width="1.3*"/>
+            <ColumnDefinition x:Name="FormulaCol" MinWidth="60" Width="1*"/>
+            <ColumnDefinition x:Name="operationCol" Width="*"/>
+            <ColumnDefinition x:Name="numberValueCol" Width="*" />
+            <ColumnDefinition x:Name="granularityCol" Width="*" />
+            <ColumnDefinition MaxWidth="15" Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:FieldModifier="public" x:Name="Label" Grid.Column="0" Content="Value 12" ToolTip="{Binding Path=Content}" VerticalAlignment="Center" />
+        <ComboBox x:FieldModifier="public" x:Name="SignComboBox" Grid.Column="1" Margin="1" FontSize="9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
+        <DatePicker x:FieldModifier="public" x:Name="ValueDatePicker" Grid.Column="2" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"   />
+        <TextBox x:FieldModifier="public" x:Name="FormulaTextBox" Grid.Column="3" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
+        <ComboBox x:FieldModifier="public" x:Name="operationComboBox" Grid.Column="4" Margin="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <TextBox  x:FieldModifier="public" x:Name="numberValueTextBox" Grid.Column="5" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <ComboBox x:FieldModifier="public" x:Name="granulartityComBox" Grid.Column="6" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <Button x:Name="Button" Grid.Column="7" ToolTip="Remove row" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
+            <Button.Template>
+                <ControlTemplate>
+                    <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </Grid>
+</UserControl>

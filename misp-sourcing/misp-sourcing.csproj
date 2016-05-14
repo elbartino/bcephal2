@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6EA88F04-668F-4DBC-BC20-79F028D049D4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Misp.Sourcing</RootNamespace>
+    <AssemblyName>Misp.Sourcing</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\misp-build\setup\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AxInterop.EDOfficeLib, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\AxInterop.EDOfficeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DataGridFilterLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\DataGridFilterLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="EO.Wpf, Version=3.0.21.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\EO.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.EDOfficeLib, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\misp-build\libs\dotnet\Interop.EDOfficeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="websocket-sharp, Version=1.0.2.19883, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\websocket-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingBrowser.cs" />
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingBrowserController.cs" />
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingColumnPanel.xaml.cs">
+      <DependentUpon>AutomaticSourcingColumnPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingEditor.cs" />
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingEditorItem.cs" />
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingForm.cs" />
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingGroup.cs" />
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingNewValues.xaml.cs" />
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingPanel.xaml.cs">
+      <DependentUpon>AutomaticSourcingPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingPropertyBar.cs" />
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingSheetPanel.xaml.cs">
+      <DependentUpon>AutomaticSourcingSheetPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingSideBar.cs" />
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingTableDialog.xaml.cs">
+      <DependentUpon>AutomaticSourcingTableDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AutomaticSourcingViews\AutomaticTablePropertiesPanel.xaml.cs" />
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingToolBar.cs" />
+    <Compile Include="AutomaticSourcingViews\ColumnsItems.xaml.cs">
+      <DependentUpon>ColumnsItems.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AutomaticSourcingViews\ColumnsItemsPanel.xaml.cs">
+      <DependentUpon>ColumnsItemsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AutomaticSourcingViews\MeasureType.xaml.cs">
+      <DependentUpon>MeasureType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AutomaticSourcingViews\NewTargetType.xaml.cs">
+      <DependentUpon>NewTargetType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AutomaticSourcingViews\AutomaticSourcingEditorController.cs" />
+    <Compile Include="AutomaticTargetViews\AutomaticTargetBrowser.cs" />
+    <Compile Include="AutomaticTargetViews\AutomaticTargetBrowserController.cs" />
+    <Compile Include="AutomaticTargetViews\AutomaticTargetEditor.cs" />
+    <Compile Include="AutomaticTargetViews\AutomaticTargetEditorController.cs" />
+    <Compile Include="AutomaticTargetViews\AutomaticTargetEditorItem.cs" />
+    <Compile Include="AutomaticTargetViews\AutomaticTargetForm.cs" />
+    <Compile Include="AutomaticTargetViews\AutomaticTargetSideBar.cs" />
+    <Compile Include="Base\SourcingPeriodicity.xaml.cs">
+      <DependentUpon>SourcingPeriodicity.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Base\SourcingResourcePath.cs" />
+    <Compile Include="Base\SourcingControllerFactory.cs" />
+    <Compile Include="Base\SourcingFunctionalitiesCode.cs" />
+    <Compile Include="Base\SourcingMenu.cs" />
+    <Compile Include="Base\SourcingServiceFactory.cs" />
+    <Compile Include="CustomizedTarget\CustomizedTargetGroup.cs" />
+    <Compile Include="CustomizedTarget\TargetBrowser.cs" />
+    <Compile Include="CustomizedTarget\TargetBrowserController.cs" />
+    <Compile Include="CustomizedTarget\TargetEditor.cs" />
+    <Compile Include="CustomizedTarget\TargetEditorController.cs" />
+    <Compile Include="CustomizedTarget\TargetEditorItem.cs" />
+    <Compile Include="CustomizedTarget\TargetForm.cs" />
+    <Compile Include="CustomizedTarget\TargetPropertiesPanel.xaml.cs">
+      <DependentUpon>TargetPropertiesPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomizedTarget\TargetPropertyBar.cs" />
+    <Compile Include="CustomizedTarget\TargetSideBar.cs" />
+    <Compile Include="CustomizedTarget\TargetToolBar.cs" />
+    <Compile Include="Designer\ApplyDesignDialog.xaml.cs">
+      <DependentUpon>ApplyDesignDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\DesignerBrowser.cs" />
+    <Compile Include="Designer\DesignerBrowserController.cs" />
+    <Compile Include="Designer\DesignerEditor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Designer\DesignerEditorController.cs" />
+    <Compile Include="Designer\DesignerEditorItem.cs" />
+    <Compile Include="Designer\DesignerForm.cs" />
+    <Compile Include="Designer\DesignerGroup.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Designer\DesignerPropertiesPanel.xaml.cs">
+      <DependentUpon>DesignerPropertiesPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\DesignerPropertyBar.cs" />
+    <Compile Include="Designer\DesignerSideBar.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Designer\DesignerToolBar.cs" />
+    <Compile Include="Designer\DimensionField.cs" />
+    <Compile Include="Designer\LineField.cs" />
+    <Compile Include="Designer\LineItemField.xaml.cs">
+      <DependentUpon>LineItemField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MultipleFilesUpload\Step1.xaml.cs" />
+    <Compile Include="MultipleFilesUpload\Step2.xaml.cs" />
+    <Compile Include="MultipleFilesUpload\Step3.xaml.cs" />
+    <Compile Include="MultipleFilesUpload\Step4.xaml.cs" />
+    <Compile Include="MultipleFilesUpload\UploadFiles.xaml.cs" />
+    <Compile Include="MultipleFilesUpload\UploadFilesDialog.xaml.cs">
+      <DependentUpon>UploadFilesDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MultipleFilesUpload\UploadMultipleFilesController.cs" />
+    <Compile Include="PlugIn.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Table\AllocationPanel.xaml.cs">
+      <DependentUpon>AllocationPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\ApplyDesignUtil.cs" />
+    <Compile Include="Table\CellMeasurePanel.xaml.cs">
+      <DependentUpon>CellMeasurePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\DesignWindow.xaml.cs">
+      <DependentUpon>DesignWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\Disable.xaml.cs">
+      <DependentUpon>Disable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\InputTableBrowser.cs" />
+    <Compile Include="Table\InputTableBrowserController.cs" />
+    <Compile Include="Table\InputTableEditor.cs" />
+    <Compile Include="Table\InputTableEditorController.cs" />
+    <Compile Include="Table\InputTableEditorItem.cs" />
+    <Compile Include="Table\InputTableForm.cs" />
+    <Compile Include="Table\InputTableGroup.cs" />
+    <Compile Include="Table\InputTablePropertyBar.cs" />
+    <Compile Include="Table\InputTableRunProcess.cs" />
+    <Compile Include="Table\InputTableService.cs" />
+    <Compile Include="Table\InputTableSideBar.cs" />
+    <Compile Include="Table\InputTableToolBar.cs" />
+    <Compile Include="Table\InputTableToolBarHandlerBuilder.cs" />
+    <Compile Include="Table\ModelModificationDialog.xaml.cs">
+      <DependentUpon>ModelModificationDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\PeriodItemPanel.xaml.cs">
+      <DependentUpon>PeriodItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\PeriodPanel.xaml.cs">
+      <DependentUpon>PeriodPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\RPeriodItemPanel.xaml.cs">
+      <DependentUpon>RPeriodItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\RPeriodNamePanel.xaml.cs">
+      <DependentUpon>RPeriodNamePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\RPeriodPanel.xaml.cs">
+      <DependentUpon>RPeriodPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\ScopeItemPanel.xaml.cs">
+      <DependentUpon>ScopeItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\ScopePanel.xaml.cs">
+      <DependentUpon>ScopePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\TableCellMappingPanel.xaml.cs">
+      <DependentUpon>TableCellMappingPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\TableCellParameterPanel.xaml.cs">
+      <DependentUpon>TableCellParameterPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\TablePropertiesPanel.xaml.cs">
+      <DependentUpon>TablePropertiesPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\TargetItemPanel.xaml.cs">
+      <DependentUpon>TargetItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\TargetPanel.xaml.cs">
+      <DependentUpon>TargetPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Table\TreeViewModification.xaml.cs">
+      <DependentUpon>TreeViewModification.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="AutomaticSourcingViews\AutomaticSourcingColumnPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AutomaticSourcingViews\AutomaticSourcingNewValues.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AutomaticSourcingViews\AutomaticSourcingPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AutomaticSourcingViews\AutomaticSourcingSheetPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AutomaticSourcingViews\AutomaticSourcingTableDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AutomaticSourcingViews\AutomaticTablePropertiesPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AutomaticSourcingViews\ColumnsItems.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AutomaticSourcingViews\ColumnsItemsPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AutomaticSourcingViews\MeasureType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AutomaticSourcingViews\NewTargetType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Base\SourcingPeriodicity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomizedTarget\TargetPropertiesPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\ApplyDesignDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\DesignerPropertiesPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\LineItemField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MultipleFilesUpload\Step1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MultipleFilesUpload\Step2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MultipleFilesUpload\Step3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MultipleFilesUpload\Step4.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MultipleFilesUpload\UploadFiles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MultipleFilesUpload\UploadFilesDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Table\AllocationPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Table\CellMeasurePanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Table\DesignWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Table\DialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Table\Disable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Table\ModelModificationDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Table\PeriodItemPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Table\PeriodPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Table\RPeriodItemPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Table\RPeriodNamePanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Table\RPeriodPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Table\ScopeItemPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Table\ScopePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Table\TableCellMappingPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Table\TableCellParameterPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Table\TablePropertiesPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Table\TargetItemPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Table\TargetPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Table\TreeViewModification.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\misp-diagram\misp-diagram.csproj">
+      <Project>{B437DF5F-20E0-4082-A92E-5C1D9C31A8E9}</Project>
+      <Name>misp-dotnet-diagram</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\misp-initiation\misp-initiation.csproj">
+      <Project>{BCF0B7CF-E3C5-49DE-9AFF-3366211DBAEC}</Project>
+      <Name>misp-dotnet-initiation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\misp-kernel\misp-kernel.csproj">
+      <Project>{31bc49e1-cea7-41e9-a030-c99e180f235c}</Project>
+      <Name>misp-dotnet-kernel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

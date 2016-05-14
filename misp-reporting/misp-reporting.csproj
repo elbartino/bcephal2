@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{76AB13F7-3E3A-4B6F-A372-336980C0A2B1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Misp.Reporting</RootNamespace>
+    <AssemblyName>Misp.Reporting</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\misp-build\setup\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\BCephal\dev\Client\misp-build\libs\dotnet\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="websocket-sharp, Version=1.0.2.19883, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\websocket-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Budget\ExportBudgetController.cs" />
+    <Compile Include="Calculated Measure\CalculatedMeasureBrowser.cs" />
+    <Compile Include="Calculated Measure\CalculatedMeasureBrowserController.cs" />
+    <Compile Include="Calculated Measure\CalculatedMeasureEditor.cs" />
+    <Compile Include="Calculated Measure\CalculatedMeasureEditorController.cs" />
+    <Compile Include="Base\ReportingControllerFactory.cs" />
+    <Compile Include="Base\ReportingFunctionalitiesCode.cs" />
+    <Compile Include="Base\ReportingMenu.cs" />
+    <Compile Include="Base\ReportingResourcePath.cs" />
+    <Compile Include="Base\ReportingServiceFactory.cs" />
+    <Compile Include="Calculated Measure\CalculatedMeasureEditorItem.cs" />
+    <Compile Include="Calculated Measure\CalculatedMeasureForm.cs" />
+    <Compile Include="Calculated Measure\CalculatedMeasurePropertiesPanel.xaml.cs">
+      <DependentUpon>CalculatedMeasurePropertiesPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Calculated Measure\CalculatedMeasurePropertyBar.cs" />
+    <Compile Include="Calculated Measure\CalculatedMeasureSideBar.cs" />
+    <Compile Include="Calculated Measure\CalculatedMeasureToolBar.cs" />
+    <Compile Include="Calculated Measure\IgnorePropertiesGrid.xaml.cs">
+      <DependentUpon>IgnorePropertiesGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Calculated Measure\CalculatedMeasureItemPanel.xaml.cs">
+      <DependentUpon>CalculatedMeasureItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Calculated Measure\CalculatedMeasurePanel.xaml.cs">
+      <DependentUpon>CalculatedMeasurePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlugIn.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Calculated Measure\CalculatedMeasureOperationsGrid.xaml.cs">
+      <DependentUpon>CalculatedMeasureOperationsGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Calculated Measure\OperationsGroup.cs" />
+    <Compile Include="Report\ReportBrowser.cs" />
+    <Compile Include="Report\ReportBrowserController.cs" />
+    <Compile Include="Report\ReportEditor.cs" />
+    <Compile Include="Report\ReportEditorController.cs" />
+    <Compile Include="Report\ReportEditorItem.cs" />
+    <Compile Include="Report\ReportForm.cs" />
+    <Compile Include="Report\ReportService.cs" />
+    <Compile Include="Report\ReportSideBar.cs" />
+    <Compile Include="StructuredReport\SpecialGroup.cs" />
+    <Compile Include="StructuredReport\StructuredReportBrowser.cs" />
+    <Compile Include="StructuredReport\StructuredReportBrowserController.cs" />
+    <Compile Include="StructuredReport\StructuredReportColumnForm.xaml.cs">
+      <DependentUpon>StructuredReportColumnForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StructuredReport\StructuredReportColumnItemListSelector.xaml.cs">
+      <DependentUpon>StructuredReportColumnItemListSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StructuredReport\StructuredReportEditor.cs" />
+    <Compile Include="StructuredReport\StructuredReportEditorController.cs" />
+    <Compile Include="StructuredReport\StructuredReportEditorItem.cs" />
+    <Compile Include="StructuredReport\StructuredReportForm.cs" />
+    <Compile Include="StructuredReport\StructuredReportGroup.cs" />
+    <Compile Include="StructuredReport\StructuredReportPropertiesPanel.xaml.cs">
+      <DependentUpon>StructuredReportPropertiesPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StructuredReport\StructuredReportPropertyBar.cs" />
+    <Compile Include="StructuredReport\StructuredReportService.cs" />
+    <Compile Include="StructuredReport\StructuredReportSideBar.cs" />
+    <Compile Include="StructuredReport\StructuredReportToolBar.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\misp-kernel\misp-kernel.csproj">
+      <Project>{31bc49e1-cea7-41e9-a030-c99e180f235c}</Project>
+      <Name>misp-dotnet-kernel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\misp-sourcing\misp-sourcing.csproj">
+      <Project>{6ea88f04-668f-4dbc-bc20-79f028d049d4}</Project>
+      <Name>misp-dotnet-sourcing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Calculated Measure\CalculatedMeasurePropertiesPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Calculated Measure\CalculatedMeasureOperationsGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Calculated Measure\IgnorePropertiesGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Calculated Measure\CalculatedMeasureItemPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Calculated Measure\CalculatedMeasurePanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StructuredReport\StructuredReportColumnForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StructuredReport\StructuredReportColumnItemListSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StructuredReport\StructuredReportPropertiesPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

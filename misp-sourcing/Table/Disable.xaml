@@ -1,0 +1,9 @@
+﻿<Window x:Class="Misp.Sourcing.Table.Disable"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="" Height="300" Width="300" WindowState="Maximized" WindowStartupLocation="CenterScreen" AllowsTransparency="True" IsEnabled="True" Focusable="True" WindowStyle="None" Background="Transparent">
+    <Grid>
+        <Border Background="Black" Opacity="0.7">
+        </Border>
+    </Grid>
+</Window>

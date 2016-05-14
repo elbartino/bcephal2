@@ -1,0 +1,46 @@
+﻿<Grid x:Class="Misp.Kernel.Ui.Base.NamePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="auto">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid x:Name="gridDefault" x:FieldModifier="public" Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="45" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label x:Name="NameLabel" x:FieldModifier="public" Content="Name: " Grid.Column="0"/>
+        <TextBox x:Name="NameTextBox" x:FieldModifier="public" Grid.Column="1" Margin="5,0,0,0"/>
+    </Grid>
+   
+    <Grid x:Name="gridViewDate" x:FieldModifier="public" Visibility="Collapsed" Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!--Label x:Name="fromDateLabel" Content="From : " Grid.Row="0" Grid.Column="0"  />
+        <TextBlock x:Name="FromDate" x:FieldModifier="public" Grid.Column="1"  Grid.Row="0" Margin="0 5 0 0" />
+
+        <Label x:Name="toDateLabel" Content="To : " Grid.Row="1" Grid.Column="0"  />
+        <TextBlock x:Name="toDate" x:FieldModifier="public" Grid.Row="1" Grid.Column="1"  Margin="0 5 0 0"/-->
+
+
+        <Label x:Name="fromDateLabel" Content="From : " Grid.Row="0" Grid.Column="0"/>
+        <DatePicker x:Name="FromDate" x:FieldModifier="public" Grid.Column="1"  Grid.Row="0" Margin="0 5 0 0"/>
+
+        <Label x:Name="toDateLabel" Content="To : " Grid.Row="1" Grid.Column="0"/>
+        <DatePicker x:Name="toDate" x:FieldModifier="public" Grid.Row="1" Grid.Column="1"  Margin="0 5 0 0"/>
+
+    </Grid>
+
+</Grid>

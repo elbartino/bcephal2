@@ -1,0 +1,22 @@
+﻿<Window x:Class="Misp.Sourcing.Table.CreateDesignDialogBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CreateDesignDialogBox" Height="300" Width="300" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0" x:Name="ScrollPanel" />
+        <Grid Grid.Row="2" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+         <Button Grid.Column="1" x:Name="saveDesign" Content="Save" Width="90" Click="saveDesign_Click" />
+         <Button Grid.Column="2" Content="Cancel" x:Name="cancelDesign" Width="80"  Click="cancelDesign_Click" />
+        </Grid>
+    </Grid>
+</Window>

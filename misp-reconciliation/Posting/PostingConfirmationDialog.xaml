@@ -1,0 +1,27 @@
+﻿<Window x:Class="Misp.Reconciliation.Posting.PostingConfirmationDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Reconciliation Confirmation" 
+        xmlns:filter="clr-namespace:Misp.Reconciliation.Posting"
+        Icon="/bcephal;Component/Resources/Images/Logo/bcephal.ico" WindowStartupLocation="CenterOwner"
+        Height="500" Width="900"
+        >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <filter:PostingGrid     x:FieldModifier="public" x:Name="grid"          Grid.Row="0" />
+        <filter:PostingToolBar  x:FieldModifier="public" x:Name="toolbar"       Grid.Row="1" Margin="5"/>
+        <filter:WriteOffForm    x:FieldModifier="public" x:Name="writeOffForm"  Grid.Row="2" Margin="5"/>
+
+        <Label x:FieldModifier="public" x:Name="confirmationMessageLabel" Grid.Row="3" Content="Do you confirm operation? " Margin="5 0 5 0"/>
+        
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">            
+            <Button x:FieldModifier="public" x:Name="yesButton" Content="Yes" Width="100" Margin="0 0 15 0"/>
+            <Button x:FieldModifier="public" x:Name="noButton" Content="No" Width="100" />
+        </StackPanel>
+    </Grid>
+</Window>

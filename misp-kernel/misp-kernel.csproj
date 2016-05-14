@@ -1,0 +1,1005 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{31BC49E1-CEA7-41E9-A030-C99E180F235C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Misp.Kernel</RootNamespace>
+    <AssemblyName>bcephal</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\misp-build\setup\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>bcephal.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Misp.Kernel.Application.Application</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AxInterop.EDOfficeLib">
+      <HintPath>..\misp-build\libs\dotnet\AxInterop.EDOfficeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DataGridFilterLibrary">
+      <HintPath>..\misp-build\libs\dotnet\DataGridFilterLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="EO.Wpf, Version=3.0.21.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\EO.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.EDOfficeLib">
+      <HintPath>..\misp-build\libs\dotnet\Interop.EDOfficeLib.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\misp-build\libs\dotnet\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\misp-build\libs\dotnet\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\misp-build\libs\dotnet\stdole.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="websocket-sharp">
+      <HintPath>..\misp-build\libs\dotnet\websocket-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\misp-build\libs\dotnet\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\misp-build\libs\dotnet\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Application\ActionType.cs" />
+    <Compile Include="Application\Application.xaml.cs">
+      <DependentUpon>Application.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Application\ApplicationManager.cs" />
+    <Compile Include="Application\ApplicationManagerBuilder.cs" />
+    <Compile Include="Application\ApplicationMenusBuilder.cs" />
+    <Compile Include="Domain\Account.cs" />
+    <Compile Include="Domain\AllocationRunBrowserDataPage.cs" />
+    <Compile Include="Domain\ApplcationConfiguration.cs" />
+    <Compile Include="Domain\Browser\PostingBrowserData.cs" />
+    <Compile Include="Domain\Browser\ReconciliationBrowserData.cs" />
+    <Compile Include="Domain\DashBoardConfiguration.cs" />
+    <Compile Include="Application\OrderByCriteria.cs" />
+    <Compile Include="Application\SlideItemType.cs" />
+    <Compile Include="Domain\ArchiveConfiguration.cs" />
+    <Compile Include="Domain\AutomaticSourcingData.cs" />
+    <Compile Include="Domain\AutomaticSourcingRunData.cs" />
+    <Compile Include="Domain\AutomaticSourcingSaveIssue.cs" />
+    <Compile Include="Domain\Browser\TransformationTreeBrowserData.cs" />
+    <Compile Include="Domain\CombinedTransformationTree.cs" />
+    <Compile Include="Domain\CombinedTransformationTreeItem.cs" />
+    <Compile Include="Domain\Comparator.cs" />
+    <Compile Include="Domain\ConditionItem.cs" />
+    <Compile Include="Domain\Bracket.cs" />
+    <Compile Include="Domain\PostingFilter.cs" />
+    <Compile Include="Domain\ReconciliationData.cs" />
+    <Compile Include="Domain\ReconciliationTemplate.cs" />
+    <Compile Include="Domain\SimpleArchive.cs" />
+    <Compile Include="Domain\StructuredReportRunData.cs" />
+    <Compile Include="Domain\SubjectType.cs" />
+    <Compile Include="Domain\DateOperator.cs" />
+    <Compile Include="Domain\ExcelFileExtension.cs" />
+    <Compile Include="Domain\Granularity.cs" />
+    <Compile Include="Domain\Instruction.cs" />
+    <Compile Include="Domain\MultiTableLoadData.cs" />
+    <Compile Include="Domain\Operation.cs" />
+    <Compile Include="Domain\Operator.cs" />
+    <Compile Include="Domain\Period.cs" />
+    <Compile Include="Domain\PeriodItem.cs" />
+    <Compile Include="Domain\PeriodName.cs" />
+    <Compile Include="Domain\Presentation.cs" />
+    <Compile Include="Domain\PresentationSlideItem.cs" />
+    <Compile Include="Domain\PresentationSlide.cs" />
+    <Compile Include="Domain\StatementActionItem.cs" />
+    <Compile Include="Domain\TransformationTable.cs" />
+    <Compile Include="Domain\TransformationTreeLoopValue.cs" />
+    <Compile Include="Domain\SaveInfo.cs" />
+    <Compile Include="Domain\TableActionData.cs" />
+    <Compile Include="Domain\TableSaveIssue.cs" />
+    <Compile Include="Domain\TransformationTree.cs" />
+    <Compile Include="Service\AutomaticTargetService.cs" />
+    <Compile Include="Service\CombineTransformationTreeService.cs" />
+    <Compile Include="Service\PeriodNameService.cs" />
+    <Compile Include="Domain\TransformationTreeItem.cs" />
+    <Compile Include="Domain\TransformationTreeRunInfo.cs" />
+    <Compile Include="Domain\TreeActionCondition.cs" />
+    <Compile Include="Domain\TreeActionConditionItem.cs" />
+    <Compile Include="Service\CustomJsonConverter.cs" />
+    <Compile Include="Service\PostingService.cs" />
+    <Compile Include="Service\PresentationService.cs" />
+    <Compile Include="Service\ReconciliationService.cs" />
+    <Compile Include="Service\Socket.cs" />
+    <Compile Include="Application\ControllerFactory.cs" />
+    <Compile Include="Application\EditionMode.cs" />
+    <Compile Include="Application\FunctionalitiesCode.cs" />
+    <Compile Include="Application\FunctionalityType.cs" />
+    <Compile Include="Application\NavigationToken.cs" />
+    <Compile Include="Application\OperationState.cs" />
+    <Compile Include="Application\TargetType.cs" />
+    <Compile Include="Application\ViewType.cs" />
+    <Compile Include="Application\HistoryHandler.cs" />
+    <Compile Include="Application\ServiceFactory.cs" />
+    <Compile Include="Controller\BrowserController.cs" />
+    <Compile Include="Controller\Controllable.cs" />
+    <Compile Include="Controller\Controller.cs" />
+    <Compile Include="Controller\EditorItemController.cs" />
+    <Compile Include="Controller\ToolBarHandlerBuilder.cs" />
+    <Compile Include="Controller\EditorController.cs" />
+    <Compile Include="Controller\IToolBarHandler.cs" />
+    <Compile Include="Domain\AllocationRun.cs" />
+    <Compile Include="Domain\AllocationRunLogInfos.cs" />
+    <Compile Include="Domain\Attribute.cs" />
+    <Compile Include="Domain\AttributeValue.cs" />
+    <Compile Include="Domain\AuditInfo.cs" />
+    <Compile Include="Domain\AuditInfoItem.cs" />
+    <Compile Include="Domain\AutomaticSourcing.cs" />
+    <Compile Include="Domain\AutomaticSourcingColumn.cs" />
+    <Compile Include="Domain\AutomaticSourcingSheet.cs" />
+    <Compile Include="Domain\BcephalException.cs" />
+    <Compile Include="Domain\BGroup.cs" />
+    <Compile Include="Domain\Browser\AllocationRunBrowserData.cs" />
+    <Compile Include="Domain\Browser\BrowserData.cs" />
+    <Compile Include="Domain\Browser\CellAllocationRunInfoBrowserData.cs" />
+    <Compile Include="Domain\Browser\CellPropertyBrowserData.cs" />
+    <Compile Include="Domain\Browser\InputTableBrowserData.cs" />
+    <Compile Include="Domain\CalculatedMeasure.cs" />
+    <Compile Include="Domain\CalculatedMeasureItem.cs" />
+    <Compile Include="Domain\CellAllocationRunInfo.cs" />
+    <Compile Include="Domain\CellMeasure.cs" />
+    <Compile Include="Domain\CellProperty.cs" />
+    <Compile Include="Domain\CellPropertyAllocationData.cs" />
+    <Compile Include="Domain\ColumnTargetItem.cs" />
+    <Compile Include="Domain\DashboardData.cs" />
+    <Compile Include="Domain\DateFormat.cs" />
+    <Compile Include="Domain\Design.cs" />
+    <Compile Include="Domain\DesignDimension.cs" />
+    <Compile Include="Domain\DesignDimensionLine.cs" />
+    <Compile Include="Domain\Entity.cs" />
+    <Compile Include="Domain\File.cs" />
+    <Compile Include="Domain\GroupProperty.cs" />
+    <Compile Include="Domain\IHierarchyObject.cs" />
+    <Compile Include="Domain\InputTable.cs" />
+    <Compile Include="Domain\AllocationRunInfo.cs" />
+    <Compile Include="Domain\LineItem.cs" />
+    <Compile Include="Domain\Measure.cs" />
+    <Compile Include="Domain\MetricMeasureAllocation.cs" />
+    <Compile Include="Domain\MetricMeasureAllocationItem.cs" />
+    <Compile Include="Domain\Model.cs" />
+    <Compile Include="Application\ParameterType.cs" />
+    <Compile Include="Domain\Browser\NewValuesBrowserData.cs" />
+    <Compile Include="Domain\Parameter.cs" />
+    <Compile Include="Domain\PeriodInterval.cs" />
+    <Compile Include="Domain\Periodicity.cs" />
+    <Compile Include="Domain\Persistent.cs" />
+    <Compile Include="Domain\PersistentListChangeHandler.cs" />
+    <Compile Include="Domain\RangeProperty.cs" />
+    <Compile Include="Domain\Report.cs" />
+    <Compile Include="Domain\ResetCell.cs" />
+    <Compile Include="Domain\StructuredReport.cs" />
+    <Compile Include="Domain\StructuredReportColumn.cs" />
+    <Compile Include="Domain\StructuredReportColumnItem.cs" />
+    <Compile Include="Domain\Target.cs" />
+    <Compile Include="Domain\TargetItem.cs" />
+    <Compile Include="Plugin\AbstractPlugin.cs" />
+    <Compile Include="Plugin\IPlugin.cs" />
+    <Compile Include="Plugin\IPluginHost.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Service\AllocationLogService.cs" />
+    <Compile Include="Service\AuditService.cs" />
+    <Compile Include="Service\AutomaticSourcingService.cs" />
+    <Compile Include="Service\CalculatedMeasureService.cs" />
+    <Compile Include="Service\DashBoardService.cs" />
+    <Compile Include="Service\DesignService.cs" />
+    <Compile Include="Service\FileDirs.cs" />
+    <Compile Include="Service\GroupService.cs" />
+    <Compile Include="Service\InitiationService.cs" />
+    <Compile Include="Service\IService.cs" />
+    <Compile Include="Service\FileService.cs" />
+    <Compile Include="Service\JsonSerializer.cs" />
+    <Compile Include="Service\MeasureService.cs" />
+    <Compile Include="Service\MispJsonSerializerStrategy.cs" />
+    <Compile Include="Service\ModelService.cs" />
+    <Compile Include="Service\PeriodicityService.cs" />
+    <Compile Include="Service\ResourcePath.cs" />
+    <Compile Include="Service\Service.cs" />
+    <Compile Include="Service\ServiceExecption.cs" />
+    <Compile Include="Service\TargetService.cs" />
+    <Compile Include="Service\TransformationTreeService.cs" />
+    <Compile Include="Service\UploadMultipleFilesService.cs" />
+    <Compile Include="Task\BusyAction.cs" />
+    <Compile Include="Task\MaskDialog.xaml.cs">
+      <DependentUpon>MaskDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task\Worker.cs" />
+    <Compile Include="Ui\Attribute\AttributeTreeView.xaml.cs">
+      <DependentUpon>AttributeTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Attribute\AttributeValueTreeView.xaml.cs">
+      <DependentUpon>AttributeValueTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\PaginationPanel.xaml.cs">
+      <DependentUpon>PaginationPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Dashboard\DashboardActions.cs" />
+    <Compile Include="Ui\Dashboard\DashboardBlock.xaml.cs">
+      <DependentUpon>DashboardBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\GroupCatagoryGroup.cs" />
+    <Compile Include="Ui\Base\PeridGranularityGroup.cs" />
+    <Compile Include="Ui\Base\PeriodNameGroup.cs" />
+    <Compile Include="Ui\Base\RunAllocationLogDialog.xaml.cs">
+      <DependentUpon>RunAllocationLogDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\BrowserGrid.xaml.cs">
+      <DependentUpon>BrowserGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\BrowserGridContextMenu.cs" />
+    <Compile Include="Ui\Base\BrowserSideBar.cs" />
+    <Compile Include="Ui\Base\CalculatedMeasureGroup.cs" />
+    <Compile Include="Ui\Base\CellPropertyGrid.cs" />
+    <Compile Include="Ui\Base\ChangeEventHandlerBuilder.cs" />
+    <Compile Include="Ui\Base\DashBoard.xaml.cs">
+      <DependentUpon>DashBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\DialogAllocationRun.xaml.cs">
+      <DependentUpon>DialogAllocationRun.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\Dimension\DimensionElement.xaml.cs">
+      <DependentUpon>DimensionElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\Dimension\DimensionItemTextBlock.xaml.cs">
+      <DependentUpon>DimensionItemTextBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\Dimension\DimensionPanel.xaml.cs">
+      <DependentUpon>DimensionPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\EditorContextMenu.cs" />
+    <Compile Include="Ui\Base\EditorItemHeaderTemplate.cs" />
+    <Compile Include="Ui\Base\EventHandlers.cs" />
+    <Compile Include="Ui\Base\FileClosedView.xaml.cs">
+      <DependentUpon>FileClosedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\FileOpenedView.xaml.cs">
+      <DependentUpon>FileOpenedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\GroupGroup.cs" />
+    <Compile Include="Ui\Base\HiperlinkPanel.xaml.cs">
+      <DependentUpon>HiperlinkPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\IChangeable.cs" />
+    <Compile Include="Ui\Base\IEditor.cs" />
+    <Compile Include="Ui\Base\NamePanel.xaml.cs">
+      <DependentUpon>NamePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\NavigationBar.xaml.cs">
+      <DependentUpon>NavigationBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\PeriodicityGroup.cs" />
+    <Compile Include="Ui\Base\RunAuditDialogBox.xaml.cs">
+      <DependentUpon>RunAuditDialogBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\SpinnerControl.cs" />
+    <Compile Include="Ui\Base\TargetGroup.cs" />
+    <Compile Include="Ui\Base\TreeLoopGroup.cs" />
+    <Compile Include="Ui\Dashboard\DashboardConfigurationForm.xaml.cs">
+      <DependentUpon>DashboardConfigurationForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Dashboard\DashboardView.xaml.cs">
+      <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Dashboard\DashboradBlockItem.xaml.cs">
+      <DependentUpon>DashboradBlockItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Dashboard\MultiSelectorCombobox.xaml.cs">
+      <DependentUpon>MultiSelectorCombobox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\File\HomePageController.cs" />
+    <Compile Include="Ui\General\PropertiesDialog.xaml.cs">
+      <DependentUpon>PropertiesDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Group\GroupBrowser.cs" />
+    <Compile Include="Ui\Group\GroupField.xaml.cs">
+      <DependentUpon>GroupField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Group\GroupBrowserController.cs" />
+    <Compile Include="Ui\Group\GroupPanel.xaml.cs">
+      <DependentUpon>GroupPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\IEditableView.cs" />
+    <Compile Include="Ui\Base\MeasureGroup.cs" />
+    <Compile Include="Ui\Base\Menu\ApplicationMenu.cs" />
+    <Compile Include="Ui\Base\BrowserToolBar.cs" />
+    <Compile Include="Ui\Base\BrowserToolBarHandlerBuilder.cs" />
+    <Compile Include="Ui\Base\PropertyBar.cs" />
+    <Compile Include="Ui\Base\SideBarGroup.xaml.cs">
+      <DependentUpon>SideBarGroup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\StatusItem.xaml.cs">
+      <DependentUpon>StatusItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\ToolBar.cs" />
+    <Compile Include="Ui\File\FileController.cs" />
+    <Compile Include="Ui\Base\Menu\FileMenu.cs" />
+    <Compile Include="Ui\File\FileToolBarHandlerBuilder.cs" />
+    <Compile Include="Ui\Base\Menu\HelpMenu.cs" />
+    <Compile Include="Ui\Base\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\Browser.cs" />
+    <Compile Include="Ui\Base\CheckBoxTree.cs" />
+    <Compile Include="Ui\Base\Editor.cs" />
+    <Compile Include="Ui\Base\EditorItem.cs" />
+    <Compile Include="Ui\Base\MenuBar.cs" />
+    <Compile Include="Ui\Base\Menu\SettingsMenu.cs" />
+    <Compile Include="Ui\Base\SideBar.cs" />
+    <Compile Include="Ui\Base\SideBarExpander.cs" />
+    <Compile Include="Ui\Base\TestBrowser.cs" />
+    <Compile Include="Ui\Base\ToolBarContainer.cs" />
+    <Compile Include="Ui\Base\IView.cs" />
+    <Compile Include="Ui\File\FileToolBar.cs" />
+    <Compile Include="Ui\General\AboutDialog.xaml.cs">
+      <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Group\GroupTreeView.xaml.cs">
+      <DependentUpon>GroupTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Measure\MeasureTreeView.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MeasureTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Numeric\TextBoxMaskBehavior.cs" />
+    <Compile Include="Ui\Office\Cell.cs" />
+    <Compile Include="Ui\Office\CellAction.cs" />
+    <Compile Include="Ui\Office\EDraw\EdrawSlide.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ui\Office\EDraw\EdrawSlide.Designer.cs">
+      <DependentUpon>EdrawSlide.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Office\EDraw\EdrawSpreadsheetPanel.cs" />
+    <Compile Include="Ui\Office\EDraw\SheetPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ui\Office\ExcelEventArg.cs" />
+    <Compile Include="Ui\Office\ExcelLoader.cs" />
+    <Compile Include="Ui\Office\IPresentation.cs" />
+    <Compile Include="Ui\Office\ISpreadsheet.cs" />
+    <Compile Include="Ui\Office\PowerpointLoader.cs" />
+    <Compile Include="Ui\Office\PowerpointLoadInfo.cs" />
+    <Compile Include="Ui\Office\PowerpointLoadInfoActions.cs" />
+    <Compile Include="Ui\Office\Range.cs" />
+    <Compile Include="Ui\Office\RangeItem.cs" />
+    <Compile Include="Ui\Office\Sheet.cs" />
+    <Compile Include="Ui\Office\SpreadsheetEventHandler.cs" />
+    <Compile Include="Ui\Office\EDraw\EdrawOffice.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ui\Office\EDraw\EdrawOffice.Designer.cs">
+      <DependentUpon>EdrawOffice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\ListView\PeriodListBox.xaml.cs">
+      <DependentUpon>PeriodListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\PeriodicityTree\PeriodIntervalTreeView.xaml.cs">
+      <DependentUpon>PeriodIntervalTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Popup\EntityPopup.xaml.cs">
+      <DependentUpon>EntityPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\AutomaticSourcingTreeview.xaml.cs">
+      <DependentUpon>AutomaticSourcingTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\CalculatedMeasureTreeview.xaml.cs">
+      <DependentUpon>CalculatedMeasureTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\CombinedTransformationTreeTreeview.xaml.cs">
+      <DependentUpon>CombinedTransformationTreeTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\CustomizedTargetTreeview.xaml.cs">
+      <DependentUpon>CustomizedTargetTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\DesignerTreeview.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>DesignerTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\EditableBlock.cs" />
+    <Compile Include="Ui\TreeView\EditableTextBlock.cs" />
+    <Compile Include="Ui\TreeView\EditableTextBlockAdorner.cs" />
+    <Compile Include="Ui\TreeView\EditableTree.cs" />
+    <Compile Include="Ui\TreeView\EntityTreeview.xaml.cs">
+      <DependentUpon>EntityTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\EntityGroup.cs" />
+    <Compile Include="Ui\TreeView\GroupTreeview.xaml.cs">
+      <DependentUpon>GroupTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\InputTableTreeview.xaml.cs">
+      <DependentUpon>InputTableTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\MeasureTreeview.xaml.cs">
+      <DependentUpon>MeasureTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\OperationTreeview.xaml.cs">
+      <DependentUpon>OperationTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\PeriodicityTreeview.xaml.cs">
+      <DependentUpon>PeriodicityTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\PeriodNameTreeview.xaml.cs">
+      <DependentUpon>PeriodNameTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\PresentationTreeView.xaml.cs">
+      <DependentUpon>PresentationTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\ReconciliationTreeview.xaml.cs">
+      <DependentUpon>ReconciliationTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\StructuredReportTreeview.xaml.cs">
+      <DependentUpon>StructuredReportTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\TargetTreeview.xaml.cs">
+      <DependentUpon>TargetTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\TransformationTreeLoopTreeview.xaml.cs">
+      <DependentUpon>TransformationTreeLoopTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TreeView\TransformationTreeTreeview.xaml.cs">
+      <DependentUpon>TransformationTreeTreeview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\AnimatedGIFControl.cs" />
+    <Compile Include="Util\ClipbordUtil.cs" />
+    <Compile Include="Util\DataFormater.cs" />
+    <Compile Include="Util\Dialog.xaml.cs">
+      <DependentUpon>Dialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\ExcelExtension.cs" />
+    <Compile Include="Util\ExcelUtil.cs" />
+    <Compile Include="Util\FileUtil.cs" />
+    <Compile Include="Util\PasteBcephalDialog.xaml.cs">
+      <DependentUpon>PasteBcephalDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\PeriodNameUtil.cs" />
+    <Compile Include="Util\PowerPointExtension.cs" />
+    <Compile Include="Util\PowerPointUtil.cs" />
+    <Compile Include="Util\RangeUtil.cs" />
+    <Compile Include="Util\TagFormulaUtil.cs" />
+    <Compile Include="Util\UserPreferencesUtil.cs" />
+    <Compile Include="Util\ListUtil.cs" />
+    <Compile Include="Util\MessageDisplayer.cs" />
+    <Compile Include="Util\WindowPositioner.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ui\Office\EDraw\EdrawSlide.resx">
+      <DependentUpon>EdrawSlide.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ui\Office\EDraw\EdrawOffice.resx">
+      <DependentUpon>EdrawOffice.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Application\Application.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\ButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\EditableTreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\MispStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\Spinner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\TabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task\MaskDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Attribute\AttributeTreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\Attribute\AttributeValueTreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\Base\PaginationPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Dashboard\DashboardBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\RunAllocationLogDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\BrowserGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\DashBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\DialogAllocationRun.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\Dimension\DimensionElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\Dimension\DimensionItemTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\Dimension\DimensionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\FileClosedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\FileOpenedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\HiperlinkPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\NamePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\NavigationBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\RunAuditDialogBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\Dashboard\DashboardConfigurationForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Dashboard\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Dashboard\DashboradBlockItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Dashboard\MultiSelectorCombobox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\General\PropertiesDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Group\GroupField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Group\GroupPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\Base\SideBarGroup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\StatusItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\General\AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Group\GroupTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Measure\MeasureTreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\ListView\PeriodListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\PeriodicityTree\PeriodIntervalTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Popup\EntityPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\AutomaticSourcingTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\CalculatedMeasureTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\CombinedTransformationTreeTreeview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\TreeView\CustomizedTargetTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\DesignerTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\EntityTreeview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\TreeView\GroupTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\InputTableTreeview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\TreeView\MeasureTreeview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\TreeView\OperationTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\PeriodicityTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\PeriodNameTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\PresentationTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\ReconciliationTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\StructuredReportTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\TargetTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\TransformationTreeLoopTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\TransformationTreeTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\Dialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Util\PasteBcephalDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Logo\bcephal.ico" />
+    <Resource Include="Resources\Images\Logo\bcephal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\entity.png" />
+    <Resource Include="Resources\Images\Icons\add-link-white.png" />
+    <Resource Include="Resources\Images\Icons\attribut-white.png" />
+    <Resource Include="Resources\Images\Icons\blank-file-white.png" />
+    <Resource Include="Resources\Images\Icons\circle-outline-white.png" />
+    <Resource Include="Resources\Images\Icons\circle-white.png" />
+    <Resource Include="Resources\Images\Icons\delete-white.png" />
+    <Resource Include="Resources\Images\Icons\folder-white.png" />
+    <Resource Include="Resources\Images\Icons\indent-down-white.png" />
+    <Resource Include="Resources\Images\Icons\indent-left-white.png" />
+    <Resource Include="Resources\Images\Icons\indent-right-white.png" />
+    <Resource Include="Resources\Images\Icons\indent-up-white.png" />
+    <Resource Include="Resources\Images\Icons\object-white.png" />
+    <Resource Include="Resources\Images\Icons\quit-outline-white.png" />
+    <Resource Include="Resources\Images\Icons\quit-white.png" />
+    <Resource Include="Resources\Images\Icons\rectangle-white.png" />
+    <Resource Include="Resources\Images\Icons\rename-white.png" />
+    <Resource Include="Resources\Images\Icons\save-as-white.png" />
+    <Resource Include="Resources\Images\Icons\save-white.png" />
+    <Resource Include="Resources\Images\Icons\value-chain-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bcephal.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\misp-diagram\misp-diagram.csproj">
+      <Project>{b437df5f-20e0-4082-a92e-5c1d9c31a8e9}</Project>
+      <Name>misp-dotnet-diagram</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\Copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\Cut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\New.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\Paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\Edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\Indent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\Outdent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\Movedown.png" />
+    <Resource Include="Resources\Images\Icons\Moveup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\Ident.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\Open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\DeleteButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\Check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loadera64.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\loader.gif" />
+    <Resource Include="Resources\Images\Icons\firstPage.png" />
+    <Resource Include="Resources\Images\Icons\lastPage.png" />
+    <Resource Include="Resources\Images\Icons\next.png" />
+    <Resource Include="Resources\Images\Icons\previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\model.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\attribut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\value.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\About.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\sort_decrease.png" />
+    <Resource Include="Resources\Images\Icons\sort_incr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.PowerPoint">
+      <Guid>{91493440-5A91-11CF-8700-00AA0060263B}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\StopButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\NoCommentButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\CommentButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\loupe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\cancel-circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\playRecoButton.png" />
+    <Resource Include="Resources\Images\Icons\playRed.png" />
+    <Resource Include="Resources\Images\Icons\rIssue.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
