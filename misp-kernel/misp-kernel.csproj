@@ -121,6 +121,7 @@
     <Compile Include="Application\ApplicationManagerBuilder.cs" />
     <Compile Include="Application\ApplicationMenusBuilder.cs" />
     <Compile Include="Domain\Account.cs" />
+    <Compile Include="Domain\Action.cs" />
     <Compile Include="Domain\AllocationRunBrowserDataPage.cs" />
     <Compile Include="Domain\ApplcationConfiguration.cs" />
     <Compile Include="Domain\Browser\PostingBrowserData.cs" />
@@ -139,8 +140,12 @@
     <Compile Include="Domain\ConditionItem.cs" />
     <Compile Include="Domain\Bracket.cs" />
     <Compile Include="Domain\PostingFilter.cs" />
+    <Compile Include="Domain\Profil.cs" />
     <Compile Include="Domain\ReconciliationData.cs" />
     <Compile Include="Domain\ReconciliationTemplate.cs" />
+    <Compile Include="Domain\Relation.cs" />
+    <Compile Include="Domain\Rights.cs" />
+    <Compile Include="Domain\Role.cs" />
     <Compile Include="Domain\SimpleArchive.cs" />
     <Compile Include="Domain\StructuredReportRunData.cs" />
     <Compile Include="Domain\SubjectType.cs" />
@@ -164,6 +169,7 @@
     <Compile Include="Domain\TableActionData.cs" />
     <Compile Include="Domain\TableSaveIssue.cs" />
     <Compile Include="Domain\TransformationTree.cs" />
+    <Compile Include="Domain\User.cs" />
     <Compile Include="Service\AutomaticTargetService.cs" />
     <Compile Include="Service\CombineTransformationTreeService.cs" />
     <Compile Include="Service\PeriodNameService.cs" />
@@ -175,6 +181,7 @@
     <Compile Include="Service\PostingService.cs" />
     <Compile Include="Service\PresentationService.cs" />
     <Compile Include="Service\ReconciliationService.cs" />
+    <Compile Include="Service\SecurityService.cs" />
     <Compile Include="Service\Socket.cs" />
     <Compile Include="Application\ControllerFactory.cs" />
     <Compile Include="Application\EditionMode.cs" />
