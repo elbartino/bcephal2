@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Misp.Kernel.Ui.Administration
 {
     /// <summary>
-    /// Interaction logic for ProfileMainPanel.xaml
+    /// Interaction logic for FunctionnalityGrid.xaml
     /// </summary>
-    public partial class ProfileMainPanel : Grid
+    public partial class FunctionnalityGrid : DataGrid
     {
-        public ProfileMainPanel()
+        public FunctionnalityGrid()
         {
             InitializeComponent();
         }

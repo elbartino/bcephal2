@@ -297,6 +297,9 @@
       <DependentUpon>MaskDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Task\Worker.cs" />
+    <Compile Include="Ui\Administration\FunctionnalityGrid.xaml.cs">
+      <DependentUpon>FunctionnalityGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\Administration\ProfileMainPanel.xaml.cs">
       <DependentUpon>ProfileMainPanel.xaml</DependentUpon>
     </Compile>
@@ -606,6 +609,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Task\MaskDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Administration\FunctionnalityGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
