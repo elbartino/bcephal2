@@ -12,11 +12,12 @@ namespace Misp.Kernel.Domain
     	public User user { get; set;}
 	
 	    public String functionnality { get; set;}
-	
-	    public Action action { get; set;}
-        
-	    public String ToString() {
+
+        public UserAction action { get; set; }
+
+        public override string ToString()
+        {
 		    return functionnality + " - " + action;
-	    }
+        }
     }
 }

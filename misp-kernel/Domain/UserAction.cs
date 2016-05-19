@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Domain
 {
-    public enum Action 
+    public enum UserAction 
     {
         VIEW,
 	    EDIT
