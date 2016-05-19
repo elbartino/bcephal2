@@ -9,6 +9,7 @@ namespace Misp.Kernel.Domain
     public enum UserAction 
     {
         VIEW,
-	    EDIT
+	    EDIT,
+        NULL
     }
 }
