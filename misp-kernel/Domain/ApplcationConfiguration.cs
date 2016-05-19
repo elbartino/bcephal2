@@ -15,6 +15,8 @@ namespace Misp.Kernel.Domain
         public String editon { get; set; }
         public String domain { get; set; }
 
+        public String projectsDir { get; set; }
+
         public ApplcationConfiguration() { }
 
         public ApplcationConfiguration(String editon, String domain)

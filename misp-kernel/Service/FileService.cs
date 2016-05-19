@@ -27,6 +27,40 @@ namespace Misp.Kernel.Service
         public DashBoardService DashBoardService { get; set; }
 
         /// <summary>
+        /// Is server alive?
+        /// </summary>
+        /// <returns></returns>
+        public bool IsServerAlive()
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/alive", Method.GET);
+                RestClient.Authenticator = new HttpBasicAuthenticator("joseph", "secret");  //new SimpleAuthenticator("username", "joseph", "password", "secret");
+                var queryResult = RestClient.ExecuteTaskAsync(request);
+                if (String.IsNullOrEmpty(queryResult.Result.Content)) return true;
+                bool value = RestSharp.SimpleJson.DeserializeObject<bool>(queryResult.Result.Content);
+                return value;
+            }
+            catch (Exception) { return false; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ApplcationConfiguration GetApplcationConfiguration()
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/application-config", Method.GET);
+                var queryResult = RestClient.Execute(request);
+                ApplcationConfiguration config = RestSharp.SimpleJson.DeserializeObject<ApplcationConfiguration>(queryResult.Content);
+                return config;
+            }
+            catch (Exception) { return null; }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="fileParams"></param>
@@ -190,39 +224,7 @@ namespace Misp.Kernel.Service
             catch (Exception){ }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool IsServerAlive()
-        {
-            try
-            {
-                var request = new RestRequest(ResourcePath + "/alive", Method.GET);
-                RestClient.Authenticator = new HttpBasicAuthenticator("joseph", "secret");  //new SimpleAuthenticator("username", "joseph", "password", "secret");
-                var queryResult = RestClient.ExecuteTaskAsync(request);
-                if (String.IsNullOrEmpty(queryResult.Result.Content)) return true;
-                bool value = RestSharp.SimpleJson.DeserializeObject<bool>(queryResult.Result.Content);
-                return value;
-            }
-            catch (Exception) { return false; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public ApplcationConfiguration GetApplcationConfiguration()
-        {
-            try
-            {
-                var request = new RestRequest(ResourcePath + "/application-config", Method.GET);
-                var queryResult = RestClient.Execute(request);
-                ApplcationConfiguration config = RestSharp.SimpleJson.DeserializeObject<ApplcationConfiguration>(queryResult.Content);
-                return config;
-            }
-            catch (Exception) { return null; }
-        }
+        
 
         protected void checkError(IRestResponse response)
         {
