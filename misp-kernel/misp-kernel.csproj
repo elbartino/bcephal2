@@ -297,6 +297,12 @@
       <DependentUpon>MaskDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Task\Worker.cs" />
+    <Compile Include="Ui\Administration\ProfileMainPanel.xaml.cs">
+      <DependentUpon>ProfileMainPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Administration\UserMainPanel.xaml.cs">
+      <DependentUpon>UserMainPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\Attribute\AttributeTreeView.xaml.cs">
       <DependentUpon>AttributeTreeView.xaml</DependentUpon>
     </Compile>
@@ -600,6 +606,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Task\MaskDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Administration\ProfileMainPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Administration\UserMainPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1001,6 +1015,7 @@
     <Resource Include="Resources\Images\Icons\playRed.png" />
     <Resource Include="Resources\Images\Icons\rIssue.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
