@@ -49,7 +49,8 @@ namespace Misp.Kernel.Service
         public TargetService TargetService { get; set; }
         #endregion
 
-      
+        #region Profil
+
         public UserAction getUserAction(int oid, String functionnality)
         {
             try
@@ -98,9 +99,13 @@ namespace Misp.Kernel.Service
             }
         }
 
-
-
-
+        #endregion
         
+        #region User
+        #endregion
+
+        #region Rights
+        #endregion
+
     }
 }
