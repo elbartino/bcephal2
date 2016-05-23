@@ -10,11 +10,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Misp.Kernel.Administration.User
+namespace Misp.Kernel.Administration.Profil
 {
-    public class UserBrowserController : BrowserController<Misp.Kernel.Domain.User, BrowserData>
+    public class ProfilBrowserController : BrowserController<Misp.Kernel.Domain.Profil, BrowserData>
     {
-        public UserBrowserController() 
+        public ProfilBrowserController() 
         {
             ModuleName = "Administration";
         }
@@ -24,7 +24,7 @@ namespace Misp.Kernel.Administration.User
         /// </summary>
         public override string GetEditorFuntionality() 
         { 
-            return AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_USER; 
+            return AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_PROFIL; 
         }
         
         /// <summary>
@@ -33,7 +33,7 @@ namespace Misp.Kernel.Administration.User
         /// <returns>Une nouvelle instance de la vue</returns>
         protected override IView getNewView() 
         {
-            return new UserBrowser(); 
+            return new ProfilBrowser(); 
         }
         
         /// <summary>
@@ -43,7 +43,7 @@ namespace Misp.Kernel.Administration.User
 
         public override Misp.Kernel.Domain.SubjectType SubjectTypeFound()
         {
-            return Misp.Kernel.Domain.SubjectType.USER;
+            return Misp.Kernel.Domain.SubjectType.PROFIL;
         }
 
         public override Kernel.Application.OperationState Search(object oid)
@@ -51,9 +51,9 @@ namespace Misp.Kernel.Administration.User
             return Kernel.Application.OperationState.CONTINUE;
         }
 
-        public SecurityService getSecurityService()
+        public ProfilService getSecurityService()
         {
-            return (SecurityService)Service;
+            return (ProfilService)Service;
         }
 
         /// <summary>

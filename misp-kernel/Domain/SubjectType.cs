@@ -43,6 +43,8 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType USER = new SubjectType("User");
 
+        public static SubjectType PROFIL = new SubjectType("Profil");
+
         public static SubjectType GROUP = new SubjectType("Group");
 
         public String label { get; set; }
@@ -77,6 +79,7 @@ namespace Misp.Kernel.Domain
             if (AUTOMATIC_TARGET.label.Equals(label)) return AUTOMATIC_TARGET;
             if (GROUP.label.Equals(label)) return GROUP;
             if (USER.label.Equals(label)) return USER;
+            if (PROFIL.label.Equals(label)) return PROFIL;
             if (ALL.label.Equals(label)) return ALL;
             return null;
         }
@@ -102,6 +105,7 @@ namespace Misp.Kernel.Domain
             types.Add(TRANSFORMATION_TREE);
             types.Add(RECONCILIATION);
             types.Add(USER);
+            types.Add(PROFIL);
             return types;
         }
         

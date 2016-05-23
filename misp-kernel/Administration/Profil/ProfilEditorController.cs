@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Misp.Kernel.Administration.User
+namespace Misp.Kernel.Administration.Profil
 {
-    public class UserEditorController : EditorController<Domain.User, Misp.Kernel.Domain.Browser.BrowserData>
+    public class ProfilEditorController : EditorController<Domain.Profil, Misp.Kernel.Domain.Browser.BrowserData>
     {
         #region Properties
         public override void DeleteCommandEnabled(object sender, CanExecuteRoutedEventArgs e) { e.CanExecute = false; }
@@ -22,7 +22,7 @@ namespace Misp.Kernel.Administration.User
 
         #endregion
 
-        public UserEditorController()
+        public ProfilEditorController()
         {
             //ModuleName = PlugIn.MODULE_NAME;
         }
@@ -34,18 +34,18 @@ namespace Misp.Kernel.Administration.User
         /// 
         /// </summary>
         /// <returns>L'Editor géré par ce controller</returns>
-        public UserEditor getUserEditor()
+        public ProfilEditor getProfilEditor()
         {
-            return (UserEditor)this.View;
+            return (ProfilEditor)this.View;
         }
 
         /// <summary>
         /// Service pour acceder aux opérations liés aux reconciliation.
         /// </summary>
         /// <returns>UserService</returns>
-        public SecurityService GetSecurityService()
+        public ProfilService GetProfilService()
         {
-            return (SecurityService)base.Service;
+            return (ProfilService)base.Service;
         }
 
         #endregion
@@ -58,14 +58,14 @@ namespace Misp.Kernel.Administration.User
         /// <returns>CONTINUE si la création de la nouvelle reconciliation se termine avec succès. STOP sinon</returns>
         public override OperationState Create()
         {
-            Domain.User user = GetNewUser();
+            Domain.Profil profil = GetNewProfil();
 
-            ((UserSideBar)SideBar).UserGroup.UserTreeview.AddUser(user);
-            UserEditorItem page = (UserEditorItem)getUserEditor().addOrSelectPage(user);
+            ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.AddProfil(profil);
+            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().addOrSelectPage(profil);
             initializePageHandlers(page);
-            page.Title = user.name;
+            page.Title = profil.name;
 
-            getUserEditor().ListChangeHandler.AddNew(user);
+            getProfilEditor().ListChangeHandler.AddNew(profil);
             //page.getReconciliationForm().reconciliationMainPanel.leftFilterGrid.filterForm.reset();
             //page.getReconciliationForm().reconciliationMainPanel.rigthFilterGrid.filterForm.reset();
             return OperationState.CONTINUE;
@@ -73,7 +73,7 @@ namespace Misp.Kernel.Administration.User
 
         public override Misp.Kernel.Domain.SubjectType SubjectTypeFound()
         {
-            return Misp.Kernel.Domain.SubjectType.RECONCILIATION;
+            return Misp.Kernel.Domain.SubjectType.PROFIL;
         }
 
         /// <summary>
@@ -81,25 +81,25 @@ namespace Misp.Kernel.Administration.User
         /// </summary>
         /// <param name="oid"></param>
         /// <returns></returns>
-        public override OperationState Open(Domain.User user)
+        public override OperationState Open(Domain.Profil profil)
         {
-            UserEditorItem page = (UserEditorItem)getEditor().addOrSelectPage(user);
+            ProfilEditorItem page = (ProfilEditorItem)getEditor().addOrSelectPage(profil);
             initializePageHandlers(page);
-            page.getUserForm().displayObject();
-            getEditor().ListChangeHandler.AddNew(user);
+            page.getProfilForm().displayObject();
+            getEditor().ListChangeHandler.AddNew(profil);
             return OperationState.CONTINUE;
         }
 
         /**
-         * the new reconciliation
+         * the new profil
          */
-        protected virtual Domain.User GetNewUser()
+        protected virtual Domain.Profil GetNewProfil()
         {
-            Domain.User user = new Domain.User();
-            user.name = getNewPageName("User");
-            //reco.visibleInShortcut = true;
-            user.group = GetSecurityService().GroupService.getDefaultGroup();
-            return user;
+            Domain.Profil profil = new Domain.Profil();
+            profil.name = getNewPageName("Profil");
+            profil.visibleInShortcut = true;
+            profil.group = GetProfilService().GroupService.getDefaultGroup();
+            return profil;
         }
 
         /**
@@ -113,7 +113,7 @@ namespace Misp.Kernel.Administration.User
             while (!valid)
             {
                 name = prefix + i;
-                Domain.User target = GetObjectByName(name);
+                Domain.Profil target = GetObjectByName(name);
                 if (target == null) return name;
                 i++;
             }
@@ -127,13 +127,13 @@ namespace Misp.Kernel.Administration.User
         /// OperationState.CONTINUE si l'opération a réussi
         /// OperationState.STOP sinon
         /// </returns>
-        UserEditorItem currentPage = new UserEditorItem();
+        ProfilEditorItem currentPage = new ProfilEditorItem();
 
-        public override OperationState Save(EditorItem<Domain.User> page)
+        public override OperationState Save(EditorItem<Domain.Profil> page)
         {
             try
             {
-                currentPage = (UserEditorItem)page;
+                currentPage = (ProfilEditorItem)page;
                 if (base.Save(page) == OperationState.STOP) return OperationState.STOP;
             }
             catch (Exception)
@@ -150,7 +150,7 @@ namespace Misp.Kernel.Administration.User
             {
                 Domain.User reco = new Domain.User();
                 reco.name = name;
-                reco.group = GetSecurityService().GroupService.getDefaultGroup();
+                reco.group = GetProfilService().GroupService.getDefaultGroup();
                 return reco;
             }
             return null;
@@ -159,7 +159,7 @@ namespace Misp.Kernel.Administration.User
 
         private bool IsNameUsed(string name)
         {
-            Domain.User obj = GetObjectByName(name);
+            Domain.Profil obj = GetObjectByName(name);
             if (obj != null)
             {
                 DisplayError("Duplicate Name", "There is another reconciliation named: " + name);
@@ -172,13 +172,13 @@ namespace Misp.Kernel.Administration.User
         /// handler on page selected
         /// </summary>
         /// <param name="page"></param>
-        public override void OnPageSelected(EditorItem<Domain.User> page)
+        public override void OnPageSelected(EditorItem<Domain.Profil> page)
         {
             if (page == null)
             {
                 return;
             }
-            UserForm form = ((UserEditorItem)page).getUserForm();
+            ProfilForm form = ((ProfilEditorItem)page).getProfilForm();
             //if (form.ReconciliationPropertiePanel != null)
             //{
             //    ((ReconciliationPropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.ReconciliationPropertiePanel;
@@ -209,13 +209,13 @@ namespace Misp.Kernel.Administration.User
             }
 
             IsRenameOnDoubleClick = true;
-            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
             return ValidateEditedNewName(page.EditedObject.name);
         }
 
         protected override void Rename(string name)
         {
-            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
           //  page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Text = name;
             page.EditedObject.name = name;
             base.Rename(name);
@@ -232,13 +232,13 @@ namespace Misp.Kernel.Administration.User
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new UserEditor(); }
+        protected override IView getNewView() { return new ProfilEditor(); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la ToolBar</returns>
-        protected override Kernel.Ui.Base.ToolBar getNewToolBar() { return new UserToolBar(); }
+        protected override Kernel.Ui.Base.ToolBar getNewToolBar() { return new ProfilToolBar(); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de ToolBarHandlerBuilder liée à ce controller.
@@ -250,9 +250,9 @@ namespace Misp.Kernel.Administration.User
         /// Crée et retourne une nouvelle instance de la SideBar liée à ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la SideBar</returns>
-        protected override SideBar getNewSideBar() { return new UserSideBar(); }
+        protected override SideBar getNewSideBar() { return new ProfilSideBar(); }
 
-        protected override PropertyBar getNewPropertyBar() { return new UserPropertyBar(); }
+        protected override PropertyBar getNewPropertyBar() { return new ProfilPropertyBar(); }
 
         protected override void initializePropertyBarData() { }
 
@@ -275,11 +275,11 @@ namespace Misp.Kernel.Administration.User
         /// - SpreadSheet
         /// - 
         /// </summary>
-        protected override void initializePageHandlers(EditorItem<Domain.User> page)
+        protected override void initializePageHandlers(EditorItem<Domain.Profil> page)
         {
             
             base.initializePageHandlers(page);
-            UserEditorItem editorPage = (UserEditorItem)page;
+            ProfilEditorItem editorPage = (ProfilEditorItem)page;
 
         //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.groupField.GroupService = GetReconciliationService().GroupService;
         //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.groupField.subjectType = SubjectTypeFound();
@@ -301,18 +301,18 @@ namespace Misp.Kernel.Administration.User
         /// </summary>
         protected override void initializeSideBarData()
         {
-            List<Domain.User> recos = GetSecurityService().getAll();
-            ((UserSideBar)SideBar).UserGroup.UserTreeview.fillTree(new ObservableCollection<Domain.User>(recos));
+            List<Domain.Profil> profils = GetProfilService().getAll();
+            ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.fillTree(new ObservableCollection<Domain.Profil>(profils));
 
-            List<Model> models = GetSecurityService().ModelService.getModelsForSideBar();
-            ((UserSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
+            List<Model> models = GetProfilService().ModelService.getModelsForSideBar();
+            ((ProfilSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
 
             //rootPeriodName = GetReconciliationService().periodNameService.getRootPeriodName();
             //defaultPeriodName = rootPeriodName.getDefaultPeriodName();
             //((ReconciliationSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
 
 
-            BGroup group = GetSecurityService().GroupService.getDefaultGroup();
+            BGroup group = GetProfilService().GroupService.getDefaultGroup();
         }
 
         /// <summary>
@@ -320,11 +320,11 @@ namespace Misp.Kernel.Administration.User
         /// </summary>
         protected override void initializeSideBarHandlers()
         {
-            ((UserSideBar)SideBar).UserGroup.UserTreeview.SelectionChanged += onSelectReconciliationFromSidebar;
-            ((UserSideBar)SideBar).EntityGroup.EntityTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
-            ((UserSideBar)SideBar).EntityGroup.EntityTreeview.ExpandAttribute += OnExpandAttribute;
-            ((UserSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
-            ((UserSideBar)SideBar).StandardTargetGroup.TargetTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
+            ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.SelectionChanged += onSelectReconciliationFromSidebar;
+            ((ProfilSideBar)SideBar).EntityGroup.EntityTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
+            ((ProfilSideBar)SideBar).EntityGroup.EntityTreeview.ExpandAttribute += OnExpandAttribute;
+            ((ProfilSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
+            ((ProfilSideBar)SideBar).StandardTargetGroup.TargetTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
         }
 
         /// <summary>
@@ -341,30 +341,30 @@ namespace Misp.Kernel.Administration.User
         /// <param name="sender">La table sélectionnée</param>
         protected void onSelectReconciliationFromSidebar(object sender)
         {
-            if (sender != null && sender is Domain.User)
+            if (sender != null && sender is Domain.Profil)
             {
-                Domain.User user = (Domain.User)sender;
-                EditorItem<Domain.User> page = getUserEditor().getPage(user.name);
+                Domain.Profil profil = (Domain.Profil)sender;
+                EditorItem<Domain.Profil> page = getProfilEditor().getPage(profil.name);
                 if (page != null)
                 {
                     page.fillObject();
-                    getUserEditor().selectePage(page);
+                    getProfilEditor().selectePage(page);
 
                 }
-                else if (user.oid != null && user.oid.HasValue)
+                else if (profil.oid != null && profil.oid.HasValue)
                 {
 
-                    this.Open(user.oid.Value);
+                    this.Open(profil.oid.Value);
                 }
                 else
                 {
-                    page = getUserEditor().addOrSelectPage(user);
+                    page = getProfilEditor().addOrSelectPage(profil);
                     initializePageHandlers(page);
-                    page.Title = user.name;
+                    page.Title = profil.name;
 
-                    getUserEditor().ListChangeHandler.AddNew(user);
+                    getProfilEditor().ListChangeHandler.AddNew(profil);
                 }
-                UserEditorItem pageOpen = (UserEditorItem)getUserEditor().getActivePage();
+                ProfilEditorItem pageOpen = (ProfilEditorItem)getProfilEditor().getActivePage();
             }
         }
 
@@ -376,7 +376,7 @@ namespace Misp.Kernel.Administration.User
         /// <param name="sender">La target sélectionné</param>
         protected void onSelectStandardTargetFromSidebar(object sender)
         {
-            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
             if (page == null) return;
         //    page.getReconciliationForm().reconciliationMainPanel.activeFilterGrid.onSelectTargetFromSidebar(sender);
         }
@@ -392,7 +392,7 @@ namespace Misp.Kernel.Administration.User
                 Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
                 if (!attribute.LoadValues)
                 {
-                    List<Kernel.Domain.AttributeValue> values = GetSecurityService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
+                    List<Kernel.Domain.AttributeValue> values = GetProfilService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
                     attribute.valueListChangeHandler.Items.Clear();
                     foreach (Kernel.Domain.AttributeValue value in values)
                     {
@@ -409,7 +409,7 @@ namespace Misp.Kernel.Administration.User
         /// <param name="sender"></param>
         protected virtual void onSelectPeriodNameFromSidebar(object sender)
         {
-            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
             //PostingBrowserForm activeBrowserForm = page.getReconciliationForm().reconciliationMainPanel.activeFilterGrid;
             //activeBrowserForm.onSelectPeriodNameFromSidebar(sender);
         }
@@ -422,7 +422,7 @@ namespace Misp.Kernel.Administration.User
         /// <param name="args"></param>
         protected void onNameTextChange(object sender, KeyEventArgs args)
         {
-            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
             if (args.Key == Key.Escape)
             {
                // page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Text = page.Title;
@@ -463,12 +463,12 @@ namespace Misp.Kernel.Administration.User
 
         protected void onGroupFieldChange()
         {
-            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
             String name ="";
             //string name = page.getReconciliationForm().ReconciliationPropertiePanel.groupField.textBox.Text;
             //BGroup group = page.getReconciliationForm().ReconciliationPropertiePanel.groupField.Group;
-            ((UserSideBar)SideBar).UserGroup.UserTreeview.updateUser(name, page.Title, true);
-            Domain.User rTemp = page.EditedObject;
+            ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.updateProfile(name, page.Title, true);
+            Domain.Profil rTemp = page.EditedObject;
             //rTemp.group = group;
             page.EditedObject = rTemp;
             //page.getReconciliationForm().ReconciliationPropertiePanel.displayReconciliation(rTemp);            
@@ -478,7 +478,7 @@ namespace Misp.Kernel.Administration.User
 
         #endregion
 
-        public override bool validateName(EditorItem<Domain.User> page, string name)
+        public override bool validateName(EditorItem<Domain.Profil> page, string name)
         {
             if (!base.validateName(page, name)) return false;
             return ValidateEditedNewName() == OperationState.CONTINUE;
@@ -491,8 +491,8 @@ namespace Misp.Kernel.Administration.User
         /// <returns></returns>
         protected virtual OperationState ValidateEditedNewName(string newName = "")
         {
-            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
-            Domain.User table = page.EditedObject;
+            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
+            Domain.Profil table = page.EditedObject;
             if (string.IsNullOrEmpty(newName))
             {
              //   newName = page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Text.Trim();
@@ -506,9 +506,9 @@ namespace Misp.Kernel.Administration.User
             }
 
 
-            foreach (UserEditorItem unReco in getUserEditor().getPages())
+            foreach (ProfilEditorItem unReco in getProfilEditor().getPages())
             {
-                if (unReco != getUserEditor().getActivePage() && newName == unReco.Title)
+                if (unReco != getProfilEditor().getActivePage() && newName == unReco.Title)
                 {
                     DisplayError("Duplicate Name", "There is another Target named: " + newName);
                     //page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Text = page.Title;
@@ -520,7 +520,7 @@ namespace Misp.Kernel.Administration.User
             if (!IsRenameOnDoubleClick)
                 if (table.name.ToUpper().Equals(newName.ToUpper())) return OperationState.CONTINUE;
 
-            ((UserSideBar)SideBar).UserGroup.UserTreeview.updateUser(newName, table.name, false);
+            ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.updateProfile(newName, table.name, false);
             table.name = newName;
             page.Title = newName;
             OnChange();
@@ -532,9 +532,9 @@ namespace Misp.Kernel.Administration.User
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        protected override Domain.User GetObjectByName(string name)
+        protected override Domain.Profil GetObjectByName(string name)
         {
-            return ((UserSideBar)SideBar).UserGroup.UserTreeview.getUserByName(name);
+            return ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.getProfilByName(name);
         }
 
         public override Kernel.Application.OperationState Search(object oid)

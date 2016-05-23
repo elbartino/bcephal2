@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Misp.Kernel.Ui.Administration
+namespace Misp.Kernel.Administration.Profil
 {
     /// <summary>
-    /// Interaction logic for ProfileMainPanel.xaml
+    /// Interaction logic for FunctionnalityGrid.xaml
     /// </summary>
-    public partial class ProfileMainPanel : Grid
+    public partial class FunctionnalityGrid : DataGrid
     {
-        public ProfileMainPanel()
+        public FunctionnalityGrid()
         {
             InitializeComponent();
         }

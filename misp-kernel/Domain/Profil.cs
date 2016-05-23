@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Domain
 {
@@ -13,6 +14,12 @@ namespace Misp.Kernel.Domain
         public Boolean active { get; set; }
 	  
         public PersistentListChangeHandler<Rights> rightsListChangeHandler;
+
+        [ScriptIgnore]
+        public bool visibleInShortcut { get; set; }
+            
+        [ScriptIgnore]
+        public BGroup group { get; set; }
 
         public Profil()
         {

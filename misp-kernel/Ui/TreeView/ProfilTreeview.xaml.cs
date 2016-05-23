@@ -19,9 +19,9 @@ namespace Misp.Kernel.Ui.TreeView
     /// <summary>
     /// Interaction logic for UserTreeview.xaml
     /// </summary>
-    public partial class UserTreeview : UserControl
+    public partial class ProfilTreeview : UserControl
     {
-        public UserTreeview()
+        public ProfilTreeview()
         {
             InitializeComponent();
             this.cvs.Source = this.liste;
@@ -29,17 +29,17 @@ namespace Misp.Kernel.Ui.TreeView
             this.DataContext = this;
         }
         /// <summary>
-        /// Evènement du UserTreeview qui renvoit le User selectionné
+        /// Evènement du ReconciliationTreeview qui renvoit le User selectionné
         /// </summary>
         public event Base.SelectedItemChangedEventHandler SelectionChanged;
 
         /// <summary>
-        /// Evènement du UserTreeview qui renvoit le User sur lequel on
+        /// Evènement du ReconciliationTreeview qui renvoit le User sur lequel on
         ///  a double cliqué.
         /// </summary>
         public event Base.SelectedItemDoubleClickEventHandler SelectionDoubleClick;
         private CollectionViewSource cvs = new CollectionViewSource();
-        public ObservableCollection<Domain.User> liste = new ObservableCollection<Domain.User>();
+        public ObservableCollection<Domain.Profil> liste = new ObservableCollection<Domain.Profil>();
         public CollectionViewSource CVS
         {
             get
@@ -49,65 +49,65 @@ namespace Misp.Kernel.Ui.TreeView
         }
 
         /// <summary>
-        /// Remplir le treeview avec une liste de User
+        /// Remplir le treeview avec une liste de Profil
         /// </summary>
-        /// <param name="listeTarget">la liste de User</param>
-        public void fillTree(ObservableCollection<Domain.User> listeRecos)
+        /// <param name="listeProfils">la liste de Profil</param>
+        public void fillTree(ObservableCollection<Domain.Profil> listeProfils)
         {
-            this.liste = listeRecos;
+            this.liste = listeProfils;
             this.cvs.Source = this.liste;
         }
 
         /// <summary>
-        /// Rajoute un User
+        /// Rajoute un profil
         /// </summary>
-        /// <param name="user">Le User à modifier</param>
-        public void AddUser(Domain.User user)
+        /// <param name="inputTable">Le profil à modifier</param>
+        public void AddProfil(Domain.Profil profil)
         {
-            this.liste.Add(user);
+            this.liste.Add(profil);
             this.cvs.DeferRefresh();
         }
 
         /// <summary>
-        /// Retire un user de la liste
+        /// Retire un profil de la liste
         /// </summary>
-        /// <param name="user">Le User à modifier</param>
-        public void RemoveUser(Domain.User user)
+        /// <param name="user">Le profil à modifier</param>
+        public void RemoveProfil(Domain.Profil profil)
         {
-            this.liste.Remove(user);
+            this.liste.Remove(profil);
             this.cvs.DeferRefresh();
         }
 
         /// <summary>
-        /// Retourne un user à partir de son nom
+        /// Retourne un profil à partir de son nom
         /// </summary>
-        /// <param name="userName">Le nom du user</param>
-        /// <returns>Le user renvoyé</returns>
-        public Domain.User getUserByName(string userName)
+        /// <param name="profilName">Le nom du profil</param>
+        /// <returns>Le profil renvoyé</returns>
+        public Domain.Profil getProfilByName(string profilName)
         {
-            foreach (Domain.User user in this.liste)
+            foreach (Domain.Profil profil in this.liste)
             {
-                if (user.name.ToUpper() == userName.ToUpper()) return user;
+                if (profil.name.ToUpper() == profilName.ToUpper()) return profil;
             }
             return null;
         }
 
         /// <summary>
-        /// Met à jour un User à partir de son nom
+        /// Met à jour un Profil à partir de son nom
         /// </summary>
-        /// <param name="newName">Le nouveau nom du User</param>
-        /// <param name="oldTableName">L'ancien nom du User</param>
-        /// <param name="updateGroup">True=>Modification du nom du groupe, false=>Modification du nom du User</param>
-        public void updateUser(string newName, string oldTableName, bool updateGroup)
+        /// <param name="newName">Le nouveau nom de Profil</param>
+        /// <param name="oldTableName">L'ancien nom de Profil</param>
+        /// <param name="updateGroup">True=>Modification du nom du groupe, false=>Modification du nom de Profil</param>
+        public void updateProfile(string newName, string oldTableName, bool updateGroup)
         {
             int index = 0;
-            foreach (Domain.User user in this.liste)
+            foreach (Domain.Profil profil in this.liste)
             {
-                if (user.name == oldTableName)
+                if (profil.name == oldTableName)
                 {
-                    user.name = !updateGroup ? newName : user.name;
-                    if (user.group != null) user.group.name = updateGroup ? newName : user.group.name;
-                    this.liste[index] = user;
+                    profil.name = !updateGroup ? newName : profil.name;
+                    if (profil.group != null) profil.group.name = updateGroup ? newName : profil.group.name;
+                    this.liste[index] = profil;
                     this.cvs.DeferRefresh();
                     return;
                 }
@@ -115,26 +115,24 @@ namespace Misp.Kernel.Ui.TreeView
             }
         }
 
-        public void updateUser(Domain.User user1, Domain.User user)
+        public void updateProfil(Domain.Profil profil1, Domain.Profil profil)
         {
             int index = 0;
             int pos = 0;
             int pos1 = 0;
             bool found = false;
             bool found1 = false;
-            string newName = user1.name;
-            string oldTableName = user.name;
+            string newName = profil1.name;
+            string oldTableName = profil.name;
 
-            Domain.User input = null;
-            foreach (Domain.User inputtable in this.liste)
+            Domain.Profil input = null;
+            foreach (Domain.Profil inputtable in this.liste)
             {
-
                 if (!found)
                 {
-
-                    if (inputtable.name == user1.name)
+                    if (inputtable.name == profil1.name)
                     {
-                        inputtable.name = user.name;
+                        inputtable.name = profil.name;
                         found = true;
                         input = inputtable;
                         pos = index;
@@ -142,7 +140,7 @@ namespace Misp.Kernel.Ui.TreeView
                 }
                 if (!found1)
                 {
-                    if (inputtable.name == user.name)
+                    if (inputtable.name == profil.name)
                     {
                         pos1 = index;
                         found1 = true;
@@ -150,36 +148,34 @@ namespace Misp.Kernel.Ui.TreeView
                 }
                 index++;
             }
-
             this.liste[pos] = input;
             this.cvs.DeferRefresh();
-
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="targets"></param>
-        public void DisplayUsers(List<Domain.User> users)
+        public void DisplayProfils(List<Domain.User> users)
         {
-            this.UserTree.ItemsSource = users;
+            this.ProfilTree.ItemsSource = users;
         }
 
         /// <summary>
         /// Methode de selection du treeview qui renvoit l'élément selectionné
-        /// et cet élément un user  est transmis au Treeview 
+        /// et cet élément un reco  est transmis au Treeview 
         /// par l'évènement OnClick
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void OnTreeNodeClick(object sender, MouseButtonEventArgs e)
         {
-            if (UserTree.SelectedItem != null && UserTree.SelectedItem is Domain.User && SelectionChanged != null)
+            if (ProfilTree.SelectedItem != null && ProfilTree.SelectedItem is Domain.Profil && SelectionChanged != null)
             {
                 if (e.ClickCount == 1)
-                    SelectionChanged(UserTree.SelectedItem as Domain.User);
+                    SelectionChanged(ProfilTree.SelectedItem as Domain.Profil);
                 else if (e.ClickCount == 2)
-                    SelectionDoubleClick(UserTree.SelectedItem as Domain.User);
+                    SelectionDoubleClick(ProfilTree.SelectedItem as Domain.Profil);
                 e.Handled = true;
             }
         }

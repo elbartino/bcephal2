@@ -5,31 +5,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Misp.Kernel.Administration.User
+namespace Misp.Kernel.Administration.Profil
 {
-    public class UserEditorItem : EditorItem<Kernel.Domain.User>
+    public class ProfilEditorItem : EditorItem<Kernel.Domain.Profil>
     {
           /// <summary>
         /// Contruit une nouvelle instance de UserEditorItem
         /// </summary>
-        public UserEditorItem()
+        public ProfilEditorItem()
             : base()
         {
-            this.Title = "User";
+            this.Title = "Profil";
             this.CanFloat = false;
         }
 
-        protected override IEditableView<Domain.User> getNewEditorItemForm()
+        protected override IEditableView<Domain.Profil> getNewEditorItemForm()
         {
-            return new UserForm();
+            return new ProfilForm();
         }
 
         /// <summary>
         /// UserForm
         /// </summary>
-        public UserForm getUserForm()
+        public ProfilForm getProfilForm()
         {
-            return (UserForm)editorItemForm;
+            return (ProfilForm)editorItemForm;
         }
     }
 }

@@ -118,6 +118,19 @@
     <Compile Include="Administration\Base\AdministrationMenu.cs" />
     <Compile Include="Administration\Base\AdministrationResourcePath.cs" />
     <Compile Include="Administration\Base\AdministrationServiceFactory.cs" />
+    <Compile Include="Administration\Profil\ProfilPropertyPanel.xaml.cs">
+      <DependentUpon>ProfilPropertyPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\Profil\ProfilBrowser.cs" />
+    <Compile Include="Administration\Profil\ProfilBrowserController.cs" />
+    <Compile Include="Administration\Profil\ProfilEditor.cs" />
+    <Compile Include="Administration\Profil\ProfilEditorController.cs" />
+    <Compile Include="Administration\Profil\ProfilEditorItem.cs" />
+    <Compile Include="Administration\Profil\ProfilForm.cs" />
+    <Compile Include="Administration\Profil\ProfilGroup.cs" />
+    <Compile Include="Administration\Profil\ProfilPropertyBar.cs" />
+    <Compile Include="Administration\Profil\ProfilSideBar.cs" />
+    <Compile Include="Administration\Profil\ProfilToolBar.cs" />
     <Compile Include="Administration\User\UserBrowser.cs" />
     <Compile Include="Administration\User\UserBrowserController.cs" />
     <Compile Include="Administration\User\UserEditor.cs" />
@@ -190,6 +203,7 @@
     <Compile Include="Domain\User.cs" />
     <Compile Include="Service\AutomaticTargetService.cs" />
     <Compile Include="Service\CombineTransformationTreeService.cs" />
+    <Compile Include="Service\ProfilService.cs" />
     <Compile Include="Service\PeriodNameService.cs" />
     <Compile Include="Domain\TransformationTreeItem.cs" />
     <Compile Include="Domain\TransformationTreeRunInfo.cs" />
@@ -315,10 +329,10 @@
       <DependentUpon>MaskDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Task\Worker.cs" />
-    <Compile Include="Administration\User\FunctionnalityGrid.xaml.cs">
+    <Compile Include="Administration\Profil\FunctionnalityGrid.xaml.cs">
       <DependentUpon>FunctionnalityGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Administration\User\ProfileMainPanel.xaml.cs">
+    <Compile Include="Administration\Profil\ProfileMainPanel.xaml.cs">
       <DependentUpon>ProfileMainPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Administration\User\UserMainPanel.xaml.cs">
@@ -508,6 +522,9 @@
     <Compile Include="Ui\TreeView\CombinedTransformationTreeTreeview.xaml.cs">
       <DependentUpon>CombinedTransformationTreeTreeview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\TreeView\ProfilTreeview.xaml.cs">
+      <DependentUpon>ProfilTreeview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\TreeView\CustomizedTargetTreeview.xaml.cs">
       <DependentUpon>CustomizedTargetTreeview.xaml</DependentUpon>
     </Compile>
@@ -605,6 +622,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Administration\Profil\ProfilPropertyPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Administration\User\UserPropertyPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -637,11 +658,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Administration\User\FunctionnalityGrid.xaml">
+    <Page Include="Administration\Profil\FunctionnalityGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Administration\User\ProfileMainPanel.xaml">
+    <Page Include="Administration\Profil\ProfileMainPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -790,6 +811,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\TreeView\CombinedTransformationTreeTreeview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\TreeView\ProfilTreeview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
