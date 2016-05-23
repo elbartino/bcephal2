@@ -125,6 +125,10 @@
     <Compile Include="Administration\User\UserEditorItem.cs" />
     <Compile Include="Administration\User\UserForm.cs" />
     <Compile Include="Administration\User\UserGroup.cs" />
+    <Compile Include="Administration\User\UserPropertyBar.cs" />
+    <Compile Include="Administration\User\UserPropertyPanel.xaml.cs">
+      <DependentUpon>UserPropertyPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Administration\User\UserSideBar.cs" />
     <Compile Include="Administration\User\UserToolBar.cs" />
     <Compile Include="Application\ActionType.cs" />
@@ -311,13 +315,13 @@
       <DependentUpon>MaskDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Task\Worker.cs" />
-    <Compile Include="Ui\Administration\FunctionnalityGrid.xaml.cs">
+    <Compile Include="Administration\User\FunctionnalityGrid.xaml.cs">
       <DependentUpon>FunctionnalityGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Administration\ProfileMainPanel.xaml.cs">
+    <Compile Include="Administration\User\ProfileMainPanel.xaml.cs">
       <DependentUpon>ProfileMainPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Administration\UserMainPanel.xaml.cs">
+    <Compile Include="Administration\User\UserMainPanel.xaml.cs">
       <DependentUpon>UserMainPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Attribute\AttributeTreeView.xaml.cs">
@@ -601,6 +605,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Administration\User\UserPropertyPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Application\Application.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -629,15 +637,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Administration\FunctionnalityGrid.xaml">
+    <Page Include="Administration\User\FunctionnalityGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Administration\ProfileMainPanel.xaml">
+    <Page Include="Administration\User\ProfileMainPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Administration\UserMainPanel.xaml">
+    <Page Include="Administration\User\UserMainPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -27,6 +27,8 @@ namespace Misp.Kernel.Ui.Base.Menu
         public static string SETTINGS_MENU_CODE         = "Settings Menu";
         public static string HELP_MENU_CODE             = "Help Menu";
 
+        public static string ADMINISTRATION_MENU_CODE = "Administration Menu";
+
         /// <summary>
         /// Ce code quand il existe identifie le parent de manière unique.
         /// Le code du parent permet d'identifier sous quel menu il faut pluguer ce menu.

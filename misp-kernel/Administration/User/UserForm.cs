@@ -28,6 +28,10 @@ namespace Misp.Kernel.Administration.User
 
         public Kernel.Service.GroupService GroupService { get; set; }
 
+        public UserMainPanel userMainPanel { get; set; }
+
+        public UserPropertyPanel userPropertyPanel { get; set; }
+
         #endregion
 
          #region Constructor
@@ -45,9 +49,9 @@ namespace Misp.Kernel.Administration.User
         {
             this.Background = null;
             this.BorderBrush = null;
-            //this.reconciliationMainPanel = new ReconciliationMainPanel();
-            //this.ReconciliationPropertiePanel = new ReconciliationPropertiePanel();
-            //this.Content = reconciliationMainPanel;
+            this.userMainPanel = new UserMainPanel();
+            this.userPropertyPanel = new UserPropertyPanel();
+            this.Content = userMainPanel;
         }
         
         #endregion
@@ -77,8 +81,7 @@ namespace Misp.Kernel.Administration.User
         /// <returns>true si les données sont valides</returns>
         public bool validateEdition()
         {
-            //bool valid = this.ReconciliationPropertiePanel.validateEdition();
-            bool valid = true;
+            bool valid =  this.userPropertyPanel.validateEdition();
             return valid;
         }
 
@@ -89,25 +92,24 @@ namespace Misp.Kernel.Administration.User
         public void fillObject()
         {
             if (this.EditedObject == null) this.EditedObject = getNewObject();
-            //this.ReconciliationPropertiePanel.fillReconciliation(this.EditedObject);
-            //this.reconciliationMainPanel.Fill(this.EditedObject);
-        }
+            this.userPropertyPanel.fillUser(this.EditedObject);
+         }
         /// <summary>
         /// Cette méthode permet d'afficher les données de l'objet à éditer 
         /// pour les afficher dans la vue.
         /// </summary>
         public void displayObject()
         {
-            //this.ReconciliationPropertiePanel.displayReconciliation(this.EditedObject);
-            //this.reconciliationMainPanel.Display(this.EditedObject);
+            this.userMainPanel.Display(this.EditedObject);
+            this.userPropertyPanel.displayUser(this.EditedObject);
         }
 
 
         public List<object> getEditableControls()
         {
             List<object> controls = new List<object>(0);
-            //controls.AddRange(this.ReconciliationPropertiePanel.getEditableControls());
-            //controls.AddRange(this.reconciliationMainPanel.getEditableControls());
+            controls.AddRange(this.userMainPanel.getEditableControls());
+            controls.AddRange(this.userPropertyPanel.getEditableControls());
             return controls;
         }
 

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Misp.Kernel.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Misp.Kernel.Administration
+namespace Misp.Kernel.Administration.Base
 {
-    class AdministrationResourcePath
+    public class AdministrationResourcePath : ResourcePath
     {
     }
 }

@@ -21,6 +21,9 @@ namespace Misp.Kernel.Domain
         public bool? active { get; set; }
 
         [ScriptIgnore]
+        public bool? visibleInShortcut { get; set; }
+
+        [ScriptIgnore]
         public BGroup group { get; set; }
 
         public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }

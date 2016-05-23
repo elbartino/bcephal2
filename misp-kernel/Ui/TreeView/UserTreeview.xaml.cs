@@ -62,9 +62,9 @@ namespace Misp.Kernel.Ui.TreeView
         /// Rajoute une reco
         /// </summary>
         /// <param name="inputTable">L'Reconciliation à modifier</param>
-        public void AddReconciliation(Domain.User reco)
+        public void AddUser(Domain.User user)
         {
-            this.liste.Add(reco);
+            this.liste.Add(user);
             this.cvs.DeferRefresh();
         }
 
@@ -72,7 +72,7 @@ namespace Misp.Kernel.Ui.TreeView
         /// Retire un user de la liste
         /// </summary>
         /// <param name="user">Le User à modifier</param>
-        public void RemoveReconciliation(Domain.User user)
+        public void RemoveUser(Domain.User user)
         {
             this.liste.Remove(user);
             this.cvs.DeferRefresh();
@@ -83,7 +83,7 @@ namespace Misp.Kernel.Ui.TreeView
         /// </summary>
         /// <param name="inputTableName">Le nom de la reco</param>
         /// <returns>La reco renvoyé</returns>
-        public Domain.User getReconciliationByName(string userName)
+        public Domain.User getUserByName(string userName)
         {
             foreach (Domain.User user in this.liste)
             {
@@ -98,7 +98,7 @@ namespace Misp.Kernel.Ui.TreeView
         /// <param name="newName">Le nouveau nom de l'Reconciliation</param>
         /// <param name="oldTableName">L'ancien nom de l'Reconciliation</param>
         /// <param name="updateGroup">True=>Modification du nom du groupe, false=>Modification du nom de l'Reconciliation</param>
-        public void updateReconciliation(string newName, string oldTableName, bool updateGroup)
+        public void updateUser(string newName, string oldTableName, bool updateGroup)
         {
             int index = 0;
             foreach (Domain.User user in this.liste)
@@ -115,7 +115,7 @@ namespace Misp.Kernel.Ui.TreeView
             }
         }
 
-        public void updateReconciliation(Domain.User user1, Domain.User user)
+        public void updateUser(Domain.User user1, Domain.User user)
         {
             int index = 0;
             int pos = 0;
@@ -160,9 +160,9 @@ namespace Misp.Kernel.Ui.TreeView
         /// 
         /// </summary>
         /// <param name="targets"></param>
-        public void DisplayReconciliations(List<Domain.User> recos)
+        public void DisplayUsers(List<Domain.User> users)
         {
-            this.UserTree.ItemsSource = recos;
+            this.UserTree.ItemsSource = users;
         }
 
         /// <summary>

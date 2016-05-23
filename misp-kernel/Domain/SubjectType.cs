@@ -41,6 +41,8 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType RECONCILIATION = new SubjectType("Reconciliation");
 
+        public static SubjectType USER = new SubjectType("User");
+
         public static SubjectType GROUP = new SubjectType("Group");
 
         public String label { get; set; }
@@ -74,6 +76,7 @@ namespace Misp.Kernel.Domain
             if (COMBINED_TRANSFORMATION_TREE.label.Equals(label)) return COMBINED_TRANSFORMATION_TREE;
             if (AUTOMATIC_TARGET.label.Equals(label)) return AUTOMATIC_TARGET;
             if (GROUP.label.Equals(label)) return GROUP;
+            if (USER.label.Equals(label)) return USER;
             if (ALL.label.Equals(label)) return ALL;
             return null;
         }
@@ -98,6 +101,7 @@ namespace Misp.Kernel.Domain
             types.Add(STRUCTURED_REPORT);
             types.Add(TRANSFORMATION_TREE);
             types.Add(RECONCILIATION);
+            types.Add(USER);
             return types;
         }
         

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Misp.Kernel.Ui.Administration
+namespace Misp.Kernel.Administration.User
 {
     /// <summary>
     /// Interaction logic for UserMainPanel.xaml
@@ -23,6 +23,21 @@ namespace Misp.Kernel.Ui.Administration
         public UserMainPanel()
         {
             InitializeComponent();
+        }
+
+        public List<object> getEditableControls()
+        {
+            List<object> controls = new List<object>(0);
+           
+            return controls;
+        }
+
+        public void Display(Domain.User user)
+        {
+            this.nameTextBox.Text = user.name;
+            this.passTextBox.Text = user.password;
+            this.activeCheckBox.IsChecked = user.active;
+            this.emailTextBox.Text = user.email;
         }
     }
 }
