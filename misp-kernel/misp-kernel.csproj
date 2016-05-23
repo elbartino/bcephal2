@@ -113,6 +113,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administration\Base\AdministrationControllerFactory.cs" />
+    <Compile Include="Administration\Base\AdministrationFunctionalitiesCode.cs" />
+    <Compile Include="Administration\Base\AdministrationMenu.cs" />
+    <Compile Include="Administration\Base\AdministrationResourcePath.cs" />
+    <Compile Include="Administration\Base\AdministrationServiceFactory.cs" />
+    <Compile Include="Administration\User\UserBrowser.cs" />
+    <Compile Include="Administration\User\UserBrowserController.cs" />
+    <Compile Include="Administration\User\UserEditor.cs" />
+    <Compile Include="Administration\User\UserEditorController.cs" />
+    <Compile Include="Administration\User\UserEditorItem.cs" />
+    <Compile Include="Administration\User\UserForm.cs" />
+    <Compile Include="Administration\User\UserGroup.cs" />
+    <Compile Include="Administration\User\UserSideBar.cs" />
+    <Compile Include="Administration\User\UserToolBar.cs" />
     <Compile Include="Application\ActionType.cs" />
     <Compile Include="Application\Application.xaml.cs">
       <DependentUpon>Application.xaml</DependentUpon>
@@ -541,6 +555,9 @@
     <Compile Include="Ui\TreeView\TransformationTreeTreeview.xaml.cs">
       <DependentUpon>TransformationTreeTreeview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\TreeView\UserTreeview.xaml.cs">
+      <DependentUpon>UserTreeview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Util\AnimatedGIFControl.cs" />
     <Compile Include="Util\ClipbordUtil.cs" />
     <Compile Include="Util\DataFormater.cs" />
@@ -825,6 +842,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\TreeView\TransformationTreeTreeview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\UserTreeview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

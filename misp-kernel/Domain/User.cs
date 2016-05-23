@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Domain
 {
@@ -18,6 +19,9 @@ namespace Misp.Kernel.Domain
         public String email { get; set; }
 
         public bool? active { get; set; }
+
+        [ScriptIgnore]
+        public BGroup group { get; set; }
 
         public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }
 
