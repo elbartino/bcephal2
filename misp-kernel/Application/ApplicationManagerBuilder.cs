@@ -141,7 +141,14 @@ namespace Misp.Kernel.Application
 
         public void tryToconnect()
         {
+            SplashScreen screen = new SplashScreen("Resources\\Images\\Splash.png");
+            screen.Show(false, true);
             loadApplicationConfig();
+            ApplicationManager.Instance.MainWindow = new MainWindow();
+            loadPlugins();
+            ApplicationManager.Instance.MainWindow.Show();
+            screen.Close(TimeSpan.Zero);
+
             if (ApplicationManager.Instance.ApplcationConfiguration.IsMonouser()) buildMainWindow();
             else tryToLogin();
         }
@@ -154,12 +161,11 @@ namespace Misp.Kernel.Application
         }
 
         protected void buildMainWindow()
-        {
-            ApplicationManager.Instance.MainWindow = new MainWindow();
-            loadPlugins();
+        {            
             buildMenus(ApplicationManager.Instance);
             setExcelExtension();
             ApplicationManager.Instance.DefaultPowertPointExtension = PowerPointExtension.PPTX;
+            ApplicationManager.Instance.OpenDefaultFile();
         }
 
         protected void tryToLogin()
