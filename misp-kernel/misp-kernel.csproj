@@ -131,6 +131,8 @@
     <Compile Include="Administration\Profil\ProfilPropertyBar.cs" />
     <Compile Include="Administration\Profil\ProfilSideBar.cs" />
     <Compile Include="Administration\Profil\ProfilToolBar.cs" />
+    <Compile Include="Administration\Role\RoleBrowser.cs" />
+    <Compile Include="Administration\Role\RoleBrowserController.cs" />
     <Compile Include="Administration\User\UserBrowser.cs" />
     <Compile Include="Administration\User\UserBrowserController.cs" />
     <Compile Include="Administration\User\UserEditor.cs" />
@@ -203,6 +205,7 @@
     <Compile Include="Domain\User.cs" />
     <Compile Include="Service\AutomaticTargetService.cs" />
     <Compile Include="Service\CombineTransformationTreeService.cs" />
+    <Compile Include="Service\RoleService.cs" />
     <Compile Include="Service\ProfilService.cs" />
     <Compile Include="Service\PeriodNameService.cs" />
     <Compile Include="Domain\TransformationTreeItem.cs" />

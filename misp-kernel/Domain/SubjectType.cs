@@ -45,6 +45,8 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType PROFIL = new SubjectType("Profil");
 
+        public static SubjectType ROLE = new SubjectType("Role");
+
         public static SubjectType GROUP = new SubjectType("Group");
 
         public String label { get; set; }
@@ -80,6 +82,7 @@ namespace Misp.Kernel.Domain
             if (GROUP.label.Equals(label)) return GROUP;
             if (USER.label.Equals(label)) return USER;
             if (PROFIL.label.Equals(label)) return PROFIL;
+            if (ROLE.label.Equals(label)) return ROLE;
             if (ALL.label.Equals(label)) return ALL;
             return null;
         }
@@ -106,6 +109,7 @@ namespace Misp.Kernel.Domain
             types.Add(RECONCILIATION);
             types.Add(USER);
             types.Add(PROFIL);
+            types.Add(ROLE);
             return types;
         }
         

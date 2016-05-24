@@ -10,11 +10,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Misp.Kernel.Administration.Profil
+namespace Misp.Kernel.Administration.Role
 {
-    public class ProfilBrowserController : BrowserController<Misp.Kernel.Domain.Profil, BrowserData>
+    public class RoleBrowserController : BrowserController<Misp.Kernel.Domain.Role, BrowserData>
     {
-        public ProfilBrowserController() 
+        public RoleBrowserController() 
         {
             ModuleName = "Administration";
         }
@@ -24,7 +24,7 @@ namespace Misp.Kernel.Administration.Profil
         /// </summary>
         public override string GetEditorFuntionality() 
         { 
-            return AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_PROFIL; 
+            return AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_ROLE; 
         }
         
         /// <summary>
@@ -33,7 +33,7 @@ namespace Misp.Kernel.Administration.Profil
         /// <returns>Une nouvelle instance de la vue</returns>
         protected override IView getNewView() 
         {
-            return new ProfilBrowser(); 
+            return new RoleBrowser(); 
         }
         
         /// <summary>
@@ -51,9 +51,9 @@ namespace Misp.Kernel.Administration.Profil
             return Kernel.Application.OperationState.CONTINUE;
         }
 
-        public ProfilService getProfilService()
+        public RoleService getRoleService()
         {
-            return (ProfilService)Service;
+            return (RoleService)Service;
         }
 
         /// <summary>
