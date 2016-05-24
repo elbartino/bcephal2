@@ -60,7 +60,7 @@ namespace Misp.Kernel.Application
             }
             SplashScreen screen = new SplashScreen("Resources\\Images\\Splash.png");
             screen.Show(false, true);
-            builder.buildMainWindow();
+            builder.tryToconnect();
             ApplicationManager.Instance.MainWindow.Show();
             ApplicationManager.Instance.OpenDefaultFile();
             screen.Close(TimeSpan.Zero);

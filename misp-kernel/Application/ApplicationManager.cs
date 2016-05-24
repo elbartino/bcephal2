@@ -149,6 +149,11 @@ namespace Misp.Kernel.Application
         public MainWindow MainWindow { get; set; }
 
         /// <summary>
+        /// Gets or sets the User
+        /// </summary>
+        public User User { get; set; }
+
+        /// <summary>
         /// Gets or sets the RestClient
         /// </summary>
         public RestClient RestClient { get; set; }

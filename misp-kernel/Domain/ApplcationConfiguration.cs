@@ -36,5 +36,15 @@ namespace Misp.Kernel.Domain
             return this.domain.Equals(Domain.RECONCILIATION.ToString());
         }
 
+        public bool IsMonouser()
+        {
+            return this.editon.Equals(Editon.MONOUSER.ToString());
+        }
+
+        public bool IsMultiuser()
+        {
+            return this.editon.Equals(Editon.MULTIUSER.ToString());
+        }
+
     }
 }

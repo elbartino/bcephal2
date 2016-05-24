@@ -139,18 +139,32 @@ namespace Misp.Kernel.Application
                         
         }
 
-        public void buildMainWindow()
+        public void tryToconnect()
+        {
+            loadApplicationConfig();
+            if (ApplicationManager.Instance.ApplcationConfiguration.IsMonouser()) buildMainWindow();
+            else tryToLogin();
+        }
+
+        protected void loadApplicationConfig()
         {
             ApplcationConfiguration config = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetFileService().GetApplcationConfiguration();
             if (config == null) config = new ApplcationConfiguration(ApplcationConfiguration.Editon.MONOUSER, ApplcationConfiguration.Domain.RECONCILIATION);
             ApplicationManager.Instance.ApplcationConfiguration = config;
+        }
 
+        protected void buildMainWindow()
+        {
             ApplicationManager.Instance.MainWindow = new MainWindow();
             loadPlugins();
             buildMenus(ApplicationManager.Instance);
             setExcelExtension();
             ApplicationManager.Instance.DefaultPowertPointExtension = PowerPointExtension.PPTX;
-            //  setPowerPointExtension();
+        }
+
+        protected void tryToLogin()
+        {
+            
         }
 
         private void setExcelExtension()
