@@ -5,6 +5,7 @@
         xmlns:avalonDockProperties="clr-namespace:Xceed.Wpf.AvalonDock.Properties;assembly=Xceed.Wpf.AvalonDock"
         xmlns:Ui="clr-namespace:Misp.Kernel.Ui.Base"
         xmlns:Dashboard="clr-namespace:Misp.Kernel.Ui.Dashboard"
+        xmlns:User="clr-namespace:Misp.Kernel.Administration.User"
         xmlns:Animation="clr-namespace:Misp.Kernel.Util"
         Title="B-Cephal" Height="Auto" Width="Auto"
         Icon="..\..\Resources\Images\Logo\bcephal.ico"
@@ -71,6 +72,8 @@
             <Ui:DashBoard x:Name="DashBoard" x:FieldModifier="public" Background="#FFDEE0E0" Visibility="Collapsed" Grid.Row="2"/>
             <Ui:FileClosedView x:Name="FileClosedView" x:FieldModifier="public" Background="White" Margin="50"  Grid.Row="2"/>
             <Dashboard:DashboardView x:Name="DashboardView" x:FieldModifier="public" Background="White" Margin="20" Grid.Row="2" />
+            <User:LoginPanel x:Name="LoginPanel" x:FieldModifier="public" Background="White" Grid.Row="2" VerticalAlignment="Center" Visibility="Collapsed"/>
+            <User:AdministratorPanel x:Name="AdministratorPanel" x:FieldModifier="public" Background="White" Grid.Row="2" VerticalAlignment="Center" Visibility="Collapsed" MaxWidth="500"/>
             <!--<Ui:FileOpenedView x:Name="FileOpenedView" x:FieldModifier="public" Background="White" Margin="20" Grid.Row="2"/>-->
             
             <Grid x:Name="StatusBarGrid" Grid.Row="3">

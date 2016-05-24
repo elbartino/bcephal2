@@ -312,6 +312,7 @@ namespace Misp.Kernel.Ui.Base
                 dockingManager.Visibility = Visibility.Collapsed;
                 FileClosedView.Visibility = Visibility.Visible;
                 DashboardView.Visibility = Visibility.Collapsed;
+                LoginPanel.Visibility = Visibility.Collapsed;
                 //FileOpenedView.Visibility = Visibility.Collapsed;
                 return;
             }
@@ -340,6 +341,7 @@ namespace Misp.Kernel.Ui.Base
                 dockingManager.Visibility = Visibility.Visible;
                 FileClosedView.Visibility = Visibility.Collapsed;
                 DashboardView.Visibility = Visibility.Collapsed;
+                LoginPanel.Visibility = Visibility.Collapsed;
                 //FileOpenedView.Visibility = Visibility.Collapsed;
             }
         }

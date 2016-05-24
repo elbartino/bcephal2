@@ -4,36 +4,43 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" >
-    <Border Grid.Row="0" Style="{DynamicResource BluePanelStyle}">
-        <Grid Margin="10 0 10 0" VerticalAlignment="Center">
+    <Border Grid.Row="0" Style="{DynamicResource LoginPanelStyle}">
+        <Grid Margin="10" VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Label x:Name="loginLabel" Grid.Row="0" Content="Login :" Grid.Column="0" Margin="0 10 0 10"/>
-            <TextBox x:Name="loginTextBox" Grid.Row="0" Grid.Column="1" Margin="0 10 0 10"/>
-            <Label x:Name="passwordLabel" Grid.Row="1" Content="Password :" Grid.Column="0" Margin="0 10 0 10"/>
-            <PasswordBox x:Name="passwordTextBox" Grid.Row="1" Grid.Column="1" Margin="0 10 0 10"/>
-            <Label x:Name="errorLabel" Grid.Row="2" Grid.Column="1"/> 
-            <TextBlock x:Name="passwordForgottenTextBock" Grid.Row="3" Grid.Column="0" Margin="0 10 0 10">
+
+            <Grid Grid.Row="0" Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="loginLabel" Content="Login :" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBox x:Name="loginTextBox" Grid.Column="1" />
+            </Grid>
+            <Grid Grid.Row="1" Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="passwordLabel"  Content="Password :" Grid.Column="0"/>
+                <PasswordBox x:Name="passwordTextBox"  Grid.Column="1"/>
+            </Grid>
+            
+            <Label x:Name="errorLabel" Grid.Row="2"/>
+
+            <Button x:Name="LoginButton" Grid.Row="3" MaxWidth="100" Content="Login"/>
+
+            <TextBlock x:Name="passwordForgottenTextBock" Grid.Row="4" HorizontalAlignment="Right" Margin="0 5">
                 <Hyperlink RequestNavigate="OnRequestNewPassword">
                     <TextBlock Text="Forgotten password !" FontSize="12" />
                 </Hyperlink>
             </TextBlock>
-            <Grid Grid.Column="1" Grid.Row="3" Margin="10 5 10 10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="validateConnecXQZmHv2bGptionButton" Grid.Column="0" Margin="10 0 10 0" Content="OK"/>
-                <Button x:Name="cancelConnectionButton"  Grid.Column="1" Margin="10 0 10 0" Content="Cancel"/>
-            </Grid>
+            
         </Grid>
     </Border>
 </Grid>

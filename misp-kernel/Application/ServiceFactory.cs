@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Misp.Kernel.Service;
 using RestSharp;
+using Misp.Kernel.Administration.Base;
 
 
 namespace Misp.Kernel.Application
@@ -30,6 +31,8 @@ namespace Misp.Kernel.Application
         private ReconciliationService reconciliationService;
         private PostingService postingService;
 
+        private SecurityService securityService;
+
         /// <summary>
         /// Build a new instance of ServiceFactory.
         /// </summary>
@@ -43,6 +46,22 @@ namespace Misp.Kernel.Application
         /// Gets or sets the ApplicationManager
         /// </summary>
         public ApplicationManager ApplicationManager { get; set; }
+
+        /// <summary>
+        /// Gets InitiationService
+        /// </summary>
+        public SecurityService GetSecurityService()
+        {
+            if (securityService == null)
+            {
+                securityService = new SecurityService();
+                securityService.ResourcePath = AdministrationResourcePath.SECURITY_RESOURCE_PATH;
+                securityService.GroupService = GetGroupService();
+                securityService.FileService = GetFileService();
+                configureService(securityService);
+            }
+            return securityService;
+        }
 
         /// <summary>
         /// Gets or sets FileInfoService

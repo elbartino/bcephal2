@@ -17,20 +17,20 @@ using System.Windows.Shapes;
 namespace Misp.Kernel.Administration.User
 {
     /// <summary>
-    /// Interaction logic for LoginPanel.xaml
+    /// Interaction logic for AdministratorPanel.xaml
     /// </summary>
-    public partial class LoginPanel : Grid
+    public partial class AdministratorPanel : Grid
     {
-        public LoginPanel()
+        public AdministratorPanel()
         {
             InitializeComponent();
         }
 
         public bool ValidateEdition()
         {
-            if (String.IsNullOrWhiteSpace(loginTextBox.Text))
+            if (String.IsNullOrWhiteSpace(LastNameTextBox.Text) && String.IsNullOrWhiteSpace(FirstNameTextBox.Text))
             {
-                MessageDisplayer.DisplayWarning("Empty login", "");
+                MessageDisplayer.DisplayWarning("Empty name", "Last and first names can't be empty!");
                 return false;
             }
 
@@ -41,15 +41,11 @@ namespace Misp.Kernel.Administration.User
         {
             Domain.User user = new Domain.User();
             user.active = true;
-            user.login = loginTextBox.Text.Trim();
-            //user.password = passwordTextBox.Text.Trim();
-
+            user.login = LoginTextBox.Text.Trim();
+            user.email = EmailTextBox.Text.Trim();
+            
             return user;
         }
 
-        private void OnRequestNewPassword(object sender, RequestNavigateEventArgs e)
-        {
-
-        }
     }
 }

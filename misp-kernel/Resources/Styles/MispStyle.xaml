@@ -38,6 +38,48 @@
         </Setter>
     </Style>
 
+    <Style x:Key="LoginPanelStyle">
+        <Setter Property="Control.Width" Value="400"/>
+        <Setter Property="Control.Height" Value="180"/>
+        <Setter Property="Control.Margin" Value="5,5,5,5"/>
+        <Setter Property="Control.HorizontalAlignment" Value="Center"/>
+        <Setter Property="Control.VerticalAlignment" Value="Top"/>
+        <Setter Property="Control.FontSize" Value="14"/>
+        <!--<Setter Property="Control.Foreground" Value="#FF002060"/>-->
+        <Setter Property="Control.Background" Value="#FFDCE6F2"/>
+        <Setter Property="Control.BorderBrush" Value="#FFDCE6F2"/>
+        <Setter Property="Border.CornerRadius" Value="10"/>
+        <Setter Property="Border.BorderThickness" Value="1"/>
+        <Setter Property="Border.BorderBrush" Value="#FFDCE6F2"/>
+
+        <Setter Property="Control.BitmapEffect">
+            <Setter.Value>
+                <DropShadowBitmapEffect ShadowDepth="4" Color="#FFADADAD" Direction="320" Softness="0.3" Opacity="1"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AdministratorPanelStyle">
+        <Setter Property="Control.Width" Value="500"/>
+        <Setter Property="Control.Height" Value="300"/>
+        <Setter Property="Control.Margin" Value="5,5,5,5"/>
+        <Setter Property="Control.HorizontalAlignment" Value="Center"/>
+        <Setter Property="Control.VerticalAlignment" Value="Top"/>
+        <Setter Property="Control.FontSize" Value="14"/>
+        <!--<Setter Property="Control.Foreground" Value="#FF002060"/>-->
+        <Setter Property="Control.Background" Value="#FFDCE6F2"/>
+        <Setter Property="Control.BorderBrush" Value="#FFDCE6F2"/>
+        <Setter Property="Border.CornerRadius" Value="10"/>
+        <Setter Property="Border.BorderThickness" Value="1"/>
+        <Setter Property="Border.BorderBrush" Value="#FFDCE6F2"/>
+
+        <Setter Property="Control.BitmapEffect">
+            <Setter.Value>
+                <DropShadowBitmapEffect ShadowDepth="4" Color="#FFADADAD" Direction="320" Softness="0.3" Opacity="1"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="BluePanelStyle2">
         <Setter Property="Control.Width" Value="250"/>
         <Setter Property="Control.Height" Value="200"/>

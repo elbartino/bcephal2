@@ -15,6 +15,7 @@ using Misp.Kernel.Util;
 using Misp.Kernel.Plugin;
 using log4net;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Service;
 
 
 namespace Misp.Kernel.Application
@@ -161,7 +162,9 @@ namespace Misp.Kernel.Application
         }
 
         protected void buildUserMenus()
-        {            
+        {
+            ApplicationManager.Instance.MainWindow.LoginPanel.Visibility = Visibility.Collapsed;
+            ApplicationManager.Instance.MainWindow.FileClosedView.Visibility = Visibility.Visible;
             buildMenus(ApplicationManager.Instance);
             setExcelExtension();
             ApplicationManager.Instance.DefaultPowertPointExtension = PowerPointExtension.PPTX;
@@ -170,7 +173,54 @@ namespace Misp.Kernel.Application
 
         protected void tryToLogin()
         {
-            
+            ApplicationManager.Instance.MainWindow.FileClosedView.Visibility = Visibility.Collapsed;
+            long userCount = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetSecurityService().getUserCount();
+            if (userCount == 0)
+            {
+                ApplicationManager.Instance.MainWindow.AdministratorPanel.Visibility = Visibility.Visible;
+                ApplicationManager.Instance.MainWindow.AdministratorPanel.LastNameTextBox.Focus();
+                ApplicationManager.Instance.MainWindow.AdministratorPanel.SaveButton.Click += onSaveAdminClicked;
+            }
+            else
+            {
+                ApplicationManager.Instance.MainWindow.LoginPanel.Visibility = Visibility.Visible;
+                ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.Focus();
+                ApplicationManager.Instance.MainWindow.LoginPanel.LoginButton.Click += onLoginClicked;
+            }
+        }
+
+        private void onSaveAdminClicked(object sender, RoutedEventArgs e)
+        {
+            if (ApplicationManager.Instance.MainWindow.AdministratorPanel.ValidateEdition())
+            {
+                SecurityService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetSecurityService();
+                User user = service.saveAdministrator(ApplicationManager.Instance.MainWindow.AdministratorPanel.Fill());
+                ApplicationManager.Instance.User = user;
+                buildUserMenus();
+                ApplicationManager.Instance.MainWindow.AdministratorPanel.Visibility = Visibility.Collapsed;
+                ApplicationManager.Instance.MainWindow.AdministratorPanel.SaveButton.Click -= onSaveAdminClicked;
+            }
+        }
+
+        private void onLoginClicked(object sender, RoutedEventArgs e)
+        {
+            if (ApplicationManager.Instance.MainWindow.LoginPanel.ValidateEdition())
+            {
+                SecurityService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetSecurityService();
+                User user = ApplicationManager.Instance.MainWindow.LoginPanel.Fill();
+                user = service.authentificate(user.login, user.password);
+                if (user != null)
+                {
+                    ApplicationManager.Instance.User = user;
+                    buildUserMenus();
+                    ApplicationManager.Instance.MainWindow.LoginPanel.Visibility = Visibility.Collapsed;
+                    ApplicationManager.Instance.MainWindow.LoginPanel.LoginButton.Click -= onLoginClicked;
+                }
+                else
+                {
+
+                }
+            }
         }
 
         private void setExcelExtension()
