@@ -320,7 +320,7 @@ namespace Misp.Kernel.Administration.Profil
         /// </summary>
         protected override void initializeSideBarHandlers()
         {
-            ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.SelectionChanged += onSelectReconciliationFromSidebar;
+            ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.SelectionChanged += onSelectProfilFromSidebar;
             ((ProfilSideBar)SideBar).EntityGroup.EntityTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
             ((ProfilSideBar)SideBar).EntityGroup.EntityTreeview.ExpandAttribute += OnExpandAttribute;
             ((ProfilSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
@@ -339,7 +339,7 @@ namespace Misp.Kernel.Administration.Profil
         /// Cette opération a pour but d'ouvrir une page pour la table selectionnée dans l'éditeur.
         /// </summary>
         /// <param name="sender">La table sélectionnée</param>
-        protected void onSelectReconciliationFromSidebar(object sender)
+        protected void onSelectProfilFromSidebar(object sender)
         {
             if (sender != null && sender is Domain.Profil)
             {
