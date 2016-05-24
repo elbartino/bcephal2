@@ -304,8 +304,8 @@ namespace Misp.Kernel.Administration.User
             List<Domain.User> recos = GetSecurityService().getAll();
             ((UserSideBar)SideBar).UserGroup.UserTreeview.fillTree(new ObservableCollection<Domain.User>(recos));
 
-            List<Model> models = GetSecurityService().ModelService.getModelsForSideBar();
-            ((UserSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
+            //List<Model> models = GetSecurityService().ModelService.getModelsForSideBar();
+            //((UserSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
 
             //rootPeriodName = GetReconciliationService().periodNameService.getRootPeriodName();
             //defaultPeriodName = rootPeriodName.getDefaultPeriodName();
@@ -387,20 +387,20 @@ namespace Misp.Kernel.Administration.User
         /// <param name="sender"></param>
         private void OnExpandAttribute(object sender)
         {
-            if (sender != null && sender is Kernel.Domain.Attribute)
-            {
-                Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
-                if (!attribute.LoadValues)
-                {
-                    List<Kernel.Domain.AttributeValue> values = GetSecurityService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
-                    attribute.valueListChangeHandler.Items.Clear();
-                    foreach (Kernel.Domain.AttributeValue value in values)
-                    {
-                        attribute.valueListChangeHandler.Items.Add(value);
-                    }
-                    attribute.LoadValues = true;
-                }
-            }
+            //if (sender != null && sender is Kernel.Domain.Attribute)
+            //{
+            //    Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
+            //    if (!attribute.LoadValues)
+            //    {
+            //        List<Kernel.Domain.AttributeValue> values = GetSecurityService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
+            //        attribute.valueListChangeHandler.Items.Clear();
+            //        foreach (Kernel.Domain.AttributeValue value in values)
+            //        {
+            //            attribute.valueListChangeHandler.Items.Add(value);
+            //        }
+            //        attribute.LoadValues = true;
+            //    }
+            //}
         }
 
         /// <summary>
