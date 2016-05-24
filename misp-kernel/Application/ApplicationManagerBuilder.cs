@@ -149,7 +149,7 @@ namespace Misp.Kernel.Application
             ApplicationManager.Instance.MainWindow.Show();
             screen.Close(TimeSpan.Zero);
 
-            if (ApplicationManager.Instance.ApplcationConfiguration.IsMonouser()) buildMainWindow();
+            if (ApplicationManager.Instance.ApplcationConfiguration.IsMonouser()) buildUserMenus();
             else tryToLogin();
         }
 
@@ -160,7 +160,7 @@ namespace Misp.Kernel.Application
             ApplicationManager.Instance.ApplcationConfiguration = config;
         }
 
-        protected void buildMainWindow()
+        protected void buildUserMenus()
         {            
             buildMenus(ApplicationManager.Instance);
             setExcelExtension();
