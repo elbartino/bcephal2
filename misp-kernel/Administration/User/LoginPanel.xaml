@@ -9,8 +9,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -20,18 +20,19 @@
             <TextBox x:Name="loginTextBox" Grid.Row="0" Grid.Column="1" Margin="0 10 0 10"/>
             <Label x:Name="passwordLabel" Grid.Row="1" Content="Password :" Grid.Column="0" Margin="0 10 0 10"/>
             <PasswordBox x:Name="passwordTextBox" Grid.Row="1" Grid.Column="1" Margin="0 10 0 10"/>
-            <TextBlock x:Name="passwordForgottenTextBock" Grid.Row="2" Grid.Column="0" Margin="0 10 0 10">
+            <Label x:Name="errorLabel" Grid.Row="2" Grid.Column="1"/> 
+            <TextBlock x:Name="passwordForgottenTextBock" Grid.Row="3" Grid.Column="0" Margin="0 10 0 10">
                 <Hyperlink RequestNavigate="OnRequestNewPassword">
                     <TextBlock Text="Forgotten password !" FontSize="12" />
                 </Hyperlink>
             </TextBlock>
-            <Grid Grid.Column="1" Grid.Row="2" Margin="10 5 10 10">
+            <Grid Grid.Column="1" Grid.Row="3" Margin="10 5 10 10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="validateConnectionButton" Grid.Column="0" Margin="10 0 10 0" Content="Cancel"/>
-                <Button x:Name="cancelConnectionButton"  Grid.Column="1" Margin="10 0 10 0" Content="OK"/>
+                <Button x:Name="validateConnecXQZmHv2bGptionButton" Grid.Column="0" Margin="10 0 10 0" Content="OK"/>
+                <Button x:Name="cancelConnectionButton"  Grid.Column="1" Margin="10 0 10 0" Content="Cancel"/>
             </Grid>
         </Grid>
     </Border>

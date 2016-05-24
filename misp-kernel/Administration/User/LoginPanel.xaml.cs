@@ -18,7 +18,7 @@ namespace Misp.Kernel.Administration.User
     /// <summary>
     /// Interaction logic for LoginPanel.xaml
     /// </summary>
-    public partial class LoginPanel : UserControl
+    public partial class LoginPanel : Grid
     {
         public LoginPanel()
         {
