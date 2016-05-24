@@ -31,10 +31,6 @@ namespace Misp.Kernel.Administration.Base
                 securityService.ResourcePath = AdministrationResourcePath.SECURITY_RESOURCE_PATH;
                 securityService.GroupService = GetGroupService();
                 securityService.FileService = GetFileService();
-                securityService.ModelService = GetModelService();
-                securityService.periodNameService = GetPeriodNameService();
-                securityService.measureService = GetMeasureService();
-                securityService.postingService = GetPostingService();
                 configureService(securityService);
             }
             return securityService;

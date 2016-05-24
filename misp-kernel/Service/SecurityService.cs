@@ -10,44 +10,28 @@ namespace Misp.Kernel.Service
 {
     public class SecurityService : Service<Misp.Kernel.Domain.User, Misp.Kernel.Domain.Browser.BrowserData>
     {
-        #region Properties
-        /// <summary>
-        /// Le ModelService.
-        /// </summary>
-        public ModelService ModelService { get; set; }
+        
+        #region User
 
-        /// <summary>
-        /// Le PeriodicityService.
-        /// </summary>
-        public PeriodNameService periodNameService { get; set; }
+        public User authentificate(String login, String password)
+        {
+            try
+            {
+                RestClient.Authenticator = new HttpBasicAuthenticator(login, password);
+                var request = new RestRequest(ResourcePath + "/authentificate", Method.GET);                
+                request.RequestFormat = DataFormat.Json;
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                User user = RestSharp.SimpleJson.DeserializeObject<User>(queryResult.Content);
+                return user;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
 
-        /// <summary>
-        /// Le PeriodicityService.
-        /// </summary>
-        public MeasureService measureService { get; set; }
-
-        /// <summary>
-        /// Le ModelService.
-        /// </summary>
-        public PostingService postingService { get; set; }
-
-        /// <summary>
-        /// L'InputTableService
-        /// </summary>
-        public Service.Service<InputTable, Kernel.Domain.Browser.InputTableBrowserData> InputTableService { get; set; }
-
-
-        /// <summary>
-        /// Le CalculatedMeasureService
-        /// </summary>
-        public CalculatedMeasureService CalculatedMeasureService { get; set; }
-
-
-        /// <summary>
-        ///  Le TargetService
-        /// </summary>
-        public TargetService TargetService { get; set; }
         #endregion
+
 
         #region Profil
 
@@ -101,8 +85,7 @@ namespace Misp.Kernel.Service
 
         #endregion
         
-        #region User
-        #endregion
+        
 
         #region Rights
         #endregion

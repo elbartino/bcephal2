@@ -74,9 +74,9 @@ namespace Misp.Kernel.Service
 
 
         public static string SECURITY_RESOURCE_PATH = "security";
-        public static string SECURITY_USER_RESOURCE_PATH = RECONCILIATION_RESOURCE_PATH + "/user";
-        public static string SECURITY_PROFIL_RESOURCE_PATH = RECONCILIATION_RESOURCE_PATH + "/profil";
-        public static string SECURITY_ROLE_RESOURCE_PATH = RECONCILIATION_RESOURCE_PATH + "/role";
+        public static string SECURITY_USER_RESOURCE_PATH = SECURITY_RESOURCE_PATH + "/user";
+        public static string SECURITY_PROFIL_RESOURCE_PATH = SECURITY_RESOURCE_PATH + "/profil";
+        public static string SECURITY_ROLE_RESOURCE_PATH = SECURITY_RESOURCE_PATH + "/role";
    
     }
 }
