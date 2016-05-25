@@ -28,32 +28,36 @@ namespace Misp.Kernel.Administration.User
 
         public bool ValidateEdition()
         {
-            bool result = true;
+            String errors = "";
+            String line = "";
+            bool focusSetted = false;
             if (String.IsNullOrWhiteSpace(loginTextBox.Text))
             {
-                loginErrorLabel.Content = "Login " + AdministratorPanel.notEmpty;
-                loginErrorLabel.Visibility = System.Windows.Visibility.Visible;
-                result = false;
-            }
-            else
-            {
-                loginErrorLabel.Content = "";
-                loginErrorLabel.Visibility = System.Windows.Visibility.Collapsed;
-            }
-
-            if(String.IsNullOrWhiteSpace(passwordTextBox.Password.Trim()))
-            {
-                passwordErrorLabel.Content ="Password "+AdministratorPanel.notEmpty;
-                passwordErrorLabel.Visibility = System.Windows.Visibility.Visible;
-                result = false;
-            }
-            else
-            {
-                passwordErrorLabel.Content ="";
-                passwordErrorLabel.Visibility = System.Windows.Visibility.Collapsed;
+                errors += line + "Login can't be empty.";
+                line = "\n";
+                if (!focusSetted)
+                {
+                    loginTextBox.Focus();
+                    loginTextBox.SelectAll();
+                    focusSetted = true;
+                }
             }
 
-            return result;
+            else if (String.IsNullOrWhiteSpace(passwordTextBox.Password))
+            {
+                errors += line + "Password can't be empty.";
+                line = "\n";
+                if (!focusSetted)
+                {
+                    passwordTextBox.Focus();
+                    passwordTextBox.SelectAll();
+                    focusSetted = true;
+                }
+            }
+            bool isValid = String.IsNullOrWhiteSpace(errors);
+            this.Console.Text = errors;
+            this.Console.Visibility = isValid ? Visibility.Collapsed : Visibility.Visible;
+            return isValid;
         }
 
         public Domain.User Fill()

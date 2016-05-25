@@ -204,7 +204,8 @@ namespace Misp.Kernel.Application
                 }
                 else
                 {
-
+                    ApplicationManager.Instance.MainWindow.AdministratorPanel.Console.Text = "Unable to sava administrator!";
+                    ApplicationManager.Instance.MainWindow.AdministratorPanel.Console.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -225,7 +226,8 @@ namespace Misp.Kernel.Application
                 }
                 else
                 {
-
+                    ApplicationManager.Instance.MainWindow.LoginPanel.Console.Text = "Wrong login or password!";
+                    ApplicationManager.Instance.MainWindow.LoginPanel.Console.Visibility = Visibility.Visible;
                 }
             }
         }
