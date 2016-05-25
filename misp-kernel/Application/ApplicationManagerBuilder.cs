@@ -197,8 +197,7 @@ namespace Misp.Kernel.Application
                 User user = service.saveAdministrator(ApplicationManager.Instance.MainWindow.AdministratorPanel.Fill());
                 if (user != null)
                 {
-                    ApplicationManager.Instance.User = user;
-                    buildUserMenus();
+                    setUser(user);
                     ApplicationManager.Instance.MainWindow.AdministratorPanel.Visibility = Visibility.Collapsed;
                     ApplicationManager.Instance.MainWindow.AdministratorPanel.SaveButton.Click -= onSaveAdminClicked;
                 }
@@ -219,8 +218,7 @@ namespace Misp.Kernel.Application
                 user = service.authentificate(user.login, user.password);
                 if (user != null)
                 {
-                    ApplicationManager.Instance.User = user;
-                    buildUserMenus();
+                    setUser(user);
                     ApplicationManager.Instance.MainWindow.LoginPanel.Visibility = Visibility.Collapsed;
                     ApplicationManager.Instance.MainWindow.LoginPanel.LoginButton.Click -= onLoginClicked;
                 }
@@ -232,6 +230,14 @@ namespace Misp.Kernel.Application
                     ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.SelectAll();
                 }
             }
+        }
+
+        protected void setUser(User user)
+        {
+            ApplicationManager.Instance.User = user;
+            buildUserMenus();
+            ApplicationManager.Instance.MainWindow.FileClosedView.ClearTextBlock.Visibility = Visibility.Collapsed;
+            ApplicationManager.Instance.MainWindow.FileClosedView.NewFileTextBlock.Visibility = user.admin.Value ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void setExcelExtension()
