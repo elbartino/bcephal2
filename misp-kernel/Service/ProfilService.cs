@@ -51,54 +51,51 @@ namespace Misp.Kernel.Service
 
         #region Profil
 
-        public UserAction getUserAction(int oid, String functionnality)
+        /// <summary>
+        /// save profil
+        /// </summary>
+        /// <param name="profil"></param>
+        /// <returns></returns>
+        public Profil saveProfil(Profil profil)
         {
             try
             {
-                var request = new RestRequest(ResourcePath + "/action/" + oid + "/" + functionnality, Method.GET);
+                var request = new RestRequest(ResourcePath + "/save", Method.POST);
+                string json = Serialize(profil);
                 request.RequestFormat = DataFormat.Json;
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
-                UserAction userAction = RestSharp.SimpleJson.DeserializeObject<UserAction>(queryResult.Content);
-                return userAction;
+                Profil pf = RestSharp.SimpleJson.DeserializeObject<Profil>(queryResult.Content);
+                return pf;
             }
-            catch (Exception e) 
-            {
-                return UserAction.NULL;
-            }
-        }
-
-        public List<Rights> getUserAction(int oid)
-        {
-            try
-            {
-                var request = new RestRequest(ResourcePath + "/rights/" + oid, Method.GET);
-                request.RequestFormat = DataFormat.Json;
-                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
-                List<Rights> userRights = RestSharp.SimpleJson.DeserializeObject<List<Rights>>(queryResult.Content);
-                return userRights;
-            }
-            catch (Exception e) 
-            {
-                return new List<Rights>(0);
-            }
-        }
-
-        public Profil getUserProfil(int oid) 
-        {
-            try
-            {
-                var request = new RestRequest(ResourcePath + "/profil/" + oid, Method.POST);
-                request.RequestFormat = DataFormat.Json;
-                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
-                Profil profil = RestSharp.SimpleJson.DeserializeObject<Profil>(queryResult.Content);
-                return profil;
-            }
-            catch (Exception e) 
+            catch (Exception ex)
             {
                 return null;
             }
         }
 
+        /// <summary>
+        /// get profil by oid
+        /// </summary>
+        /// <param name="oid"></param>
+        /// <returns></returns>
+        public Profil getUserProfil(int oid)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/profil/" + oid, Method.GET);
+                request.RequestFormat = DataFormat.Json;
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                Profil profil = RestSharp.SimpleJson.DeserializeObject<Profil>(queryResult.Content);
+                return profil;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        
         #endregion
         
         #region User
