@@ -150,7 +150,7 @@ namespace Misp.Kernel.Administration.Profil
             {
                 Domain.User reco = new Domain.User();
                 reco.name = name;
-                reco.group = GetProfilService().GroupService.getDefaultGroup();
+                //reco.group = GetProfilService().GroupService.getDefaultGroup();
                 return reco;
             }
             return null;

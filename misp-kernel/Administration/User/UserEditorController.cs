@@ -98,7 +98,7 @@ namespace Misp.Kernel.Administration.User
             Domain.User user = new Domain.User();
             user.name = getNewPageName("User");
             //reco.visibleInShortcut = true;
-            user.group = GetSecurityService().GroupService.getDefaultGroup();
+            //user.group = GetSecurityService().GroupService.getDefaultGroup();
             return user;
         }
 
@@ -150,7 +150,7 @@ namespace Misp.Kernel.Administration.User
             {
                 Domain.User reco = new Domain.User();
                 reco.name = name;
-                reco.group = GetSecurityService().GroupService.getDefaultGroup();
+                //reco.group = GetSecurityService().GroupService.getDefaultGroup();
                 return reco;
             }
             return null;

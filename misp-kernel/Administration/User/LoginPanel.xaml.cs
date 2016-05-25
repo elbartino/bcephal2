@@ -28,13 +28,32 @@ namespace Misp.Kernel.Administration.User
 
         public bool ValidateEdition()
         {
+            bool result = true;
             if (String.IsNullOrWhiteSpace(loginTextBox.Text))
             {
-                MessageDisplayer.DisplayWarning("Empty login", "");
-                return false;
+                loginErrorLabel.Content = "Login " + AdministratorPanel.notEmpty;
+                loginErrorLabel.Visibility = System.Windows.Visibility.Visible;
+                result = false;
+            }
+            else
+            {
+                loginErrorLabel.Content = "";
+                loginErrorLabel.Visibility = System.Windows.Visibility.Collapsed;
             }
 
-            return true;
+            if(String.IsNullOrWhiteSpace(passwordTextBox.Password.Trim()))
+            {
+                passwordErrorLabel.Content ="Password "+AdministratorPanel.notEmpty;
+                passwordErrorLabel.Visibility = System.Windows.Visibility.Visible;
+                result = false;
+            }
+            else
+            {
+                passwordErrorLabel.Content ="";
+                passwordErrorLabel.Visibility = System.Windows.Visibility.Collapsed;
+            }
+
+            return result;
         }
 
         public Domain.User Fill()
@@ -42,8 +61,7 @@ namespace Misp.Kernel.Administration.User
             Domain.User user = new Domain.User();
             user.active = true;
             user.login = loginTextBox.Text.Trim();
-            //user.password = passwordTextBox.Text.Trim();
-
+            user.password = passwordTextBox.Password.Trim();
             return user;
         }
 

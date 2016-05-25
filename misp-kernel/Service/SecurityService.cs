@@ -36,12 +36,14 @@ namespace Misp.Kernel.Service
             {
                 RestClient.Authenticator = new HttpBasicAuthenticator(user.login, user.password);
                 var request = new RestRequest(ResourcePath + "/save-administrator", Method.POST);
-                request.RequestFormat = DataFormat.Json;
+               
+                string json = request.JsonSerializer.Serialize(user);
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
                 User admin = RestSharp.SimpleJson.DeserializeObject<User>(queryResult.Content);
                 return admin;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }

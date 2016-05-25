@@ -20,22 +20,33 @@ namespace Misp.Kernel.Domain
 
         public bool? active { get; set; }
 
-        [ScriptIgnore]
-        public bool? visibleInShortcut { get; set; }
+        public Profil profil { get; set; }
+
+        public bool? admin { get; set; }
+
+        //[ScriptIgnore]
+        //public bool? visibleInShortcut { get; set; }
+
+        //[ScriptIgnore]
+        //public BGroup group { get; set; }
+
+        //[ScriptIgnore]
+        //public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }
 
         [ScriptIgnore]
-        public BGroup group { get; set; }
-
-        public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }
-
         public PersistentListChangeHandler<Relation> relationsListChangeHandler { get; set; }
 
 
         public User()
         {
             this.active = true;
-            rightsListChangeHandler = new PersistentListChangeHandler<Rights>();
+            //rightsListChangeHandler = new PersistentListChangeHandler<Rights>();
             relationsListChangeHandler = new PersistentListChangeHandler<Relation>();
+            //this.group = new BGroup();
+            //visibleInShortcut = true;
+            this.oid = -1;
+            this.modificationDate = "01-01-1970 00:00:00";
+            this.creationDate = "01-01-1970 00:00:00";
         }
 
         public String ToString()

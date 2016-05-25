@@ -15,20 +15,30 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Margin="0,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="loginLabel" Content="Login :" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="loginTextBox" Grid.Column="1" />
+                <Label x:Name="loginErrorLabel" Visibility="Collapsed"  Grid.Column="1" Grid.Row="1"/>
             </Grid>
             <Grid Grid.Row="1" Margin="0,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="passwordLabel"  Content="Password :" Grid.Column="0"/>
                 <PasswordBox x:Name="passwordTextBox"  Grid.Column="1"/>
+                <Label x:Name="passwordErrorLabel" Visibility="Collapsed"  Grid.Column="1" Grid.Row="1"/>
             </Grid>
             
             <Label x:Name="errorLabel" Grid.Row="2"/>
