@@ -69,9 +69,11 @@ namespace Misp.Kernel.Administration.User
             return user;
         }
 
-        private void OnRequestNewPassword(object sender, RequestNavigateEventArgs e)
+        public void reset()
         {
-
+            loginTextBox.Text = "";
+            passwordTextBox.Password = "";
         }
+
     }
 }

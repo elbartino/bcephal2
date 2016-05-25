@@ -12,6 +12,8 @@ using Misp.Kernel.Util;
 using Misp.Kernel.Ui.General;
 using System.Windows.Forms;
 using Misp.Kernel.Task;
+using Misp.Kernel.Domain;
+using Misp.Kernel.Service;
 
 namespace Misp.Kernel.Application
 {
@@ -607,6 +609,7 @@ namespace Misp.Kernel.Application
         }
 
         bool applicationIsClosed = false;
+        
         /// <summary>
         /// Try to close
         /// </summary>
@@ -653,6 +656,137 @@ namespace Misp.Kernel.Application
             }
             return OperationState.CONTINUE;
         }
+
+        /// <summary>
+        /// Try to singout
+        /// </summary>
+        /// <returns></returns>
+        public OperationState tryToSingout()
+        {
+            OperationState state = OperationState.CONTINUE;
+            if (ActivePage != null && ActivePage.IsModify)
+            {
+                state = ActivePage.TryToSaveBeforeClose();
+                if (state == OperationState.STOP) return OperationState.STOP;
+                state = closeApplication();
+                applicationIsClosed = state == OperationState.CONTINUE ? true : false;
+                return state;
+            }            
+            ApplicationManager.Instance.MainWindow.MenuBar.GetFileMenu().EnableSaveMenu(false);
+
+            ApplicationManager.Instance.User = null;
+            ApplicationManager.Instance.MainWindow.ConnectedUserPanel.Visibility = Visibility.Collapsed;
+            ApplicationManager.Instance.MainWindow.displayMenuBar(null);
+            tryToLogin();
+            return state;
+        }
+
+        public void tryToLogin()
+        {
+            ApplicationManager.Instance.MainWindow.FileClosedView.Visibility = Visibility.Collapsed;
+            long userCount = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetSecurityService().getUserCount();
+            if (userCount == 0)
+            {
+                ApplicationManager.Instance.MainWindow.AdministratorPanel.Visibility = Visibility.Visible;
+                ApplicationManager.Instance.MainWindow.AdministratorPanel.NameTextBox.Focus();
+                ApplicationManager.Instance.MainWindow.AdministratorPanel.SaveButton.Click += onSaveAdminClicked;
+            }
+            else
+            {
+                ApplicationManager.Instance.MainWindow.LoginPanel.Visibility = Visibility.Visible;
+                ApplicationManager.Instance.MainWindow.LoginPanel.reset();
+                ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.Focus();
+                ApplicationManager.Instance.MainWindow.LoginPanel.LoginButton.Click += onLoginClicked;
+            }
+        }
+
+        private void onSaveAdminClicked(object sender, RoutedEventArgs e)
+        {
+            if (ApplicationManager.Instance.MainWindow.AdministratorPanel.ValidateEdition())
+            {
+                SecurityService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetSecurityService();
+                User user = service.saveAdministrator(ApplicationManager.Instance.MainWindow.AdministratorPanel.Fill());
+                if (user != null)
+                {
+                    setUser(user);
+                    ApplicationManager.Instance.MainWindow.AdministratorPanel.Visibility = Visibility.Collapsed;
+                    ApplicationManager.Instance.MainWindow.AdministratorPanel.SaveButton.Click -= onSaveAdminClicked;
+                }
+                else
+                {
+                    ApplicationManager.Instance.MainWindow.AdministratorPanel.Console.Text = "Unable to sava administrator!";
+                    ApplicationManager.Instance.MainWindow.AdministratorPanel.Console.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        private void onLoginClicked(object sender, RoutedEventArgs e)
+        {
+            if (ApplicationManager.Instance.MainWindow.LoginPanel.ValidateEdition())
+            {
+                SecurityService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetSecurityService();
+                User user = ApplicationManager.Instance.MainWindow.LoginPanel.Fill();
+                user = service.authentificate(user.login, user.password);
+                if (user != null)
+                {
+                    setUser(user);
+                    ApplicationManager.Instance.MainWindow.LoginPanel.Visibility = Visibility.Collapsed;
+                    ApplicationManager.Instance.MainWindow.LoginPanel.LoginButton.Click -= onLoginClicked;
+                }
+                else
+                {
+                    ApplicationManager.Instance.MainWindow.LoginPanel.Console.Text = "Wrong login or password!";
+                    ApplicationManager.Instance.MainWindow.LoginPanel.Console.Visibility = Visibility.Visible;
+                    ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.Focus();
+                    ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.SelectAll();
+                }
+            }
+        }
+
+        protected void setUser(User user)
+        {
+            ApplicationManager.Instance.User = user;
+            buildUserMenus();
+            ApplicationManager.Instance.MainWindow.FileClosedView.ClearTextBlock.Visibility = Visibility.Collapsed;
+            ApplicationManager.Instance.MainWindow.FileClosedView.NewFileTextBlock.Visibility = user != null && user.admin.Value ? Visibility.Visible : Visibility.Collapsed;
+            ApplicationManager.Instance.MainWindow.ConnectedUserPanel.Visibility = user != null ? Visibility.Visible : Visibility.Collapsed;
+            if(user != null)ApplicationManager.Instance.MainWindow.ConnectedUserPanel.UserTextBlock.Text = user.login;
+        }
+
+        public void buildUserMenus()
+        {
+            ApplicationManager.Instance.MainWindow.LoginPanel.Visibility = Visibility.Collapsed;
+            ApplicationManager.Instance.MainWindow.FileClosedView.Visibility = Visibility.Visible;
+            buildMenus(ApplicationManager.Instance);
+            setExcelExtension();
+            ApplicationManager.Instance.DefaultPowertPointExtension = PowerPointExtension.PPTX;
+            ApplicationManager.Instance.OpenDefaultFile();
+        }
+
+        private void setExcelExtension()
+        {
+            try
+            {
+                ExcelExtension defaultExtension = ExcelUtil.GetDefaultExcelExtenstion();
+                if (defaultExtension == null) MessageDisplayer.DisplayWarning("Bcephal - MS Excel not found", "The MS Excel version of your computer is not supported or there is no MS Excel installed. \n You may not be able to use some functionnalities!");
+                else ApplicationManager.Instance.DefaultExcelExtension = defaultExtension;
+            }
+            catch (Exception e)
+            {
+                //logger.Error("MS Excel checking faild: " + e);
+            }
+        }
+
+        /// <summary>
+        /// Build application menu bar.
+        /// </summary>
+        /// <param name="manager"></param>
+        protected void buildMenus(ApplicationManager manager)
+        {
+            ApplicationMenusBuilder menuBuilder = new ApplicationMenusBuilder(manager);
+            menuBuilder.build();
+        }
+
 
         /// <summary>
         /// 

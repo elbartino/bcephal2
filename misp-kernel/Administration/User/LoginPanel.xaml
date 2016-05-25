@@ -34,7 +34,7 @@
             <Button x:Name="LoginButton" Grid.Row="2" MaxWidth="100" Content="Login" Margin="0,5"/>
 
             <TextBlock x:Name="passwordForgottenTextBock" Grid.Row="3" HorizontalAlignment="Right">
-                <Hyperlink RequestNavigate="OnRequestNewPassword">
+                <Hyperlink>
                     <TextBlock Text="Forgotten password !" FontSize="12" />
                 </Hyperlink>
             </TextBlock>
