@@ -487,5 +487,14 @@ namespace Misp.Kernel.Service
                 throw new BcephalException("Unable to save Item.", e);
             }
         }
+
+
+        public string Serialize(Object item)
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = int.MaxValue;
+            return serializer.Serialize(item);
+        }
+
     }
 }

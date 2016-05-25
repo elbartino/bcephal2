@@ -178,7 +178,7 @@ namespace Misp.Kernel.Application
             if (userCount == 0)
             {
                 ApplicationManager.Instance.MainWindow.AdministratorPanel.Visibility = Visibility.Visible;
-                ApplicationManager.Instance.MainWindow.AdministratorPanel.LastNameTextBox.Focus();
+                ApplicationManager.Instance.MainWindow.AdministratorPanel.NameTextBox.Focus();
                 ApplicationManager.Instance.MainWindow.AdministratorPanel.SaveButton.Click += onSaveAdminClicked;
             }
             else
@@ -195,10 +195,17 @@ namespace Misp.Kernel.Application
             {
                 SecurityService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetSecurityService();
                 User user = service.saveAdministrator(ApplicationManager.Instance.MainWindow.AdministratorPanel.Fill());
-                ApplicationManager.Instance.User = user;
-                buildUserMenus();
-                ApplicationManager.Instance.MainWindow.AdministratorPanel.Visibility = Visibility.Collapsed;
-                ApplicationManager.Instance.MainWindow.AdministratorPanel.SaveButton.Click -= onSaveAdminClicked;
+                if (user != null)
+                {
+                    ApplicationManager.Instance.User = user;
+                    buildUserMenus();
+                    ApplicationManager.Instance.MainWindow.AdministratorPanel.Visibility = Visibility.Collapsed;
+                    ApplicationManager.Instance.MainWindow.AdministratorPanel.SaveButton.Click -= onSaveAdminClicked;
+                }
+                else
+                {
+
+                }
             }
         }
 

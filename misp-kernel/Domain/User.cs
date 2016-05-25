@@ -44,9 +44,6 @@ namespace Misp.Kernel.Domain
             relationsListChangeHandler = new PersistentListChangeHandler<Relation>();
             //this.group = new BGroup();
             //visibleInShortcut = true;
-            this.oid = -1;
-            this.modificationDate = "01-01-1970 00:00:00";
-            this.creationDate = "01-01-1970 00:00:00";
         }
 
         public String ToString()

@@ -60,8 +60,8 @@
     </Style>
 
     <Style x:Key="AdministratorPanelStyle">
-        <Setter Property="Control.Width" Value="500"/>
-        <Setter Property="Control.Height" Value="410"/>
+        <Setter Property="Control.Width" Value="450"/>
+        <Setter Property="Control.Height" Value="400"/>
         <Setter Property="Control.Margin" Value="5,5,5,5"/>
         <Setter Property="Control.HorizontalAlignment" Value="Center"/>
         <Setter Property="Control.VerticalAlignment" Value="Top"/>

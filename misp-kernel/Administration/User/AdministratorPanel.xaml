@@ -15,94 +15,64 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Margin="0,5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="0,5">                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="LastNameLabel" Grid.Row="0" Content="Last Name" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="LastNameTextBox" Grid.Row="0" Grid.Column="1" />
-                <Label x:Name="lastNameErrorLabel" Grid.Column="1" Grid.Row="1" Visibility="Hidden" FontStyle="Italic" Foreground="Red"/>
+                <Label x:Name="NameLabel" Content="Name" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBox x:Name="NameTextBox" Grid.Column="1" />                
             </Grid>
 
             <Grid Grid.Row="1" Margin="0,5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="FirstNameLabel" Content="First Name" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="FirstNameTextBox" Grid.Column="1" />
-                <Label x:Name="FirstNameErrorLabel" Grid.Column="1" Grid.Row="1" Visibility="Hidden" FontStyle="Italic" Foreground="Red"/>
             </Grid>
 
             <Grid Grid.Row="2" Margin="0,5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="EmailLabel" Content="Email" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="EmailTextBox" Grid.Column="1" />
-                <Label x:Name="EmailNameErrorLabel" Grid.Column="1" Grid.Row="1" Visibility="Hidden" FontStyle="Italic" Foreground="Red"/>
             </Grid>
 
             <Grid Grid.Row="3" Margin="0,5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="LoginLabel" Content="Login" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="LoginTextBox" Grid.Column="1" />
-                <Label x:Name="LoginErrorLabel" Grid.Column="1" Grid.Row="1" Visibility="Hidden" FontStyle="Italic" Foreground="Red"/>
-
             </Grid>
 
             <Grid Grid.Row="4" Margin="0,5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="PasswordLabel" Content="Password" Grid.Column="0" VerticalAlignment="Center"/>
                 <PasswordBox x:Name="PasswordTextBox" Grid.Column="1" />
-                <Label x:Name="PasswordErrorLabel" Grid.Column="1" Grid.Row="1" Visibility="Hidden" FontStyle="Italic" Foreground="Red" />
-
             </Grid>
 
             <Grid Grid.Row="5" Margin="0,5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
+               <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="ConfirmPasswordLabel" Content="Confirm Password" Grid.Column="0" VerticalAlignment="Center"/>
                 <PasswordBox x:Name="ConfirmPasswordTextBox" Grid.Column="1"  />
-                <Label x:Name="ConfirmPasswordErrorLabel" Grid.Column="1" Grid.Row="1" Visibility="Hidden" FontStyle="Italic" Foreground="Red"/>
             </Grid>
 
+            <TextBlock x:Name="Console" Grid.Row="7" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
             <Button x:Name="SaveButton" Grid.Row="6" MaxWidth="100" MinHeight="27" Content="Save" Margin="10"/>
         </Grid>
     </Border>

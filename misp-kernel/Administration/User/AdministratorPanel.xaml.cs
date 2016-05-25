@@ -30,89 +30,95 @@ namespace Misp.Kernel.Administration.User
 
         public bool ValidateEdition()
         {
-            bool result = true;
-            if (String.IsNullOrWhiteSpace(LastNameTextBox.Text))
+            String errors = "";
+            String line = "";
+            bool focusSetted = false;
+            if (String.IsNullOrWhiteSpace(NameTextBox.Text) && String.IsNullOrWhiteSpace(FirstNameTextBox.Text))
             {
-                FirstNameErrorLabel.Content = "First name " + notEmpty;
-                FirstNameErrorLabel.Visibility = Visibility.Visible;
-                result = false;
+                errors += line + "Name and first name can't be empty.";
+                line = "\n";
+                if (!focusSetted)
+                {
+                    if (String.IsNullOrWhiteSpace(NameTextBox.Text))
+                    {
+                        NameTextBox.Focus();
+                        NameTextBox.SelectAll();
+                    }
+                    else
+                    {
+                        FirstNameTextBox.Focus();
+                        FirstNameTextBox.SelectAll();
+                    }
+                    focusSetted = true;
+                }
             }
-            //else
-            //{
-            //    FirstNameErrorLabel.Content = "";
-            //    FirstNameErrorLabel.Visibility = Visibility.Hidden;
-            //}
-
-            if (String.IsNullOrWhiteSpace((FirstNameTextBox.Text)))
-            {
-                lastNameErrorLabel.Content = "Last name " + notEmpty;
-                lastNameErrorLabel.Visibility = Visibility.Visible;
-                result = false;
-            }
-            //else
-            //{
-            //    lastNameErrorLabel.Content = "";
-            //    lastNameErrorLabel.Visibility = Visibility.Hidden;
-            //}
-
-            if (String.IsNullOrWhiteSpace((LoginTextBox.Text)))
-            {
-                LoginErrorLabel.Content = "Login " + notEmpty;
-                LoginErrorLabel.Visibility = Visibility.Visible;
-                result = false;
-            }
-            //else
-            //{
-            //    lastNameErrorLabel.Content = "";
-            //    lastNameErrorLabel.Visibility = Visibility.Hidden;
-            //}
-
+                        
             if (String.IsNullOrWhiteSpace(EmailTextBox.Text))
             {
-                EmailNameErrorLabel.Content = "Email " + notEmpty;
-                EmailNameErrorLabel.Visibility = System.Windows.Visibility.Visible;
-                result = false;
-            }
-            else
-            {
-                if (!validateEmail(EmailTextBox.Text))
-                {
-                    EmailNameErrorLabel.Content = "Wrong email format!";
-                    EmailNameErrorLabel.Visibility = System.Windows.Visibility.Visible;
-                    result = false;
-                }
-                //else
+                //errors += line + "Email can't be empty.";
+                //line = "\n";
+                //if (!focusSetted)
                 //{
-                //    EmailNameErrorLabel.Content = "";
-                //    EmailNameErrorLabel.Visibility = System.Windows.Visibility.Hidden;
+                //    EmailTextBox.Focus();
+                //    EmailTextBox.SelectAll();
+                //    focusSetted = true;
                 //}
             }
+            else if (!validateEmail(EmailTextBox.Text))
+            {
+                errors += line + "Wrong email format.";
+                line = "\n";
+                if (!focusSetted)
+                {
+                    EmailTextBox.Focus();
+                    EmailTextBox.SelectAll();
+                    focusSetted = true;
+                }
+            }
 
-            if (String.IsNullOrWhiteSpace(PasswordTextBox.Password.Trim()))
+            if (String.IsNullOrWhiteSpace(LoginTextBox.Text))
             {
-                PasswordErrorLabel.Content = "Password " + notEmpty;
-                PasswordErrorLabel.Visibility = System.Windows.Visibility.Visible;
-                result = false;
-            }
-            else
-            {
-                if (!validatePassword(PasswordTextBox.Password.Trim(), ConfirmPasswordTextBox.Password.Trim()))
+                errors += line + "Login can't be empty.";
+                line = "\n";
+                if (!focusSetted)
                 {
-                    ConfirmPasswordErrorLabel.Content = "Password does not match!";
-                    ConfirmPasswordErrorLabel.Visibility = System.Windows.Visibility.Visible;
-                    result = false;
-                }
-                else
-                {
-                    PasswordErrorLabel.Visibility = System.Windows.Visibility.Hidden;
+                    LoginTextBox.Focus();
+                    LoginTextBox.SelectAll();
+                    focusSetted = true;
                 }
             }
-            return result;
+
+            if (String.IsNullOrWhiteSpace(PasswordTextBox.Password))
+            {
+                errors += line + "Password can't be empty.";
+                line = "\n";
+                if (!focusSetted)
+                {
+                    PasswordTextBox.Focus();
+                    PasswordTextBox.SelectAll();
+                    focusSetted = true;
+                }
+            }
+            else if (!validatePassword(PasswordTextBox.Password, ConfirmPasswordTextBox.Password))
+            {
+                errors += line + "Password does not match.";
+                line = "\n";
+                if (!focusSetted)
+                {
+                    ConfirmPasswordTextBox.Focus();
+                    ConfirmPasswordTextBox.SelectAll();
+                    focusSetted = true;
+                }
+            }
+            bool isValid = String.IsNullOrWhiteSpace(errors);
+            this.Console.Text = errors;
+            this.Console.Visibility = isValid ? Visibility.Collapsed : Visibility.Visible;
+            return isValid;
         }
 
         private bool validatePassword(String password1, String passwordConfirm) 
         {
-            return String.Compare(password1,passwordConfirm,false) == 0;
+            return String.Compare(password1, passwordConfirm, false) == 0;
         }
 
         public bool validateEmail(String email)
@@ -128,7 +134,7 @@ namespace Misp.Kernel.Administration.User
             user.login = LoginTextBox.Text.Trim();
             user.email = EmailTextBox.Text.Trim();
             user.name = FirstNameTextBox.Text;
-            user.password = ConfirmPasswordTextBox.Password.Trim();
+            user.password = ConfirmPasswordTextBox.Password;
             user.admin = true;
             return user;
         }
