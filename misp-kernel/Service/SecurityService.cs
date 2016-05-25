@@ -30,6 +30,24 @@ namespace Misp.Kernel.Service
             }
         }
 
+        public bool singout(String login, String password)
+        {
+            try
+            {
+                RestClient.Authenticator = new HttpBasicAuthenticator(login, password);
+                var request = new RestRequest(ResourcePath + "/sing-out", Method.GET);
+                request.RequestFormat = DataFormat.Json;
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                bool response = RestSharp.SimpleJson.DeserializeObject<bool>(queryResult.Content);
+                return response;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
         public User saveAdministrator(User user)
         {
             try
