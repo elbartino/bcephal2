@@ -30,10 +30,10 @@
                 <Label x:Name="passwordLabel"  Content="Password :" Grid.Column="0"/>
                 <PasswordBox x:Name="passwordTextBox"  Grid.Column="1"/>
             </Grid>
-            
-            <Button x:Name="LoginButton" Grid.Row="2" MaxWidth="100" Content="Login"/>
 
-            <TextBlock x:Name="passwordForgottenTextBock" Grid.Row="3" HorizontalAlignment="Right" Margin="0 5">
+            <Button x:Name="LoginButton" Grid.Row="2" MaxWidth="100" Content="Login" Margin="0,5"/>
+
+            <TextBlock x:Name="passwordForgottenTextBock" Grid.Row="3" HorizontalAlignment="Right">
                 <Hyperlink RequestNavigate="OnRequestNewPassword">
                     <TextBlock Text="Forgotten password !" FontSize="12" />
                 </Hyperlink>

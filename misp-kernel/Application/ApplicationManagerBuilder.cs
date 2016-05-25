@@ -228,6 +228,8 @@ namespace Misp.Kernel.Application
                 {
                     ApplicationManager.Instance.MainWindow.LoginPanel.Console.Text = "Wrong login or password!";
                     ApplicationManager.Instance.MainWindow.LoginPanel.Console.Visibility = Visibility.Visible;
+                    ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.Focus();
+                    ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.SelectAll();
                 }
             }
         }
