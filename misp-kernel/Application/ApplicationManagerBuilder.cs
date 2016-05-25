@@ -238,6 +238,8 @@ namespace Misp.Kernel.Application
             buildUserMenus();
             ApplicationManager.Instance.MainWindow.FileClosedView.ClearTextBlock.Visibility = Visibility.Collapsed;
             ApplicationManager.Instance.MainWindow.FileClosedView.NewFileTextBlock.Visibility = user.admin.Value ? Visibility.Visible : Visibility.Collapsed;
+            ApplicationManager.Instance.MainWindow.ConnectedUserPanel.Visibility = user != null ? Visibility.Visible : Visibility.Collapsed;
+            ApplicationManager.Instance.MainWindow.ConnectedUserPanel.UserTextBlock.Text = user.login;
         }
 
         private void setExcelExtension()
