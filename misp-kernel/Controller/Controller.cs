@@ -56,7 +56,7 @@ namespace Misp.Kernel.Controller
         private void RenameCommandExecuted(object sender, ExecutedRoutedEventArgs e) { this.toolBarHandlerBuilder.onRenameButtonClic(sender, e); }
 
         private void SaveCommandEnabled(object sender, CanExecuteRoutedEventArgs e) { e.CanExecute = IsModify;
-                 ApplicationManager.Instance.MainWindow.MenuBar.GetFileMenu().EnableSaveMenu(IsModify);
+        if (ApplicationManager.Instance.MainWindow.MenuBar != null) ApplicationManager.Instance.MainWindow.MenuBar.GetFileMenu().EnableSaveMenu(IsModify);
         }
         private void SaveCommandExecuted(object sender, ExecutedRoutedEventArgs e) { this.toolBarHandlerBuilder.onSaveButtonClic(sender, e); }
 
