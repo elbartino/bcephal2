@@ -677,7 +677,10 @@ namespace Misp.Kernel.Application
             ApplicationManager.Instance.User = null;
             ApplicationManager.Instance.MainWindow.ConnectedUserPanel.Visibility = Visibility.Collapsed;
             ApplicationManager.Instance.MainWindow.displayMenuBar(null);
+            ApplicationManagerBuilder builder = new ApplicationManagerBuilder();
+            builder.loadPlugins();
             tryToLogin();
+
             return state;
         }
 

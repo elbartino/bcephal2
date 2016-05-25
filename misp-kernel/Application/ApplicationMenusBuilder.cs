@@ -65,7 +65,7 @@ namespace Misp.Kernel.Application
         {
             foreach(IPlugin plugin in ApplicationManager.Plugins){
                 foreach (ApplicationMenu menu in plugin.Menus)
-                {
+                {                   
                     menuBar.DisplayMenu(menu);
                     RadioButton button = new RadioButton();
                     button.Content = menu.Header;

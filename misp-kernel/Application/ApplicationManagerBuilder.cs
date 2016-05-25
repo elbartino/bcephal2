@@ -53,9 +53,10 @@ namespace Misp.Kernel.Application
             return true;
         }
 
-        protected void loadPlugins()
+        public void loadPlugins()
         {
             logger.Info("Plugins loading...");
+            ApplicationManager.Instance.Plugins = new List<IPlugin>(0);
             string path = getBaseDirectory();
             logger.Debug("Directory to search plugins : " + path);
             string[] pluginFiles = Directory.GetFiles(path, "*.DLL");
