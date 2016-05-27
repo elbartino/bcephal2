@@ -412,7 +412,7 @@ namespace Misp.Sourcing.Base
             List<Kernel.Domain.Browser.BrowserData> datas = this.Service.getBrowserDatas();
             ((AutomaticSourcingSideBar)SideBar).AutomaticSourcingGroup.AutomaticSourcingTreeview.fillTree(new ObservableCollection<Kernel.Domain.Browser.BrowserData>(datas));
 
-            List<Model> models = GetAutomaticSourcingService().ModelService.getAll();
+            List<Model> models = GetAutomaticSourcingService().ModelService.getModelsForSideBar();
             ((AutomaticSourcingSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
             if (!isAutomaticTarget())
             {
@@ -454,7 +454,27 @@ namespace Misp.Sourcing.Base
             ((AutomaticSourcingSideBar)SideBar).AutomaticSourcingGroup.AutomaticSourcingTreeview.SelectionChanged += SidebarAutomaticSourcingSelected;
             ((AutomaticSourcingSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += SidebarMeasureSelected;
             ((AutomaticSourcingSideBar)SideBar).EntityGroup.EntityTreeview.SelectionChanged += SidebarTargetSelected;
+            ((AutomaticSourcingSideBar)SideBar).EntityGroup.EntityTreeview.ExpandAttribute += OnExpandAttribute;
             ((AutomaticSourcingSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += SidebarPeriodNameSelected;
+        }
+
+        private void OnExpandAttribute(object sender)
+        {
+            if (sender != null && sender is Kernel.Domain.Attribute)
+            {
+                Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
+                if (attribute.FilterAttributeValues.Count > 0) return;
+                if (!attribute.LoadValues)
+                {
+                    List<Kernel.Domain.AttributeValue> values = GetAutomaticSourcingService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
+                    attribute.valueListChangeHandler.Items.Clear();
+                    foreach (Kernel.Domain.AttributeValue value in values)
+                    {
+                        attribute.valueListChangeHandler.Items.Add(value);
+                    }
+                    attribute.LoadValues = true;
+                }
+            }
         }
 
         private void SidebarPeriodNameSelected(object sender)

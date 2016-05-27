@@ -51,7 +51,7 @@ namespace Misp.Kernel.Service
                 }
                 catch (Exception)
                 {
-                    return null;
+                    return new List<Model>(0);
                 }
             }
             catch (Exception e)
