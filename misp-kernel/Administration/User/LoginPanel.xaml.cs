@@ -24,6 +24,15 @@ namespace Misp.Kernel.Administration.User
         public LoginPanel()
         {
             InitializeComponent();
+            this.passwordTextBox.KeyUp += OnValidatePassword;
+        }
+
+        private void OnValidatePassword(object sender, KeyEventArgs args)
+        {
+            if (args.Key == Key.Enter)
+            {
+               
+            }
         }
 
         public bool ValidateEdition()

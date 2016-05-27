@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using Misp.Kernel.Task;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
+using System.Windows.Input;
 
 namespace Misp.Kernel.Application
 {
@@ -700,6 +701,16 @@ namespace Misp.Kernel.Application
                 ApplicationManager.Instance.MainWindow.LoginPanel.reset();
                 ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.Focus();
                 ApplicationManager.Instance.MainWindow.LoginPanel.LoginButton.Click += onLoginClicked;
+                ApplicationManager.Instance.MainWindow.LoginPanel.passwordTextBox.KeyUp += OnValidate;
+                ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.KeyUp += OnValidate;
+            }
+        }
+
+        private void OnValidate(object sender, System.Windows.Input.KeyEventArgs args)
+        {
+            if (args.Key == Key.Enter)
+            {
+                connect();   
             }
         }
 
@@ -723,7 +734,7 @@ namespace Misp.Kernel.Application
             }
         }
 
-        private void onLoginClicked(object sender, RoutedEventArgs e)
+        private void connect() 
         {
             if (ApplicationManager.Instance.MainWindow.LoginPanel.ValidateEdition())
             {
@@ -735,6 +746,8 @@ namespace Misp.Kernel.Application
                     setUser(user);
                     ApplicationManager.Instance.MainWindow.LoginPanel.Visibility = Visibility.Collapsed;
                     ApplicationManager.Instance.MainWindow.LoginPanel.LoginButton.Click -= onLoginClicked;
+                    ApplicationManager.Instance.MainWindow.LoginPanel.passwordTextBox.KeyUp -= OnValidate;
+                    ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.KeyUp -= OnValidate;
                 }
                 else
                 {
@@ -744,6 +757,11 @@ namespace Misp.Kernel.Application
                     ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.SelectAll();
                 }
             }
+        }
+
+        private void onLoginClicked(object sender, RoutedEventArgs e)
+        {
+            connect();
         }
 
         protected void setUser(User user)
