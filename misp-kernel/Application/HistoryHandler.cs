@@ -702,7 +702,15 @@ namespace Misp.Kernel.Application
                 ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.Focus();
                 ApplicationManager.Instance.MainWindow.LoginPanel.LoginButton.Click += onLoginClicked;
                 ApplicationManager.Instance.MainWindow.LoginPanel.passwordTextBox.KeyUp += OnValidate;
-                ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.KeyUp += OnValidate;
+                ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.KeyUp += OnLoginValidate;
+            }
+        }
+
+        private void OnLoginValidate(object sender, System.Windows.Input.KeyEventArgs args)
+        {
+            if (args.Key == Key.Enter) 
+            {
+                ApplicationManager.Instance.MainWindow.LoginPanel.passwordTextBox.Focus();
             }
         }
 
@@ -747,7 +755,7 @@ namespace Misp.Kernel.Application
                     ApplicationManager.Instance.MainWindow.LoginPanel.Visibility = Visibility.Collapsed;
                     ApplicationManager.Instance.MainWindow.LoginPanel.LoginButton.Click -= onLoginClicked;
                     ApplicationManager.Instance.MainWindow.LoginPanel.passwordTextBox.KeyUp -= OnValidate;
-                    ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.KeyUp -= OnValidate;
+                    ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.KeyUp -= OnLoginValidate;
                 }
                 else
                 {
