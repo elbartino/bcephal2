@@ -49,7 +49,7 @@ namespace Misp.Kernel.Service
                     List<Kernel.Domain.Model> models = RestSharp.SimpleJson.DeserializeObject<List<Kernel.Domain.Model>>(queryResult.Content);
                     return models;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     return new List<Model>(0);
                 }
