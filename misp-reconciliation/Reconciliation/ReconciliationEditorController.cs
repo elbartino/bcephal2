@@ -75,6 +75,7 @@ namespace Misp.Reconciliation.Reconciliation
             getReconciliationEditor().ListChangeHandler.AddNew(reco);
             page.getReconciliationForm().reconciliationMainPanel.leftFilterGrid.filterForm.reset();
             page.getReconciliationForm().reconciliationMainPanel.rigthFilterGrid.filterForm.reset();
+            Open(reco);
             return OperationState.CONTINUE;
         }
 
