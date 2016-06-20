@@ -86,7 +86,10 @@ namespace Misp.Initiation.Measure
         /// </summary>
         public void fillObject() 
         {
-            if (EditedObject != null) EditedObject.ForgetChild(MeasureTree.defaultValue);
+            if (EditedObject != null)
+            {
+                EditedObject.ForgetChild(MeasureTree.defaultValue);
+            }
         }
         
         /// <summary>

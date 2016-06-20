@@ -28,6 +28,7 @@ namespace Misp.Kernel.Util
         /// </summary>
         public static string GROUP_CLIPBOARD_FORMAT = "Misp.BGroup";
         public static string MEASURE_CLIPBOARD_FORMAT = "Misp.Measure";
+        public static string ROLE_CLIPBOARD_FORMAT = "Misp.Role";
         public static string ATTRIBUTE_CLIPBOARD_FORMAT = "Misp.Attribute";
         public static string PERIODNAME_CLIPBOARD_FORMAT = "Misp.PeriodName";
         public static string ATTRIBUTE_VALUE_CLIPBOARD_FORMAT = "Misp.Value";
@@ -515,6 +516,23 @@ namespace Misp.Kernel.Util
             if (listeMeasure != null)
             {
                 List<Domain.Measure> ob = listeMeasure.Cast<Domain.Measure>().ToList();
+                if (ob != null && ob.Count > 0) return ob;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Cette méthode vérifie si le presse-papier contient une role et 
+        /// renvoie un objet de ce type
+        /// </summary>
+        /// <param name="format">Le format du type de données</param>
+        /// <returns>L'objet présent dans le presse-papiers</returns>
+        public static List<Domain.Role> GetRole()
+        {
+            List<Domain.IHierarchyObject> listeRole = GetHierarchyObject(MEASURE_CLIPBOARD_FORMAT);
+            if (listeRole != null)
+            {
+                List<Domain.Role> ob = listeRole.Cast<Domain.Role>().ToList();
                 if (ob != null && ob.Count > 0) return ob;
             }
             return null;

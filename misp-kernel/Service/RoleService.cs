@@ -16,40 +16,10 @@ namespace Misp.Kernel.Service
         /// </summary>
         public ModelService ModelService { get; set; }
 
-        /// <summary>
-        /// Le PeriodicityService.
-        /// </summary>
-        public PeriodNameService periodNameService { get; set; }
 
-        /// <summary>
-        /// Le PeriodicityService.
-        /// </summary>
-        public MeasureService measureService { get; set; }
-
-        /// <summary>
-        /// Le ModelService.
-        /// </summary>
-        public PostingService postingService { get; set; }
-
-        /// <summary>
-        /// L'InputTableService
-        /// </summary>
-        public Service.Service<InputTable, Kernel.Domain.Browser.InputTableBrowserData> InputTableService { get; set; }
-
-
-        /// <summary>
-        /// Le CalculatedMeasureService
-        /// </summary>
-        public CalculatedMeasureService CalculatedMeasureService { get; set; }
-
-
-        /// <summary>
-        ///  Le TargetService
-        /// </summary>
-        public TargetService TargetService { get; set; }
         #endregion
 
-        #region Profil
+        #region Role
 
         /// <summary>
         /// save role
@@ -74,6 +44,32 @@ namespace Misp.Kernel.Service
             }
         }
 
+        /// <summary>
+        /// Retoune la liste de roles du fichier ouvert.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>La liste de roles du fichier ouvert</returns>
+        public Kernel.Domain.Role getRootRole()
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/root", Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                try
+                {
+                    Kernel.Domain.Role root = RestSharp.SimpleJson.DeserializeObject<Kernel.Domain.Role>(queryResult.Content);
+                    return root;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new BcephalException("Unable to Return roles.", e);
+            }
+        }
 
         /// <summary>
         /// get Role by oid

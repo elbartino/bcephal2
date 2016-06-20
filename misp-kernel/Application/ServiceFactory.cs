@@ -32,6 +32,7 @@ namespace Misp.Kernel.Application
         private PostingService postingService;
 
         private SecurityService securityService;
+        private RoleService roleService;
 
         /// <summary>
         /// Build a new instance of ServiceFactory.
@@ -200,6 +201,20 @@ namespace Misp.Kernel.Application
                 configureService(measureService);
             }
             return measureService;
+        }
+
+        /// <summary>
+        /// Gets MeasureService
+        /// </summary>
+        public RoleService GetRoleService()
+        {
+            if (roleService == null)
+            {
+                roleService = new RoleService();
+                roleService.ResourcePath = ResourcePath.SECURITY_ROLE_RESOURCE_PATH;
+                configureService(roleService);
+            }
+            return roleService;
         }
 
         /// <summary>
