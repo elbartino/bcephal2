@@ -9,6 +9,7 @@ using Misp.Kernel.Service;
 using Misp.Kernel.Domain;
 using Misp.Reconciliation.Reconciliation;
 using Misp.Reconciliation.Posting;
+using Misp.Kernel.Administration.Role;
 
 namespace Misp.Reconciliation.Base
 {
@@ -32,6 +33,18 @@ namespace Misp.Reconciliation.Base
         /// <returns></returns>
         public override Controllable GetController(string fonctionality)
         {
+
+
+            if (fonctionality == ReconciliationFunctionalitiesCode.ADMINISTRATION_ROLE)
+            {
+                RoleBrowserController recoEditorController = new RoleBrowserController();
+                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                recoEditorController.Functionality = fonctionality;
+                recoEditorController.ApplicationManager = this.ApplicationManager;
+                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetRoleService();
+                return recoEditorController;
+            }
+
             if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY)
             {
                 ReconciliationEditorController recoEditorController = new ReconciliationEditorController();

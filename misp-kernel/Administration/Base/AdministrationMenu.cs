@@ -40,20 +40,16 @@ namespace Misp.Kernel.Administration.Base
         /// </summary>
         protected override void initChildren()
         {
-            this.Code = ApplicationMenu.RECONCILIATION_MENU_CODE;
+            this.Code = ApplicationMenu.ADMINISTRATION_MENU_CODE;
             this.Header = "Administration";
             AdministrationUserMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE,"New User",Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_USER));
             AdministrationUserListMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "List User", Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_USER));
             
             AdministrationProfilMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "New User", Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_PROFIL));
-            AdministrationProfilListMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "New User", Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_PROFIL)); 
+            AdministrationProfilListMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "New User", Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_PROFIL));
+
+            AdministrationProfilListMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "Manage Role", Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_ROLE)); 
             
-
-            //AdministrationUserMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "New User", NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_USER));
-            //AdministrationUserListMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "List User ", NavigationToken.GetSearchViewToken(AdministrationFunctionalitiesCode.LIST_RECONCILIATION_FILTERS_FUNCTIONALITY));
-            //AdministrationProfileMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "Postings", NavigationToken.GetSearchViewToken(AdministrationFunctionalitiesCode.RECONCILIATION_POSTING_FUNCTIONALITY));
-            //AdministrationRoleMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "Transaction File Types", NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.TRANSACTION_FILE_TYPES_FUNCTIONALITY));
-
         }
     }
 }

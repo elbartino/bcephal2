@@ -23,7 +23,7 @@ namespace Misp.Kernel.Ui.Base
             controls.Add(NewButton);
             //controls.Add(OpenButton);
             //controls.Add(RenameButton);
-            //controls.Add(DeleteButton);
+            controls.Add(SaveButton);
             controls.Add(CloseButton);
             return controls;
         }

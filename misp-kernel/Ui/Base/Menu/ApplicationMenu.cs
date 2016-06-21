@@ -24,10 +24,11 @@ namespace Misp.Kernel.Ui.Base.Menu
         public static string ALLOCATION_MENU_CODE       = "Allocation Menu";
         public static string REPORTING_MENU_CODE        = "Reporting Menu";
         public static string RECONCILIATION_MENU_CODE   = "Reconciliation Menu";
+        public static string ADMINISTRATION_MENU_CODE = "Administration Menu";
         public static string SETTINGS_MENU_CODE         = "Settings Menu";
         public static string HELP_MENU_CODE             = "Help Menu";
 
-        public static string ADMINISTRATION_MENU_CODE = "Administration Menu";
+        
 
         /// <summary>
         /// Ce code quand il existe identifie le parent de manière unique.

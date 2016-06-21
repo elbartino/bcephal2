@@ -14,7 +14,9 @@ namespace Misp.Reconciliation.Base
     {
 
         private ReconciliationService reconciliationService;
-        PostingService postingService;
+        private PostingService postingService;
+
+        private RoleService roleService;
 
         /// <summary>
         /// Build a new instance of InitiationServiceFactory.
@@ -62,6 +64,22 @@ namespace Misp.Reconciliation.Base
             }
             return postingService;
         }
-       
+
+        /// <summary>
+        /// Gets RoleService
+        /// </summary>
+        public RoleService GetRoleService()
+        {
+            if (roleService == null)
+            {
+                roleService = new RoleService();
+                roleService.ResourcePath = ReconciliationResourcePath.SECURITY_RESOURCE_PATH;
+                roleService.GroupService = GetGroupService();
+                roleService.FileService = GetFileService();
+                roleService.ModelService = GetModelService();
+                configureService(roleService);
+            }
+            return roleService;
+        }
     }
 }

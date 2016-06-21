@@ -165,6 +165,8 @@ namespace Misp.Kernel.Domain
             Notify("Items");
         }
 
+        
+
         /**
          * Add an item to the list of updated items
          *

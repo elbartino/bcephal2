@@ -116,6 +116,9 @@
     <Compile Include="Administration\Base\AdministrationFunctionalitiesCode.cs" />
     <Compile Include="Administration\Base\AdministrationMenu.cs" />
     <Compile Include="Administration\Base\AdministrationResourcePath.cs" />
+    <Compile Include="Administration\Base\AdministrationControllerFactory.cs" />
+    <Compile Include="Administration\Base\AdministrationServiceFactory.cs" />
+    <Compile Include="Administration\PlugIn.cs" />
     <Compile Include="Administration\Profil\ProfilPropertyPanel.xaml.cs">
       <DependentUpon>ProfilPropertyPanel.xaml</DependentUpon>
     </Compile>
@@ -129,8 +132,6 @@
     <Compile Include="Administration\Profil\ProfilPropertyBar.cs" />
     <Compile Include="Administration\Profil\ProfilSideBar.cs" />
     <Compile Include="Administration\Profil\ProfilToolBar.cs" />
-    <Compile Include="Administration\Role\RoleEditorController.cs" />
-    <Compile Include="Administration\Role\RoleEditorItem.cs" />
     <Compile Include="Administration\Role\RoleSideBar.cs" />
     <Compile Include="Administration\Role\RoleGridToolBar.cs" />
     <Compile Include="Administration\Role\RoleToolBar.cs" />

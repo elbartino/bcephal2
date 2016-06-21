@@ -16,15 +16,55 @@ namespace Misp.Kernel.Administration.Role
     {
         public RoleBrowserController() 
         {
-            ModuleName = "Administration";
+            ModuleName = PlugIn.MODULE_NAME; 
+        }
+       
+
+        /// <summary>
+        /// effectue la recherche
+        /// </summary>
+        /// <returns></returns>
+        public override OperationState Search()
+        {
+            try
+            {
+                Kernel.Domain.Role root = getRoleService().getRootRole();
+                GetRoleBrowser().form.EditedObject = root;
+                GetRoleBrowser().form.ChangeEventHandler = this.ChangeEventHandler;
+                GetRoleBrowser().form.displayObject();
+                return OperationState.CONTINUE;
+            }
+            catch (ServiceExecption e)
+            {
+                DisplayError("error", e.Message);
+            }
+
+            return OperationState.STOP;
+        }
+
+        
+
+        public RoleBrowser GetRoleBrowser()
+        {
+            return (RoleBrowser)this.View;
+        }
+
+        public RoleService getRoleService()
+        {
+            return (RoleService)Service;
+        }
+
+        public override Misp.Kernel.Domain.SubjectType SubjectTypeFound()
+        {
+            return Misp.Kernel.Domain.SubjectType.ROLE;
         }
 
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() 
-        { 
-            return AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_ROLE; 
+        public override string GetEditorFuntionality()
+        {
+            return AdministrationFunctionalitiesCode.ADMINISTRATION_ROLE;
         }
         
         /// <summary>
@@ -35,26 +75,73 @@ namespace Misp.Kernel.Administration.Role
         {
             return new RoleBrowser(); 
         }
+
+        public override OperationState Save()
+        {
+            try
+            {
+                GetRoleBrowser().form.fillObject();
+                Kernel.Domain.Role root = GetRoleBrowser().form.EditedObject;
+                root = getRoleService().saveRole(root);
+                GetRoleBrowser().form.EditedObject = root;
+                GetRoleBrowser().form.displayObject();
+                //if (base.Save() == OperationState.STOP) return OperationState.STOP;
+            }
+            catch (Exception)
+            {
+                DisplayError("Save Role", "Unable to save Role.");
+                return OperationState.STOP;
+            }
+            return OperationState.CONTINUE;
+        }
         
         /// <summary>
         /// Initialisation des donnée sur la vue.
         /// </summary>
-        protected override void initializeViewData() { }
-
-        public override Misp.Kernel.Domain.SubjectType SubjectTypeFound()
+        protected override void initializeViewData() 
         {
-            return Misp.Kernel.Domain.SubjectType.PROFIL;
+            GetRoleBrowser().form.RoleService = getRoleService();
         }
+
+        
 
         public override Kernel.Application.OperationState Search(object oid)
         {
             return Kernel.Application.OperationState.CONTINUE;
         }
 
-        public RoleService getRoleService()
+
+        /// <summary>
+        /// Crée et retourne une nouvelle instance de la SideBar liée à ce controller.
+        /// </summary>
+        /// <returns>Une nouvelle instance de la SideBar</returns>
+        protected override SideBar getNewSideBar()
         {
-            return (RoleService)Service;
+            return new RoleSideBar();
         }
+
+        protected override Misp.Kernel.Ui.Base.ToolBar getNewToolBar()
+        {
+            BrowserToolBar bar = (BrowserToolBar)base.getNewToolBar();
+            bar.NewButton.Visibility = System.Windows.Visibility.Hidden;
+            bar.SaveButton.Visibility = System.Windows.Visibility.Visible;
+            return bar;
+        }
+
+        /// <summary>
+        /// Methode à exécuter lorsqu'il y a un changement sur la vue.
+        /// </summary>
+        /// <returns>
+        /// OperationState.CONTINUE si l'opération a réussi
+        /// OperationState.STOP sinon
+        /// </returns>
+        public override OperationState OnChange()
+        {
+            base.OnChange();
+            return OperationState.CONTINUE;
+        }
+
+        
 
         /// <summary>
         /// Edit property

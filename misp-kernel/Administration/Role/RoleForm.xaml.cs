@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Ui.Base;
+﻿using Misp.Kernel.Service;
+using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Role;
 using System;
 using System.Collections.Generic;
@@ -7,8 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -24,13 +27,15 @@ namespace Misp.Kernel.Administration.Role
     {
         public RoleForm()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         /// <summary>
         /// Spécifie la méthode à exécuter lorsqu'un changement survient sur la vue.
         /// </summary>
         public ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
+
+        public RoleService RoleService { get; set; }
         
         /// <summary>
         /// 
@@ -92,7 +97,9 @@ namespace Misp.Kernel.Administration.Role
         /// </summary>
         public void displayObject() 
         {
-         
+            RemoveChangeHandlers();
+            RoleTree.DisplayRoot(this.EditedObject);
+            AddChangeHandlers();
         }
 
         /// <summary>
@@ -110,6 +117,33 @@ namespace Misp.Kernel.Administration.Role
         { 
             get {return roleTree ; } 
         }
-        
+
+        /// <summary>
+        /// Initialisation de la form
+        /// </summary>
+        protected virtual void AddChangeHandlers()
+        {
+            if (this.ChangeEventHandler != null)
+            {
+                foreach (object control in getEditableControls())
+                {
+                    if (control is Misp.Kernel.Ui.Role.RoleTreeView) ((Misp.Kernel.Ui.Role.RoleTreeView)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Initialisation de la form
+        /// </summary>
+        protected virtual void RemoveChangeHandlers()
+        {
+            if (this.ChangeEventHandler != null)
+            {
+                foreach (object control in getEditableControls())
+                {
+                    if (control is Misp.Kernel.Ui.Role.RoleTreeView) ((Misp.Kernel.Ui.Role.RoleTreeView)control).Changed -= this.ChangeEventHandler.ChangeEventHandler;                    
+                }
+            }
+        }
     }
 }

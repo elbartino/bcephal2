@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Misp.Kernel.Administration.Role
 {
@@ -18,7 +19,24 @@ namespace Misp.Kernel.Administration.Role
         /// <returns></returns>
         protected override int getColumnCount()
         {
-            return 5;
+            return 2;
+        }
+
+        public RoleForm form;
+
+        protected override void initializeGrid()
+        {
+            base.initializeGrid();
+            this.Children.RemoveAt(this.Children.Count - 1);
+
+            form = new RoleForm();
+
+            LayoutDocument page = new LayoutDocument();
+            page.CanClose = false;
+            page.CanFloat = false;
+            page.Title = getTitle();
+            page.Content = form;
+            this.Children.Add(page);
         }
 
         protected override string getTitle() { return "Roles"; }
@@ -34,9 +52,6 @@ namespace Misp.Kernel.Administration.Role
             {
                 case 0: return new DataGridTextColumn();
                 case 1: return new DataGridTextColumn();
-                case 2: return new DataGridTextColumn();
-                case 3: return new DataGridTextColumn();
-                case 4: return new DataGridCheckBoxColumn();
                 default: return new DataGridTextColumn();
             }
         }
@@ -52,10 +67,7 @@ namespace Misp.Kernel.Administration.Role
             switch (index)
             {
                 case 0: return "Name";
-                case 1: return "Group";
-                case 2: return "Creation Date";
-                case 3: return "Modification Date";
-                case 4: return "Visible in shortcut";
+                case 1: return "Delete";
                 default: return "";
             }
         }
@@ -72,8 +84,6 @@ namespace Misp.Kernel.Administration.Role
                 case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
                 case 1: return 150;
                 case 2: return 120;
-                case 3: return 120;
-                case 4: return 100;
                 default: return 100;
             }
         }
@@ -88,10 +98,7 @@ namespace Misp.Kernel.Administration.Role
             switch (index)
             {
                 case 0: return "name";
-                case 1: return "group";
-                case 2: return "creationDate";
-                case 3: return "modificationDate";
-                case 4: return "visibleInShortcut";
+                case 1: return "delete";
                 default: return "oid";
             }
         }
@@ -102,9 +109,6 @@ namespace Misp.Kernel.Administration.Role
             {
                 case 0: return false;
                 case 1: return true;
-                case 2: return true;
-                case 3: return true;
-                case 4: return false;
                 default: return true;
             }
         }

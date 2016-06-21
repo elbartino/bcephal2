@@ -110,9 +110,9 @@
     <Compile Include="Diagram\ValueChainItem.xaml.cs">
       <DependentUpon>ValueChainItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Measure\MeasureGridToolBar.cs" />
     <Compile Include="Measure\MeasureEditorController.cs" />
     <Compile Include="Measure\MeasureEditorItem.cs" />
+    <Compile Include="Measure\MeasureGridToolBar.cs" />
     <Compile Include="Measure\MeasureForm.xaml.cs">
       <DependentUpon>MeasureForm.xaml</DependentUpon>
     </Compile>

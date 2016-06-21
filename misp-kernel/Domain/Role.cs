@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Misp.Kernel.Domain
     public class Role : Persistent, IHierarchyObject
     {
         private bool _isDefault;
-        public string _name { get;set;}
+        private string _name;
         private bool    _isSelected;
 
         [ScriptIgnore]
@@ -22,6 +23,12 @@ namespace Misp.Kernel.Domain
         [NonSerialized]
         private System.Windows.Media.Brush foreground;
 
+
+        public Role()
+        {
+            this.childrenListChangeHandler = new PersistentListChangeHandler<Role>();
+            IsDefault = false;
+        }
 
         [ScriptIgnore]
         public bool IsDefault 
@@ -116,6 +123,7 @@ namespace Misp.Kernel.Domain
             child.SetPosition(childrenListChangeHandler.Items.Count);
             child.SetParent(this);
             childrenListChangeHandler.AddNew((Role)child);
+            bubbleSortDesc(childrenListChangeHandler.Items);
             UpdateParents();
             OnPropertyChanged("childrenListChangeHandler.Items");
         }
@@ -128,6 +136,7 @@ namespace Misp.Kernel.Domain
         {
 
             childrenListChangeHandler.AddUpdated((Role)child);
+            bubbleSortDesc(childrenListChangeHandler.Items);
             UpdateParents();
             OnPropertyChanged("childrenListChangeHandler.Items");
         }
@@ -139,6 +148,7 @@ namespace Misp.Kernel.Domain
         public void RemoveChild(IHierarchyObject child)
         {
             childrenListChangeHandler.AddDeleted((Role)child);
+            bubbleSortDesc(childrenListChangeHandler.Items);
             UpdateParents();
         }
 
@@ -150,6 +160,7 @@ namespace Misp.Kernel.Domain
             if (this.parent != null)
             {
                 this.parent.childrenListChangeHandler.AddUpdated(this);
+                bubbleSortDesc(childrenListChangeHandler.Items);
                 this.parent.UpdateParents();
             }
         }
@@ -219,7 +230,7 @@ namespace Misp.Kernel.Domain
         /// Définit le parent
         /// </summary>
         /// <param name="parent"></param>
-        public void SetParent(IHierarchyObject parent) {  }
+        public void SetParent(IHierarchyObject parent) { this.parent = (Role)parent; }
 
         /// <summary>
         /// 
@@ -251,6 +262,29 @@ namespace Misp.Kernel.Domain
             }
             child.SetPosition(-1);
             childrenListChangeHandler.forget((Role)child);
+        }
+
+        public void bubbleSortDesc(IList list)
+        {
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                for (int j = 1; j <= i; j++)
+                {
+                    object o1 = list[j - 1];
+                    object o2 = list[j];
+                    if (((IComparable)o1).CompareTo(o2) < 0)
+                    {
+                        list.Remove(o1);
+                        list.Insert(j, o1);
+                    }
+                }
+            }
+        }
+
+        public override int CompareTo(object obj)
+        {
+            if (obj == null || !(obj is Role)) return 1;
+            return this.name.CompareTo(((Role)obj).name);
         }
     }
     
