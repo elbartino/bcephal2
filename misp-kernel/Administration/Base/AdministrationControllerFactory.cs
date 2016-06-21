@@ -35,7 +35,7 @@ namespace Misp.Reconciliation.Base
             if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_ROLE)
             {
                 RoleBrowserController roleEditorController = new RoleBrowserController();
-                roleEditorController.ModuleName = Misp.Kernel.Administration.PlugIn.MODULE_NAME;
+                roleEditorController.ModuleName = "Administration_Role";// Misp.Kernel.Administration.PlugIn.MODULE_NAME;
                 roleEditorController.Functionality = fonctionality;
                 roleEditorController.ApplicationManager = this.ApplicationManager;
                 roleEditorController.Service = ((AdministrationServiceFactory)ServiceFactory).GetRoleService();
