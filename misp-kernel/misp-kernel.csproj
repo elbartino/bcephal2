@@ -118,7 +118,6 @@
     <Compile Include="Administration\Base\AdministrationResourcePath.cs" />
     <Compile Include="Administration\Base\AdministrationControllerFactory.cs" />
     <Compile Include="Administration\Base\AdministrationServiceFactory.cs" />
-    <Compile Include="Administration\PlugIn.cs" />
     <Compile Include="Administration\Profil\ProfilPropertyPanel.xaml.cs">
       <DependentUpon>ProfilPropertyPanel.xaml</DependentUpon>
     </Compile>
