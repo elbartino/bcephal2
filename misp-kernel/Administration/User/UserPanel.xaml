@@ -85,7 +85,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="Active" Content="Active" Grid.Column="0" VerticalAlignment="Center"/>
-                <CheckBox x:Name="ActiveBox" Grid.Column="1" Grid.Row="5" />
+                <CheckBox x:Name="ActiveBox" Grid.Column="1"  />
             </Grid>
 
             <Grid Grid.Row="7" Margin="0,5">
@@ -124,9 +124,9 @@
                     </Button.Template>
                 </Button>
             </Grid>
-
-            <TextBlock x:Name="Console" Grid.Row="10" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
+            
             <Button x:Name="SaveButton" Grid.Row="9" MaxWidth="100" MinHeight="27" Content="Save" Margin="10"/>
+            <TextBlock x:Name="Console" Grid.Row="10" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>            
         </Grid>
     </Border>
 </Grid>

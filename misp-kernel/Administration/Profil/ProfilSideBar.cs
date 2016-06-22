@@ -26,7 +26,6 @@ namespace Misp.Kernel.Administration.Profil
             base.InitializeGroups();
             this.ProfilGroup = new ProfilGroup("Profils", true);
             this.ProfilGroup.Background = System.Windows.Media.Brushes.LightBlue;
-
             this.ProfilGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
 
             this.AddGroup(this.ProfilGroup);
