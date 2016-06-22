@@ -118,8 +118,8 @@ namespace Misp.Kernel.Administration.Profil
             switch (index)
             {
                 case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
-                case 1: return 150;
-                case 2: return 150;
+                case 1: return 100;
+                case 2: return 100;
                 default: return 100;
             }
         }
