@@ -11,42 +11,7 @@ namespace Misp.Kernel.Service
     public class ProfilService : Service<Misp.Kernel.Domain.Profil, Misp.Kernel.Domain.Browser.BrowserData>
     {
         #region Properties
-        /// <summary>
-        /// Le ModelService.
-        /// </summary>
-        public ModelService ModelService { get; set; }
 
-        /// <summary>
-        /// Le PeriodicityService.
-        /// </summary>
-        public PeriodNameService periodNameService { get; set; }
-
-        /// <summary>
-        /// Le PeriodicityService.
-        /// </summary>
-        public MeasureService measureService { get; set; }
-
-        /// <summary>
-        /// Le ModelService.
-        /// </summary>
-        public PostingService postingService { get; set; }
-
-        /// <summary>
-        /// L'InputTableService
-        /// </summary>
-        public Service.Service<InputTable, Kernel.Domain.Browser.InputTableBrowserData> InputTableService { get; set; }
-
-
-        /// <summary>
-        /// Le CalculatedMeasureService
-        /// </summary>
-        public CalculatedMeasureService CalculatedMeasureService { get; set; }
-
-
-        /// <summary>
-        ///  Le TargetService
-        /// </summary>
-        public TargetService TargetService { get; set; }
         #endregion
 
         #region Profil

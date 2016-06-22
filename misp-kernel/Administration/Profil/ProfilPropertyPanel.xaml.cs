@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Misp.Kernel.Administration.Profil
 {
     /// <summary>
-    /// Interaction logic for UserPropertyPanel.xaml
+    /// Interaction logic for ProfilPropertyPanel.xaml
     /// </summary>
     public partial class ProfilPropertyPanel : ScrollViewer
     {
@@ -26,7 +26,7 @@ namespace Misp.Kernel.Administration.Profil
         }
 
         /// <summary>
-        /// display User property
+        /// display Profil property
         /// </summary>
         /// <param name="profil"></param>
         public void displayProfil(Domain.Profil profil)
@@ -47,7 +47,7 @@ namespace Misp.Kernel.Administration.Profil
             profil.name = nameTextBox.Text;
             if (groupField.Group != null)
             {
-                groupField.Group.subjectType = Kernel.Domain.SubjectType.USER.label;
+                groupField.Group.subjectType = Kernel.Domain.SubjectType.PROFIL.label;
                 profil.group = groupField.Group;
             }
             profil.visibleInShortcut = visibleInShortcutCheckBox.IsChecked.Value;

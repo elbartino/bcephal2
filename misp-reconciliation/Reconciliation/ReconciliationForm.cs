@@ -60,11 +60,6 @@ namespace Misp.Reconciliation.Reconciliation
             InitializeComponents();
         }
 
-        public void setPostingService(PostingService service)
-        {
-            reconciliationMainPanel.setPostingService(service);
-        }
-
         protected virtual void InitializeComponents()
         {
             this.Background = null;
@@ -72,6 +67,11 @@ namespace Misp.Reconciliation.Reconciliation
             this.reconciliationMainPanel = new ReconciliationMainPanel();
             this.ReconciliationPropertiePanel = new ReconciliationPropertiePanel();
             this.Content = reconciliationMainPanel;
+        }
+
+        public void setPostingService(PostingService service)
+        {
+            reconciliationMainPanel.setPostingService(service);
         }
         
         #endregion

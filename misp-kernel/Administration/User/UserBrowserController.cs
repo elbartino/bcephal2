@@ -16,7 +16,7 @@ namespace Misp.Kernel.Administration.User
     {
         public UserBrowserController() 
         {
-            ModuleName = "Administration";
+            ModuleName = "Administration_User"; //PlugIn.MODULE_NAME;
         }
 
         /// <summary>
@@ -51,9 +51,9 @@ namespace Misp.Kernel.Administration.User
             return Kernel.Application.OperationState.CONTINUE;
         }
 
-        public SecurityService getSecurityService()
+        public UserService getUserService()
         {
-            return (SecurityService)Service;
+            return (UserService)Service;
         }
 
         /// <summary>

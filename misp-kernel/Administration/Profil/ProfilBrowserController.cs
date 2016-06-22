@@ -16,7 +16,7 @@ namespace Misp.Kernel.Administration.Profil
     {
         public ProfilBrowserController() 
         {
-            ModuleName = "Administration";
+            ModuleName = "Administration_Profil"; //PlugIn.MODULE_NAME;
         }
 
         /// <summary>

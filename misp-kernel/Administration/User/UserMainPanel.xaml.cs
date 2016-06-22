@@ -39,5 +39,13 @@ namespace Misp.Kernel.Administration.User
             this.activeCheckBox.IsChecked = user.active;
             this.emailTextBox.Text = user.email;
         }
+
+        public void Fill()
+        {
+            //this.nameTextBox.Text = user.name;
+            //this.passTextBox.Text = user.password;
+            //this.activeCheckBox.IsChecked = user.active;
+            //this.emailTextBox.Text = user.email;
+        }
     }
 }

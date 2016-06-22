@@ -11,20 +11,20 @@ namespace Misp.Reconciliation.Reconciliation
     public class ReconciliationPropertyBar : PropertyBar
     {
 
-        public LayoutAnchorable TableLayoutAnchorable { get; set; }
+        public LayoutAnchorable ReconciliationLayoutAnchorable { get; set; }
 
         public LayoutAnchorablePane Pane { get; set; }
 
         protected override void UserInitialisation()
         {
-            this.TableLayoutAnchorable = new LayoutAnchorable();
-            this.TableLayoutAnchorable.Title = "Properties";
-            this.TableLayoutAnchorable.CanClose = false;
-            this.TableLayoutAnchorable.CanFloat = false;
-            this.TableLayoutAnchorable.CanAutoHide = false;
-            this.TableLayoutAnchorable.CanHide = false;
+            this.ReconciliationLayoutAnchorable = new LayoutAnchorable();
+            this.ReconciliationLayoutAnchorable.Title = "Properties";
+            this.ReconciliationLayoutAnchorable.CanClose = false;
+            this.ReconciliationLayoutAnchorable.CanFloat = false;
+            this.ReconciliationLayoutAnchorable.CanAutoHide = false;
+            this.ReconciliationLayoutAnchorable.CanHide = false;
             Pane = new LayoutAnchorablePane();
-            Pane.Children.Add(TableLayoutAnchorable);
+            Pane.Children.Add(ReconciliationLayoutAnchorable);
             this.Panes.Add(Pane);
         }
 

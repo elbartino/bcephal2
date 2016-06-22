@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Ui.Base;
+﻿using Misp.Kernel.Service;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,10 @@ namespace Misp.Kernel.Administration.User
         /// </summary>
         public bool IsModify { get; set; }
 
+        public UserMainPanel userMainPanel { get; set; }
+
+        public UserPropertyPanel userPropertyPanel { get; set; }
+
         /// <summary>
         /// L'Target en édition
         /// </summary>
@@ -28,13 +33,10 @@ namespace Misp.Kernel.Administration.User
 
         public Kernel.Service.GroupService GroupService { get; set; }
 
-        public UserMainPanel userMainPanel { get; set; }
-
-        public UserPropertyPanel userPropertyPanel { get; set; }
-
+        
         #endregion
 
-         #region Constructor
+        #region Constructor
 
         /// <summary>
         /// Constructeur
@@ -56,7 +58,6 @@ namespace Misp.Kernel.Administration.User
         
         #endregion
 
-
         #region Methods
 
         /// <summary>
@@ -66,6 +67,11 @@ namespace Misp.Kernel.Administration.User
         public virtual void SetChangeEventHandler(Misp.Kernel.Ui.Base.ChangeEventHandlerBuilder ChangeEventHandler)
         {
             this.ChangeEventHandler = ChangeEventHandler;
+        }
+
+        public void setUserService(UserService service)
+        {
+            //userMainPanel.setUserService(service);
         }
 
         /// <summary>
@@ -92,8 +98,9 @@ namespace Misp.Kernel.Administration.User
         public void fillObject()
         {
             if (this.EditedObject == null) this.EditedObject = getNewObject();
+            this.userMainPanel.Fill();
             this.userPropertyPanel.fillUser(this.EditedObject);
-         }
+        }
         /// <summary>
         /// Cette méthode permet d'afficher les données de l'objet à éditer 
         /// pour les afficher dans la vue.

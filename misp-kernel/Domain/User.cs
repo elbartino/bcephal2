@@ -24,31 +24,31 @@ namespace Misp.Kernel.Domain
 
         public bool? admin { get; set; }
 
-        //[ScriptIgnore]
-        //public bool? visibleInShortcut { get; set; }
+        public bool? visibleInShortcut { get; set; }
 
-        //[ScriptIgnore]
-        //public BGroup group { get; set; }
+        public BGroup group { get; set; }
 
-        //[ScriptIgnore]
-        //public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }
+        public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }
 
-        [ScriptIgnore]
         public PersistentListChangeHandler<Relation> relationsListChangeHandler { get; set; }
 
 
         public User()
         {
             this.active = true;
-            //rightsListChangeHandler = new PersistentListChangeHandler<Rights>();
+            rightsListChangeHandler = new PersistentListChangeHandler<Rights>();
             relationsListChangeHandler = new PersistentListChangeHandler<Relation>();
-            //this.group = new BGroup();
-            //visibleInShortcut = true;
         }
 
         public String ToString()
         {
             return this.name;
+        }
+
+        public override int CompareTo(object obj)
+        {
+            if (obj == null || !(obj is User)) return 1;
+            return this.name.CompareTo(((User)obj).name);
         }
     }
     

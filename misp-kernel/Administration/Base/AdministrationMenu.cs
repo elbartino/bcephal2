@@ -29,7 +29,7 @@ namespace Misp.Kernel.Administration.Base
             menus.Add(AdministrationUserListMenu);
             menus.Add(new Separator());
             menus.Add(AdministrationProfilMenu);
-            menus.Add(AdministrationUserListMenu);
+            menus.Add(AdministrationProfilListMenu);
             menus.Add(new Separator());
             menus.Add(AdministrationRoleMenu);
             return menus;
@@ -42,13 +42,13 @@ namespace Misp.Kernel.Administration.Base
         {
             this.Code = ApplicationMenu.ADMINISTRATION_MENU_CODE;
             this.Header = "Administration";
-            AdministrationUserMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE,"New User",Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_USER));
-            AdministrationUserListMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "List User", Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_USER));
+            AdministrationUserMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "New User", Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_USER));
+            AdministrationUserListMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "List User", Kernel.Application.NavigationToken.GetSearchViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_USER));
             
-            AdministrationProfilMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "New User", Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_PROFIL));
-            AdministrationProfilListMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "New User", Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_PROFIL));
+            AdministrationProfilMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "New Profil", Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_PROFIL));
+            AdministrationProfilListMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "List Profil", Kernel.Application.NavigationToken.GetSearchViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_PROFIL));
 
-            AdministrationProfilListMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "Manage Role", Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_ROLE)); 
+            AdministrationRoleMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "Manage Role", Kernel.Application.NavigationToken.GetSearchViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_ROLE)); 
             
         }
     }

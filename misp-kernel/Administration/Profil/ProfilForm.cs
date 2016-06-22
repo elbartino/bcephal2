@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Ui.Base;
+﻿using Misp.Kernel.Service;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,10 @@ namespace Misp.Kernel.Administration.Profil
         /// </summary>
         public bool IsModify { get; set; }
 
+        public ProfileMainPanel profileMainPanel { get; set; }
+
+        public ProfilPropertyPanel profilPropertyPanel { get; set; }
+
         /// <summary>
         /// L'Target en édition
         /// </summary>
@@ -27,14 +32,11 @@ namespace Misp.Kernel.Administration.Profil
         public Misp.Kernel.Ui.Base.ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
 
         public Kernel.Service.GroupService GroupService { get; set; }
-
-        public ProfileMainPanel profileMainPanel { get; set; }
-
-        public ProfilPropertyPanel profilPropertyPanel { get; set; }
+        
 
         #endregion
 
-         #region Constructor
+        #region Constructor
 
         /// <summary>
         /// Constructeur
@@ -43,7 +45,6 @@ namespace Misp.Kernel.Administration.Profil
         {
             InitializeComponents();
         }
-
 
         protected virtual void InitializeComponents()
         {
@@ -55,7 +56,6 @@ namespace Misp.Kernel.Administration.Profil
         }
         
         #endregion
-
 
         #region Methods
 
@@ -85,6 +85,11 @@ namespace Misp.Kernel.Administration.Profil
             return valid;
         }
 
+        public void setProfilService(ProfilService service)
+        {
+            profileMainPanel.setProfilService(service);
+        }
+
         /// <summary> 
         /// Cette méthode permet de prendre les données éditées à l'écran 
         /// pour les charger dans l'objet en édition.
@@ -93,6 +98,7 @@ namespace Misp.Kernel.Administration.Profil
         {
             if (this.EditedObject == null) this.EditedObject = getNewObject();
             this.profilPropertyPanel.fillProfil(this.EditedObject);
+            this.profileMainPanel.Fill();
          }
         /// <summary>
         /// Cette méthode permet d'afficher les données de l'objet à éditer 

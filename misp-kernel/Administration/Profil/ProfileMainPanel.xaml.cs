@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,6 +39,16 @@ namespace Misp.Kernel.Administration.Profil
             //this.passTextBox.Text = user.password;
             //this.activeCheckBox.IsChecked = user.active;
             //this.emailTextBox.Text = user.email;
+        }
+
+        public void Fill()
+        {
+
+        }
+
+        public void setProfilService(ProfilService service)
+        {
+            
         }
     }
 }

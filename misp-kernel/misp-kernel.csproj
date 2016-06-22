@@ -221,6 +221,7 @@
     <Compile Include="Domain\User.cs" />
     <Compile Include="Service\AutomaticTargetService.cs" />
     <Compile Include="Service\CombineTransformationTreeService.cs" />
+    <Compile Include="Service\UserService.cs" />
     <Compile Include="Service\RoleService.cs" />
     <Compile Include="Service\ProfilService.cs" />
     <Compile Include="Service\PeriodNameService.cs" />

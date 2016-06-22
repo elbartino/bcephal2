@@ -10,6 +10,8 @@ using Misp.Kernel.Domain;
 using Misp.Reconciliation.Reconciliation;
 using Misp.Reconciliation.Posting;
 using Misp.Kernel.Administration.Role;
+using Misp.Kernel.Administration.User;
+using Misp.Kernel.Administration.Profil;
 
 namespace Misp.Reconciliation.Base
 {
@@ -33,18 +35,7 @@ namespace Misp.Reconciliation.Base
         /// <returns></returns>
         public override Controllable GetController(string fonctionality)
         {
-
-
-            if (fonctionality == ReconciliationFunctionalitiesCode.ADMINISTRATION_ROLE)
-            {
-                RoleBrowserController recoEditorController = new RoleBrowserController();
-                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                recoEditorController.Functionality = fonctionality;
-                recoEditorController.ApplicationManager = this.ApplicationManager;
-                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetRoleService();
-                return recoEditorController;
-            }
-
+            
             if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY)
             {
                 ReconciliationEditorController recoEditorController = new ReconciliationEditorController();
@@ -74,6 +65,61 @@ namespace Misp.Reconciliation.Base
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingService();
                 return controller;
             }
+
+
+
+
+
+            if (fonctionality == ReconciliationFunctionalitiesCode.ADMINISTRATION_ROLE)
+            {
+                RoleBrowserController recoEditorController = new RoleBrowserController();
+                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                recoEditorController.Functionality = fonctionality;
+                recoEditorController.ApplicationManager = this.ApplicationManager;
+                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetRoleService();
+                return recoEditorController;
+            }
+
+            if (fonctionality == ReconciliationFunctionalitiesCode.ADMINISTRATION_NEW_USER)
+            {
+                UserEditorController recoEditorController = new UserEditorController();
+                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                recoEditorController.Functionality = fonctionality;
+                recoEditorController.ApplicationManager = this.ApplicationManager;
+                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetUserService();
+                return recoEditorController;
+            }
+
+            if (fonctionality == ReconciliationFunctionalitiesCode.ADMINISTRATION_LIST_USER)
+            {
+                UserBrowserController recoEditorController = new UserBrowserController();
+                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                recoEditorController.Functionality = fonctionality;
+                recoEditorController.ApplicationManager = this.ApplicationManager;
+                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetUserService();
+                return recoEditorController;
+            }
+
+            if (fonctionality == ReconciliationFunctionalitiesCode.ADMINISTRATION_NEW_PROFIL)
+            {
+                ProfilEditorController recoEditorController = new ProfilEditorController();
+                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                recoEditorController.Functionality = fonctionality;
+                recoEditorController.ApplicationManager = this.ApplicationManager;
+                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetProfilService();
+                return recoEditorController;
+            }
+
+            if (fonctionality == ReconciliationFunctionalitiesCode.ADMINISTRATION_LIST_PROFIL)
+            {
+                ProfilBrowserController recoEditorController = new ProfilBrowserController();
+                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                recoEditorController.Functionality = fonctionality;
+                recoEditorController.ApplicationManager = this.ApplicationManager;
+                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetProfilService();
+                return recoEditorController;
+            }
+
             return null;
         }
 

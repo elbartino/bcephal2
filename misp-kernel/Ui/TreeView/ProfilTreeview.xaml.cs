@@ -156,7 +156,7 @@ namespace Misp.Kernel.Ui.TreeView
         /// 
         /// </summary>
         /// <param name="targets"></param>
-        public void DisplayProfils(List<Domain.User> users)
+        public void DisplayProfils(List<Domain.Profil> users)
         {
             this.ProfilTree.ItemsSource = users;
         }

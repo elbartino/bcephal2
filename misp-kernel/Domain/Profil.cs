@@ -11,19 +11,28 @@ namespace Misp.Kernel.Domain
     {
         public String name { get; set; }
 
-        public Boolean active { get; set; }
-	  
-        public PersistentListChangeHandler<Rights> rightsListChangeHandler;
+        public bool active { get; set; }
 
-        [ScriptIgnore]
+        public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }
+
         public bool visibleInShortcut { get; set; }
             
-        [ScriptIgnore]
         public BGroup group { get; set; }
 
         public Profil()
         {
             rightsListChangeHandler = new PersistentListChangeHandler<Rights>();
+        }
+
+        public String ToString()
+        {
+            return this.name;
+        }
+
+        public override int CompareTo(object obj)
+        {
+            if (obj == null || !(obj is Profil)) return 1;
+            return this.name.CompareTo(((Profil)obj).name);
         }
     }
 }

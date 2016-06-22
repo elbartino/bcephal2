@@ -146,7 +146,7 @@ namespace Misp.Reconciliation.Reconciliation
             }
             catch (Exception)
             {
-                DisplayError("Unable to save Reconciliation", "Unable to save Excel file.");
+                DisplayError("Save Reconciliation", "Unable to save Reconciliation.");
                 return OperationState.STOP;
             }
             return OperationState.CONTINUE;
@@ -189,7 +189,7 @@ namespace Misp.Reconciliation.Reconciliation
             ReconciliationForm form = ((ReconciliationEditorItem)page).getReconciliationForm();
             if (form.ReconciliationPropertiePanel != null)
             {
-                ((ReconciliationPropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.ReconciliationPropertiePanel;
+                ((ReconciliationPropertyBar)this.PropertyBar).ReconciliationLayoutAnchorable.Content = form.ReconciliationPropertiePanel;
             }
         }
 

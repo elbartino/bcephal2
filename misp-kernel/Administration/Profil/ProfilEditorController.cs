@@ -24,7 +24,7 @@ namespace Misp.Kernel.Administration.Profil
 
         public ProfilEditorController()
         {
-            //ModuleName = PlugIn.MODULE_NAME;
+            ModuleName = "Administration_Profil"; // PlugIn.MODULE_NAME;
         }
         
 
@@ -65,9 +65,7 @@ namespace Misp.Kernel.Administration.Profil
             initializePageHandlers(page);
             page.Title = profil.name;
 
-            getProfilEditor().ListChangeHandler.AddNew(profil);
-            //page.getReconciliationForm().reconciliationMainPanel.leftFilterGrid.filterForm.reset();
-            //page.getReconciliationForm().reconciliationMainPanel.rigthFilterGrid.filterForm.reset();
+            getProfilEditor().ListChangeHandler.AddNew(profil);            
             return OperationState.CONTINUE;
         }
 
@@ -138,20 +136,20 @@ namespace Misp.Kernel.Administration.Profil
             }
             catch (Exception)
             {
-                DisplayError("Unable to save Reconciliation", "Unable to save Excel file.");
+                DisplayError("Unable to save Profil", "Unable to save Excel file.");
                 return OperationState.STOP;
             }
             return OperationState.CONTINUE;
         }
 
-        private Domain.User GetReconciliation(string name)
+        private Domain.Profil GetProfil(string name)
         {
             if (!IsNameUsed(name))
             {
-                Domain.User reco = new Domain.User();
-                reco.name = name;
-                //reco.group = GetProfilService().GroupService.getDefaultGroup();
-                return reco;
+                Domain.Profil pf = new Domain.Profil();
+                pf.name = name;
+                pf.group = GetProfilService().GroupService.getDefaultGroup();
+                return pf;
             }
             return null;
         }
@@ -162,7 +160,7 @@ namespace Misp.Kernel.Administration.Profil
             Domain.Profil obj = GetObjectByName(name);
             if (obj != null)
             {
-                DisplayError("Duplicate Name", "There is another reconciliation named: " + name);
+                DisplayError("Duplicate Name", "There is another Profil named: " + name);
                 return true;
             }
             return false;
@@ -179,10 +177,10 @@ namespace Misp.Kernel.Administration.Profil
                 return;
             }
             ProfilForm form = ((ProfilEditorItem)page).getProfilForm();
-            //if (form.ReconciliationPropertiePanel != null)
-            //{
-            //    ((ReconciliationPropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.ReconciliationPropertiePanel;
-            //}
+            if (form.profilPropertyPanel != null)
+            {
+                ((ProfilPropertyBar)this.PropertyBar).ProfilLayoutAnchorable.Content = form.profilPropertyPanel;
+            }
         }
 
         
@@ -216,7 +214,7 @@ namespace Misp.Kernel.Administration.Profil
         protected override void Rename(string name)
         {
             ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
-          //  page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Text = name;
+            page.getProfilForm().profilPropertyPanel.nameTextBox.Text = name;
             page.EditedObject.name = name;
             base.Rename(name);
         }
@@ -303,15 +301,7 @@ namespace Misp.Kernel.Administration.Profil
         {
             List<Domain.Profil> profils = GetProfilService().getAll();
             ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.fillTree(new ObservableCollection<Domain.Profil>(profils));
-
-            List<Model> models = GetProfilService().ModelService.getModelsForSideBar();
-            ((ProfilSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
-
-            //rootPeriodName = GetReconciliationService().periodNameService.getRootPeriodName();
-            //defaultPeriodName = rootPeriodName.getDefaultPeriodName();
-            //((ReconciliationSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
-
-
+            
             BGroup group = GetProfilService().GroupService.getDefaultGroup();
         }
 
@@ -321,10 +311,6 @@ namespace Misp.Kernel.Administration.Profil
         protected override void initializeSideBarHandlers()
         {
             ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.SelectionChanged += onSelectProfilFromSidebar;
-            ((ProfilSideBar)SideBar).EntityGroup.EntityTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
-            ((ProfilSideBar)SideBar).EntityGroup.EntityTreeview.ExpandAttribute += OnExpandAttribute;
-            ((ProfilSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
-            ((ProfilSideBar)SideBar).StandardTargetGroup.TargetTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
         }
 
         /// <summary>
@@ -368,52 +354,7 @@ namespace Misp.Kernel.Administration.Profil
             }
         }
 
-        /// <summary>
-        /// Cette méthode est exécutée lorsqu'on sélectionne une target sur la sidebar.
-        /// Cette opération a pour but de rajouté la target sélectionnée au filtre de la table en édition,
-        /// ou au scope des cellProperties correspondants à la sélection Excel.
-        /// </summary>
-        /// <param name="sender">La target sélectionné</param>
-        protected void onSelectStandardTargetFromSidebar(object sender)
-        {
-            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
-            if (page == null) return;
-        //    page.getReconciliationForm().reconciliationMainPanel.activeFilterGrid.onSelectTargetFromSidebar(sender);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        private void OnExpandAttribute(object sender)
-        {
-            if (sender != null && sender is Kernel.Domain.Attribute)
-            {
-                Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
-                if (!attribute.LoadValues)
-                {
-                    List<Kernel.Domain.AttributeValue> values = GetProfilService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
-                    attribute.valueListChangeHandler.Items.Clear();
-                    foreach (Kernel.Domain.AttributeValue value in values)
-                    {
-                        attribute.valueListChangeHandler.Items.Add(value);
-                    }
-                    attribute.LoadValues = true;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        protected virtual void onSelectPeriodNameFromSidebar(object sender)
-        {
-            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
-            //PostingBrowserForm activeBrowserForm = page.getReconciliationForm().reconciliationMainPanel.activeFilterGrid;
-            //activeBrowserForm.onSelectPeriodNameFromSidebar(sender);
-        }
-
+        
         /// <summary>
         /// Cette methode est exécuté lorsqu'on édit le nom de la table active.
         /// Si l'utilisateur tappe sur la touche ENTER, le nouveau nom est validé.
@@ -425,7 +366,7 @@ namespace Misp.Kernel.Administration.Profil
             ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
             if (args.Key == Key.Escape)
             {
-               // page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Text = page.Title;
+                page.getProfilForm().profilPropertyPanel.nameTextBox.Text = page.Title;
             }
             else if (args.Key == Key.Enter)
             {
@@ -464,14 +405,13 @@ namespace Misp.Kernel.Administration.Profil
         protected void onGroupFieldChange()
         {
             ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
-            String name ="";
-            //string name = page.getReconciliationForm().ReconciliationPropertiePanel.groupField.textBox.Text;
-            //BGroup group = page.getReconciliationForm().ReconciliationPropertiePanel.groupField.Group;
+            string name = page.getProfilForm().profilPropertyPanel.groupField.textBox.Text;
+            BGroup group = page.getProfilForm().profilPropertyPanel.groupField.Group;
             ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.updateProfile(name, page.Title, true);
-            Domain.Profil rTemp = page.EditedObject;
-            //rTemp.group = group;
-            page.EditedObject = rTemp;
-            //page.getReconciliationForm().ReconciliationPropertiePanel.displayReconciliation(rTemp);            
+            Domain.Profil pf = page.EditedObject;
+            pf.group = group;
+            page.EditedObject = pf;
+            page.getProfilForm().profilPropertyPanel.displayProfil(pf);            
             page.EditedObject.isModified = true;
             OnChange();
         }
@@ -495,13 +435,13 @@ namespace Misp.Kernel.Administration.Profil
             Domain.Profil table = page.EditedObject;
             if (string.IsNullOrEmpty(newName))
             {
-             //   newName = page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Text.Trim();
+                newName = page.getProfilForm().profilPropertyPanel.nameTextBox.Text.Trim();
             }
             if (string.IsNullOrEmpty(newName))
             {
-                DisplayError("Empty Name", "The Reconciliation name can't be mepty!");
-                //page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.SelectAll();
-                //page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Focus();
+                DisplayError("Empty Name", "The Profil name can't be mepty!");
+                page.getProfilForm().profilPropertyPanel.nameTextBox.SelectAll();
+                page.getProfilForm().profilPropertyPanel.nameTextBox.Focus();
                 return OperationState.STOP;
             }
 
@@ -511,9 +451,9 @@ namespace Misp.Kernel.Administration.Profil
                 if (unReco != getProfilEditor().getActivePage() && newName == unReco.Title)
                 {
                     DisplayError("Duplicate Name", "There is another Target named: " + newName);
-                    //page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Text = page.Title;
-                    //page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.SelectAll();
-                    //page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Focus();
+                    page.getProfilForm().profilPropertyPanel.nameTextBox.Text = page.Title;
+                    page.getProfilForm().profilPropertyPanel.nameTextBox.SelectAll();
+                    page.getProfilForm().profilPropertyPanel.nameTextBox.Focus();
                     return OperationState.STOP;
                 }
             }
