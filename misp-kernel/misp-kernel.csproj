@@ -146,6 +146,9 @@
     <Compile Include="Administration\User\ConnectedUserPanel.xaml.cs">
       <DependentUpon>ConnectedUserPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Administration\User\UserPanel.xaml.cs">
+      <DependentUpon>UserPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Administration\User\LoginPanel.xaml.cs">
       <DependentUpon>LoginPanel.xaml</DependentUpon>
     </Compile>
@@ -660,6 +663,10 @@
     <Page Include="Administration\User\ConnectedUserPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administration\User\UserPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Administration\User\LoginPanel.xaml">
       <SubType>Designer</SubType>
