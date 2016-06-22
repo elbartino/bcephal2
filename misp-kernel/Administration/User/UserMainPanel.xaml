@@ -3,56 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:src="clr-namespace:Misp.Kernel.Administration.User"
              mc:Ignorable="d" 
              >
-   <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition/>
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-        <RowDefinition/>
-        <RowDefinition/>
-        <RowDefinition/>
-        <RowDefinition/>
-        <RowDefinition/>
-        <RowDefinition/>
-        <RowDefinition/>
-        <RowDefinition/>
-    </Grid.RowDefinitions>
-    <Label Grid.Column="0" Grid.Row="0" Content="Last Name"/>
-    <TextBox Grid.Column="1" Grid.Row="0" x:Name="nameTextBox" x:FieldModifier="public" />
-    <Label Grid.Column="0" Grid.Row="1" Content="First Name" />
-    <TextBox Grid.Column="1" Grid.Row="1" x:Name="firstNameTextBox" x:FieldModifier="public" />
-    <Label Grid.Column="0" Grid.Row="2" Content="E-mail"/>
-    <TextBox Grid.Column="1" Grid.Row="2" x:Name="emailTextBox" x:FieldModifier="public"/>
-    <Label Grid.Column="0" Grid.Row="3" Content="Current Password"/>
-    <TextBox Grid.Column="1" Grid.Row="3" x:Name="passTextBox" x:FieldModifier="public"/>
-    <Button Grid.Column="2" Grid.Row="3" Content="View" />
-    <Label Grid.Column="0" Grid.Row="4" Content="Generate new password"/>
-    <Button Grid.Column="1" Grid.Row="4" Content="New" Width="100" Height="25" />
-    <Label Grid.Column="0" Grid.Row="5" Content="Active "/>
-    <CheckBox Grid.Column="1" Grid.Row="5" x:Name="activeCheckBox" />
-    <Label Grid.Column="0" Grid.Row="6" Content="Profile"/>
-    <ComboBox Grid.Column="1" Grid.Row="6" x:Name="profilcomboBox" />
-    <Button x:Name="Button1" Grid.Column="2" Grid.Row="6" ToolTip="Remove row" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
-        <Button.Template>
-            <ControlTemplate>
-                <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>
-            </ControlTemplate>
-        </Button.Template>
-    </Button>
-    <Label Grid.Column="0" Grid.Row="7" Content="Relation"/>
-    <StackPanel Grid.Column="1" Grid.Row="7" Orientation="Horizontal">
-        <ComboBox Width="150" x:Name="relation1comboBox"/>
-        <ComboBox Width="150" x:Name="relation2comboBox"/>
-    </StackPanel>
-    <Button x:Name="Button" Grid.Column="2" Grid.Row="8" ToolTip="Remove row"  HorizontalAlignment="Stretch" VerticalAlignment="Center" >
-        <Button.Template>
-            <ControlTemplate>
-                <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>
-            </ControlTemplate>
-        </Button.Template>
-    </Button>
+    <src:UserPanel  x:Name="userPanel" x:FieldModifier="public" Grid.Row="1" />
 </Grid>
 

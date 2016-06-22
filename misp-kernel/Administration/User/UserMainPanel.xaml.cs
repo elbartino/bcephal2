@@ -34,10 +34,10 @@ namespace Misp.Kernel.Administration.User
 
         public void Display(Domain.User user)
         {
-            this.nameTextBox.Text = user.name;
-            this.passTextBox.Text = user.password;
-            this.activeCheckBox.IsChecked = user.active;
-            this.emailTextBox.Text = user.email;
+            //this.nameTextBox.Text = user.name;
+            //this.passTextBox.Text = user.password;
+            //this.activeCheckBox.IsChecked = user.active;
+            //this.emailTextBox.Text = user.email;
         }
 
         public void Fill()
