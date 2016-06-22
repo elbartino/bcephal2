@@ -40,9 +40,9 @@ namespace Misp.Kernel.Domain
             relationsListChangeHandler = new PersistentListChangeHandler<Relation>();
         }
 
-        public String ToString()
+        public override string ToString()
         {
-            return this.name;
+            return this.name != null ? this.name : base.ToString();
         }
 
         public override int CompareTo(object obj)

@@ -24,9 +24,9 @@ namespace Misp.Kernel.Domain
             rightsListChangeHandler = new PersistentListChangeHandler<Rights>();
         }
 
-        public String ToString()
+        public override string ToString()
         {
-            return this.name;
+            return this.name != null ? this.name : base.ToString();
         }
 
         public override int CompareTo(object obj)
