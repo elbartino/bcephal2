@@ -277,20 +277,16 @@ namespace Misp.Kernel.Administration.User
         {
             
             base.initializePageHandlers(page);
-            UserEditorItem editorPage = (UserEditorItem)page;
+            UserEditorItem editorPage = (UserEditorItem)page; 
+            
+            editorPage.getUserForm().userPropertyPanel.groupField.GroupService = GetUserService().GroupService;
+            editorPage.getUserForm().userPropertyPanel.groupField.subjectType = SubjectTypeFound();
+            editorPage.getUserForm().userPropertyPanel.nameTextBox.KeyUp += onNameTextChange;
+            editorPage.getUserForm().userPropertyPanel.nameTextBox.LostFocus += onNameTextLostFocus;
+            editorPage.getUserForm().userPropertyPanel.groupField.Changed += onGroupFieldChange;
 
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.groupField.GroupService = GetReconciliationService().GroupService;
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.groupField.subjectType = SubjectTypeFound();
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.KeyUp += onNameTextChange;
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.LostFocus += onNameTextLostFocus;
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.groupField.Changed += onGroupFieldChange;
-
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.leftFilterGrid.filterForm.resetButton.Click += onResetClick;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.rigthFilterGrid.filterForm.resetButton.Click += onResetClick;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.rigthFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.rigthFilterGrid.filterForm.filterPTForm.targetFilter.Changed += onFilterPanelChange;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.leftFilterGrid.filterForm.filterPTForm.targetFilter.Changed += onFilterPanelChange;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.leftFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
+            editorPage.getUserForm().userMainPanel.userPanel.nameTextBox.LostFocus += onUserNameTextLostFocus;
+            editorPage.getUserForm().userMainPanel.userPanel.nameTextBox.KeyUp += onUserNameTextChange;
         }
 
         
@@ -383,6 +379,39 @@ namespace Misp.Kernel.Administration.User
         protected void onNameTextLostFocus(object sender, RoutedEventArgs args)
         {
             ValidateEditedNewName();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        protected void onUserNameTextLostFocus(object sender, RoutedEventArgs args)
+        {
+            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            string newName = page.getUserForm().userMainPanel.userPanel.nameTextBox.Text;
+            Rename(newName);
+        }
+
+        /// <summary>
+        /// Cette methode est exécuté lorsqu'on édit le nom de la table active.
+        /// Si l'utilisateur tappe sur la touche ENTER, le nouveau nom est validé.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        protected void onUserNameTextChange(object sender, KeyEventArgs args)
+        {
+            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            if (args.Key == Key.Escape)
+            {
+                string newName = page.getUserForm().userMainPanel.userPanel.nameTextBox.Text;
+                Rename(newName);
+            }
+            else if (args.Key == Key.Enter)
+            {
+                string newName = page.getUserForm().userMainPanel.userPanel.nameTextBox.Text;
+                Rename(newName);
+            }
         }
 
         /// <summary>

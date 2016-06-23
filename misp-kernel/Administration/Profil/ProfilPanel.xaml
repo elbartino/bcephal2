@@ -14,7 +14,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Margin="0,5">                
@@ -23,7 +22,7 @@
                     <ColumnDefinition Width="*" MaxWidth="300"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="NameLabel" Content="Name" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="NameTextBox" Grid.Column="1"  />                
+                <TextBox x:Name="nameTextBox" Grid.Column="1"  />                
             </Grid>
 
 
@@ -33,14 +32,14 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="Active" Content="Active" Grid.Column="0" VerticalAlignment="Center"/>
-                <CheckBox x:Name="ActiveBox" Grid.Column="1"  />
+                <CheckBox x:Name="activeBox" Grid.Column="1"  />
             </Grid>
 
             <Label x:Name="Rights" Content="Rights" Grid.Row="2" VerticalAlignment="Center"/>
             <src:FunctionnalityGrid  x:Name="functionnalityGrid" Grid.Row="3" x:FieldModifier="public" MinHeight="250" MinWidth="300" />
 
             <TextBlock x:Name="Console" Grid.Row="4" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
-            <Button x:Name="SaveButton" Grid.Row="5" MaxWidth="100" MinHeight="27" Content="Save" Margin="10"/>
+            
         </Grid>
     </Border>
 </Grid>

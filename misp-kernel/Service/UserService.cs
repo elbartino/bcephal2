@@ -26,11 +26,11 @@ namespace Misp.Kernel.Service
         /// </summary>
         /// <param name="role"></param>
         /// <returns></returns>
-        public User saveUser(User user)
+        public override User Save(User user)
         {
             try
             {
-                var request = new RestRequest(ResourcePath + "/save", Method.POST);
+                var request = new RestRequest(ResourcePath + "/save/user", Method.POST);
                 string json = Serialize(user);
                 request.RequestFormat = DataFormat.Json;
                 request.AddParameter("application/json", json, ParameterType.RequestBody);

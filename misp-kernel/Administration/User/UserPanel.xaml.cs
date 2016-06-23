@@ -29,88 +29,84 @@ namespace Misp.Kernel.Administration.User
             InitializeComponent();
         }
 
+        private void InitializeHandlers()
+        {
+            
+
+        }
+
         public bool ValidateEdition()
         {
             String errors = "";
             String line = "";
             bool focusSetted = false;
-            if (String.IsNullOrWhiteSpace(NameTextBox.Text) && String.IsNullOrWhiteSpace(FirstNameTextBox.Text))
+            if (String.IsNullOrWhiteSpace(nameTextBox.Text) && String.IsNullOrWhiteSpace(firstNameTextBox.Text))
             {
                 errors += line + "Name and first name can't be empty.";
                 line = "\n";
                 if (!focusSetted)
                 {
-                    if (String.IsNullOrWhiteSpace(NameTextBox.Text))
+                    if (String.IsNullOrWhiteSpace(nameTextBox.Text))
                     {
-                        NameTextBox.Focus();
-                        NameTextBox.SelectAll();
+                        nameTextBox.Focus();
+                        nameTextBox.SelectAll();
                     }
                     else
                     {
-                        FirstNameTextBox.Focus();
-                        FirstNameTextBox.SelectAll();
+                        firstNameTextBox.Focus();
+                        firstNameTextBox.SelectAll();
                     }
                     focusSetted = true;
                 }
             }
                         
-            if (String.IsNullOrWhiteSpace(EmailTextBox.Text))
+            if (String.IsNullOrWhiteSpace(emailTextBox.Text))
             {
-                //errors += line + "Email can't be empty.";
-                //line = "\n";
-                //if (!focusSetted)
-                //{
-                //    EmailTextBox.Focus();
-                //    EmailTextBox.SelectAll();
-                //    focusSetted = true;
-                //}
-            }
-            else if (!validateEmail(EmailTextBox.Text))
-            {
-                errors += line + "Wrong email format.";
+                errors += line + "Email can't be empty.";
                 line = "\n";
                 if (!focusSetted)
                 {
-                    EmailTextBox.Focus();
-                    EmailTextBox.SelectAll();
+                    emailTextBox.Focus();
+                    emailTextBox.SelectAll();
                     focusSetted = true;
                 }
             }
+            else if (!validateEmail(emailTextBox.Text))
+            {
+                //errors += line + "Wrong email format.";
+                //line = "\n";
+                //if (!focusSetted)
+                //{
+                //    emailTextBox.Focus();
+                //    emailTextBox.SelectAll();
+                //    focusSetted = true;
+                //}
+            }
 
-            if (String.IsNullOrWhiteSpace(LoginTextBox.Text))
+            if (String.IsNullOrWhiteSpace(loginTextBox.Text))
             {
                 errors += line + "Login can't be empty.";
                 line = "\n";
                 if (!focusSetted)
                 {
-                    LoginTextBox.Focus();
-                    LoginTextBox.SelectAll();
+                    loginTextBox.Focus();
+                    loginTextBox.SelectAll();
                     focusSetted = true;
                 }
             }
 
-            if (String.IsNullOrWhiteSpace(PasswordTextBox.Password))
+            if (String.IsNullOrWhiteSpace(passwordTextBox.Password))
             {
                 errors += line + "Password can't be empty.";
                 line = "\n";
                 if (!focusSetted)
                 {
-                    PasswordTextBox.Focus();
-                    PasswordTextBox.SelectAll();
+                    passwordTextBox.Focus();
+                    passwordTextBox.SelectAll();
                     focusSetted = true;
                 }
             }
-            else if (!validatePassword(PasswordTextBox.Password, PasswordTextBox.Password))
-            {
-                errors += line + "Password does not match.";
-                line = "\n";
-                if (!focusSetted)
-                {
-                    //ConfirmPasswordTextBox.Focus();
-                    //ConfirmPasswordTextBox.SelectAll();
-                    focusSetted = true;
-                }
-            }
+            
             bool isValid = String.IsNullOrWhiteSpace(errors);
             this.Console.Text = errors;
             this.Console.Visibility = isValid ? Visibility.Collapsed : Visibility.Visible;
@@ -132,17 +128,41 @@ namespace Misp.Kernel.Administration.User
                 return (false);
         }
 
-
-        public Domain.User Fill()
+        public List<object> getEditableControls()
         {
-            Domain.User user = new Domain.User();
-            user.active = true;
-            user.login = LoginTextBox.Text.Trim();
-            user.email = EmailTextBox.Text.Trim();
-            user.name = FirstNameTextBox.Text;
-            //user.password = ConfirmPasswordTextBox.Password;
-            user.admin = true;
+            List<object> controls = new List<object>(0);
+            controls.Add(this.nameTextBox);
+            controls.Add(this.firstNameTextBox);
+            controls.Add(this.emailTextBox);
+            controls.Add(this.activeBox);
+            controls.Add(this.passwordTextBox);
+            controls.Add(this.generatePasswordButton);
+            controls.Add(this.viewPasswordButton);
+            controls.Add(this.removeProfilButton);
+            controls.Add(this.viewPasswordButton);
+            return controls;
+        }
+
+        public Domain.User Fill(Domain.User user)
+        {
+            user.name = nameTextBox.Text;
+            user.firstName = firstNameTextBox.Text;
+            user.email = emailTextBox.Text.Trim();
+            user.active = activeBox.IsChecked.Value;
+            user.login = loginTextBox.Text.Trim();            
+            user.password = passwordTextBox.Password;
+            user.admin = false;
             return user;
+        }
+
+        public void Display(Domain.User user)
+        {
+            nameTextBox.Text = user.name;
+            firstNameTextBox.Text = user.firstName;
+            emailTextBox.Text = user.email;
+            activeBox.IsChecked = user.active;
+            loginTextBox.Text = user.login;            
+            passwordTextBox.Password = user.password;            
         }
 
     }

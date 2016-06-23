@@ -5,10 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              >
-    <Border Grid.Row="0" Style="{DynamicResource AdministratorPanelStyle}" Height="Auto" Width="Auto">
+    <Border Grid.Row="0" Style="{DynamicResource AdministratorPanelStyle}" Height="Auto" Width="Auto" MinHeight="300" MinWidth="500">
         <Grid VerticalAlignment="Center" Margin="10" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -23,80 +22,80 @@
 
             <Grid Grid.Row="0" Margin="0,5">                
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="NameLabel" Content="Name" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="NameTextBox" Grid.Column="1" />                
+                <TextBox x:Name="nameTextBox" Grid.Column="1" />                
             </Grid>
 
             <Grid Grid.Row="1" Margin="0,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="FirstNameLabel" Content="First Name" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="FirstNameTextBox" Grid.Column="1" />
+                <TextBox x:Name="firstNameTextBox" Grid.Column="1" />
             </Grid>
 
             <Grid Grid.Row="2" Margin="0,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="EmailLabel" Content="Email" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="EmailTextBox" Grid.Column="1" />
+                <TextBox x:Name="emailTextBox" Grid.Column="1" />
             </Grid>
 
             <Grid Grid.Row="3" Margin="0,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="LoginLabel" Content="Login" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="LoginTextBox" Grid.Column="1" />
+                <TextBox x:Name="loginTextBox" Grid.Column="1" />
             </Grid>
 
             <Grid Grid.Row="4" Margin="0,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="PasswordLabel" Content="Current Password" Grid.Column="0" VerticalAlignment="Center"/>
-                <PasswordBox x:Name="PasswordTextBox" Grid.Column="1" />
-                <Button x:Name="ViewPassword" Grid.Column="2" Content="View"/>
+                <PasswordBox x:Name="passwordTextBox" Grid.Column="1" />
+                <Button x:Name="viewPasswordButton" Grid.Column="2" Content="View"/>
             </Grid>
 
             <Grid Grid.Row="5" Margin="0,5">
                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="ConfirmPasswordLabel" Content="Generate New Password" Grid.Column="0" VerticalAlignment="Center"/>
-                <PasswordBox x:Name="GeneratePasswordTextBox" Grid.Column="1"  />
-                <Button x:Name="GeneratePassword" Grid.Column="2" Content="New" Width="50"  />
+                <PasswordBox x:Name="generatePasswordTextBox" Grid.Column="1"  />
+                <Button x:Name="generatePasswordButton" Grid.Column="2" Content="New" Width="50"  />
             </Grid>
 
             <Grid Grid.Row="6" Margin="0,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="Active" Content="Active" Grid.Column="0" VerticalAlignment="Center"/>
-                <CheckBox x:Name="ActiveBox" Grid.Column="1"  />
+                <CheckBox x:Name="activeBox" Grid.Column="1"  />
             </Grid>
 
             <Grid Grid.Row="7" Margin="0,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="ProfilLabel" Content="Profil" Grid.Column="0" VerticalAlignment="Center"/>
                 <ComboBox x:Name="profilcomboBox" Grid.Column="1" />
-                <Button x:Name="RemoveProfilButton" Grid.Column="2" ToolTip="Remove row" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="25" >
+                <Button x:Name="removeProfilButton" Grid.Column="2" ToolTip="Remove row" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="25" >
                     <Button.Template>
                         <ControlTemplate>
                             <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>
@@ -107,7 +106,7 @@
 
             <Grid Grid.Row="8" Margin="0,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
@@ -116,7 +115,7 @@
                     <ComboBox x:Name="relation1comboBox"  Width="135"   Height="25"/>
                     <ComboBox x:Name="relation2comboBox" Width="135" Height="25"/>
                 </StackPanel>
-                <Button x:Name="RemoveRelationButton" Grid.Column="2" ToolTip="Remove row"  HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="25" >
+                <Button x:Name="removeRelationButton" Grid.Column="2" ToolTip="Remove row"  HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="25" >
                     <Button.Template>
                         <ControlTemplate>
                             <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>
@@ -125,7 +124,6 @@
                 </Button>
             </Grid>
             
-            <Button x:Name="SaveButton" Grid.Row="9" MaxWidth="100" MinHeight="27" Content="Save" Margin="10"/>
             <TextBlock x:Name="Console" Grid.Row="10" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>            
         </Grid>
     </Border>

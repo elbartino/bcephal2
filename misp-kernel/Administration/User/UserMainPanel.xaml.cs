@@ -23,29 +23,33 @@ namespace Misp.Kernel.Administration.User
         public UserMainPanel()
         {
             InitializeComponent();
+            IntializeHandlers();
         }
 
         public List<object> getEditableControls()
         {
             List<object> controls = new List<object>(0);
-           
+            controls.AddRange(userPanel.getEditableControls()); 
             return controls;
         }
 
         public void Display(Domain.User user)
         {
-            //this.nameTextBox.Text = user.name;
-            //this.passTextBox.Text = user.password;
-            //this.activeCheckBox.IsChecked = user.active;
-            //this.emailTextBox.Text = user.email;
+            userPanel.Display(user);
         }
 
-        public void Fill()
+        public void Fill(Domain.User user)
         {
-            //this.nameTextBox.Text = user.name;
-            //this.passTextBox.Text = user.password;
-            //this.activeCheckBox.IsChecked = user.active;
-            //this.emailTextBox.Text = user.email;
+            user = userPanel.Fill(user);
+        }
+
+        /// <summary>
+        /// initialise handlers
+        /// </summary>
+        private void IntializeHandlers()
+        {
+
+
         }
     }
 }

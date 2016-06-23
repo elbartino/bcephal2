@@ -27,6 +27,7 @@ namespace Misp.Kernel.Administration.Profil
         {
             InitializeComponent();
             InitializeFunctionGrid();
+            this.SelectionChanged += onSelectionchange;
         }
 
         private void onSelectionchange(object sender, SelectionChangedEventArgs e)
@@ -82,13 +83,14 @@ namespace Misp.Kernel.Administration.Profil
         /// <returns></returns>
         protected DataGridColumn getColumnAt(int index)
         {
-            switch (index)
-            {
-                case 0: return new DataGridTextColumn();
-                case 1: return new DataGridCheckBoxColumn();
-                case 2: return new DataGridCheckBoxColumn();
-                default: return new DataGridTextColumn();
-            }
+            return new DataGridTextColumn();
+            //switch (index)
+            //{
+            //    case 0: return new DataGridTextColumn();
+            //    case 1: return new DataGridCheckBoxColumn();
+            //    case 2: return new DataGridCheckBoxColumn();
+            //    default: return new DataGridTextColumn();
+            //}
         }
 
 

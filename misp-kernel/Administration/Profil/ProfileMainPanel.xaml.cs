@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Service;
+﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,31 +25,35 @@ namespace Misp.Kernel.Administration.Profil
         public ProfileMainPanel()
         {
             InitializeComponent();
+            IntializeHandlers();
         }
 
         public List<object> getEditableControls()
         {
             List<object> controls = new List<object>(0);
-
+            controls.AddRange(profilPanel.getEditableControls()); 
             return controls;
         }
 
         public void Display(Domain.Profil profil)
         {
-            //this.nameTextBox.Text = user.name;
-            //this.passTextBox.Text = user.password;
-            //this.activeCheckBox.IsChecked = user.active;
-            //this.emailTextBox.Text = user.email;
+            profilPanel.Display(profil);
         }
 
-        public void Fill()
+        public void Fill(Domain.Profil profil)
         {
-
+            profil = profilPanel.Fill(profil);
         }
 
-        public void setProfilService(ProfilService service)
+        /// <summary>
+        /// initialise handlers
+        /// </summary>
+        private void IntializeHandlers()
         {
             
+            
         }
+
+        
     }
 }

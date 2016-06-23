@@ -13,11 +13,12 @@ namespace Misp.Kernel.Domain
 
         public bool active { get; set; }
 
-        public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }
-
         public bool visibleInShortcut { get; set; }
-            
+
         public BGroup group { get; set; }
+
+        public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }
+        
 
         public Profil()
         {

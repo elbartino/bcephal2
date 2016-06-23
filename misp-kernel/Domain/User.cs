@@ -12,6 +12,9 @@ namespace Misp.Kernel.Domain
 
         public String name { get; set; }
 
+        [ScriptIgnore]
+        public String firstName { get; set; }
+
         public String login { get; set; }
 
         public String password { get; set; }

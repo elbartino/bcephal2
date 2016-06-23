@@ -279,19 +279,17 @@ namespace Misp.Kernel.Administration.Profil
             base.initializePageHandlers(page);
             ProfilEditorItem editorPage = (ProfilEditorItem)page;
 
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.groupField.GroupService = GetReconciliationService().GroupService;
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.groupField.subjectType = SubjectTypeFound();
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.KeyUp += onNameTextChange;
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.LostFocus += onNameTextLostFocus;
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.groupField.Changed += onGroupFieldChange;
+            editorPage.getProfilForm().profilPropertyPanel.groupField.GroupService = GetProfilService().GroupService;
+            editorPage.getProfilForm().profilPropertyPanel.groupField.subjectType = SubjectTypeFound();
+            editorPage.getProfilForm().profilPropertyPanel.nameTextBox.KeyUp += onNameTextChange;
+            editorPage.getProfilForm().profilPropertyPanel.nameTextBox.LostFocus += onNameTextLostFocus;
+            editorPage.getProfilForm().profilPropertyPanel.groupField.Changed += onGroupFieldChange;
 
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.leftFilterGrid.filterForm.resetButton.Click += onResetClick;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.rigthFilterGrid.filterForm.resetButton.Click += onResetClick;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.rigthFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.rigthFilterGrid.filterForm.filterPTForm.targetFilter.Changed += onFilterPanelChange;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.leftFilterGrid.filterForm.filterPTForm.targetFilter.Changed += onFilterPanelChange;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.leftFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
+            editorPage.getProfilForm().profileMainPanel.profilPanel.nameTextBox.LostFocus += onProfilNameTextLostFocus;
+            editorPage.getProfilForm().profileMainPanel.profilPanel.nameTextBox.KeyUp += onProfilNameTextChange;
         }
+
+        
 
         
         /// <summary>
@@ -387,6 +385,40 @@ namespace Misp.Kernel.Administration.Profil
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        protected void onProfilNameTextLostFocus(object sender, RoutedEventArgs args)
+        {
+            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
+            string newName = page.getProfilForm().profileMainPanel.profilPanel.nameTextBox.Text;
+            Rename(newName);
+        }
+
+        /// <summary>
+        /// Cette methode est exécuté lorsqu'on édit le nom de la table active.
+        /// Si l'utilisateur tappe sur la touche ENTER, le nouveau nom est validé.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        protected void onProfilNameTextChange(object sender, KeyEventArgs args)
+        {
+            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
+            if (args.Key == Key.Escape)
+            {
+                string newName = page.getProfilForm().profileMainPanel.profilPanel.nameTextBox.Text;
+                Rename(newName);
+            }
+            else if (args.Key == Key.Enter)
+            {
+                string newName = page.getProfilForm().profileMainPanel.profilPanel.nameTextBox.Text;
+                Rename(newName);
+            }
+        }
+
+        
+        /// <summary>
+        /// 
+        /// </summary>
         private void onFilterPanelChange()
         {
             OnChange();
@@ -463,6 +495,7 @@ namespace Misp.Kernel.Administration.Profil
             ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.updateProfile(newName, table.name, false);
             table.name = newName;
             page.Title = newName;
+            page.getProfilForm().profileMainPanel.profilPanel.nameTextBox.Text = newName;
             OnChange();
             return OperationState.CONTINUE;
         }

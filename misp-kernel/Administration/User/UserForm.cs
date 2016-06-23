@@ -87,7 +87,7 @@ namespace Misp.Kernel.Administration.User
         /// <returns>true si les données sont valides</returns>
         public bool validateEdition()
         {
-            bool valid =  this.userPropertyPanel.validateEdition();
+            bool valid = this.userPropertyPanel.validateEdition() && this.userMainPanel.userPanel.ValidateEdition();
             return valid;
         }
 
@@ -98,7 +98,7 @@ namespace Misp.Kernel.Administration.User
         public void fillObject()
         {
             if (this.EditedObject == null) this.EditedObject = getNewObject();
-            this.userMainPanel.Fill();
+            this.userMainPanel.Fill(this.EditedObject);
             this.userPropertyPanel.fillUser(this.EditedObject);
         }
         /// <summary>

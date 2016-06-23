@@ -81,15 +81,11 @@ namespace Misp.Kernel.Administration.Profil
         /// <returns>true si les données sont valides</returns>
         public bool validateEdition()
         {
-            bool valid =  this.profilPropertyPanel.validateEdition();
+            bool valid = this.profilPropertyPanel.validateEdition() && this.profileMainPanel.profilPanel.ValidateEdition();
             return valid;
         }
 
-        public void setProfilService(ProfilService service)
-        {
-            profileMainPanel.setProfilService(service);
-        }
-
+       
         /// <summary> 
         /// Cette méthode permet de prendre les données éditées à l'écran 
         /// pour les charger dans l'objet en édition.
@@ -98,7 +94,7 @@ namespace Misp.Kernel.Administration.Profil
         {
             if (this.EditedObject == null) this.EditedObject = getNewObject();
             this.profilPropertyPanel.fillProfil(this.EditedObject);
-            this.profileMainPanel.Fill();
+            this.profileMainPanel.Fill(this.EditedObject);
          }
         /// <summary>
         /// Cette méthode permet d'afficher les données de l'objet à éditer 

@@ -41,6 +41,7 @@ namespace Misp.Kernel.Ui.Base
             RenameButton.ToolTip = "Rename selected object";
             DeleteButton.ToolTip = "Delete selected object";
 
+            SaveButton.Visibility = System.Windows.Visibility.Hidden;
             OpenButton.IsEnabled = false;
             RenameButton.IsEnabled = false;
             DeleteButton.IsEnabled = false;

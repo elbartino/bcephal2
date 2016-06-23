@@ -44,6 +44,7 @@ namespace Misp.Kernel.Administration.Role
             CloseButton.ToolTip = "Close Role View";
             SaveButton.Margin = new System.Windows.Thickness(30, 0, 0, 0);
 
+            SaveButton.Visibility = System.Windows.Visibility.Visible;
             SaveButton.IsEnabled = false;
             DeleteButton.IsEnabled = false;
             CloseButton.IsEnabled = true;

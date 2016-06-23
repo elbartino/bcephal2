@@ -67,6 +67,7 @@ namespace Misp.Kernel.Administration.Profil
 
         public bool validateEdition() 
         {
+            if (nameTextBox.Text == null || nameTextBox.Text == "") return false;
             return true;
         }
     }

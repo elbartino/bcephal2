@@ -21,11 +21,11 @@ namespace Misp.Kernel.Service
         /// </summary>
         /// <param name="profil"></param>
         /// <returns></returns>
-        public Profil saveProfil(Profil profil)
+        public override  Profil Save(Profil profil)
         {
             try
             {
-                var request = new RestRequest(ResourcePath + "/save", Method.POST);
+                var request = new RestRequest(ResourcePath + "/save/profil", Method.POST);
                 string json = Serialize(profil);
                 request.RequestFormat = DataFormat.Json;
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
