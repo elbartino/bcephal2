@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Administration.User
 {
-    public class UserBrowserController : BrowserController<Misp.Kernel.Domain.User, BrowserData>
+    public class UserBrowserController : BrowserController<Misp.Kernel.Domain.User, UserBrowserData>
     {
         public UserBrowserController() 
         {
@@ -96,7 +96,7 @@ namespace Misp.Kernel.Administration.User
         /// <param name="header"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        protected override OperationState EditProperty(BrowserData item, String header, Object value)
+        protected override OperationState EditProperty(UserBrowserData item, String header, Object value)
         {
             if (item == null || String.IsNullOrWhiteSpace(header) || value == null) return OperationState.STOP;
             if (header.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
@@ -105,7 +105,7 @@ namespace Misp.Kernel.Administration.User
             }
             if (header.Equals("Visible in shortcut", StringComparison.InvariantCultureIgnoreCase))
             {
-                BrowserData data = new BrowserData(item);
+                UserBrowserData data = new UserBrowserData(item);
                 data.visibleInShortcut = (bool)value;
                 try
                 {
