@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 namespace Misp.Kernel.Administration.User
 {
-    public class UserBrowser : Browser<BrowserData>
+    public class UserBrowser : Browser<UserBrowserData>
     {
 
         /// <summary>
@@ -52,10 +52,10 @@ namespace Misp.Kernel.Administration.User
             switch (index)
             {
                 case 0: return "Name";
-                case 1: return "Profil";
-                case 2: return "Creation Date";
-                case 3: return "Modification Date";
-                case 4: return "Visible in shortcut";
+                case 1: return "First nAme";
+                case 2: return "Profil";
+                case 3: return "Creation Date";
+                case 4: return "Active";
                 default: return "";
             }
         }
@@ -70,7 +70,7 @@ namespace Misp.Kernel.Administration.User
             switch (index)
             {
                 case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
-                case 1: return 150;
+                case 1: return new DataGridLength(1, DataGridLengthUnitType.Star);
                 case 2: return 120;
                 case 3: return 120;
                 case 4: return 100;
@@ -88,10 +88,10 @@ namespace Misp.Kernel.Administration.User
             switch (index)
             {
                 case 0: return "name";
-                case 1: return "profil";
-                case 2: return "creationDate";
-                case 3: return "modificationDate";
-                case 4: return "visibleInShortcut";
+                case 1: return "firstName";
+                case 2: return "profil";
+                case 3: return "creationDate";
+                case 4: return "active";
                 default: return "oid";
             }
         }

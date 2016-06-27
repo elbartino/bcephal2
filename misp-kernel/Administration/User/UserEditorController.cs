@@ -14,17 +14,17 @@ using System.Windows.Input;
 
 namespace Misp.Kernel.Administration.User
 {
-    public class UserEditorController : EditorController<Domain.User, Misp.Kernel.Domain.Browser.BrowserData>
+    public class UserEditorController : EditorController<Domain.User, Misp.Kernel.Domain.Browser.UserBrowserData>
     {
         #region Properties
+        
         public override void DeleteCommandEnabled(object sender, CanExecuteRoutedEventArgs e) { e.CanExecute = false; }
        
-
         #endregion
 
         public UserEditorController()
         {
-            ModuleName = "Administration_User";//PlugIn.MODULE_NAME;
+            ModuleName = "Administration";//PlugIn.MODULE_NAME;
         }
         
 
