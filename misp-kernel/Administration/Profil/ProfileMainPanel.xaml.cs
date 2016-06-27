@@ -42,7 +42,7 @@ namespace Misp.Kernel.Administration.Profil
             nameTextBox.Text = profil.name;
             activeBox.IsChecked = profil.active;
             List<Rights> items = Misp.Kernel.Domain.Rights.generateDefaultFunction();
-            functionnalityGrid.ItemsSource = items;
+            functionnalityGrid.ItemsSource = profil.rightsListChangeHandler.getItems();
         }
 
         public void Fill(Domain.Profil profil)

@@ -24,7 +24,7 @@ namespace Misp.Kernel.Administration.Profil
         /// </summary>
         public override string GetEditorFuntionality() 
         { 
-            return AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_PROFIL; 
+            return AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_PROFIL; 
         }
         
         /// <summary>

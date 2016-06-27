@@ -16,7 +16,7 @@ namespace Misp.Kernel.Administration.User
     {
         public UserBrowserController() 
         {
-            ModuleName = "Administration_User"; //PlugIn.MODULE_NAME;
+            ModuleName = "Administration"; //PlugIn.MODULE_NAME;
         }
 
         /// <summary>
