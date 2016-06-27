@@ -27,6 +27,22 @@ namespace Misp.Kernel.Administration.User
         public AdministratorPanel()
         {
             InitializeComponent();
+            InitializeHandlers();
+        }
+
+        private void InitializeHandlers()
+        {
+            NameTextBox.KeyUp += OnEnter;
+            FirstNameTextBox.KeyUp += OnEnter;
+            EmailTextBox.KeyUp += OnEnter;
+            LoginTextBox.KeyUp += OnEnter;
+            PasswordTextBox.KeyUp += OnEnter;
+            ConfirmPasswordTextBox.KeyUp += OnEnter;
+        }
+
+        private void OnEnter(object sender, KeyEventArgs args)
+        {
+            if (args.Key == Key.Enter) SaveButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
         public bool ValidateEdition()

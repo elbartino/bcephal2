@@ -736,7 +736,7 @@ namespace Misp.Kernel.Application
                 }
                 else
                 {
-                    ApplicationManager.Instance.MainWindow.AdministratorPanel.Console.Text = "Unable to sava administrator!";
+                    ApplicationManager.Instance.MainWindow.AdministratorPanel.Console.Text = "Unable to save administrator!";
                     ApplicationManager.Instance.MainWindow.AdministratorPanel.Console.Visibility = Visibility.Visible;
                 }
             }
