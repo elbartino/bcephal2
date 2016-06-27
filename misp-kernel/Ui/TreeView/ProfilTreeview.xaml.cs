@@ -98,7 +98,7 @@ namespace Misp.Kernel.Ui.TreeView
         /// <param name="newName">Le nouveau nom de Profil</param>
         /// <param name="oldTableName">L'ancien nom de Profil</param>
         /// <param name="updateGroup">True=>Modification du nom du groupe, false=>Modification du nom de Profil</param>
-        public void updateProfile(string newName, string oldTableName, bool updateGroup)
+        public void updateProfil(string newName, string oldTableName, bool updateGroup)
         {
             int index = 0;
             foreach (Domain.Profil profil in this.liste)

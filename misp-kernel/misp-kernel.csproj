@@ -118,6 +118,23 @@
     <Compile Include="Administration\Base\AdministrationResourcePath.cs" />
     <Compile Include="Administration\Base\AdministrationControllerFactory.cs" />
     <Compile Include="Administration\Base\AdministrationServiceFactory.cs" />
+    <Compile Include="Administration\Profil1\Profil1Browser.cs" />
+    <Compile Include="Administration\Profil1\Profil1BrowserController.cs" />
+    <Compile Include="Administration\Profil1\Profil1BrowserSideBar.cs" />
+    <Compile Include="Administration\Profil1\Profil1Editor.cs" />
+    <Compile Include="Administration\Profil1\Profil1EditorController.cs" />
+    <Compile Include="Administration\Profil1\Profil1EditorItem.cs" />
+    <Compile Include="Administration\Profil1\Profil1Form.cs" />
+    <Compile Include="Administration\Profil1\Profil1Group.cs" />
+    <Compile Include="Administration\Profil1\Profil1MainPanel.xaml.cs">
+      <DependentUpon>Profil1MainPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\Profil1\Profil1PropertyBar.cs" />
+    <Compile Include="Administration\Profil1\Profil1PropertyPanel.xaml.cs">
+      <DependentUpon>Profil1PropertyPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\Profil1\Profil1SideBar.cs" />
+    <Compile Include="Administration\Profil1\Profil1ToolBar.cs" />
     <Compile Include="Administration\Profil\ProfilPropertyPanel.xaml.cs">
       <DependentUpon>ProfilPropertyPanel.xaml</DependentUpon>
     </Compile>
@@ -655,6 +672,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Administration\Profil1\Profil1MainPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Administration\Profil1\Profil1PropertyPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Administration\Profil\ProfilPropertyPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -24,7 +24,7 @@ namespace Misp.Kernel.Administration.Profil
 
         public ProfilEditorController()
         {
-            ModuleName = "Administration_Profil"; // PlugIn.MODULE_NAME;
+            ModuleName = "Administration"; // PlugIn.MODULE_NAME;
         }
         
 
@@ -487,7 +487,7 @@ namespace Misp.Kernel.Administration.Profil
             if (!IsRenameOnDoubleClick)
                 if (table.name.ToUpper().Equals(newName.ToUpper())) return OperationState.CONTINUE;
 
-            ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.updateProfile(newName, table.name, false);
+            ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.updateProfil(newName, table.name, false);
             table.name = newName;
             page.Title = newName;
             page.getProfilForm().profileMainPanel.nameTextBox.Text = newName;
