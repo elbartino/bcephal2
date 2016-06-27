@@ -52,7 +52,7 @@ namespace Misp.Kernel.Administration.User
             switch (index)
             {
                 case 0: return "Name";
-                case 1: return "Group";
+                case 1: return "Profil";
                 case 2: return "Creation Date";
                 case 3: return "Modification Date";
                 case 4: return "Visible in shortcut";
@@ -88,7 +88,7 @@ namespace Misp.Kernel.Administration.User
             switch (index)
             {
                 case 0: return "name";
-                case 1: return "group";
+                case 1: return "profil";
                 case 2: return "creationDate";
                 case 3: return "modificationDate";
                 case 4: return "visibleInShortcut";

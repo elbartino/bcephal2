@@ -149,6 +149,7 @@
     <Compile Include="Administration\User\ConnectedUserPanel.xaml.cs">
       <DependentUpon>ConnectedUserPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Administration\User\UserBrowserSideBar.cs" />
     <Compile Include="Administration\User\UserPanel.xaml.cs">
       <DependentUpon>UserPanel.xaml</DependentUpon>
     </Compile>

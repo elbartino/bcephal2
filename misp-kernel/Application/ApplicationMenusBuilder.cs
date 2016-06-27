@@ -11,6 +11,7 @@ using Misp.Kernel.Ui.Base.Menu;
 
 using Misp.Kernel.Plugin;
 using Misp.Kernel.Ui.File;
+using Misp.Kernel.Administration.Base;
 
 namespace Misp.Kernel.Application
 {
@@ -50,11 +51,25 @@ namespace Misp.Kernel.Application
 
             menuBar.Items.Add(fileMenu);
             buildPluginsMenus(menuBar);
+            buildAdministrationMenu(menuBar);
             menuBar.Items.Add(settingsMenu);
             menuBar.Items.Add(helpMenu);
 
             ApplicationManager.MainWindow.displayMenuBar(menuBar);
             SideBar.StatusNames = buildPluginNames();
+        }
+
+        /// <summary>
+        /// Build the Administration Menu.
+        /// </summary>
+        /// <param name="menuBar"></param>
+        protected void buildAdministrationMenu(MenuBar menuBar)
+        {
+            if (ApplicationManager.ApplcationConfiguration.IsMultiuser())
+            {
+                AdministrationMenu menu = new AdministrationMenu();
+                menuBar.Items.Add(menu);
+            }
         }
 
         /// <summary>
