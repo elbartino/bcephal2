@@ -85,6 +85,7 @@ namespace Misp.Kernel.Administration.User
             initializePageHandlers(page);
             page.getUserForm().displayObject();
             getEditor().ListChangeHandler.AddNew(user);
+            page.getUserForm().userMainPanel.InitProfilComboBox(GetUserService().ProfilService);
             return OperationState.CONTINUE;
         }
 

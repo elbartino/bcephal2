@@ -22,13 +22,11 @@ namespace Misp.Kernel.Administration.User
     /// </summary>
     public partial class UserMainPanel : Grid
     {
-        ProfilService profilService;
+
         public UserMainPanel()
         {
             InitializeComponent();
-            InitProfilComboBox();
             IntializeHandlers();
-            profilService = new ProfilService();
         }
 
         public List<object> getEditableControls()
@@ -76,9 +74,9 @@ namespace Misp.Kernel.Administration.User
             user.profil = profil;
         }
 
-        private void InitProfilComboBox()
+        public void InitProfilComboBox(ProfilService profilService)
         {
-            List<Domain.Profil> profils = new List<Domain.Profil>(); // profilService.getAll();
+            List<Domain.Profil> profils = profilService.getAll();
             this.profilcomboBox.ItemsSource = profils;
             this.profilcomboBox.SelectedIndex = 0;
         }

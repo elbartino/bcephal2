@@ -95,7 +95,7 @@ namespace Misp.Reconciliation.Base
             {
                 userService = new UserService();
                 userService.ResourcePath = AdministrationResourcePath.SECURITY_RESOURCE_PATH;//SECURITY_USER_RESOURCE_PATH;
-                userService.GroupService = GetGroupService();
+                userService.ProfilService = GetProfilService();
                 configureService(userService);
             }
             return userService;
