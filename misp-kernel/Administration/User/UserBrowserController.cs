@@ -24,7 +24,7 @@ namespace Misp.Kernel.Administration.User
         /// </summary>
         public override string GetEditorFuntionality() 
         { 
-            return AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_USER; 
+            return AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_USER; 
         }
         
         /// <summary>
@@ -54,6 +54,39 @@ namespace Misp.Kernel.Administration.User
         public UserService getUserService()
         {
             return (UserService)Service;
+        }
+
+        protected override SideBar getNewSideBar() { return new UserBrowserSideBar(); }
+
+        /// <summary>
+        /// Initialisation des Handlers sur la SideBar.
+        /// </summary>
+        protected override void initializeSideBarHandlers()
+        {
+            if (this.SideBar != null)
+            {
+                ((UserBrowserSideBar)this.SideBar).ProfilGroup.profilTreeview.SelectionChanged += OnProfilSelected;
+            }
+        }
+
+        /// <summary>
+        /// Initialisation des donnée sur la SideBar.
+        /// </summary>
+        protected override void initializeSideBarData()
+        {
+            if (this.SideBar != null && this.Service != null)
+            {
+                //Kernel.Domain.BGroup rootGroup = getUserService().GroupService.getRootGroup(SubjectTypeFound());
+                //((UserBrowserSideBar)SideBar).ProfilGroup.profilTreeview.DisplayRoot(rootGroup);
+            }
+        }
+
+        private void OnProfilSelected(object newSelection)
+        {
+            if (newSelection == null) return;
+            Kernel.Domain.Profil profil = (Kernel.Domain.Profil)newSelection;
+            if (profil.oid == null || !profil.oid.HasValue) Search();
+            else FilterByGroup(profil.oid.Value);
         }
 
         /// <summary>

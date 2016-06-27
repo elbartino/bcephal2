@@ -16,9 +16,12 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Margin="0,5">                
+            <Label x:Name="TitleLabel" Content="Administrator" FontWeight="Bold" FontSize="13" HorizontalContentAlignment="Center" Grid.Row="0" Margin="0 0 0 20"/>
+            
+            <Grid Grid.Row="1" Margin="0,5">                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
@@ -27,7 +30,7 @@
                 <TextBox x:Name="NameTextBox" Grid.Column="1" />                
             </Grid>
 
-            <Grid Grid.Row="1" Margin="0,5">
+            <Grid Grid.Row="2" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
@@ -36,7 +39,7 @@
                 <TextBox x:Name="FirstNameTextBox" Grid.Column="1" />
             </Grid>
 
-            <Grid Grid.Row="2" Margin="0,5">
+            <Grid Grid.Row="3" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
@@ -45,7 +48,7 @@
                 <TextBox x:Name="EmailTextBox" Grid.Column="1" />
             </Grid>
 
-            <Grid Grid.Row="3" Margin="0,5">
+            <Grid Grid.Row="4" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
@@ -54,7 +57,7 @@
                 <TextBox x:Name="LoginTextBox" Grid.Column="1" />
             </Grid>
 
-            <Grid Grid.Row="4" Margin="0,5">
+            <Grid Grid.Row="5" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
@@ -63,7 +66,7 @@
                 <PasswordBox x:Name="PasswordTextBox" Grid.Column="1" />
             </Grid>
 
-            <Grid Grid.Row="5" Margin="0,5">
+            <Grid Grid.Row="6" Margin="0,5">
                <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
@@ -72,8 +75,9 @@
                 <PasswordBox x:Name="ConfirmPasswordTextBox" Grid.Column="1"  />
             </Grid>
 
-            <TextBlock x:Name="Console" Grid.Row="7" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
-            <Button x:Name="SaveButton" Grid.Row="6" MaxWidth="100" MinHeight="27" Content="Save" Margin="10"/>
+            <Button x:Name="SaveButton" Grid.Row="7" MaxWidth="80" MinHeight="27" Content="Save" Margin="10"/>
+            <TextBlock x:Name="Console" Grid.Row="8" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
+            
         </Grid>
     </Border>
 </Grid>

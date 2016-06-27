@@ -37,7 +37,7 @@ namespace Misp.Reconciliation.Base
             if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_ROLE)
             {
                 RoleBrowserController roleEditorController = new RoleBrowserController();
-                roleEditorController.ModuleName = "Administration_Role";// Misp.Kernel.Administration.PlugIn.MODULE_NAME;
+                roleEditorController.ModuleName = "Administration";// Misp.Kernel.Administration.PlugIn.MODULE_NAME;
                 roleEditorController.Functionality = fonctionality;
                 roleEditorController.ApplicationManager = this.ApplicationManager;
                 roleEditorController.Service = ((AdministrationServiceFactory)ServiceFactory).GetRoleService();
@@ -47,7 +47,7 @@ namespace Misp.Reconciliation.Base
             if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_USER)
             {
                 UserEditorController userEditorController = new UserEditorController();
-                userEditorController.ModuleName = "Administration_User";// Misp.Kernel.Administration.PlugIn.MODULE_NAME;
+                userEditorController.ModuleName = "Administration";// Misp.Kernel.Administration.PlugIn.MODULE_NAME;
                 userEditorController.Functionality = fonctionality;
                 userEditorController.ApplicationManager = this.ApplicationManager;
                 userEditorController.Service = ((AdministrationServiceFactory)ServiceFactory).GetUserService();
@@ -57,7 +57,7 @@ namespace Misp.Reconciliation.Base
             if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_USER)
             {
                 UserBrowserController userBrowserController = new UserBrowserController();
-                userBrowserController.ModuleName = "Administration_List_User";// Misp.Kernel.Administration.PlugIn.MODULE_NAME;
+                userBrowserController.ModuleName = "Administration";// Misp.Kernel.Administration.PlugIn.MODULE_NAME;
                 userBrowserController.Functionality = fonctionality;
                 userBrowserController.ApplicationManager = this.ApplicationManager;
                 userBrowserController.Service = ((AdministrationServiceFactory)ServiceFactory).GetUserService();
@@ -67,7 +67,7 @@ namespace Misp.Reconciliation.Base
             if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_PROFIL)
             {
                 ProfilEditorController profilEditorController = new ProfilEditorController();
-                profilEditorController.ModuleName = "Administration_Profil";// Misp.Kernel.Administration.PlugIn.MODULE_NAME;
+                profilEditorController.ModuleName = "Administration";// Misp.Kernel.Administration.PlugIn.MODULE_NAME;
                 profilEditorController.Functionality = fonctionality;
                 profilEditorController.ApplicationManager = this.ApplicationManager;
                 profilEditorController.Service = ((AdministrationServiceFactory)ServiceFactory).GetProfilService();
@@ -77,7 +77,7 @@ namespace Misp.Reconciliation.Base
             if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_PROFIL)
             {
                 ProfilBrowserController profilBrowserController = new ProfilBrowserController();
-                profilBrowserController.ModuleName = "Administration_List_Profil";// Misp.Kernel.Administration.PlugIn.MODULE_NAME;
+                profilBrowserController.ModuleName = "Administration";// Misp.Kernel.Administration.PlugIn.MODULE_NAME;
                 profilBrowserController.Functionality = fonctionality;
                 profilBrowserController.ApplicationManager = this.ApplicationManager;
                 profilBrowserController.Service = ((AdministrationServiceFactory)ServiceFactory).GetProfilService();

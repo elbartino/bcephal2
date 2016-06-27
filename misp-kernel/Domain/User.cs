@@ -12,7 +12,6 @@ namespace Misp.Kernel.Domain
 
         public String name { get; set; }
 
-        [ScriptIgnore]
         public String firstName { get; set; }
 
         public String login { get; set; }
@@ -29,6 +28,7 @@ namespace Misp.Kernel.Domain
 
         public bool? visibleInShortcut { get; set; }
 
+        [ScriptIgnore]
         public BGroup group { get; set; }
 
         public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }

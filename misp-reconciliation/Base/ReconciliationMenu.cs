@@ -16,12 +16,6 @@ namespace Misp.Reconciliation.Base
         public ApplicationMenu ReconciliationFiltersMenu { get; private set; }
         public ApplicationMenu ReconciliationFiltersListMenu { get; private set; }
         public ApplicationMenu ReconciliationPostingMenu { get; private set; }
-        public ApplicationMenu TransactionfileTypesMenu { get; private set; }
-
-        public ApplicationMenu AdministrationUserMenu { get; private set; }
-        public ApplicationMenu AdministrationUserListMenu { get; private set; }
-        public ApplicationMenu AdministrationProfilMenu { get; private set; }
-        public ApplicationMenu AdministrationProfilListMenu { get; private set; }
         
      
 
@@ -37,15 +31,6 @@ namespace Misp.Reconciliation.Base
             menus.Add(new Separator());
             menus.Add(ReconciliationFiltersMenu);
             menus.Add(ReconciliationFiltersListMenu);
-            menus.Add(new Separator());
-
-            menus.Add(AdministrationUserMenu);
-            menus.Add(AdministrationUserListMenu);
-            menus.Add(new Separator());
-            menus.Add(AdministrationProfilMenu);
-            menus.Add(AdministrationProfilListMenu);
-            menus.Add(new Separator());
-            menus.Add(TransactionfileTypesMenu);
             return menus;
         }
 
@@ -59,16 +44,7 @@ namespace Misp.Reconciliation.Base
             ReconciliationFiltersMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "Reconciliation Filters", NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY));
             ReconciliationFiltersListMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "List Reconciliation Filters ", NavigationToken.GetSearchViewToken(ReconciliationFunctionalitiesCode.LIST_RECONCILIATION_FILTERS_FUNCTIONALITY));
             ReconciliationPostingMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "Postings", NavigationToken.GetSearchViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_POSTING_FUNCTIONALITY));
-            
-            TransactionfileTypesMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "Administration Role", NavigationToken.GetSearchViewToken(ReconciliationFunctionalitiesCode.ADMINISTRATION_ROLE));
-
-            AdministrationUserMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "New User", NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.ADMINISTRATION_NEW_USER));
-            AdministrationUserListMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "List UserA", NavigationToken.GetSearchViewToken(ReconciliationFunctionalitiesCode.ADMINISTRATION_LIST_USER));
-
-            AdministrationProfilMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "New Profil", NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.ADMINISTRATION_NEW_PROFIL));
-            AdministrationProfilListMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "List Profil", NavigationToken.GetSearchViewToken(ReconciliationFunctionalitiesCode.ADMINISTRATION_LIST_PROFIL));
-            
-           
+                    
         }
     }
 }
