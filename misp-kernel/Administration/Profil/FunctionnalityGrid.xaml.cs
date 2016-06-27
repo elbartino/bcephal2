@@ -83,14 +83,13 @@ namespace Misp.Kernel.Administration.Profil
         /// <returns></returns>
         protected DataGridColumn getColumnAt(int index)
         {
-            return new DataGridTextColumn();
-            //switch (index)
-            //{
-            //    case 0: return new DataGridTextColumn();
-            //    case 1: return new DataGridCheckBoxColumn();
-            //    case 2: return new DataGridCheckBoxColumn();
-            //    default: return new DataGridTextColumn();
-            //}
+            switch (index)
+            {
+                case 0: return new DataGridTextColumn();
+                case 1: return new DataGridCheckBoxColumn();
+                case 2: return new DataGridCheckBoxColumn();
+                default: return new DataGridTextColumn();
+            }
         }
 
 
