@@ -96,7 +96,7 @@ namespace Misp.Kernel.Administration.User
             Domain.User user = new Domain.User();
             user.name = getNewPageName("User");
             user.visibleInShortcut = true;
-            user.group = GetUserService().GroupService.getDefaultGroup();
+            //user.group = GetUserService().GroupService.getDefaultGroup();
             return user;
         }
 
@@ -148,7 +148,7 @@ namespace Misp.Kernel.Administration.User
             {
                 Domain.User us = new Domain.User();
                 us.name = name;
-                us.group = GetUserService().GroupService.getDefaultGroup();
+                //us.group = GetUserService().GroupService.getDefaultGroup();
                 return us;
             }
             return null;
@@ -285,8 +285,8 @@ namespace Misp.Kernel.Administration.User
             editorPage.getUserForm().userPropertyPanel.nameTextBox.LostFocus += onNameTextLostFocus;
             editorPage.getUserForm().userPropertyPanel.groupField.Changed += onGroupFieldChange;
 
-            editorPage.getUserForm().userMainPanel.userPanel.nameTextBox.LostFocus += onUserNameTextLostFocus;
-            editorPage.getUserForm().userMainPanel.userPanel.nameTextBox.KeyUp += onUserNameTextChange;
+            editorPage.getUserForm().userMainPanel.nameTextBox.LostFocus += onUserNameTextLostFocus;
+            editorPage.getUserForm().userMainPanel.nameTextBox.KeyUp += onUserNameTextChange;
         }
 
         
@@ -389,7 +389,7 @@ namespace Misp.Kernel.Administration.User
         protected void onUserNameTextLostFocus(object sender, RoutedEventArgs args)
         {
             UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
-            string newName = page.getUserForm().userMainPanel.userPanel.nameTextBox.Text;
+            string newName = page.getUserForm().userMainPanel.nameTextBox.Text;
             Rename(newName);
         }
 
@@ -404,12 +404,12 @@ namespace Misp.Kernel.Administration.User
             UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
             if (args.Key == Key.Escape)
             {
-                string newName = page.getUserForm().userMainPanel.userPanel.nameTextBox.Text;
+                string newName = page.getUserForm().userMainPanel.nameTextBox.Text;
                 Rename(newName);
             }
             else if (args.Key == Key.Enter)
             {
-                string newName = page.getUserForm().userMainPanel.userPanel.nameTextBox.Text;
+                string newName = page.getUserForm().userMainPanel.nameTextBox.Text;
                 Rename(newName);
             }
         }
@@ -439,7 +439,7 @@ namespace Misp.Kernel.Administration.User
             BGroup group = page.getUserForm().userPropertyPanel.groupField.Group;
             ((UserSideBar)SideBar).UserGroup.UserTreeview.updateUser(name, page.Title, true);
             Domain.User usTemp = page.EditedObject;
-            usTemp.group = group;
+            //usTemp.group = group;
             page.EditedObject = usTemp;
             page.getUserForm().userPropertyPanel.displayUser(usTemp);            
             page.EditedObject.isModified = true;

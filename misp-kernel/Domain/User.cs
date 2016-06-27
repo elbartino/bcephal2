@@ -14,6 +14,10 @@ namespace Misp.Kernel.Domain
 
         public String firstName { get; set; }
 
+        public String userID { get; set; }
+
+        public String departement { get; set; }
+
         public String login { get; set; }
 
         public String password { get; set; }
@@ -22,14 +26,14 @@ namespace Misp.Kernel.Domain
 
         public bool? active { get; set; }
 
-        public Profil profil { get; set; }
-
-        public bool? admin { get; set; }
+        public bool? type { get; set; }
 
         public bool? visibleInShortcut { get; set; }
 
-        [ScriptIgnore]
-        public BGroup group { get; set; }
+        public Profil profil { get; set; }
+
+        //[ScriptIgnore]
+        //public BGroup group { get; set; }
 
         public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }
 

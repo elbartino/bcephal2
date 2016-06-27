@@ -151,7 +151,7 @@ namespace Misp.Kernel.Administration.User
             user.active = activeBox.IsChecked.Value;
             user.login = loginTextBox.Text.Trim();            
             user.password = passwordTextBox.Password;
-            user.admin = false;
+            user.type = false;
             return user;
         }
 
