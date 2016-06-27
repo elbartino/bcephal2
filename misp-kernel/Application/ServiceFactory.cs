@@ -33,6 +33,8 @@ namespace Misp.Kernel.Application
 
         private SecurityService securityService;
         private RoleService roleService;
+        private UserService userService;
+        private ProfilService profilService;
 
         /// <summary>
         /// Build a new instance of ServiceFactory.
@@ -211,10 +213,41 @@ namespace Misp.Kernel.Application
             if (roleService == null)
             {
                 roleService = new RoleService();
-                roleService.ResourcePath = ResourcePath.SECURITY_ROLE_RESOURCE_PATH;
+                roleService.ResourcePath = AdministrationResourcePath.SECURITY_ROLE_RESOURCE_PATH;
                 configureService(roleService);
             }
             return roleService;
+        }
+
+        /// <summary>
+        /// Gets UserService
+        /// </summary>
+        public UserService GetUserService()
+        {
+            if (userService == null)
+            {
+                userService = new UserService();
+                userService.ResourcePath = AdministrationResourcePath.SECURITY_USER_RESOURCE_PATH;
+                userService.GroupService = GetGroupService();
+                userService.ProfilService = GetProfilService();
+                configureService(userService);
+            }
+            return userService;
+        }
+
+        /// <summary>
+        /// Gets ProfilService
+        /// </summary>
+        public ProfilService GetProfilService()
+        {
+            if (profilService == null)
+            {
+                profilService = new ProfilService();
+                profilService.ResourcePath = AdministrationResourcePath.SECURITY_PROFIL_RESOURCE_PATH;
+                profilService.GroupService = GetGroupService();
+                configureService(profilService);
+            }
+            return profilService;
         }
 
         /// <summary>

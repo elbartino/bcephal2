@@ -11,11 +11,8 @@ namespace Misp.Kernel.Service
     public class UserService : Service<Misp.Kernel.Domain.User, Misp.Kernel.Domain.Browser.BrowserData>
     {
         #region Properties
-        /// <summary>
-        /// Le ModelService.
-        /// </summary>
-        public ModelService ModelService { get; set; }
-
+        
+        public ProfilService ProfilService { get; set; }
 
         #endregion
 

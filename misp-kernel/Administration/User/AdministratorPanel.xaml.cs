@@ -155,7 +155,8 @@ namespace Misp.Kernel.Administration.User
             user.active = true;
             user.login = LoginTextBox.Text.Trim();
             user.email = EmailTextBox.Text.Trim();
-            user.name = FirstNameTextBox.Text;
+            user.name = NameTextBox.Text.Trim();
+            user.firstName = FirstNameTextBox.Text.Trim();
             user.password = ConfirmPasswordTextBox.Password;
             user.admin = true;
             return user;

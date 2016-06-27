@@ -77,10 +77,10 @@ namespace Misp.Kernel.Application
             if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_USER)
             {
                 UserBrowserController userBrowserController = new UserBrowserController();
-                // userBrowserController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                userBrowserController.ModuleName = "Administration";
                 userBrowserController.Functionality = fonctionality;
                 userBrowserController.ApplicationManager = this.ApplicationManager;
-                userBrowserController.Service = ServiceFactory.GetSecurityService();
+                userBrowserController.Service = ServiceFactory.GetUserService();
                 return userBrowserController;
             }
 

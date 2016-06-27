@@ -102,6 +102,7 @@ namespace Misp.Kernel.Application
             {
                 names.Add(plugin.Name);
             }
+            names.Add("Administration");
             return names;
         }
 
