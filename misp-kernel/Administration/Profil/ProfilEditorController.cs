@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Misp.Kernel.Administration.Profil
 {
-    public class ProfilEditorController : EditorController<Domain.Profil, Misp.Kernel.Domain.Browser.BrowserData>
+    public class ProfilEditorController : EditorController<Domain.Profil, Misp.Kernel.Domain.Browser.ProfilBrowserData>
     {
         #region Properties
         public override void DeleteCommandEnabled(object sender, CanExecuteRoutedEventArgs e) { e.CanExecute = false; }
@@ -96,7 +96,6 @@ namespace Misp.Kernel.Administration.Profil
             Domain.Profil profil = new Domain.Profil();
             profil.name = getNewPageName("Profil");
             profil.visibleInShortcut = true;
-            profil.group = GetProfilService().GroupService.getDefaultGroup();
             return profil;
         }
 
@@ -148,7 +147,6 @@ namespace Misp.Kernel.Administration.Profil
             {
                 Domain.Profil pf = new Domain.Profil();
                 pf.name = name;
-                pf.group = GetProfilService().GroupService.getDefaultGroup();
                 return pf;
             }
             return null;
@@ -279,14 +277,11 @@ namespace Misp.Kernel.Administration.Profil
             base.initializePageHandlers(page);
             ProfilEditorItem editorPage = (ProfilEditorItem)page;
 
-            editorPage.getProfilForm().profilPropertyPanel.groupField.GroupService = GetProfilService().GroupService;
-            editorPage.getProfilForm().profilPropertyPanel.groupField.subjectType = SubjectTypeFound();
             editorPage.getProfilForm().profilPropertyPanel.nameTextBox.KeyUp += onNameTextChange;
             editorPage.getProfilForm().profilPropertyPanel.nameTextBox.LostFocus += onNameTextLostFocus;
-            editorPage.getProfilForm().profilPropertyPanel.groupField.Changed += onGroupFieldChange;
 
-            editorPage.getProfilForm().profileMainPanel.profilPanel.nameTextBox.LostFocus += onProfilNameTextLostFocus;
-            editorPage.getProfilForm().profileMainPanel.profilPanel.nameTextBox.KeyUp += onProfilNameTextChange;
+            editorPage.getProfilForm().profileMainPanel.nameTextBox.LostFocus += onProfilNameTextLostFocus;
+            editorPage.getProfilForm().profileMainPanel.nameTextBox.KeyUp += onProfilNameTextChange;
         }
 
         
@@ -390,7 +385,7 @@ namespace Misp.Kernel.Administration.Profil
         protected void onProfilNameTextLostFocus(object sender, RoutedEventArgs args)
         {
             ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
-            string newName = page.getProfilForm().profileMainPanel.profilPanel.nameTextBox.Text;
+            string newName = page.getProfilForm().profileMainPanel.nameTextBox.Text;
             Rename(newName);
         }
 
@@ -405,12 +400,12 @@ namespace Misp.Kernel.Administration.Profil
             ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
             if (args.Key == Key.Escape)
             {
-                string newName = page.getProfilForm().profileMainPanel.profilPanel.nameTextBox.Text;
+                string newName = page.getProfilForm().profileMainPanel.nameTextBox.Text;
                 Rename(newName);
             }
             else if (args.Key == Key.Enter)
             {
-                string newName = page.getProfilForm().profileMainPanel.profilPanel.nameTextBox.Text;
+                string newName = page.getProfilForm().profileMainPanel.nameTextBox.Text;
                 Rename(newName);
             }
         }
@@ -434,19 +429,19 @@ namespace Misp.Kernel.Administration.Profil
             OnChange();
         }
 
-        protected void onGroupFieldChange()
-        {
-            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
-            string name = page.getProfilForm().profilPropertyPanel.groupField.textBox.Text;
-            BGroup group = page.getProfilForm().profilPropertyPanel.groupField.Group;
-            ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.updateProfile(name, page.Title, true);
-            Domain.Profil pf = page.EditedObject;
-            pf.group = group;
-            page.EditedObject = pf;
-            page.getProfilForm().profilPropertyPanel.displayProfil(pf);            
-            page.EditedObject.isModified = true;
-            OnChange();
-        }
+        //protected void onGroupFieldChange()
+        //{
+        //    ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
+        //    //string name = page.getProfilForm().profilPropertyPanel.groupField.textBox.Text;
+        //    //BGroup group = page.getProfilForm().profilPropertyPanel.groupField.Group;
+        //    //((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.updateProfile(name, page.Title, true);
+        //    Domain.Profil pf = page.EditedObject;
+        //    //pf.group = group;
+        //    page.EditedObject = pf;
+        //    page.getProfilForm().profilPropertyPanel.displayProfil(pf);
+        //    page.EditedObject.isModified = true;
+        //    OnChange();
+        //}
 
         #endregion
 
@@ -495,7 +490,7 @@ namespace Misp.Kernel.Administration.Profil
             ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.updateProfile(newName, table.name, false);
             table.name = newName;
             page.Title = newName;
-            page.getProfilForm().profileMainPanel.profilPanel.nameTextBox.Text = newName;
+            page.getProfilForm().profileMainPanel.nameTextBox.Text = newName;
             OnChange();
             return OperationState.CONTINUE;
         }

@@ -15,8 +15,7 @@ namespace Misp.Kernel.Domain
 
         public bool visibleInShortcut { get; set; }
 
-        public BGroup group { get; set; }
-
+       
         public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }
         
 

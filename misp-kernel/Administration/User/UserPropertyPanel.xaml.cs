@@ -33,7 +33,6 @@ namespace Misp.Kernel.Administration.User
         {
             if (user == null) return;
             nameTextBox.Text = user.name;
-            //groupField.Group = user.group;
             visibleInShortcutCheckBox.IsChecked = user.visibleInShortcut;
         }
 
@@ -45,11 +44,6 @@ namespace Misp.Kernel.Administration.User
         {
             if (user == null) return;
             user.name = nameTextBox.Text;
-            //if (groupField.Group != null)
-            //{
-            //    groupField.Group.subjectType = Kernel.Domain.SubjectType.USER.label;
-            //    user.group = groupField.Group;
-            //}
             user.visibleInShortcut = visibleInShortcutCheckBox.IsChecked.Value;
         }
 
@@ -61,7 +55,6 @@ namespace Misp.Kernel.Administration.User
         {
             List<UIElement> controls = new List<UIElement>(0);
             controls.Add(this.nameTextBox);
-            controls.Add(this.groupField);
             return controls;
         }
 

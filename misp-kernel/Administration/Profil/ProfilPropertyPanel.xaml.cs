@@ -33,7 +33,6 @@ namespace Misp.Kernel.Administration.Profil
         {
             if (profil == null) return;
             nameTextBox.Text = profil.name;
-            groupField.Group = profil.group;
             visibleInShortcutCheckBox.IsChecked = profil.visibleInShortcut;
         }
 
@@ -44,12 +43,7 @@ namespace Misp.Kernel.Administration.Profil
         public void fillProfil(Domain.Profil profil)
         {
             if (profil == null) return;
-            profil.name = nameTextBox.Text;
-            if (groupField.Group != null)
-            {
-                groupField.Group.subjectType = Kernel.Domain.SubjectType.PROFIL.label;
-                profil.group = groupField.Group;
-            }
+            profil.name = nameTextBox.Text;            
             profil.visibleInShortcut = visibleInShortcutCheckBox.IsChecked.Value;
         }
 
@@ -61,7 +55,6 @@ namespace Misp.Kernel.Administration.Profil
         {
             List<UIElement> controls = new List<UIElement>(0);
             controls.Add(this.nameTextBox);
-            controls.Add(this.groupField);
             return controls;
         }
 

@@ -81,7 +81,7 @@ namespace Misp.Kernel.Administration.Profil
         /// <returns>true si les données sont valides</returns>
         public bool validateEdition()
         {
-            bool valid = this.profilPropertyPanel.validateEdition() && this.profileMainPanel.profilPanel.ValidateEdition();
+            bool valid = this.profilPropertyPanel.validateEdition() && this.profileMainPanel.ValidateEdition();
             return valid;
         }
 

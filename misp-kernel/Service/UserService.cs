@@ -27,7 +27,7 @@ namespace Misp.Kernel.Service
         {
             try
             {
-                var request = new RestRequest(ResourcePath + "/save/user", Method.POST);
+                var request = new RestRequest(ResourcePath + "/save", Method.POST);
                 string json = Serialize(user);
                 request.RequestFormat = DataFormat.Json;
                 request.AddParameter("application/json", json, ParameterType.RequestBody);

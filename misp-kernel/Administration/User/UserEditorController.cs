@@ -279,15 +279,16 @@ namespace Misp.Kernel.Administration.User
             base.initializePageHandlers(page);
             UserEditorItem editorPage = (UserEditorItem)page; 
             
-            editorPage.getUserForm().userPropertyPanel.groupField.GroupService = GetUserService().GroupService;
-            editorPage.getUserForm().userPropertyPanel.groupField.subjectType = SubjectTypeFound();
             editorPage.getUserForm().userPropertyPanel.nameTextBox.KeyUp += onNameTextChange;
             editorPage.getUserForm().userPropertyPanel.nameTextBox.LostFocus += onNameTextLostFocus;
-            editorPage.getUserForm().userPropertyPanel.groupField.Changed += onGroupFieldChange;
+
+            editorPage.getUserForm().userMainPanel.profilcomboBox.SelectionChanged += onProfilFieldChange;
 
             editorPage.getUserForm().userMainPanel.nameTextBox.LostFocus += onUserNameTextLostFocus;
             editorPage.getUserForm().userMainPanel.nameTextBox.KeyUp += onUserNameTextChange;
         }
+
+        
 
         
         /// <summary>
@@ -295,10 +296,9 @@ namespace Misp.Kernel.Administration.User
         /// </summary>
         protected override void initializeSideBarData()
         {
-            List<Domain.User> recos = GetUserService().getAll();
-            ((UserSideBar)SideBar).UserGroup.UserTreeview.fillTree(new ObservableCollection<Domain.User>(recos));
+            List<Domain.User> users = GetUserService().getAll();
+            ((UserSideBar)SideBar).UserGroup.UserTreeview.fillTree(new ObservableCollection<Domain.User>(users));
 
-            BGroup group = GetUserService().GroupService.getDefaultGroup();
         }
 
         /// <summary>
@@ -432,16 +432,17 @@ namespace Misp.Kernel.Administration.User
             OnChange();
         }
 
-        protected void onGroupFieldChange()
-        {
+
+        private void onProfilFieldChange(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {            
             UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
-            string name = page.getUserForm().userPropertyPanel.groupField.textBox.Text;
-            BGroup group = page.getUserForm().userPropertyPanel.groupField.Group;
+            string name = page.getUserForm().userMainPanel.profilcomboBox.SelectedItem.ToString();
+            Domain.Profil profil = (Domain.Profil)page.getUserForm().userMainPanel.profilcomboBox.SelectedItem;
             ((UserSideBar)SideBar).UserGroup.UserTreeview.updateUser(name, page.Title, true);
             Domain.User usTemp = page.EditedObject;
-            //usTemp.group = group;
+            usTemp.profil = profil;
             page.EditedObject = usTemp;
-            page.getUserForm().userPropertyPanel.displayUser(usTemp);            
+            page.getUserForm().userPropertyPanel.displayUser(usTemp);
             page.EditedObject.isModified = true;
             OnChange();
         }

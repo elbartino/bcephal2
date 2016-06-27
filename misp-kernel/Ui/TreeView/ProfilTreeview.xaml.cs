@@ -106,7 +106,7 @@ namespace Misp.Kernel.Ui.TreeView
                 if (profil.name == oldTableName)
                 {
                     profil.name = !updateGroup ? newName : profil.name;
-                    if (profil.group != null) profil.group.name = updateGroup ? newName : profil.group.name;
+                    //if (profil.group != null) profil.group.name = updateGroup ? newName : profil.group.name;
                     this.liste[index] = profil;
                     this.cvs.DeferRefresh();
                     return;

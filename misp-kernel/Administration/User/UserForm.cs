@@ -87,7 +87,7 @@ namespace Misp.Kernel.Administration.User
         /// <returns>true si les données sont valides</returns>
         public bool validateEdition()
         {
-            bool valid = this.userPropertyPanel.validateEdition() && this.userMainPanel.userPanel.ValidateEdition();
+            bool valid = this.userPropertyPanel.validateEdition() && this.userMainPanel.ValidateEdition();
             return valid;
         }
 

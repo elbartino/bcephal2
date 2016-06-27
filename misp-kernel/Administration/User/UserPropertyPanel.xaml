@@ -21,22 +21,9 @@
             <Label x:Name="nameLabel" Grid.Column="0" Content="Name" />
             <TextBox x:Name="nameTextBox" x:FieldModifier="public" Grid.Column="1" TextWrapping="NoWrap"/>
         </Grid>
+        
         <Grid Margin="10,5,5,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="23"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="60"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Label x:Name="groupLabel" Grid.Column="0" Content="Group" />
-            <group:GroupField x:Name="groupField" x:FieldModifier="public" Grid.Column="1" />
-            
-        </Grid>
-        <Grid Margin="10,5,5,0">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <CheckBox x:Name="visibleInShortcutCheckBox"    Content="Visible in shortcut"   Margin="5,5,5,0"    FlowDirection="RightToLeft" HorizontalAlignment="Left"/>
-            </StackPanel>
+            <CheckBox x:Name="visibleInShortcutCheckBox"    Content="Visible in shortcut"   Margin="5,5,5,0"    FlowDirection="LeftToRight" HorizontalAlignment="Left"/>            
         </Grid>
     </StackPanel>
 </ScrollViewer>

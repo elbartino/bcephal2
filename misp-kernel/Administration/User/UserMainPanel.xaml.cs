@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Misp.Kernel.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,10 +22,13 @@ namespace Misp.Kernel.Administration.User
     /// </summary>
     public partial class UserMainPanel : Grid
     {
+        ProfilService profilService;
         public UserMainPanel()
         {
             InitializeComponent();
+            InitProfilComboBox();
             IntializeHandlers();
+            profilService = new ProfilService();
         }
 
         public List<object> getEditableControls()
@@ -45,13 +50,14 @@ namespace Misp.Kernel.Administration.User
         {
             nameTextBox.Text = user.name;
             firstNameTextBox.Text = user.firstName;
-            userIDTextBox.Text = user.name;
-            departementTextBox.Text = user.firstName;
+            userIDTextBox.Text = user.userID;
+            departementTextBox.Text = user.departement;
             emailTextBox.Text = user.email;
             typeBox.IsChecked = user.active;
             activeBox.IsChecked = user.active;
             loginTextBox.Text = user.login;
-            passwordTextBox.Password = user.password; 
+            passwordTextBox.Password = user.password;            
+            profilcomboBox.SelectedItem = user.profil;
         }
 
         public void Fill(Domain.User user)
@@ -65,6 +71,109 @@ namespace Misp.Kernel.Administration.User
             user.type = typeBox.IsChecked.Value;
             user.login = loginTextBox.Text.Trim();
             user.password = passwordTextBox.Password;
+
+            Domain.Profil profil = (Domain.Profil)profilcomboBox.SelectedItem;
+            user.profil = profil;
+        }
+
+        private void InitProfilComboBox()
+        {
+            List<Domain.Profil> profils = new List<Domain.Profil>(); // profilService.getAll();
+            this.profilcomboBox.ItemsSource = profils;
+            this.profilcomboBox.SelectedIndex = 0;
+        }
+
+        public bool ValidateEdition()
+        {
+            String errors = "";
+            String line = "";
+            bool focusSetted = false;
+            if (String.IsNullOrWhiteSpace(nameTextBox.Text) && String.IsNullOrWhiteSpace(firstNameTextBox.Text))
+            {
+                errors += line + "Name and first name can't be empty.";
+                line = "\n";
+                if (!focusSetted)
+                {
+                    if (String.IsNullOrWhiteSpace(nameTextBox.Text))
+                    {
+                        nameTextBox.Focus();
+                        nameTextBox.SelectAll();
+                    }
+                    else
+                    {
+                        firstNameTextBox.Focus();
+                        firstNameTextBox.SelectAll();
+                    }
+                    focusSetted = true;
+                }
+            }
+
+            if (String.IsNullOrWhiteSpace(emailTextBox.Text))
+            {
+                errors += line + "Email can't be empty.";
+                line = "\n";
+                if (!focusSetted)
+                {
+                    emailTextBox.Focus();
+                    emailTextBox.SelectAll();
+                    focusSetted = true;
+                }
+            }
+            else if (!validateEmail(emailTextBox.Text))
+            {
+                //errors += line + "Wrong email format.";
+                //line = "\n";
+                //if (!focusSetted)
+                //{
+                //    emailTextBox.Focus();
+                //    emailTextBox.SelectAll();
+                //    focusSetted = true;
+                //}
+            }
+
+            if (String.IsNullOrWhiteSpace(loginTextBox.Text))
+            {
+                errors += line + "Login can't be empty.";
+                line = "\n";
+                if (!focusSetted)
+                {
+                    loginTextBox.Focus();
+                    loginTextBox.SelectAll();
+                    focusSetted = true;
+                }
+            }
+
+            if (String.IsNullOrWhiteSpace(passwordTextBox.Password))
+            {
+                errors += line + "Password can't be empty.";
+                line = "\n";
+                if (!focusSetted)
+                {
+                    passwordTextBox.Focus();
+                    passwordTextBox.SelectAll();
+                    focusSetted = true;
+                }
+            }
+
+            bool isValid = String.IsNullOrWhiteSpace(errors);
+            this.Console.Text = errors;
+            this.Console.Visibility = isValid ? Visibility.Collapsed : Visibility.Visible;
+            return isValid;
+        }
+
+        private bool validatePassword(String password1, String passwordConfirm)
+        {
+            return String.Compare(password1, passwordConfirm, false) == 0;
+        }
+
+        public bool validateEmail(String email)
+        {
+            string strRegex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+            Regex re = new Regex(strRegex);
+            if (re.IsMatch(email))
+                return (true);
+            else
+                return (false);
         }
 
         /// <summary>

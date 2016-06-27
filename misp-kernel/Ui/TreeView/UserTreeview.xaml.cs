@@ -106,7 +106,7 @@ namespace Misp.Kernel.Ui.TreeView
                 if (user.name == oldTableName)
                 {
                     user.name = !updateGroup ? newName : user.name;
-                    //if (user.group != null) user.group.name = updateGroup ? newName : user.group.name;
+                    if (user.profil != null)  user.profil.name = (updateGroup || user.profil == null)? newName : user.profil.name;
                     this.liste[index] = user;
                     this.cvs.DeferRefresh();
                     return;
@@ -128,10 +128,8 @@ namespace Misp.Kernel.Ui.TreeView
             Domain.User input = null;
             foreach (Domain.User inputtable in this.liste)
             {
-
                 if (!found)
                 {
-
                     if (inputtable.name == user1.name)
                     {
                         inputtable.name = user.name;

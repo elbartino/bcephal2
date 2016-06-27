@@ -177,6 +177,7 @@
     <Compile Include="Application\ApplicationManagerBuilder.cs" />
     <Compile Include="Application\ApplicationMenusBuilder.cs" />
     <Compile Include="Domain\Account.cs" />
+    <Compile Include="Domain\Browser\ProfilBrowserData.cs" />
     <Compile Include="Domain\Browser\UserBrowserData.cs" />
     <Compile Include="Domain\FunctionRight.cs" />
     <Compile Include="Domain\UserAction.cs" />

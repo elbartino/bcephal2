@@ -131,10 +131,8 @@ namespace Misp.Kernel.Ui.TreeView
             ReconciliationTemplate input = null;
             foreach (ReconciliationTemplate inputtable in this.liste)
             {
-
                 if (!found)
                 {
-
                     if (inputtable.name == reco1.name)
                     {
                         inputtable.name = reCo.name;

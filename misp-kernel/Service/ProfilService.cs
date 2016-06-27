@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Service
 {
-    public class ProfilService : Service<Misp.Kernel.Domain.Profil, Misp.Kernel.Domain.Browser.BrowserData>
+    public class ProfilService : Service<Misp.Kernel.Domain.Profil, Misp.Kernel.Domain.Browser.ProfilBrowserData>
     {
         #region Properties
 
@@ -25,7 +25,7 @@ namespace Misp.Kernel.Service
         {
             try
             {
-                var request = new RestRequest(ResourcePath + "/save/profil", Method.POST);
+                var request = new RestRequest(ResourcePath + "/save", Method.POST);
                 string json = Serialize(profil);
                 request.RequestFormat = DataFormat.Json;
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
