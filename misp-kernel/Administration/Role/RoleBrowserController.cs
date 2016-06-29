@@ -100,7 +100,7 @@ namespace Misp.Kernel.Administration.Role
         /// </summary>
         protected override void initializeViewData() 
         {
-            GetRoleBrowser().form.RoleService = getRoleService();
+            //GetRoleBrowser().form.RoleService = getRoleService();
         }
 
         

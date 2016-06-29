@@ -37,7 +37,7 @@ namespace Misp.Kernel.Administration.User
             controls.Add(this.userIDTextBox);
             controls.Add(this.departementTextBox);
             controls.Add(this.emailTextBox);
-            controls.Add(this.typeBox);
+            controls.Add(this.adminCheckBox);
             controls.Add(this.activeBox);
             controls.Add(this.loginTextBox);
             controls.Add(this.passwordTextBox);
@@ -51,11 +51,15 @@ namespace Misp.Kernel.Administration.User
             //userIDTextBox.Text = user.userID;
             //departementTextBox.Text = user.departement;
             emailTextBox.Text = user.email;
-            typeBox.IsChecked = user.active;
+            adminCheckBox.IsChecked = user.active;
             activeBox.IsChecked = user.active;
             loginTextBox.Text = user.login;
-            passwordTextBox.Password = user.password;            
-            profilcomboBox.SelectedItem = user.profil;
+            passwordTextBox.Password = user.password;
+            ManageAdministratorView(user.IsAdmin());
+            if (!user.IsAdmin())
+            {
+                profilcomboBox.SelectedItem = user.profil;
+            }
         }
 
         public void Fill(Domain.User user)
@@ -66,12 +70,14 @@ namespace Misp.Kernel.Administration.User
            // user.departement = departementTextBox.Text;
             user.email = emailTextBox.Text.Trim();
             user.active = activeBox.IsChecked.Value;
-            user.administrator = typeBox.IsChecked.Value;
+            user.administrator = adminCheckBox.IsChecked.Value;
             user.login = loginTextBox.Text.Trim();
             user.password = passwordTextBox.Password;
-
-            Domain.Profil profil = (Domain.Profil)profilcomboBox.SelectedItem;
-            user.profil = profil;
+            if (!user.IsAdmin())
+            {
+                Domain.Profil profil = (Domain.Profil)profilcomboBox.SelectedItem;
+                user.profil = profil;
+            }
         }
 
         public void InitProfilComboBox(ProfilService profilService)
@@ -179,8 +185,19 @@ namespace Misp.Kernel.Administration.User
         /// </summary>
         private void IntializeHandlers()
         {
+            this.adminCheckBox.Checked += OnManageAdministrator;
+            this.adminCheckBox.Unchecked += OnManageAdministrator;
 
+        }
 
+        private void OnManageAdministrator(object sender, RoutedEventArgs e)
+        {
+            ManageAdministratorView(this.adminCheckBox.IsChecked.Value);
+        }
+
+        public void ManageAdministratorView(bool isAdmin)
+        {
+            this.profilcomboBox.IsEnabled = !isAdmin;
         }
 
     }

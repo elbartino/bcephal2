@@ -104,7 +104,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="Type" Content="Is Administrator" Grid.Column="0" VerticalAlignment="Center"/>
-                <CheckBox x:Name="typeBox" Grid.Column="1"  />
+                <CheckBox x:Name="adminCheckBox" Grid.Column="1"  />
             </Grid>
 
             <Grid Grid.Row="9" Margin="0,5">

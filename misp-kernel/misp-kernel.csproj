@@ -134,15 +134,23 @@
     <Compile Include="Administration\Profil\ProfilPanel.xaml.cs">
       <DependentUpon>ProfilPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Administration\Role\RoleItemPanel.xaml.cs">
+      <DependentUpon>RoleItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\Role\RolePanel.xaml.cs">
+      <DependentUpon>RolePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\Role\RoleEditor.cs" />
+    <Compile Include="Administration\Role\RoleEditorItem.cs" />
+    <Compile Include="Administration\Role\RoleForm.cs" />
+    <Compile Include="Administration\Role\RolePropertyBar.cs" />
+    <Compile Include="Administration\Role\RoleEditorController.cs" />
     <Compile Include="Administration\Role\RoleSideBar.cs" />
     <Compile Include="Administration\Role\RoleGridToolBar.cs" />
     <Compile Include="Administration\Role\RoleToolBar.cs" />
     <Compile Include="Administration\Role\RoleTree.cs" />
     <Compile Include="Administration\Role\RoleBrowser.cs" />
     <Compile Include="Administration\Role\RoleBrowserController.cs" />
-    <Compile Include="Administration\Role\RoleForm.xaml.cs">
-      <DependentUpon>RoleForm.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Administration\User\AdministratorPanel.xaml.cs">
       <DependentUpon>AdministratorPanel.xaml</DependentUpon>
     </Compile>
@@ -660,9 +668,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Administration\Role\RoleForm.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Administration\Role\RoleItemPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Administration\Role\RolePanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Administration\User\AdministratorPanel.xaml">
       <SubType>Designer</SubType>

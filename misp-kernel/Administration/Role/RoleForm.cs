@@ -1,5 +1,4 @@
-﻿using Misp.Kernel.Service;
-using Misp.Kernel.Ui.Base;
+﻿using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,24 +6,49 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace Misp.Kernel.Administration.User
+namespace Misp.Kernel.Administration.Role
 {
-    public class UserForm : UserControl, IEditableView<Kernel.Domain.User>
+    public class RoleForm : UserControl, IEditableView<Domain.Role>
     {
-        #region Property
+        #region Constructor
+
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        public RoleForm()
+        {
+            InitializeComponents();
+            //this.Role.Changed += CalculatedMeasureOperationsGrid_Changed;
+        }
+
+
+        protected virtual void InitializeComponents()
+        {
+            this.Background = null;
+            this.BorderBrush = null;
+            
+            //this.CalculatedMeasurePropertiesPanel = new CalculatedMeasurePropertiesPanel();
+           this.RolePanel = new RolePanel();
+           this.AddChild(this.RolePanel);
+        }
+        
+        #endregion
+
+
+        #region Properties
+
+        // public CalculatedMeasurePropertiesPanel CalculatedMeasurePropertiesPanel { get; private set; }
+        public RolePanel RolePanel { get; set; }
+
         /// <summary>
         /// Indique si la vue a été modifiée.
         /// </summary>
         public bool IsModify { get; set; }
 
-        public UserMainPanel userMainPanel { get; set; }
-
-        //public UserPropertyPanel userPropertyPanel { get; set; }
-
         /// <summary>
-        /// L'Target en édition
+        /// calculated Measure en édition
         /// </summary>
-        public Kernel.Domain.User EditedObject { get; set; }
+        public Domain.Role EditedObject { get; set; }
 
         /// <summary>
         /// Spécifie la méthode à exécuter lorsqu'un changement survient sur la vue.
@@ -33,30 +57,8 @@ namespace Misp.Kernel.Administration.User
 
         public Kernel.Service.GroupService GroupService { get; set; }
 
-        
         #endregion
 
-        #region Constructor
-
-        /// <summary>
-        /// Constructeur
-        /// </summary>
-        public UserForm()
-        {
-            InitializeComponents();
-        }
-
-
-        protected virtual void InitializeComponents()
-        {
-            this.Background = null;
-            this.BorderBrush = null;
-            this.userMainPanel = new UserMainPanel();
-            //this.userPropertyPanel = new UserPropertyPanel();
-            this.Content = userMainPanel;
-        }
-        
-        #endregion
 
         #region Methods
 
@@ -69,17 +71,12 @@ namespace Misp.Kernel.Administration.User
             this.ChangeEventHandler = ChangeEventHandler;
         }
 
-        public void setUserService(UserService service)
-        {
-            //userMainPanel.setUserService(service);
-        }
-
         /// <summary>
         /// Une nouvelle instance de l'objet éditable.
         /// Cette méthode est appelée par fillObject() si l'objet en édition est null;
         /// </summary>
         /// <returns>Une nouvelle instance de l'objet éditable</returns>
-        public Kernel.Domain.User getNewObject() { return new Domain.User(); }
+        public Domain.Role getNewObject() { return new Domain.Role(); }
 
         /// <summary>
         /// Cette méthode permet valider les données éditée.
@@ -87,8 +84,9 @@ namespace Misp.Kernel.Administration.User
         /// <returns>true si les données sont valides</returns>
         public bool validateEdition()
         {
-            bool valid = this.userMainPanel.ValidateEdition();
+            bool valid = true;//this.CalculatedMeasurePropertiesPanel.validateEdition();
             return valid;
+            
         }
 
         /// <summary> 
@@ -98,29 +96,29 @@ namespace Misp.Kernel.Administration.User
         public void fillObject()
         {
             if (this.EditedObject == null) this.EditedObject = getNewObject();
-            this.userMainPanel.Fill(this.EditedObject);
-           // this.userPropertyPanel.fillUser(this.EditedObject);
+            this.RolePanel.fillObject(this.EditedObject);
         }
-        /// <summary>
+         /// <summary>
         /// Cette méthode permet d'afficher les données de l'objet à éditer 
         /// pour les afficher dans la vue.
         /// </summary>
         public void displayObject()
         {
-            this.userMainPanel.Display(this.EditedObject);
-           // this.userPropertyPanel.displayUser(this.EditedObject);
+          //this.CalculatedMeasurePropertiesPanel.displayCalculatedMeasureProperties(this.EditedObject);
+          this.RolePanel.DisplayRole(this.EditedObject);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>La liste des controls éditables</returns>
         public List<object> getEditableControls()
         {
             List<object> controls = new List<object>(0);
-            controls.AddRange(this.userMainPanel.getEditableControls());
-            //controls.AddRange(this.userPropertyPanel.getEditableControls());
+            //controls.AddRange(CalculatedMeasurePropertiesPanel.getEditableControls());
             return controls;
         }
 
         #endregion
-
     }
 }

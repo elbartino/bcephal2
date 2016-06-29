@@ -18,6 +18,9 @@ namespace Misp.Kernel.Domain
         [ScriptIgnore]
         public Role parent { get; set; }
 
+        [ScriptIgnore]
+        public int position { get; set; }
+
         public PersistentListChangeHandler<Role> childrenListChangeHandler { get; set; }
 
         [NonSerialized]
@@ -56,7 +59,16 @@ namespace Misp.Kernel.Domain
                 return foreground;
             } 
         }
-    
+
+        [ScriptIgnore]
+        public int RoleCount
+        {
+           get
+           {
+            return this.childrenListChangeHandler.Items.Count;
+           }
+        }
+
         [ScriptIgnore]
         public double FontSize { get; set; }
 
@@ -281,10 +293,12 @@ namespace Misp.Kernel.Domain
             }
         }
 
+        
+
         public override int CompareTo(object obj)
         {
             if (obj == null || !(obj is Role)) return 1;
-            return this.name.CompareTo(((Role)obj).name);
+            return 1;
         }
     }
     

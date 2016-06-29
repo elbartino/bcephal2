@@ -68,7 +68,7 @@ namespace Misp.Kernel.Application
 
             if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_ROLE)
             {
-                RoleBrowserController roleEditorController = new RoleBrowserController();
+                RoleEditorController roleEditorController = new RoleEditorController();
                 roleEditorController.ModuleName = "Administration";// Misp.Kernel.Administration.PlugIn.MODULE_NAME;
                 roleEditorController.Functionality = fonctionality;
                 roleEditorController.ApplicationManager = this.ApplicationManager;

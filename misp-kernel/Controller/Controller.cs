@@ -417,7 +417,10 @@ namespace Misp.Kernel.Controller
             OperationState state = TryToSaveBeforeClose();
             if (state == OperationState.STOP) return state;
             this.IsModify = false;
-            ApplicationManager.Instance.MainWindow.MenuBar.GetFileMenu().EnableSaveMenu(this.IsModify);
+            if (ApplicationManager.Instance.MainWindow.MenuBar != null)
+            {
+                ApplicationManager.Instance.MainWindow.MenuBar.GetFileMenu().EnableSaveMenu(this.IsModify);
+            }
             AfterClose();
             return OperationState.CONTINUE;
         }

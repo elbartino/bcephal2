@@ -178,10 +178,10 @@ namespace Misp.Kernel.Administration.User
                 return;
             }
             UserForm form = ((UserEditorItem)page).getUserForm();
-            if (form.userPropertyPanel != null)
-            {
-                ((UserPropertyBar)this.PropertyBar).UserLayoutAnchorable.Content = form.userPropertyPanel;
-            }
+            //if (form.userPropertyPanel != null)
+            //{
+            //    ((UserPropertyBar)this.PropertyBar).UserLayoutAnchorable.Content = form.userPropertyPanel;
+            //}
         }
 
         
@@ -215,7 +215,7 @@ namespace Misp.Kernel.Administration.User
         protected override void Rename(string name)
         {
             UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
-            page.getUserForm().userPropertyPanel.nameTextBox.Text = name;
+           // page.getUserForm().userPropertyPanel.nameTextBox.Text = name;
             page.EditedObject.name = name;
             base.Rename(name);
         }
@@ -280,8 +280,8 @@ namespace Misp.Kernel.Administration.User
             base.initializePageHandlers(page);
             UserEditorItem editorPage = (UserEditorItem)page; 
             
-            editorPage.getUserForm().userPropertyPanel.nameTextBox.KeyUp += onNameTextChange;
-            editorPage.getUserForm().userPropertyPanel.nameTextBox.LostFocus += onNameTextLostFocus;
+            //editorPage.getUserForm().userPropertyPanel.nameTextBox.KeyUp += onNameTextChange;
+            //editorPage.getUserForm().userPropertyPanel.nameTextBox.LostFocus += onNameTextLostFocus;
 
             editorPage.getUserForm().userMainPanel.profilcomboBox.SelectionChanged += onProfilFieldChange;
 
@@ -364,7 +364,7 @@ namespace Misp.Kernel.Administration.User
             UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
             if (args.Key == Key.Escape)
             {
-                page.getUserForm().userPropertyPanel.nameTextBox.Text = page.Title;
+                //page.getUserForm().userPropertyPanel.nameTextBox.Text = page.Title;
             }
             else if (args.Key == Key.Enter)
             {
@@ -443,7 +443,7 @@ namespace Misp.Kernel.Administration.User
             Domain.User usTemp = page.EditedObject;
             usTemp.profil = profil;
             page.EditedObject = usTemp;
-            page.getUserForm().userPropertyPanel.displayUser(usTemp);
+            //page.getUserForm().userPropertyPanel.displayUser(usTemp);
             page.EditedObject.isModified = true;
             OnChange();
         }
@@ -467,13 +467,13 @@ namespace Misp.Kernel.Administration.User
             Domain.User table = page.EditedObject;
             if (string.IsNullOrEmpty(newName))
             {
-                newName = page.getUserForm().userPropertyPanel.nameTextBox.Text.Trim();
+                //newName = page.getUserForm().userPropertyPanel.nameTextBox.Text.Trim();
             }
             if (string.IsNullOrEmpty(newName))
             {
                 DisplayError("Empty Name", "The User name can't be mepty!");
-                page.getUserForm().userPropertyPanel.nameTextBox.SelectAll();
-                page.getUserForm().userPropertyPanel.nameTextBox.Focus();
+                //page.getUserForm().userPropertyPanel.nameTextBox.SelectAll();
+                //page.getUserForm().userPropertyPanel.nameTextBox.Focus();
                 return OperationState.STOP;
             }
 
@@ -483,9 +483,9 @@ namespace Misp.Kernel.Administration.User
                 if (unReco != getUserEditor().getActivePage() && newName == unReco.Title)
                 {
                     DisplayError("Duplicate Name", "There is another Target named: " + newName);
-                    page.getUserForm().userPropertyPanel.nameTextBox.Text = page.Title;
-                    page.getUserForm().userPropertyPanel.nameTextBox.SelectAll();
-                    page.getUserForm().userPropertyPanel.nameTextBox.Focus();
+                    //page.getUserForm().userPropertyPanel.nameTextBox.Text = page.Title;
+                    //page.getUserForm().userPropertyPanel.nameTextBox.SelectAll();
+                    //page.getUserForm().userPropertyPanel.nameTextBox.Focus();
                     return OperationState.STOP;
                 }
             }

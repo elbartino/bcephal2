@@ -49,7 +49,7 @@ namespace Misp.Kernel.Administration.Base
             ProfilMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "New Profil", Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_PROFIL));
             ProfilListMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "List Profil", Kernel.Application.NavigationToken.GetSearchViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_PROFIL));
 
-            RoleMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "Manage Role", Kernel.Application.NavigationToken.GetSearchViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_ROLE));
+            RoleMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, "Manage Role", Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_ROLE));
 
         }
     }
