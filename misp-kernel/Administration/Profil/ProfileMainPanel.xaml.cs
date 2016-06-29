@@ -26,6 +26,9 @@ namespace Misp.Kernel.Administration.Profil
         {
             InitializeComponent();
             IntializeHandlers();
+
+            List<Rights> items = Misp.Kernel.Domain.Rights.generateDefaultFunction();
+            functionnalityGrid.ItemsSource = items;
         }
 
         public List<object> getEditableControls()
@@ -41,8 +44,10 @@ namespace Misp.Kernel.Administration.Profil
         {
             nameTextBox.Text = profil.name;
             activeBox.IsChecked = profil.active;
-            List<Rights> items = Misp.Kernel.Domain.Rights.generateDefaultFunction();
-            functionnalityGrid.ItemsSource = profil.rightsListChangeHandler.getItems();
+            if (profil.rightsListChangeHandler.getItems().Count > 0)
+            {
+                functionnalityGrid.ItemsSource = profil.rightsListChangeHandler.getItems();
+            }
         }
 
         public void Fill(Domain.Profil profil)
@@ -53,7 +58,7 @@ namespace Misp.Kernel.Administration.Profil
             foreach (object item in functionnalityGrid.Items)
             {
                 if (item is Rights)
-                {
+                {                    
                     items.Add((Rights)item);
                 }
             }

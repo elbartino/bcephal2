@@ -134,9 +134,9 @@ namespace Misp.Kernel.Administration.Profil
         {
             switch (index)
             {
-                case 0: return "function";
-                case 1: return "view";
-                case 2: return "edit";
+                case 0: return "functionnality";
+                case 1: return "viewRight";
+                case 2: return "editRight";
                 default: return "oid";
             }
         }
