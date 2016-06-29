@@ -14,7 +14,7 @@ namespace Misp.Kernel.Domain
 
         public String firstName { get; set; }
 
-       // public String departement { get; set; }
+       public String departement { get; set; }
 
         public String login { get; set; }
 
@@ -24,15 +24,12 @@ namespace Misp.Kernel.Domain
 
         public bool? active { get; set; }
 
-        public bool? type { get; set; }
+        public bool? administrator { get; set; }
 
         public bool? visibleInShortcut { get; set; }
 
         public Profil profil { get; set; }
-
-        //[ScriptIgnore]
-        //public BGroup group { get; set; }
-
+        
         public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }
 
         public PersistentListChangeHandler<Relation> relationsListChangeHandler { get; set; }
@@ -41,6 +38,7 @@ namespace Misp.Kernel.Domain
         public User()
         {
             this.active = true;
+            this.administrator = false;
             rightsListChangeHandler = new PersistentListChangeHandler<Rights>();
             relationsListChangeHandler = new PersistentListChangeHandler<Relation>();
         }
