@@ -21,6 +21,12 @@ namespace Misp.Kernel.Domain
         public UserAction action { get; set; }
 
 
+        public Rights()
+        {
+            this.viewRight = true;
+            this.editRight = true;
+        }
+
         public Rights(String function, Boolean view, Boolean edit)
         {
             this.functionnality = function;
@@ -32,22 +38,22 @@ namespace Misp.Kernel.Domain
         {
             List<Rights> functionRights = new List<Rights>(0);
             functionRights.Add(new Rights("Initialisation", true, true));
-            //functionRights.Add(new Rights("InputTable", true, true));
-            //functionRights.Add(new Rights("Report", true, true));
-            //functionRights.Add(new Rights("TransformationTree", true, true));
-            //functionRights.Add(new Rights("Target", true, true));
-            //functionRights.Add(new Rights("StructuredReport", true, true));
-            //functionRights.Add(new Rights("AutomaticSourcing", true, true));
-            //functionRights.Add(new Rights("MultipleUplaod", true, true));
-            //functionRights.Add(new Rights("Design", true, true));
-            //functionRights.Add(new Rights("AutomaticTarget", true, true));
-            //functionRights.Add(new Rights("CombinedTranformationTree", true, true));
-            //functionRights.Add(new Rights("Load", true, true));
-            //functionRights.Add(new Rights("Clear", true, true));
-            //functionRights.Add(new Rights("Posting", true, true));
-            //functionRights.Add(new Rights("ReconciliationFilter", true, true));
-            //functionRights.Add(new Rights("Clear Launch", true, true));
-            //functionRights.Add(new Rights("Laod Launch", true, true));
+            functionRights.Add(new Rights("InputTable", true, true));
+            functionRights.Add(new Rights("Report", true, true));
+            functionRights.Add(new Rights("TransformationTree", true, true));
+            functionRights.Add(new Rights("Target", true, true));
+            functionRights.Add(new Rights("StructuredReport", true, true));
+            functionRights.Add(new Rights("AutomaticSourcing", true, true));
+            functionRights.Add(new Rights("MultipleUplaod", true, true));
+            functionRights.Add(new Rights("Design", true, true));
+            functionRights.Add(new Rights("AutomaticTarget", true, true));
+            functionRights.Add(new Rights("CombinedTranformationTree", true, true));
+            functionRights.Add(new Rights("Load", true, true));
+            functionRights.Add(new Rights("Clear", true, true));
+            functionRights.Add(new Rights("Posting", true, true));
+            functionRights.Add(new Rights("ReconciliationFilter", true, true));
+            functionRights.Add(new Rights("Clear Launch", true, true));
+            functionRights.Add(new Rights("Laod Launch", true, true));
 
             return functionRights;
         }
