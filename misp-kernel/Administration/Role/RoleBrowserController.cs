@@ -16,7 +16,7 @@ namespace Misp.Kernel.Administration.Role
     {
         public RoleBrowserController() 
         {
-            ModuleName = "Administration_Role";//PlugIn.MODULE_NAME; 
+            ModuleName = "Administration";//PlugIn.MODULE_NAME; 
         }
        
 
