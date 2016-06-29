@@ -57,6 +57,8 @@ namespace Misp.Kernel.Application
 
             ApplicationManager.MainWindow.displayMenuBar(menuBar);
             SideBar.StatusNames = buildPluginNames();
+
+            menuBar.customizeForFileClosed();
         }
 
         /// <summary>
@@ -65,7 +67,7 @@ namespace Misp.Kernel.Application
         /// <param name="menuBar"></param>
         protected void buildAdministrationMenu(MenuBar menuBar)
         {
-            if (ApplicationManager.ApplcationConfiguration.IsMultiuser())
+            if (ApplicationManager.ApplcationConfiguration.IsMultiuser() && ApplicationManager.User.IsAdmin())
             {
                 AdministrationMenu menu = new AdministrationMenu();
                 menuBar.Items.Add(menu);
