@@ -639,7 +639,10 @@ namespace Misp.Kernel.Application
                 state = closeApplication();
                 applicationIsClosed = state == OperationState.CONTINUE ? true : false;                
             }
-            ApplicationManager.Instance.MainWindow.MenuBar.GetFileMenu().EnableSaveMenu(false);
+            if (ApplicationManager.Instance.MainWindow.MenuBar != null)
+            {
+                ApplicationManager.Instance.MainWindow.MenuBar.GetFileMenu().EnableSaveMenu(false);
+            }
             return state;
         }
 
