@@ -777,7 +777,7 @@ namespace Misp.Kernel.Application
             ApplicationManager.Instance.User = user;
             buildUserMenus();
             ApplicationManager.Instance.MainWindow.FileClosedView.ClearTextBlock.Visibility = Visibility.Collapsed;
-            ApplicationManager.Instance.MainWindow.FileClosedView.NewFileTextBlock.Visibility = user != null && user.type.Value ? Visibility.Visible : Visibility.Collapsed;
+            ApplicationManager.Instance.MainWindow.FileClosedView.NewFileTextBlock.Visibility = user != null && user.IsAdmin() ? Visibility.Visible : Visibility.Collapsed;
             ApplicationManager.Instance.MainWindow.ConnectedUserPanel.Visibility = user != null ? Visibility.Visible : Visibility.Collapsed;
             if(user != null)ApplicationManager.Instance.MainWindow.ConnectedUserPanel.UserTextBlock.Text = user.login;
         }

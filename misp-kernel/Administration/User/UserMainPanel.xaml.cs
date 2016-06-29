@@ -66,7 +66,7 @@ namespace Misp.Kernel.Administration.User
            // user.departement = departementTextBox.Text;
             user.email = emailTextBox.Text.Trim();
             user.active = activeBox.IsChecked.Value;
-            user.type = typeBox.IsChecked.Value;
+            user.administrator = typeBox.IsChecked.Value;
             user.login = loginTextBox.Text.Trim();
             user.password = passwordTextBox.Password;
 

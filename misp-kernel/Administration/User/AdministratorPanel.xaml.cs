@@ -158,11 +158,7 @@ namespace Misp.Kernel.Administration.User
             user.name = NameTextBox.Text.Trim();
             user.firstName = FirstNameTextBox.Text.Trim();
             user.password = ConfirmPasswordTextBox.Password;
-            user.type = true;
-
-            //Domain.Profil defaultProfil = new Domain.Profil();
-            //defaultProfil.name = "DEFAULT PROFIL";
-            //user.profil = defaultProfil;
+            user.administrator = true;
             return user;
         }
 

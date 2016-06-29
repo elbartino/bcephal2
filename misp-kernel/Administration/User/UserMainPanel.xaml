@@ -88,14 +88,14 @@
                 <Label x:Name="EmailLabel" Content="Email" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="emailTextBox" Grid.Column="1" Width="300" HorizontalAlignment="Left"/>
             </Grid>
-
+            
             <Grid Grid.Row="7" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="Type" Content="Is Administrator" Grid.Column="0" VerticalAlignment="Center"/>
-                <CheckBox x:Name="typeBox" Grid.Column="1"  />
+                <Label x:Name="Active" Content="Active" Grid.Column="0" VerticalAlignment="Center"/>
+                <CheckBox x:Name="activeBox" Grid.Column="1"  />
             </Grid>
 
             <Grid Grid.Row="8" Margin="0,5">
@@ -103,8 +103,8 @@
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="Active" Content="Active" Grid.Column="0" VerticalAlignment="Center"/>
-                <CheckBox x:Name="activeBox" Grid.Column="1"  />
+                <Label x:Name="Type" Content="Is Administrator" Grid.Column="0" VerticalAlignment="Center"/>
+                <CheckBox x:Name="typeBox" Grid.Column="1"  />
             </Grid>
 
             <Grid Grid.Row="9" Margin="0,5">

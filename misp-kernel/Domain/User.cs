@@ -43,6 +43,11 @@ namespace Misp.Kernel.Domain
             relationsListChangeHandler = new PersistentListChangeHandler<Relation>();
         }
 
+        public bool IsAdmin()
+        {
+            return this.administrator.HasValue && this.administrator.Value;
+        }
+
         public override string ToString()
         {
             return this.name != null ? this.name : base.ToString();
