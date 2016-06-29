@@ -48,8 +48,8 @@ namespace Misp.Kernel.Administration.User
         {
             nameTextBox.Text = user.name;
             firstNameTextBox.Text = user.firstName;
-            userIDTextBox.Text = user.userID;
-            departementTextBox.Text = user.departement;
+            //userIDTextBox.Text = user.userID;
+            //departementTextBox.Text = user.departement;
             emailTextBox.Text = user.email;
             typeBox.IsChecked = user.active;
             activeBox.IsChecked = user.active;
@@ -62,8 +62,8 @@ namespace Misp.Kernel.Administration.User
         {
             user.name = nameTextBox.Text;
             user.firstName = firstNameTextBox.Text;
-            user.userID = userIDTextBox.Text;
-            user.departement = departementTextBox.Text;
+           // user.userID = userIDTextBox.Text;
+           // user.departement = departementTextBox.Text;
             user.email = emailTextBox.Text.Trim();
             user.active = activeBox.IsChecked.Value;
             user.type = typeBox.IsChecked.Value;
