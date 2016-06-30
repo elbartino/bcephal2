@@ -157,7 +157,6 @@
     <Compile Include="Administration\UserRelations\UserRelationPanel.xaml.cs">
       <DependentUpon>UserRelationPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Administration\UserRelations\dddd.cs" />
     <Compile Include="Administration\User\AdministratorPanel.xaml.cs">
       <DependentUpon>AdministratorPanel.xaml</DependentUpon>
     </Compile>

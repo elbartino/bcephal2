@@ -112,7 +112,7 @@ namespace Misp.Kernel.Administration.UserRelations
             set
             {
                 index = value;
-                this.Label.Content = "Value " + index;
+                this.Label.Content = "R " + index;
                 if (index <= 1)
                 {
                     //this.SignComboBox.SelectedItem = null; 
