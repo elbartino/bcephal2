@@ -251,7 +251,7 @@ namespace Misp.Kernel.Administration.User
         /// <returns>Une nouvelle instance de la SideBar</returns>
         protected override SideBar getNewSideBar() { return new UserSideBar(); }
 
-        protected override PropertyBar getNewPropertyBar() { return new UserPropertyBar(); }
+        protected override PropertyBar getNewPropertyBar() { return null; }
 
         protected override void initializePropertyBarData() { }
 

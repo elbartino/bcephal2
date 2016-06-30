@@ -51,7 +51,7 @@ namespace Misp.Kernel.Administration.User
             //userIDTextBox.Text = user.userID;
             //departementTextBox.Text = user.departement;
             emailTextBox.Text = user.email;
-            adminCheckBox.IsChecked = user.active;
+            adminCheckBox.IsChecked = user.IsAdmin();
             activeBox.IsChecked = user.active;
             loginTextBox.Text = user.login;
             passwordTextBox.Password = user.password;
