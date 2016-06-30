@@ -230,6 +230,7 @@ namespace Misp.Kernel.Application
                 userService.ResourcePath = AdministrationResourcePath.SECURITY_USER_RESOURCE_PATH;
                 userService.GroupService = GetGroupService();
                 userService.ProfilService = GetProfilService();
+                userService.RoleService = GetRoleService();
                 configureService(userService);
             }
             return userService;

@@ -151,6 +151,13 @@
     <Compile Include="Administration\Role\RoleTree.cs" />
     <Compile Include="Administration\Role\RoleBrowser.cs" />
     <Compile Include="Administration\Role\RoleBrowserController.cs" />
+    <Compile Include="Administration\UserRelations\UserRelationItemPanel.xaml.cs">
+      <DependentUpon>UserRelationItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\UserRelations\UserRelationPanel.xaml.cs">
+      <DependentUpon>UserRelationPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\UserRelations\dddd.cs" />
     <Compile Include="Administration\User\AdministratorPanel.xaml.cs">
       <DependentUpon>AdministratorPanel.xaml</DependentUpon>
     </Compile>
@@ -676,6 +683,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Administration\UserRelations\UserRelationItemPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Administration\UserRelations\UserRelationPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Administration\User\AdministratorPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1142,9 +1157,7 @@
     <Resource Include="Resources\Images\Icons\playRed.png" />
     <Resource Include="Resources\Images\Icons\rIssue.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Administration\UserRelations\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

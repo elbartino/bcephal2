@@ -60,6 +60,7 @@ namespace Misp.Kernel.Administration.User
             {
                 profilcomboBox.SelectedItem = user.profil;
             }
+            RelationPanel.DisplayUserRelations(user);
         }
 
         public void Fill(Domain.User user)
@@ -85,6 +86,14 @@ namespace Misp.Kernel.Administration.User
             List<Domain.Profil> profils = profilService.getAll();
             this.profilcomboBox.ItemsSource = profils;
             this.profilcomboBox.SelectedIndex = 0;
+        }
+
+        public void InitRelationPanel(UserService userservice) 
+        {
+            List<Domain.User> users = userservice.getAll();
+            Domain.Role RootRole = userservice.RoleService.getRootRole();
+            this.RelationPanel.FillUsers(users);
+            this.RelationPanel.FillRoles(RootRole.childrenListChangeHandler.Items.ToList());
         }
 
         public bool ValidateEdition()

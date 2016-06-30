@@ -33,6 +33,8 @@ namespace Misp.Kernel.Administration.User
 
         public Kernel.Service.GroupService GroupService { get; set; }
 
+        public Kernel.Service.UserService UserService { get; set; }
+
         
         #endregion
 
@@ -108,6 +110,8 @@ namespace Misp.Kernel.Administration.User
         public void displayObject()
         {
             this.userMainPanel.Display(this.EditedObject);
+            if (UserService == null) return;
+            this.userMainPanel.InitRelationPanel(UserService);
            // this.userPropertyPanel.displayUser(this.EditedObject);
         }
 

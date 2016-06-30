@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:src="clr-namespace:Misp.Kernel.Administration.User"
+            xmlns:relation="clr-namespace:Misp.Kernel.Administration.UserRelations"
              mc:Ignorable="d" Background="White"
              >
     <Border Grid.Row="0"  Height="Auto" Width="Auto" HorizontalAlignment="Center">
         <Grid  Margin="0" >
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -115,8 +117,29 @@
                 <Label x:Name="ProfilLabel" Content="Profil" Grid.Column="0" VerticalAlignment="Center"/>
                 <ComboBox x:Name="profilcomboBox" Grid.Column="1" Width="300" HorizontalAlignment="Left"/>                
             </Grid>
-            
-            <TextBlock x:Name="Console" Grid.Row="10" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
+
+            <Grid Grid.Row="10" Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="RelationLabel" Content="Relations" Grid.Column="0" VerticalAlignment="Center"/>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                    <Label Content="Role" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+                    <Label Content="User" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+                    <relation:UserRelationPanel x:Name="RelationPanel" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center"/>
+                </Grid>
+            </Grid>
+
+            <TextBlock x:Name="Console" Grid.Row="11" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
         </Grid>
     </Border>
 </Grid>

@@ -63,8 +63,9 @@ namespace Misp.Kernel.Administration.User
             ((UserSideBar)SideBar).UserGroup.UserTreeview.AddUser(user);
             UserEditorItem page = (UserEditorItem)getUserEditor().addOrSelectPage(user);
             initializePageHandlers(page);
+            page.getUserForm().UserService = GetUserService();
             page.Title = user.name;
-
+            page.getUserForm().displayObject();
             getUserEditor().ListChangeHandler.AddNew(user);
             return OperationState.CONTINUE;
         }
@@ -86,6 +87,7 @@ namespace Misp.Kernel.Administration.User
             page.getUserForm().displayObject();
             getEditor().ListChangeHandler.AddNew(user);
             page.getUserForm().userMainPanel.InitProfilComboBox(GetUserService().ProfilService);
+            page.getUserForm().userMainPanel.InitRelationPanel(GetUserService());
             return OperationState.CONTINUE;
         }
 
@@ -299,7 +301,6 @@ namespace Misp.Kernel.Administration.User
         {
             List<Domain.User> users = GetUserService().getAll();
             ((UserSideBar)SideBar).UserGroup.UserTreeview.fillTree(new ObservableCollection<Domain.User>(users));
-
         }
 
         /// <summary>

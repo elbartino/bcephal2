@@ -14,6 +14,8 @@ namespace Misp.Kernel.Service
         
         public ProfilService ProfilService { get; set; }
 
+        public RoleService RoleService { get; set; }
+
         #endregion
 
         #region USER
