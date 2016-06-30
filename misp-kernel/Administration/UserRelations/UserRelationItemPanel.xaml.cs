@@ -67,10 +67,6 @@ namespace Misp.Kernel.Administration.UserRelations
         {
             InitializeComponent();
             InitializeHandlers();
-            this.roleComboBox.ItemsSource = new String[] {"","("};
-           // this.comboBox2.ItemsSource = new String[] { "+", "-", "^", "*", "/" };
-            this.userComboBox.ItemsSource = new String[] {"",")"};
-            
         }
         
 
@@ -97,10 +93,9 @@ namespace Misp.Kernel.Administration.UserRelations
 
         public Label Label { get { return this.label; } }
         public Button Button { get { return this.deleteButton; } }
+        public Button AddButton { get { return this.newButton; } }
         public ComboBox RoleComboBox { get { return this.roleComboBox; } }
-        //public ComboBox SignComboBox { get { return this.comboBox2; } }
         public ComboBox UserComboBox { get { return this.userComboBox; } }
-        //public TextBox TextBox { get { return this.measureItem; } }
         public Relation RelationItem { get; set; }
 
         private int index;
@@ -113,13 +108,6 @@ namespace Misp.Kernel.Administration.UserRelations
             {
                 index = value;
                 this.Label.Content = "R " + index;
-                if (index <= 1)
-                {
-                    //this.SignComboBox.SelectedItem = null; 
-                    //this.SignComboBox.IsEnabled = false;
-                    
-                }
-
             }
         }
 
@@ -132,12 +120,8 @@ namespace Misp.Kernel.Administration.UserRelations
         {
             update = false;
             this.RelationItem = item;
-            //if (item != null) this.Index = item.position + 1;
-            //this.TextBox.Text = item != null && !String.IsNullOrWhiteSpace(item.GetValue()) ? item.GetValue() : "";
-            //this.OpenParComboBox.SelectedItem = item != null && item.openPar == true ? "(" : null;
-            //this.SignComboBox.SelectedItem = item != null && item.sign != null ? item.sign : null;
-            //this.CloseParComboBox.SelectedItem = item != null && item.closePar == true ? ")" : null;
-            //if (item != null && item.sign != null && item.sign.Equals("=")) this.TextBox.IsEnabled = false;
+            this.RoleComboBox.SelectedItem = item.role;
+            this.userComboBox.SelectedItem = item.owner;
             update = true;
         }
 
@@ -155,11 +139,9 @@ namespace Misp.Kernel.Administration.UserRelations
             if (this.RelationItem == null)
             {
                 this.RelationItem = new Relation();
-                //this.RelationItem.SetPosition(Index - 1);
                 added = true;
             }
-            //this.RelationItem = value.GetCopy(this.RelationItem);
-            updateMeasureItemOperator();
+            updateRelationItem();
             //added = setCalculatedMeasureItemOperator();
             //this.TextBox.Text = this.RelationItem != null ? this.RelationItem.na : "";
             if (Added != null && added) Added(this);
@@ -177,16 +159,15 @@ namespace Misp.Kernel.Administration.UserRelations
         {
             this.Button.Click += OnButtonClick;
             this.Button.GotFocus += OnGotFocus;
-           // this.TextBox.GotFocus += OnGotFocus;
+            this.AddButton.Click += OnButtonClick;
+            this.AddButton.Click += OnButtonClick;
+           
             this.GotFocus += OnGotFocus;
-           // this.SignComboBox.SelectionChanged += OnOperatorChanged;
+            this.RoleComboBox.GotFocus += OnGotFocus;
+            this.UserComboBox.GotFocus += OnGotFocus;
+
             this.RoleComboBox.SelectionChanged += OnRelationChanged;
             this.UserComboBox.SelectionChanged += OnRelationChanged;
-
-
-            //this.TextBox.LostFocus += OnTextLostFocus;
-            //this.TextBox.KeyDown += OnTextKeyDown;
-            
         }
         
         bool update = true;
@@ -194,20 +175,8 @@ namespace Misp.Kernel.Administration.UserRelations
         {
            if (Updated != null && update)
             {
-              //  this.TextBox.IsEnabled = true;
-                //if (this.CalculatedMeasureItem != null)
-               // {
-                    if (setCalculatedMeasureItemOperator())
-
-                        //if (this.OpenParComboBox.SelectedItem != null && this.OpenParComboBox.SelectedItem.ToString().Equals("="))
-                        //    this.TextBox.IsEnabled = false;
-                     
-                    Updated(this);
-                //}
-                //else if (this.ComboBox.SelectedItem != null && this.ComboBox.SelectedItem.ToString().Equals("="))
-                   // this.TextBox.IsEnabled = false;
-                
-
+                if (setRelationItem())
+                        Updated(this);
             }
         }
 
@@ -215,120 +184,32 @@ namespace Misp.Kernel.Administration.UserRelations
         /// validate selection and set selected operator
         /// </summary>
         /// <returns></returns>
-        private bool setCalculatedMeasureItemOperator()
+        private bool setRelationItem()
         {
             added = false;
             if (this.RelationItem == null)
             {
                 this.RelationItem = new Relation();
-                //this.RelationItem.SetPosition(Index - 1);
+                this.RelationItem.role = this.roleComboBox.SelectedItem as Domain.Role;
+                this.RelationItem.owner = this.userComboBox.SelectedItem as Domain.User;
                 added = true;
             }
 
             bool add = this.added == true ? true : false;
             if (Added != null && added) Added(this);
-            updateMeasureItemOperator();
-
-            /*if (this.SignComboBox.SelectedItem == null && index==1)
-            {
-               
-                this.CalculatedMeasureItem.closePar = false;
-               if (this.CalculatedMeasureItem.openPar == true) this.OpenParComboBox.SelectedItem = this.OpenParComboBox.Items.GetItemAt(0);
-                if (this.CalculatedMeasureItem.sign != null) this.CalculatedMeasureItem.sign = null;
-                return false ;
-            }
-            else
-            {
-
-                if (this.OpenParComboBox.SelectedItem != null && this.OpenParComboBox.SelectedItem.ToString().Equals(" "))
-                {
-                    this.CalculatedMeasureItem.closePar = false;
-                    this.CalculatedMeasureItem.openPar = false;
-                    if (this.CalculatedMeasureItem.sign != null) this.CalculatedMeasureItem.sign = null;
-                }
-                if (this.OpenParComboBox.SelectedItem.ToString().Equals("("))
-                {
-                    this.CalculatedMeasureItem.openPar = true;
-                    this.CalculatedMeasureItem.closePar = false;
-                    if (this.CalculatedMeasureItem.sign != null) this.CalculatedMeasureItem.sign = null;
-                    
-                    int pos = this.CalculatedMeasureItem.position;
-                    CalculatedMeasureItem last = null;
-                    if (pos > 0)
-                    {
-                        last = this.CalculatedMeasureItem.calculatedMeasure.GetItemByPosition(pos - 1);
-                    }
-                    
-                    if (last != null && last.measure != null)
-                    {
-                        last.measure = null;
-                        this.CalculatedMeasureItem.calculatedMeasure.UpdateItem(last);
-                    }
-                }
-                if (this.CloseParComboBox.SelectedItem.ToString().Equals(")"))
-                {
-                   
-                        this.CalculatedMeasureItem.closePar = true;
-                        
-                }
-
-                
-                if (this.OpenParComboBox.SelectedItem.ToString().Equals("+") || this.OpenParComboBox.SelectedItem.ToString().Equals("-") || this.OpenParComboBox.SelectedItem.ToString().Equals("/") || this.OpenParComboBox.SelectedItem.ToString().Equals("*") || this.OpenParComboBox.SelectedItem.ToString().Equals("^"))
-                {
-                    this.CalculatedMeasureItem.sign = this.OpenParComboBox.SelectedItem.ToString();
-                    this.CalculatedMeasureItem.closePar = false;
-                    this.CalculatedMeasureItem.openPar = false;
-                }
-
-            }*/
+            updateRelationItem();
             
             if (Updated != null && !added) Updated(this);
             return add;
 
         }
 
-        private void updateMeasureItemOperator()
+        private void updateRelationItem()
         {
-            //openParCombobox
-
             if (this.RoleComboBox.SelectedItem != null && this.RoleComboBox.SelectedItem.ToString().Equals("("))
             {
-                //this.RelationItem.openPar = true;
-                /*if (this.CalculatedMeasureItem.sign != null) this.CalculatedMeasureItem.sign = null;
-
-                int pos = this.CalculatedMeasureItem.position;
-                CalculatedMeasureItem last = null;
-                if (pos > 0)
-                {
-                     last = this.CalculatedMeasureItem.calculatedMeasure.GetItemByPosition(pos - 1);
-                }
-                if (last != null && last.measure != null)
-                {
-                    last.measure = null;
-                    this.CalculatedMeasureItem.calculatedMeasure.UpdateItem(last);
-                }*/
             }
             else { }
-                    //this.RelationItem.openPar = false;
-
-            ////signCombobox
-            //if (this.SignComboBox.SelectedItem != null)
-            //{
-            //    this.RelationItem.sign = this.SignComboBox.SelectedItem.ToString();
-            //}
-            //else
-            //{
-            //    if (this.RelationItem.sign != null) this.RelationItem.sign = null;
-            //}
-
-            ////closeparCombobox
-            //if (this.CloseParComboBox.SelectedItem != null && this.CloseParComboBox.SelectedItem.ToString().Equals(")") )
-            //{
-            //    this.RelationItem.closePar = true;
-            //}
-            //else
-            //    this.RelationItem.closePar = false;
-            
         }
 
        
@@ -339,24 +220,9 @@ namespace Misp.Kernel.Administration.UserRelations
         /// <param name="e"></param>
         private void OnGotFocus(object sender, RoutedEventArgs e)
         {
-           // border.BorderBrush = new SolidColorBrush(Color.FromRgb(51, 153, 255));
             if (Activated != null)
             {
                 Activated(this);
-            }
-
-            if (sender is UserRelationItemPanel)
-            {
-                /*if (CloseParOrEqualSelected != null && this.OpenParComboBox.SelectedItem != null && this.OpenParComboBox.SelectedItem.ToString().Equals("="))
-                {
-                    this.TextBox.IsEnabled = false;
-                    CloseParOrEqualSelected(this.OpenParComboBox.SelectedItem);
-                }
-                if (CloseParOrEqualSelected != null && this.OpenParComboBox.SelectedItem != null && this.OpenParComboBox.SelectedItem.ToString().Equals(")"))
-                {
-                    CloseParOrEqualSelected(this.OpenParComboBox.SelectedItem);
-                    //this.TextBox.IsEnabled = false;
-                }*/
             }
         }
 
@@ -396,8 +262,10 @@ namespace Misp.Kernel.Administration.UserRelations
         /// <param name="e"></param>
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
-            if (Deleted != null) Deleted(this);
-
+            if (!(sender is Button)) return;
+            if ((Button)sender == this.Button) { if (Deleted != null) Deleted(this); }
+            if ((Button)sender == this.newButton) { if (Added != null) Added(this); }
+            e.Handled = true;
         }
 
 

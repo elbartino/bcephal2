@@ -284,11 +284,44 @@ namespace Misp.Kernel.Administration.User
             
             //editorPage.getUserForm().userPropertyPanel.nameTextBox.KeyUp += onNameTextChange;
             //editorPage.getUserForm().userPropertyPanel.nameTextBox.LostFocus += onNameTextLostFocus;
-
+            editorPage.getUserForm().userMainPanel.RelationPanel.Changed += OnRelationChange;
             editorPage.getUserForm().userMainPanel.profilcomboBox.SelectionChanged += onProfilFieldChange;
-
+            editorPage.getUserForm().userMainPanel.RelationPanel.ItemChanged += OnRelationItemChange;
+            editorPage.getUserForm().userMainPanel.RelationPanel.ItemDeleted += OnRelationItemDelete;
             editorPage.getUserForm().userMainPanel.nameTextBox.LostFocus += onUserNameTextLostFocus;
             editorPage.getUserForm().userMainPanel.nameTextBox.KeyUp += onUserNameTextChange;
+        }
+             
+
+        private void OnRelationChange()
+        {
+            OnChange();
+        }
+
+        private void OnRelationItemChange(object item)
+        {
+            if (!(item is Domain.Relation)) return;
+            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            if (page == null) return;
+            //Domain.Relation relation = (Domain.Relation)item;
+            //if (relation.oid.HasValue)
+            //{
+            //    page.EditedObject.relationsListChangeHandler.AddUpdated((Domain.Relation)item);
+            //}
+            //else
+            //{
+            //    page.EditedObject.relationsListChangeHandler.AddNew((Domain.Relation)item);
+            //}
+            OnChange();
+        }
+
+        private void OnRelationItemDelete(object item)
+        {
+            if (!(item is Domain.Relation)) return;
+            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            if (page == null) return;
+            page.EditedObject.relationsListChangeHandler.AddDeleted((Domain.Relation)item);
+            OnChange();
         }
 
         

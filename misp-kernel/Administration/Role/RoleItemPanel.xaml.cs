@@ -272,24 +272,9 @@ namespace Misp.Kernel.Administration.Role
         /// <param name="e"></param>
         private void OnGotFocus(object sender, RoutedEventArgs e)
         {
-            //border.BorderBrush = new SolidColorBrush(Color.FromRgb(51, 153, 255));
             if (Activated != null)
             {
                 Activated(this);
-            }
-
-            if(sender is RoleItemPanel)
-            {
-                /*if (CloseParOrEqualSelected != null && this.OpenParComboBox.SelectedItem != null && this.OpenParComboBox.SelectedItem.ToString().Equals("="))
-                {
-                    this.TextBox.IsEnabled = false;
-                    CloseParOrEqualSelected(this.OpenParComboBox.SelectedItem);
-                }
-                if (CloseParOrEqualSelected != null && this.OpenParComboBox.SelectedItem != null && this.OpenParComboBox.SelectedItem.ToString().Equals(")"))
-                {
-                    CloseParOrEqualSelected(this.OpenParComboBox.SelectedItem);
-                    //this.TextBox.IsEnabled = false;
-                }*/
             }
         }
 

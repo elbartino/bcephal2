@@ -20,7 +20,7 @@
 
     <Border x:Name="border" x:FieldModifier="public" Grid.Column="2" BorderThickness="1" BorderBrush="#FFE2DEDE"/>
 
-    <Border Grid.Column="3"   BorderThickness="1" BorderBrush="#FFE2DEDE" />
+    <Border Grid.Column="2"   BorderThickness="1" BorderBrush="#FFE2DEDE" />
     <Button x:Name="newButton"  Grid.Column="3" ToolTip="Add Relation" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
         <Button.Template>
             <ControlTemplate>

@@ -70,12 +70,6 @@ namespace Misp.Kernel.Administration.UserRelations
         /// <param name="table"></param>
         public void DisplayUserRelations(Domain.User user)
         {
-            //CalculatedMeasureItem last = calculatedMeasure.GetCalculatedMeasureItems().Count > 0 ? calculatedMeasure.GetItemByPosition(calculatedMeasure.GetCalculatedMeasureItems().Count - 1):null;
-            //if (last != null && last.sign != null && last.sign.Equals("="))
-            //{
-            //    calculatedMeasure.RemoveItem(last);          
-            //}
-
             this.User = user;
             this.panel.Children.Clear();
             int index = 1;
@@ -94,8 +88,6 @@ namespace Misp.Kernel.Administration.UserRelations
 
             this.ActiveItemPanel = new UserRelationItemPanel(index);
             AddItemPanel(this.ActiveItemPanel);
-           
-           
         }
 
      
@@ -108,8 +100,6 @@ namespace Misp.Kernel.Administration.UserRelations
         public bool SetCalculatedMeasureItemValue(Relation value)
         {
             if (this.ActiveItemPanel == null) this.ActiveItemPanel = (UserRelationItemPanel)this.panel.Children[this.panel.Children.Count - 1];
-           
-            //this.ActiveItemPanel.SetValue(value);
             return true;
         }
 
@@ -120,7 +110,6 @@ namespace Misp.Kernel.Administration.UserRelations
             itemPanel.Updated += OnUpdated;
             itemPanel.Deleted += OnDeleted;
             itemPanel.Activated += OnActivated;
-            itemPanel.CloseParOrEqualSelected += OnCloseParOrEqualSelected;
             itemPanel.FillUsers(this.Users);
             itemPanel.FillRoles(this.Roles);
             this.panel.Children.Add(itemPanel);
@@ -147,7 +136,6 @@ namespace Misp.Kernel.Administration.UserRelations
                 this.ActiveItemPanel = panel;
                 if (ItemChanged != null && panel.RelationItem != null) ItemChanged(panel.RelationItem);
             }
-
         }
 
 
@@ -155,15 +143,10 @@ namespace Misp.Kernel.Administration.UserRelations
         {
             UserRelationItemPanel panel = (UserRelationItemPanel)item;
             if (this.User == null) this.User = new Domain.User();
-            //CalculatedMeasureItem last = this.CalculatedMeasure.GetCalculatedMeasureItems().Count > 0 ? this.CalculatedMeasure.GetItemByPosition(this.CalculatedMeasure.GetCalculatedMeasureItems().Count - 1) : null;
-            //if (last != null && last.sign != null && last.sign.Equals("="))
-            //{
-            //    this.CalculatedMeasure.RemoveItem(last);
-            //    //string message = "Cannot add measure item after equals operator ";
-            //    //Kernel.Util.MessageDisplayer.DisplayWarning("Add CalculatedMeasureItem", message);
-            //    //return;
-            //}
-            //this.CalculatedMeasure.AddItem(panel.CalculatedMeasureItem);
+            if (panel.RelationItem == null)
+            {
+                panel.RelationItem = new Relation();
+            }
             this.User.relationsListChangeHandler.AddNew(panel.RelationItem);
             updated = false;
             OnChanged(panel.RelationItem);
@@ -187,11 +170,9 @@ namespace Misp.Kernel.Administration.UserRelations
             {
                 if (this.User.relationsListChangeHandler.Items.Count > 1)
                 {
-
                     if (this.User == null)
                     {
                         this.User = new Domain.User();
-                        //panel.CalculatedMeasureItem.calculatedMeasure = this.CalculatedMeasure;
                     }
 
                     if (ItemDeleted != null && panel.RelationItem != null) ItemDeleted(panel.RelationItem);
@@ -204,17 +185,10 @@ namespace Misp.Kernel.Administration.UserRelations
                     for (int i = this.panel.Children.Count - 1; i >= 0; i--)
                     {
                         UserRelationItemPanel pan = this.panel.Children[j] as UserRelationItemPanel;
-                        
-                        /* CalculatedMeasureItem it = pan.CalculatedMeasureItem;
-                        pan.Display(it);*/
                         pan.Index = index++;
                         j++;
-
                     }
-
                     if (Changed != null) Changed();
-                    //if (ItemDeleted != null && panel.CalculatedMeasureItem != null) ItemDeleted(panel.CalculatedMeasureItem);
-
                 }
                 else
                 {
@@ -227,11 +201,12 @@ namespace Misp.Kernel.Administration.UserRelations
         private void OnChanged(object item)
         {
             if (this.User == null) this.User = new Domain.User();
-            //if ((this.panel.Children.Count <= this.User.GetCalculatedMeasureItems().Count) && !updated)
-            //{
-            //    this.ActiveItemPanel = new UserRelationItemPanel(this.User.GetCalculatedMeasureItems().Count + 1);
-            //    AddItemPanel(this.ActiveItemPanel);
-            //}
+            int count = this.panel.Children.Count;
+            if (!updated)
+            {
+                this.ActiveItemPanel = new UserRelationItemPanel(count + 1);
+                AddItemPanel(this.ActiveItemPanel);
+            }
             if (Changed != null) Changed();
             if (ItemChanged != null && item != null) ItemChanged(item);
         }

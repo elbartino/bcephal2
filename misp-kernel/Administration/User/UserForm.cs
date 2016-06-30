@@ -111,7 +111,7 @@ namespace Misp.Kernel.Administration.User
         {
             this.userMainPanel.Display(this.EditedObject);
             if (UserService == null) return;
-            this.userMainPanel.InitRelationPanel(UserService);
+            
            // this.userPropertyPanel.displayUser(this.EditedObject);
         }
 
