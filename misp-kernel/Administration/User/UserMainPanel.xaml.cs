@@ -79,6 +79,33 @@ namespace Misp.Kernel.Administration.User
                 Domain.Profil profil = (Domain.Profil)profilcomboBox.SelectedItem;
                 user.profil = profil;
             }
+            //foreach (UIElement el in this.RelationPanel.panel.Children)
+            //{
+            //    UserRelations.UserRelationItemPanel item = (UserRelations.UserRelationItemPanel)el;
+            //    if (item.userComboBox.SelectedItem == null && item.roleComboBox.SelectedItem == null) continue;
+            //    Domain.Relation relation = new Domain.Relation();
+            //    relation.owner = item.userComboBox.SelectedItem as Domain.User;
+            //    relation.role = item.roleComboBox.SelectedItem as Domain.Role;
+            //    if (item.RelationItem != null)
+            //    {
+
+            //    }
+            //    String roleName = item.TextBox.Text;
+            //    if (String.IsNullOrEmpty(roleName)) continue;
+            //    Domain.Role roleItem = new Domain.Role()
+            //    {
+            //        name = roleName
+            //    };
+            //    if (item.Role != null)
+            //    {
+            //        item.Role.name = roleName;
+            //        role.UpdateChild(item.Role);
+            //    }
+            //    else
+            //    {
+            //        role.AddChild(roleItem);
+            //    }
+            //}
         }
 
         public void InitProfilComboBox(ProfilService profilService)

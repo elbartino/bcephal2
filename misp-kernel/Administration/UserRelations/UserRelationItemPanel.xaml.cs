@@ -190,10 +190,11 @@ namespace Misp.Kernel.Administration.UserRelations
             if (this.RelationItem == null)
             {
                 this.RelationItem = new Relation();
-                this.RelationItem.role = this.roleComboBox.SelectedItem as Domain.Role;
-                this.RelationItem.owner = this.userComboBox.SelectedItem as Domain.User;
                 added = true;
             }
+
+            this.RelationItem.role = this.roleComboBox.SelectedItem as Domain.Role;
+            this.RelationItem.owner = this.userComboBox.SelectedItem as Domain.User;
 
             bool add = this.added == true ? true : false;
             if (Added != null && added) Added(this);

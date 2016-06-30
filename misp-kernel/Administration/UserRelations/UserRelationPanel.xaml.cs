@@ -147,6 +147,7 @@ namespace Misp.Kernel.Administration.UserRelations
             {
                 panel.RelationItem = new Relation();
             }
+            panel.RelationItem.user = this.User;
             this.User.relationsListChangeHandler.AddNew(panel.RelationItem);
             updated = false;
             OnChanged(panel.RelationItem);
