@@ -6,8 +6,8 @@
             xmlns:src="clr-namespace:Misp.Kernel.Administration.User"
              mc:Ignorable="d" Background="White"
              >
-    <Border Grid.Row="0"  Height="Auto" Width="Auto" >
-        <Grid  Margin="10" >
+    <Border Grid.Row="0"  Height="Auto" Width="Auto" HorizontalAlignment="Center">
+        <Grid  Margin="0" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
