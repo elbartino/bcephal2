@@ -150,13 +150,14 @@ namespace Misp.Kernel.Ui.File
                     MessageDisplayer.DisplayError("Error", "");
                     return OperationState.STOP;
                 }
+                bool isMonouser = ApplicationManager.ApplcationConfiguration.IsMonouser();
                 string filePath = (string)oid;
-                if (ApplicationManager.useZip() && !System.IO.File.Exists(filePath))
+                if (isMonouser && ApplicationManager.useZip() && !System.IO.File.Exists(filePath))
                 {
                     MessageDisplayer.DisplayError("Error", "File not found: " + filePath);
                     return OperationState.STOP;
                 }
-                if (!ApplicationManager.useZip() && !System.IO.Directory.Exists(filePath))
+                if (isMonouser && !ApplicationManager.useZip() && !System.IO.Directory.Exists(filePath))
                 {
                     MessageDisplayer.DisplayError("Error", "Directory not found: " + filePath);
                     return OperationState.STOP;
@@ -186,14 +187,15 @@ namespace Misp.Kernel.Ui.File
                 {
                     try
                     {
+                        bool isMonouser = ApplicationManager.ApplcationConfiguration.IsMonouser();
                         String message = create ? "File creation..." : "File loading...";
                         action.ReportProgress(0, message);
-                        if (!System.IO.File.Exists(filePath) && !create && ApplicationManager.useZip())
+                        if (isMonouser && !System.IO.File.Exists(filePath) && !create && ApplicationManager.useZip())
                         {
                             MessageDisplayer.DisplayError("Error", "File not found: " + filePath);
                             return OperationState.STOP;
                         }
-                        if (!System.IO.Directory.Exists(filePath) && !create && !ApplicationManager.useZip())
+                        if (isMonouser && !System.IO.Directory.Exists(filePath) && !create && !ApplicationManager.useZip())
                         {
                             MessageDisplayer.DisplayError("Error", "Directory not found: " + filePath);
                             return OperationState.STOP;

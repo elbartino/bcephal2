@@ -45,6 +45,19 @@ namespace Misp.Kernel.Ui.Base
             }
         }
 
+        /// <summary>
+        /// Build Recent Opened Files menu
+        /// </summary>
+        public void BuildRecentOpenedFiles(List<String> projects)
+        {
+            this.ItemsPanel.Children.Clear();
+            foreach (string project in projects)
+            {
+                NavigationToken token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY, project);
+                this.ItemsPanel.Children.Add(BuildRecentFileControl(project, project, token));
+            }
+        }
+
 
         protected void BuildNewFileControl()
         {

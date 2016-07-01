@@ -80,12 +80,25 @@ namespace Misp.Kernel.Ui.Base.Menu
         public void BuildRecentOpenedFiles()
         {
             this.RecentFiles.Items.Clear();
-            StringCollection files = Util.UserPreferencesUtil.GetRecentFiles();
-            foreach(string filePath in files)
+            bool isMonouser = ApplicationManager.Instance.ApplcationConfiguration.IsMonouser();
+            if (isMonouser)
             {
-                this.RecentFiles.Items.Add(BuildRecentFileMenuItem(filePath));
+                StringCollection files = Util.UserPreferencesUtil.GetRecentFiles();
+                foreach (string filePath in files)
+                {
+                    this.RecentFiles.Items.Add(BuildRecentFileMenuItem(filePath));
+                }
+                Application.ApplicationManager.Instance.MainWindow.FileClosedView.BuildRecentOpenedFiles(files);
             }
-            Application.ApplicationManager.Instance.MainWindow.FileClosedView.BuildRecentOpenedFiles(files);
+            else
+            {
+                List<String> projects = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetFileService().getRecentOpenedProjects();
+                foreach (string project in projects)
+                {
+                    this.RecentFiles.Items.Add(BuildRecentFileMenuItem(project));
+                }
+                Application.ApplicationManager.Instance.MainWindow.FileClosedView.BuildRecentOpenedFiles(projects);
+            }
         }
 
         public void BuildRecentOpenedFilesForSaveAs()

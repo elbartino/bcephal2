@@ -85,6 +85,26 @@ namespace Misp.Kernel.Service
         /// 
         /// </summary>
         /// <returns>List of files</returns>
+        public List<String> getRecentOpenedProjects()
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath + "/recents-projects", Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+                List<String> objects = RestSharp.SimpleJson.DeserializeObject<List<String>>(queryResult.Content);
+                return objects;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve list of projects.", e);
+                throw new ServiceExecption("Unable to retrieve list of projects.", e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>List of files</returns>
         public String getDefaultNewProjectName()
         {
             try
