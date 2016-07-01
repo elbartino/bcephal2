@@ -143,6 +143,7 @@ namespace Misp.Kernel.Administration.UserRelations
         {
             UserRelationItemPanel panel = (UserRelationItemPanel)item;
             if (this.User == null) this.User = new Domain.User();
+            if (panel == null) panel = new UserRelationItemPanel(1);
             if (panel.RelationItem == null)
             {
                 panel.RelationItem = new Relation();
@@ -167,6 +168,12 @@ namespace Misp.Kernel.Administration.UserRelations
         private void OnDeleted(object item)
         {
             UserRelationItemPanel panel = (UserRelationItemPanel)item;
+            this.panel.Children.Remove(panel);
+            if (this.panel.Children.Count == 0)
+            {
+                OnAdded(null);
+                return;
+            }
             if (panel.RelationItem != null)
             {
                 if (this.User.relationsListChangeHandler.Items.Count > 1)
@@ -178,7 +185,7 @@ namespace Misp.Kernel.Administration.UserRelations
 
                     if (ItemDeleted != null && panel.RelationItem != null) ItemDeleted(panel.RelationItem);
 
-                    this.panel.Children.Remove(panel);
+                    
                     if (this.ActiveItemPanel != null && this.ActiveItemPanel == panel)
                         this.ActiveItemPanel = (UserRelationItemPanel)this.panel.Children[this.panel.Children.Count - 1];
                     int index = 1;
@@ -191,12 +198,7 @@ namespace Misp.Kernel.Administration.UserRelations
                     }
                     if (Changed != null) Changed();
                 }
-                else
-                {
-                    string message = "Item can't be empty on Calculated Measure";
-                    Kernel.Util.MessageDisplayer.DisplayError("Syntax Error", message);
-                }
-            }
+               }
         }
 
         private void OnChanged(object item)
