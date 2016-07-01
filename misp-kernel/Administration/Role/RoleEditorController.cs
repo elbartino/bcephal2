@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Administration.Role
 {
-    public class RoleEditorController :  EditorController<Domain.Role, Misp.Kernel.Domain.Browser.BrowserData>
+    public class RoleEditorController : EditorController<Domain.Role, Misp.Kernel.Domain.Browser.RoleBrowserData>
     {
 
         public RoleEditorController() 
         {
-            ModuleName = "Administration_Role";//PlugIn.MODULE_NAME; 
+            ModuleName = "Administration";
         }
 
         /// <summary>

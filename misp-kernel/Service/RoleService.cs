@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Service
 {
-    public class RoleService : Service<Misp.Kernel.Domain.Role, Misp.Kernel.Domain.Browser.BrowserData>
+    public class RoleService : Service<Misp.Kernel.Domain.Role, Misp.Kernel.Domain.Browser.RoleBrowserData>
     {
         #region Properties
         /// <summary>
