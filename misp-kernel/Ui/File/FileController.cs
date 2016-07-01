@@ -92,7 +92,7 @@ namespace Misp.Kernel.Ui.File
             try
             {
                 string pathDirectory = Kernel.Util.UserPreferencesUtil.GetFileOpeningRepository();
-                string filePath = openFileDialogForFolders("New File", pathDirectory);
+                string filePath = openFileDialogForFolders("New Project", pathDirectory);
                 if (filePath == null || string.IsNullOrWhiteSpace(filePath)) return OperationState.STOP;
                 return OpenOrCreate(filePath, true);
             }
@@ -150,13 +150,14 @@ namespace Misp.Kernel.Ui.File
                     MessageDisplayer.DisplayError("Error", "");
                     return OperationState.STOP;
                 }
+                bool isMonouser = ApplicationManager.ApplcationConfiguration.IsMonouser();
                 string filePath = (string)oid;
-                if (ApplicationManager.useZip() && !System.IO.File.Exists(filePath))
+                if (isMonouser && ApplicationManager.useZip() && !System.IO.File.Exists(filePath))
                 {
                     MessageDisplayer.DisplayError("Error", "File not found: " + filePath);
                     return OperationState.STOP;
                 }
-                if (!ApplicationManager.useZip() && !System.IO.Directory.Exists(filePath))
+                if (isMonouser && !ApplicationManager.useZip() && !System.IO.Directory.Exists(filePath))
                 {
                     MessageDisplayer.DisplayError("Error", "Directory not found: " + filePath);
                     return OperationState.STOP;
@@ -186,14 +187,15 @@ namespace Misp.Kernel.Ui.File
                 {
                     try
                     {
+                        bool isMonouser = ApplicationManager.ApplcationConfiguration.IsMonouser();
                         String message = create ? "File creation..." : "File loading...";
                         action.ReportProgress(0, message);
-                        if (!System.IO.File.Exists(filePath) && !create && ApplicationManager.useZip())
+                        if (isMonouser && !System.IO.File.Exists(filePath) && !create && ApplicationManager.useZip())
                         {
                             MessageDisplayer.DisplayError("Error", "File not found: " + filePath);
                             return OperationState.STOP;
                         }
-                        if (!System.IO.Directory.Exists(filePath) && !create && !ApplicationManager.useZip())
+                        if (isMonouser && !System.IO.Directory.Exists(filePath) && !create && !ApplicationManager.useZip())
                         {
                             MessageDisplayer.DisplayError("Error", "Directory not found: " + filePath);
                             return OperationState.STOP;
@@ -501,6 +503,7 @@ namespace Misp.Kernel.Ui.File
             }
         }
 
+        private Util.Dialog dialog { get; set; }
         /// <summary>
         /// Display file dialog to select a file.
         /// </summary>
@@ -509,12 +512,25 @@ namespace Misp.Kernel.Ui.File
         /// <returns>The selected file name</returns>
         private string openFileDialogForFolders(string title, string initialDirectory)
         {
-            if (ApplicationManager.useZip())
+            if (ApplicationManager.ApplcationConfiguration.IsMultiuser())
+            {
+                String name = GetFileInfoService().getDefaultNewProjectName();
+                FileNameDialog dialog = new FileNameDialog();
+                dialog.Title =title;
+                dialog.NameTextBox.Text = name;
+                dialog.NameTextBox.SelectAll();
+                dialog.NameTextBox.Focus();
+                dialog.ValidateNameAction += OnValidateProjectName;
+                dialog.ShowCenteredToMouse();
+                dialog.ValidateNameAction -= OnValidateProjectName;
+                return dialog.Name;                
+            }
+            else if (ApplicationManager.useZip())
             {
                 Microsoft.Win32.SaveFileDialog fileDialog = new Microsoft.Win32.SaveFileDialog();
                 fileDialog.Title = title;
-                if (!string.IsNullOrWhiteSpace(initialDirectory)) fileDialog.InitialDirectory = initialDirectory;                
-                fileDialog.DefaultExt = FILE_EXTENSION;                
+                if (!string.IsNullOrWhiteSpace(initialDirectory)) fileDialog.InitialDirectory = initialDirectory;
+                fileDialog.DefaultExt = FILE_EXTENSION;
                 fileDialog.Filter = "B-Cephal files (*" + FILE_EXTENSION + ")|*" + FILE_EXTENSION;
 
                 Nullable<bool> result = fileDialog.ShowDialog();
@@ -532,19 +548,23 @@ namespace Misp.Kernel.Ui.File
                 var filePath = folderDialog.SelectedPath;
                 if (System.Windows.Forms.DialogResult.OK == result) return filePath;
                 return null;
-
-                //Microsoft.Win32.SaveFileDialog fileDialog = new Microsoft.Win32.SaveFileDialog();
-                //fileDialog.Title = title;
-                //if (!string.IsNullOrWhiteSpace(initialDirectory)) fileDialog.InitialDirectory = initialDirectory;
-                //Nullable<bool> result = fileDialog.ShowDialog();
-                //var fileName = fileDialog.SafeFileName;
-                //var filePath = fileDialog.FileName;
-                //string[] strings = { fileName, filePath };
-                //return result == true ? filePath : null;
-
             }
         }
 
+        private bool OnValidateProjectName(String name)
+        {
+            if (name == null || string.IsNullOrEmpty(name.Trim()))
+            {
+                Util.MessageDisplayer.DisplayWarning("Empty project name", "The name can't be empty!");
+                return false;
+            }
+            else if (GetFileInfoService().isProjectExist(name.Trim()))
+            {
+                Util.MessageDisplayer.DisplayWarning("Duplicate project name", "There is another project named: " + name);
+                return false;
+            }
+            return true;
+        }
 
 
         public override OperationState Search(object oid)
