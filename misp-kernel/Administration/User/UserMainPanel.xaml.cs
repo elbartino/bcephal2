@@ -34,8 +34,6 @@ namespace Misp.Kernel.Administration.User
             List<object> controls = new List<object>(0);
             controls.Add(this.nameTextBox);
             controls.Add(this.firstNameTextBox);
-            controls.Add(this.userIDTextBox);
-            controls.Add(this.departementTextBox);
             controls.Add(this.emailTextBox);
             controls.Add(this.adminCheckBox);
             controls.Add(this.activeBox);
@@ -48,8 +46,6 @@ namespace Misp.Kernel.Administration.User
         {
             nameTextBox.Text = user.name;
             firstNameTextBox.Text = user.firstName;
-            //userIDTextBox.Text = user.userID;
-            //departementTextBox.Text = user.departement;
             emailTextBox.Text = user.email;
             adminCheckBox.IsChecked = user.IsAdmin();
             activeBox.IsChecked = user.active;
@@ -67,8 +63,6 @@ namespace Misp.Kernel.Administration.User
         {
             user.name = nameTextBox.Text;
             user.firstName = firstNameTextBox.Text;
-           // user.userID = userIDTextBox.Text;
-           // user.departement = departementTextBox.Text;
             user.email = emailTextBox.Text.Trim();
             user.active = activeBox.IsChecked.Value;
             user.administrator = adminCheckBox.IsChecked.Value;
