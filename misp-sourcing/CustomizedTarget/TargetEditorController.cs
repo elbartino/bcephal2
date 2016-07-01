@@ -455,7 +455,7 @@ namespace Misp.Sourcing.CustomizedTarget
 
             foreach (TargetEditorItem unInputTable in getTargetEditor().getPages())
             {
-                if (found || (unInputTable != getTargetEditor().getActivePage() && newName == unInputTable.Title))
+                if ((found && newName != getTargetEditor().getActivePage().Title) || (unInputTable != getTargetEditor().getActivePage() && newName == unInputTable.Title))
                 {
                     DisplayError("Duplicate Name", "There is another Target named: " + newName);
                     page.getTargetForm().TargetPropertiesPanel.nameTextBox.Text = page.Title;

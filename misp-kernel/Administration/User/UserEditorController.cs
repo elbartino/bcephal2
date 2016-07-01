@@ -557,7 +557,7 @@ namespace Misp.Kernel.Administration.User
 
             foreach (UserEditorItem unReco in getUserEditor().getPages())
             {
-                if (found || (unReco != getUserEditor().getActivePage() && newName == unReco.Title))
+                if ((found && newName != getUserEditor().getActivePage().Title) || (unReco != getUserEditor().getActivePage() && newName == unReco.Title))
                 {
                     DisplayError("Duplicate Name", "There is another Target named: " + newName);
                     page.getUserForm().userMainPanel.nameTextBox.Text = page.Title;
@@ -600,11 +600,11 @@ namespace Misp.Kernel.Administration.User
 
             foreach (UserEditorItem unReco in getUserEditor().getPages())
             {
-                
-                if (found || (unReco != getUserEditor().getActivePage() && loginName == unReco.EditedObject.login))
+
+                if ((found && loginName != getUserEditor().getActivePage().EditedObject.login) || (unReco != getUserEditor().getActivePage() && loginName == unReco.EditedObject.login))
                 {
                     DisplayError("Duplicate Login", "There is another Target named: " + loginName);
-                    page.getUserForm().userMainPanel.loginTextBox.Text = unReco.Title;
+                    page.getUserForm().userMainPanel.loginTextBox.Text = getUserEditor().getActivePage().EditedObject.login != null ? getUserEditor().getActivePage().EditedObject.login : getUserEditor().getActivePage().Title;
                     page.getUserForm().userMainPanel.loginTextBox.SelectAll();
                     page.getUserForm().userMainPanel.loginTextBox.Focus();
                     return OperationState.STOP;

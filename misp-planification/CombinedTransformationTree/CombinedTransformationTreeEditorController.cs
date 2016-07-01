@@ -569,7 +569,7 @@ namespace Misp.Planification.CombinedTransformationTree
 
             foreach (CombinedTransformationTreeEditorItem unInputTable in getCombineTransformationTreeEditor().getPages())
             {
-                if (found || (unInputTable != getCombineTransformationTreeEditor().getActivePage() && newName == unInputTable.Title))
+                if ((found && newName != getCombineTransformationTreeEditor().getActivePage().Title) || (unInputTable != getCombineTransformationTreeEditor().getActivePage() && newName == unInputTable.Title))
                 {
                     DisplayError("Duplicate Name", "There is another Combine Transformation tree named: " + newName);
                     page.getCombineTransformationTreeForm().CombinedTransformationTreePropertiesPanel.nameTextBox.Text = page.Title;

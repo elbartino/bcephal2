@@ -741,7 +741,7 @@ namespace Misp.Sourcing.Designer
 
             foreach (DesignerEditorItem unInputTable in getDesignerEditor().getPages())
             {
-                if (found || (unInputTable != getDesignerEditor().getActivePage() && newName == unInputTable.Title))
+                if ((found && newName != getDesignerEditor().getActivePage().Title) || (unInputTable != getDesignerEditor().getActivePage() && newName == unInputTable.Title))
                 {
                     DisplayError("Duplicate Name", "There is another Design named: " + newName);
                     page.getDesignerForm().DesignerPropertiesPanel.NameTextBox.Text = page.Title;

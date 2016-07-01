@@ -808,7 +808,7 @@ namespace Misp.Reporting.StructuredReport
 
             foreach (StructuredReportEditorItem unInputTable in getStructuredReportEditor().getPages())
             {
-                if (found || (unInputTable != getStructuredReportEditor().getActivePage() && newName == unInputTable.Title))
+                if ((found && newName != getStructuredReportEditor().getActivePage().Title) || (unInputTable != getStructuredReportEditor().getActivePage() && newName == unInputTable.Title))
                 {
                     DisplayError("Duplicate Name", "There is another Structured Report named: " + newName);
                     page.getStructuredReportForm().StructuredReportPropertiesPanel.NameTextBox.Text = page.Title;

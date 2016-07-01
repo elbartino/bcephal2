@@ -1043,7 +1043,7 @@ namespace Misp.Sourcing.Base
 
             foreach (AutomaticSourcingEditorItem automaticSourcingItem in getAutomaticSourcingEditor().getPages())
             {
-                if (found || (automaticSourcingItem != getAutomaticSourcingEditor().getActivePage() && newName == automaticSourcingItem.Title))
+                if ((found && newName != getAutomaticSourcingEditor().getActivePage().Title) || (automaticSourcingItem != getAutomaticSourcingEditor().getActivePage() && newName == automaticSourcingItem.Title))
                 {
                     DisplayError("Duplicate Name", "There is another " + automaticSourcing.GetType().Name + " named: " + newName);
                     page.getAutomaticSourcingForm().AutomaticSourcingPanel.NameTextBox.Text = page.Title;

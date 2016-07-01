@@ -516,7 +516,7 @@ namespace Misp.Reconciliation.Reconciliation
 
             foreach (ReconciliationEditorItem unReco in getReconciliationEditor().getPages())
             {
-                if (found || (unReco != getReconciliationEditor().getActivePage() && newName == unReco.Title))
+                if ((found && newName != getReconciliationEditor().getActivePage().Title) || (unReco != getReconciliationEditor().getActivePage() && newName == unReco.Title))
                 {
                     DisplayError("Duplicate Name", "There is another Target named: " + newName);
                     page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Text = page.Title;

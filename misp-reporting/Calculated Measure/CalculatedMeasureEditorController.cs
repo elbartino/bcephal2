@@ -684,7 +684,7 @@ namespace Misp.Reporting.Calculated_Measure
 
             foreach (CalculatedMeasureEditorItem calculatedMeasurePage in getCalculatedMeasureEditor().getPages())
             {
-                if (found || (calculatedMeasurePage != getCalculatedMeasureEditor().getActivePage() && newName == calculatedMeasurePage.Title))
+                if ((found && newName != getCalculatedMeasureEditor().getActivePage().Title) || (calculatedMeasurePage != getCalculatedMeasureEditor().getActivePage() && newName == calculatedMeasurePage.Title))
                 {
                     DisplayError("Duplicate Name", "There is another CalculatedMeasure named: " + newName);
                     page.getCalculatedMeasureForm().CalculatedMeasurePropertiesPanel.nameTextBox.Text = page.Title;
