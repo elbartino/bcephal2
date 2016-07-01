@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Administration.Role
 {
-    public class RoleBrowserController : BrowserController<Misp.Kernel.Domain.Role, BrowserData>
+    public class RoleBrowserController : BrowserController<Misp.Kernel.Domain.Role, RoleBrowserData>
     {
         public RoleBrowserController() 
         {
-            ModuleName = "Administration";//PlugIn.MODULE_NAME; 
+            ModuleName = "Administration"; 
         }
        
 
@@ -150,7 +150,7 @@ namespace Misp.Kernel.Administration.Role
         /// <param name="header"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        protected override OperationState EditProperty(BrowserData item, String header, Object value)
+        protected override OperationState EditProperty(RoleBrowserData item, String header, Object value)
         {
             if (item == null || String.IsNullOrWhiteSpace(header) || value == null) return OperationState.STOP;
             if (header.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
@@ -159,7 +159,7 @@ namespace Misp.Kernel.Administration.Role
             }
             if (header.Equals("Visible in shortcut", StringComparison.InvariantCultureIgnoreCase))
             {
-                BrowserData data = new BrowserData(item);
+                RoleBrowserData data = new RoleBrowserData(item);
                 data.visibleInShortcut = (bool)value;
                 try
                 {

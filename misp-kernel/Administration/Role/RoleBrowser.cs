@@ -83,7 +83,6 @@ namespace Misp.Kernel.Administration.Role
             {
                 case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
                 case 1: return 150;
-                case 2: return 120;
                 default: return 100;
             }
         }
