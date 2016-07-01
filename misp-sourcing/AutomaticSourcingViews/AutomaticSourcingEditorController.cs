@@ -1038,9 +1038,12 @@ namespace Misp.Sourcing.Base
 
         private OperationState VerifyDuplicateName(string newName, AutomaticSourcingEditorItem page, AutomaticSourcing automaticSourcing)
         {
+            bool found = false;
+            if (GetAutomaticSourcingService().getByName(newName) != null) found = true;
+
             foreach (AutomaticSourcingEditorItem automaticSourcingItem in getAutomaticSourcingEditor().getPages())
             {
-                if (automaticSourcingItem != getAutomaticSourcingEditor().getActivePage() && newName == automaticSourcingItem.Title)
+                if (found || (automaticSourcingItem != getAutomaticSourcingEditor().getActivePage() && newName == automaticSourcingItem.Title))
                 {
                     DisplayError("Duplicate Name", "There is another " + automaticSourcing.GetType().Name + " named: " + newName);
                     page.getAutomaticSourcingForm().AutomaticSourcingPanel.NameTextBox.Text = page.Title;

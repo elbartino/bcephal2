@@ -252,6 +252,35 @@ namespace Misp.Kernel.Service
             }   
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="oid">Oid of the object to return.</param>
+        /// <returns>Object such that object.oid == oid.</returns>
+        public virtual T getByName(string name)
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath + "/duplicate/" + name, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                T value = Serializer.Deserialize<T>(queryResult.Content);
+
+                //var settings = new JsonSerializerSettings();
+                //settings.Converters.Add(new CustomJsonConverter());
+                //settings.TypeNameHandling = TypeNameHandling.Objects;
+                //T value = JsonConvert.DeserializeObject<T>(queryResult.Content, settings);
+                return value;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve object from server.", e);
+                throw new ServiceExecption("Unable to retrieve object from server.", e);
+            }
+        }
+
         public virtual bool buildCellProperty(String tableName, GroupProperty groupProperty) 
         {
             return true;

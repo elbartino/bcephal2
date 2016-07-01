@@ -65,6 +65,27 @@ namespace Misp.Kernel.Service
                 return null;
             }
         }
+
+        /// <summary>
+        /// get Role by oid
+        /// </summary>
+        /// <param name="oid"></param>
+        /// <returns></returns>
+        public User getUserByLogin(string login)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/login/" + login, Method.GET);
+                request.RequestFormat = DataFormat.Json;
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                User u = RestSharp.SimpleJson.DeserializeObject<User>(queryResult.Content);
+                return u;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
         #endregion
         
         #region User

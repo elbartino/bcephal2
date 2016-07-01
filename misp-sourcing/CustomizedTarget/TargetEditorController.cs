@@ -450,10 +450,12 @@ namespace Misp.Sourcing.CustomizedTarget
                 return OperationState.STOP;
             }
 
+            bool found = false;
+            if (GetTargetService().getByName(newName) != null) found = true;
 
             foreach (TargetEditorItem unInputTable in getTargetEditor().getPages())
             {
-                if (unInputTable != getTargetEditor().getActivePage() && newName == unInputTable.Title)
+                if (found || (unInputTable != getTargetEditor().getActivePage() && newName == unInputTable.Title))
                 {
                     DisplayError("Duplicate Name", "There is another Target named: " + newName);
                     page.getTargetForm().TargetPropertiesPanel.nameTextBox.Text = page.Title;

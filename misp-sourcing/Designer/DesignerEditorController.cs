@@ -736,10 +736,12 @@ namespace Misp.Sourcing.Designer
                 return OperationState.STOP;
             }
 
+            bool found = false;
+            if (GetDesignService().getByName(newName) != null) found = true;
 
             foreach (DesignerEditorItem unInputTable in getDesignerEditor().getPages())
             {
-                if (unInputTable != getDesignerEditor().getActivePage() && newName == unInputTable.Title)
+                if (found || (unInputTable != getDesignerEditor().getActivePage() && newName == unInputTable.Title))
                 {
                     DisplayError("Duplicate Name", "There is another Design named: " + newName);
                     page.getDesignerForm().DesignerPropertiesPanel.NameTextBox.Text = page.Title;

@@ -803,10 +803,12 @@ namespace Misp.Reporting.StructuredReport
                 return OperationState.STOP;
             }
 
+            bool found = false;
+            if (GetStructuredReportService().getByName(newName) != null) found = true;
 
             foreach (StructuredReportEditorItem unInputTable in getStructuredReportEditor().getPages())
             {
-                if (unInputTable != getStructuredReportEditor().getActivePage() && newName == unInputTable.Title)
+                if (found || (unInputTable != getStructuredReportEditor().getActivePage() && newName == unInputTable.Title))
                 {
                     DisplayError("Duplicate Name", "There is another Structured Report named: " + newName);
                     page.getStructuredReportForm().StructuredReportPropertiesPanel.NameTextBox.Text = page.Title;

@@ -511,10 +511,12 @@ namespace Misp.Reconciliation.Reconciliation
                 return OperationState.STOP;
             }
 
+            bool found = false;
+            if (GetReconciliationService().getByName(newName) != null) found = true;
 
             foreach (ReconciliationEditorItem unReco in getReconciliationEditor().getPages())
             {
-                if (unReco != getReconciliationEditor().getActivePage() && newName == unReco.Title)
+                if (found || (unReco != getReconciliationEditor().getActivePage() && newName == unReco.Title))
                 {
                     DisplayError("Duplicate Name", "There is another Target named: " + newName);
                     page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Text = page.Title;

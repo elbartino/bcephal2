@@ -679,10 +679,12 @@ namespace Misp.Reporting.Calculated_Measure
                 return OperationState.STOP;
             }
 
+            bool found = false;
+            if (GetCalculatedMeasureService().getByName(newName) != null) found = true;
 
             foreach (CalculatedMeasureEditorItem calculatedMeasurePage in getCalculatedMeasureEditor().getPages())
             {
-                if (calculatedMeasurePage != getCalculatedMeasureEditor().getActivePage() && newName == calculatedMeasurePage.Title)
+                if (found || (calculatedMeasurePage != getCalculatedMeasureEditor().getActivePage() && newName == calculatedMeasurePage.Title))
                 {
                     DisplayError("Duplicate Name", "There is another CalculatedMeasure named: " + newName);
                     page.getCalculatedMeasureForm().CalculatedMeasurePropertiesPanel.nameTextBox.Text = page.Title;

@@ -280,10 +280,12 @@ namespace Misp.Kernel.Administration.User
         {
             
             base.initializePageHandlers(page);
-            UserEditorItem editorPage = (UserEditorItem)page; 
-            
-            //editorPage.getUserForm().userPropertyPanel.nameTextBox.KeyUp += onNameTextChange;
-            //editorPage.getUserForm().userPropertyPanel.nameTextBox.LostFocus += onNameTextLostFocus;
+            UserEditorItem editorPage = (UserEditorItem)page;
+
+            editorPage.getUserForm().userMainPanel.nameTextBox.KeyUp += onNameTextChange;
+            editorPage.getUserForm().userMainPanel.nameTextBox.LostFocus += onNameTextLostFocus;
+            editorPage.getUserForm().userMainPanel.loginTextBox.KeyUp += onLoginTextChange;
+            editorPage.getUserForm().userMainPanel.loginTextBox.LostFocus += onLoginTextLostFocus;
             editorPage.getUserForm().userMainPanel.RelationPanel.Changed += OnRelationChange;
             editorPage.getUserForm().userMainPanel.profilcomboBox.SelectionChanged += onProfilFieldChange;
             editorPage.getUserForm().userMainPanel.RelationPanel.ItemChanged += OnRelationItemChange;
@@ -398,7 +400,7 @@ namespace Misp.Kernel.Administration.User
             UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
             if (args.Key == Key.Escape)
             {
-                //page.getUserForm().userPropertyPanel.nameTextBox.Text = page.Title;
+                page.getUserForm().userMainPanel.nameTextBox.Text = page.Title;
             }
             else if (args.Key == Key.Enter)
             {
@@ -452,6 +454,39 @@ namespace Misp.Kernel.Administration.User
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        protected void onLoginTextLostFocus(object sender, RoutedEventArgs args)
+        {
+            ValidateEditedLoginName();
+        }
+
+        /// <summary>
+        /// Cette methode est exécuté lorsqu'on édit le nom de la table active.
+        /// Si l'utilisateur tappe sur la touche ENTER, le nouveau nom est validé.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        protected void onLoginTextChange(object sender, KeyEventArgs args)
+        {
+            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            if (args.Key == Key.Escape)
+            {
+                page.getUserForm().userMainPanel.loginTextBox.Text = "";
+            }
+            else if (args.Key == Key.Tab)
+            {
+                page.getUserForm().userMainPanel.loginTextBox.Text = page.getUserForm().userMainPanel.loginTextBox.Text.ToString().Trim();
+            }
+            else if (args.Key == Key.Enter)
+            {
+                ValidateEditedNewName();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         private void onFilterPanelChange()
         {
             OnChange();
@@ -490,6 +525,12 @@ namespace Misp.Kernel.Administration.User
             return ValidateEditedNewName() == OperationState.CONTINUE;
         }
 
+        public bool validateLogin(EditorItem<Domain.User> page, string name)
+        {
+            if (!base.validateName(page, name)) return false;
+            return ValidateEditedLoginName() == OperationState.CONTINUE;
+        }
+
         private bool IsRenameOnDoubleClick = false;
         /// <summary>
         /// 
@@ -501,25 +542,27 @@ namespace Misp.Kernel.Administration.User
             Domain.User table = page.EditedObject;
             if (string.IsNullOrEmpty(newName))
             {
-                //newName = page.getUserForm().userPropertyPanel.nameTextBox.Text.Trim();
+                newName = page.getUserForm().userMainPanel.nameTextBox.Text.Trim();
             }
             if (string.IsNullOrEmpty(newName))
             {
                 DisplayError("Empty Name", "The User name can't be mepty!");
-                //page.getUserForm().userPropertyPanel.nameTextBox.SelectAll();
-                //page.getUserForm().userPropertyPanel.nameTextBox.Focus();
+                page.getUserForm().userMainPanel.nameTextBox.SelectAll();
+                page.getUserForm().userMainPanel.nameTextBox.Focus();
                 return OperationState.STOP;
             }
 
+            bool found = false;
+            if (GetUserService().getByName(newName) != null) found = true;
 
             foreach (UserEditorItem unReco in getUserEditor().getPages())
             {
-                if (unReco != getUserEditor().getActivePage() && newName == unReco.Title)
+                if (found || (unReco != getUserEditor().getActivePage() && newName == unReco.Title))
                 {
                     DisplayError("Duplicate Name", "There is another Target named: " + newName);
-                    //page.getUserForm().userPropertyPanel.nameTextBox.Text = page.Title;
-                    //page.getUserForm().userPropertyPanel.nameTextBox.SelectAll();
-                    //page.getUserForm().userPropertyPanel.nameTextBox.Focus();
+                    page.getUserForm().userMainPanel.nameTextBox.Text = page.Title;
+                    page.getUserForm().userMainPanel.nameTextBox.SelectAll();
+                    page.getUserForm().userMainPanel.nameTextBox.Focus();
                     return OperationState.STOP;
                 }
             }
@@ -529,6 +572,45 @@ namespace Misp.Kernel.Administration.User
             ((UserSideBar)SideBar).UserGroup.UserTreeview.updateUser(newName, table.name, false);
             table.name = newName;
             page.Title = newName;
+            OnChange();
+            return OperationState.CONTINUE;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected virtual OperationState ValidateEditedLoginName(string loginName = "")
+        {
+            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            Domain.User table = page.EditedObject;
+            if (string.IsNullOrEmpty(loginName))
+            {
+                loginName = page.getUserForm().userMainPanel.loginTextBox.Text.Trim();
+            }
+            if (string.IsNullOrEmpty(loginName))
+            {
+                DisplayError("Empty Login", "The User login can't be empty!");
+                page.getUserForm().userMainPanel.loginTextBox.SelectAll();
+                page.getUserForm().userMainPanel.loginTextBox.Focus();
+                return OperationState.STOP;
+            }
+            bool found = false;
+            if (GetUserService().getUserByLogin(loginName) != null) found = true;
+
+            foreach (UserEditorItem unReco in getUserEditor().getPages())
+            {
+                
+                if (found || (unReco != getUserEditor().getActivePage() && loginName == unReco.EditedObject.login))
+                {
+                    DisplayError("Duplicate Login", "There is another Target named: " + loginName);
+                    page.getUserForm().userMainPanel.loginTextBox.Text = unReco.Title;
+                    page.getUserForm().userMainPanel.loginTextBox.SelectAll();
+                    page.getUserForm().userMainPanel.loginTextBox.Focus();
+                    return OperationState.STOP;
+                }
+            }
+            
             OnChange();
             return OperationState.CONTINUE;
         }
