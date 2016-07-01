@@ -20,8 +20,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Margin="0,5" >
@@ -41,17 +39,9 @@
                 <Label x:Name="FirstNameLabel" Content="First Name" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="firstNameTextBox" Grid.Column="1" Width="300" HorizontalAlignment="Left"/>
             </Grid>
+           
 
             <Grid Grid.Row="2" Margin="0,5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label x:Name="UserIDLabel" Content="User ID" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="userIDTextBox" Grid.Column="1" Width="300" HorizontalAlignment="Left" />
-            </Grid>
-
-            <Grid Grid.Row="3" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
@@ -60,7 +50,7 @@
                 <TextBox x:Name="loginTextBox" Grid.Column="1" Width="300" HorizontalAlignment="Left"/>
             </Grid>
 
-            <Grid Grid.Row="4" Margin="0,5">
+            <Grid Grid.Row="3" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
@@ -73,16 +63,9 @@
                 
             </Grid>
 
-            <Grid Grid.Row="5" Margin="0,5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label x:Name="DepartementLabel" Content="Departement" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="departementTextBox" Grid.Column="1" Width="300" HorizontalAlignment="Left"/>
-            </Grid>
+            
 
-            <Grid Grid.Row="6" Margin="0,5">
+            <Grid Grid.Row="4" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
@@ -91,7 +74,7 @@
                 <TextBox x:Name="emailTextBox" Grid.Column="1" Width="300" HorizontalAlignment="Left"/>
             </Grid>
             
-            <Grid Grid.Row="7" Margin="0,5">
+            <Grid Grid.Row="5" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
@@ -100,7 +83,7 @@
                 <CheckBox x:Name="activeBox" Grid.Column="1"  />
             </Grid>
 
-            <Grid Grid.Row="8" Margin="0,5">
+            <Grid Grid.Row="6" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
@@ -109,7 +92,7 @@
                 <CheckBox x:Name="adminCheckBox" Grid.Column="1"  />
             </Grid>
 
-            <Grid Grid.Row="9" Margin="0,5">
+            <Grid Grid.Row="7" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
@@ -118,7 +101,7 @@
                 <ComboBox x:Name="profilcomboBox" Grid.Column="1" Width="300" HorizontalAlignment="Left"/>                
             </Grid>
 
-            <Grid Grid.Row="10" Margin="0,5">
+            <Grid Grid.Row="8" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>

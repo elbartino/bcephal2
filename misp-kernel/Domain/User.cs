@@ -14,8 +14,6 @@ namespace Misp.Kernel.Domain
 
         public String firstName { get; set; }
 
-       public String departement { get; set; }
-
         public String login { get; set; }
 
         public String password { get; set; }
