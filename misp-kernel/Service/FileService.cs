@@ -7,6 +7,7 @@ using Misp.Kernel.Domain;
 using RestSharp;
 using System.Net;
 using System.Web.Script.Serialization;
+using Misp.Kernel.Domain.Browser;
 
 namespace Misp.Kernel.Service
 {
@@ -21,7 +22,7 @@ namespace Misp.Kernel.Service
     ///     
     /// La communication avec le serveur se fait via des requêtes HTTP.
     /// </summary>
-    public class FileService : Service<File, Domain.Browser.BrowserData>
+    public class FileService : Service<File, BrowserData>
     {
 
         public DashBoardService DashBoardService { get; set; }
@@ -59,6 +60,67 @@ namespace Misp.Kernel.Service
             }
             catch (Exception) { return null; }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>List of files</returns>
+        public List<String> getProjects()
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath + "/projects", Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+                List<String> objects = RestSharp.SimpleJson.DeserializeObject<List<String>>(queryResult.Content);
+                return objects;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve list of projects.", e);
+                throw new ServiceExecption("Unable to retrieve list of projects.", e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>List of files</returns>
+        public String getDefaultNewProjectName()
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath + "/new-project-name", Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+                String name = RestSharp.SimpleJson.DeserializeObject<String> (queryResult.Content);
+                return name;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve default new project name.", e);
+                throw new ServiceExecption("Unable to retrieve default new project name.", e);
+            }
+        }
+        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>List of files</returns>
+        public bool isProjectExist(String name)
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath + "/is-project-exist/" + name, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+                bool value = RestSharp.SimpleJson.DeserializeObject<bool>(queryResult.Content);
+                return value;
+            }
+            catch (Exception e)
+            {
+                return true;
+            }
+        }
+
 
         /// <summary>
         /// 

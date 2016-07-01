@@ -388,6 +388,9 @@
     <Compile Include="Ui\Base\PaginationPanel.xaml.cs">
       <DependentUpon>PaginationPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\File\FileNameDialog.xaml.cs">
+      <DependentUpon>FileNameDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\Role\RoleTreeView.xaml.cs">
       <DependentUpon>RoleTreeView.xaml</DependentUpon>
     </Compile>
@@ -755,6 +758,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Ui\Base\PaginationPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\File\FileNameDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
