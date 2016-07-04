@@ -9,7 +9,7 @@ namespace Misp.Kernel.Domain
 {
     public class Profil : Persistent
     {
-        public String name { get; set; }
+        public string name { get; set; }
 
         public bool active { get; set; }
 
@@ -21,7 +21,7 @@ namespace Misp.Kernel.Domain
 
         public Profil()
         {
-            rightsListChangeHandler = new PersistentListChangeHandler<Rights>();
+            this.rightsListChangeHandler = new PersistentListChangeHandler<Rights>();
         }
 
         public override string ToString()

@@ -31,8 +31,6 @@ namespace Misp.Kernel.Administration.User
         /// </summary>
         public Misp.Kernel.Ui.Base.ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
 
-        public Kernel.Service.GroupService GroupService { get; set; }
-
         public Kernel.Service.UserService UserService { get; set; }
 
         

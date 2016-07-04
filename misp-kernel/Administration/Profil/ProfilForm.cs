@@ -19,7 +19,7 @@ namespace Misp.Kernel.Administration.Profil
 
         public ProfileMainPanel profileMainPanel { get; set; }
 
-        public ProfilPropertyPanel profilPropertyPanel { get; set; }
+        //public ProfilPropertyPanel profilPropertyPanel { get; set; }
 
         /// <summary>
         /// L'Target en édition
@@ -30,8 +30,6 @@ namespace Misp.Kernel.Administration.Profil
         /// Spécifie la méthode à exécuter lorsqu'un changement survient sur la vue.
         /// </summary>
         public Misp.Kernel.Ui.Base.ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
-
-        public Kernel.Service.GroupService GroupService { get; set; }
         
 
         #endregion
@@ -51,7 +49,7 @@ namespace Misp.Kernel.Administration.Profil
             this.Background = null;
             this.BorderBrush = null;
             this.profileMainPanel = new ProfileMainPanel();
-            this.profilPropertyPanel = new ProfilPropertyPanel();
+            //this.profilPropertyPanel = new ProfilPropertyPanel();
             this.Content = profileMainPanel;
         }
         
@@ -81,7 +79,7 @@ namespace Misp.Kernel.Administration.Profil
         /// <returns>true si les données sont valides</returns>
         public bool validateEdition()
         {
-            bool valid = this.profilPropertyPanel.validateEdition() && this.profileMainPanel.ValidateEdition();
+            bool valid = this.profileMainPanel.ValidateEdition();
             return valid;
         }
 
@@ -93,7 +91,7 @@ namespace Misp.Kernel.Administration.Profil
         public void fillObject()
         {
             if (this.EditedObject == null) this.EditedObject = getNewObject();
-            this.profilPropertyPanel.fillProfil(this.EditedObject);
+            //this.profilPropertyPanel.fillProfil(this.EditedObject);
             this.profileMainPanel.Fill(this.EditedObject);
          }
         /// <summary>
@@ -103,7 +101,7 @@ namespace Misp.Kernel.Administration.Profil
         public void displayObject()
         {
             this.profileMainPanel.Display(this.EditedObject);
-            this.profilPropertyPanel.displayProfil(this.EditedObject);
+            //this.profilPropertyPanel.displayProfil(this.EditedObject);
         }
 
 
@@ -111,7 +109,7 @@ namespace Misp.Kernel.Administration.Profil
         {
             List<object> controls = new List<object>(0);
             controls.AddRange(this.profileMainPanel.getEditableControls());
-            controls.AddRange(this.profilPropertyPanel.getEditableControls());
+            //controls.AddRange(this.profilPropertyPanel.getEditableControls());
             return controls;
         }
 

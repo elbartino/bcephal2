@@ -217,7 +217,13 @@ namespace Misp.Kernel.Administration.User
         {
             this.adminCheckBox.Checked += OnManageAdministrator;
             this.adminCheckBox.Unchecked += OnManageAdministrator;
+            this.resetPasswordButton.Click += OnResetPassword;
 
+        }
+
+        private void OnResetPassword(object sender, RoutedEventArgs e)
+        {
+            this.passwordTextBox.Clear();
         }
 
         private void OnManageAdministrator(object sender, RoutedEventArgs e)

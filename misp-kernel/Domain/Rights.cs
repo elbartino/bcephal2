@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Domain
 {
@@ -9,16 +10,18 @@ namespace Misp.Kernel.Domain
     {
         public String functionnality { get; set; }
 
-        public Boolean viewRight { get; set; }
+        public bool viewRight { get; set; }
 
-        public Boolean editRight { get; set; }
+        public bool editRight { get; set; }
 
+        [ScriptIgnore]
+        public Profil profil { get; set;}
 
-    	public Profil profil { get; set;}
+        [ScriptIgnore]
+        public User user { get; set;}
 
-    	public User user { get; set;}	    
-
-        public UserAction action { get; set; }
+        //[ScriptIgnore]
+        //public UserAction action { get; set; }
 
 
         public Rights()
@@ -37,30 +40,30 @@ namespace Misp.Kernel.Domain
         public static List<Rights> generateDefaultFunction()
         {
             List<Rights> functionRights = new List<Rights>(0);
-            functionRights.Add(new Rights("Initialisation", true, true));
-            functionRights.Add(new Rights("InputTable", true, true));
-            functionRights.Add(new Rights("Report", true, true));
-            functionRights.Add(new Rights("TransformationTree", true, true));
-            functionRights.Add(new Rights("Target", true, true));
-            functionRights.Add(new Rights("StructuredReport", true, true));
-            functionRights.Add(new Rights("AutomaticSourcing", true, true));
-            functionRights.Add(new Rights("MultipleUplaod", true, true));
-            functionRights.Add(new Rights("Design", true, true));
-            functionRights.Add(new Rights("AutomaticTarget", true, true));
-            functionRights.Add(new Rights("CombinedTranformationTree", true, true));
-            functionRights.Add(new Rights("Load", true, true));
-            functionRights.Add(new Rights("Clear", true, true));
-            functionRights.Add(new Rights("Posting", true, true));
-            functionRights.Add(new Rights("ReconciliationFilter", true, true));
-            functionRights.Add(new Rights("Clear Launch", true, true));
-            functionRights.Add(new Rights("Laod Launch", true, true));
+            functionRights.Add(new Rights("Initialisation", false, false));
+            functionRights.Add(new Rights("InputTable", false, false));
+            functionRights.Add(new Rights("Report", false, false));
+            functionRights.Add(new Rights("TransformationTree", false, false));
+            functionRights.Add(new Rights("Target", false, false));
+            functionRights.Add(new Rights("StructuredReport", false, false));
+            functionRights.Add(new Rights("AutomaticSourcing", false, false));
+            functionRights.Add(new Rights("MultipleUplaod", false, false));
+            functionRights.Add(new Rights("Design", false, false));
+            functionRights.Add(new Rights("AutomaticTarget", false, false));
+            functionRights.Add(new Rights("CombinedTranformationTree", false, false));
+            functionRights.Add(new Rights("Load", false, false));
+            functionRights.Add(new Rights("Clear", false, false));
+            functionRights.Add(new Rights("Posting", false, false));
+            functionRights.Add(new Rights("ReconciliationFilter", false, false));
+            functionRights.Add(new Rights("Clear Launch", false, false));
+            functionRights.Add(new Rights("Laod Launch", false, false));
 
             return functionRights;
         }
 
         public override string ToString()
         {
-		    return functionnality + " - " + action;
+            return functionnality + " - "; // + action;
         }
     }
 }

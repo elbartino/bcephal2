@@ -174,11 +174,7 @@ namespace Misp.Kernel.Administration.Profil
             {
                 return;
             }
-            ProfilForm form = ((ProfilEditorItem)page).getProfilForm();
-            if (form.profilPropertyPanel != null)
-            {
-                ((ProfilPropertyBar)this.PropertyBar).ProfilLayoutAnchorable.Content = form.profilPropertyPanel;
-            }
+            ProfilForm form = ((ProfilEditorItem)page).getProfilForm();            
         }
 
         
@@ -212,7 +208,6 @@ namespace Misp.Kernel.Administration.Profil
         protected override void Rename(string name)
         {
             ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
-            page.getProfilForm().profilPropertyPanel.nameTextBox.Text = name;
             page.EditedObject.name = name;
             base.Rename(name);
         }
@@ -248,7 +243,7 @@ namespace Misp.Kernel.Administration.Profil
         /// <returns>Une nouvelle instance de la SideBar</returns>
         protected override SideBar getNewSideBar() { return new ProfilSideBar(); }
 
-        protected override PropertyBar getNewPropertyBar() { return new ProfilPropertyBar(); }
+        protected override PropertyBar getNewPropertyBar() { return null; }
 
         protected override void initializePropertyBarData() { }
 
@@ -277,11 +272,8 @@ namespace Misp.Kernel.Administration.Profil
             base.initializePageHandlers(page);
             ProfilEditorItem editorPage = (ProfilEditorItem)page;
 
-            editorPage.getProfilForm().profilPropertyPanel.nameTextBox.KeyUp += onNameTextChange;
-            editorPage.getProfilForm().profilPropertyPanel.nameTextBox.LostFocus += onNameTextLostFocus;
-
-            editorPage.getProfilForm().profileMainPanel.nameTextBox.LostFocus += onProfilNameTextLostFocus;
-            editorPage.getProfilForm().profileMainPanel.nameTextBox.KeyUp += onProfilNameTextChange;
+            editorPage.getProfilForm().profileMainPanel.nameTextBox.KeyUp += onNameTextChange;
+            editorPage.getProfilForm().profileMainPanel.nameTextBox.LostFocus += onNameTextLostFocus;
         }
 
         
@@ -293,9 +285,7 @@ namespace Misp.Kernel.Administration.Profil
         protected override void initializeSideBarData()
         {
             List<Domain.Profil> profils = GetProfilService().getAll();
-            ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.fillTree(new ObservableCollection<Domain.Profil>(profils));
-            
-            BGroup group = GetProfilService().GroupService.getDefaultGroup();
+            ((ProfilSideBar)SideBar).ProfilGroup.profilTreeview.fillTree(new ObservableCollection<Domain.Profil>(profils));            
         }
 
         /// <summary>
@@ -359,7 +349,7 @@ namespace Misp.Kernel.Administration.Profil
             ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
             if (args.Key == Key.Escape)
             {
-                page.getProfilForm().profilPropertyPanel.nameTextBox.Text = page.Title;
+                page.getProfilForm().profileMainPanel.nameTextBox.Text = page.Title;
             }
             else if (args.Key == Key.Enter)
             {
@@ -376,39 +366,7 @@ namespace Misp.Kernel.Administration.Profil
         {
             ValidateEditedNewName();
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        protected void onProfilNameTextLostFocus(object sender, RoutedEventArgs args)
-        {
-            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
-            string newName = page.getProfilForm().profileMainPanel.nameTextBox.Text;
-            Rename(newName);
-        }
-
-        /// <summary>
-        /// Cette methode est exécuté lorsqu'on édit le nom de la table active.
-        /// Si l'utilisateur tappe sur la touche ENTER, le nouveau nom est validé.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        protected void onProfilNameTextChange(object sender, KeyEventArgs args)
-        {
-            ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
-            if (args.Key == Key.Escape)
-            {
-                string newName = page.getProfilForm().profileMainPanel.nameTextBox.Text;
-                Rename(newName);
-            }
-            else if (args.Key == Key.Enter)
-            {
-                string newName = page.getProfilForm().profileMainPanel.nameTextBox.Text;
-                Rename(newName);
-            }
-        }
+        
 
         
         /// <summary>
@@ -462,25 +420,27 @@ namespace Misp.Kernel.Administration.Profil
             Domain.Profil table = page.EditedObject;
             if (string.IsNullOrEmpty(newName))
             {
-                newName = page.getProfilForm().profilPropertyPanel.nameTextBox.Text.Trim();
+                newName = page.getProfilForm().profileMainPanel.nameTextBox.Text.Trim();
             }
             if (string.IsNullOrEmpty(newName))
             {
                 DisplayError("Empty Name", "The Profil name can't be mepty!");
-                page.getProfilForm().profilPropertyPanel.nameTextBox.SelectAll();
-                page.getProfilForm().profilPropertyPanel.nameTextBox.Focus();
+                page.getProfilForm().profileMainPanel.nameTextBox.SelectAll();
+                page.getProfilForm().profileMainPanel.nameTextBox.Focus();
                 return OperationState.STOP;
             }
 
+            bool found = false;
+            if (GetProfilService().getByName(newName) != null) found = true;
 
             foreach (ProfilEditorItem unReco in getProfilEditor().getPages())
             {
-                if (unReco != getProfilEditor().getActivePage() && newName == unReco.Title)
+                if ((found && newName != getProfilEditor().getActivePage().Title) || (unReco != getProfilEditor().getActivePage() && newName == unReco.Title))
                 {
                     DisplayError("Duplicate Name", "There is another Target named: " + newName);
-                    page.getProfilForm().profilPropertyPanel.nameTextBox.Text = page.Title;
-                    page.getProfilForm().profilPropertyPanel.nameTextBox.SelectAll();
-                    page.getProfilForm().profilPropertyPanel.nameTextBox.Focus();
+                    page.getProfilForm().profileMainPanel.nameTextBox.Text = page.Title;
+                    page.getProfilForm().profileMainPanel.nameTextBox.SelectAll();
+                    page.getProfilForm().profileMainPanel.nameTextBox.Focus();
                     return OperationState.STOP;
                 }
             }

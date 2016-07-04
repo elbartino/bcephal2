@@ -267,11 +267,6 @@ namespace Misp.Kernel.Service
                 JavaScriptSerializer Serializer = new JavaScriptSerializer();
                 Serializer.MaxJsonLength = int.MaxValue;
                 T value = Serializer.Deserialize<T>(queryResult.Content);
-
-                //var settings = new JsonSerializerSettings();
-                //settings.Converters.Add(new CustomJsonConverter());
-                //settings.TypeNameHandling = TypeNameHandling.Objects;
-                //T value = JsonConvert.DeserializeObject<T>(queryResult.Content, settings);
                 return value;
             }
             catch (Exception e)

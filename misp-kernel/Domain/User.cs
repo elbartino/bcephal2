@@ -10,15 +10,15 @@ namespace Misp.Kernel.Domain
     public class User : Persistent
     {
 
-        public String name { get; set; }
+        public string name { get; set; }
 
-        public String firstName { get; set; }
+        public string firstName { get; set; }
 
-        public String login { get; set; }
+        public string login { get; set; }
 
-        public String password { get; set; }
+        public string password { get; set; }
 
-        public String email { get; set; }
+        public string email { get; set; }
 
         public bool? active { get; set; }
 

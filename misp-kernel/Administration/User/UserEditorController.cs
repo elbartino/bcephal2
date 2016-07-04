@@ -67,6 +67,8 @@ namespace Misp.Kernel.Administration.User
             page.Title = user.name;
             page.getUserForm().displayObject();
             getUserEditor().ListChangeHandler.AddNew(user);
+            page.getUserForm().userMainPanel.InitProfilComboBox(GetUserService().ProfilService);
+            page.getUserForm().userMainPanel.InitRelationPanel(GetUserService());
             return OperationState.CONTINUE;
         }
 
@@ -99,7 +101,6 @@ namespace Misp.Kernel.Administration.User
             Domain.User user = new Domain.User();
             user.name = getNewPageName("User");
             user.visibleInShortcut = true;
-            //user.group = GetUserService().GroupService.getDefaultGroup();
             return user;
         }
 
@@ -151,7 +152,6 @@ namespace Misp.Kernel.Administration.User
             {
                 Domain.User us = new Domain.User();
                 us.name = name;
-                //us.group = GetUserService().GroupService.getDefaultGroup();
                 return us;
             }
             return null;
@@ -180,10 +180,6 @@ namespace Misp.Kernel.Administration.User
                 return;
             }
             UserForm form = ((UserEditorItem)page).getUserForm();
-            //if (form.userPropertyPanel != null)
-            //{
-            //    ((UserPropertyBar)this.PropertyBar).UserLayoutAnchorable.Content = form.userPropertyPanel;
-            //}
         }
 
         
@@ -217,7 +213,6 @@ namespace Misp.Kernel.Administration.User
         protected override void Rename(string name)
         {
             UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
-           // page.getUserForm().userPropertyPanel.nameTextBox.Text = name;
             page.EditedObject.name = name;
             base.Rename(name);
         }
@@ -506,15 +501,17 @@ namespace Misp.Kernel.Administration.User
         private void onProfilFieldChange(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {            
             UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
-            string name = page.getUserForm().userMainPanel.profilcomboBox.SelectedItem.ToString();
-            Domain.Profil profil = (Domain.Profil)page.getUserForm().userMainPanel.profilcomboBox.SelectedItem;
-            ((UserSideBar)SideBar).UserGroup.UserTreeview.updateUser(name, page.Title, true);
-            Domain.User usTemp = page.EditedObject;
-            usTemp.profil = profil;
-            page.EditedObject = usTemp;
-            //page.getUserForm().userPropertyPanel.displayUser(usTemp);
-            page.EditedObject.isModified = true;
-            OnChange();
+            if (page != null)
+            {
+                string name = page.getUserForm().userMainPanel.profilcomboBox.SelectedItem.ToString();
+                Domain.Profil profil = (Domain.Profil)page.getUserForm().userMainPanel.profilcomboBox.SelectedItem;
+                ((UserSideBar)SideBar).UserGroup.UserTreeview.updateUser(name, page.Title, true);
+                Domain.User usTemp = page.EditedObject;
+                usTemp.profil = profil;
+                page.EditedObject = usTemp;
+                page.EditedObject.isModified = true;
+                OnChange();
+            }
         }
 
         #endregion

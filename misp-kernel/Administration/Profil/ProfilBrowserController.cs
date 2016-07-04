@@ -51,6 +51,16 @@ namespace Misp.Kernel.Administration.Profil
             return Kernel.Application.OperationState.CONTINUE;
         }
 
+        /// <summary>
+        /// Initialisation des donnée sur la SideBar.
+        /// </summary>
+        protected override void initializeSideBarData()
+        {
+            if (this.SideBar != null && this.Service != null)
+            {
+            }
+        }
+
         public ProfilService getProfilService()
         {
             return (ProfilService)Service;
