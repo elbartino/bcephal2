@@ -500,7 +500,7 @@ namespace Misp.Kernel.Administration.User
 
         private void onProfilFieldChange(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {            
-            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage(); 
             if (page != null)
             {
                 string name = page.getUserForm().userMainPanel.profilcomboBox.SelectedItem.ToString();

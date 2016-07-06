@@ -228,7 +228,7 @@ namespace Misp.Kernel.Administration.User
 
         private void OnManageAdministrator(object sender, RoutedEventArgs e)
         {
-            ManageAdministratorView(this.adminCheckBox.IsChecked.Value);
+            ManageAdministratorView(this.adminCheckBox.IsChecked.Value); 
         }
 
         public void ManageAdministratorView(bool isAdmin)
