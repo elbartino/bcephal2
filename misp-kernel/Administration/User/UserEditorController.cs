@@ -600,7 +600,7 @@ namespace Misp.Kernel.Administration.User
 
                 if ((found && loginName != getUserEditor().getActivePage().EditedObject.login) || (unReco != getUserEditor().getActivePage() && loginName == unReco.EditedObject.login))
                 {
-                    DisplayError("Duplicate Login", "There is another Target named: " + loginName);
+                    DisplayError("Duplicate Login", "There is another User named: " + loginName);
                     page.getUserForm().userMainPanel.loginTextBox.Text = getUserEditor().getActivePage().EditedObject.login != null ? getUserEditor().getActivePage().EditedObject.login : getUserEditor().getActivePage().Title;
                     page.getUserForm().userMainPanel.loginTextBox.SelectAll();
                     page.getUserForm().userMainPanel.loginTextBox.Focus();
