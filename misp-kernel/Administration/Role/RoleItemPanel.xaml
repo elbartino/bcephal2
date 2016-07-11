@@ -23,7 +23,7 @@
         </Button.Template>
     </Button>
     <Border Grid.Column="3"   BorderThickness="1" BorderBrush="#FFE2DEDE" />
-    <Button x:Name="deleteButton"  Grid.Column="3" ToolTip="Remove Role" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+    <Button x:Name="deleteButton"  Grid.Column="3" ToolTip="Remove Role" Margin="0,8,1,8" VerticalAlignment="Center" HorizontalAlignment="Right" Width="13">
         <Button.Template>
             <ControlTemplate>
                 <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>

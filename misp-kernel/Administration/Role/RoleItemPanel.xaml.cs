@@ -169,15 +169,31 @@ namespace Misp.Kernel.Administration.Role
             this.addButton.GotFocus += OnGotFocus;
             this.TextBox.GotFocus += OnGotFocus;
             this.GotFocus += OnGotFocus;
-           
+            
             this.TextBox.LostFocus += OnTextLostFocus;
             this.TextBox.KeyDown += OnTextKeyDown;
             this.TextBox.KeyUp += OnChangeName;
         }
 
-        private void OnChangeName(object sender, KeyEventArgs e)
+        private void OnChangeName(object sender, KeyEventArgs args)
         {
             if (Updated != null && !added) Updated(this);
+            if (args.Key == Key.Enter)
+            {
+                Added(this);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is Button)) return;
+            if ((Button)sender == this.Button) { if (Deleted != null) Deleted(this); }
+            if ((Button)sender == this.newButton) { if (Added != null) Added(this); }
         }
         
         bool update = true;
@@ -306,17 +322,7 @@ namespace Misp.Kernel.Administration.Role
             SetValue(value);
         }
        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (!(sender is Button)) return;
-            if ((Button)sender == this.Button) { if (Deleted != null) Deleted(this); }
-            if ((Button)sender == this.newButton) { if (Added != null) Added(this); }
-        }
+        
         
         #endregion
         
