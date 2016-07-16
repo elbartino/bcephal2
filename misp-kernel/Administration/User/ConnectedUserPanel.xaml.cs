@@ -29,6 +29,15 @@ namespace Misp.Kernel.Administration.User
         
         private void OnSingOut(object sender, RequestNavigateEventArgs e)
         {
+            if (HistoryHandler.Instance.ActivePage.ParentController is Kernel.Ui.File.FileController)
+            {
+                HistoryHandler.Instance.closePage(HistoryHandler.Instance.ActivePage);
+                HistoryHandler.Instance.ActivePage.Close();
+            }
+            else
+            {
+                HistoryHandler.Instance.ActivePage.Close();
+            }
             HistoryHandler.Instance.tryToSingout();
         }
     }
