@@ -32,7 +32,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.AutomaticSourcingGroup = new AutomaticSourcingGroup("Automatic Sourcing", true);

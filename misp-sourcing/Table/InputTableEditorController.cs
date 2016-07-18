@@ -1967,8 +1967,7 @@ namespace Misp.Sourcing.Table
              List<InputTableBrowserData> datas = this.Service.getBrowserDatas();
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.fillTree(new ObservableCollection<InputTableBrowserData>(datas));
                         
-            List<Model> models = GetInputTableService().ModelService.getModelsForSideBar();
-            ((InputTableSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
+          
 
             Measure rootMeasure = GetInputTableService().MeasureService.getRootMeasure();
             ((InputTableSideBar)SideBar).MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
@@ -1976,9 +1975,6 @@ namespace Misp.Sourcing.Table
             rootPeriodName = GetInputTableService().PeriodNameService.getRootPeriodName();
             defaultPeriodName = rootPeriodName.getDefaultPeriodName();
             ((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
-
-            //List<TagName> tagNames = GetInputTableService().TagService.TagNameService.getAll();
-            //((InputTableSideBar)SideBar).TagNameGroup.TagNameTreeview.DisplayTags(tagNames);
 
             List<BrowserData> designs = GetInputTableService().DesignService.getBrowserDatas();
             ((InputTableSideBar)SideBar).DesignerGroup.DesignerTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
@@ -2007,106 +2003,34 @@ namespace Misp.Sourcing.Table
         {
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.SelectionChanged += onSelectInputTableFromSidebar;
             ((InputTableSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
-            ((InputTableSideBar)SideBar).EntityGroup.EntityTreeview.SelectionChanged += onSelectTargetFromSidebar;
-            ((InputTableSideBar)SideBar).EntityGroup.EntityTreeview.ExpandAttribute += OnExpandAttribute;
-            ((InputTableSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
-            ((InputTableSideBar)SideBar).EntityGroup.EntityTreeview.OnRightClick += onRightClickFromSidebar;
+            ((InputTableSideBar)SideBar).EntityGroup.OnSelectTarget += OnSelectTarget;
+            //((InputTableSideBar)SideBar).EntityGroup.EntityTreeview.ExpandAttribute += OnExpandAttribute;
+            //((InputTableSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
+            //((InputTableSideBar)SideBar).EntityGroup.EntityTreeview.OnRightClick += onRightClickFromSidebar;
             ((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
             ((InputTableSideBar)SideBar).DesignerGroup.DesignerTreeview.SelectionChanged += onSelectDesignFromSidebar;
-            ((InputTableSideBar)SideBar).CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
+           // ((InputTableSideBar)SideBar).CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
             ((InputTableSideBar)SideBar).TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += onSelectLoopFromSidebar;
         }
 
-        private void onRightClickFromSidebar(object sender)
+        private void OnSelectTarget(Target target)
         {
-            if (sender != null && sender is Kernel.Ui.Popup.EntityPopup) 
+            InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
+            if (page == null) return;
+            InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
+            page.getInputTableForm().TablePropertiesPanel.filterScopePanel.ActiveItemPanel.inputTableService = this.GetInputTableService();
+            if (propertyBar.Pane.SelectedContent == propertyBar.ParameterLayoutAnchorable)
             {
-                Kernel.Ui.Popup.EntityPopup popup = (Kernel.Ui.Popup.EntityPopup)sender;
-                popup.OnValidate += OnValidate;
-                Kernel.Domain.Attribute attribute = null;
-                
-                if (popup.Tag is Kernel.Domain.Attribute) 
-                {
-                    attribute = (Kernel.Domain.Attribute)popup.Tag;
-                    popup.selectedItem.Clear();
-                    popup.selectedNames.Clear();
-                    
-
-                    popup.ItemSource.Clear();
-                    List<Kernel.Domain.AttributeValue> values = GetInputTableService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
-                    values.BubbleSortByName();
-                    popup.ItemSource.AddRange(values);
-                    popup.selectedItem.AddRange(attribute.FilterAttributeValues);
-                    popup.FillSelectedNames();
-                    popup.Tag = attribute;
-                }
-                //else if (popup.Tag is Kernel.Domain.AttributeValue) 
-                //{
-                //    popup.IsChildren = true;
-                //    Kernel.Domain.AttributeValue value = (Kernel.Domain.AttributeValue)popup.Tag;
-                //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
-                //    popup.Tag = value;
-                //}
-                popup.IsOpen = true;
-                popup.Display();
-            }
-        }
-
-        private void OnValidate(object sender)
-        {
-            if (sender == null) return;
-            if (!(sender is Array)) return;
-            object[] senderArray = (object[])sender;
-            bool isAttribute;
-            Kernel.Domain.Attribute attribute = null;
-            Kernel.Domain.AttributeValue value = null;
-            List<Kernel.Domain.AttributeValue> listValues = new List<AttributeValue>(0);
-            
-            isAttribute = senderArray[1] is Kernel.Domain.Attribute;
-            if (senderArray[0] is IList && senderArray[1] is Kernel.Domain.Target)
-            {
-                List<object> liste = (List<object>)senderArray[0];
-                listValues.AddRange(liste.Cast<Kernel.Domain.AttributeValue>().ToList());
-                attribute = isAttribute ? (Kernel.Domain.Attribute)senderArray[1] : null;
-                value = !isAttribute ? (Kernel.Domain.AttributeValue)senderArray[1] : null;
-            }
-
-            if (isAttribute) 
-            {
-                attribute.valueListChangeHandler.Items.Clear();
-                attribute.FilterAttributeValues.Clear();
-                attribute.FilterAttributeValues.AddRange(listValues);
+                Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+                if (currentRange == null) return;
+                page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetTargetValue(target);
             }
             else
             {
-                attribute.FilterAttributeValues.Clear();
-                attribute.FilterAttributeValues.AddRange(listValues);
-            }
-
-            foreach (Kernel.Domain.AttributeValue avalue in listValues)
-            {
-                attribute.valueListChangeHandler.Items.Add(avalue);
+                page.getInputTableForm().TablePropertiesPanel.filterScopePanel.SetTargetValue(target);
             }
         }
 
-        private void OnExpandAttribute(object sender)
-        {
-            if (sender != null && sender is Kernel.Domain.Attribute)
-            {
-                Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
-                if (attribute.FilterAttributeValues.Count > 0) return;
-                if (!attribute.LoadValues)
-                {
-                    List<Kernel.Domain.AttributeValue> values = GetInputTableService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
-                    attribute.valueListChangeHandler.Items.Clear();
-                    foreach (Kernel.Domain.AttributeValue value in values) 
-                    {
-                        attribute.valueListChangeHandler.Items.Add(value);
-                    }
-                    attribute.LoadValues = true;
-                }
-            }
-        }
 
         /// <summary>
         /// Cette méthode est exécutée lorsqu'on sélectionne une Input Table sur la sidebar.
@@ -2863,6 +2787,8 @@ namespace Misp.Sourcing.Table
         protected override SideBar getNewSideBar() 
         {
             InputTableSideBar sidebar = new InputTableSideBar();
+            sidebar.InputTableService = GetInputTableService();
+            sidebar.InitializeGroups();
             return sidebar; 
         }
 

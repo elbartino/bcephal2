@@ -16,7 +16,8 @@ namespace Misp.Sourcing.Table
 
         #region Constructor
 
-       
+
+        
         #endregion
 
 
@@ -30,7 +31,7 @@ namespace Misp.Sourcing.Table
         public DesignerGroup DesignerGroup { get; set; }
         public CustomizedTargetGroup CustomizedTargetGroup { get; set; }
         public TreeLoopGroup TreeLoopGroup { get; set; }
-        
+        public InputTableService InputTableService { get; set; }
         #endregion
 
 
@@ -39,11 +40,11 @@ namespace Misp.Sourcing.Table
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.InputTableGroup = new InputTableGroup("Input Tables", true);
-            this.EntityGroup = new EntityGroup("Entities", true);
+            this.EntityGroup = new EntityGroup("Entities", true, InputTableService.ModelService);
             this.TargetGroup = new TargetGroup("Targets", true);
             this.MeasureGroup = new MeasureGroup("Measure", true);
             this.PeriodNameGroup = new PeriodNameGroup("Period", true);

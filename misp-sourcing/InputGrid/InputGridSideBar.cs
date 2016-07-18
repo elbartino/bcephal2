@@ -34,7 +34,7 @@ namespace Misp.Sourcing.InputGrid
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.GrilleGroup = new GrilleGroup("Grids", true);
