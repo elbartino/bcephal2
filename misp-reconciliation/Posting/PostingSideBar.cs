@@ -20,7 +20,7 @@ namespace Misp.Reconciliation.Posting
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.GroupCatagoryGroup.Visibility = System.Windows.Visibility.Collapsed;
