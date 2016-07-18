@@ -32,7 +32,7 @@ namespace Misp.Planification.Tranformation.TransformationTable
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.Clear();
