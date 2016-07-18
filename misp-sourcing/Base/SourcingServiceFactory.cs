@@ -109,7 +109,7 @@ namespace Misp.Sourcing.Base
             {
                 automaticSourcingGridService = new AutomaticSourcingGridService();
                 automaticSourcingGridService.ResourcePath = ResourcePath.AUTOMATIC_SOURCING_GRID_RESOURCE_PATH;
-                automaticSourcingGridService.SocketResourcePath = ResourcePath.SOCKET_AUTOMATIC_SOURCING_RESOURCE_PATH;
+                automaticSourcingGridService.SocketResourcePath = ResourcePath.SOCKET_AUTOMATIC_SOURCING_GRID_RESOURCE_PATH;
                 automaticSourcingGridService.FileService = GetFileService();
                 automaticSourcingGridService.ModelService = GetModelService();
                 automaticSourcingGridService.MeasureService = GetMeasureService();
