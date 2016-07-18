@@ -21,7 +21,7 @@ namespace Misp.Kernel.Administration.User
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.UserGroup = new UserGroup("Users", true);

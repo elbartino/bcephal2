@@ -21,7 +21,7 @@ namespace Misp.Kernel.Administration.Profil
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.ProfilGroup = new ProfilGroup("Profils", true);
