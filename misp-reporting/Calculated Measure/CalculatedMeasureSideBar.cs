@@ -22,7 +22,7 @@ namespace Misp.Reporting.Calculated_Measure
         /// <summary>
         /// initialise les groupes d'objet qui apparaissent sur la side bar
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.MeasureGroup = new MeasureGroup("Measure", true);

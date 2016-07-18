@@ -37,7 +37,7 @@ namespace Misp.Reporting.Report
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.CalculatedMeasureGroup = new CalculatedMeasureGroup("Calculated Measure", true);

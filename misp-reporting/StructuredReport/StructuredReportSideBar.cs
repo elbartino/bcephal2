@@ -35,7 +35,7 @@ namespace Misp.Reporting.StructuredReport
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.StructuredReportGroup = new StructuredReportGroup("Structured Reports", true);
