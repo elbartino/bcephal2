@@ -556,7 +556,7 @@ namespace Misp.Kernel.Administration.User
             {
                 if ((found && newName != getUserEditor().getActivePage().Title) || (unReco != getUserEditor().getActivePage() && newName == unReco.Title))
                 {
-                    DisplayError("Duplicate Name", "There is another Target named: " + newName);
+                    DisplayError("Duplicate Name", "There is another user named: " + newName);
                     page.getUserForm().userMainPanel.nameTextBox.Text = page.Title;
                     page.getUserForm().userMainPanel.nameTextBox.SelectAll();
                     page.getUserForm().userMainPanel.nameTextBox.Focus();

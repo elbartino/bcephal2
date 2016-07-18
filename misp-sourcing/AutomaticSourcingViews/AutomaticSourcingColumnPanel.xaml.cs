@@ -445,7 +445,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             this.TypeComboBox.ItemsSource = new string[] { "",
             Kernel.Application.ParameterType.MEASURE.ToString(), 
             Kernel.Application.ParameterType.PERIOD.ToString(),
-            Kernel.Application.ParameterType.TAG.ToString(), 
+            //Kernel.Application.ParameterType.TAG.ToString(), 
             Kernel.Application.ParameterType.SCOPE.ToString() 
             };
             this.TypeComboBox.SelectedItem = "";
