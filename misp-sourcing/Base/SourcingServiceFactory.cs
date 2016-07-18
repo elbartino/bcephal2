@@ -14,8 +14,10 @@ namespace Misp.Sourcing.Base
 
         private InputTableService inputTableService;
         private AutomaticSourcingService automaticSourcingService;
+        private AutomaticSourcingGridService automaticSourcingGridService;
         private AutomaticTargetService automaticTargetService;
         private UploadMultipleFilesService uploadMultipleFilesService;
+        
 
         /// <summary>
         /// Build a new instance of InitiationServiceFactory.
@@ -100,5 +102,27 @@ namespace Misp.Sourcing.Base
             }
             return uploadMultipleFilesService;
         }
+
+        public AutomaticSourcingGridService GetAutomaticSourcingGridService()
+        {
+            if (automaticSourcingGridService == null)
+            {
+                automaticSourcingGridService = new AutomaticSourcingGridService();
+                automaticSourcingGridService.ResourcePath = ResourcePath.AUTOMATIC_SOURCING_GRID_RESOURCE_PATH;
+                automaticSourcingGridService.SocketResourcePath = ResourcePath.SOCKET_AUTOMATIC_SOURCING_RESOURCE_PATH;
+                automaticSourcingGridService.FileService = GetFileService();
+                automaticSourcingGridService.ModelService = GetModelService();
+                automaticSourcingGridService.MeasureService = GetMeasureService();
+                automaticSourcingGridService.PeriodicityService = GetPeriodicityService();
+                automaticSourcingGridService.GroupService = GetGroupService();
+                automaticSourcingGridService.InputTableService = GetInputTableService();
+                automaticSourcingGridService.CalculatedMeasureService = GetCalculatedMeasureService2();
+                automaticSourcingGridService.PeriodNameService = GetPeriodNameService();
+                configureService(automaticSourcingGridService);
+            }
+            return automaticSourcingGridService;
+        }
+        
+        
     }
 }

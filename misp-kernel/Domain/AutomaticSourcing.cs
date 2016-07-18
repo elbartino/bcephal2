@@ -32,6 +32,10 @@ namespace Misp.Kernel.Domain
         public bool isTarget { get; set; }
 
         public bool visibleInShortcut { get; set; }
+
+        public bool isGrid { get; set; }
+
+        public bool isAutomaticGrid { get; set; }
                 
         /// <summary>
         /// La date de début

@@ -173,7 +173,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         public void SetSelectedIndex(int index) 
             
         {
-            if (index > -1) this.ColumnListBox.SelectedItem = this.ColumnListBox.Items.GetItemAt(index);
+            if (index > -1 && this.ColumnListBox.Items.Count > 0) this.ColumnListBox.SelectedItem = this.ColumnListBox.Items.GetItemAt(index);
         }
 
         public int getColumnInListBox(int colunmIndex) 
@@ -300,6 +300,8 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             this.ColumnPanel.OnChooseTargetType +=AutomaticSourcingColumnPanel_OnChooseTargetType;
             this.ColumnPanel.OnAllocationPanelChange +=AutomaticSourcingColumnPanel_OnAllocationPanelChange;
             this.ColumnPanel.OnSetTargetGroup += ColumnPanel_OnSetTargetGroup;
+
+            this.ColumnPanel.Changed += OnChanged;
 
             Style TextBoxStyle = new Style(typeof(TextBox));
             TextBoxStyle.Setters.Add(new EventSetter(UIElement.GotFocusEvent,new RoutedEventHandler(RangeTextBox_GotFocus)));
@@ -480,7 +482,6 @@ namespace Misp.Sourcing.AutomaticSourcingViews
                 if (SelectColumn != null && ColumnListBox.SelectedIndex >=0) SelectColumn(activeColumn, ColumnListBox.SelectedIndex);
                 if (this.AutomaticSourcingSheet == null) this.AutomaticSourcingSheet = activeColumn.parent;
                 List<object> listeToSend = this.AutomaticSourcingSheet.listColumnToDisplay.ToList<object>();
-                OnChanged();
             }
         }
 
@@ -495,7 +496,6 @@ namespace Misp.Sourcing.AutomaticSourcingViews
                  
                     RangeTextBox.Focus();
                 }
-                OnChanged();
             }
         }
 
@@ -505,7 +505,6 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             {
                 var state = ((CheckBox)sender).IsChecked.Value;
                 SetFirstRowAsHeader(state);
-                OnChanged();
             }
         }
 

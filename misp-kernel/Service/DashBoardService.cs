@@ -33,6 +33,10 @@ namespace Misp.Kernel.Service
         public static String RECONCILIATION_POSTINGS = "bankreconciliationpostings";
         public static String TRANSACTION_FILE_TYPES = "transactionfiletypes";
 
+		public static String AUTOMATIC_GRID = "automaticgrids";
+        public static String INPUT_GRID = "inputgrids";
+        public static String REPORT_GRID = "reportgrids";
+
         /// <summary>
         /// 
         /// </summary>

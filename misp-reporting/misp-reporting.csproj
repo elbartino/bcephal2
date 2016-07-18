@@ -117,6 +117,8 @@
       <DependentUpon>CalculatedMeasureOperationsGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Calculated Measure\OperationsGroup.cs" />
+    <Compile Include="ReportGrid\ReportGridBrowserController.cs" />
+    <Compile Include="ReportGrid\ReportGridEditorController.cs" />
     <Compile Include="Report\ReportBrowser.cs" />
     <Compile Include="Report\ReportBrowserController.cs" />
     <Compile Include="Report\ReportEditor.cs" />

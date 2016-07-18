@@ -1,0 +1,56 @@
+﻿<Grid x:Class="Misp.Sourcing.GridViews.GrilleFilterForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:src="clr-namespace:Misp.Sourcing.Table" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Background="White">
+    <Grid.RowDefinitions>
+        <RowDefinition x:Name="TargetPeriodFilter" Height="*"/>
+        <RowDefinition x:Name="ValidatePanel" Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition x:Name="Filter"  Width="*"/>
+        <ColumnDefinition x:Name="checketPanel" Width="Auto"/>
+    </Grid.ColumnDefinitions>
+
+    <GroupBox x:Name="filterGroupBox">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="TargetFilter" Height="*"/>
+                <RowDefinition x:Name="PeriodFilter" Height="*"/>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Row="0" Grid.Column="0" x:Name="targetFilterGroupBox" Header="Filter">
+                <src:TargetPanel  x:Name="targetFilter" x:FieldModifier="public" />
+            </GroupBox>
+            <GroupBox Grid.Row="1" Grid.Column="0" x:Name="periodfFilterGroupBox" Header="Period"  >
+                <src:RPeriodPanel x:Name="periodFilter" x:FieldModifier="public" />
+            </GroupBox>
+        </Grid>
+    </GroupBox>
+
+
+    <Grid Grid.Row="1" Grid.ColumnSpan = "2" x:Name="go" HorizontalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="clearFilter" Width="Auto"/>
+            <ColumnDefinition x:Name="validateFilter" Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="searchButton" x:FieldModifier="public" ToolTip="Apply filter" Margin="0 0 5 0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <DockPanel>
+                <Image Source="/bcephal;Component/Resources/Images/Icons/Check.png" Height="15"/>
+                <TextBlock VerticalAlignment="center">Search</TextBlock>
+            </DockPanel>
+        </Button>
+
+        <Button x:Name="resetButton" x:FieldModifier="public" ToolTip="Reset filter" Margin="5 0 0 0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <DockPanel>
+                <Image Source="/bcephal;Component/Resources/Images/Icons/Delete.png" Height="15"/>
+                <TextBlock VerticalAlignment="center">Reset</TextBlock>
+            </DockPanel>
+        </Button>
+
+
+    </Grid>
+</Grid>

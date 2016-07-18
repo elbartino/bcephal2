@@ -188,10 +188,18 @@
     <Compile Include="Application\ApplicationManagerBuilder.cs" />
     <Compile Include="Application\ApplicationMenusBuilder.cs" />
     <Compile Include="Domain\Account.cs" />
+    <Compile Include="Domain\AutomaticGridAction.cs" />
+    <Compile Include="Domain\AutomaticGridData.cs" />
+    <Compile Include="Domain\AutomaticSourcingColumnItem.cs" />
     <Compile Include="Domain\Browser\RoleBrowserData.cs" />
     <Compile Include="Domain\Browser\ProfilBrowserData.cs" />
     <Compile Include="Domain\Browser\UserBrowserData.cs" />
     <Compile Include="Domain\FunctionRight.cs" />
+    <Compile Include="Domain\Grille.cs" />
+    <Compile Include="Domain\GrilleColumn.cs" />
+    <Compile Include="Domain\GrilleEditedElement.cs" />
+    <Compile Include="Domain\GrilleFilter.cs" />
+    <Compile Include="Domain\GrillePage.cs" />
     <Compile Include="Domain\UserAction.cs" />
     <Compile Include="Domain\AllocationRunBrowserDataPage.cs" />
     <Compile Include="Domain\ApplcationConfiguration.cs" />
@@ -241,8 +249,10 @@
     <Compile Include="Domain\TableSaveIssue.cs" />
     <Compile Include="Domain\TransformationTree.cs" />
     <Compile Include="Domain\User.cs" />
+    <Compile Include="Service\AutomaticSourcingGridService.cs" />
     <Compile Include="Service\AutomaticTargetService.cs" />
     <Compile Include="Service\CombineTransformationTreeService.cs" />
+    <Compile Include="Service\InputGridService.cs" />
     <Compile Include="Service\UserService.cs" />
     <Compile Include="Service\RoleService.cs" />
     <Compile Include="Service\ProfilService.cs" />
@@ -570,6 +580,7 @@
     <Compile Include="Ui\TreeView\CombinedTransformationTreeTreeview.xaml.cs">
       <DependentUpon>CombinedTransformationTreeTreeview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\TreeView\GrilleTreeview.xaml.cs" />
     <Compile Include="Ui\TreeView\ProfilTreeview.xaml.cs">
       <DependentUpon>ProfilTreeview.xaml</DependentUpon>
     </Compile>
@@ -899,6 +910,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\TreeView\CombinedTransformationTreeTreeview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\TreeView\GrilleTreeview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

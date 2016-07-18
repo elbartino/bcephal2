@@ -246,7 +246,14 @@ namespace Misp.Kernel.Ui.Base
         public void displayPropertyBar(PropertyBar propertyBar)
         {
             GridLength w = rigthPanel.DockWidth;
-            rigthPanelGroup.Children.Clear();
+            if (rigthPanelGroup.Children.Count > 0)
+            {
+                try
+                {
+                    rigthPanelGroup.Children.Clear();
+                }
+                catch (Exception) { rigthPanelGroup.Children.Clear(); }
+            }
             if (PropertyBar != null) 
             {
                 w = PropertyBar.DockWidth;

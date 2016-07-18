@@ -1,0 +1,18 @@
+﻿<TabControl x:Class="Misp.Sourcing.InputGrid.InputGridForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:src="clr-namespace:Misp.Sourcing.GridViews" 
+             xmlns:base="clr-namespace:Misp.Sourcing.InputGrid"
+             mc:Ignorable="d" Background="White" TabStripPlacement="Bottom"
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <TabItem Header="Grid" Background="White" x:Name="AuditTabItem" x:FieldModifier="public">
+        <src:GrilleBrowserForm x:Name="GridForm"/>
+    </TabItem>
+    <TabItem Header="Configuration" Background="White" x:Name="ConfigurationTabItem" x:FieldModifier="public">
+        <base:InputGridSheetForm x:Name="InputGridSheetForm" />
+    </TabItem>
+    
+</TabControl>

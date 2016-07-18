@@ -59,7 +59,7 @@
         <GridSplitter Margin="0,10,0,10" Grid.Row="4" Height="2" Background="#FFBCBCBC"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom"  />
 
         <Grid Grid.Row="5" x:Name="typeGrid" x:FieldModifier="public" Margin="0,10,0,0">
-            <src:AutomaticSourcingColumnPanel x:Name="ColumnPanel"/>
+            <src:AutomaticSourcingColumnPanel x:Name="ColumnPanel" x:FieldModifier="public"/>
         </Grid>
 
     </Grid>

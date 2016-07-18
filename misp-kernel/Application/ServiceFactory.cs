@@ -30,7 +30,7 @@ namespace Misp.Kernel.Application
         private CalculatedMeasureService calculatedMeasureService;
         private ReconciliationService reconciliationService;
         private PostingService postingService;
-
+		private InputGridService inputGridService;
         private SecurityService securityService;
         private RoleService roleService;
         private UserService userService;
@@ -49,6 +49,25 @@ namespace Misp.Kernel.Application
         /// Gets or sets the ApplicationManager
         /// </summary>
         public ApplicationManager ApplicationManager { get; set; }
+
+		public InputGridService GetInputGridService()
+        {
+            if (inputGridService == null)
+            {
+                inputGridService = new InputGridService();
+                inputGridService.ResourcePath = ResourcePath.INPUT_GRID_RESOURCE_PATH;
+                inputGridService.SocketResourcePath = ResourcePath.SOCKET_GRID_RESOURCE_PATH;
+                inputGridService.FileService = GetFileService();
+                inputGridService.ModelService = GetModelService();
+                inputGridService.MeasureService = GetMeasureService();
+                inputGridService.PeriodicityService = GetPeriodicityService();
+                inputGridService.GroupService = GetGroupService();
+                inputGridService.CalculatedMeasureService = GetCalculatedMeasureService2();
+                inputGridService.PeriodNameService = GetPeriodNameService();
+                configureService(inputGridService);
+            }
+            return inputGridService;
+        }
 
         /// <summary>
         /// Gets InitiationService

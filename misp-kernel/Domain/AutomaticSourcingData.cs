@@ -18,6 +18,8 @@ namespace Misp.Kernel.Domain
         public bool hasDialogName { get; set; }
         public bool isLast { get; set; }
 
+        public AutomaticGridAction action { get; set; }
+
         public AutomaticSourcingData() { }
 
         public AutomaticSourcingData( int oid, String tablename, String excelfilepath) 

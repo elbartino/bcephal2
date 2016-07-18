@@ -28,6 +28,16 @@ namespace Misp.Kernel.Service
         public static string TARGET_RESOURCE_PATH               = SOURCING_RESOURCE_PATH + "/target";
         public static string AUTOMATIC_SOURCING_RESOURCE_PATH   = "/automatic";
         public static string SOCKET_AUTOMATIC_SOURCING_RESOURCE_PATH = ApplicationManager.Instance.ServerWebSocketUri + "automatic";
+
+        public static string AUTOMATIC_SOURCING_GRID_RESOURCE_PATH = "/automatic-grid";
+        public static string SOCKET_AUTOMATIC_SOURCING_GRID_RESOURCE_PATH = ApplicationManager.Instance.ServerWebSocketUri + "automatic-grid";
+
+        public static string GRID_RESOURCE_PATH = "/grid";
+        public static string INPUT_GRID_RESOURCE_PATH = "/input-grid";
+        public static string REPORT_GRID_RESOURCE_PATH = "/report-grid";
+        public static string SOCKET_GRID_RESOURCE_PATH = ApplicationManager.Instance.ServerWebSocketUri + "grid";
+
+
         public static string AUTOMATIC_TARGET_RESOURCE_PATH     = AUTOMATIC_SOURCING_RESOURCE_PATH + "/target";
         public static string UPLOAD_MULTIPE_FILES_RESOURCE_PATH = "/upload";
         public static string CLEAR_ALL_RESOURCE_PATH            = ALLOCATION_RESOURCE_PATH + "/clear_all";

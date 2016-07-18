@@ -10,6 +10,8 @@ using Misp.Reporting.Report;
 using Misp.Reporting.Calculated_Measure;
 using Misp.Reporting.Budget;
 using Misp.Reporting.StructuredReport;
+using Misp.Sourcing.InputGrid;
+using Misp.Reporting.ReportGrid;
 
 namespace Misp.Reporting.Base
 {
@@ -98,6 +100,26 @@ namespace Misp.Reporting.Base
                 exportBudgetController.Service = ((ReportingServiceFactory)ServiceFactory).GetReportService();
                 return exportBudgetController;
             }
+            if (fonctionality == ReportingFunctionalitiesCode.LIST_REPORT_GRID_FUNCTIONALITY)
+            {
+                ReportGridBrowserController controller = new ReportGridBrowserController();
+                controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                controller.Functionality = fonctionality;
+                controller.ApplicationManager = this.ApplicationManager;
+                controller.Service = ((ReportingServiceFactory)ServiceFactory).GetReportGridService();
+                return controller;
+            }
+
+            if (fonctionality == ReportingFunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY)
+            {
+                ReportGridEditorController controller = new ReportGridEditorController();
+                controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                controller.Functionality = fonctionality;
+                controller.ApplicationManager = this.ApplicationManager;
+                controller.Service = ((ReportingServiceFactory)ServiceFactory).GetReportGridService();
+                return controller;
+            }
+
             return null;
         }
 

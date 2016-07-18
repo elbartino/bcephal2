@@ -18,7 +18,7 @@ namespace Misp.Sourcing.AutomaticTargetViews
             this.AutomaticSourcingPanel.CustomizeForTarget();
         }
 
-        protected override bool isAutomaticTarget()
+        public override bool isAutomaticTarget()
         {
             return true;
         }

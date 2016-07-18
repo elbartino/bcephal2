@@ -31,6 +31,10 @@ namespace Misp.Reporting.Base
         public ApplicationMenu ListCalculatedMeasureMenu { get { return listCalculatedMeasureMenu; } }
         public ApplicationMenu ExportBudgetMenu { get { return exportBudgetMenu; } }
 
+        public ApplicationMenu NewReportGridMenu { get; private set; }
+        public ApplicationMenu ListReportGridMenu { get; private set; }
+        public ApplicationMenu GridMenu { get; private set; }
+
         /// <summary>
         /// Liste des sous menus
         /// </summary>
@@ -40,6 +44,10 @@ namespace Misp.Reporting.Base
             List<Control> menus = new List<Control>(0);
             menus.Add(NewReportMenu);
             menus.Add(ListReportMenu);
+            menus.Add(new Separator());
+            GridMenu.Items.Add(NewReportGridMenu);
+            GridMenu.Items.Add(ListReportGridMenu);
+            menus.Add(GridMenu);
             menus.Add(new Separator());
             menus.Add(NewStructuredReportMenu);
             menus.Add(ListStructuredReportMenu);
@@ -65,6 +73,12 @@ namespace Misp.Reporting.Base
             calculatedMeasureMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "New Calculated Measure", NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY));
             listCalculatedMeasureMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "List Calculated Measure", NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_CALCULATED_MEASURE_FUNCTIONALITY));
             exportBudgetMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "Export Budget", NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.EXPORT_BUDGET));
+
+            GridMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "Grid", null);
+
+            NewReportGridMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "New Report Grid", NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY));
+            ListReportGridMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "List Report Grid", NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_REPORT_GRID_FUNCTIONALITY));
+            
         }
 
     }

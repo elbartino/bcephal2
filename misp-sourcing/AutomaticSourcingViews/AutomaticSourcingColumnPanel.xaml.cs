@@ -170,6 +170,15 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             this.FormatComboBox.SelectionChanged +=OnFormatDateChanged;
             this.newTargetElement.OnSetTargetGroup += OnSetTargetGroupHandler;
             this.allocationPanel.Change += new ChangeEventHandler(OnChangePanel);
+
+            this.DefaultValuePanel.Changed += OnDefaultValueChanged;
+            this.ExcludedValuePanel.Changed += OnChanged;
+        }
+        
+        private void OnDefaultValueChanged()
+        {
+            this.AutomaticSourcingColumn.defaultValue = this.DefaultValuePanel.Item;
+            OnChanged();
         }
 
         private void OnSetTargetGroupHandler(string groupName)
@@ -270,8 +279,6 @@ namespace Misp.Sourcing.AutomaticSourcingViews
              
             }
        
-
-            OnChanged();
         }
 
         private void OnTargetTypeChanged(object sender, SelectionChangedEventArgs e)
@@ -290,11 +297,18 @@ namespace Misp.Sourcing.AutomaticSourcingViews
                     DisplayTargetColumnItems(this.AutomaticSourcingColumn, this.filterList);
                 }
             }
-            OnChanged();
        }
 
         private void OnChanged()
         {
+            if (this.AutomaticSourcingColumn.parent != null)
+            {
+                this.AutomaticSourcingColumn.parent.UpdateColumn(this.AutomaticSourcingColumn);
+                if (this.AutomaticSourcingColumn.parent.parent != null)
+                {
+                    this.AutomaticSourcingColumn.parent.parent.UpdateSheet(this.AutomaticSourcingColumn.parent);
+                }
+            }
             if (Changed != null && throwChange) Changed();
         }
 
@@ -511,6 +525,8 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
             if (this.AutomaticSourcingColumn != null)
             {
+                this.DefaultValuePanel.Display(this.AutomaticSourcingColumn.defaultValue);
+                this.ExcludedValuePanel.Display(this.AutomaticSourcingColumn);
                 string columnType = TypeComboBox.SelectedItem.ToString();
 
                 if (columnType != "" || this.AutomaticSourcingColumn.parameterType.ToString() != "")
@@ -566,6 +582,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         {
             HideControls(PeriodGrid, false);
             TypeComboBox.SelectedItem = Kernel.Application.ParameterType.PERIOD.ToString();
+            PeriodNameTextBox.Text = automaticSourcingColumn.periodName;
             FormatComboBox.SelectionChanged -= OnFormatDateChanged;
             FormatComboBox.SelectedItem = automaticSourcingColumn.dateFormat;
         }

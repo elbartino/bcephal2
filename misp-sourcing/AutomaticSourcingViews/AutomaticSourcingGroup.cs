@@ -37,6 +37,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             this.ContentPanel.Children.Add(this.AutomaticSourcingTreeview);
         }
 
+
         #endregion
 
     }

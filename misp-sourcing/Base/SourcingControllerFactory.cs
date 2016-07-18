@@ -11,6 +11,8 @@ using Misp.Sourcing.AutomaticSourcingViews;
 using Misp.Sourcing.CustomizedTarget;
 using Misp.Sourcing.MultipleFilesUpload;
 using Misp.Sourcing.AutomaticTargetViews;
+using Misp.Sourcing.GridViews;
+using Misp.Sourcing.InputGrid;
 
 namespace Misp.Sourcing.Base
 {
@@ -110,6 +112,47 @@ namespace Misp.Sourcing.Base
                 automaticSourcingController.ApplicationManager = this.ApplicationManager;
                 automaticSourcingController.Service = ((SourcingServiceFactory)ServiceFactory).GetAutomaticSourcingService();
                 return automaticSourcingController;
+            }
+
+            if (fonctionality == SourcingFunctionalitiesCode.LIST_INPUT_GRID_FUNCTIONALITY)
+            {
+                InputGridBrowserController controller = new InputGridBrowserController();
+                controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                controller.Functionality = fonctionality;
+                controller.ApplicationManager = this.ApplicationManager;
+                controller.Service = ((SourcingServiceFactory)ServiceFactory).GetInputGridService();
+                return controller;
+            }
+
+            if (fonctionality == SourcingFunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY)
+            {
+                InputGridEditorController controller = new InputGridEditorController();
+                controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                controller.Functionality = fonctionality;
+                controller.ApplicationManager = this.ApplicationManager;
+                controller.Service = ((SourcingServiceFactory)ServiceFactory).GetInputGridService();
+                return controller;
+            }
+            
+            if (fonctionality == SourcingFunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY)
+            {
+                AutomaticSourcingGridEditorController automaticSourcingGridController = new AutomaticSourcingGridEditorController();
+                automaticSourcingGridController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                automaticSourcingGridController.Functionality = fonctionality;
+                automaticSourcingGridController.ApplicationManager = this.ApplicationManager;
+                automaticSourcingGridController.Service = ((SourcingServiceFactory)ServiceFactory).GetAutomaticSourcingGridService();
+                automaticSourcingGridController.InputTableService = ((SourcingServiceFactory)ServiceFactory).GetInputTableService();
+                return automaticSourcingGridController;
+            }
+
+            if (fonctionality == SourcingFunctionalitiesCode.LIST_AUTOMATIC_GRID_FUNCTIONALITY)
+            {
+                AutomaticSourcingGridBrowerController automaticSourcingGridBrowerController = new AutomaticSourcingGridBrowerController();
+                automaticSourcingGridBrowerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                automaticSourcingGridBrowerController.Functionality = fonctionality;
+                automaticSourcingGridBrowerController.ApplicationManager = this.ApplicationManager;
+                automaticSourcingGridBrowerController.Service = ((SourcingServiceFactory)ServiceFactory).GetAutomaticSourcingGridService();
+                return automaticSourcingGridBrowerController;
             }
 
             if (fonctionality == SourcingFunctionalitiesCode.NEW_AUTOMATIC_TARGET_FUNCTIONALITY)

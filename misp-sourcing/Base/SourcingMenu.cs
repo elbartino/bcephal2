@@ -28,6 +28,12 @@ namespace Misp.Sourcing.Base
         public ApplicationMenu AutomaticSourcingMenu { get; private set; }
         public ApplicationMenu ListAutomaticSourcingMenu { get; private set; }
 
+        public ApplicationMenu GridMenu { get; private set; }
+        public ApplicationMenu NewInputGridMenu { get; private set; }
+        public ApplicationMenu NewAutomaticGridMenu { get; private set; }
+        public ApplicationMenu ListAutomaticGridMenu { get; private set; }
+        public ApplicationMenu ListInputGridMenu { get; private set; }
+
         public ApplicationMenu UploadMultipleFileSourcingMenu { get; private set; }
      
 
@@ -41,6 +47,13 @@ namespace Misp.Sourcing.Base
             List<Control> menus = new List<Control>(0);
             menus.Add(NewInputTableMenu);
             menus.Add(ListInputTableMenu);
+            menus.Add(new Separator());
+            GridMenu.Items.Add(NewInputGridMenu);
+            GridMenu.Items.Add(ListInputGridMenu);
+            GridMenu.Items.Add(new Separator());
+            GridMenu.Items.Add(NewAutomaticGridMenu);
+            GridMenu.Items.Add(ListAutomaticGridMenu);
+            menus.Add(GridMenu);
             menus.Add(new Separator());
             menus.Add(NewTargetMenu);
             menus.Add(ListTargetMenu);
@@ -68,6 +81,14 @@ namespace Misp.Sourcing.Base
             NewInputTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, "New Input Table", NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.NEW_INPUT_TABLE_FUNCTIONALITY));
             ListInputTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, "List Input Tables", NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.LIST_INPUT_TABLE_FUNCTIONALITY));
 
+            GridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, "Grid", null);
+
+            NewInputGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, "New Input Grid", NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY));
+            ListInputGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, "List Input Grid", NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.LIST_INPUT_GRID_FUNCTIONALITY));
+            
+            NewAutomaticGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, "New Automatic Grid", NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY));
+            ListAutomaticGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, "List Automatic Grid", NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.LIST_AUTOMATIC_GRID_FUNCTIONALITY));
+            
             NewTargetMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, "New Target", NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.NEW_TARGET_FUNCTIONALITY));
             ListTargetMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, "List Targets", NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.LIST_TARGET_FUNCTIONALITY));
 
@@ -82,6 +103,8 @@ namespace Misp.Sourcing.Base
             ListAutomaticSourcingMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, "List Automatic Sourcing", NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.LIST_AUTOMATIC_SOURCING));
             
             UploadMultipleFileSourcingMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, "Upload Multiple Files", NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.UPLOAD_MULTIPLE_FILES));
+
+
 
         }
 

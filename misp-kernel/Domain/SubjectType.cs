@@ -39,6 +39,14 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType AUTOMATIC_TARGET = new SubjectType("Automatic Target");
 
+        public static SubjectType AUTOMATIC_GRID = new SubjectType("Automatic Grid");
+
+        public static SubjectType GRID = new SubjectType("Grid");
+
+        public static SubjectType INPUT_GRID = new SubjectType("Input Grid");
+
+        public static SubjectType REPORT_GRID = new SubjectType("Report Grid");
+
         public static SubjectType RECONCILIATION = new SubjectType("Reconciliation");
 
         public static SubjectType USER = new SubjectType("User");
@@ -79,11 +87,15 @@ namespace Misp.Kernel.Domain
             if (RECONCILIATION.label.Equals(label)) return RECONCILIATION;
             if (COMBINED_TRANSFORMATION_TREE.label.Equals(label)) return COMBINED_TRANSFORMATION_TREE;
             if (AUTOMATIC_TARGET.label.Equals(label)) return AUTOMATIC_TARGET;
+            if (AUTOMATIC_GRID.label.Equals(label)) return AUTOMATIC_GRID;
             if (GROUP.label.Equals(label)) return GROUP;
             if (USER.label.Equals(label)) return USER;
             if (PROFIL.label.Equals(label)) return PROFIL;
             if (ROLE.label.Equals(label)) return ROLE;
             if (ALL.label.Equals(label)) return ALL;
+            if (GRID.label.Equals(label)) return GRID;
+            if (INPUT_GRID.label.Equals(label)) return INPUT_GRID;
+            if (REPORT_GRID.label.Equals(label)) return REPORT_GRID;
             return null;
         }
 
@@ -106,6 +118,10 @@ namespace Misp.Kernel.Domain
             types.Add(TARGET);
             types.Add(STRUCTURED_REPORT);
             types.Add(TRANSFORMATION_TREE);
+			types.Add(AUTOMATIC_GRID);
+            types.Add(GRID);
+            types.Add(INPUT_GRID);
+            types.Add(REPORT_GRID);
             types.Add(RECONCILIATION);
             types.Add(USER);
             types.Add(PROFIL);

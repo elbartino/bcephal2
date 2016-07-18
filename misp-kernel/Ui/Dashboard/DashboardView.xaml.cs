@@ -45,6 +45,9 @@ namespace Misp.Kernel.Ui.Dashboard
         public DashboardBlock ReconciliationFilterBlock { get; set; }
         //public DashboardBlock ReconciliationPostingBlock { get; set; }
         //public DashboardBlock TransactionFileTypeBlock { get; set; }
+		public DashboardBlock AutomaticGridBlock { get; set; }
+		public DashboardBlock InputGridBlock { get; set; }
+        public DashboardBlock ReportGridBlock { get; set; }
 
         public DashboardView()
         {
@@ -221,7 +224,11 @@ namespace Misp.Kernel.Ui.Dashboard
             this.DesignBlock = buildBlock("Designs", "New Design", "Recent Designs", FunctionalitiesCode.NEW_DESIGN_FUNCTIONALITY);
             this.CalculatedMeasureBlock = buildBlock("Calculated Measures", "New Calculated Measure", "Recent Calculated Measures", FunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY);
             this.AutomaticUploadBlock = buildBlock("Automatic Uploads", "New Automatic Upload", "Recent Automatic Uploads", FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY);
-            if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
+            this.InputGridBlock = buildBlock("Input Grid", "New Input Grid", "Recent Input Grids", FunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY);
+            this.ReportGridBlock = buildBlock("Report Grid", "New Report Grid", "Recent Report Grids", FunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY);
+            this.AutomaticGridBlock = buildBlock("Automatic Grid", "New Automatic Grid", "Recent Automatic Grids", FunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY);
+            
+			if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
                 this.ReconciliationFilterBlock = buildBlock("Reconciliation Filters", "Reconciliation Filter", "Recent Reconciliation Filters", FunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY);
             
             Dictionary<string, object> dico = new Dictionary<string, object>(0);
@@ -235,6 +242,9 @@ namespace Misp.Kernel.Ui.Dashboard
             dico.Add(this.StructuredReportBlock.TitleLabel.Content.ToString(), this.StructuredReportBlock);
             dico.Add(this.TargetBlock.TitleLabel.Content.ToString(), this.TargetBlock);
             dico.Add(this.TreeBlock.TitleLabel.Content.ToString(), this.TreeBlock);
+            dico.Add(this.AutomaticGridBlock.TitleLabel.Content.ToString(), this.AutomaticGridBlock);
+            dico.Add(this.InputGridBlock.TitleLabel.Content.ToString(), this.InputGridBlock);
+            dico.Add(this.ReportGridBlock.TitleLabel.Content.ToString(), this.ReportGridBlock);
             if (this.ReconciliationFilterBlock != null)
                 dico.Add(this.ReconciliationFilterBlock.TitleLabel.Content.ToString(), this.TreeBlock);
             
@@ -333,7 +343,8 @@ namespace Misp.Kernel.Ui.Dashboard
                 block.contextMenu.Items.Add(block.OrderByMenuItem);
                 block.contextMenu.Items.Add(block.ConfigurationMenuItem);
             }
-            else if (newFunctionCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY))
+            else if (newFunctionCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY)
+                || newFunctionCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY))
             {
                 block.contextMenu.Items.Add(block.NewMenuItem);
                 block.contextMenu.Items.Add(block.OpenMenuItem);
@@ -348,7 +359,9 @@ namespace Misp.Kernel.Ui.Dashboard
             }
             else if (newFunctionCode.Equals(FunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY)
                 || newFunctionCode.Equals(FunctionalitiesCode.NEW_DESIGN_FUNCTIONALITY)
-                || newFunctionCode.Equals(FunctionalitiesCode.NEW_TARGET_FUNCTIONALITY))
+                || newFunctionCode.Equals(FunctionalitiesCode.NEW_TARGET_FUNCTIONALITY)
+                || newFunctionCode.Equals(FunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY)
+                || newFunctionCode.Equals(FunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY))
             {
                 block.contextMenu.Items.Add(block.NewMenuItem);
                 block.contextMenu.Items.Add(block.OpenMenuItem);
@@ -390,6 +403,9 @@ namespace Misp.Kernel.Ui.Dashboard
             if (this.AutomaticUploadBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticUploadBlock;
             if (this.CalculatedMeasureBlock.TitleLabel.Content.Equals(configuration.name)) return this.CalculatedMeasureBlock;
             if (this.ReconciliationFilterBlock != null && this.ReconciliationFilterBlock.TitleLabel.Content.Equals(configuration.name)) return this.ReconciliationFilterBlock;
+            if (this.InputGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.InputGridBlock;
+            if (this.ReportGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.ReportGridBlock;
+            if (this.AutomaticGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticGridBlock;
             return null;
         }
 
@@ -454,6 +470,9 @@ namespace Misp.Kernel.Ui.Dashboard
             if (name.Equals(this.DesignBlock.TitleLabel.Content)) return this.DesignBlock;
             if (name.Equals(this.CalculatedMeasureBlock.TitleLabel.Content)) return this.CalculatedMeasureBlock;
             if (name.Equals(this.AutomaticUploadBlock.TitleLabel.Content)) return this.AutomaticUploadBlock;
+            if (name.Equals(this.InputGridBlock.TitleLabel.Content)) return this.InputGridBlock;
+            if (name.Equals(this.ReportGridBlock.TitleLabel.Content)) return this.ReportGridBlock;
+            if (name.Equals(this.AutomaticGridBlock.TitleLabel.Content)) return this.AutomaticGridBlock;
             if (this.ReconciliationFilterBlock != null && name.Equals(this.ReconciliationFilterBlock.TitleLabel.Content)) return this.ReconciliationFilterBlock;
             return null;
         }

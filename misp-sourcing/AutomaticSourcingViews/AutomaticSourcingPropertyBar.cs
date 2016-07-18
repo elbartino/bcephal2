@@ -17,10 +17,24 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
         public static bool isAutomaticTarget { get; set; }
 
+        public static bool isAutomaticGrid { get; set; }
+
         protected override void UserInitialisation()
         {
             this.AutomaticSourcingLayoutAnchorable = new LayoutAnchorable();
-            this.AutomaticSourcingLayoutAnchorable.Title = isAutomaticTarget ? "Automatic Target Properties" :  "Automatic Sourcing Properties";
+            if (isAutomaticGrid) 
+            {
+                this.AutomaticSourcingLayoutAnchorable.Title = "Automatic Grid Properties";
+            }
+            else if (isAutomaticTarget)
+            {
+                this.AutomaticSourcingLayoutAnchorable.Title = "Automatic Target Properties";
+            }
+            else
+            {
+                this.AutomaticSourcingLayoutAnchorable.Title = "Automatic Sourcing Properties";
+            }
+            
             this.AutomaticSourcingLayoutAnchorable.CanClose = false;
             this.AutomaticSourcingLayoutAnchorable.CanFloat = false;
             this.AutomaticSourcingLayoutAnchorable.CanAutoHide = false;
@@ -28,7 +42,8 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
             Pane = new LayoutAnchorablePane();
             Pane.Children.Add(AutomaticSourcingLayoutAnchorable);
-            if (!isAutomaticTarget)
+            bool AddTablePanel = isAutomaticGrid || isAutomaticTarget;
+            if (!AddTablePanel)
             {
                 this.AutomaticTablePropertiesLayoutAnchorable = new LayoutAnchorable();
                 this.AutomaticTablePropertiesLayoutAnchorable.Title = "Table Properties";

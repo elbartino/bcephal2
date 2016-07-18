@@ -23,7 +23,11 @@ namespace Misp.Kernel.Domain
 
         public TargetType targetType{ get; set; }
 
+        public AutomaticSourcingColumnItem defaultValue { get; set; }
+
         public PersistentListChangeHandler<ColumnTargetItem> columnTargetItemListChangeHandler { get; set; }
+
+        public PersistentListChangeHandler<AutomaticSourcingColumnItem> excludedItemListChangeHandler { get; set; }
         
         [ScriptIgnore]
         public AutomaticSourcingSheet parent { get; set; }
@@ -100,6 +104,7 @@ namespace Misp.Kernel.Domain
         public AutomaticSourcingColumn()
         {
             this.columnTargetItemListChangeHandler = new PersistentListChangeHandler<ColumnTargetItem>();
+            this.excludedItemListChangeHandler = new PersistentListChangeHandler<AutomaticSourcingColumnItem>();
         }
 
         public AutomaticSourcingColumn(int _position,string _name = "") 
@@ -107,6 +112,7 @@ namespace Misp.Kernel.Domain
             this.Name = _name;
             this.columnIndex = _position;
             this.columnTargetItemListChangeHandler = new PersistentListChangeHandler<ColumnTargetItem>();
+            this.excludedItemListChangeHandler = new PersistentListChangeHandler<AutomaticSourcingColumnItem>();
         }
 
         public void RestoreDefault() 
@@ -236,6 +242,67 @@ namespace Misp.Kernel.Domain
             columnTargetItemListChangeHandler.forget(columnTargetItem);
             OnPropertyChanged("columnTargetItemListChangeHandler.Items");
         }
+
+
+
+        /// <summary>
+        /// Rajoute un Sheet
+        /// </summary>
+        /// <param name="cell"></param>
+        public void AddExcludedColumnItem(AutomaticSourcingColumnItem columnItem, bool sort = true)
+        {
+            excludedItemListChangeHandler.AddNew(columnItem, sort);
+            OnPropertyChanged("excludedItemListChangeHandler.Items");
+        }
+
+        /// <summary>
+        /// Met à jour un Sheet
+        /// </summary>
+        /// <param name="cell"></param>
+        public void UpdateExcludedColumnItem(AutomaticSourcingColumnItem columnItem, bool sort = true)
+        {
+            excludedItemListChangeHandler.AddUpdated(columnItem, sort);
+            OnPropertyChanged("excludedItemListChangeHandler.Items");
+        }
+
+        /// <summary>
+        /// Retire un Sheet
+        /// </summary>
+        /// <param name="cell"></param>
+        public void RemoveExcludedColumnItem(AutomaticSourcingColumnItem columnItem, bool sort = true)
+        {
+            excludedItemListChangeHandler.AddDeleted(columnItem, sort);
+            foreach (AutomaticSourcingColumnItem child in excludedItemListChangeHandler.Items)
+            {
+                if (child.position > columnItem.position)
+                {
+                    child.position = child.position - 1;
+                    child.isModified = true;
+                    excludedItemListChangeHandler.AddUpdated(child, false);
+                }
+            }
+            OnPropertyChanged("excludedItemListChangeHandler.Items");
+        }
+
+        /// <summary>
+        /// Oublier un Sheet
+        /// </summary>
+        /// <param name="cell"></param>
+        public void ForgetExcludedColumnItem(AutomaticSourcingColumnItem columnItem, bool sort = true)
+        {
+            excludedItemListChangeHandler.forget(columnItem, sort);
+            foreach (AutomaticSourcingColumnItem child in excludedItemListChangeHandler.Items)
+            {
+                if (child.position > columnItem.position)
+                {
+                    child.position = child.position - 1;
+                    child.isModified = true;
+                    excludedItemListChangeHandler.AddUpdated(child, false);
+                }
+            }
+            OnPropertyChanged("excludedItemListChangeHandler.Items");
+        }
+
 
         public override int CompareTo(object obj)
         {

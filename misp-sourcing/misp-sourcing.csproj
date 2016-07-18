@@ -116,11 +116,17 @@
     </Compile>
     <Compile Include="AutomaticSourcingViews\AutomaticTablePropertiesPanel.xaml.cs" />
     <Compile Include="AutomaticSourcingViews\AutomaticSourcingToolBar.cs" />
+    <Compile Include="AutomaticSourcingViews\ColumItemPanel.xaml.cs">
+      <DependentUpon>ColumItemPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AutomaticSourcingViews\ColumnsItems.xaml.cs">
       <DependentUpon>ColumnsItems.xaml</DependentUpon>
     </Compile>
     <Compile Include="AutomaticSourcingViews\ColumnsItemsPanel.xaml.cs">
       <DependentUpon>ColumnsItemsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AutomaticSourcingViews\ExcludedColumnItemPanel.xaml.cs">
+      <DependentUpon>ExcludedColumnItemPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="AutomaticSourcingViews\MeasureType.xaml.cs">
       <DependentUpon>MeasureType.xaml</DependentUpon>
@@ -184,6 +190,27 @@
     <Compile Include="Designer\LineItemField.xaml.cs">
       <DependentUpon>LineItemField.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GridViews\AutomaticSourcingGridBrowerController.cs" />
+    <Compile Include="GridViews\AutomaticSourcingGridBrowser.cs" />
+    <Compile Include="GridViews\AutomaticSourcingGridEditorController.cs" />
+    <Compile Include="GridViews\GridBrowser.cs" />
+    <Compile Include="GridViews\GridBrowserToolbar.xaml.cs" />
+    <Compile Include="GridViews\GridItem.cs" />
+    <Compile Include="GridViews\GrilleBrowserForm.xaml.cs" />
+    <Compile Include="GridViews\GrilleFilterForm.xaml.cs" />
+    <Compile Include="GridViews\GrilleGroup.cs" />
+    <Compile Include="InputGrid\InputGridBrowser.cs" />
+    <Compile Include="InputGrid\InputGridBrowserController.cs" />
+    <Compile Include="InputGrid\InputGridColumnForm.xaml.cs" />
+    <Compile Include="InputGrid\InputGridEditor.cs" />
+    <Compile Include="InputGrid\InputGridEditorController.cs" />
+    <Compile Include="InputGrid\InputGridEditorItem.cs" />
+    <Compile Include="InputGrid\InputGridForm.xaml.cs" />
+    <Compile Include="InputGrid\InputGridPropertiesPanel.xaml.cs" />
+    <Compile Include="InputGrid\InputGridPropertyBar.cs" />
+    <Compile Include="InputGrid\InputGridSheetForm.cs" />
+    <Compile Include="InputGrid\InputGridSideBar.cs" />
+    <Compile Include="InputGrid\InputGridToolBar.cs" />
     <Compile Include="MultipleFilesUpload\Step1.xaml.cs" />
     <Compile Include="MultipleFilesUpload\Step2.xaml.cs" />
     <Compile Include="MultipleFilesUpload\Step3.xaml.cs" />
@@ -317,6 +344,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="AutomaticSourcingViews\ColumItemPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AutomaticSourcingViews\ColumnsItems.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -324,6 +355,10 @@
     <Page Include="AutomaticSourcingViews\ColumnsItemsPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AutomaticSourcingViews\ExcludedColumnItemPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="AutomaticSourcingViews\MeasureType.xaml">
       <SubType>Designer</SubType>
@@ -352,6 +387,30 @@
     <Page Include="Designer\LineItemField.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GridViews\GridBrowserToolbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GridViews\GrilleBrowserForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GridViews\GrilleFilterForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InputGrid\InputGridColumnForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InputGrid\InputGridForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InputGrid\InputGridPropertiesPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MultipleFilesUpload\Step1.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -497,6 +556,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

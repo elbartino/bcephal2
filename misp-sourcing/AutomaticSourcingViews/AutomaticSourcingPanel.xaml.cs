@@ -127,6 +127,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             this.SheetPanel.OnAllocationPanelChange +=AutomaticSourcingSheetPanel_OnAllocationPanelChange;
             this.SheetPanel.OnSetTargetGroup +=SheetPanel_OnSetTargetGroup;
 
+            this.SheetPanel.Changed += OnChanged;
         }
 
         private void SheetPanel_OnSetTargetGroup(string groupName)

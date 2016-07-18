@@ -147,11 +147,15 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
         #region Methods
 
-        protected virtual bool isAutomaticTarget()
+        public virtual bool isAutomaticTarget()
         {
             return false;
         }
 
+        public virtual bool isGrid()
+        {
+            return false;
+        }
 
         /// <summary>
         /// 

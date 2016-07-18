@@ -21,8 +21,13 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             return 5;
         }
 
+        protected virtual bool isAutomaticGrid()
+        {
+            return false;
+        }
+
         protected override string getTitle() {
-            return "Automatic Sourcing"; 
+            return  isAutomaticGrid() ? "Automatic Grid" : "Automatic Sourcing"; 
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using RestSharp;
+using Misp.Kernel.Domain.Browser;
 
 namespace Misp.Kernel.Service
 {
@@ -340,34 +341,53 @@ namespace Misp.Kernel.Service
                 throw new BcephalException("Unable to Return targetAll.", e);
             }
         }
+
+        public List<Kernel.Domain.AttributeValue> getAttributeValuesByPage(int attributeOid, int currentPage, int attributePageSize)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/valuesbyattributeandpage/" + attributeOid + "/" + currentPage + "/" + attributePageSize, Method.POST);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                List<Kernel.Domain.AttributeValue> models = RestSharp.SimpleJson.DeserializeObject<List<Kernel.Domain.AttributeValue>>(queryResult.Content);
+                return models;
+            }
+            catch (Exception e)
+            {
+                throw new BcephalException("Unable to Return attributeValues.", e);
+            }
+        }
+
+        public Kernel.Domain.Attribute getAttributeWithPaginateValues(int attributeOid, int currentPage, int attributePageSize)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/attribute-page-values/" + attributeOid + "/" + currentPage + "/" + attributePageSize, Method.POST);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                Kernel.Domain.Attribute model = RestSharp.SimpleJson.DeserializeObject<Kernel.Domain.Attribute>(queryResult.Content);
+                return model;
+            }
+            catch (Exception e)
+            {
+                throw new BcephalException("Unable to Return attributeValues.", e);
+            }
+        }
+
+
+        public List<BrowserData> getLeafAttributeValues(int attributeOid)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/leaf-attribute-values/" + attributeOid, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                List<BrowserData> values = RestSharp.SimpleJson.DeserializeObject<List<BrowserData>>(queryResult.Content);
+                return values;
+            }
+            catch (Exception e)
+            {
+                throw new BcephalException("Unable to Return attributeValues.", e);
+            }
+        }
+
+
     }
-
-    //public bool isTargetUseAllocation(Kernel.Domain.Target target)
-    //    {
-    //        try
-    //        {
-    //            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-    //            var request = new RestRequest(ResourcePath + "/useallocation", Method.POST);
-    //            request.RequestFormat = DataFormat.Json;
-    //            string json = serializer.Serialize(measure);
-    //            request.AddParameter("application/json", json, ParameterType.RequestBody);
-    //            RestResponse queryResult = (RestResponse)RestClient.Execute(request);
-
-    //            try
-    //            {
-    //                bool isUseallocation = RestSharp.SimpleJson.DeserializeObject<bool>(queryResult.Content);
-    //                return isUseallocation;
-    //            }
-    //            catch (Exception)
-    //            {
-    //                return true;
-    //            }
-    //        }
-    //        catch (Exception e)
-    //        {
-    //            throw new BcephalException("Unable to verify measure in allocations ", e);
-    //        }
-    //    }
-
-    //}
 }

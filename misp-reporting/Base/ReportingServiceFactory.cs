@@ -16,6 +16,7 @@ namespace Misp.Reporting.Base
         private ReportService reportService;
         private StructuredReportService structuredReportService;
         public CalculatedMeasureService calculatedMeasureService { get; set; }
+        private InputGridService reportGridService;
 
         /// <summary>
         /// Build a new instance of InitiationServiceFactory.
@@ -75,7 +76,24 @@ namespace Misp.Reporting.Base
             return structuredReportService;
         }
 
-              
+        public InputGridService GetReportGridService()
+        {
+            if (reportGridService == null)
+            {
+                reportGridService = new InputGridService();
+                reportGridService.ResourcePath = ResourcePath.REPORT_GRID_RESOURCE_PATH;
+                reportGridService.SocketResourcePath = ResourcePath.SOCKET_GRID_RESOURCE_PATH;
+                reportGridService.FileService = GetFileService();
+                reportGridService.ModelService = GetModelService();
+                reportGridService.MeasureService = GetMeasureService();
+                reportGridService.PeriodicityService = GetPeriodicityService();
+                reportGridService.GroupService = GetGroupService();
+                reportGridService.CalculatedMeasureService = GetCalculatedMeasureService2();
+                reportGridService.PeriodNameService = GetPeriodNameService();
+                configureService(reportGridService);
+            }
+            return reportGridService;
+        }      
      
     }
 }

@@ -40,6 +40,16 @@ namespace Misp.Sourcing.Base
             return false;
         }
 
+        public virtual bool isAutomaticGrid()
+        {
+            return false;
+        }
+
+        public virtual bool isGrid()
+        {
+            return false;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -53,7 +63,7 @@ namespace Misp.Sourcing.Base
         /// Service pour acceder aux opérations liés à l'automaticSourcing.
         /// </summary>
         /// <returns>DesignService</returns>
-        public AutomaticSourcingService GetAutomaticSourcingService()
+        public virtual AutomaticSourcingService GetAutomaticSourcingService()
         {
             return (AutomaticSourcingService)base.Service;
         }
@@ -91,6 +101,7 @@ namespace Misp.Sourcing.Base
         protected override Kernel.Ui.Base.PropertyBar getNewPropertyBar()
         {
             AutomaticSourcingPropertyBar.isAutomaticTarget = isAutomaticTarget();
+            AutomaticSourcingPropertyBar.isAutomaticGrid = isAutomaticGrid();
             return new AutomaticSourcingPropertyBar();
         }
 
@@ -168,7 +179,9 @@ namespace Misp.Sourcing.Base
             editorPage.getAutomaticSourcingForm().AutomaticSourcingPanel.SelectRangeOption += OnSelectRange;
             editorPage.getAutomaticSourcingForm().AutomaticSourcingPanel.SetFirstRowAsHeader += OnSetFirtRowAsHeader;
             editorPage.getAutomaticSourcingForm().AutomaticSourcingPanel.OnSelectColumn += OnSelectColumn;
-            
+
+            editorPage.getAutomaticSourcingForm().AutomaticSourcingPanel.Changed += OnChanged;
+
             if (isAutomaticTarget())
             {
                 editorPage.getAutomaticSourcingForm().AutomaticSourcingPanel.OnSelectTarget += OnSelectTarget;
@@ -195,14 +208,14 @@ namespace Misp.Sourcing.Base
             editorPage.getAutomaticSourcingForm().AutomaticTablePropertiesPanel.groupGroupField.GroupService = GetAutomaticSourcingService().GroupService;
             editorPage.getAutomaticSourcingForm().AutomaticTablePropertiesPanel.groupGroupField.subjectType = Misp.Kernel.Domain.SubjectType.INPUT_TABLE;
             editorPage.getAutomaticSourcingForm().AutomaticTablePropertiesPanel.groupGroupField.Changed += onTableGroupFieldChange;
-
+            
             editorPage.getAutomaticSourcingForm().AutomaticTablePropertiesPanel.periodPanel.ItemChanged += OnTablePeriodChange;
             editorPage.getAutomaticSourcingForm().AutomaticTablePropertiesPanel.periodPanel.ItemDeleted += OnTablePeriodDelete;
             editorPage.getAutomaticSourcingForm().AutomaticTablePropertiesPanel.periodPanel.PeriodHyperlink.RequestNavigate += OnNewPeriodName;
 
             editorPage.getAutomaticSourcingForm().AutomaticTablePropertiesPanel.filterScopePanel.ItemChanged += OnFilterChange;
             editorPage.getAutomaticSourcingForm().AutomaticTablePropertiesPanel.filterScopePanel.ItemDeleted += OnFilterDelete;
-
+            
             if (editorPage.getAutomaticSourcingForm().SpreadSheet != null)
             {
                 editorPage.getAutomaticSourcingForm().SpreadSheet.SelectionChanged += OnSpreadSheetSelectionChanged;
@@ -352,7 +365,7 @@ namespace Misp.Sourcing.Base
                 OnChange();
             }
         }
-
+        
         private void OnFilterDelete(object item)
         {
             if (item == null || !(item is TargetItem)) return;
@@ -424,6 +437,8 @@ namespace Misp.Sourcing.Base
 
                 PeriodName rootPeriodName = GetAutomaticSourcingService().PeriodNameService.getRootPeriodName();
                 ((AutomaticSourcingSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
+
+               
             }
             BGroup group = GetAutomaticSourcingService().GroupService.getDefaultGroup();
         }
@@ -455,27 +470,106 @@ namespace Misp.Sourcing.Base
             ((AutomaticSourcingSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += SidebarMeasureSelected;
             ((AutomaticSourcingSideBar)SideBar).EntityGroup.EntityTreeview.SelectionChanged += SidebarTargetSelected;
             ((AutomaticSourcingSideBar)SideBar).EntityGroup.EntityTreeview.ExpandAttribute += OnExpandAttribute;
+//            ((AutomaticSourcingSideBar)SideBar).EntityGroup.EntityTreeview.ShowMoreValues += OnShowMoreVAlues;
+            ((AutomaticSourcingSideBar)SideBar).EntityGroup.EntityTreeview.OnRightClick += onRightClickFromSidebar;
             ((AutomaticSourcingSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += SidebarPeriodNameSelected;
         }
+
+        private void onRightClickFromSidebar(object sender)
+        {
+            if (sender != null && sender is Kernel.Ui.Popup.EntityPopup)
+            {
+                Kernel.Ui.Popup.EntityPopup popup = (Kernel.Ui.Popup.EntityPopup)sender;
+                popup.OnValidate += OnValidate;
+                Kernel.Domain.Attribute attribute = null;
+
+                if (popup.Tag is Kernel.Domain.Attribute)
+                {
+                    attribute = (Kernel.Domain.Attribute)popup.Tag;
+                    popup.selectedItem.Clear();
+                    popup.selectedNames.Clear();
+
+
+                    popup.ItemSource.Clear();
+                    List<Kernel.Domain.AttributeValue> values = GetAutomaticSourcingService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
+                    values.BubbleSortByName();
+                    popup.ItemSource.AddRange(values);
+                    popup.selectedItem.AddRange(attribute.FilterAttributeValues);
+                    popup.FillSelectedNames();
+                    popup.Tag = attribute;
+                }
+                //else if (popup.Tag is Kernel.Domain.AttributeValue) 
+                //{
+                //    popup.IsChildren = true;
+                //    Kernel.Domain.AttributeValue value = (Kernel.Domain.AttributeValue)popup.Tag;
+                //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
+                //    popup.Tag = value;
+                //}
+                popup.IsOpen = true;
+                popup.Display();
+            }
+        }
+
+        private void OnValidate(object sender)
+        {
+            if (sender == null) return;
+            if (!(sender is Array)) return;
+            object[] senderArray = (object[])sender;
+            bool isAttribute;
+            Kernel.Domain.Attribute attribute = null;
+            Kernel.Domain.AttributeValue value = null;
+            List<Kernel.Domain.AttributeValue> listValues = new List<AttributeValue>(0);
+
+            isAttribute = senderArray[1] is Kernel.Domain.Attribute;
+            if (senderArray[0] is IList && senderArray[1] is Kernel.Domain.Target)
+            {
+                List<object> liste = (List<object>)senderArray[0];
+                listValues.AddRange(liste.Cast<Kernel.Domain.AttributeValue>().ToList());
+                attribute = isAttribute ? (Kernel.Domain.Attribute)senderArray[1] : null;
+                value = !isAttribute ? (Kernel.Domain.AttributeValue)senderArray[1] : null;
+            }
+
+            if (isAttribute)
+            {
+                attribute.valueListChangeHandler.Items.Clear();
+                attribute.FilterAttributeValues.Clear();
+                attribute.FilterAttributeValues.AddRange(listValues);
+            }
+            else
+            {
+                attribute.FilterAttributeValues.Clear();
+                attribute.FilterAttributeValues.AddRange(listValues);
+            }
+
+            foreach (Kernel.Domain.AttributeValue avalue in listValues)
+            {
+                attribute.valueListChangeHandler.Items.Add(avalue);
+            }
+        }
+
+        private Kernel.Domain.Attribute currentAttribute;
 
         private void OnExpandAttribute(object sender)
         {
             if (sender != null && sender is Kernel.Domain.Attribute)
             {
                 Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
-                if (attribute.FilterAttributeValues.Count > 0) return;
                 if (!attribute.LoadValues)
                 {
                     List<Kernel.Domain.AttributeValue> values = GetAutomaticSourcingService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
                     attribute.valueListChangeHandler.Items.Clear();
-                    foreach (Kernel.Domain.AttributeValue value in values)
-                    {
+                   foreach (Kernel.Domain.AttributeValue value in values) 
+                   {
                         attribute.valueListChangeHandler.Items.Add(value);
                     }
+                    //updatingAttribute(attribute);
                     attribute.LoadValues = true;
                 }
+
             }
         }
+               
+       
 
         private void SidebarPeriodNameSelected(object sender)
         {
@@ -628,7 +722,12 @@ namespace Misp.Sourcing.Base
             OnChange();
         }
 
-        private void setColumnParams(object param,object targetType=null,bool isFormatDate = false)
+        private void OnChanged()
+        {
+            OnChange();
+        }
+
+        protected virtual void setColumnParams(object param,object targetType=null,bool isFormatDate = false)
         {
             AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
             AutomaticSourcingSheet sheet = page.getAutomaticSourcingForm().AutomaticSourcingPanel.GetSelectedSheet();
@@ -879,7 +978,6 @@ namespace Misp.Sourcing.Base
             }
         }
 
-        
         #endregion
 
         #region Side bar methods
@@ -920,7 +1018,7 @@ namespace Misp.Sourcing.Base
             }
         }
 
-        private bool IsColumnOutOfBounds(AutomaticSourcingEditorItem page)
+        protected virtual bool IsColumnOutOfBounds(AutomaticSourcingEditorItem page)
         {
             bool result = false;
             int selecteSheetIndex = page.getAutomaticSourcingForm().SpreadSheet.getActiveSheetIndex();
@@ -1038,12 +1136,9 @@ namespace Misp.Sourcing.Base
 
         private OperationState VerifyDuplicateName(string newName, AutomaticSourcingEditorItem page, AutomaticSourcing automaticSourcing)
         {
-            bool found = false;
-            if (GetAutomaticSourcingService().getByName(newName) != null) found = true;
-
             foreach (AutomaticSourcingEditorItem automaticSourcingItem in getAutomaticSourcingEditor().getPages())
             {
-                if ((found && newName != getAutomaticSourcingEditor().getActivePage().Title) || (automaticSourcingItem != getAutomaticSourcingEditor().getActivePage() && newName == automaticSourcingItem.Title))
+                if (automaticSourcingItem != getAutomaticSourcingEditor().getActivePage() && newName == automaticSourcingItem.Title)
                 {
                     DisplayError("Duplicate Name", "There is another " + automaticSourcing.GetType().Name + " named: " + newName);
                     page.getAutomaticSourcingForm().AutomaticSourcingPanel.NameTextBox.Text = page.Title;
@@ -1088,27 +1183,37 @@ namespace Misp.Sourcing.Base
         public virtual OperationState Run()
         {
             OperationState state = OperationState.CONTINUE;
-
             AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
+            if (page == null) return state;
+            state = beforeRun(page);
+            if (state == OperationState.STOP) return state;
+            performRun(page);
+            return OperationState.CONTINUE;
+        }
+
+        protected virtual OperationState beforeRun(AutomaticSourcingEditorItem page)
+        {
+            OperationState state = OperationState.CONTINUE;
             if (page == null) return state;
             if (page.IsModify)
             {
                 state = Save(page);
                 this.AfterSave();
             }
-            if (state == OperationState.STOP) return state;
+            return state;
+        }
+
+        protected virtual void performRun(AutomaticSourcingEditorItem page)
+        {
             GetAutomaticSourcingService().SaveTableHandler += UpdateSaveInfo;
             GetAutomaticSourcingService().OnUpdateUniverse += OnUpdateUniverse;
             GetAutomaticSourcingService().buildTableNameEventHandler += OnBuildTableName;
             Mask(true, "Running ...");
             AutomaticSourcingData sData = new AutomaticSourcingData(page.EditedObject.oid.Value, page.getAutomaticSourcingForm().SpreadSheet.DocumentName, page.getAutomaticSourcingForm().SpreadSheet.DocumentUrl);
             GetAutomaticSourcingService().Run(sData);
-
-            return OperationState.CONTINUE;
         }
 
-
-        private void OnUpdateUniverse(object tableIssue, bool showDialog)
+        protected void OnUpdateUniverse(object tableIssue, bool showDialog)
         {
             if (showDialog)
             {
@@ -1121,7 +1226,7 @@ namespace Misp.Sourcing.Base
             }
         }
 
-        private void OnBuildTableName(object tableissue)
+        protected void OnBuildTableName(object tableissue)
         {
             AutomaticSourcingTableDialog AutomaticSourcingTableDialog = new AutomaticSourcingTableDialog();
             AutomaticSourcingTableDialog.SetInputTableName(((AutomaticSourcingData)tableissue).tableName);
@@ -1221,7 +1326,7 @@ namespace Misp.Sourcing.Base
 
         }
 
-        private string[] openFileDialog(string title, string initialDirectory)
+        protected virtual string[] openFileDialog(string title, string initialDirectory)
         {
             Microsoft.Win32.OpenFileDialog fileDialog = new Microsoft.Win32.OpenFileDialog();
             fileDialog.Title = title;
@@ -1259,7 +1364,8 @@ namespace Misp.Sourcing.Base
             if (page == null) return;
             AutomaticSourcingForm form = ((AutomaticSourcingEditorItem)page).getAutomaticSourcingForm();
            ((AutomaticSourcingPropertyBar)this.PropertyBar).AutomaticSourcingLayoutAnchorable.Content = form.AutomaticSourcingPanel;
-           if (!isAutomaticTarget())
+           bool canAddTableProperty = isAutomaticGrid() || isAutomaticTarget();
+           if (!canAddTableProperty)
            {
                ((AutomaticSourcingPropertyBar)this.PropertyBar).AutomaticTablePropertiesLayoutAnchorable.Content = form.AutomaticTablePropertiesPanel;
            }
@@ -1352,13 +1458,15 @@ namespace Misp.Sourcing.Base
         }
 
         private SaveInfo lastSaveInfo { get; set; }
-        private void UpdateSaveInfo(SaveInfo info, object automaticSourcing)
+        protected void UpdateSaveInfo(SaveInfo info, object automaticSourcing)
         {
             AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
             if (automaticSourcing != null && automaticSourcing is AutomaticSourcing)
             {
                 page.EditedObject = GetAutomaticSourcingService().getByOid(((AutomaticSourcing)automaticSourcing).oid.Value);
+                //page.displayObject();
                 RefreshView(page, activeSheetIndex, activeColIndex);
+                OnSheetActivated();
                 page.IsModify = false;
                 return;
             }
@@ -1398,7 +1506,8 @@ namespace Misp.Sourcing.Base
                 if (rate > 100) rate = 100;
                 ApplicationManager.MainWindow.LoadingProgressBar.Maximum = info.stepCount;
                 ApplicationManager.MainWindow.LoadingProgressBar.Value = info.stepRuned;
-                ApplicationManager.MainWindow.LoadingLabel.Content = "" + rate + " %";
+                //ApplicationManager.MainWindow.LoadingLabel.Content = "" + rate + " %";
+                ApplicationManager.MainWindow.LoadingLabel.Content = "Running : " + rate + " %" + " (" + info.stepRuned + "/" + info.stepCount + ")";
             }
         }
 
@@ -1595,7 +1704,7 @@ namespace Misp.Sourcing.Base
             System.Windows.Application.Current.Dispatcher.Invoke(AddColumnAction);
         }
 
-        private void InitializeColumn()
+        protected virtual void InitializeColumn()
         {
             AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
             page.EditedObject.ActiveSheet.listColumnToDisplay = new List<AutomaticSourcingColumn>(0);
@@ -1614,6 +1723,7 @@ namespace Misp.Sourcing.Base
             {
                 foreach (AutomaticSourcingColumn addedColumn in page.EditedObject.ActiveSheet.automaticSourcingColumnListChangeHandler.getItems())
                 {
+                    addedColumn.Name = getColumName(addedColumn.columnIndex);
                     if (addedColumn.oid.HasValue) page.EditedObject.ActiveSheet.listColumnToDisplay.Add(addedColumn);
                 }
             }
@@ -1718,7 +1828,7 @@ namespace Misp.Sourcing.Base
         /// <param name="page"></param>
         private void CustomizeSpreedSheet(SheetPanel sheetPanel, string fileToOpen)
         {
-            sheetPanel.Open(fileToOpen, EdrawOffice.EXCEL_ID);
+            if(!string.IsNullOrWhiteSpace(fileToOpen))sheetPanel.Open(fileToOpen, EdrawOffice.EXCEL_ID);
             //sheetPanel.BuildSheetPanelMethod(1);
             sheetPanel.AddExcelMenu(EdrawOffice.REMOVE_AUTOMATICCOLUMN_LABEL);
             sheetPanel.AddExcelMenu(EdrawOffice.ADD_AUTOMATICCOLUMN_LABEL);

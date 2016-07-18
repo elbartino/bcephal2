@@ -402,6 +402,21 @@ namespace Misp.Kernel.Ui.Dashboard
             return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY);
         }
 
+        public Boolean isInputGrid()
+        {
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY);
+        }
+
+        public Boolean isReportGrid()
+        {
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY);
+        }
+
+        public Boolean isAutomaticGrid()
+        {
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY);
+        }
+
         public Boolean isReconciliationFilterUpload()
         {
             return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY);
@@ -432,6 +447,9 @@ namespace Misp.Kernel.Ui.Dashboard
             if (isReconciliationFilterUpload()) return DashBoardService.RECONCILIATION_FILTERS;
             if (isReconciliationPostingUpload()) return DashBoardService.RECONCILIATION_POSTINGS;
             if (isTransactionFileTypeUpload()) return DashBoardService.TRANSACTION_FILE_TYPES;
+            if (isInputGrid()) return DashBoardService.INPUT_GRID;
+            if (isReportGrid()) return DashBoardService.REPORT_GRID;
+            if (isAutomaticGrid()) return DashBoardService.AUTOMATIC_GRID;
 
             return null;
         }
