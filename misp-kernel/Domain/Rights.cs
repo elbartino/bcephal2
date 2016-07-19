@@ -47,6 +47,7 @@ namespace Misp.Kernel.Domain
             functionRights.Add(new Rights("Target", false, false));
             functionRights.Add(new Rights("StructuredReport", false, false));
             functionRights.Add(new Rights("AutomaticSourcing", false, false));
+            functionRights.Add(new Rights("Grid", false, false));
             functionRights.Add(new Rights("MultipleUplaod", false, false));
             functionRights.Add(new Rights("Design", false, false));
             functionRights.Add(new Rights("AutomaticTarget", false, false));
