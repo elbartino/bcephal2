@@ -16,32 +16,21 @@ namespace Misp.Sourcing.GridViews
       
         #region Editor and Service
 
-        //AutomaticGridDataDialog dialog;
+        AutomaticGridDataDialog dialog;
         protected override void performRun(AutomaticSourcingEditorItem page)
         {
-            //dialog = new AutomaticGridDataDialog();
-            //dialog.InputGridService = ApplicationManager.ControllerFactory.ServiceFactory.GetInputGridService();
-            //dialog.loadGrids();
-            //dialog.NewGridNameTextBox.Text = page.getAutomaticSourcingForm().SpreadSheet.DocumentName;
-            //dialog.cancelButton.Click += OnCancelAutomaticGridDataDialog;
-            //dialog.runButton.Click += OnRunAutomaticGridDataDialog;
-            //dialog.ShowDialog();
-            
-            AutomaticGridData data = new AutomaticGridData();
-            GetAutomaticSourcingService().SaveTableHandler += UpdateSaveInfo;
-            GetAutomaticSourcingService().OnUpdateUniverse += OnUpdateUniverse;
-            GetAutomaticSourcingService().buildTableNameEventHandler += OnBuildTableName;
-            Mask(true, "Running ...");
-            data.automaticSourcingOid = page.EditedObject.oid.Value;
-            data.excelFilePath = page.getAutomaticSourcingForm().SpreadSheet.DocumentUrl;
-            GetAutomaticSourcingService().Run(data);
+            dialog = new AutomaticGridDataDialog();
+            dialog.InputGridService = ApplicationManager.ControllerFactory.ServiceFactory.GetInputGridService();
+            dialog.loadGrids();
+            dialog.NewGridNameTextBox.Text = page.getAutomaticSourcingForm().SpreadSheet.DocumentName;
+            dialog.cancelButton.Click += OnCancelAutomaticGridDataDialog;
+            dialog.runButton.Click += OnRunAutomaticGridDataDialog;
+            dialog.ShowDialog();            
         }
 
         private void OnRunAutomaticGridDataDialog(object sender, System.Windows.RoutedEventArgs e)
         {
-            //AutomaticGridData data = dialog.Fill();
-            AutomaticGridData data = null;
-
+            AutomaticGridData data = dialog.Fill();            
             if (data == null) return;
             AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
             GetAutomaticSourcingService().SaveTableHandler += UpdateSaveInfo;
@@ -56,10 +45,10 @@ namespace Misp.Sourcing.GridViews
 
         private void OnCancelAutomaticGridDataDialog(object sender, System.Windows.RoutedEventArgs e)
         {
-            //dialog.cancelButton.Click -= OnCancelAutomaticGridDataDialog;
-            //dialog.runButton.Click -= OnRunAutomaticGridDataDialog;
-            //dialog.Close();
-            //dialog = null;
+            dialog.cancelButton.Click -= OnCancelAutomaticGridDataDialog;
+            dialog.runButton.Click -= OnRunAutomaticGridDataDialog;
+            dialog.Close();
+            dialog = null;
         }
         
 
