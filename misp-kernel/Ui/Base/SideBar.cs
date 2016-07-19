@@ -32,7 +32,7 @@ namespace Misp.Kernel.Ui.Base
             this.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
             this.Content = this.MainPanel;
             this.StatusButtons = new List<StatusItem>(0);
-            //InitializeGroups();
+            InitializeGroups();
         }
 
         public void AddGroup(SideBarGroup group)
