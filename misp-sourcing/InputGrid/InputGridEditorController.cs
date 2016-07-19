@@ -680,8 +680,8 @@ namespace Misp.Sourcing.InputGrid
             List<BrowserData> designs = Service.getBrowserDatas();
             ((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
 
-            List<Model> models = GetInputGridService().ModelService.getModelsForSideBar();
-            ((InputGridSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
+            ((InputGridSideBar)SideBar).EntityGroup.ModelService = GetInputGridService().ModelService;
+            ((InputGridSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
 
             Measure rootMeasure = GetInputGridService().MeasureService.getRootMeasure();
 
