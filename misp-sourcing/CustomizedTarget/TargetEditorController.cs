@@ -286,6 +286,7 @@ namespace Misp.Sourcing.CustomizedTarget
         protected override void initializeSideBarData()
         {
             List<Target> targets = Service.getAll();
+            ((TargetSideBar)SideBar).EntityGroup.ModelService = GetTargetService().ModelService;
             ((TargetSideBar)SideBar).TargetGroup.TargetTreeview.fillTree(new ObservableCollection<Target>(targets));
 
             List<Model> models = GetTargetService().ModelService.getModelsForSideBar();
