@@ -37,14 +37,9 @@ namespace Misp.Kernel.Ui.Base
         public EntityGroup() : base() { }
 
         public EntityGroup(string header) : base(header) { }
-
-        public EntityGroup(string header, bool expanded)
-            : base(header, expanded) { }
-
-        public EntityGroup(string header, bool expanded, Service.ModelService modelService):base(header,expanded) 
+        
+        public EntityGroup(string header, bool expanded):base(header,expanded) 
         {
-            this.ModelService = modelService;
-            InitializeTreeViewDatas();
             InitializeHandlers();
         }
 
@@ -63,7 +58,7 @@ namespace Misp.Kernel.Ui.Base
             this.EntityTreeview.OnRightClick += onRightClickFromSidebar;
         }
 
-        private void InitializeTreeViewDatas() 
+        public void InitializeTreeViewDatas() 
         {
             List<Model> models = ModelService.getModelsForSideBar();
             this.EntityTreeview.DisplayModels(models);

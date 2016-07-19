@@ -1964,6 +1964,10 @@ namespace Misp.Sourcing.Table
         /// </summary>
         protected override void initializeSideBarData()
         {
+
+            ((InputTableSideBar)SideBar).EntityGroup.ModelService = GetInputTableService().ModelService;
+            ((InputTableSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
+
              List<InputTableBrowserData> datas = this.Service.getBrowserDatas();
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.fillTree(new ObservableCollection<InputTableBrowserData>(datas));
                         
@@ -2787,8 +2791,6 @@ namespace Misp.Sourcing.Table
         protected override SideBar getNewSideBar() 
         {
             InputTableSideBar sidebar = new InputTableSideBar();
-            sidebar.InputTableService = GetInputTableService();
-            sidebar.InitializeGroups();
             return sidebar; 
         }
 
