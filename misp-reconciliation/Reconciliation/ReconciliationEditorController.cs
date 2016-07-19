@@ -313,6 +313,7 @@ namespace Misp.Reconciliation.Reconciliation
             List<ReconciliationTemplate> recos = GetReconciliationService().getAll();
             ((ReconciliationSideBar)SideBar).RecoGroup.ReconciliationTreeview.fillTree(new ObservableCollection<ReconciliationTemplate>(recos));
 
+            ((ReconciliationSideBar)SideBar).EntityGroup.ModelService = GetReconciliationService().ModelService;
             List<Model> models = GetReconciliationService().ModelService.getModelsForSideBar();
             ((ReconciliationSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
 

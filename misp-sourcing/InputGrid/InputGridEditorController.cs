@@ -536,6 +536,7 @@ namespace Misp.Sourcing.InputGrid
             if (grilleFilter.filterPeriod == null) grilleFilter.filterPeriod = new Period();
             grilleFilter.filterPeriod.SynchronizeDeletePeriodItem(periodItem);
             page.getInputGridForm().GridForm.filterForm.Display(grilleFilter);
+            OnChange();
         }
 
         private void OnTargetItemDeleted(object item)
@@ -548,6 +549,7 @@ namespace Misp.Sourcing.InputGrid
             if (grilleFilter.filterScope == null) grilleFilter.filterScope = new Target(Target.Type.OBJECT_VC, Target.TargetType.COMBINED);
             grilleFilter.filterScope.SynchronizeDeleteTargetItem(targetItem);
             page.getInputGridForm().GridForm.filterForm.Display(grilleFilter);
+            OnChange();
         }
 
         private void OnTargetItemChanged(object item)
@@ -560,6 +562,7 @@ namespace Misp.Sourcing.InputGrid
             if (grilleFilter.filterScope == null) grilleFilter.filterScope = new Target(Target.Type.OBJECT_VC, Target.TargetType.COMBINED);
             grilleFilter.filterScope.SynchronizeTargetItems(targetItem);
             page.getInputGridForm().GridForm.filterForm.Display(grilleFilter);
+            OnChange();
         }
 
         private void OnPeriodItemChanged(object item)
@@ -572,6 +575,7 @@ namespace Misp.Sourcing.InputGrid
             if (grilleFilter.filterPeriod == null) grilleFilter.filterPeriod = new Period();
             PeriodItem itemUpdated = grilleFilter.filterPeriod.SynchronizePeriodItems(periodItem);
             page.getInputGridForm().GridForm.filterForm.Display(grilleFilter);
+            OnChange();
         }
 
         public void Search(int currentPage = 0)
@@ -585,6 +589,7 @@ namespace Misp.Sourcing.InputGrid
                 filter.pageSize = (int)page.getInputGridForm().GridForm.toolBar.pageSizeComboBox.SelectedItem;
                 GrillePage rows = this.GetInputGridService().getGridRows(filter);
                 page.getInputGridForm().GridForm.displayPage(rows);
+                OnChange();
             }
             catch (ServiceExecption e) { }
         }
@@ -1072,7 +1077,6 @@ namespace Misp.Sourcing.InputGrid
             table.name = newName;
             page.getInputGridForm().InputGridSheetForm.SpreadSheet.ChangeTitleBarCaption(newName);
             page.Title = newName;
-            OnChange();
             return OperationState.CONTINUE;
         }
 
