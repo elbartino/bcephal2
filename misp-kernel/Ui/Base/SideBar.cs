@@ -23,6 +23,7 @@ namespace Misp.Kernel.Ui.Base
         public StackPanel MainPanel { get; protected set; }
         public SideBarGroup StatusGroup { get; set; }
 
+
         public SideBar()
         {
             this.MainPanel = new StackPanel();
@@ -31,7 +32,7 @@ namespace Misp.Kernel.Ui.Base
             this.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
             this.Content = this.MainPanel;
             this.StatusButtons = new List<StatusItem>(0);
-            InitializeGroups();
+            //InitializeGroups();
         }
 
         public void AddGroup(SideBarGroup group)
@@ -66,7 +67,7 @@ namespace Misp.Kernel.Ui.Base
             this.MainPanel.Children.Remove(group);
         }
 
-        protected virtual void InitializeGroups()
+        public virtual void InitializeGroups()
         {
             InitializeStatusGroup();
         }

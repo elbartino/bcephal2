@@ -14,7 +14,7 @@ namespace Misp.Sourcing.AutomaticTargetViews
         public AutomaticSourcingGroup AutomaticTargetGroup { get { return AutomaticSourcingGroup; } set { AutomaticSourcingGroup = value; } }
         #endregion
 
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.RemoveGroup(this.MeasureGroup);

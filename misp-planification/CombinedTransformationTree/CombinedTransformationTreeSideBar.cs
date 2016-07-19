@@ -27,7 +27,7 @@ namespace Misp.Planification.CombinedTransformationTree
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.CombineTransformationTreeGroup = new CombinedTransformationTreeGroup("Combined Transformation trees", true);

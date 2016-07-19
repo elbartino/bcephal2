@@ -38,7 +38,7 @@ namespace Misp.Planification.Tranformation
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             this.EntityGroup = new EntityGroup("Entities", true);
             this.TargetGroup = new TargetGroup("Targets", true);

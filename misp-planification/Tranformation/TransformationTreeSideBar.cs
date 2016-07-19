@@ -33,7 +33,7 @@ namespace Misp.Planification.Tranformation
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.TransformationTreeGroup = new TransformationTreeGroup("Transformation Trees", true);

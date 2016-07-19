@@ -29,7 +29,7 @@ namespace Misp.Kernel.Ui.Base
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.GroupGroup = new GroupGroup("Groups", true);

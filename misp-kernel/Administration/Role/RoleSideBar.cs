@@ -21,7 +21,7 @@ namespace Misp.Kernel.Administration.Role
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.RemoveGroup(this.GroupGroup);

@@ -25,7 +25,7 @@ namespace Misp.Sourcing.CustomizedTarget
         /// <summary>
         /// 
         /// </summary>
-        protected override void InitializeGroups()
+        public override void InitializeGroups()
         {
             base.InitializeGroups();
             this.StandardTargetGroup = new TargetGroup("Standards Target", true);
