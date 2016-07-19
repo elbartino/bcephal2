@@ -139,7 +139,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
                 panel.Item.column = this.Column;
                 this.Column.RemoveExcludedColumnItem(panel.Item);
                 this.panel.Children.Remove(panel);
-                if (this.ActiveItemPanel != null && this.ActiveItemPanel == panel)
+                if (this.ActiveItemPanel != null && this.ActiveItemPanel == panel && this.panel.Children.Count > 0)
                     this.ActiveItemPanel = (ColumItemPanel)this.panel.Children[this.panel.Children.Count - 1];
                 int index = 1;
                 foreach (object pan in this.panel.Children)
