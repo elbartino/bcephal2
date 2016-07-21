@@ -280,6 +280,7 @@ namespace Misp.Planification.Tranformation
         public bool SaveLoop()
         {
             return true;
+            
             //return this.ReportPanel.SaveReport();
         }
 
@@ -447,8 +448,8 @@ namespace Misp.Planification.Tranformation
 
         protected void initializeSideBarData()
         {
-            List<Model> models = TransformationTreeService.ModelService.getAll();
-            SideBar.EntityGroup.EntityTreeview.DisplayModels(models);
+            SideBar.EntityGroup.ModelService = TransformationTreeService.ModelService;
+            SideBar.EntityGroup.InitializeTreeViewDatas();
 
             Measure rootMeasure = TransformationTreeService.MeasureService.getRootMeasure();
             SideBar.MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
@@ -518,7 +519,8 @@ namespace Misp.Planification.Tranformation
                 {
                     Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
                     if (attribute.valueListChangeHandler.Items.Count <= 0) return;
-                    value = attribute.valueListChangeHandler.Items;
+                    List<Kernel.Domain.AttributeValue> values = TransformationTreeService.ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
+                    value = values;
                 }
                 else value = sender;
                 SetValue(value);

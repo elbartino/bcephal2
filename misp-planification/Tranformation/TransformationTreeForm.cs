@@ -262,7 +262,8 @@ namespace Misp.Planification.Tranformation
             //else this.EditedObject.UpdateItem(this.LoopDialog.Loop);
             if (this.EditedDesignerItem != null) this.EditedDesignerItem.Renderer.Text = this.LoopDialog.Loop.name;
             this.TransformationTreeDiagramView.designerCanvas.OnChange();
-            this.LoopDialog.SaveLoop();
+            if (SaveEventHandler != null) SaveEventHandler(this.EditedDesignerItem);
+           // this.LoopDialog.SaveLoop();
         }
 
         private void OnSaveLoopReportEnded(object item)
