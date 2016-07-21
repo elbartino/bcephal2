@@ -314,9 +314,8 @@ namespace Misp.Reconciliation.Reconciliation
             ((ReconciliationSideBar)SideBar).RecoGroup.ReconciliationTreeview.fillTree(new ObservableCollection<ReconciliationTemplate>(recos));
 
             ((ReconciliationSideBar)SideBar).EntityGroup.ModelService = GetReconciliationService().ModelService;
-            List<Model> models = GetReconciliationService().ModelService.getModelsForSideBar();
-            ((ReconciliationSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
-
+            ((ReconciliationSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
+          
             rootPeriodName = GetReconciliationService().periodNameService.getRootPeriodName();
             defaultPeriodName = rootPeriodName.getDefaultPeriodName();
             ((ReconciliationSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
@@ -331,8 +330,7 @@ namespace Misp.Reconciliation.Reconciliation
         protected override void initializeSideBarHandlers()
         {
             ((ReconciliationSideBar)SideBar).RecoGroup.ReconciliationTreeview.SelectionChanged += onSelectReconciliationFromSidebar;
-            ((ReconciliationSideBar)SideBar).EntityGroup.EntityTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
-            ((ReconciliationSideBar)SideBar).EntityGroup.EntityTreeview.ExpandAttribute += OnExpandAttribute;
+            ((ReconciliationSideBar)SideBar).EntityGroup.OnSelectTargetValue += onSelectStandardTargetFromSidebar;
             ((ReconciliationSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
             ((ReconciliationSideBar)SideBar).StandardTargetGroup.TargetTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
         }

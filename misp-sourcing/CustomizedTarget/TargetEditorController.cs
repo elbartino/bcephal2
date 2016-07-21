@@ -289,6 +289,10 @@ namespace Misp.Sourcing.CustomizedTarget
             ((TargetSideBar)SideBar).EntityGroup.ModelService = GetTargetService().ModelService;
             ((TargetSideBar)SideBar).TargetGroup.TargetTreeview.fillTree(new ObservableCollection<Target>(targets));
 
+
+            ((TargetSideBar)SideBar).EntityGroup.ModelService = GetTargetService().ModelService;
+            ((TargetSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
+
             List<Model> models = GetTargetService().ModelService.getModelsForSideBar();
             ((TargetSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
 

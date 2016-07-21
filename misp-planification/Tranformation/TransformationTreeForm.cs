@@ -262,7 +262,8 @@ namespace Misp.Planification.Tranformation
             //else this.EditedObject.UpdateItem(this.LoopDialog.Loop);
             if (this.EditedDesignerItem != null) this.EditedDesignerItem.Renderer.Text = this.LoopDialog.Loop.name;
             this.TransformationTreeDiagramView.designerCanvas.OnChange();
-            this.LoopDialog.SaveLoop();
+            if (SaveEventHandler != null) SaveEventHandler(this.EditedDesignerItem);
+           // this.LoopDialog.SaveLoop();
         }
 
         private void OnSaveLoopReportEnded(object item)
@@ -316,7 +317,7 @@ namespace Misp.Planification.Tranformation
                 TransformationTreeItem entity = (TransformationTreeItem)item.Tag;
                 if (block != null && !block.Equals(item))
                 {
-                    Kernel.Util.MessageDisplayer.DisplayError("Duplicate name", "There is another block named: " + name + ".");
+                    Kernel.Util.MessageDisplayer.DisplayError("Duplicate name", "There is another TreeItem named: " + name + ".");
                     return false;
                 }
             }

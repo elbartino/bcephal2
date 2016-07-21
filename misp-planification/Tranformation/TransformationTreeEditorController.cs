@@ -342,6 +342,7 @@ namespace Misp.Planification.Tranformation
             List<BrowserData> datas = this.GetTransformationTreeService().getBrowserDatas();
             ((TransformationTreeSideBar)SideBar).TransformationTreeGroup.TransformationTreeTreeview.fillTree(new ObservableCollection<BrowserData>(datas));
             BGroup group = GetTransformationTreeService().GroupService.getDefaultGroup();
+
         }
 
         /// <summary>
