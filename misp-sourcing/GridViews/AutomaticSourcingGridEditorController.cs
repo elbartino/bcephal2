@@ -35,7 +35,6 @@ namespace Misp.Sourcing.GridViews
             AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
             GetAutomaticSourcingService().SaveTableHandler += UpdateSaveInfo;
             GetAutomaticSourcingService().OnUpdateUniverse += OnUpdateUniverse;
-            GetAutomaticSourcingService().buildTableNameEventHandler += OnBuildTableName;
             Mask(true, "Running ...");            
             data.automaticSourcingOid = page.EditedObject.oid.Value;
             data.excelFilePath = page.getAutomaticSourcingForm().SpreadSheet.DocumentUrl;

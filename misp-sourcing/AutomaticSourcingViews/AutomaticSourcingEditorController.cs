@@ -1205,12 +1205,33 @@ namespace Misp.Sourcing.Base
 
         protected virtual void performRun(AutomaticSourcingEditorItem page)
         {
-            GetAutomaticSourcingService().SaveTableHandler += UpdateSaveInfo;
-            GetAutomaticSourcingService().OnUpdateUniverse += OnUpdateUniverse;
-            GetAutomaticSourcingService().buildTableNameEventHandler += OnBuildTableName;
-            Mask(true, "Running ...");
-            AutomaticSourcingData sData = new AutomaticSourcingData(page.EditedObject.oid.Value, page.getAutomaticSourcingForm().SpreadSheet.DocumentName, page.getAutomaticSourcingForm().SpreadSheet.DocumentUrl);
-            GetAutomaticSourcingService().Run(sData);
+            string baseName = page.getAutomaticSourcingForm().SpreadSheet.DocumentName.Trim();
+            String name = baseName;
+            int i = 1;
+            while (GetAutomaticSourcingService().InputTableService.getByName(name) != null)
+            {
+                name = baseName + i++;
+            }
+
+            AutomaticSourcingTableDialog AutomaticSourcingTableDialog = new AutomaticSourcingTableDialog();
+            AutomaticSourcingTableDialog.AutomaticSourcingService = GetAutomaticSourcingService();
+            AutomaticSourcingTableDialog.SetInputTableName(name);
+            AutomaticSourcingTableDialog.Owner = ApplicationManager.Instance.MainWindow;
+            AutomaticSourcingTableDialog.ShowDialog();
+            if (AutomaticSourcingTableDialog.requestGenerateInputTable)
+            {
+                name = AutomaticSourcingTableDialog.inputTableName;
+                GetAutomaticSourcingService().SaveTableHandler += UpdateSaveInfo;
+                GetAutomaticSourcingService().OnUpdateUniverse += OnUpdateUniverse;
+                //GetAutomaticSourcingService().buildTableNameEventHandler += OnBuildTableName;
+                Mask(true, "Running ...");
+                String docUrl = page.getAutomaticSourcingForm().SpreadSheet.DocumentUrl;
+                AutomaticSourcingData data = new AutomaticSourcingData(page.EditedObject.oid.Value, name, docUrl);
+                data.runTable = AutomaticSourcingTableDialog.requestRunAllocation;
+                data.createTable = true;
+                data.excelExtension = Kernel.Util.ExcelUtil.GetFileExtension(docUrl).Extension;
+                GetAutomaticSourcingService().Run(data);
+            }
         }
 
         protected void OnUpdateUniverse(object tableIssue, bool showDialog)
@@ -1225,30 +1246,7 @@ namespace Misp.Sourcing.Base
                 showDialog = false;
             }
         }
-
-        protected void OnBuildTableName(object tableissue)
-        {
-            AutomaticSourcingTableDialog AutomaticSourcingTableDialog = new AutomaticSourcingTableDialog();
-            AutomaticSourcingTableDialog.SetInputTableName(((AutomaticSourcingData)tableissue).tableName);
-            AutomaticSourcingTableDialog.Owner = ApplicationManager.Instance.MainWindow;
-            AutomaticSourcingTableDialog.ShowDialog();
-            String tableName = ((AutomaticSourcingData)tableissue).tableName;
-            AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
-            ((AutomaticSourcingData)tableissue).hasDialogName = true;
-            ((AutomaticSourcingData)tableissue).tableHasChanged = tableName != AutomaticSourcingTableDialog.inputTableName;
-            ((AutomaticSourcingData)tableissue).runTable = AutomaticSourcingTableDialog.requestRunAllocation;
-            ((AutomaticSourcingData)tableissue).createTable = AutomaticSourcingTableDialog.requestGenerateInputTable;
-            String documentUrl = page.getAutomaticSourcingForm().SpreadSheet.DocumentUrl;
-            ((AutomaticSourcingData)tableissue).excelFilePath = documentUrl;
-            ((AutomaticSourcingData)tableissue).tableName = System.IO.Path.GetFileNameWithoutExtension(documentUrl);
-            ((AutomaticSourcingData)tableissue).tableGroup = page.getAutomaticSourcingForm().AutomaticTablePropertiesPanel.groupGroupField.textBox.Text.Trim();
-            ((AutomaticSourcingData)tableissue).dialogTableName = AutomaticSourcingTableDialog.inputTableName;
-            ((AutomaticSourcingData)tableissue).excelExtension = Kernel.Util.ExcelUtil.GetFileExtension(page.getAutomaticSourcingForm().SpreadSheet.DocumentUrl).Extension;
-            ((AutomaticSourcingData)tableissue).automaticSourcingOid = page.EditedObject.oid.Value;
-            GetAutomaticSourcingService().buildTableNameEventHandler -= OnBuildTableName;
-
-        }
-
+        
         private void runTableAfterCreate(Kernel.Domain.AutomaticSourcingData data)
         {
             InputTableRunProcess process = new InputTableRunProcess();

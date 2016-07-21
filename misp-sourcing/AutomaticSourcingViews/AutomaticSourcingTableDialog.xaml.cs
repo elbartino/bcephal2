@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Service;
+using Misp.Kernel.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +25,9 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         public bool requestGenerateInputTable { get; set; }
         public bool requestRunAllocation { get; set; }
         public String inputTableName { get; set; }
+
+        public AutomaticSourcingService AutomaticSourcingService { get; set; }
+
         public AutomaticSourcingTableDialog()
         {
             InitializeComponent();
@@ -58,8 +64,14 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
         private bool isTextBoxOk(TextBox textbox) 
         {
-            if(textbox.Text == "")
-               return false;
+            if(String.IsNullOrWhiteSpace(textbox.Text)) return false;
+            String name = textbox.Text.Trim();
+            InputTable table = AutomaticSourcingService.InputTableService.getByName(name);
+            if (table != null)
+            {
+                MessageDisplayer.DisplayWarning("Duplicate name", "Another table names '" + name + "' already exist");
+                return false;
+            }
             return true;
         }
 
