@@ -391,7 +391,8 @@ namespace Misp.Sourcing.Designer
             
             List<Model> models = GetDesignService().ModelService.getModelsForSideBar();
             ((DesignerSideBar)SideBar).EntityGroup.EntityTreeview.setDisplacherInterval(new TimeSpan(0, 0,0,1));
-            ((DesignerSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
+            ((DesignerSideBar)SideBar).EntityGroup.ModelService = GetDesignService().ModelService;
+            ((DesignerSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
 
             Measure rootMeasure = GetDesignService().MeasureService.getRootMeasure();
             ((DesignerSideBar)SideBar).MeasureGroup.MeasureTreeview.setDisplacherInterval(new TimeSpan(0, 0,1));

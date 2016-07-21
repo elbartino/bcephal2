@@ -503,6 +503,7 @@ namespace Misp.Reporting.StructuredReport
             ((StructuredReportSideBar)SideBar).StructuredReportGroup.StructuredReportTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
 
             ((StructuredReportSideBar)SideBar).EntityGroup.ModelService = GetStructuredReportService().ModelService;
+            ((StructuredReportSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
 
             List<Model> models = GetStructuredReportService().ModelService.getAll();
             ((StructuredReportSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);

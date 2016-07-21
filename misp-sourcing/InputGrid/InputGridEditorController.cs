@@ -714,9 +714,8 @@ namespace Misp.Sourcing.InputGrid
             ((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.SelectionChanged += onSelectGridFromSidebar;
 
             ((InputGridSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
-            ((InputGridSideBar)SideBar).EntityGroup.EntityTreeview.SelectionChanged += onSelectTargetFromSidebar;
+            ((InputGridSideBar)SideBar).EntityGroup.OnSelectTargetValue += onSelectTargetFromSidebar;
             ((InputGridSideBar)SideBar).EntityGroup.EntityTreeview.SelectionDoubleClick += onDoubleClickSelectTargetFromSidebar;
-            ((InputGridSideBar)SideBar).EntityGroup.EntityTreeview.OnRightClick += onRightClickFromSidebar;
             ((InputGridSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
             ((InputGridSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodFromSidebar;
@@ -898,14 +897,12 @@ namespace Misp.Sourcing.InputGrid
         /// <param name="sender">La target sélectionné</param>
         protected void onSelectTargetFromSidebar(object sender)
         {
-            if (sender != null && sender is Target)
-            {
-                InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
-                if (page == null) return;
-                if (page.getInputGridForm().SelectedIndex == 1)
-                    page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.SetValue(sender);
-                else page.getInputGridForm().GridForm.filterForm.targetFilter.SetTargetValue((Target)sender);
-            }
+            InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
+            if (page == null) return;
+            if (page.getInputGridForm().SelectedIndex == 1)
+                page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.SetValue(sender);
+            else page.getInputGridForm().GridForm.filterForm.targetFilter.SetTargetValue((Target)sender);
+          
         }
 
         protected void onDoubleClickSelectTargetFromSidebar(object sender)

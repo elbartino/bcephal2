@@ -317,7 +317,7 @@ namespace Misp.Planification.Tranformation
                 TransformationTreeItem entity = (TransformationTreeItem)item.Tag;
                 if (block != null && !block.Equals(item))
                 {
-                    Kernel.Util.MessageDisplayer.DisplayError("Duplicate name", "There is another block named: " + name + ".");
+                    Kernel.Util.MessageDisplayer.DisplayError("Duplicate name", "There is another TreeItem named: " + name + ".");
                     return false;
                 }
             }

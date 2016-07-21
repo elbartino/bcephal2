@@ -120,8 +120,9 @@ namespace Misp.Reconciliation.Posting
         {
             
             if (this.SideBar == null || this.Service == null) return;
-            List<Kernel.Domain.Model> models = GetPostingService().ModelService.getModelsForSideBar();
-            ((PostingSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
+           
+            ((PostingSideBar)SideBar).EntityGroup.ModelService = GetPostingService().ModelService;
+            ((PostingSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
 
             PeriodName rootPeriodName = GetPostingService().periodNameService.getRootPeriodName();
             ((PostingSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);

@@ -18,6 +18,9 @@ namespace Misp.Kernel.Ui.Base
         public  delegate void SelectTarget(Domain.Target target);
         public event SelectTarget OnSelectTarget;
 
+        public delegate void SelectTargetValue(Domain.Target target);
+        public event SelectTargetValue OnSelectTargetValue;
+
         #endregion
 
         #region Properties
@@ -143,6 +146,7 @@ namespace Misp.Kernel.Ui.Base
             if (!(sender is Domain.Target)) return; 
             Domain.Target target = (Domain.Target)sender;
             if (OnSelectTarget != null)  OnSelectTarget(target);
+            if (OnSelectTargetValue != null && sender is Kernel.Domain.AttributeValue) OnSelectTargetValue(target);
         }
 
         private void OnExpandeAttribute(object sender)

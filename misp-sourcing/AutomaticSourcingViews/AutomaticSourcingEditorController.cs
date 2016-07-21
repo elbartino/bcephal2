@@ -427,8 +427,9 @@ namespace Misp.Sourcing.Base
 
             ((AutomaticSourcingSideBar)SideBar).EntityGroup.ModelService = GetAutomaticSourcingService().ModelService;
 
-            List<Model> models = GetAutomaticSourcingService().ModelService.getModelsForSideBar();
-            ((AutomaticSourcingSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
+            ((AutomaticSourcingSideBar)SideBar).EntityGroup.ModelService = GetAutomaticSourcingService().ModelService;
+            ((AutomaticSourcingSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
+
             if (!isAutomaticTarget())
             {
                 Measure rootMeasure = GetAutomaticSourcingService().MeasureService.getRootMeasure();
