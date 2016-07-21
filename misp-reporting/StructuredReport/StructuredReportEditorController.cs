@@ -70,7 +70,7 @@ namespace Misp.Reporting.StructuredReport
 
 
         #region Operations
-        
+
         /// <summary>
         /// Cette methode permet de créer une nouvelle table.
         /// </summary>
@@ -84,7 +84,7 @@ namespace Misp.Reporting.StructuredReport
             page.Title = report.name;
             getEditor().ListChangeHandler.AddNew(report);
             page.getStructuredReportForm().StructuredReportPropertiesPanel.ColumnForms.ItemForm.PeriodicityService = GetStructuredReportService().PeriodicityService;
-            DisplayActiveColumn();           
+            DisplayActiveColumn();
             return OperationState.CONTINUE;
         }
 
@@ -127,7 +127,7 @@ namespace Misp.Reporting.StructuredReport
             {
                 name = prefix + i;
                 Kernel.Domain.StructuredReport report = GetObjectByName(name);
-                if (report == null) return name; 
+                if (report == null) return name;
                 i++;
             }
             return name;
@@ -153,7 +153,7 @@ namespace Misp.Reporting.StructuredReport
                 return OperationState.STOP;
             }
             Kernel.Domain.StructuredReport editedObject = page.EditedObject;
-            
+
             return OperationState.CONTINUE;
         }
 
@@ -176,7 +176,7 @@ namespace Misp.Reporting.StructuredReport
         public virtual OperationState Run()
         {
             OperationState state = OperationState.CONTINUE;
-            StructuredReportEditorItem page = (StructuredReportEditorItem) getStructuredReportEditor().getActivePage();
+            StructuredReportEditorItem page = (StructuredReportEditorItem)getStructuredReportEditor().getActivePage();
             if (page == null) return state;
             nextRunData = null;
             String filePath = openSaveDialog();
@@ -185,7 +185,7 @@ namespace Misp.Reporting.StructuredReport
             StructuredReportRunData data = new StructuredReportRunData();
             data.filePath = filePath;
             if (page.EditedObject.oid.HasValue) data.oid = page.EditedObject.oid.Value;
-            
+
             //if (page.IsModify)
             //{
             //    nextRunData = data;
@@ -200,7 +200,7 @@ namespace Misp.Reporting.StructuredReport
 
         private void updateRunProgress(AllocationRunInfo info)
         {
-            StructuredReportEditorItem page = (StructuredReportEditorItem) getStructuredReportEditor().getActivePage();
+            StructuredReportEditorItem page = (StructuredReportEditorItem)getStructuredReportEditor().getActivePage();
 
             if (info == null || info.runEnded == true)
             {
@@ -217,13 +217,13 @@ namespace Misp.Reporting.StructuredReport
 
                 ApplicationManager.MainWindow.LoadingProgressBar.Maximum = info.totalCellCount;
                 ApplicationManager.MainWindow.LoadingProgressBar.Value = info.runedCellCount;
-                ApplicationManager.MainWindow.LoadingLabel.Content = "" + rate + " %";                
+                ApplicationManager.MainWindow.LoadingLabel.Content = "" + rate + " %";
             }
         }
 
         protected void Mask(bool mask, string content = "Saving...")
         {
-            StructuredReportEditorItem page = (StructuredReportEditorItem) getStructuredReportEditor().getActivePage();
+            StructuredReportEditorItem page = (StructuredReportEditorItem)getStructuredReportEditor().getActivePage();
             if (page != null) page.getStructuredReportForm().Mask(mask);
             ApplicationManager.MainWindow.BusyBorder.Visibility = mask ? Visibility.Visible : Visibility.Hidden;
             if (mask)
@@ -236,7 +236,7 @@ namespace Misp.Reporting.StructuredReport
                 ApplicationManager.MainWindow.LoadingLabel.Visibility = Visibility.Visible;
                 ApplicationManager.MainWindow.LoadingImage.Visibility = Visibility.Hidden;
             }
-        }    
+        }
 
 
         /// <summary>
@@ -295,7 +295,7 @@ namespace Misp.Reporting.StructuredReport
                 {
                     //page.getInputTableForm().SpreadSheet.Close(page.getInputTableForm().SpreadSheet.DocumentUrl);
                     page.getStructuredReportForm().SpreadSheet.Close();
-                }   
+                }
             }
             if (getStructuredReportEditor().NewPage != null && ((StructuredReportEditorItem)getStructuredReportEditor().NewPage).getStructuredReportForm().SpreadSheet != null)
                 ((StructuredReportEditorItem)getStructuredReportEditor().NewPage).getStructuredReportForm().SpreadSheet.Close();
@@ -323,7 +323,7 @@ namespace Misp.Reporting.StructuredReport
                     catch (Exception)
                     {
                         DisplayError("Unable to save Structured Report", "Unable to save Excel file.");
-                     
+
                     }
                 }
             }
@@ -339,7 +339,7 @@ namespace Misp.Reporting.StructuredReport
             StructuredReportForm form = ((StructuredReportEditorItem)page).getStructuredReportForm();
             ((StructuredReportPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = form.StructuredReportPropertiesPanel;
         }
-        
+
         /// <summary>
         /// Methode à exécuter lorsqu'il y a un changement sur la vue.
         /// </summary>
@@ -353,7 +353,7 @@ namespace Misp.Reporting.StructuredReport
             UpdateStatusBar();
             return OperationState.CONTINUE;
         }
-                      
+
 
         public override OperationState Rename()
         {
@@ -451,7 +451,7 @@ namespace Misp.Reporting.StructuredReport
         {
             if (!(item is bool)) return;
             StructuredReportEditorItem page = (StructuredReportEditorItem)getStructuredReportEditor().getActivePage();
-            if(item is Kernel.Domain.TransformationTable) ((Kernel.Domain.TransformationTable)page.EditedObject).visibleInShortcut = (bool)item;
+            if (item is Kernel.Domain.TransformationTable) ((Kernel.Domain.TransformationTable)page.EditedObject).visibleInShortcut = (bool)item;
             if (item is Kernel.Domain.StructuredReport) ((Kernel.Domain.StructuredReport)page.EditedObject).visibleInShortcut = (bool)item;
             OnChange();
         }
@@ -502,14 +502,16 @@ namespace Misp.Reporting.StructuredReport
             List<BrowserData> designs = Service.getBrowserDatas();
             ((StructuredReportSideBar)SideBar).StructuredReportGroup.StructuredReportTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
 
+            ((StructuredReportSideBar)SideBar).EntityGroup.ModelService = GetStructuredReportService().ModelService;
+
             List<Model> models = GetStructuredReportService().ModelService.getAll();
             ((StructuredReportSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
 
             Measure rootMeasure = GetStructuredReportService().MeasureService.getRootMeasure();
-           
+
             List<CalculatedMeasure> CalculatedMeasures = GetStructuredReportService().CalculatedMeasureService.getAllCalculatedMeasure();
             ((StructuredReportSideBar)SideBar).MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure, CalculatedMeasures);
-            
+
 
             PeriodName rootPeriodName = GetStructuredReportService().PeriodNameService.getRootPeriodName();
             ((StructuredReportSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
@@ -535,11 +537,11 @@ namespace Misp.Reporting.StructuredReport
             ((StructuredReportSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
             ((StructuredReportSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodFromSidebar;
-            
+
             ((StructuredReportSideBar)SideBar).TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += onSelectLoopFromSidebar;
             ((StructuredReportSideBar)SideBar).SpecialGroup.SelectionChanged += onSelectSpecialFromSidebar;
         }
-             
+
         /// <summary>
         /// Cette méthode est exécutée lorsqu'on sélectionne une Input Table sur la sidebar.
         /// Cette opération a pour but d'ouvrir une page pour la table selectionnée dans l'éditeur.
@@ -559,7 +561,7 @@ namespace Misp.Reporting.StructuredReport
                     getStructuredReportEditor().selectePage(page);
                     ((StructuredReportEditorItem)page).getStructuredReportForm().SpreadSheet.protectSheet();
                     //((StructuredReportEditorItem)page).getStructuredReportForm().SpreadSheet.DisableSheet();
-                    
+
                 }
                 else if (design.oid != null && design.oid.HasValue)
                 {
@@ -612,7 +614,7 @@ namespace Misp.Reporting.StructuredReport
                 if (page == null) return;
                 page.getStructuredReportForm().StructuredReportPropertiesPanel.SetValue(sender);
             }
-            
+
         }
 
 
@@ -656,7 +658,7 @@ namespace Misp.Reporting.StructuredReport
         {
             onSelectTargetFromSidebar(sender);
         }
-                
+
         /// <summary>
         /// Cette methode est exécuté lorsqu'on édit le nom de la table active.
         /// Si l'utilisateur tappe sur la touche ENTER, le nouveau nom est validé.
@@ -693,7 +695,7 @@ namespace Misp.Reporting.StructuredReport
             ((StructuredReportSideBar)SideBar).StructuredReportGroup.StructuredReportTreeview.updateStructuredReport(name, page.Title, true);
             OnChange();
         }
-        
+
         /// <summary>
         /// Cette méthode est éxécutée lorsque la selection change dans le SpreadSheet.
         /// On affiche le nom de la cellule active.
@@ -721,15 +723,15 @@ namespace Misp.Reporting.StructuredReport
             if (obj is StructuredReportColumn)
             {
                 StructuredReportColumn column = (StructuredReportColumn)obj;
-                
+
                 if (column.type.Equals(StructuredReportColumn.Type.TARGET.ToString()))
                 {
                     Target target = column.scope;
                     if (target.typeName.Equals(typeof(AttributeValue).Name, StringComparison.OrdinalIgnoreCase))
                     {
-                       Kernel.Domain.AttributeValue value = GetStructuredReportService().ModelService.getAttributeValue(target.oid.Value, target.name);
-                       column.SetValue(value);
-                       page.getStructuredReportForm().StructuredReportPropertiesPanel.ColumnForms.Display(column);
+                        Kernel.Domain.AttributeValue value = GetStructuredReportService().ModelService.getAttributeValue(target.oid.Value, target.name);
+                        column.SetValue(value);
+                        page.getStructuredReportForm().StructuredReportPropertiesPanel.ColumnForms.Display(column);
                     }
 
                     if (target.typeName.Equals(typeof(Misp.Kernel.Domain.Attribute).Name, StringComparison.OrdinalIgnoreCase))
@@ -748,14 +750,14 @@ namespace Misp.Reporting.StructuredReport
                 }
 
             }
-           
+
         }
 
         private void OnStructuredReportPropertiesChange(object obj)
         {
             StructuredReportEditorItem page = (StructuredReportEditorItem)getStructuredReportEditor().getActivePage();
             if (page == null) return;
-            if(obj is bool && (bool)obj) BuildSheetTable();
+            if (obj is bool && (bool)obj) BuildSheetTable();
             OnChange();
         }
 
@@ -765,7 +767,7 @@ namespace Misp.Reporting.StructuredReport
             if (page == null) return;
             page.getStructuredReportForm().BuildSheetTable();
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -780,7 +782,7 @@ namespace Misp.Reporting.StructuredReport
 
         public override bool validateName(EditorItem<Kernel.Domain.StructuredReport> page, string name)
         {
-            if(!base.validateName(page, name)) return false;
+            if (!base.validateName(page, name)) return false;
             return ValidateEditedNewName() == OperationState.CONTINUE;
         }
 
@@ -816,9 +818,9 @@ namespace Misp.Reporting.StructuredReport
                     page.getStructuredReportForm().StructuredReportPropertiesPanel.NameTextBox.Focus();
                     return OperationState.STOP;
                 }
-                    }
-            if(!IsRenameOnDoubleClick)
-            if (table.name.ToUpper().Equals(newName.ToUpper())) return OperationState.CONTINUE;
+            }
+            if (!IsRenameOnDoubleClick)
+                if (table.name.ToUpper().Equals(newName.ToUpper())) return OperationState.CONTINUE;
 
             ((StructuredReportSideBar)SideBar).StructuredReportGroup.StructuredReportTreeview.updateStructuredReport(newName, table.name, false);
             table.name = newName;

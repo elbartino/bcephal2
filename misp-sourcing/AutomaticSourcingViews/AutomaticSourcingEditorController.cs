@@ -425,6 +425,8 @@ namespace Misp.Sourcing.Base
             List<Kernel.Domain.Browser.BrowserData> datas = this.Service.getBrowserDatas();
             ((AutomaticSourcingSideBar)SideBar).AutomaticSourcingGroup.AutomaticSourcingTreeview.fillTree(new ObservableCollection<Kernel.Domain.Browser.BrowserData>(datas));
 
+            ((AutomaticSourcingSideBar)SideBar).EntityGroup.ModelService = GetAutomaticSourcingService().ModelService;
+
             List<Model> models = GetAutomaticSourcingService().ModelService.getModelsForSideBar();
             ((AutomaticSourcingSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
             if (!isAutomaticTarget())

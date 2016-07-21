@@ -278,7 +278,7 @@ namespace Misp.Reporting.Calculated_Measure
 
         public OperationState Create(string name, CalculatedMeasure CalculatedMeasureInEdition)
         {
-            CalculatedMeasure CalculatedMeasure = null;// CalculatedMeasureInEdition.getCopy(name);
+            CalculatedMeasure CalculatedMeasure = null;//CalculatedMeasureInEdition.getCopy(name);
             if (CalculatedMeasure == null) return OperationState.STOP;
 
             EditorItem<CalculatedMeasure> page = getEditor().addOrSelectPage(CalculatedMeasure);
@@ -289,26 +289,26 @@ namespace Misp.Reporting.Calculated_Measure
 
         public bool isSaveAs = false;
 
-        public override OperationState SaveAs(string name)
-        {
-            isSaveAs = true;
-            CalculatedMeasureEditorItem page = (CalculatedMeasureEditorItem)getCalculatedMeasureEditor().getActivePage();
-            CalculatedMeasure design = page.EditedObject;
-            if (design.oid.HasValue)
-            {
-                return Create(name, page.EditedObject);
-            }
-            else
-            {
-                isSaveAs = false;
-                Rename(name);
-                if (Save(page) != OperationState.CONTINUE)
-                    return OperationState.STOP;
-                ((CalculatedMeasureSideBar)SideBar).CalculatedMeasureGroup.CalculatedMeasureTreeview.updateCalculatedMeasure(name, design.name, false);
-                ((CalculatedMeasureSideBar)SideBar).MeasureGroup.MeasureTreeview.updateCalculatedMeasure(name, design.name, false);
-            }
-            return OperationState.CONTINUE;
-        }
+        //public override OperationState SaveAs(string name)
+        //{
+        //    isSaveAs = true;
+        //    CalculatedMeasureEditorItem page = (CalculatedMeasureEditorItem)getCalculatedMeasureEditor().getActivePage();
+        //    CalculatedMeasure design = page.EditedObject;
+        //    if (design.oid.HasValue)
+        //    {
+        //        return SaveAs(name);
+        //    }
+        //    else
+        //    {
+        //        isSaveAs = false;
+        //        Rename(name);
+        //        if (Save(page) != OperationState.CONTINUE)
+        //            return OperationState.STOP;
+        //        ((CalculatedMeasureSideBar)SideBar).CalculatedMeasureGroup.CalculatedMeasureTreeview.updateCalculatedMeasure(name, design.name, false);
+        //        ((CalculatedMeasureSideBar)SideBar).MeasureGroup.MeasureTreeview.updateCalculatedMeasure(name, design.name, false);
+        //    }
+        //    return OperationState.CONTINUE;
+        //}
         
         private CalculatedMeasure GetCalculatedMeasure(string name)
         {

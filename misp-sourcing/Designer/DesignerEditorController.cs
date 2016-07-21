@@ -606,7 +606,7 @@ namespace Misp.Sourcing.Designer
                     Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
                     if (attribute.valueListChangeHandler.Items.Count <= 0) return;
                     if (!attribute.LoadValues)
-                    {
+                    { 
                         List<Kernel.Domain.AttributeValue> values = GetDesignService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
                         attribute.valueListChangeHandler.Items.Clear();
                         foreach (Kernel.Domain.AttributeValue attrValue in values)
