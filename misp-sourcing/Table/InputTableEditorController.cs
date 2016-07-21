@@ -2013,7 +2013,7 @@ namespace Misp.Sourcing.Table
             //((InputTableSideBar)SideBar).EntityGroup.EntityTreeview.OnRightClick += onRightClickFromSidebar;
             ((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
             ((InputTableSideBar)SideBar).DesignerGroup.DesignerTreeview.SelectionChanged += onSelectDesignFromSidebar;
-           // ((InputTableSideBar)SideBar).CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
+            ((InputTableSideBar)SideBar).CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
             ((InputTableSideBar)SideBar).TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += onSelectLoopFromSidebar;
         }
 
