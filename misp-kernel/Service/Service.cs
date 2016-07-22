@@ -261,7 +261,7 @@ namespace Misp.Kernel.Service
         {
             try
             {
-                var request1 = new RestRequest(ResourcePath + "/duplicate/" + name, Method.GET);
+                var request1 = new RestRequest(ResourcePath + "/duplicate/"+name, Method.GET);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
 
                 JavaScriptSerializer Serializer = new JavaScriptSerializer();
