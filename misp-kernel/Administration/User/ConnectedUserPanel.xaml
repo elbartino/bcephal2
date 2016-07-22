@@ -22,8 +22,8 @@
         </Hyperlink>
     </TextBlock>
     <TextBlock Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15 0">
-        <Hyperlink x:Name="SingOutLink" NavigateUri="http://localhost//bcephal//sing-out" >
-            <TextBlock Text="Sing out"/>
+        <Hyperlink x:Name="SingOutLink" NavigateUri="http://localhost//bcephal//sign-out" >
+            <TextBlock Text="Sign out"/>
         </Hyperlink>
     </TextBlock>
 </Grid>
