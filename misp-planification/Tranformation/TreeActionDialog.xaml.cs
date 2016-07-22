@@ -443,8 +443,14 @@ namespace Misp.Planification.Tranformation
         /// </summary>
         public void initializeSideBarHandlers()
         {
-            
+            this.NameTextBox.KeyUp += OnChangeActionName;
         }
+
+        private void OnChangeActionName(object sender, KeyEventArgs e)
+        {
+            SaveButton.IsEnabled = true;
+        }
+             
         
         #endregion
 
