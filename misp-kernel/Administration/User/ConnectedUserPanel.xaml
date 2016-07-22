@@ -16,12 +16,12 @@
             <TextBlock x:Name="UserTextBlock" Text=""/>
         </Hyperlink>
     </TextBlock>
-    <TextBlock  Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15 0">
+    <TextBlock  Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15 0" Visibility="Collapsed">
         <Hyperlink x:Name="MyAccountLink" NavigateUri="http://localhost//bcephal//my-account">
             <TextBlock Text="My Account"/>
         </Hyperlink>
     </TextBlock>
-    <TextBlock Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center">
+    <TextBlock Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15 0">
         <Hyperlink x:Name="SingOutLink" NavigateUri="http://localhost//bcephal//sing-out" >
             <TextBlock Text="Sing out"/>
         </Hyperlink>
