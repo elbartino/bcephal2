@@ -300,6 +300,8 @@ namespace Misp.Kernel.Ui.File
 
                         Misp.Kernel.Domain.File file = this.GetFileInfoService().SaveAs(fileDir, fileName);
                         if (file == null) return OperationState.STOP;
+                        this.ApplicationManager.File = file;
+                        this.ApplicationManager.AllocationCount = this.GetFileInfoService().GetAllocationCount();
                         System.Windows.Application.Current.Dispatcher.Invoke((Action)(() =>
                         {
                             ApplicationManager.MainWindow.Title = fileNameWithoutExtension + " - B-Cephal";
