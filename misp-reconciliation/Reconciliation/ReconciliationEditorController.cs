@@ -330,7 +330,7 @@ namespace Misp.Reconciliation.Reconciliation
         protected override void initializeSideBarHandlers()
         {
             ((ReconciliationSideBar)SideBar).RecoGroup.ReconciliationTreeview.SelectionChanged += onSelectReconciliationFromSidebar;
-            ((ReconciliationSideBar)SideBar).EntityGroup.OnSelectTargetValue += onSelectStandardTargetFromSidebar;
+            ((ReconciliationSideBar)SideBar).EntityGroup.OnSelectAttributeValue += onSelectStandardTargetFromSidebar;
             ((ReconciliationSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
             ((ReconciliationSideBar)SideBar).StandardTargetGroup.TargetTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
         }

@@ -714,7 +714,7 @@ namespace Misp.Sourcing.InputGrid
             ((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.SelectionChanged += onSelectGridFromSidebar;
 
             ((InputGridSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
-            ((InputGridSideBar)SideBar).EntityGroup.OnSelectTargetValue += onSelectTargetFromSidebar;
+            ((InputGridSideBar)SideBar).EntityGroup.OnSelectTarget += onSelectTargetFromSidebar;
             ((InputGridSideBar)SideBar).EntityGroup.EntityTreeview.SelectionDoubleClick += onDoubleClickSelectTargetFromSidebar;
             ((InputGridSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
@@ -895,13 +895,14 @@ namespace Misp.Sourcing.InputGrid
         /// ou au scope des cellProperties correspondants à la sélection Excel.
         /// </summary>
         /// <param name="sender">La target sélectionné</param>
-        protected void onSelectTargetFromSidebar(object sender)
+        protected void onSelectTargetFromSidebar(object target)
         {
             InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
             if (page == null) return;
-            if (page.getInputGridForm().SelectedIndex == 1)
-                page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.SetValue(sender);
-            else page.getInputGridForm().GridForm.filterForm.targetFilter.SetTargetValue((Target)sender);
+            if (page.getInputGridForm().SelectedIndex == 1 && target is Kernel.Domain.Attribute)
+                page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.SetValue(target);
+            else if (page.getInputGridForm().SelectedIndex != 1 && !(target is Kernel.Domain.Attribute)) 
+                page.getInputGridForm().GridForm.filterForm.targetFilter.SetTargetValue((Target)target);
           
         }
 
