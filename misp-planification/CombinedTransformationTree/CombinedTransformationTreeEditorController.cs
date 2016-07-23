@@ -595,7 +595,8 @@ namespace Misp.Planification.CombinedTransformationTree
         /// <returns></returns>
         protected override Kernel.Domain.CombinedTransformationTree GetObjectByName(string name)
         {
-            return ((CombinedTransformationTreeSideBar)SideBar).CombineTransformationTreeGroup.combinedTransformationTreeTreeview.getTargetByName(name);
+            //return ((CombinedTransformationTreeSideBar)SideBar).CombineTransformationTreeGroup.combinedTransformationTreeTreeview.getTargetByName(name);
+            return GetCombineTransformationTreeService().getByName(name);
         }
 
 

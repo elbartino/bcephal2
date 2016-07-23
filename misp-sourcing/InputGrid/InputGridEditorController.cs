@@ -1085,7 +1085,8 @@ namespace Misp.Sourcing.InputGrid
         /// <returns></returns>
         protected override Grille GetObjectByName(string name)
         {
-            return ((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.getGrilleByName(name);
+            //return ((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.getGrilleByName(name);
+            return GetInputGridService().getByName(name);
         }
 
         public override Kernel.Application.OperationState Search(object oid) { return OperationState.CONTINUE; }
