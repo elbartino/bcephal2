@@ -77,6 +77,7 @@ namespace Misp.Sourcing.InputGrid
         /// </summary>
         public void fillObject()
         {
+            this.GridForm.fillObject();
             this.InputGridSheetForm.fillObject();
         }
 

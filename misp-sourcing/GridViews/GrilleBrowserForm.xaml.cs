@@ -104,6 +104,12 @@ namespace Misp.Sourcing.GridViews
         /// </summary>
         public void fillObject()
         {
+
+            if (this.EditedObject != null)
+            {
+                GrilleFilter filter = this.filterForm.Fill();
+                this.EditedObject.GrilleFilter = filter;
+            }
         }
 
         /// <summary>
