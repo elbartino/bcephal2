@@ -727,9 +727,13 @@ namespace Misp.Kernel.Ui.Office.EDraw
                 ThrowEvent = val;
                 try
                 {
-                    Excel._Worksheet sheet = xlApp.ActiveSheet;
-                    Range rangeCourant = new Range();
-                    if (sheet != null && sheet.Name != null) return new Sheet(sheet.Index, sheet.Name); ;
+                    if (xlApp.ActiveSheet is Excel._Worksheet)
+                    {
+                        Excel._Worksheet sheet = xlApp.ActiveSheet;
+                        Range rangeCourant = new Range();
+                        if (sheet != null && sheet.Name != null) return new Sheet(sheet.Index, sheet.Name); ;
+                    }
+                    return null;
                 }
                 catch (Exception ex) 
                 {
@@ -1464,14 +1468,18 @@ namespace Misp.Kernel.Ui.Office.EDraw
                 Excel._Worksheet sheet = null;
                 try
                 {
-                    sheet = xlApp.ActiveSheet;
-                    List<Sheet> listeSheet = new List<Sheet>(0);
-                    for (int i = 1; i <= xlWorkBook.Sheets.Count; i++)
+                    if (xlApp.ActiveSheet is Excel._Worksheet)
                     {
-                        Excel._Worksheet foundSheet = xlApp.Sheets[i];
-                        listeSheet.Add(new Sheet(foundSheet.Index, foundSheet.Name));
+                        sheet = xlApp.ActiveSheet;
+                        List<Sheet> listeSheet = new List<Sheet>(0);
+                        for (int i = 1; i <= xlWorkBook.Sheets.Count; i++)
+                        {
+                            Excel._Worksheet foundSheet = xlApp.Sheets[i];
+                            listeSheet.Add(new Sheet(foundSheet.Index, foundSheet.Name));
+                        }
+                        return listeSheet;
                     }
-                    return listeSheet;
+                    return new List<Sheet>(0);
                 }
                 catch (Exception ex) 
                 {
