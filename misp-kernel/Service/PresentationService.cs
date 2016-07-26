@@ -47,35 +47,35 @@ namespace Misp.Kernel.Service
 
         public event SaveInfoEventHandler SavePresentationHandler;
 
-        /// <summary>
-        /// Retoune la table sur base de son oid.
-        /// </summary>
-        /// <param name="oid"> L'identifiant de la table à retourner</param>
-        /// <returns>La table</returns>
-        public virtual Misp.Kernel.Domain.Presentation getByName(String name)
-        {
-            try
-            {
-                var request = new RestRequest(ResourcePath + "/get/" + name, Method.POST);
-                request.DateFormat = "dd/MM/yyyy";
-                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
-                try
-                {
-                    JavaScriptSerializer Serializer = new JavaScriptSerializer();
-                    Serializer.MaxJsonLength = int.MaxValue;
-                    Misp.Kernel.Domain.Presentation slide = Serializer.Deserialize<Misp.Kernel.Domain.Presentation>(queryResult.Content);
-                    return slide;
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
-            }
-            catch (Exception e)
-            {
-                throw new BcephalException("Unable to Return presentation identified by: " + name, e);
-            }
-        }
+        ///// <summary>
+        ///// Retoune la table sur base de son oid.
+        ///// </summary>
+        ///// <param name="oid"> L'identifiant de la table à retourner</param>
+        ///// <returns>La table</returns>
+        //public virtual Misp.Kernel.Domain.Presentation getByName(String name)
+        //{
+        //    try
+        //    {
+        //        var request = new RestRequest(ResourcePath + "/get/" + name, Method.POST);
+        //        request.DateFormat = "dd/MM/yyyy";
+        //        RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+        //        try
+        //        {
+        //            JavaScriptSerializer Serializer = new JavaScriptSerializer();
+        //            Serializer.MaxJsonLength = int.MaxValue;
+        //            Misp.Kernel.Domain.Presentation slide = Serializer.Deserialize<Misp.Kernel.Domain.Presentation>(queryResult.Content);
+        //            return slide;
+        //        }
+        //        catch (Exception)
+        //        {
+        //            return null;
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new BcephalException("Unable to Return presentation identified by: " + name, e);
+        //    }
+        //}
 
         public override Misp.Kernel.Domain.Presentation Save(Misp.Kernel.Domain.Presentation item)
         {
