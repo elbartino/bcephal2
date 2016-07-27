@@ -423,6 +423,8 @@ namespace Misp.Sourcing.InputGrid
         private void OnSelectedTabChange(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (sender == null) return;
+            if (e == null) return;
+            if (!(e.Source is InputGridForm)) return;
             InputGridEditorItem page = (InputGridEditorItem)getEditor().getActivePage();
             if (page.getInputGridForm().SelectedIndex == 1) ApplicationManager.MainWindow.displayPropertyBar(this.PropertyBar);
             else
@@ -430,6 +432,7 @@ namespace Misp.Sourcing.InputGrid
                 ApplicationManager.MainWindow.displayPropertyBar(null);
                 if (page.getInputGridForm().GridForm.gridBrowser.RebuildGrid) UpdateGridForm();
             }
+            e.Handled = true;
         }
 
         private void UpdateGridForm()

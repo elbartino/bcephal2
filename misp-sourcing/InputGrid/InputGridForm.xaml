@@ -9,10 +9,10 @@
              d:DesignHeight="300" d:DesignWidth="300">
     
     <TabItem Header="Grid" Background="White" x:Name="AuditTabItem" x:FieldModifier="public">
-        <src:GrilleBrowserForm x:Name="GridForm"/>
+        <src:GrilleBrowserForm x:Name="GridForm" x:FieldModifier="public"/>
     </TabItem>
     <TabItem Header="Configuration" Background="White" x:Name="ConfigurationTabItem" x:FieldModifier="public">
-        <base:InputGridSheetForm x:Name="InputGridSheetForm" />
+        <base:InputGridSheetForm x:Name="InputGridSheetForm" x:FieldModifier="public"/>
     </TabItem>
     
 </TabControl>

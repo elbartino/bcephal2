@@ -21,10 +21,12 @@ namespace Misp.Kernel.Domain
 	    public String name {get;set;}
 
         public bool report { get; set; }
+
+        public bool reconciliation { get; set; }
 		
         public bool? visibleInShortcut {get;set;}
 	
-        public BGroup group {get;set;}
+        public BGroup group { get; set; }
 
         public PersistentListChangeHandler<GrilleColumn> columnListChangeHandler { get; set; }
 

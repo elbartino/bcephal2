@@ -29,6 +29,8 @@ namespace Misp.Sourcing.GridViews
         public DeleteEventHandler DeleteEventHandler { get; set; }
         public ChangeItemEventHandler DuplicateEventHandler { get; set; }
 
+        public Kernel.Ui.Base.ChangeEventHandler ChangeHandler;
+
         private List<string> columnNames = new List<string>(0);
 
         public DataGrid grid;
@@ -42,12 +44,13 @@ namespace Misp.Sourcing.GridViews
         public BrowserGridContextMenu BrowserGridContextMenu { get; set; }
 
         public GridBrowser()
-        { }
-
-
-        public List<int> GetSelectedOis()
         {
-            List<int> oids = new List<int>(0);
+            
+        }
+
+        public List<long> GetSelectedOis()
+        {
+            List<long> oids = new List<long>(0);
             foreach (Object row in grid.SelectedItems)
             {
                 if (row is GridItem)
@@ -79,6 +82,7 @@ namespace Misp.Sourcing.GridViews
             
             grid = new DataGrid();
             initializeContextMenu();
+            grid.SelectionChanged += onSelectionchange;
 
             var brushConverter = new System.Windows.Media.BrushConverter();
             System.Windows.Media.Brush bruch = (System.Windows.Media.Brush)brushConverter.ConvertFrom(System.Windows.Media.Brushes.White.Color.ToString());
@@ -109,6 +113,11 @@ namespace Misp.Sourcing.GridViews
 
             grid.CellEditEnding += OnCellEditEnding;
             grid.Sorting += OnSort;
+        }
+
+        private void onSelectionchange(object sender, SelectionChangedEventArgs e)
+        {
+            if (ChangeHandler != null) ChangeHandler();
         }
 
         /// <summary>

@@ -57,6 +57,6 @@
     <Label x:Name="label" Content="1 to 100 / 1000" Grid.Column="7" VerticalAlignment="Center" Margin="15,2" Grid.RowSpan="2"/>
     
     <Label Content="Page size" Grid.Column="8" VerticalAlignment="Center" Margin="5,0" HorizontalAlignment="Right"/>
-    <ComboBox x:Name="pageSizeComboBox"  Grid.Column="9" VerticalAlignment="Center" Margin="0 2 15 2"  HorizontalAlignment="Right" Width="70"/>
+    <ComboBox x:Name="pageSizeComboBox" x:FieldModifier="public" Grid.Column="9" VerticalAlignment="Center" Margin="0 2 15 2"  HorizontalAlignment="Right" Width="70"/>
     
 </Grid>

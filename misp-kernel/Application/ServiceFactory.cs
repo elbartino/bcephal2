@@ -29,6 +29,7 @@ namespace Misp.Kernel.Application
         private AutomaticSourcingService automaticSourcingService;
         private CalculatedMeasureService calculatedMeasureService;
         private ReconciliationService reconciliationService;
+        private ReconciliationGridService reconciliationGridService;
         private PostingService postingService;
 		private InputGridService inputGridService;
         private SecurityService securityService;
@@ -286,6 +287,28 @@ namespace Misp.Kernel.Application
                 configureService(reconciliationService);
             }
             return reconciliationService;
+        }
+
+        /// <summary>
+        /// Gets ReconciliationGridService
+        /// </summary>
+        public ReconciliationGridService GetReconciliationGridService()
+        {
+            if (reconciliationGridService == null)
+            {
+                reconciliationGridService = new ReconciliationGridService();
+                reconciliationGridService.ResourcePath = ResourcePath.RECONCILIATION_GRID_RESOURCE_PATH;
+                reconciliationGridService.FileService = GetFileService();
+                reconciliationGridService.ModelService = GetModelService();
+                reconciliationGridService.MeasureService = GetMeasureService();
+                reconciliationGridService.PeriodicityService = GetPeriodicityService();
+                reconciliationGridService.GroupService = GetGroupService();
+                reconciliationGridService.CalculatedMeasureService = GetCalculatedMeasureService2();
+                reconciliationGridService.PeriodNameService = GetPeriodNameService();
+                reconciliationGridService.PostingService = GetPostingService();
+                configureService(reconciliationGridService);
+            }
+            return reconciliationGridService;
         }
         
         /// <summary>

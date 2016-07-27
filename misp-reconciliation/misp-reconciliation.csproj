@@ -103,6 +103,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="RecoGrid\PostingEditor.cs" />
+    <Compile Include="RecoGrid\PostingEditorItem.cs" />
+    <Compile Include="RecoGrid\PostingEditorController.cs" />
     <Compile Include="Reconciliation\ReconciliationEditor.cs" />
     <Compile Include="Reconciliation\ReconciliationEditorController.cs" />
     <Compile Include="Reconciliation\ReconciliationForm.cs" />

@@ -12,6 +12,7 @@ using Misp.Reconciliation.Posting;
 using Misp.Kernel.Administration.Role;
 using Misp.Kernel.Administration.User;
 using Misp.Kernel.Administration.Profil;
+using Misp.Reporting.ReportGrid;
 
 namespace Misp.Reconciliation.Base
 {
@@ -58,11 +59,18 @@ namespace Misp.Reconciliation.Base
 
             if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_POSTING_FUNCTIONALITY)
             {
-                PostingBrowserController controller = new PostingBrowserController();
+                //PostingBrowserController controller = new PostingBrowserController();
+                //controller.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                //controller.Functionality = fonctionality;
+                //controller.ApplicationManager = this.ApplicationManager;
+                //controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingService();
+                //return controller;
+
+                PostingEditorController controller = new PostingEditorController();
                 controller.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
                 controller.Functionality = fonctionality;
                 controller.ApplicationManager = this.ApplicationManager;
-                controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingService();
+                controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationGridService();
                 return controller;
             }
 
