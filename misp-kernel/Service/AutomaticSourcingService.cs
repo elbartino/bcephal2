@@ -169,7 +169,11 @@ namespace Misp.Kernel.Service
                 AutomaticSourcing automaticSourcing = deserializeAutomaticSourcing(e.Data);
                 if (automaticSourcing != null)
                 {
-                    if (SaveTableHandler != null) System.Windows.Application.Current.Dispatcher.Invoke(() => SaveTableHandler(null, automaticSourcing));
+                    if (SaveTableHandler != null) System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            if (SaveTableHandler != null) SaveTableHandler(null, automaticSourcing);
+                        }
+                        );
                     return;
                 }
 

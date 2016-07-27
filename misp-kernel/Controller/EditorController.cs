@@ -374,15 +374,16 @@ namespace Misp.Kernel.Controller
                 Kernel.Util.MessageDisplayer.DisplayError("Empty Name", "Name can't be empty!");
                 return false;
             }
+            if (Service.getByName(name) != null) return false;
 
-            foreach (EditorItem<T> pageItem in getEditor().getPages())
-            {
-                if (page != pageItem && name.ToUpper() == pageItem.Title.ToUpper())
-                {
-                    Kernel.Util.MessageDisplayer.DisplayError("Duplicate Name", "Another Object named " + name + " already exists!");
-                    return false;
-                }
-            }
+            //foreach (EditorItem<T> pageItem in getEditor().getPages())
+            //{
+            //    if (page != pageItem && name.ToUpper() == pageItem.Title.ToUpper())
+            //    {
+            //        Kernel.Util.MessageDisplayer.DisplayError("Duplicate Name", "Another Object named " + name + " already exists!");
+            //        return false;
+            //    }
+            //}
             return true;
         }
 

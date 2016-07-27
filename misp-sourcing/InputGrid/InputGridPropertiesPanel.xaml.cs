@@ -137,6 +137,7 @@ namespace Misp.Sourcing.InputGrid
         {
             if (activeCell == null) return;
             int col = activeCell.Column;
+            if (this.Grid == null) return;
             GrilleColumn column = this.Grid.GetColumn(col);            
             ColumnForms.Display(column);
         }

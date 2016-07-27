@@ -226,13 +226,13 @@ namespace Misp.Sourcing.Table
                                         this.page.getInputTableForm().SpreadSheet.SetValueAt(cell.Row - inc, cell.Column + addColIndex, sheetName, item.GetValue().ToString(), Designer.DesignerForm.COLUMNS_COLOR);
                                         
                                     }
-                                 //  for (int l = 0; l < rowCount; l++)
-                                   // {
-                                     //   CellProperty cellProperty = GetCellProperty(cell.Row + l, cell.Column + addColIndex, true);
-                                       // RefreshCellProperty(cellProperty, centralLine);
+                                   for (int l = 0; l < rowCount; l++)
+                                    {
+                                        CellProperty cellProperty = GetCellProperty(cell.Row + l, cell.Column + addColIndex, true);
+                                        RefreshCellProperty(cellProperty, centralLine);
                                        //this.page.getInputTableForm().SpreadSheet.SetColorAt(cell.Row-1;cell.Column-1,sheetName,item/
-                                     //   RefreshCellProperty(cellProperty, item);
-                                   // }
+                                        RefreshCellProperty(cellProperty, item);
+                                    }
                                     addColIndex++;
                                     col++;
                                 }
@@ -290,11 +290,11 @@ namespace Misp.Sourcing.Table
                                     this.page.getInputTableForm().SpreadSheet.SetValueAt(cell.Row + addRowIndex, colone, sheetName, item.GetValue().ToString(), Designer.DesignerForm.ROWS_COLOR);
                                     //this.page.getInputTableForm().SpreadSheet.SetColorAt(cell.Row + addRowIndex, colone, sheetName, Designer.DesignerForm.ROWS_COLOR);
                                 }
-                               /*for (int c = 0; c < columnCount; c++)
+                               for (int c = 0; c < columnCount; c++)
                                 {
                                     CellProperty cellProperty = GetCellProperty(cell.Row + addRowIndex, cell.Column + c, false);
                                     RefreshCellProperty(cellProperty, item);
-                                }*/
+                                }
                                 addRowIndex++;
                                 row++;
                             }
@@ -327,11 +327,11 @@ namespace Misp.Sourcing.Table
                                         this.page.getInputTableForm().SpreadSheet.SetValueAt(cell.Row + addRowIndex, colone, sheetName, item.GetValue().ToString(), Designer.DesignerForm.ROWS_COLOR);
                                         //this.page.getInputTableForm().SpreadSheet.SetColorAt(cell.Row + addRowIndex, colone, sheetName, Designer.DesignerForm.ROWS_COLOR);
                                     }
-                                    /*for (int c = 0; c < columnCount; c++)
+                                    for (int c = 0; c < columnCount; c++)
                                     {
                                         CellProperty cellProperty = GetCellProperty(cell.Row + addRowIndex, cell.Column + c, false);
                                         RefreshCellProperty(cellProperty, item);
-                                    }*/
+                                    }
                                     addRowIndex++;
                                     row++;
                                 }
@@ -394,8 +394,8 @@ namespace Misp.Sourcing.Table
 
             CellProperty cellProperty = null;
             this.cellsDictionary.TryGetValue(cellName, out cellProperty);
-            if(cellProperty != null) return cellProperty;
-            
+            if (cellProperty != null) return cellProperty;
+
             object value = page.getInputTableForm().SpreadSheet.getValueAt(row, col, sheetName);
             cellProperty = new CellProperty(Kernel.Util.RangeUtil.GetColumnName(col) + row, row, col);
             cellProperty.nameSheet = sheetName;
@@ -430,7 +430,7 @@ namespace Misp.Sourcing.Table
         //        table.AddCellProperty(CellProperty);
         //    }
         //    CellProperty.SetDecimalMeasure(value);
-            
+
         //    var duration = (DateTime.Now - time).TotalSeconds;
         //    getCellDuration += duration;
         //    Console.Out.WriteLine("Get Cell " + CellProperty.name + " : " + duration + " secondes");

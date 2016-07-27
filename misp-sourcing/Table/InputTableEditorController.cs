@@ -681,29 +681,19 @@ namespace Misp.Sourcing.Table
                 
         public override bool validateName(EditorItem<InputTable> page, string name)
         {
-            bool result = false;
-            if (!base.validateName(page, name)) result = false;
-            InputTable table = ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.getInputTableByName(name);
-            if (table == null)
+            if (String.IsNullOrEmpty(name))
             {
-                table = GetInputTableService().getTableByName(name);
-            }
-
-            if (table == null) return true;
-
-            if (page.EditedObject.oid.HasValue  && table.oid.HasValue && page.EditedObject.oid.Value != table.oid.Value)
-            {
-                Kernel.Util.MessageDisplayer.DisplayError("Duplicate Name", "Another Table named " + name + " already exists!");
+                Kernel.Util.MessageDisplayer.DisplayError("Empty Name", "Name can't be empty!");
                 return false;
             }
-
-            if (page.EditedObject.oid.HasValue != (table.oid.HasValue && table.oid.Value > 0))
+            
+            if (!base.validateName(page, name))
             {
-                Kernel.Util.MessageDisplayer.DisplayError("Duplicate Name", "Another Table named " + name + " already exists!");
+                String objectName = page.EditedObject is Report ? "Report" : "InputTable";
+                Kernel.Util.MessageDisplayer.DisplayError("Duplicate Name", "Another "+objectName+" named " + name + " already exists!");
                 return false;
             }
-
-            return result;
+            return true;
         }
 
 
@@ -2929,7 +2919,8 @@ namespace Misp.Sourcing.Table
         /// <returns></returns>
         protected override InputTable GetObjectByName(string name)
         {
-            return ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.getInputTableByName(name);
+            //return ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.getInputTableByName(name);
+            return GetInputTableService().getByName(name);
         }
 
         protected override string getNewPageName(string prefix)
