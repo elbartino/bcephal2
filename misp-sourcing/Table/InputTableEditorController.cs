@@ -470,7 +470,7 @@ namespace Misp.Sourcing.Table
             return OperationState.CONTINUE;
         }
 
-        protected OperationState saveSpreedSheet(EditorItem<InputTable> page, String fileName = null) 
+        protected OperationState saveSpreedSheet(EditorItem<InputTable> page, String fileName = null,bool saveAs = false) 
         {
             InputTableEditorItem currentPage = (InputTableEditorItem)page;
             String filePath = buildExcelFilePath(fileName == null ? page.EditedObject.name : fileName);
@@ -484,15 +484,18 @@ namespace Misp.Sourcing.Table
                 Mask(false);
                 return OperationState.STOP;
             }
-            try
+            if (!saveAs)
             {
-                if (!String.IsNullOrWhiteSpace(oldFilePath) && !oldFilePath.Equals(filePath) && System.IO.File.Exists(oldFilePath))
+                try
                 {
-                    string bcephalFileName = System.IO.Directory.GetParent(oldFilePath).Parent.Name;
-                    if (bcephalFileName.Equals(ApplicationManager.File.name)) System.IO.File.Delete(oldFilePath);
+                    if (!String.IsNullOrWhiteSpace(oldFilePath) && !oldFilePath.Equals(filePath) && System.IO.File.Exists(oldFilePath))
+                    {
+                        string bcephalFileName = System.IO.Directory.GetParent(oldFilePath).Parent.Name;
+                        if (bcephalFileName.Equals(ApplicationManager.File.name)) System.IO.File.Delete(oldFilePath);
+                    }
                 }
-            }catch(Exception e){}
-
+                catch (Exception e) { }
+            }
 
             return OperationState.CONTINUE;
         }
@@ -603,7 +606,7 @@ namespace Misp.Sourcing.Table
                 InputTableEditorItem currentPage = (InputTableEditorItem)page;
                 if (currentPage.getInputTableForm().SpreadSheet != null)
                 {
-                    if (saveSpreedSheet(page, name) == OperationState.STOP)
+                    if (saveSpreedSheet(page, name,true) == OperationState.STOP)
                     {
                         Mask(false);
                         return OperationState.STOP;
