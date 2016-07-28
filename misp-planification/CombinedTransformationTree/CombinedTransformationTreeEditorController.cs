@@ -94,9 +94,15 @@ namespace Misp.Planification.CombinedTransformationTree
                 this.ApplicationManager.HistoryHandler.closePage(this);
                 return OperationState.STOP;
             }
-            EditorItem<Kernel.Domain.CombinedTransformationTree> page = getEditor().addOrSelectPage(combinedTransformationTree);
+
+            int oidG = (int)combinedTransformationTree.group.oid;            
+            BGroup gr = (BGroup)GetCombineTransformationTreeService().GroupService.getByOid(oidG);
+            combinedTransformationTree.group = gr;
+
+            CombinedTransformationTreeEditorItem page = (CombinedTransformationTreeEditorItem)getEditor().addOrSelectPage(combinedTransformationTree);
             initializePageHandlers(page);
             getEditor().ListChangeHandler.AddNew(combinedTransformationTree);
+            page.getCombineTransformationTreeForm().GroupService = GetCombineTransformationTreeService().GroupService;
             return OperationState.CONTINUE;
         }
 

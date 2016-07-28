@@ -116,9 +116,20 @@ namespace Misp.Planification.CombinedTransformationTree
         /// </summary>
         public void displayObject()
         {
+            correctGroup(this.EditedObject);
             this.CombinedTransformationTreePropertiesPanel.displayCombinedTransformationTree(this.EditedObject);
             this.CombinedTransformationTreePanel.DisplayTransformationTrees(this.EditedObject);
             
+        }
+
+        public void correctGroup(Kernel.Domain.CombinedTransformationTree combined)
+        {
+            if (GroupService != null)
+            {
+                int oidG = (int)combined.group.oid;
+                BGroup gr = (BGroup)GroupService.getByOid(oidG);
+                combined.group = gr;
+            }
         }
 
         /// <summary>
