@@ -2922,8 +2922,8 @@ namespace Misp.Sourcing.Table
         /// <returns></returns>
         protected override InputTable GetObjectByName(string name)
         {
-            //return ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.getInputTableByName(name);
-            return GetInputTableService().getByName(name);
+            return ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.getInputTableByName(name);
+            //return GetInputTableService().getByName(name);
         }
 
         protected override string getNewPageName(string prefix)
