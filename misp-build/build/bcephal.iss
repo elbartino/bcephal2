@@ -42,9 +42,9 @@ Source: ..\setup\bin\redist\x86\EDOfficeViewerX.dll; DestDir: {app}\redist\x86; 
 
 
 [Icons]
-Name: {group}\Bcephal; Filename: {app}\bin\bcephal-client.exe; WorkingDir: {app}\bin
-Name: {group}\{cm:UninstallProgram,Bcephal}; Filename: {uninstallexe}
-Name: {commondesktop}\Bcephal; Filename: {app}\bin\bcephal-client.exe; WorkingDir: {app}\bin; Tasks: desktopicon
+Name: {group}\Bcephal Client; Filename: {app}\bin\bcephal.exe; WorkingDir: {app}\bin
+Name: {group}\{cm:UninstallProgram,Bcephal Client}; Filename: {uninstallexe}
+Name: {commondesktop}\Bcephal Client; Filename: {app}\bin\bcephal.exe; WorkingDir: {app}\bin; Tasks: desktopicon
 
 [Run]   
 ;Filename: {app}\bin\bcephal.exe; Description: {cm:LaunchProgram,Bcephal}; Flags: skipifdoesntexist waituntilidle postinstall
