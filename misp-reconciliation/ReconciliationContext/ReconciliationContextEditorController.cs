@@ -256,11 +256,9 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// Crée et retourne une nouvelle instance de la SideBar liée à ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la SideBar</returns>
-        protected override SideBar getNewSideBar() { return null; //new ReconciliationSideBar();
-        }
+        protected override SideBar getNewSideBar() { return  new ReconciliationContextSideBar();}
 
-        protected override PropertyBar getNewPropertyBar() { return null; //new ReconciliationPropertyBar(); 
-        }
+        protected override PropertyBar getNewPropertyBar() { return new ReconciliationContextPropertyBar();}
 
         protected override void initializePropertyBarData() { }
 
