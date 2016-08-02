@@ -61,15 +61,15 @@ namespace Misp.Kernel.Ui.Base
 
         protected void BuildNewFileControl()
         {
-            NavigationToken newToken = NavigationToken.GetCreateViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY);            
-            Run run1 = new Run("New File");
+            NavigationToken newToken = NavigationToken.GetCreateViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY);
+            Run run1 = new Run("New Project");
             Hyperlink hyperLink = new Hyperlink(run1)
             {
-                NavigateUri = new Uri("http://localhost//" + "New File"),
+                NavigateUri = new Uri("http://localhost//" + "New Project"),
                 DataContext = newToken
             };
-            NewFileTextBlock.Inlines.Add(hyperLink);            
-            NewFileTextBlock.ToolTip = "Create a new file";
+            NewFileTextBlock.Inlines.Add(hyperLink);
+            NewFileTextBlock.ToolTip = "Create a new Project";
             hyperLink.RequestNavigate += new System.Windows.Navigation.RequestNavigateEventHandler(OnRequestNavigate);
 
             Run run = new Run("Clear");
