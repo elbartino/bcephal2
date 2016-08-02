@@ -23,7 +23,7 @@
         </Grid.ColumnDefinitions>
 
         <Label  Content="Posting Attribute" Grid.Column="0" Width="145"/>
-        <TextBox x:Name="postingAttri" Grid.Column="1" />
+        <TextBox x:Name="postingTextbox" Grid.Column="1" />
     </Grid>
 
     <Grid Grid.Row="1" >
@@ -32,7 +32,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label  Content="Account Attribute" Grid.Column="0" Width="145"/>
-        <TextBox  Grid.Column="1"/>
+        <TextBox  Grid.Column="1" x:Name="accoutTextbox"/>
     </Grid>
 
     <Grid Grid.Row="2" >
@@ -41,7 +41,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label  Content="Reconcialiation Attribute" Grid.Column="0"  Width="145"/>
-        <TextBox  Grid.Column="1"/>
+        <TextBox  Grid.Column="1" x:Name="reconcilTextbox"/>
     </Grid>
    
     <Grid Grid.Row="3" >
@@ -50,7 +50,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label Content="Deb/Cred Attribute" Grid.Column="0"  Width="145"/>
-        <TextBox  Grid.Column="1"/>
+        <TextBox  Grid.Column="1" x:Name="dcTextbox"/>
     </Grid>
 
     <Grid Grid.Row="4" >
@@ -59,7 +59,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label Content="lastPostingNumber"  Grid.Column="0"  Width="145"/>
-        <TextBox  Grid.Column="1"/>
+        <TextBox  Grid.Column="1" x:Name="lastPosTextbox"/>
     </Grid>
 
     <Grid Grid.Row="5" >
@@ -68,7 +68,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label Content="lastRecoNumber"  Grid.Column="0"  Width="145"/>
-        <TextBox  Grid.Column="1"/>
+        <TextBox  Grid.Column="1" x:Name="lastRecoTextbox"/>
     </Grid>
     </Grid>
     </Border>
