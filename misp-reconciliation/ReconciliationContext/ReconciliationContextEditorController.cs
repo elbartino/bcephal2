@@ -71,7 +71,9 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         private Kernel.Domain.ReconciliationContext getCurrentReconciliationContext()
         {
-            return GetReconciliationContextService().getReconciliationContext();
+            Kernel.Domain.ReconciliationContext context = GetReconciliationContextService().getReconciliationContext();
+            if (context == null) context = new Kernel.Domain.ReconciliationContext();
+            return context;
         }
 
         public override Misp.Kernel.Domain.SubjectType SubjectTypeFound()
