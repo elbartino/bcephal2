@@ -38,8 +38,9 @@ namespace Misp.Reconciliation.ReconciliationContext
             InitializeHandlers();
         }
 
-        public void display(Kernel.Domain.ReconciliationContext reconciliationContext) 
+        public void display(Kernel.Domain.ReconciliationContext reconciliationcontext) 
         {
+            this.reconciliationContext = reconciliationcontext;
             this.postingAttribute.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
             this.accountAttribute.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
             this.reconciliationAttribute.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
@@ -48,9 +49,16 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.debitValue.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
         }
 
-        public Kernel.Domain.ReconciliationContext Fill() 
+        public Kernel.Domain.ReconciliationContext Fill(Kernel.Domain.ReconciliationContext recontext) 
         {
-            return new Kernel.Domain.ReconciliationContext();
+            if(recontext == null) recontext = new Kernel.Domain.ReconciliationContext();
+            recontext.postingNbreAttribute = this.postingAttribute.attribute;
+            recontext.accountNbreAttribute = this.accountAttribute.attribute;
+            recontext.recoNbreAttribute = this.reconciliationAttribute.attribute;
+            recontext.dcNbreAttribute = this.dcAttribute.attribute;
+            recontext.debitAttributeValue = this.debitValue.attrvalue;
+            recontext.creditAttributeValue = this.creditValue.attrvalue;
+            return recontext;
         }
 
         public void InitializeHandlers()
@@ -114,5 +122,17 @@ namespace Misp.Reconciliation.ReconciliationContext
             else return false;
         }
 
+
+        public List<object> getEditableControls()
+        {
+            List<object> list = new List<object>();
+            list.Add(postingAttribute);
+            list.Add(reconciliationAttribute);
+            list.Add(accountAttribute);
+            list.Add(dcAttribute);
+            list.Add(debitValue);
+            list.Add(creditValue);
+            return list;
+        }
     }
 }

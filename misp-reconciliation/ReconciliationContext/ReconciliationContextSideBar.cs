@@ -42,8 +42,8 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.EntityGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
           //  this.RecoGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
 
-            this.PeriodNameGroup.Background = System.Windows.Media.Brushes.LightBlue;
-            this.PeriodNameGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
+           // this.PeriodNameGroup.Background = System.Windows.Media.Brushes.LightBlue;
+           // this.PeriodNameGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
 
            // this.AddGroup(this.RecoGroup);
             this.AddGroup(this.EntityGroup);

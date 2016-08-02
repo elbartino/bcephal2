@@ -44,8 +44,6 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// </summary>
         public Misp.Kernel.Ui.Base.ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
 
-        public event Misp.Kernel.Ui.Base.ActivateEventHandler ActivatedItem;
-
         public Kernel.Service.GroupService GroupService { get; set; }
 
         #endregion
@@ -74,12 +72,10 @@ namespace Misp.Reconciliation.ReconciliationContext
         public void setAttribute(Kernel.Domain.Attribute attribute)
         {
             this.ReconciliationContextPanel.setAttribute(attribute);
-            //this.ReconciliationContextPanel.ActiveItem.setAttribute(attribute);
         }
 
         public void setValue(Kernel.Domain.AttributeValue value)
         {
-            
             this.ReconciliationContextPanel.ActiveItem.setAttributeValue(value);
         }
               
@@ -122,7 +118,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         public void fillObject()
         {
             if (this.EditedObject == null) this.EditedObject = getNewObject();
-            // this.ReconciliationContextPanel.fillReconciliation(this.EditedObject);
+            this.ReconciliationContextPanel.Fill(this.EditedObject);
            
         }
          /// <summary>
@@ -131,14 +127,14 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// </summary>
         public void displayObject()
         {
-            //this.ReconciliationPropertiePanel.displayReconciliation(this.EditedObject);
+            this.ReconciliationContextPanel.display(this.EditedObject);            
         }
 
 
         public List<object> getEditableControls()
         {
             List<object> controls = new List<object>(0);
-            // controls.AddRange(this.ReconciliationContextPanel.getEditableControls());
+            controls.AddRange(this.ReconciliationContextPanel.getEditableControls());
             return controls;
         }
 
