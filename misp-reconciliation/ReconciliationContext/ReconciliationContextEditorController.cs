@@ -62,8 +62,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             Kernel.Domain.ReconciliationContext reco = getCurrentReconciliationContext();
 
-           // ((ReconciliationContextSideBar)SideBar).RecoGroup.ReconciliationTreeview.AddReconciliation(reco);
-            ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().addOrSelectPage(reco);
+           ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().addOrSelectPage(reco);
             initializePageHandlers(page);
             page.Title = "Reconciliation Context";
             getReconciliationContextEditor().ListChangeHandler.AddNew(reco);
@@ -72,7 +71,7 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         private Kernel.Domain.ReconciliationContext getCurrentReconciliationContext()
         {
-            return new Kernel.Domain.ReconciliationContext();
+            return GetReconciliationContextService().getReconciliationContext();
         }
 
         public override Misp.Kernel.Domain.SubjectType SubjectTypeFound()
@@ -94,17 +93,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             return OperationState.CONTINUE;
         }
 
-        /**
-         * the new reconciliation
-         */
-        protected virtual ReconciliationTemplate GetNewReconciliationTemplate()
-        {
-            ReconciliationTemplate reco = new ReconciliationTemplate();
-            reco.name = getNewPageName("Reconciliation Context");
-            reco.visibleInShortcut = true;
-            reco.group = GetReconciliationContextService().GroupService.getDefaultGroup();
-            return reco;
-        }
+        
 
         /**
          * get a new page name
@@ -148,30 +137,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             return OperationState.CONTINUE;
         }
 
-        private Kernel.Domain.ReconciliationContext GetReconciliation(string name)
-        {
-            //if (!IsNameUsed(name))
-            //{
-            //    ReconciliationTemplate reco = new ReconciliationTemplate();
-            //    reco.name = name;
-            //    reco.group = GetReconciliationService().GroupService.getDefaultGroup();
-            //    return reco;
-            //}
-            return null;
-        }
-
-
-        private bool IsNameUsed(string name)
-        {
-            //Kernel.Domain.ReconciliationContext obj = GetObjectByName(name);
-            //if (obj != null)
-            //{
-            //    DisplayError("Duplicate Name", "There is another reconciliation named: " + name);
-            //    return true;
-            //}
-            return false;
-        }
-
+       
         /// <summary>
         /// handler on page selected
         /// </summary>
@@ -185,7 +151,6 @@ namespace Misp.Reconciliation.ReconciliationContext
             ReconciliationContexForm form = ((ReconciliationContextEditorItem)page).getReconciliationContextForm();
             if (form.ReconciliationContextPanel != null)
             {
-                //((ReconciliationPropertyBar)this.PropertyBar).ReconciliationLayoutAnchorable.Content = form.ReconciliationPropertiePanel;
             }
         }
 
@@ -207,25 +172,12 @@ namespace Misp.Reconciliation.ReconciliationContext
         
         public override OperationState Rename()
         {
-            //if (base.Rename() != OperationState.CONTINUE)
-            //{
-            //    return OperationState.STOP;
-            //}
-
-            //IsRenameOnDoubleClick = true;
-            //ReconciliationEditorItem page = (ReconciliationEditorItem)getReconciliationEditor().getActivePage();
-            //return ValidateEditedNewName(page.EditedObject.name);
             return OperationState.CONTINUE;
 
         }
 
         protected override void Rename(string name)
         {
-            //ReconciliationEditorItem page = (ReconciliationEditorItem)getReconciliationEditor().getActivePage();
-            //page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Text = name;
-            //page.EditedObject.name = name;
-            //base.Rename(name);
-            //return OperationState.CONTINUE;
         }
 
         public override OperationState Delete() { return OperationState.CONTINUE; }
@@ -288,20 +240,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             
             base.initializePageHandlers(page);
             ReconciliationContextEditorItem editorPage = (ReconciliationContextEditorItem)page;
-
-            //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.groupField.GroupService = GetReconciliationService().GroupService;
-            //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.groupField.subjectType = SubjectTypeFound();
-            //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.KeyUp += onNameTextChange;
-            //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.LostFocus += onNameTextLostFocus;
-            //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.groupField.Changed += onGroupFieldChange;
             editorPage.getReconciliationContextForm().ReconciliationContextPanel.ActivatedItem += OnActivatedItem;
-            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.resetButton.Click += onResetClick;
-            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.resetButton.Click += onResetClick;
-            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
-            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.filterPTForm.targetFilter.Changed += onFilterPanelChange;
-            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.filterPTForm.targetFilter.Changed += onFilterPanelChange;
-            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
-        
         }
 
         private void OnActivatedItem(object item)
@@ -317,18 +256,8 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// </summary>
         protected override void initializeSideBarData()
         {
-            //List<ReconciliationTemplate> recos = GetReconciliationService().getAll();
-            //((ReconciliationSideBar)SideBar).RecoGroup.ReconciliationTreeview.fillTree(new ObservableCollection<ReconciliationTemplate>(recos));
-
             ((ReconciliationContextSideBar)SideBar).EntityGroup.ModelService = GetReconciliationContextService().ModelService;
-            ((ReconciliationContextSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
-          
-            //rootPeriodName = GetReconciliationService().periodNameService.getRootPeriodName();
-            //defaultPeriodName = rootPeriodName.getDefaultPeriodName();
-            //((ReconciliationContextSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
-
-
-            //BGroup group = GetReconciliationService().GroupService.getDefaultGroup();
+            ((ReconciliationContextSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();          
         }
 
         /// <summary>
@@ -336,11 +265,8 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// </summary>
         protected override void initializeSideBarHandlers()
         {
-           // ((ReconciliationContextSideBar)SideBar).RecoGroup.ReconciliationTreeview.SelectionChanged += onSelectReconciliationFromSidebar;
             ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectAttributeValue += onSelectStandardTargetFromSidebar;
             ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectTarget += onSelectStandardTargetFromSidebar;
-           // ((ReconciliationContextSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
-           // ((ReconciliationContextSideBar)SideBar).StandardTargetGroup.TargetTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
         }
 
         /// <summary>
@@ -350,39 +276,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             base.initializeToolBarHandlers();
         }
-        /// <summary>
-        /// Cette méthode est exécutée lorsqu'on sélectionne une Input Table sur la sidebar.
-        /// Cette opération a pour but d'ouvrir une page pour la table selectionnée dans l'éditeur.
-        /// </summary>
-        /// <param name="sender">La table sélectionnée</param>
-        protected void onSelectReconciliationFromSidebar(object sender)
-        {
-            //if (sender != null && sender is ReconciliationTemplate)
-            //{
-            //    ReconciliationTemplate reco = (ReconciliationTemplate )sender;
-            //    EditorItem<ReconciliationTemplate> page = getReconciliationEditor().getPage(reco.name);
-            //    if (page != null)
-            //    {
-            //        page.fillObject();
-            //        getReconciliationEditor().selectePage(page);
-
-            //    }
-            //    else if (reco.oid != null && reco.oid.HasValue)
-            //    {
-
-            //        this.Open(reco.oid.Value);
-            //    }
-            //    else
-            //    {
-            //        page = getReconciliationEditor().addOrSelectPage(reco);
-            //        initializePageHandlers(page);
-            //        page.Title = reco.name;
-
-            //        getReconciliationEditor().ListChangeHandler.AddNew(reco);
-            //    }
-            //    ReconciliationContextEditorItem pageOpen = (ReconciliationContextEditorItem)getReconciliationEditor().getActivePage();
-            //}
-        }
+        
 
         /// <summary>
         /// Cette méthode est exécutée lorsqu'on sélectionne une target sur la sidebar.
@@ -430,46 +324,6 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        protected virtual void onSelectPeriodNameFromSidebar(object sender)
-        {
-            //ReconciliationEditorItem page = (ReconciliationEditorItem)getReconciliationEditor().getActivePage();
-            //PostingBrowserForm activeBrowserForm = page.getReconciliationForm().reconciliationMainPanel.activeFilterGrid;
-            //activeBrowserForm.onSelectPeriodNameFromSidebar(sender);
-        }
-
-        /// <summary>
-        /// Cette methode est exécuté lorsqu'on édit le nom de la table active.
-        /// Si l'utilisateur tappe sur la touche ENTER, le nouveau nom est validé.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        protected void onNameTextChange(object sender, KeyEventArgs args)
-        {
-            //ReconciliationEditorItem page = (ReconciliationEditorItem)getReconciliationEditor().getActivePage();
-            //if (args.Key == Key.Escape)
-            //{
-            //    page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Text = page.Title;
-            //}
-            //else if (args.Key == Key.Enter)
-            //{
-            //    ValidateEditedNewName();
-            //}
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        protected void onNameTextLostFocus(object sender, RoutedEventArgs args)
-        {
-            ValidateEditedNewName();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         private void onFilterPanelChange()
         {
             OnChange();
@@ -485,70 +339,10 @@ namespace Misp.Reconciliation.ReconciliationContext
             OnChange();
         }
 
-        protected void onGroupFieldChange()
-        {
-            //ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationEditor().getActivePage();
-            //string name = page.getReconciliationForm().ReconciliationPropertiePanel.groupField.textBox.Text;
-            //BGroup group = page.getReconciliationForm().ReconciliationPropertiePanel.groupField.Group;
-            ////((ReconciliationContextSideBar)SideBar).RecoGroup.ReconciliationTreeview.updateReconciliation(name, page.Title, true);
-            //ReconciliationTemplate rTemp = page.EditedObject;
-            //rTemp.group = group;
-            //page.EditedObject = rTemp;
-            //page.getReconciliationForm().ReconciliationPropertiePanel.displayReconciliation(rTemp);            
-            //page.EditedObject.isModified = true;
-            OnChange();
-        }
+       
 
         #endregion
 
-        public override bool validateName(EditorItem<Kernel.Domain.ReconciliationContext> page, string name)
-        {
-            if (!base.validateName(page, name)) return false;
-            return ValidateEditedNewName() == OperationState.CONTINUE;
-        }
-
-        private bool IsRenameOnDoubleClick = false;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected virtual OperationState ValidateEditedNewName(string newName = "")
-        {
-//            ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationEditor().getActivePage();
-//            Kernel.Domain.ReconciliationContext table = page.EditedObject;
-//            if (string.IsNullOrEmpty(newName)) { }
-////                newName = page.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.Text.Trim();
-//            if (string.IsNullOrEmpty(newName))
-//            {
-//                DisplayError("Empty Name", "The Reconciliation name can't be mepty!");
-//                //page.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.SelectAll();
-//                //page.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.Focus();
-//                return OperationState.STOP;
-//            }
-
-            bool found = false;
-            //if (GetReconciliationService().getByName(newName) != null) found = true;
-
-            //foreach (ReconciliationEditorItem unReco in getReconciliationEditor().getPages())
-            //{
-            //    if ((found && newName != getReconciliationEditor().getActivePage().Title) || (unReco != getReconciliationEditor().getActivePage() && newName == unReco.Title))
-            //    {
-            //        DisplayError("Duplicate Name", "There is another Target named: " + newName);
-            //        page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Text = page.Title;
-            //        page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.SelectAll();
-            //        page.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.Focus();
-            //        return OperationState.STOP;
-            //    }
-            //}
-            //if (!IsRenameOnDoubleClick)
-            //    if (table.name.ToUpper().Equals(newName.ToUpper())) return OperationState.CONTINUE;
-
-            ////((ReconciliationContextSideBar)SideBar).RecoGroup.ReconciliationTreeview.updateReconciliation(newName, table.name, false);
-            //table.name = newName;
-            //page.Title = newName;
-            OnChange();
-            return OperationState.CONTINUE;
-        }
 
         /// <summary>
         /// 
@@ -558,7 +352,6 @@ namespace Misp.Reconciliation.ReconciliationContext
         protected override Kernel.Domain.ReconciliationContext GetObjectByName(string name)
         {
             return new Kernel.Domain.ReconciliationContext();
-            //return ((ReconciliationContextSideBar)SideBar).RecoGroup.ReconciliationTreeview.getReconciliationByName(name);
         }
 
         public override Kernel.Application.OperationState Search(object oid)

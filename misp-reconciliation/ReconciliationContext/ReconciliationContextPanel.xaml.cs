@@ -53,14 +53,14 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         public Kernel.Domain.ReconciliationContext Fill(Kernel.Domain.ReconciliationContext recontext) 
         {
-            if(recontext == null) recontext = new Kernel.Domain.ReconciliationContext();
-            recontext.postingNbreAttribute = this.postingAttribute.attribute;
-            recontext.accountNbreAttribute = this.accountAttribute.attribute;
-            recontext.recoNbreAttribute = this.reconciliationAttribute.attribute;
-            recontext.dcNbreAttribute = this.dcAttribute.attribute;
-            recontext.debitAttributeValue = this.debitValue.attrvalue;
-            recontext.creditAttributeValue = this.creditValue.attrvalue;
-            return recontext;
+            //if(recontext == null) recontext = new Kernel.Domain.ReconciliationContext();
+            //recontext.postingNbreAttribute = this.postingAttribute.attribute;
+            //recontext.accountNbreAttribute = this.accountAttribute.attribute;
+            //recontext.recoNbreAttribute = this.reconciliationAttribute.attribute;
+            //recontext.dcNbreAttribute = this.dcAttribute.attribute;
+            //recontext.debitAttributeValue = this.debitValue.attrvalue;
+            //recontext.creditAttributeValue = this.creditValue.attrvalue;
+            return this.reconciliationContext;
         }
 
         public void InitializeHandlers()
@@ -98,7 +98,6 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             if (ActiveItem == null) return;
             if (!canSetValue(ActiveItem)) return;
-            if (reconciliationContext == null) reconciliationContext = new Kernel.Domain.ReconciliationContext();
             if (reconciliationContext.dcNbreAttribute == null)
             {
                 reconciliationContext.dcNbreAttribute = value.attribut;
