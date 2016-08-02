@@ -200,6 +200,7 @@
     <Compile Include="Domain\GrilleEditedElement.cs" />
     <Compile Include="Domain\GrilleFilter.cs" />
     <Compile Include="Domain\GrillePage.cs" />
+    <Compile Include="Domain\ReconciliationContext.cs" />
     <Compile Include="Domain\ReconciliationGrid.cs" />
     <Compile Include="Domain\UserAction.cs" />
     <Compile Include="Domain\AllocationRunBrowserDataPage.cs" />
