@@ -114,6 +114,7 @@
     <Compile Include="ReconciliationContext\ReconciliationContextEditor.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextEditorItem.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextForm.cs" />
+    <Compile Include="ReconciliationContext\ReconciliationContextToolBar.cs" />
     <Compile Include="Reconciliation\ReconciliationEditor.cs" />
     <Compile Include="Reconciliation\ReconciliationEditorController.cs" />
     <Compile Include="Reconciliation\ReconciliationForm.cs" />

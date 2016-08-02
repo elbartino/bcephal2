@@ -86,7 +86,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         public override OperationState Open(Kernel.Domain.ReconciliationContext reco)
         {
             ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getEditor().addOrSelectPage(reco);
-            //initializePageHandlers(page);
+            initializePageHandlers(page);
             page.getReconciliationContextForm().displayObject();
             getEditor().ListChangeHandler.AddNew(reco);
             return OperationState.CONTINUE;
@@ -181,7 +181,7 @@ namespace Misp.Reconciliation.ReconciliationContext
                 return;
             }
             ReconciliationContexForm form = ((ReconciliationContextEditorItem)page).getReconciliationContextForm();
-            //if (form.ReconciliationPropertiePanel != null)
+            if (form.ReconciliationContextPanel != null)
             {
                 //((ReconciliationPropertyBar)this.PropertyBar).ReconciliationLayoutAnchorable.Content = form.ReconciliationPropertiePanel;
             }
@@ -237,14 +237,13 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return null; //new ReconciliationContextEditor(); 
-        }
+        protected override IView getNewView() { return new  ReconciliationContextEditor();  }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la ToolBar</returns>
-        protected override Kernel.Ui.Base.ToolBar getNewToolBar() { return null; //new ReconciliationToolBar();
+        protected override Kernel.Ui.Base.ToolBar getNewToolBar() { return new ReconciliationContextToolBar();
         }
 
         /// <summary>
@@ -290,20 +289,19 @@ namespace Misp.Reconciliation.ReconciliationContext
             base.initializePageHandlers(page);
             ReconciliationContextEditorItem editorPage = (ReconciliationContextEditorItem)page;
 
-        //    editorPage.getReconciliationForm().setPostingService(GetReconciliationService().postingService);            
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.groupField.GroupService = GetReconciliationService().GroupService;
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.groupField.subjectType = SubjectTypeFound();
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.KeyUp += onNameTextChange;
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.nameTextBox.LostFocus += onNameTextLostFocus;
-        //    editorPage.getReconciliationForm().ReconciliationPropertiePanel.groupField.Changed += onGroupFieldChange;
+            //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.groupField.GroupService = GetReconciliationService().GroupService;
+            //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.groupField.subjectType = SubjectTypeFound();
+            //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.KeyUp += onNameTextChange;
+            //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.LostFocus += onNameTextLostFocus;
+            //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.groupField.Changed += onGroupFieldChange;
 
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.leftFilterGrid.filterForm.resetButton.Click += onResetClick;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.rigthFilterGrid.filterForm.resetButton.Click += onResetClick;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.rigthFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.rigthFilterGrid.filterForm.filterPTForm.targetFilter.Changed += onFilterPanelChange;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.leftFilterGrid.filterForm.filterPTForm.targetFilter.Changed += onFilterPanelChange;
-        //    editorPage.getReconciliationForm().reconciliationMainPanel.leftFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
-        //
+            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.resetButton.Click += onResetClick;
+            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.resetButton.Click += onResetClick;
+            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
+            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.filterPTForm.targetFilter.Changed += onFilterPanelChange;
+            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.filterPTForm.targetFilter.Changed += onFilterPanelChange;
+            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
+        
         }
 
         
@@ -315,12 +313,12 @@ namespace Misp.Reconciliation.ReconciliationContext
             //List<ReconciliationTemplate> recos = GetReconciliationService().getAll();
             //((ReconciliationSideBar)SideBar).RecoGroup.ReconciliationTreeview.fillTree(new ObservableCollection<ReconciliationTemplate>(recos));
 
-            //((ReconciliationSideBar)SideBar).EntityGroup.ModelService = GetReconciliationService().ModelService;
-            //((ReconciliationSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
+            ((ReconciliationContextSideBar)SideBar).EntityGroup.ModelService = GetReconciliationContextService().ModelService;
+            ((ReconciliationContextSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
           
             //rootPeriodName = GetReconciliationService().periodNameService.getRootPeriodName();
             //defaultPeriodName = rootPeriodName.getDefaultPeriodName();
-            //((ReconciliationSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
+            //((ReconciliationContextSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
 
 
             //BGroup group = GetReconciliationService().GroupService.getDefaultGroup();
