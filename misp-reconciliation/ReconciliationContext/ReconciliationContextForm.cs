@@ -76,7 +76,7 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         public void setValue(Kernel.Domain.AttributeValue value)
         {
-            this.ReconciliationContextPanel.ActiveItem.setAttributeValue(value);
+            this.ReconciliationContextPanel.setAttributeValue(value);
         }
               
         
