@@ -63,7 +63,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         public void setAttribute(Kernel.Domain.Attribute attribut) 
         {
             attribute = attribut;
-            setContextItemValue(attribute.name);
+            setContextItemValue(attribute != null ?  attribute.name : "");
         }
     }
 }
