@@ -143,7 +143,7 @@ namespace Misp.Kernel.Ui.Base
         {
             this.WindowState = WindowState.Maximized;
             displayPage(null);
-            MenuBar.customizeForFileClosed();
+            if (MenuBar != null) MenuBar.customizeForFileClosed();
         }
 
         /// <summary>

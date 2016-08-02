@@ -462,10 +462,10 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         protected void onGroupFieldChange()
         {
-            ReconciliationEditorItem page = (ReconciliationEditorItem)getReconciliationEditor().getActivePage();
+            ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationEditor().getActivePage();
             string name = page.getReconciliationForm().ReconciliationPropertiePanel.groupField.textBox.Text;
             BGroup group = page.getReconciliationForm().ReconciliationPropertiePanel.groupField.Group;
-            ((ReconciliationSideBar)SideBar).RecoGroup.ReconciliationTreeview.updateReconciliation(name, page.Title, true);
+            ((ReconciliationContextSideBar)SideBar).RecoGroup.ReconciliationTreeview.updateReconciliation(name, page.Title, true);
             ReconciliationTemplate rTemp = page.EditedObject;
             rTemp.group = group;
             page.EditedObject = rTemp;
@@ -518,7 +518,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             if (!IsRenameOnDoubleClick)
                 if (table.name.ToUpper().Equals(newName.ToUpper())) return OperationState.CONTINUE;
 
-            ((ReconciliationSideBar)SideBar).RecoGroup.ReconciliationTreeview.updateReconciliation(newName, table.name, false);
+            //((ReconciliationContextSideBar)SideBar).RecoGroup.ReconciliationTreeview.updateReconciliation(newName, table.name, false);
             table.name = newName;
             page.Title = newName;
             OnChange();
@@ -532,7 +532,8 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// <returns></returns>
         protected override ReconciliationTemplate GetObjectByName(string name)
         {
-            return ((ReconciliationSideBar)SideBar).RecoGroup.ReconciliationTreeview.getReconciliationByName(name);
+            return null;
+            //return ((ReconciliationContextSideBar)SideBar).RecoGroup.ReconciliationTreeview.getReconciliationByName(name);
         }
 
         public override Kernel.Application.OperationState Search(object oid)

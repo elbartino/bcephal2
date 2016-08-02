@@ -194,6 +194,7 @@
     <Compile Include="Domain\Browser\RoleBrowserData.cs" />
     <Compile Include="Domain\Browser\ProfilBrowserData.cs" />
     <Compile Include="Domain\Browser\UserBrowserData.cs" />
+    <Compile Include="Domain\ReconciliationContext.cs" />
     <Compile Include="Domain\FunctionRight.cs" />
     <Compile Include="Domain\Grille.cs" />
     <Compile Include="Domain\GrilleColumn.cs" />
@@ -254,6 +255,7 @@
     <Compile Include="Service\AutomaticSourcingGridService.cs" />
     <Compile Include="Service\AutomaticTargetService.cs" />
     <Compile Include="Service\CombineTransformationTreeService.cs" />
+    <Compile Include="Service\ReconciliationContextService.cs" />
     <Compile Include="Service\ReconciliationGridService.cs" />
     <Compile Include="Service\InputGridService.cs" />
     <Compile Include="Service\UserService.cs" />

@@ -144,40 +144,16 @@ namespace Misp.Kernel.Application
 
         public void tryToconnect()
         {
-            try
-            {
-                SplashScreen screen = new SplashScreen("Resources\\Images\\Splash.png");
-                screen.Show(false, true);
-                loadApplicationConfig();
-                ApplicationManager.Instance.MainWindow = new MainWindow();
-                loadPlugins();
-                logger.Info("MainWindow...");
-                if (ApplicationManager.Instance == null || ApplicationManager.Instance.MainWindow == null) logger.Info("Null....");
-                ApplicationManager.Instance.MainWindow.Show();            
-                logger.Info("MainWindow");
-                screen.Close(TimeSpan.Zero);
-                logger.Info("Splash screen closed!");
+            SplashScreen screen = new SplashScreen("Resources\\Images\\Splash.png");
+            screen.Show(false, true);
+            loadApplicationConfig();
+            ApplicationManager.Instance.MainWindow = new MainWindow();
+            loadPlugins();
+            ApplicationManager.Instance.MainWindow.Show();
+            screen.Close(TimeSpan.Zero);
 
-                if (ApplicationManager.Instance.ApplcationConfiguration.IsMonouser()) HistoryHandler.Instance.buildUserMenus();
-                else HistoryHandler.Instance.tryToLogin();
-                logger.Info("tryToLogin");
-            }
-            catch (NullReferenceException e)
-            {
-                logger.Info("Error");
-                logger.Error(e);
-            }
-            catch (InvalidOperationException e)
-            {
-                logger.Info("Error");
-                logger.Error(e);
-            }
-            catch (Exception e)
-            {
-                logger.Info("Error");
-                logger.Error(e);
-            }
-            logger.Info("End");
+            if (ApplicationManager.Instance.ApplcationConfiguration.IsMonouser()) HistoryHandler.Instance.buildUserMenus();
+            else HistoryHandler.Instance.tryToLogin();
         }
 
         protected void loadApplicationConfig()
