@@ -14,7 +14,7 @@ using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Service
 {
-    public class ReconciliationContext : Service<Misp.Kernel.Domain.Persistent, Misp.Kernel.Domain.Browser.BrowserData>
+    public class ReconciliationContextService : Service<ReconciliationContext, BrowserData>
     {
         #region Properties
 
