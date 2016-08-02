@@ -16,7 +16,7 @@ namespace Misp.Reconciliation.Base
         public ApplicationMenu ReconciliationFiltersMenu { get; private set; }
         public ApplicationMenu ReconciliationFiltersListMenu { get; private set; }
         public ApplicationMenu ReconciliationPostingMenu { get; private set; }
-        
+        public ApplicationMenu ReconciliationContextMenu { get; private set; }
      
 
 
@@ -31,6 +31,8 @@ namespace Misp.Reconciliation.Base
             menus.Add(new Separator());
             menus.Add(ReconciliationFiltersMenu);
             menus.Add(ReconciliationFiltersListMenu);
+            menus.Add(new Separator());
+            menus.Add(ReconciliationContextMenu);
             return menus;
         }
 
