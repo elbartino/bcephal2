@@ -144,16 +144,40 @@ namespace Misp.Kernel.Application
 
         public void tryToconnect()
         {
-            SplashScreen screen = new SplashScreen("Resources\\Images\\Splash.png");
-            screen.Show(false, true);
-            loadApplicationConfig();
-            ApplicationManager.Instance.MainWindow = new MainWindow();
-            loadPlugins();
-            ApplicationManager.Instance.MainWindow.Show();
-            screen.Close(TimeSpan.Zero);
+            try
+            {
+                SplashScreen screen = new SplashScreen("Resources\\Images\\Splash.png");
+                screen.Show(false, true);
+                loadApplicationConfig();
+                ApplicationManager.Instance.MainWindow = new MainWindow();
+                loadPlugins();
+                logger.Info("MainWindow...");
+                if (ApplicationManager.Instance == null || ApplicationManager.Instance.MainWindow == null) logger.Info("Null....");
+                ApplicationManager.Instance.MainWindow.Show();            
+                logger.Info("MainWindow");
+                screen.Close(TimeSpan.Zero);
+                logger.Info("Splash screen closed!");
 
-            if (ApplicationManager.Instance.ApplcationConfiguration.IsMonouser()) HistoryHandler.Instance.buildUserMenus();
-            else HistoryHandler.Instance.tryToLogin();
+                if (ApplicationManager.Instance.ApplcationConfiguration.IsMonouser()) HistoryHandler.Instance.buildUserMenus();
+                else HistoryHandler.Instance.tryToLogin();
+                logger.Info("tryToLogin");
+            }
+            catch (NullReferenceException e)
+            {
+                logger.Info("Error");
+                logger.Error(e);
+            }
+            catch (InvalidOperationException e)
+            {
+                logger.Info("Error");
+                logger.Error(e);
+            }
+            catch (Exception e)
+            {
+                logger.Info("Error");
+                logger.Error(e);
+            }
+            logger.Info("End");
         }
 
         protected void loadApplicationConfig()
