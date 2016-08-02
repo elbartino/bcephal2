@@ -10,7 +10,7 @@
     </Grid.ColumnDefinitions>
 
     <Label  x:Name="contextItemLabel" Content="Context Name" Grid.Column="0" />
-    <TextBlock x:Name="contextItemTextbox" Grid.Column="1" Background="Beige"  />
+    <TextBlock x:Name="contextItemTextbox" Grid.Column="1" Background="Gray"  />
 </Grid>
 
 
