@@ -40,13 +40,15 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         public void display(Kernel.Domain.ReconciliationContext reconciliationcontext) 
         {
+            if (reconciliationcontext == null) return;
             this.reconciliationContext = reconciliationcontext;
-            this.postingAttribute.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
-            this.accountAttribute.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
-            this.reconciliationAttribute.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
-            this.dcAttribute.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
-            this.creditValue.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
-            this.debitValue.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
+
+            this.postingAttribute.setContextItemValue(reconciliationContext.postingNbreAttribute != null ? reconciliationContext.postingNbreAttribute.name :"");
+            this.accountAttribute.setContextItemValue(reconciliationContext.accountNbreAttribute != null ? reconciliationContext.accountNbreAttribute.name : "");
+            this.reconciliationAttribute.setContextItemValue(reconciliationContext.recoNbreAttribute != null ? reconciliationContext.recoNbreAttribute.name : "");
+            this.dcAttribute.setContextItemValue(reconciliationContext.dcNbreAttribute != null ? reconciliationContext.dcNbreAttribute.name : "");
+            this.creditValue.setContextItemValue(reconciliationContext.creditAttributeValue != null ? reconciliationContext.creditAttributeValue.name : "");
+            this.debitValue.setContextItemValue(reconciliationContext.debitAttributeValue != null ? reconciliationContext.debitAttributeValue.name : "");
         }
 
         public Kernel.Domain.ReconciliationContext Fill(Kernel.Domain.ReconciliationContext recontext) 
