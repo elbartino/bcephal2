@@ -30,6 +30,7 @@ namespace Misp.Kernel.Application
         private CalculatedMeasureService calculatedMeasureService;
         private ReconciliationService reconciliationService;
         private ReconciliationGridService reconciliationGridService;
+        private ReconciliationContext reconciliationContextService;
         private PostingService postingService;
 		private InputGridService inputGridService;
         private SecurityService securityService;
@@ -309,6 +310,23 @@ namespace Misp.Kernel.Application
                 configureService(reconciliationGridService);
             }
             return reconciliationGridService;
+        }
+
+        /// <summary>
+        /// Gets ReconciliationGridService
+        /// </summary>
+        public ReconciliationContext GetReconciliationContextService()
+        {
+            if (reconciliationContextService == null)
+            {
+                reconciliationContextService = new ReconciliationContext();
+                reconciliationContextService.ResourcePath = ResourcePath.RECONCILIATION_CONTEXT_RESOURCE_PATH;
+                reconciliationContextService.FileService = GetFileService();
+                reconciliationContextService.ModelService = GetModelService();
+                reconciliationContextService.GroupService = GetGroupService();
+                configureService(reconciliationGridService);
+            }
+            return reconciliationContextService;
         }
         
         /// <summary>
