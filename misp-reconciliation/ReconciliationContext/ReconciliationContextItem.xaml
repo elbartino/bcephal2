@@ -6,11 +6,11 @@
              mc:Ignorable="d" >
     <Grid.ColumnDefinitions>
         <ColumnDefinition  Width="*"/>
-        <ColumnDefinition Width="2*"/>
+        <ColumnDefinition  MinWidth="300" Width="2*"/>
     </Grid.ColumnDefinitions>
 
     <Label  x:Name="contextItemLabel" Content="Context Name" Grid.Column="0" />
-    <TextBox x:Name="contextItemTextbox" Grid.Column="1" IsEnabled="False" Width="145"/>
+    <TextBlock x:Name="contextItemTextbox" Grid.Column="1" Background="Beige"  />
 </Grid>
 
 

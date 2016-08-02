@@ -32,7 +32,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.StandardTargetGroup = new TargetGroup("Standards Target", true);
             this.EntityGroup = new EntityGroup("Entities", true);
             //this.RecoGroup = new ReconciliationGroup("Reconciliation Templates", true);
-            this.PeriodNameGroup = new PeriodNameGroup("Period", true);
+            //this.PeriodNameGroup = new PeriodNameGroup("Period", true);
 
             this.StandardTargetGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.EntityGroup.Background = System.Windows.Media.Brushes.LightBlue;
@@ -47,7 +47,7 @@ namespace Misp.Reconciliation.ReconciliationContext
 
            // this.AddGroup(this.RecoGroup);
             this.AddGroup(this.EntityGroup);
-            this.AddGroup(this.PeriodNameGroup);
+            //this.AddGroup(this.PeriodNameGroup);
             //this.AddGroup(this.StandardTargetGroup);
         }
 

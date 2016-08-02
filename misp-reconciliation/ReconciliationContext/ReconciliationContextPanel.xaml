@@ -16,12 +16,12 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <item:ReconciliationContextItem x:Name="postingAttribute"  Grid.Row="0"/>
-            <item:ReconciliationContextItem x:Name="accountAttribute"  Grid.Row="1"/>
-            <item:ReconciliationContextItem x:Name="reconciliationAttribute"  Grid.Row="2"/>
-            <item:ReconciliationContextItem x:Name="dcAttribute"  Grid.Row="3"/>
-            <item:ReconciliationContextItem x:Name="debitValue"  Grid.Row="4"/>
-            <item:ReconciliationContextItem x:Name="creditValue"  Grid.Row="5"/>
+            <item:ReconciliationContextItem x:Name="postingAttribute"  Grid.Row="0" Margin="5 0 0 5"/>
+            <item:ReconciliationContextItem x:Name="accountAttribute"  Grid.Row="1" Margin="5 0 0 5"/>
+            <item:ReconciliationContextItem x:Name="reconciliationAttribute"  Grid.Row="2" Margin="5 0 0 5"/>
+            <item:ReconciliationContextItem x:Name="dcAttribute"  Grid.Row="3" Margin="5 0 0 5"/>
+            <item:ReconciliationContextItem x:Name="debitValue"  Grid.Row="4" Margin="15 0 0 5"/>
+            <item:ReconciliationContextItem x:Name="creditValue"  Grid.Row="5" Margin="15 0 0 5"/>
         </Grid>
     </Border>
 </Grid>

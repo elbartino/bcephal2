@@ -294,7 +294,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.KeyUp += onNameTextChange;
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.LostFocus += onNameTextLostFocus;
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.groupField.Changed += onGroupFieldChange;
-            editorPage.getReconciliationContextForm().ReconciliationContextPanel.ActivatedItem += OnActivatedItem;
+            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.ActivatedItem += OnActivatedItem;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.resetButton.Click += onResetClick;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.resetButton.Click += onResetClick;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
@@ -339,8 +339,8 @@ namespace Misp.Reconciliation.ReconciliationContext
            // ((ReconciliationContextSideBar)SideBar).RecoGroup.ReconciliationTreeview.SelectionChanged += onSelectReconciliationFromSidebar;
             ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectAttributeValue += onSelectStandardTargetFromSidebar;
             ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectTarget += onSelectStandardTargetFromSidebar;
-            ((ReconciliationContextSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
-            ((ReconciliationContextSideBar)SideBar).StandardTargetGroup.TargetTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
+           // ((ReconciliationContextSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
+           // ((ReconciliationContextSideBar)SideBar).StandardTargetGroup.TargetTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
         }
 
         /// <summary>
@@ -402,6 +402,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             {
                 page.getReconciliationContextForm().setAttribute((Kernel.Domain.Attribute)sender);
             }
+            OnChange();
         }
 
         /// <summary>
@@ -410,20 +411,20 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// <param name="sender"></param>
         private void OnExpandAttribute(object sender)
         {
-            //if (sender != null && sender is Kernel.Domain.Attribute)
-            //{
-            //    Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
-            //    if (!attribute.LoadValues)
-            //    {
-            //        List<Kernel.Domain.AttributeValue> values = GetReconciliationService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
-            //        attribute.valueListChangeHandler.Items.Clear();
-            //        foreach (Kernel.Domain.AttributeValue value in values)
-            //        {
-            //            attribute.valueListChangeHandler.Items.Add(value);
-            //        }
-            //        attribute.LoadValues = true;
-            //    }
-            //}
+            if (sender != null && sender is Kernel.Domain.Attribute)
+            {
+                Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
+                if (!attribute.LoadValues)
+                {
+                    List<Kernel.Domain.AttributeValue> values = GetReconciliationContextService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
+                    attribute.valueListChangeHandler.Items.Clear();
+                    foreach (Kernel.Domain.AttributeValue value in values)
+                    {
+                        attribute.valueListChangeHandler.Items.Add(value);
+                    }
+                    attribute.LoadValues = true;
+                }
+            }
         }
 
         /// <summary>
