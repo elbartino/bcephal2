@@ -44,6 +44,8 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// </summary>
         public Misp.Kernel.Ui.Base.ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
 
+        public event Misp.Kernel.Ui.Base.ActivateEventHandler ActivatedItem;
+
         public Kernel.Service.GroupService GroupService { get; set; }
 
         #endregion
@@ -65,8 +67,52 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.BorderBrush = null;
 
             this.ReconciliationContextPanel = new ReconciliationContextPanel();
+            this.ReconciliationContextPanel.ActivatedItem += OnActivateFormItem; 
             //this.ReconciliationPropertiePanel = new ReconciliationPropertiePanel();
             this.Content = ReconciliationContextPanel;
+        }
+
+        public void setAttribute(Kernel.Domain.Attribute attribute)
+        {
+            this.ReconciliationContextPanel.ActiveItem.setAttribute(attribute);
+        }
+
+        public void setValue(Kernel.Domain.AttributeValue value) { }
+
+        private void OnActivateFormItem(object item)
+        {
+            if(item is ReconciliationContextItem){
+                this.ReconciliationContextPanel.ActiveItem = (ReconciliationContextItem)item;
+                //if (((ReconciliationContextItem)item) == this.ReconciliationContextPanel.postingAttribute)
+                //{
+
+                //}
+
+                //if (((TextBox)item) == this.ReconciliationContextPanel.reconcilTextbox)
+                //{
+
+                //}
+
+                //if (((TextBox)item) == this.ReconciliationContextPanel.accoutTextbox)
+                //{
+
+                //}
+
+                //if (((TextBox)item) == this.ReconciliationContextPanel.dcTextbox)
+                //{
+
+                //}
+
+                //if (((TextBox)item) == this.ReconciliationContextPanel.lastPosTextbox)
+                //{
+
+                //}
+
+                //if (((TextBox)item) == this.ReconciliationContextPanel.lastRecoTextbox)
+                //{
+
+                //}
+            }
         }
 
        

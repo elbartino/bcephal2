@@ -20,24 +20,129 @@ namespace Misp.Reconciliation.ReconciliationContext
     /// </summary>
     public partial class ReconciliationContextPanel : Grid
     {
-
+        public event Misp.Kernel.Ui.Base.ActivateEventHandler ActivatedItem;
+        
+        public ReconciliationContextItem ActiveItem { get; set; }
 
         public Kernel.Domain.ReconciliationContext reconciliationContext { get; set; }
 
         public ReconciliationContextPanel()
         {
             InitializeComponent();
+            this.postingAttribute.setContextItemContent("Posting Attribute");
+            this.accountAttribute.setContextItemContent("Account Attribute");
+            this.reconciliationAttribute.setContextItemContent("Reconciliation Attribute");
+            this.dcAttribute.setContextItemContent("Deb/Cred Attribute");
+            this.creditValue.setContextItemContent("Credit Value");
+            this.debitValue.setContextItemContent("Debit Value");
+            InitializeHandlers();
         }
 
         public void display(Kernel.Domain.ReconciliationContext reconciliationContext) 
         {
-            
+            this.postingAttribute.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
+            this.accountAttribute.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
+            this.reconciliationAttribute.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
+            this.dcAttribute.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
+            this.creditValue.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
+            this.debitValue.setContextItemValue(reconciliationContext.postingNbreAttribute.name);
         }
 
         public Kernel.Domain.ReconciliationContext Fill() 
         {
-            return reconciliationContext;
+            return new Kernel.Domain.ReconciliationContext();
         }
+
+        public void InitializeHandlers()
+        {
+             this.postingAttribute.ActivatedItem += OnActivateitem;
+             this.dcAttribute.ActivatedItem += OnActivateitem;
+             this.creditValue.ActivatedItem += OnActivateitem;
+             this.debitValue.ActivatedItem += OnActivateitem;
+             this.reconciliationAttribute.ActivatedItem += OnActivateitem;
+             this.accountAttribute.ActivatedItem += OnActivateitem;
+        }
+
+        private void OnActivateitem(object item)
+        {
+            if (ActivatedItem != null)
+            {
+                ActiveItem = (ReconciliationContextItem)item;
+                ActivatedItem(ActiveItem);
+            } 
+        }
+
+        //private void OnMouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (ActivatedItem != null)
+        //    {
+        //        ActiveItem = (ReconciliationContextItem)sender;
+        //        ActivatedItem(ActiveItem);
+        //    }
+        //}
+
+        //private void OnGetFocus(object sender, RoutedEventArgs e)
+        //{
+        //    ActiveItem = (ReconciliationContextItem)sender;
+        //    if (ActivatedItem != null) ActivatedItem(ActiveItem);
+        //}
+
+        public void setAttribute(Kernel.Domain.Attribute attribute)
+        {
+            if (ActiveItem == null) return;
+            //selectedComponent.Text = attribute.name;
+            if (reconciliationContext == null) reconciliationContext = new Kernel.Domain.ReconciliationContext();
+            //if (selectedComponent == reconcilTextbox) reconciliationContext.recoNbreAttribute = attribute;
+            //if (selectedComponent == accoutTextbox) reconciliationContext.accountNbreAttribute = attribute;
+            ////if (selectedComponent == postingTextbox) reconciliationContext.postingNbreAttribute = attribute;
+            //if (selectedComponent == dcTextbox) reconciliationContext.dcNbreAttribute = attribute;
+            ////if (selectedComponent == lastPosTextbox) reconciliationContext.lastPostingNumber = attribute;
+            ////if (selectedComponent == lastRecoTextbox) { }
+            //if (selectedComponent == dcTextbox) { }
+            
+        }
+
+        public void setValue(Kernel.Domain.AttributeValue value)
+        {
+            if (ActiveItem == null) return;
+            //selectedComponent.Text = value.name;
+            //if (selectedComponent == credTextbox)
+            //{
+            //    if (reconciliationContext.dcNbreAttribute == null)
+            //    {
+            //        dcTextbox.Text = value.attribut.name;
+            //        reconciliationContext.dcNbreAttribute = value.attribut;
+            //    }
+            //    else
+            //    {
+            //        if (!value.attribut.Equals(reconciliationContext.dcNbreAttribute))
+            //        {
+            //            return;
+            //        }
+            //    }
+            //    reconciliationContext.creditAttributeValue = value;
+            //}
+            //if (selectedComponent == debTextbox)
+            //{
+            //    if (reconciliationContext.dcNbreAttribute == null)
+            //    {
+            //        dcTextbox.Text = value.attribut.name;
+            //        reconciliationContext.dcNbreAttribute = value.attribut;
+            //    }
+            //    else
+            //    {
+            //        if (!value.attribut.Equals(reconciliationContext.dcNbreAttribute))
+            //        {
+            //            return;
+            //        }
+            //    }
+            //    reconciliationContext.debitAttributeValue = value;
+            //}
+        }
+
+
+
+        
 
     }
 }

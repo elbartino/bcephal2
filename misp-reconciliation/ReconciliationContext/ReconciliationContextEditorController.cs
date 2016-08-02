@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Misp.Reconciliation.ReconciliationContext
@@ -293,7 +294,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.KeyUp += onNameTextChange;
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.LostFocus += onNameTextLostFocus;
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.groupField.Changed += onGroupFieldChange;
-
+            editorPage.getReconciliationContextForm().ReconciliationContextPanel.ActivatedItem += OnActivatedItem;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.resetButton.Click += onResetClick;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.resetButton.Click += onResetClick;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
@@ -301,6 +302,13 @@ namespace Misp.Reconciliation.ReconciliationContext
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.filterPTForm.targetFilter.Changed += onFilterPanelChange;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
         
+        }
+
+        private void OnActivatedItem(object item)
+        {
+            ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().getActivePage();
+            if (page == null) return;
+            page.getReconciliationContextForm().ReconciliationContextPanel.ActiveItem = (ReconciliationContext.ReconciliationContextItem)item;
         }
 
         
@@ -385,6 +393,8 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().getActivePage();
             if (page == null) return;
+            page.getReconciliationContextForm().setAttribute((Kernel.Domain.Attribute)sender);
+            //page.getReconciliationContextForm().setValue((Kernel.Domain.AttributeValue)sender);
            // page.getReconciliationForm().reconciliationMainPanel.activeFilterGrid.onSelectTargetFromSidebar(sender);
         }
 
