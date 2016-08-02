@@ -324,7 +324,7 @@ namespace Misp.Kernel.Application
                 reconciliationContextService.FileService = GetFileService();
                 reconciliationContextService.ModelService = GetModelService();
                 reconciliationContextService.GroupService = GetGroupService();
-                configureService(reconciliationGridService);
+                configureService(reconciliationContextService);
             }
             return reconciliationContextService;
         }

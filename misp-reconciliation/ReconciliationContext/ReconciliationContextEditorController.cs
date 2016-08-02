@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Misp.Reconciliation.ReconciliationContext
@@ -59,18 +60,19 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// <returns>CONTINUE si la création de la nouvelle reconciliation se termine avec succès. STOP sinon</returns>
         public override OperationState Create()
         {
-            //Kernel.Domain.ReconciliationContext reco = GetNewReconciliationContext();
+            Kernel.Domain.ReconciliationContext reco = getCurrentReconciliationContext();
 
-            //((ReconciliationSideBar)SideBar).RecoGroup.ReconciliationTreeview.AddReconciliation(reco);
-            //ReconciliationEditorItem page = (ReconciliationEditorItem)getReconciliationContextEditor().addOrSelectPage(reco);
-            //initializePageHandlers(page);
-            //page.Title = reco.name;
-
-            //getReconciliationContextEditor().ListChangeHandler.AddNew(reco);
-            //page.getReconciliationForm().reconciliationMainPanel.leftFilterGrid.filterForm.reset();
-            //page.getReconciliationForm().reconciliationMainPanel.rigthFilterGrid.filterForm.reset();
-            //Open(reco);
+           // ((ReconciliationContextSideBar)SideBar).RecoGroup.ReconciliationTreeview.AddReconciliation(reco);
+            ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().addOrSelectPage(reco);
+            initializePageHandlers(page);
+            page.Title = "Reconciliation Context";
+            getReconciliationContextEditor().ListChangeHandler.AddNew(reco);
             return OperationState.CONTINUE;
+        }
+
+        private Kernel.Domain.ReconciliationContext getCurrentReconciliationContext()
+        {
+            return new Kernel.Domain.ReconciliationContext();
         }
 
         public override Misp.Kernel.Domain.SubjectType SubjectTypeFound()
@@ -256,11 +258,9 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// Crée et retourne une nouvelle instance de la SideBar liée à ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la SideBar</returns>
-        protected override SideBar getNewSideBar() { return null; //new ReconciliationSideBar();
-        }
+        protected override SideBar getNewSideBar() { return  new ReconciliationContextSideBar();}
 
-        protected override PropertyBar getNewPropertyBar() { return null; //new ReconciliationPropertyBar(); 
-        }
+        protected override PropertyBar getNewPropertyBar() { return new ReconciliationContextPropertyBar();}
 
         protected override void initializePropertyBarData() { }
 
@@ -294,7 +294,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.KeyUp += onNameTextChange;
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.LostFocus += onNameTextLostFocus;
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.groupField.Changed += onGroupFieldChange;
-
+            //editorPage.getReconciliationContextForm().ReconciliationContextPanel.ActivatedItem += OnActivatedItem;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.resetButton.Click += onResetClick;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.resetButton.Click += onResetClick;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
@@ -302,6 +302,13 @@ namespace Misp.Reconciliation.ReconciliationContext
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.filterPTForm.targetFilter.Changed += onFilterPanelChange;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
         
+        }
+
+        private void OnActivatedItem(object item)
+        {
+            ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().getActivePage();
+            if (page == null) return;
+         //   page.getReconciliationContextForm().ReconciliationContextPanel.ActiveItem = (ReconciliationContext.ReconciliationContextItem)item;
         }
 
         
@@ -331,8 +338,9 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
            // ((ReconciliationContextSideBar)SideBar).RecoGroup.ReconciliationTreeview.SelectionChanged += onSelectReconciliationFromSidebar;
             ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectAttributeValue += onSelectStandardTargetFromSidebar;
-            ((ReconciliationContextSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
-            ((ReconciliationContextSideBar)SideBar).StandardTargetGroup.TargetTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
+            ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectTarget += onSelectStandardTargetFromSidebar;
+           // ((ReconciliationContextSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
+           // ((ReconciliationContextSideBar)SideBar).StandardTargetGroup.TargetTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
         }
 
         /// <summary>
@@ -384,9 +392,17 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// <param name="sender">La target sélectionné</param>
         protected void onSelectStandardTargetFromSidebar(object sender)
         {
-            //ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationEditor().getActivePage();
-            //if (page == null) return;
-           // page.getReconciliationForm().reconciliationMainPanel.activeFilterGrid.onSelectTargetFromSidebar(sender);
+            ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().getActivePage();
+            if (page == null) return;
+            if (sender is Kernel.Domain.AttributeValue) 
+            {
+                page.getReconciliationContextForm().setValue((Kernel.Domain.AttributeValue)sender);
+            }
+            else if (sender is Kernel.Domain.Attribute)
+            {
+                page.getReconciliationContextForm().setAttribute((Kernel.Domain.Attribute)sender);
+            }
+            OnChange();
         }
 
         /// <summary>
@@ -395,20 +411,20 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// <param name="sender"></param>
         private void OnExpandAttribute(object sender)
         {
-            //if (sender != null && sender is Kernel.Domain.Attribute)
-            //{
-            //    Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
-            //    if (!attribute.LoadValues)
-            //    {
-            //        List<Kernel.Domain.AttributeValue> values = GetReconciliationService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
-            //        attribute.valueListChangeHandler.Items.Clear();
-            //        foreach (Kernel.Domain.AttributeValue value in values)
-            //        {
-            //            attribute.valueListChangeHandler.Items.Add(value);
-            //        }
-            //        attribute.LoadValues = true;
-            //    }
-            //}
+            if (sender != null && sender is Kernel.Domain.Attribute)
+            {
+                Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
+                if (!attribute.LoadValues)
+                {
+                    List<Kernel.Domain.AttributeValue> values = GetReconciliationContextService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
+                    attribute.valueListChangeHandler.Items.Clear();
+                    foreach (Kernel.Domain.AttributeValue value in values)
+                    {
+                        attribute.valueListChangeHandler.Items.Add(value);
+                    }
+                    attribute.LoadValues = true;
+                }
+            }
         }
 
         /// <summary>

@@ -25,9 +25,9 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         #region Properties
 
-        public ReconciliationContextPanel ReconciliationContextPanel { get; private set; }        
+        public ReconciliationContextPanel ReconciliationContextPanel { get; private set; }
 
-        //public ReconciliationPropertiePanel ReconciliationPropertiePanel { get; set; }
+        public ReconciliationContextPropertyBar ReconciliationContextPropertyBar { get; set; }
 
         /// <summary>
         /// Indique si la vue a été modifiée.
@@ -65,11 +65,20 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.BorderBrush = null;
 
             this.ReconciliationContextPanel = new ReconciliationContextPanel();
-            //this.ReconciliationPropertiePanel = new ReconciliationPropertiePanel();
+            this.ReconciliationContextPropertyBar = new ReconciliationContextPropertyBar();
             this.Content = ReconciliationContextPanel;
         }
 
-       
+        public void setAttribute(Kernel.Domain.Attribute attribute)
+        {
+            this.ReconciliationContextPanel.setAttribute(attribute);
+        }
+
+        public void setValue(Kernel.Domain.AttributeValue value)
+        {
+            this.ReconciliationContextPanel.setAttributeValue(value);
+        }
+              
         
         #endregion
 
@@ -109,7 +118,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         public void fillObject()
         {
             if (this.EditedObject == null) this.EditedObject = getNewObject();
-            // this.ReconciliationContextPanel.fillReconciliation(this.EditedObject);
+            this.ReconciliationContextPanel.Fill(this.EditedObject);
            
         }
          /// <summary>
@@ -118,16 +127,18 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// </summary>
         public void displayObject()
         {
-            //this.ReconciliationPropertiePanel.displayReconciliation(this.EditedObject);
+            this.ReconciliationContextPanel.display(this.EditedObject);            
         }
 
 
         public List<object> getEditableControls()
         {
             List<object> controls = new List<object>(0);
-            // controls.AddRange(this.ReconciliationContextPanel.getEditableControls());
+            controls.AddRange(this.ReconciliationContextPanel.getEditableControls());
             return controls;
         }
+
+       
 
         #endregion
 

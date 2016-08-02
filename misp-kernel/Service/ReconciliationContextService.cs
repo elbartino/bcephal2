@@ -28,6 +28,26 @@ namespace Misp.Kernel.Service
         
         #region methods acions
 
+        /// <summary>
+        /// ReconciliationContext
+        /// </summary>
+        /// <returns>return ReconciliationContext </returns>
+        public ReconciliationContext getReconciliationContext()
+        {
+            try
+            {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                var request = new RestRequest(ResourcePath + "/context", Method.POST);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                ReconciliationContext context = RestSharp.SimpleJson.DeserializeObject<ReconciliationContext>(queryResult.Content);
+                return context;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve context.", e);
+                throw new ServiceExecption("Unable to retrieve context.", e);
+            }
+        }
 
         /// <summary>
         /// Save the given item.
