@@ -77,7 +77,10 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.ReconciliationContextPanel.ActiveItem.setAttribute(attribute);
         }
 
-        public void setValue(Kernel.Domain.AttributeValue value) { }
+        public void setValue(Kernel.Domain.AttributeValue value)
+        {
+            this.ReconciliationContextPanel.ActiveItem.setAttributeValue(value);
+        }
 
         private void OnActivateFormItem(object item)
         {

@@ -294,7 +294,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.KeyUp += onNameTextChange;
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.LostFocus += onNameTextLostFocus;
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.groupField.Changed += onGroupFieldChange;
-            editorPage.getReconciliationContextForm().ReconciliationContextPanel.ActivatedItem += OnActivatedItem;
+           // editorPage.getReconciliationContextForm().ReconciliationContextPanel.ActivatedItem += OnActivatedItem;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.resetButton.Click += onResetClick;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.resetButton.Click += onResetClick;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
@@ -338,6 +338,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
            // ((ReconciliationContextSideBar)SideBar).RecoGroup.ReconciliationTreeview.SelectionChanged += onSelectReconciliationFromSidebar;
             ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectAttributeValue += onSelectStandardTargetFromSidebar;
+            ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectTarget += onSelectStandardTargetFromSidebar;
             ((ReconciliationContextSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
             ((ReconciliationContextSideBar)SideBar).StandardTargetGroup.TargetTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
         }
@@ -393,7 +394,15 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().getActivePage();
             if (page == null) return;
-            page.getReconciliationContextForm().setAttribute((Kernel.Domain.Attribute)sender);
+            if (sender is Kernel.Domain.AttributeValue) 
+            {
+                page.getReconciliationContextForm().setValue((Kernel.Domain.AttributeValue)sender);
+            }
+            else if (sender is Kernel.Domain.Attribute)
+            {
+                page.getReconciliationContextForm().setAttribute((Kernel.Domain.Attribute)sender);
+            }
+            
             //page.getReconciliationContextForm().setValue((Kernel.Domain.AttributeValue)sender);
            // page.getReconciliationForm().reconciliationMainPanel.activeFilterGrid.onSelectTargetFromSidebar(sender);
         }
