@@ -23,7 +23,7 @@
         </Grid.ColumnDefinitions>
 
         <Label  Content="Posting Attribute" Grid.Column="0" Width="145"/>
-        <TextBox  Grid.Column="1" />
+        <TextBox x:Name="postingAttri" Grid.Column="1" />
     </Grid>
 
     <Grid Grid.Row="1" >

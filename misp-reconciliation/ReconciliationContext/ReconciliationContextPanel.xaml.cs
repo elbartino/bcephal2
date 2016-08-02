@@ -20,9 +20,22 @@ namespace Misp.Reconciliation.ReconciliationContext
     /// </summary>
     public partial class ReconciliationContextPanel : Grid
     {
+        public Kernel.Domain.ReconciliationContext reconciliationContext { get; set; }
+
         public ReconciliationContextPanel()
         {
             InitializeComponent();
         }
+
+        public void display(Kernel.Domain.ReconciliationContext reconciliationContext) 
+        {
+            
+        }
+
+        public Kernel.Domain.ReconciliationContext Fill() 
+        {
+            return reconciliationContext;
+        }
+
     }
 }
