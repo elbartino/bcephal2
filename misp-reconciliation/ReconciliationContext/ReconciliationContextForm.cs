@@ -117,8 +117,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// </summary>
         public void fillObject()
         {
-            if (this.EditedObject == null) this.EditedObject = getNewObject();
-            this.ReconciliationContextPanel.Fill(this.EditedObject);
+            this.ReconciliationContextPanel.Fill();
            
         }
          /// <summary>

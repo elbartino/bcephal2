@@ -51,15 +51,8 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.debitValue.setContextItemValue(reconciliationContext.debitAttributeValue != null ? reconciliationContext.debitAttributeValue.name : "");
         }
 
-        public Kernel.Domain.ReconciliationContext Fill(Kernel.Domain.ReconciliationContext recontext) 
+        public Kernel.Domain.ReconciliationContext Fill() 
         {
-            //if(recontext == null) recontext = new Kernel.Domain.ReconciliationContext();
-            //recontext.postingNbreAttribute = this.postingAttribute.attribute;
-            //recontext.accountNbreAttribute = this.accountAttribute.attribute;
-            //recontext.recoNbreAttribute = this.reconciliationAttribute.attribute;
-            //recontext.dcNbreAttribute = this.dcAttribute.attribute;
-            //recontext.debitAttributeValue = this.debitValue.attrvalue;
-            //recontext.creditAttributeValue = this.creditValue.attrvalue;
             return this.reconciliationContext;
         }
 
@@ -105,9 +98,9 @@ namespace Misp.Reconciliation.ReconciliationContext
             }
             else 
             {
-                if (!reconciliationContext.dcNbreAttribute.Equals(value.attribut)) 
+                if (reconciliationContext.dcNbreAttribute.Equals(value.attribut)) 
                 {
-                    return;
+                    reconciliationContext.dcNbreAttribute = value.attribut;
                 }
             }
             
