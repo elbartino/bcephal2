@@ -1,12 +1,13 @@
 ﻿using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Reconciliation.ReconciliationContext;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Misp.Reconciliation.Reconciliation
+namespace Misp.Reconciliation.ReconciliationContext
 {
     public class ReconciliationContextEditor : Editor<Misp.Kernel.Domain.ReconciliationContext>
     {
@@ -14,7 +15,7 @@ namespace Misp.Reconciliation.Reconciliation
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<Misp.Kernel.Domain.ReconciliationContext> getNewPage() { return new Recon(); }
+        protected override EditorItem<Misp.Kernel.Domain.ReconciliationContext> getNewPage() { return new ReconciliationContextEditorItem(); }
 
         public Kernel.Service.GroupService GroupService { get; set; }
 

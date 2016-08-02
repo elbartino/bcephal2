@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Domain
 {
-    public class ReconciliationContext
+    public class ReconciliationContext : Persistent
     {
     }
 }

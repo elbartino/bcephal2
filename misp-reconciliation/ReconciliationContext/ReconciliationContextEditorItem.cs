@@ -24,17 +24,17 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// UNe nouvelle instance de la form.
         /// </summary>
         /// <returns></returns>
-        protected override IEditableView<ReconciliationTemplate> getNewEditorItemForm()
+        protected override IEditableView<Kernel.Domain.ReconciliationContext> getNewEditorItemForm()
         {
-            return new ReconciliationForm();
+            return new ReconciliationContexForm();
         }
 
         /// <summary>
         /// ModelForm
         /// </summary>
-        public ReconciliationForm getReconciliationForm() 
-        { 
-            return (ReconciliationForm)editorItemForm; 
+        public ReconciliationContexForm getReconciliationContextForm() 
+        {
+            return (ReconciliationContexForm)editorItemForm; 
         }
         
         

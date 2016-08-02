@@ -194,7 +194,6 @@
     <Compile Include="Domain\Browser\RoleBrowserData.cs" />
     <Compile Include="Domain\Browser\ProfilBrowserData.cs" />
     <Compile Include="Domain\Browser\UserBrowserData.cs" />
-    <Compile Include="Domain\ReconciliationContext.cs" />
     <Compile Include="Domain\FunctionRight.cs" />
     <Compile Include="Domain\Grille.cs" />
     <Compile Include="Domain\GrilleColumn.cs" />
