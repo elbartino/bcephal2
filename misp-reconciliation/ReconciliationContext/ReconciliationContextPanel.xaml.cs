@@ -31,7 +31,12 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         public void display(Kernel.Domain.ReconciliationContext reconciliationContext) 
         {
-            
+            postingTextbox.Text = reconciliationContext.postingNbreAttribute.name;
+            accoutTextbox.Text = reconciliationContext.accountNbreAttribute.name;
+            reconcilTextbox.Text = reconciliationContext.recoNbreAttribute.name;
+            dcTextbox.Text = reconciliationContext.dcNbreAttribute.name;
+            lastPosTextbox.Text = "" + reconciliationContext.lastPostingNumber;
+            lastRecoTextbox.Text = "" + reconciliationContext.lastRecoNumber;
         }
 
         public Kernel.Domain.ReconciliationContext Fill() 
