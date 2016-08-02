@@ -13,6 +13,7 @@ using Misp.Kernel.Administration.Role;
 using Misp.Kernel.Administration.User;
 using Misp.Kernel.Administration.Profil;
 using Misp.Reporting.ReportGrid;
+using Misp.Reconciliation.ReconciliationContext;
 
 namespace Misp.Reconciliation.Base
 {
@@ -71,6 +72,17 @@ namespace Misp.Reconciliation.Base
                 controller.Functionality = fonctionality;
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationGridService();
+                return controller;
+            }
+
+            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_CONTEXT_FUNCTIONALITY)
+            {
+
+                ReconciliationContextEditorController controller = new ReconciliationContextEditorController();
+                controller.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                controller.Functionality = fonctionality;
+                controller.ApplicationManager = this.ApplicationManager;
+                controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationContextService();
                 return controller;
             }
 
