@@ -77,7 +77,11 @@ namespace Misp.Reconciliation.ReconciliationContext
             if (ActiveItem == null) return;
             if (canSetValue(ActiveItem)) return;
             if (reconciliationContext == null) reconciliationContext = new Kernel.Domain.ReconciliationContext();
-            
+            if (ActiveItem == postingAttribute) reconciliationContext.postingNbreAttribute = attribute;
+            else if (ActiveItem == accountAttribute) reconciliationContext.accountNbreAttribute = attribute;
+            else if (ActiveItem == reconciliationAttribute) reconciliationContext.recoNbreAttribute = attribute;
+            else if (ActiveItem == dcAttribute) reconciliationContext.dcNbreAttribute = attribute;
+            this.ActiveItem.setAttribute(attribute);
         }
 
         public void setAttributeValue(Kernel.Domain.AttributeValue value)
@@ -85,6 +89,22 @@ namespace Misp.Reconciliation.ReconciliationContext
             if (ActiveItem == null) return;
             if (!canSetValue(ActiveItem)) return;
             if (reconciliationContext == null) reconciliationContext = new Kernel.Domain.ReconciliationContext();
+            if (reconciliationContext.dcNbreAttribute == null)
+            {
+                reconciliationContext.dcNbreAttribute = value.attribut;
+                dcAttribute.setAttribute(value.attribut);
+            }
+            else 
+            {
+                if (!reconciliationContext.dcNbreAttribute.Equals(value.attribut)) 
+                {
+                    return;
+                }
+            }
+            
+            if (ActiveItem == debitValue) reconciliationContext.debitAttributeValue = value;
+            else if (ActiveItem == creditValue) reconciliationContext.creditAttributeValue = value;
+
             this.ActiveItem.setAttributeValue(value);
         }
 
