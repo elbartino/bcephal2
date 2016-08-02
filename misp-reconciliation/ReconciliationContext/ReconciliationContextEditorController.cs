@@ -294,7 +294,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.KeyUp += onNameTextChange;
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.nameTextBox.LostFocus += onNameTextLostFocus;
             //editorPage.getReconciliationContextForm().ReconciliationPropertiePanel.groupField.Changed += onGroupFieldChange;
-           // editorPage.getReconciliationContextForm().ReconciliationContextPanel.ActivatedItem += OnActivatedItem;
+            editorPage.getReconciliationContextForm().ReconciliationContextPanel.ActivatedItem += OnActivatedItem;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.leftFilterGrid.filterForm.resetButton.Click += onResetClick;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.resetButton.Click += onResetClick;
             //editorPage.getReconciliationContextForm().ReconciliationContextPanel.rigthFilterGrid.filterForm.filterPTForm.periodFilter.Changed += onFilterPanelChange;
@@ -308,7 +308,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().getActivePage();
             if (page == null) return;
-            page.getReconciliationContextForm().ReconciliationContextPanel.ActiveItem = (ReconciliationContext.ReconciliationContextItem)item;
+         //   page.getReconciliationContextForm().ReconciliationContextPanel.ActiveItem = (ReconciliationContext.ReconciliationContextItem)item;
         }
 
         
