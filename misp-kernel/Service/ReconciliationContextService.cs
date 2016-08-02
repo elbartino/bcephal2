@@ -37,7 +37,7 @@ namespace Misp.Kernel.Service
             try
             {
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                var request = new RestRequest(ResourcePath + "/context", Method.POST);
+                var request = new RestRequest(ResourcePath + "/context", Method.GET);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
                 ReconciliationContext context = RestSharp.SimpleJson.DeserializeObject<ReconciliationContext>(queryResult.Content);
                 return context;

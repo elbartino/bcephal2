@@ -25,11 +25,11 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="40"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="TitleLabel" x:FieldModifier="public" Content="Files" Grid.Column="0" FontWeight="Bold" FontSize="15"/>
+                <Label x:Name="TitleLabel" x:FieldModifier="public" Content="Projects" Grid.Column="0" FontWeight="Bold" FontSize="15"/>
                 <TextBlock x:Name="ClearTextBlock" Grid.Column="1"/>
             </Grid>            
             <TextBlock x:Name="NewFileTextBlock" Grid.Row="1" Margin="30,0,0,0"/>
-            <TextBlock x:Name="RecentFilesTextBlock" Text="Recent Files" Grid.Row="2" Margin="30,0,0,0"/>
+            <TextBlock x:Name="RecentFilesTextBlock" Text="Recent Projects" Grid.Row="2" Margin="30,0,0,0"/>
             <StackPanel x:Name="ItemsPanel" x:FieldModifier="public" Grid.Row="3" Margin="50,0,0,0"/>
         </Grid>
     </Border>
