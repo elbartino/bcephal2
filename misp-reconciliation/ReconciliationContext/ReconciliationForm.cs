@@ -136,14 +136,6 @@ namespace Misp.Reconciliation.ReconciliationContext
         #endregion
 
       
-    public Misp.Kernel.Domain.ReconciliationContext IEditableView<Kernel.Domain.ReconciliationContext>.EditedObject
-    {
-	      get;set;
-    }
-
-    public Kernel.Domain.ReconciliationContext IEditableView<Kernel.Domain.ReconciliationContext>.getNewObject()
-    {
- 	    return new Kernel.Domain.ReconciliationContext();
-    }
+   
     }
 }
