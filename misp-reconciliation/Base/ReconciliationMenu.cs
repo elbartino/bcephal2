@@ -46,7 +46,7 @@ namespace Misp.Reconciliation.Base
             ReconciliationFiltersMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "Reconciliation Filters", NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY));
             ReconciliationFiltersListMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "List Reconciliation Filters ", NavigationToken.GetSearchViewToken(ReconciliationFunctionalitiesCode.LIST_RECONCILIATION_FILTERS_FUNCTIONALITY));
             ReconciliationPostingMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "Postings", NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_POSTING_FUNCTIONALITY));
-            ReconciliationContextMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "Reconciliation Context", NavigationToken.GetModifyViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_CONTEXT_FUNCTIONALITY,null));        
+            ReconciliationContextMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "Reconciliation Context", NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_CONTEXT_FUNCTIONALITY));        
         }
     }
 }
