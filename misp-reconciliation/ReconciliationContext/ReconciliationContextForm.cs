@@ -25,9 +25,9 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         #region Properties
 
-        public ReconciliationContextPanel ReconciliationContextPanel { get; private set; }        
+        public ReconciliationContextPanel ReconciliationContextPanel { get; private set; }
 
-        //public ReconciliationPropertiePanel ReconciliationPropertiePanel { get; set; }
+        public ReconciliationContextPropertyBar ReconciliationContextPropertyBar { get; set; }
 
         /// <summary>
         /// Indique si la vue a été modifiée.
@@ -67,58 +67,22 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.BorderBrush = null;
 
             this.ReconciliationContextPanel = new ReconciliationContextPanel();
-            this.ReconciliationContextPanel.ActivatedItem += OnActivateFormItem; 
-            //this.ReconciliationPropertiePanel = new ReconciliationPropertiePanel();
+            this.ReconciliationContextPropertyBar = new ReconciliationContextPropertyBar();
             this.Content = ReconciliationContextPanel;
         }
 
         public void setAttribute(Kernel.Domain.Attribute attribute)
         {
-            this.ReconciliationContextPanel.ActiveItem.setAttribute(attribute);
+            this.ReconciliationContextPanel.setAttribute(attribute);
+            //this.ReconciliationContextPanel.ActiveItem.setAttribute(attribute);
         }
 
         public void setValue(Kernel.Domain.AttributeValue value)
         {
+            
             this.ReconciliationContextPanel.ActiveItem.setAttributeValue(value);
         }
-
-        private void OnActivateFormItem(object item)
-        {
-            if(item is ReconciliationContextItem){
-                this.ReconciliationContextPanel.ActiveItem = (ReconciliationContextItem)item;
-                //if (((ReconciliationContextItem)item) == this.ReconciliationContextPanel.postingAttribute)
-                //{
-
-                //}
-
-                //if (((TextBox)item) == this.ReconciliationContextPanel.reconcilTextbox)
-                //{
-
-                //}
-
-                //if (((TextBox)item) == this.ReconciliationContextPanel.accoutTextbox)
-                //{
-
-                //}
-
-                //if (((TextBox)item) == this.ReconciliationContextPanel.dcTextbox)
-                //{
-
-                //}
-
-                //if (((TextBox)item) == this.ReconciliationContextPanel.lastPosTextbox)
-                //{
-
-                //}
-
-                //if (((TextBox)item) == this.ReconciliationContextPanel.lastRecoTextbox)
-                //{
-
-                //}
-            }
-        }
-
-       
+              
         
         #endregion
 

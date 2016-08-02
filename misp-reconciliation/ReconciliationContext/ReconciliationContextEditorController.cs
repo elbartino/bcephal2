@@ -402,9 +402,6 @@ namespace Misp.Reconciliation.ReconciliationContext
             {
                 page.getReconciliationContextForm().setAttribute((Kernel.Domain.Attribute)sender);
             }
-            
-            //page.getReconciliationContextForm().setValue((Kernel.Domain.AttributeValue)sender);
-           // page.getReconciliationForm().reconciliationMainPanel.activeFilterGrid.onSelectTargetFromSidebar(sender);
         }
 
         /// <summary>

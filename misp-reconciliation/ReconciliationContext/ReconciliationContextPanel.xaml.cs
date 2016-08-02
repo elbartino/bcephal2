@@ -68,81 +68,31 @@ namespace Misp.Reconciliation.ReconciliationContext
             if (ActivatedItem != null)
             {
                 ActiveItem = (ReconciliationContextItem)item;
-                ActivatedItem(ActiveItem);
             } 
         }
 
-        //private void OnMouseDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (ActivatedItem != null)
-        //    {
-        //        ActiveItem = (ReconciliationContextItem)sender;
-        //        ActivatedItem(ActiveItem);
-        //    }
-        //}
-
-        //private void OnGetFocus(object sender, RoutedEventArgs e)
-        //{
-        //    ActiveItem = (ReconciliationContextItem)sender;
-        //    if (ActivatedItem != null) ActivatedItem(ActiveItem);
-        //}
 
         public void setAttribute(Kernel.Domain.Attribute attribute)
         {
             if (ActiveItem == null) return;
-            //selectedComponent.Text = attribute.name;
+            if (canSetValue(ActiveItem)) return;
             if (reconciliationContext == null) reconciliationContext = new Kernel.Domain.ReconciliationContext();
-            //if (selectedComponent == reconcilTextbox) reconciliationContext.recoNbreAttribute = attribute;
-            //if (selectedComponent == accoutTextbox) reconciliationContext.accountNbreAttribute = attribute;
-            ////if (selectedComponent == postingTextbox) reconciliationContext.postingNbreAttribute = attribute;
-            //if (selectedComponent == dcTextbox) reconciliationContext.dcNbreAttribute = attribute;
-            ////if (selectedComponent == lastPosTextbox) reconciliationContext.lastPostingNumber = attribute;
-            ////if (selectedComponent == lastRecoTextbox) { }
-            //if (selectedComponent == dcTextbox) { }
             
         }
 
-        public void setValue(Kernel.Domain.AttributeValue value)
+        public void setAttributeValue(Kernel.Domain.AttributeValue value)
         {
             if (ActiveItem == null) return;
-            //selectedComponent.Text = value.name;
-            //if (selectedComponent == credTextbox)
-            //{
-            //    if (reconciliationContext.dcNbreAttribute == null)
-            //    {
-            //        dcTextbox.Text = value.attribut.name;
-            //        reconciliationContext.dcNbreAttribute = value.attribut;
-            //    }
-            //    else
-            //    {
-            //        if (!value.attribut.Equals(reconciliationContext.dcNbreAttribute))
-            //        {
-            //            return;
-            //        }
-            //    }
-            //    reconciliationContext.creditAttributeValue = value;
-            //}
-            //if (selectedComponent == debTextbox)
-            //{
-            //    if (reconciliationContext.dcNbreAttribute == null)
-            //    {
-            //        dcTextbox.Text = value.attribut.name;
-            //        reconciliationContext.dcNbreAttribute = value.attribut;
-            //    }
-            //    else
-            //    {
-            //        if (!value.attribut.Equals(reconciliationContext.dcNbreAttribute))
-            //        {
-            //            return;
-            //        }
-            //    }
-            //    reconciliationContext.debitAttributeValue = value;
-            //}
+            if (!canSetValue(ActiveItem)) return;
+            if (reconciliationContext == null) reconciliationContext = new Kernel.Domain.ReconciliationContext();
+            this.ActiveItem.setAttributeValue(value);
         }
 
-
-
-        
+        public bool canSetValue(ReconciliationContextItem item) 
+        {
+            if (item == creditValue || item == debitValue) return true;
+            else return false;
+        }
 
     }
 }
