@@ -29,7 +29,7 @@ namespace Misp.Kernel.Ui.Base.Menu
         {
             List<Control> menus = new List<Control>(0);
             menus.Add(Groups);
-            menus.Add(Properties);
+            //menus.Add(Properties);
             return menus;
         }
 

@@ -18,6 +18,9 @@ namespace Misp.Kernel.Ui.Base.Menu
         private ApplicationMenu saveFile;
         private ApplicationMenu saveAsFile;
         private ApplicationMenu recentFiles;
+        private ApplicationMenu backupMenu;
+        private ApplicationMenu backupSimpleMenu;
+        private ApplicationMenu backupAutomaticMenu;
         private ApplicationMenu quitApplication;
 
         public ApplicationMenu NewFile { get { return newFile; } }
@@ -25,6 +28,10 @@ namespace Misp.Kernel.Ui.Base.Menu
         public ApplicationMenu SaveAsFile { get { return saveAsFile; } }
         public ApplicationMenu SaveFile { get { return saveFile; } }
         public ApplicationMenu RecentFiles { get { return recentFiles; } }
+        public ApplicationMenu ArchiveMenu { get { return backupMenu; } }
+
+        public ApplicationMenu BackupSimpleMenu { get { return backupSimpleMenu; } }
+        public ApplicationMenu BackupAutomaticMenu { get { return backupAutomaticMenu; } }
         public ApplicationMenu QuitApplication { get { return quitApplication; } }
 
         public virtual bool isDefaultMenu() { return true; }
@@ -42,6 +49,10 @@ namespace Misp.Kernel.Ui.Base.Menu
             menus.Add(new Separator());
             menus.Add(SaveAsFile);
             menus.Add(SaveFile);
+            menus.Add(new Separator());
+            ArchiveMenu.Items.Add(backupSimpleMenu);
+            ArchiveMenu.Items.Add(backupAutomaticMenu);
+            menus.Add(ArchiveMenu);
             menus.Add(new Separator());
             menus.Add(QuitApplication);
             return menus;
@@ -64,6 +75,13 @@ namespace Misp.Kernel.Ui.Base.Menu
             saveFile = BuildMenu(ApplicationMenu.FILE_MENU_SAVE_CODE, "Save File", token);
             saveFile.IsEnabled = false;
             saveAsFile.IsEnabled = false;
+
+            backupMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, "Backup", null);
+            //backupMenu.IsEnabled = false;
+            backupSimpleMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, "Simple Backup", NavigationToken.GetCreateViewToken(FunctionalitiesCode.BACKUP_SIMPLE_FUNCTIONALITY));
+            backupAutomaticMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, "Automatic Backup", NavigationToken.GetCreateViewToken(FunctionalitiesCode.BACKUP_AUTOMATIC_FUNCTIONALITY));          
+       
+
             quitApplication = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Close B-Cephal", new NavigationToken(FunctionalitiesCode.FILE_FUNCTIONALITY, ViewType.LOGOUT));
         
         }
