@@ -25,6 +25,8 @@ namespace Misp.Kernel.Administration.UserProfile
         public ConnectedUserProfile()
         {
             InitializeComponent();
+            InitializeHandlers();
+            changePasswordCheckbox.IsChecked = false;
         }
 
         public void Display(Kernel.Domain.User user)
@@ -45,6 +47,18 @@ namespace Misp.Kernel.Administration.UserProfile
             User.email = userMailTextbox.Text.Trim();
            // User.password = password2Textbox.tex
             return User;
+        }
+
+        public void InitializeHandlers()
+        {
+            changePasswordCheckbox.Checked += OnActivatePasswordOptions;
+            changePasswordCheckbox.Unchecked += OnActivatePasswordOptions;
+        }
+
+        private void OnActivatePasswordOptions(object sender, RoutedEventArgs e)
+        {
+            if (changePasswordCheckbox.IsChecked == true) passwordPanel.Visibility = System.Windows.Visibility.Visible;
+            else if (changePasswordCheckbox.IsChecked == false) passwordPanel.Visibility = System.Windows.Visibility.Collapsed;
         }
 
     }

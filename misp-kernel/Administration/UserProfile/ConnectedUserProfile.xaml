@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Background="White">
+             d:DesignHeight="400" d:DesignWidth="300" Background="White">
 
     <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
@@ -75,9 +75,9 @@
         <Grid Grid.Row="5" Margin="0 5 0 0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-         <CheckBox Content="Change password" Grid.Row="0" Margin="0 5 0 5" />
+            <CheckBox Content="Change password" x:Name="changePasswordCheckbox" Grid.Row="0" Margin="0 5 0 5" />
          <Grid Grid.Row="1" x:Name="passwordPanel">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -85,16 +85,16 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Old password" Grid.Row="0"  Grid.Column="0"   Margin="0 0 0 5"  />
+                <Label Content="Old password" Grid.Row="0"  Grid.Column="0"   Margin="0 0 0 5"   />
                 <PasswordBox Grid.Column="1" x:Name="passwordOldTextbox" Margin="0 0 0 5"/>
 
-                <Label Content="New password" Grid.Column="0"  Grid.Row="1"   Margin="0 0 0 5"   />
+                <Label Content="New password" Grid.Column="0"  Grid.Row="1"   Margin="0 0 0 5"    />
                 <PasswordBox Grid.Column="1" Grid.Row="1" x:Name="password1Textbox" Margin="0 0 0 5"/>
 
-                <Label Content="Confirm password" Grid.Column="0"  Grid.Row="2"   Margin="0 0 0 5"  />
+                <Label Content="Confirm password" Grid.Column="0"  Grid.Row="2"   Margin="0 0 0 5"   />
                 <PasswordBox Grid.Column="1" Grid.Row="2"  x:Name="password2Textbox" Margin="0 0 0 5"/>
             </Grid>
          </Grid>
