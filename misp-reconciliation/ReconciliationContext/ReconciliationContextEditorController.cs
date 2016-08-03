@@ -64,6 +64,7 @@ namespace Misp.Reconciliation.ReconciliationContext
 
            ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().addOrSelectPage(reco);
             initializePageHandlers(page);
+            page.getReconciliationContextForm().ModelService = GetReconciliationContextService().ModelService;
             page.Title = "Reconciliation Configuration";
             getReconciliationContextEditor().ListChangeHandler.AddNew(reco);
             return OperationState.CONTINUE;
@@ -277,8 +278,16 @@ namespace Misp.Reconciliation.ReconciliationContext
         protected override void initializeSideBarHandlers()
         {
             ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectAttributeValue += onSelectStandardTargetFromSidebar;
+            ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectAttributeValue += onSelectStandardAttributeValueFromSidebar;
             ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectTarget += onSelectStandardTargetFromSidebar;
             ((ReconciliationContextSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
+        }
+
+        private void onSelectStandardAttributeValueFromSidebar(AttributeValue value)
+        {
+            ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().getActivePage();
+            if (page == null) return;
+            page.getReconciliationContextForm().setValue(value);
         }
 
         private void onSelectMeasureFromSidebar(object sender)
@@ -310,11 +319,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().getActivePage();
             if (page == null) return;
-            if (sender is Kernel.Domain.AttributeValue) 
-            {
-                page.getReconciliationContextForm().setValue((Kernel.Domain.AttributeValue)sender);
-            }
-            else if (sender is Kernel.Domain.Attribute)
+            if (sender is Kernel.Domain.Attribute)
             {
                 page.getReconciliationContextForm().setAttribute((Kernel.Domain.Attribute)sender);
             }

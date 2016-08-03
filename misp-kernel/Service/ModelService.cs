@@ -221,6 +221,30 @@ namespace Misp.Kernel.Service
         }
     }
 
+    public Misp.Kernel.Domain.Attribute getAttributeByValue(int oid)
+    {
+        try
+        {
+            var request = new RestRequest(ResourcePath + "/getAttributeByValue/", Method.POST);
+            request.RequestFormat = DataFormat.Json;
+            request.AddParameter("application/json", oid, ParameterType.RequestBody);
+            RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+            try
+            {
+                Kernel.Domain.Attribute Attribute = RestSharp.SimpleJson.DeserializeObject<Kernel.Domain.Attribute>(queryResult.Content);
+                return Attribute;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        catch (Exception e)
+        {
+            throw new BcephalException("Unable to Return targetAll.", e);
+        }
+    }
+
         public List<AttributeValue> getAttributeValue(int oid)
         {
             try
