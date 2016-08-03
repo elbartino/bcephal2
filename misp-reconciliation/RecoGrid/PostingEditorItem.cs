@@ -37,6 +37,7 @@ namespace Misp.Sourcing.InputGrid
         {
             PostingToolBar = new PostingToolBar();
             InputGridForm form = new InputGridForm();
+            form.GridForm.filterForm.RecoPanel.Visibility = Visibility.Visible;
             form.GridForm.otherToolBarPanel.Children.Add(PostingToolBar);
             return form;
         }

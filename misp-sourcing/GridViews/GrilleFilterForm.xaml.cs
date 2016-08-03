@@ -60,6 +60,10 @@ namespace Misp.Sourcing.GridViews
             {
                 targetFilter.DisplayScope(filter.filterScope);
                 periodFilter.DisplayPeriod(filter.filterPeriod);
+
+                //this.creditCheckBox.IsChecked = filter.creditChecked;
+                //this.debitCheckBox.IsChecked = filter.debitChecked;
+                //this.includeRecoCheckBox.IsChecked = filter.includeRecoChecked;
             }
             thrawChange = true;
         }
