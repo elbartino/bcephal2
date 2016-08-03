@@ -64,7 +64,7 @@ namespace Misp.Reconciliation.ReconciliationContext
 
            ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().addOrSelectPage(reco);
             initializePageHandlers(page);
-            page.Title = "Reconciliation Context";
+            page.Title = "Reconciliation Configuration";
             getReconciliationContextEditor().ListChangeHandler.AddNew(reco);
             return OperationState.CONTINUE;
         }
