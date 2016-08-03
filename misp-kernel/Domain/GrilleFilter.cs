@@ -25,5 +25,12 @@ namespace Misp.Kernel.Domain
 
         public String file { get; set; }
 
+
+        public bool creditChecked { get; set; }
+
+        public bool debitChecked { get; set; }
+
+        public bool includeRecoChecked { get; set; } 
+
     }
 }

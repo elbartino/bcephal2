@@ -33,11 +33,11 @@ namespace Misp.Reporting.ReportGrid
 
         protected override Grille GetNewGrid()
         {
-            ReconciliationGrid grid = new ReconciliationGrid();
-            grid.report = true;
-            grid.name = getNewPageName("Postings");
-            grid.group = GetReconciliationGridService().GroupService.getDefaultGroup();
-            grid.visibleInShortcut = true;
+            ReconciliationGrid grid = GetReconciliationGridService().getNewReconciliationGrid("Postings");
+            //grid.report = true;
+            //grid.name =  getNewPageName("Postings");
+            //grid.group = GetReconciliationGridService().GroupService.getDefaultGroup();
+            //grid.visibleInShortcut = true;
             return grid;
         }
 
