@@ -23,6 +23,11 @@ namespace Misp.Kernel.Service
         /// </summary>
         public ModelService ModelService { get; set; }
 
+
+        /// <summary>
+        /// Le ModelService.
+        /// </summary>
+        public MeasureService MeasureService { get; set; }
       
         #endregion
         

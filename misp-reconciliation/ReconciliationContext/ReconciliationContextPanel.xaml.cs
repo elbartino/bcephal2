@@ -21,7 +21,9 @@ namespace Misp.Reconciliation.ReconciliationContext
     public partial class ReconciliationContextPanel : Grid
     {
         public event Misp.Kernel.Ui.Base.ActivateEventHandler ActivatedItem;
-        
+
+        public event Misp.Kernel.Ui.Base.ChangeEventHandler Change;
+
         public ReconciliationContextItem ActiveItem { get; set; }
 
         public Kernel.Domain.ReconciliationContext reconciliationContext { get; set; }
@@ -61,6 +63,19 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.reconciliationAttributePanel.ActivatedItem += OnActivateitem;
             this.accountAttributePanel.ActivatedItem += OnActivateitem;
             this.amountMeasurePanel.ActivatedItem += OnActivateitem;
+
+            this.postingAttributePanel.Changed += OnChange;
+            this.dcAttributePanel.Changed += OnChange;
+            this.creditValuePanel.Changed += OnChange;
+            this.debitValuePanel.Changed += OnChange;
+            this.reconciliationAttributePanel.Changed += OnChange;
+            this.accountAttributePanel.Changed += OnChange;
+            this.amountMeasurePanel.Changed += OnChange;
+        }
+
+        private void OnChange()
+        {
+            if (Change != null) Change();
         }
 
         private void OnActivateitem(object item)
@@ -76,13 +91,13 @@ namespace Misp.Reconciliation.ReconciliationContext
             if (ActiveItem == null) return;
             if (reconciliationContext == null) reconciliationContext = new Kernel.Domain.ReconciliationContext();
             reconciliationContext.amountMeasure = measure;
-            this.ActiveItem.setValue(measure);
+            if(cansetMeasure(ActiveItem)) this.ActiveItem.setValue(measure);
         }
 
         public void setAttribute(Kernel.Domain.Attribute attribute)
         {
             if (ActiveItem == null) return;
-            if (canSetValue(ActiveItem)) return;
+            if (canSetValue(ActiveItem) || cansetMeasure(ActiveItem)) return;
             if (reconciliationContext == null) reconciliationContext = new Kernel.Domain.ReconciliationContext();
             if (ActiveItem == postingAttributePanel) reconciliationContext.postingNbreAttribute = attribute;
             else if (ActiveItem == accountAttributePanel) reconciliationContext.accountNbreAttribute = attribute;
@@ -94,7 +109,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         public void setAttributeValue(Kernel.Domain.AttributeValue value)
         {
             if (ActiveItem == null) return;
-            if (!canSetValue(ActiveItem)) return;
+            if (!canSetValue(ActiveItem) || cansetMeasure(ActiveItem)) return;
             if (reconciliationContext.dcNbreAttribute == null)
             {
                 reconciliationContext.dcNbreAttribute = value.attribut;
@@ -118,6 +133,12 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             if (item == creditValuePanel || item == debitValuePanel) return true;
             else return false;
+        }
+
+        public bool cansetMeasure(ReconciliationContextItem item)
+        {
+            if (item == amountMeasurePanel) return true;
+            return false;
         }
 
 
