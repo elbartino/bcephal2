@@ -260,18 +260,21 @@ namespace Misp.Kernel.Ui.Base
            page.Title = anObject != null ? anObject.ToString() : "";
            page.displayObject();
            page.IsActiveChanged += ActivePageChangedEventHandler;
-           NewPage.IsActiveChanged -= newPageEventHandler;
+           bool canAddNewPage = NewPage != null;
+
+           if (canAddNewPage) NewPage.IsActiveChanged -= newPageEventHandler;
+               
            try
            {
-           this.Children.Remove(NewPage);
-           this.Children.Add(page);
-           this.Children.Add(NewPage);
+                if (canAddNewPage) this.Children.Remove(NewPage);
+                this.Children.Add(page);
+                if (canAddNewPage) this.Children.Add(NewPage);
            }
            catch (Exception e)
            {
            }
            page.IsActive = true;
-           NewPage.IsActiveChanged += newPageEventHandler;
+           if (canAddNewPage)  NewPage.IsActiveChanged += newPageEventHandler;
            return page;
         }
 
