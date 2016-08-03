@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Domain
 {
@@ -25,12 +26,20 @@ namespace Misp.Kernel.Domain
 
         public String file { get; set; }
 
-
+        
         public bool creditChecked { get; set; }
-
+        
         public bool debitChecked { get; set; }
+        
+        public bool includeRecoChecked { get; set; }
 
-        public bool includeRecoChecked { get; set; } 
+
+        public GrilleFilter()
+        {
+            creditChecked = false;
+            debitChecked = false;
+            includeRecoChecked = false;
+        }
 
     }
 }

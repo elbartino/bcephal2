@@ -586,8 +586,14 @@ namespace Misp.Sourcing.InputGrid
             try
             {
                 InputGridEditorItem page = (InputGridEditorItem)getEditor().getActivePage();
-                GrilleFilter filter = page.getInputGridForm().GridForm.filterForm.Fill();                
-                filter.grid = page.EditedObject;
+                GrilleFilter filter = page.getInputGridForm().GridForm.filterForm.Fill();
+                filter.grid = new Grille();
+                filter.grid.code = page.EditedObject.code;
+                filter.grid.columnListChangeHandler = page.EditedObject.columnListChangeHandler;
+                filter.grid.report = page.EditedObject.report;
+                filter.grid.oid = page.EditedObject.oid;
+                filter.grid.name = page.EditedObject.name;
+                //filter.grid = page.EditedObject;
                 filter.page = currentPage;
                 filter.pageSize = (int)page.getInputGridForm().GridForm.toolBar.pageSizeComboBox.SelectedItem;
                 GrillePage rows = this.GetInputGridService().getGridRows(filter);

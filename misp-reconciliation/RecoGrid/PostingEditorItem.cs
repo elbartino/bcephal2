@@ -50,7 +50,12 @@ namespace Misp.Sourcing.InputGrid
             try
             {
                 GrilleFilter filter = this.getInputGridForm().GridForm.filterForm.Fill();
-                filter.grid = this.EditedObject;
+                filter.grid = new Grille();
+                filter.grid.code = this.EditedObject.code;
+                filter.grid.columnListChangeHandler = this.EditedObject.columnListChangeHandler;
+                filter.grid.report = this.EditedObject.report;
+                filter.grid.oid = this.EditedObject.oid;
+                filter.grid.name = this.EditedObject.name;
                 filter.page = currentPage;
                 filter.pageSize = (int)this.getInputGridForm().GridForm.toolBar.pageSizeComboBox.SelectedItem;
                 GrillePage rows = this.ReconciliationGridService.getGridRows(filter);
