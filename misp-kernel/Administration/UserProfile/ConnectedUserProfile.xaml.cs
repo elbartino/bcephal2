@@ -25,8 +25,8 @@ namespace Misp.Kernel.Administration.UserProfile
         public ConnectedUserProfile()
         {
             InitializeComponent();
+            passwordPanel.Visibility = System.Windows.Visibility.Collapsed;
             InitializeHandlers();
-            changePasswordCheckbox.IsChecked = false;
         }
 
         public void Display(Kernel.Domain.User user)
