@@ -78,8 +78,12 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             this.ReconciliationContextPanel.setAttributeValue(value);
         }
-              
-        
+
+        public void setMeasure(Kernel.Domain.Measure measure) 
+        {
+            this.ReconciliationContextPanel.setMeasure(measure);
+        }
+
         #endregion
 
 

@@ -21,7 +21,9 @@ namespace Misp.Reconciliation.ReconciliationContext
     public partial class ReconciliationContextItem : Grid
     {
         public event Misp.Kernel.Ui.Base.ActivateEventHandler ActivatedItem;
-        
+
+        public event Misp.Kernel.Ui.Base.ChangeEventHandler Changed;        
+
         public ReconciliationContextItem()
         {
             InitializeComponent();
@@ -47,7 +49,10 @@ namespace Misp.Reconciliation.ReconciliationContext
         
         public void setValue(object value)
         {
+            string currentValue = this.contextItemTextbox.Text.Trim();
+            if (currentValue != null && currentValue.Equals(value != null ? value.ToString() : "")) return;
             this.contextItemTextbox.Text = value != null ? value.ToString() : "";
+            if (Changed != null) Changed();
         }
 
     }

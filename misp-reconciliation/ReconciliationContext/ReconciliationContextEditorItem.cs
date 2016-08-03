@@ -16,7 +16,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         public ReconciliationContextEditorItem()
             : base()
         {
-            this.Title = "Reconciliation Context";
+            this.Title = "Reconciliation Configuration";
             this.CanFloat = false;
         }
 

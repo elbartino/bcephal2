@@ -243,6 +243,12 @@ namespace Misp.Reconciliation.ReconciliationContext
             base.initializePageHandlers(page);
             ReconciliationContextEditorItem editorPage = (ReconciliationContextEditorItem)page;
             editorPage.getReconciliationContextForm().ReconciliationContextPanel.ActivatedItem += OnActivatedItem;
+            editorPage.getReconciliationContextForm().ReconciliationContextPanel.Change += OnChangeItem;
+        }
+
+        private void OnChangeItem()
+        {
+            OnChange();
         }
 
         private void OnActivatedItem(object item)
@@ -259,7 +265,10 @@ namespace Misp.Reconciliation.ReconciliationContext
         protected override void initializeSideBarData()
         {
             ((ReconciliationContextSideBar)SideBar).EntityGroup.ModelService = GetReconciliationContextService().ModelService;
-            ((ReconciliationContextSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();          
+            ((ReconciliationContextSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
+
+            Measure rootMeasure = GetReconciliationContextService().MeasureService.getRootMeasure();
+            ((ReconciliationContextSideBar)SideBar).MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
         }
 
         /// <summary>
@@ -269,6 +278,17 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectAttributeValue += onSelectStandardTargetFromSidebar;
             ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectTarget += onSelectStandardTargetFromSidebar;
+            ((ReconciliationContextSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
+        }
+
+        private void onSelectMeasureFromSidebar(object sender)
+        {
+            ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().getActivePage();
+            if (page == null) return;
+            if (sender is Kernel.Domain.Measure)
+            {
+                page.getReconciliationContextForm().setMeasure((Kernel.Domain.Measure)sender);
+            }
         }
 
         /// <summary>
@@ -290,18 +310,14 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().getActivePage();
             if (page == null) return;
-            bool canChange = false;
             if (sender is Kernel.Domain.AttributeValue) 
             {
                 page.getReconciliationContextForm().setValue((Kernel.Domain.AttributeValue)sender);
-                canChange = true;
             }
             else if (sender is Kernel.Domain.Attribute)
             {
                 page.getReconciliationContextForm().setAttribute((Kernel.Domain.Attribute)sender);
-                canChange = true;
             }
-           if (canChange)  OnChange();
         }
 
         /// <summary>
@@ -324,24 +340,6 @@ namespace Misp.Reconciliation.ReconciliationContext
                     attribute.LoadValues = true;
                 }
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void onFilterPanelChange()
-        {
-            OnChange();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void onResetClick(object sender, RoutedEventArgs e)
-        {
-            OnChange();
         }
 
        
