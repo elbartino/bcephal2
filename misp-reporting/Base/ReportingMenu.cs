@@ -102,6 +102,9 @@ namespace Misp.Reporting.Base
             newPivotTableMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "New Pivot Table", null);
             listPivotTableMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "List Pivot Table", null);
 
+            newPivotTableMenu.IsEnabled = false;
+            listPivotTableMenu.IsEnabled = false;
+
             GridGroupMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "Grid", null);
             ReportGroupMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "Report", null);
             StructuredReportGrouMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "Structured Report", null);
