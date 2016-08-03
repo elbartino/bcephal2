@@ -3,25 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-            xmlns:item="clr-namespace:Misp.Reconciliation.ReconciliationContext"
-             mc:Ignorable="d" Background="White" >
+             xmlns:item="clr-namespace:Misp.Reconciliation.ReconciliationContext"
+             mc:Ignorable="d" Background="White" Margin="30">
 
-    <Border Grid.Row="0"  Height="Auto" Width="Auto" HorizontalAlignment="Center">
-        <Grid Margin="0 10 0 0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <item:ReconciliationContextItem x:Name="postingAttribute"  Grid.Row="0" Margin="5 0 0 5"/>
-            <item:ReconciliationContextItem x:Name="accountAttribute"  Grid.Row="1" Margin="5 0 0 5"/>
-            <item:ReconciliationContextItem x:Name="reconciliationAttribute"  Grid.Row="2" Margin="5 0 0 5"/>
-            <item:ReconciliationContextItem x:Name="dcAttribute"  Grid.Row="3" Margin="5 0 0 5"/>
-            <item:ReconciliationContextItem x:Name="debitValue"  Grid.Row="4" Margin="15 0 0 5"/>
-            <item:ReconciliationContextItem x:Name="creditValue"  Grid.Row="5" Margin="15 0 0 5"/>
-        </Grid>
-    </Border>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <item:ReconciliationContextItem x:Name="postingAttributePanel"  Grid.Row="0" Margin="5 0 0 5"/>
+    <item:ReconciliationContextItem x:Name="accountAttributePanel"  Grid.Row="1" Margin="5 0 0 5"/>
+    <item:ReconciliationContextItem x:Name="reconciliationAttributePanel"  Grid.Row="2" Margin="5 0 0 5"/>
+    <item:ReconciliationContextItem x:Name="dcAttributePanel"  Grid.Row="3" Margin="5 0 0 5"/>
+    <item:ReconciliationContextItem x:Name="debitValuePanel"  Grid.Row="4" Margin="5 0 0 5"/>
+    <item:ReconciliationContextItem x:Name="creditValuePanel"  Grid.Row="5" Margin="5 0 0 5"/>
+    <item:ReconciliationContextItem x:Name="amountMeasurePanel"  Grid.Row="6" Margin="5 0 0 5"/>
+
 </Grid>

@@ -61,7 +61,7 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         protected virtual void InitializeComponents()
         {
-            this.Background = null;
+            this.Background = Brushes.White;
             this.BorderBrush = null;
 
             this.ReconciliationContextPanel = new ReconciliationContextPanel();
@@ -110,17 +110,8 @@ namespace Misp.Reconciliation.ReconciliationContext
             //bool valid = this.ReconciliationContextPanel.validateEdition();
             return true;
         }
-
-        /// <summary> 
-        /// Cette méthode permet de prendre les données éditées à l'écran 
-        /// pour les charger dans l'objet en édition.
-        /// </summary>
-        public void fillObject()
-        {
-            this.ReconciliationContextPanel.Fill();
-           
-        }
-         /// <summary>
+        
+        /// <summary>
         /// Cette méthode permet d'afficher les données de l'objet à éditer 
         /// pour les afficher dans la vue.
         /// </summary>
@@ -129,6 +120,10 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.ReconciliationContextPanel.display(this.EditedObject);            
         }
 
+        public void fillObject()
+        {
+            
+        }
 
         public List<object> getEditableControls()
         {

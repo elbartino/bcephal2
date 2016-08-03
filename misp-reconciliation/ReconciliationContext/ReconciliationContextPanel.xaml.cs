@@ -29,12 +29,13 @@ namespace Misp.Reconciliation.ReconciliationContext
         public ReconciliationContextPanel()
         {
             InitializeComponent();
-            this.postingAttribute.setContextItemContent("Posting Attribute");
-            this.accountAttribute.setContextItemContent("Account Attribute");
-            this.reconciliationAttribute.setContextItemContent("Reconciliation Attribute");
-            this.dcAttribute.setContextItemContent("Deb/Cred Attribute");
-            this.creditValue.setContextItemContent("Credit Value");
-            this.debitValue.setContextItemContent("Debit Value");
+            this.postingAttributePanel.setContextItemContent("Posting Nbr Attribute");
+            this.accountAttributePanel.setContextItemContent("Account Nbr Attribute");
+            this.reconciliationAttributePanel.setContextItemContent("Reco Nbr Attribute");
+            this.dcAttributePanel.setContextItemContent("Debit/Credit Attribute");
+            this.creditValuePanel.setContextItemContent("Credit Value");
+            this.debitValuePanel.setContextItemContent("Debit Value");
+            this.amountMeasurePanel.setContextItemContent("Amount Measure");
             InitializeHandlers();
         }
 
@@ -42,28 +43,24 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             if (reconciliationcontext == null) return;
             this.reconciliationContext = reconciliationcontext;
-
-            this.postingAttribute.setContextItemValue(reconciliationContext.postingNbreAttribute != null ? reconciliationContext.postingNbreAttribute.name :"");
-            this.accountAttribute.setContextItemValue(reconciliationContext.accountNbreAttribute != null ? reconciliationContext.accountNbreAttribute.name : "");
-            this.reconciliationAttribute.setContextItemValue(reconciliationContext.recoNbreAttribute != null ? reconciliationContext.recoNbreAttribute.name : "");
-            this.dcAttribute.setContextItemValue(reconciliationContext.dcNbreAttribute != null ? reconciliationContext.dcNbreAttribute.name : "");
-            this.creditValue.setContextItemValue(reconciliationContext.creditAttributeValue != null ? reconciliationContext.creditAttributeValue.name : "");
-            this.debitValue.setContextItemValue(reconciliationContext.debitAttributeValue != null ? reconciliationContext.debitAttributeValue.name : "");
+            this.postingAttributePanel.setValue(reconciliationContext.postingNbreAttribute);
+            this.accountAttributePanel.setValue(reconciliationContext.accountNbreAttribute);
+            this.reconciliationAttributePanel.setValue(reconciliationContext.recoNbreAttribute);
+            this.dcAttributePanel.setValue(reconciliationContext.dcNbreAttribute);
+            this.creditValuePanel.setValue(reconciliationContext.creditAttributeValue);
+            this.debitValuePanel.setValue(reconciliationContext.debitAttributeValue);
+            this.amountMeasurePanel.setValue(reconciliationContext.amountMeasure);
         }
-
-        public Kernel.Domain.ReconciliationContext Fill() 
-        {
-            return this.reconciliationContext;
-        }
-
+        
         public void InitializeHandlers()
         {
-             this.postingAttribute.ActivatedItem += OnActivateitem;
-             this.dcAttribute.ActivatedItem += OnActivateitem;
-             this.creditValue.ActivatedItem += OnActivateitem;
-             this.debitValue.ActivatedItem += OnActivateitem;
-             this.reconciliationAttribute.ActivatedItem += OnActivateitem;
-             this.accountAttribute.ActivatedItem += OnActivateitem;
+            this.postingAttributePanel.ActivatedItem += OnActivateitem;
+            this.dcAttributePanel.ActivatedItem += OnActivateitem;
+            this.creditValuePanel.ActivatedItem += OnActivateitem;
+            this.debitValuePanel.ActivatedItem += OnActivateitem;
+            this.reconciliationAttributePanel.ActivatedItem += OnActivateitem;
+            this.accountAttributePanel.ActivatedItem += OnActivateitem;
+            this.amountMeasurePanel.ActivatedItem += OnActivateitem;
         }
 
         private void OnActivateitem(object item)
@@ -74,17 +71,24 @@ namespace Misp.Reconciliation.ReconciliationContext
             } 
         }
 
+        public void setMeasure(Kernel.Domain.Measure measure)
+        {
+            if (ActiveItem == null) return;
+            if (reconciliationContext == null) reconciliationContext = new Kernel.Domain.ReconciliationContext();
+            reconciliationContext.amountMeasure = measure;
+            this.ActiveItem.setValue(measure);
+        }
 
         public void setAttribute(Kernel.Domain.Attribute attribute)
         {
             if (ActiveItem == null) return;
             if (canSetValue(ActiveItem)) return;
             if (reconciliationContext == null) reconciliationContext = new Kernel.Domain.ReconciliationContext();
-            if (ActiveItem == postingAttribute) reconciliationContext.postingNbreAttribute = attribute;
-            else if (ActiveItem == accountAttribute) reconciliationContext.accountNbreAttribute = attribute;
-            else if (ActiveItem == reconciliationAttribute) reconciliationContext.recoNbreAttribute = attribute;
-            else if (ActiveItem == dcAttribute) reconciliationContext.dcNbreAttribute = attribute;
-            this.ActiveItem.setAttribute(attribute);
+            if (ActiveItem == postingAttributePanel) reconciliationContext.postingNbreAttribute = attribute;
+            else if (ActiveItem == accountAttributePanel) reconciliationContext.accountNbreAttribute = attribute;
+            else if (ActiveItem == reconciliationAttributePanel) reconciliationContext.recoNbreAttribute = attribute;
+            else if (ActiveItem == dcAttributePanel) reconciliationContext.dcNbreAttribute = attribute;
+            this.ActiveItem.setValue(attribute);
         }
 
         public void setAttributeValue(Kernel.Domain.AttributeValue value)
@@ -94,7 +98,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             if (reconciliationContext.dcNbreAttribute == null)
             {
                 reconciliationContext.dcNbreAttribute = value.attribut;
-                dcAttribute.setAttribute(value.attribut);
+                dcAttributePanel.setValue(value.attribut);
             }
             else 
             {
@@ -104,15 +108,15 @@ namespace Misp.Reconciliation.ReconciliationContext
                 }
             }
             
-            if (ActiveItem == debitValue) reconciliationContext.debitAttributeValue = value;
-            else if (ActiveItem == creditValue) reconciliationContext.creditAttributeValue = value;
+            if (ActiveItem == debitValuePanel) reconciliationContext.debitAttributeValue = value;
+            else if (ActiveItem == creditValuePanel) reconciliationContext.creditAttributeValue = value;
 
-            this.ActiveItem.setAttributeValue(value);
+            this.ActiveItem.setValue(value);
         }
 
         public bool canSetValue(ReconciliationContextItem item) 
         {
-            if (item == creditValue || item == debitValue) return true;
+            if (item == creditValuePanel || item == debitValuePanel) return true;
             else return false;
         }
 
@@ -120,12 +124,13 @@ namespace Misp.Reconciliation.ReconciliationContext
         public List<object> getEditableControls()
         {
             List<object> list = new List<object>();
-            list.Add(postingAttribute);
-            list.Add(reconciliationAttribute);
-            list.Add(accountAttribute);
-            list.Add(dcAttribute);
-            list.Add(debitValue);
-            list.Add(creditValue);
+            list.Add(postingAttributePanel);
+            list.Add(reconciliationAttributePanel);
+            list.Add(accountAttributePanel);
+            list.Add(dcAttributePanel);
+            list.Add(debitValuePanel);
+            list.Add(creditValuePanel);
+            list.Add(amountMeasurePanel);
             return list;
         }
     }

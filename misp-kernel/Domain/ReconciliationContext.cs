@@ -8,28 +8,24 @@ namespace Misp.Kernel.Domain
 {
     public class ReconciliationContext : Persistent
     {
-        
-	public Attribute postingNbreAttribute;
-	
 
-    public Attribute accountNbreAttribute;
-	
+        public Attribute postingNbreAttribute { get; set; }
 
-	public Attribute recoNbreAttribute; 
-	
+        public Attribute accountNbreAttribute { get; set; }
 
-    public Attribute dcNbreAttribute;
-    
+        public Attribute recoNbreAttribute { get; set; }
 
-    public AttributeValue debitAttributeValue;
-    
+        public Attribute dcNbreAttribute { get; set; }
 
-    public AttributeValue creditAttributeValue;
-    
+        public AttributeValue debitAttributeValue { get; set; }
 
-	public int lastPostingNumber;
-    
+        public AttributeValue creditAttributeValue { get; set; }
 
-	public int lastRecoNumber;
+        public Measure amountMeasure { get; set; }
+
+        public int lastPostingNumber { get; set; }
+
+        public int lastRecoNumber { get; set; }
+
     }
 }

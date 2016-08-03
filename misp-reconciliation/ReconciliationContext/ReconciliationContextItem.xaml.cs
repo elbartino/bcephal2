@@ -21,11 +21,7 @@ namespace Misp.Reconciliation.ReconciliationContext
     public partial class ReconciliationContextItem : Grid
     {
         public event Misp.Kernel.Ui.Base.ActivateEventHandler ActivatedItem;
-
-        public Kernel.Domain.Attribute attribute;
-
-        public Kernel.Domain.AttributeValue attrvalue;
-
+        
         public ReconciliationContextItem()
         {
             InitializeComponent();
@@ -48,22 +44,11 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             this.contextItemLabel.Content = name;
         }
-
-        public void setContextItemValue(String name) 
+        
+        public void setValue(object value)
         {
-            this.contextItemTextbox.Text = name;
+            this.contextItemTextbox.Text = value != null ? value.ToString() : "";
         }
 
-        public void setAttributeValue(Kernel.Domain.AttributeValue value)
-        {
-            attrvalue = value;
-            setContextItemValue(value.name);
-        }
-
-        public void setAttribute(Kernel.Domain.Attribute attribut) 
-        {
-            attribute = attribut;
-            setContextItemValue(attribute != null ?  attribute.name : "");
-        }
     }
 }

@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" >
     <Grid.ColumnDefinitions>
-        <ColumnDefinition  Width="*"/>
-        <ColumnDefinition  MinWidth="300" Width="2*"/>
+        <ColumnDefinition  Width="130"/>
+        <ColumnDefinition  MinWidth="300" MaxWidth="400" Width="*"/>
     </Grid.ColumnDefinitions>
 
-    <Label  x:Name="contextItemLabel" Content="Context Name" Grid.Column="0" />
-    <TextBlock x:Name="contextItemTextbox" Grid.Column="1" Background="Gray"  />
+    <Label  x:Name="contextItemLabel" Content="Debit/Credit Attribute" Grid.Column="0" />
+    <TextBox x:Name="contextItemTextbox" Grid.Column="1"  IsReadOnly="True" />
 </Grid>
 
 
