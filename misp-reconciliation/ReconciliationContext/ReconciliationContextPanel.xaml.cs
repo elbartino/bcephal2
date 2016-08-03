@@ -122,7 +122,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             {
                 if (reconciliationContext.dcNbreAttribute.oid != attribute.oid) 
                 {
-                    Kernel.Util.MessageDisplayer.DisplayError("Configuration ", "Attribute mismatch.");
+                    Kernel.Util.MessageDisplayer.DisplayError("Configuration ", "Attribute mismatch for the selected value.");
                     return;
                 }
             }
