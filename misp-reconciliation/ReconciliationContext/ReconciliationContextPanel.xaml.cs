@@ -26,6 +26,8 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         public ReconciliationContextItem ActiveItem { get; set; }
 
+        public Kernel.Service.ModelService ModelService { get; set; }
+
         public Kernel.Domain.ReconciliationContext reconciliationContext { get; set; }
 
         public ReconciliationContextPanel()
@@ -110,16 +112,18 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             if (ActiveItem == null) return;
             if (!canSetValue(ActiveItem) || cansetMeasure(ActiveItem)) return;
+            Kernel.Domain.Attribute attribute = ModelService.getAttributeByValue(value.oid.Value);
             if (reconciliationContext.dcNbreAttribute == null)
             {
-                reconciliationContext.dcNbreAttribute = value.attribut;
-                dcAttributePanel.setValue(value.attribut);
+                reconciliationContext.dcNbreAttribute = attribute;
+                dcAttributePanel.setValue(attribute);
             }
             else 
             {
-                if (reconciliationContext.dcNbreAttribute.Equals(value.attribut)) 
+                if (!reconciliationContext.dcNbreAttribute.Equals(attribute)) 
                 {
-                    reconciliationContext.dcNbreAttribute = value.attribut;
+                    Kernel.Util.MessageDisplayer.DisplayError("Reconcialiation Configuration ", "Attribute mismatch");
+                    return;
                 }
             }
             

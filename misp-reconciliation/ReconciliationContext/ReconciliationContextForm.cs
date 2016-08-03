@@ -29,6 +29,8 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         public ReconciliationContextPropertyBar ReconciliationContextPropertyBar { get; set; }
 
+        public ModelService ModelService { get; set; }
+
         /// <summary>
         /// Indique si la vue a été modifiée.
         /// </summary>
@@ -76,6 +78,8 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         public void setValue(Kernel.Domain.AttributeValue value)
         {
+            if (this.ModelService == null) return;
+            this.ReconciliationContextPanel.ModelService = this.ModelService;
             this.ReconciliationContextPanel.setAttributeValue(value);
         }
 
