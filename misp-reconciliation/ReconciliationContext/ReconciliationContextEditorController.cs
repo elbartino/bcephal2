@@ -290,15 +290,18 @@ namespace Misp.Reconciliation.ReconciliationContext
         {
             ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().getActivePage();
             if (page == null) return;
+            bool canChange = false;
             if (sender is Kernel.Domain.AttributeValue) 
             {
                 page.getReconciliationContextForm().setValue((Kernel.Domain.AttributeValue)sender);
+                canChange = true;
             }
             else if (sender is Kernel.Domain.Attribute)
             {
                 page.getReconciliationContextForm().setAttribute((Kernel.Domain.Attribute)sender);
+                canChange = true;
             }
-            OnChange();
+           if (canChange)  OnChange();
         }
 
         /// <summary>
