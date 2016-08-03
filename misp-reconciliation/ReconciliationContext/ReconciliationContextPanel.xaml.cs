@@ -120,9 +120,9 @@ namespace Misp.Reconciliation.ReconciliationContext
             }
             else 
             {
-                if (!reconciliationContext.dcNbreAttribute.Equals(attribute)) 
+                if (reconciliationContext.dcNbreAttribute.oid != attribute.oid) 
                 {
-                    Kernel.Util.MessageDisplayer.DisplayError("Reconcialiation Configuration ", "Attribute mismatch");
+                    Kernel.Util.MessageDisplayer.DisplayError("Configuration ", "Attribute mismatch.");
                     return;
                 }
             }
