@@ -120,5 +120,6 @@ namespace Misp.Kernel.Application
         public static string ADMINISTRATION_NEW_PROFIL = "ADMINISTRATION_NEW_PROFIL";
         public static string ADMINISTRATION_ROLE = "ADMINISTRATION_ROLE";
         public static string ADMINISTRATION_LIST_ROLE = "ADMINISTRATION_LIST_ROLE";
+        public static string ADMINISTRATION_CONNECTED_USER_PROFILE = "ADMINISTRATION_CONNECTED_USER_PROFILE";
     }
 }

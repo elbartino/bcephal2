@@ -9,6 +9,7 @@ using Misp.Kernel.Administration.User;
 using Misp.Kernel.Administration.Base;
 using Misp.Kernel.Administration.Profil;
 using Misp.Kernel.Administration.Role;
+using Misp.Kernel.Administration.UserProfile;
 
 
 namespace Misp.Kernel.Application
@@ -114,6 +115,16 @@ namespace Misp.Kernel.Application
                 profilBrowserController.ApplicationManager = this.ApplicationManager;
                 profilBrowserController.Service = ServiceFactory.GetProfilService();
                 return profilBrowserController;
+            }
+
+            if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_CONNECTED_USER_PROFILE)
+            {
+                UserProfileEditorController userProfileEditorController = new UserProfileEditorController();
+                userProfileEditorController.ModuleName = "Administration";
+                userProfileEditorController.Functionality = fonctionality;
+                userProfileEditorController.ApplicationManager = this.ApplicationManager;
+                userProfileEditorController.Service = ServiceFactory.GetUserService();
+                return userProfileEditorController;
             }
 
             

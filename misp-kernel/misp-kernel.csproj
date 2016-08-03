@@ -151,6 +151,10 @@
     <Compile Include="Administration\Role\RoleTree.cs" />
     <Compile Include="Administration\Role\RoleBrowser.cs" />
     <Compile Include="Administration\Role\RoleBrowserController.cs" />
+    <Compile Include="Administration\UserProfile\UserProfileEditor.cs" />
+    <Compile Include="Administration\UserProfile\UserProfileForm.cs" />
+    <Compile Include="Administration\UserProfile\UserProfileEditorItem.cs" />
+    <Compile Include="Administration\UserProfile\UserProfileEditorController.cs" />
     <Compile Include="Administration\UserRelations\UserRelationItemPanel.xaml.cs">
       <DependentUpon>UserRelationItemPanel.xaml</DependentUpon>
     </Compile>
@@ -162,6 +166,9 @@
     </Compile>
     <Compile Include="Administration\User\ConnectedUserPanel.xaml.cs">
       <DependentUpon>ConnectedUserPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\UserProfile\ConnectedUserProfile.xaml.cs">
+      <DependentUpon>ConnectedUserProfile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Administration\User\UserBrowserSideBar.cs" />
     <Compile Include="Administration\User\LoginPanel.xaml.cs">
@@ -714,6 +721,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Administration\User\ConnectedUserPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administration\UserProfile\ConnectedUserProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
