@@ -43,6 +43,13 @@ namespace Misp.Sourcing.GridViews
             this.resetButton.Click += OnReset;
             this.targetFilter.Changed += OnChange;
             this.periodFilter.Changed += OnChange;
+
+            this.creditCheckBox.Checked += OnChange;
+            this.creditCheckBox.Unchecked += OnChange;
+            this.debitCheckBox.Checked += OnChange;
+            this.debitCheckBox.Unchecked += OnChange;
+            this.includeRecoCheckBox.Checked += OnChange;
+            this.includeRecoCheckBox.Unchecked += OnChange;
         }
 
                         
@@ -60,10 +67,9 @@ namespace Misp.Sourcing.GridViews
             {
                 targetFilter.DisplayScope(filter.filterScope);
                 periodFilter.DisplayPeriod(filter.filterPeriod);
-
-                //this.creditCheckBox.IsChecked = filter.creditChecked;
-                //this.debitCheckBox.IsChecked = filter.debitChecked;
-                //this.includeRecoCheckBox.IsChecked = filter.includeRecoChecked;
+                this.creditCheckBox.IsChecked = filter.creditChecked;
+                this.debitCheckBox.IsChecked = filter.debitChecked;
+                this.includeRecoCheckBox.IsChecked = filter.includeRecoChecked;
             }
             thrawChange = true;
         }
@@ -77,6 +83,9 @@ namespace Misp.Sourcing.GridViews
             if (this.GrilleFilter == null) this.GrilleFilter = new GrilleFilter();
             this.GrilleFilter.filterScope = targetFilter.Scope;
             this.GrilleFilter.filterPeriod = periodFilter.Period;
+            this.GrilleFilter.creditChecked = this.creditCheckBox.IsChecked.Value;
+            this.GrilleFilter.debitChecked = this.debitCheckBox.IsChecked.Value;
+            this.GrilleFilter.includeRecoChecked = this.includeRecoCheckBox.IsChecked.Value;
             return this.GrilleFilter;
         }
 
@@ -94,6 +103,16 @@ namespace Misp.Sourcing.GridViews
         public void OnChange()
         {
             if (ChangeHandler != null && thrawChange) ChangeHandler();
+        }
+
+        /// <summary>
+        /// implement action on creditCheckBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnChange(object sender, RoutedEventArgs e)
+        {
+            OnChange();
         }
 
         private void OnReset(object sender, RoutedEventArgs e)
