@@ -24,7 +24,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.ReconciliationContextLayoutAnchorable.CanAutoHide = false;
             this.ReconciliationContextLayoutAnchorable.CanHide = false;
             Pane = new LayoutAnchorablePane();
-            Pane.Children.Add(ReconciliationContextLayoutAnchorable);
+            //Pane.Children.Add(ReconciliationContextLayoutAnchorable);
             this.Panes.Add(Pane);
         }
 
