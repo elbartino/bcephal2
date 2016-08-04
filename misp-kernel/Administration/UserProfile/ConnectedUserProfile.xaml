@@ -14,6 +14,7 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
     <Grid Grid.Row="0" Margin="5 0 0 5">
         <Grid.ColumnDefinitions>
@@ -56,11 +57,20 @@
             <ColumnDefinition Width="110"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Label Content="Is Active" />
+        <CheckBox VerticalAlignment="Center" x:Name="isActiveUserCheckbox" IsEnabled="False"  Grid.Column="1"/>
+    </Grid>
+
+    <Grid Grid.Row="5" Margin="5 0 0 5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Label Content="Is Administrator" />
         <CheckBox VerticalAlignment="Center" x:Name="isAdminUserCheckbox" IsEnabled="False"  Grid.Column="1"/>
     </Grid>
 
-    <Grid Grid.Row="5" Margin="5 0 0 5">
+    <Grid Grid.Row="6" Margin="5 0 0 5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="110"/>
             <ColumnDefinition/>
@@ -68,7 +78,7 @@
         <Label Content="Profile" />
         <TextBox IsReadOnly="True"  x:Name="userProfileTextbox" Grid.Column="1"/>
     </Grid>
-    <GroupBox Header="Password" Grid.Row="6" Margin="0 0 0 5">
+    <GroupBox Header="Password" Grid.Row="7" Margin="0 0 0 5">
         <Grid Grid.Row="5" Margin="0 5 0 0">
             <Grid.RowDefinitions>
                 <RowDefinition/>

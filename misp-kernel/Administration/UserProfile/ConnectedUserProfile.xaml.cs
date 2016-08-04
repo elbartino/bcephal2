@@ -41,6 +41,7 @@ namespace Misp.Kernel.Administration.UserProfile
             userLoginTextbox.Text = user.login;
             userFirstNameTextbox.Text = user.firstName;
             isAdminUserCheckbox.IsChecked = user.administrator;
+            isActiveUserCheckbox.IsChecked = user.active;
             userProfileTextbox.Text = user.profil != null ? user.profil.name : "";
             userMailTextbox.Text = user.email;
         }
