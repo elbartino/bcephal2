@@ -81,7 +81,7 @@ namespace Misp.Kernel.Administration.User
                 //    focusSetted = true;
                 //}
             }
-            else if (!validateEmail(EmailTextBox.Text))
+            else if (!UserUtil.validateEmail(EmailTextBox.Text))
             {
                 errors += line + "Wrong email format.";
                 line = "\n";
@@ -116,7 +116,7 @@ namespace Misp.Kernel.Administration.User
                     focusSetted = true;
                 }
             }
-            else if (!validatePassword(PasswordTextBox.Password, ConfirmPasswordTextBox.Password))
+            else if (!Util.UserUtil.validatePassword(PasswordTextBox.Password, ConfirmPasswordTextBox.Password))
             {
                 errors += line + "Password does not match.";
                 line = "\n";
@@ -133,20 +133,8 @@ namespace Misp.Kernel.Administration.User
             return isValid;
         }
 
-        private bool validatePassword(String password1, String passwordConfirm) 
-        {
-            return String.Compare(password1, passwordConfirm, false) == 0;
-        }
 
-        public bool validateEmail(String email)
-        {
-            string strRegex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
-            Regex re = new Regex(strRegex);
-            if (re.IsMatch(email))
-                return (true);
-            else
-                return (false);
-        }
+       
 
 
         public Domain.User Fill()

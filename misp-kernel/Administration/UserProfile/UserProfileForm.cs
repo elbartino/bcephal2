@@ -87,8 +87,8 @@ namespace Misp.Kernel.Administration.UserProfile
         /// <returns>true si les données sont valides</returns>
         public bool validateEdition()
         {
-           // bool valid = this.ConnectedUserPanel.ValidateEdition();
-            return true;
+            bool valid = this.ConnectedUserProfile.ValidateEdition();
+            return valid;
         }
 
         /// <summary> 
@@ -97,9 +97,8 @@ namespace Misp.Kernel.Administration.UserProfile
         /// </summary>
         public void fillObject()
         {
-            //if (this.EditedObject == null) this.EditedObject = getNewObject();
-            //this.userMainPanel.Fill(this.EditedObject);
-           // this.userPropertyPanel.fillUser(this.EditedObject);
+            if (this.EditedObject == null) this.EditedObject = getNewObject();
+            this.ConnectedUserProfile.Fill(this.EditedObject);
         }
         /// <summary>
         /// Cette méthode permet d'afficher les données de l'objet à éditer 
@@ -119,8 +118,7 @@ namespace Misp.Kernel.Administration.UserProfile
         public List<object> getEditableControls()
         {
             List<object> controls = new List<object>(0);
-            //controls.AddRange(this.userMainPanel.getEditableControls());
-            //controls.AddRange(this.userPropertyPanel.getEditableControls());
+            controls.AddRange(this.ConnectedUserProfile.getEditableControls());
             return controls;
         }
 

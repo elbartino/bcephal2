@@ -42,9 +42,6 @@
         <TextBox IsReadOnly="True" x:Name="userFirstNameTextbox" Grid.Column="1"/>
     </Grid>
 
-
-    
-
     <Grid Grid.Row="3" Margin="5 0 0 5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"/>
@@ -78,8 +75,9 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <CheckBox Content="Change password" x:Name="changePasswordCheckbox" Grid.Row="0" Margin="0 5 0 5" />
-         <Grid Grid.Row="1" x:Name="passwordPanel">
+         <Grid Grid.Row="1" x:Name="passwordPanel" Margin="10">
                 <Grid.RowDefinitions>
+                    <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -92,12 +90,16 @@
                 <PasswordBox Grid.Column="1" x:Name="passwordOldTextbox" Margin="0 0 0 5"/>
 
                 <Label Content="New password" Grid.Column="0"  Grid.Row="1"   Margin="0 0 0 5"    />
-                <PasswordBox Grid.Column="1" Grid.Row="1" x:Name="password1Textbox" Margin="0 0 0 5"/>
+                <PasswordBox Grid.Column="1" Grid.Row="1" x:Name="newPasswordTextbox" Margin="0 0 0 5"/>
 
                 <Label Content="Confirm password" Grid.Column="0"  Grid.Row="2"   Margin="0 0 0 5"   />
-                <PasswordBox Grid.Column="1" Grid.Row="2"  x:Name="password2Textbox" Margin="0 0 0 5"/>
+                <PasswordBox Grid.Column="1" Grid.Row="2"  x:Name="confirmPasswordTextbox" Margin="0 0 0 5"/>
+
+                <TextBlock x:Name="Console" Grid.Row="3" Margin="10" Foreground="Red" Grid.ColumnSpan="2" Visibility="Collapsed" FontSize="11"/>
             </Grid>
+            
          </Grid>
     </GroupBox>
+    
 </Grid>
 

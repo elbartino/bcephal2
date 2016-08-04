@@ -119,13 +119,13 @@ namespace Misp.Kernel.Administration.UserProfile
         /// OperationState.CONTINUE si l'opération a réussi
         /// OperationState.STOP sinon
         /// </returns>
-        UserEditorItem currentPage = new UserEditorItem();
+        UserProfileEditorItem currentPage = new UserProfileEditorItem();
 
         public override OperationState Save(EditorItem<Domain.User> page)
         {
             try
             {
-                currentPage = (UserEditorItem)page;
+                currentPage = (UserProfileEditorItem)page;
                 if (base.Save(page) == OperationState.STOP) return OperationState.STOP;
             }
             catch (Exception)
@@ -267,7 +267,7 @@ namespace Misp.Kernel.Administration.UserProfile
             
             base.initializePageHandlers(page);
             UserProfileEditorItem editorPage = (UserProfileEditorItem)page;
-
+            editorPage.getUserProfileForm().ConnectedUserProfile.Changed += OnChangeItem;
             //editorPage.getUserForm().userMainPanel.nameTextBox.KeyUp += onNameTextChange;
             //editorPage.getUserForm().userMainPanel.nameTextBox.LostFocus += onNameTextLostFocus;
             //editorPage.getUserForm().userMainPanel.loginTextBox.KeyUp += onLoginTextChange;
@@ -278,6 +278,11 @@ namespace Misp.Kernel.Administration.UserProfile
             //editorPage.getUserForm().userMainPanel.RelationPanel.ItemDeleted += OnRelationItemDelete;
             //editorPage.getUserForm().userMainPanel.nameTextBox.LostFocus += onUserNameTextLostFocus;
             //editorPage.getUserForm().userMainPanel.nameTextBox.KeyUp += onUserNameTextChange;
+        }
+
+        private void OnChangeItem()
+        {
+            OnChange();
         }
              
 

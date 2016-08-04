@@ -669,6 +669,7 @@
     <Compile Include="Util\UserPreferencesUtil.cs" />
     <Compile Include="Util\ListUtil.cs" />
     <Compile Include="Util\MessageDisplayer.cs" />
+    <Compile Include="Util\UserUtil.cs" />
     <Compile Include="Util\WindowPositioner.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
