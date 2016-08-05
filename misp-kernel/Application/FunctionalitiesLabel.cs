@@ -14,10 +14,10 @@ namespace Misp.Kernel.Application
         public static string PROPERTIES_LABEL = "PROPERTIES_FUNCTIONALITY";
         public static string NEW_GROUP_LABEL = "NEW_GROUP_FUNCTIONALITY";
         public static string LIST_GROUP_LABEL = "LIST_GROUP_FUNCTIONALITY";
-            
-        public static string BACKUP_LABEL = "BACKUP_FUNCTIONALITY";
-        public static string BACKUP_SIMPLE_LABEL = "BACKUP_SIMPLE_FUNCTIONALITY";
-        public static string BACKUP_AUTOMATIC_LABEL = "BACKUP_AUTOMATIC_FUNCTIONALITY";
+
+        public static string BACKUP_LABEL = "Backup";
+        public static string BACKUP_SIMPLE_LABEL = "Simple Backup";
+        public static string BACKUP_AUTOMATIC_LABEL = "Automatic Backup";
 
 
         //INITIATION

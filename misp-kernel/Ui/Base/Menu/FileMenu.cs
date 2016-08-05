@@ -76,10 +76,10 @@ namespace Misp.Kernel.Ui.Base.Menu
             saveFile.IsEnabled = false;
             saveAsFile.IsEnabled = false;
 
-            backupMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, "Backup", null);
+            backupMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, FunctionalitiesLabel.BACKUP_LABEL, null);
             //backupMenu.IsEnabled = false;
-            backupSimpleMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, "Simple Backup", NavigationToken.GetCreateViewToken(FunctionalitiesCode.BACKUP_SIMPLE_FUNCTIONALITY));
-            backupAutomaticMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, "Automatic Backup", NavigationToken.GetCreateViewToken(FunctionalitiesCode.BACKUP_AUTOMATIC_FUNCTIONALITY));          
+            backupSimpleMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, FunctionalitiesLabel.BACKUP_SIMPLE_LABEL, NavigationToken.GetCreateViewToken(FunctionalitiesCode.BACKUP_SIMPLE_FUNCTIONALITY));
+            backupAutomaticMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE,FunctionalitiesLabel.BACKUP_AUTOMATIC_LABEL, NavigationToken.GetCreateViewToken(FunctionalitiesCode.BACKUP_AUTOMATIC_FUNCTIONALITY));          
        
 
             quitApplication = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Close B-Cephal", new NavigationToken(FunctionalitiesCode.FILE_FUNCTIONALITY, ViewType.LOGOUT));
