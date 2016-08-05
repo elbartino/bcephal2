@@ -7,7 +7,7 @@
             xmlns:relation="clr-namespace:Misp.Kernel.Administration.UserRelations"
              mc:Ignorable="d" Background="White"
              >
-    <Border Grid.Row="0"  Height="Auto" Width="Auto" HorizontalAlignment="Center">
+    <Border Grid.Row="0"  Height="Auto" Width="Auto" >
         <Grid  Margin="0" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -104,7 +104,7 @@
             <Grid Grid.Row="8" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition MaxWidth="350" Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="RelationLabel" Content="Relations" Grid.Column="0" VerticalAlignment="Center"/>
                 <Grid Grid.Column="1">
@@ -112,13 +112,15 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                    <Label Content="Role" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
-                    <Label Content="User" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
-                    <relation:UserRelationPanel x:Name="RelationPanel" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center"/>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Role" HorizontalAlignment="Center" Grid.Column="0" />
+                        <Label Content="User" HorizontalAlignment="Center" Grid.Column="1"/>
+                    </Grid>
+                    <relation:UserRelationPanel Width="350" x:Name="RelationPanel" Grid.Row="1" />
                 </Grid>
             </Grid>
 

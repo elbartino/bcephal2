@@ -13,26 +13,17 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Margin="0,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*" MaxWidth="300"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="NameLabel" Content="Name" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="nameTextBox" Grid.Column="1"  />
-            </Grid>
-
-
-            <Grid Grid.Row="1" Margin="0,5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label x:Name="Active" Content="Active" Grid.Column="0" VerticalAlignment="Center"/>
-                <CheckBox x:Name="activeBox" Grid.Column="1"  />
+                <CheckBox x:Name="activeBox" Grid.Column="2" Content="Active" Margin="10 5 0 0"  />
             </Grid>
 
             <Label x:Name="Rights" Content="Rights" Grid.Row="2" VerticalAlignment="Center"/>

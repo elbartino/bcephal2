@@ -13,7 +13,6 @@
         <ColumnDefinition Width="15"/>
     </Grid.ColumnDefinitions>
     <Label x:Name="label" x:FieldModifier="public" Grid.Column="0" Content="Value 12"  HorizontalAlignment="Left" VerticalAlignment="Center" />
-    <Border x:Name="border" x:FieldModifier="public" Grid.Column="1" BorderThickness="1" BorderBrush="#FFE2DEDE"/>
     <TextBox x:Name="measureItem" Height="25" x:FieldModifier="public" Grid.Column="1" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     <Button x:Name="addButton"  Grid.Column="2" ToolTip="Add Role" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
         <Button.Template>
@@ -22,7 +21,7 @@
             </ControlTemplate>
         </Button.Template>
     </Button>
-    <Border Grid.Column="3"   BorderThickness="1" BorderBrush="#FFE2DEDE" />
+    
     <Button x:Name="deleteButton"  Grid.Column="3" ToolTip="Remove Role" Margin="0,8,1,8" VerticalAlignment="Center" HorizontalAlignment="Right" Width="13">
         <Button.Template>
             <ControlTemplate>

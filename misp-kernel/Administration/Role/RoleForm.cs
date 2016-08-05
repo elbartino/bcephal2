@@ -24,7 +24,7 @@ namespace Misp.Kernel.Administration.Role
 
         protected virtual void InitializeComponents()
         {
-            this.Background = null;
+            this.Background = System.Windows.Media.Brushes.White;
             this.BorderBrush = null;
             
             //this.CalculatedMeasurePropertiesPanel = new CalculatedMeasurePropertiesPanel();

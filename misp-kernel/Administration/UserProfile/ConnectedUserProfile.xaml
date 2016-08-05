@@ -16,10 +16,10 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <Grid Grid.Row="0" Margin="5 0 0 5">
+    <Grid Grid.Row="0" Margin="5 10 0 5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"/>
-            <ColumnDefinition/>
+            <ColumnDefinition MinWidth="300" MaxWidth="400" Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Login" />
         <TextBox IsReadOnly="True" x:Name="userLoginTextbox"  Grid.Column="1"/>
@@ -28,7 +28,7 @@
     <Grid Grid.Row="1" Margin="5 5 0 5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"/>
-            <ColumnDefinition/>
+            <ColumnDefinition MinWidth="300" MaxWidth="400" Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Name" />
         <TextBox IsReadOnly="True" x:Name="userNameTextbox"  Grid.Column="1"/>
@@ -37,7 +37,7 @@
     <Grid Grid.Row="2" Margin="5 0 0 5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"/>
-            <ColumnDefinition/>
+            <ColumnDefinition MinWidth="300" MaxWidth="400" Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Content="First Name" />
         <TextBox IsReadOnly="True" x:Name="userFirstNameTextbox" Grid.Column="1"/>
@@ -46,7 +46,7 @@
     <Grid Grid.Row="3" Margin="5 0 0 5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"/>
-            <ColumnDefinition/>
+            <ColumnDefinition MinWidth="300" MaxWidth="400" Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Email" />
         <TextBox IsReadOnly="True" x:Name="userMailTextbox"  Grid.Column="1"/>
@@ -55,7 +55,7 @@
     <Grid Grid.Row="4" Margin="5 0 0 5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"/>
-            <ColumnDefinition/>
+            <ColumnDefinition MinWidth="300" MaxWidth="400" Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Is Active" />
         <CheckBox VerticalAlignment="Center" x:Name="isActiveUserCheckbox" IsEnabled="False"  Grid.Column="1"/>
@@ -64,7 +64,7 @@
     <Grid Grid.Row="5" Margin="5 0 0 5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"/>
-            <ColumnDefinition/>
+            <ColumnDefinition MinWidth="300" MaxWidth="400" Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Is Administrator" />
         <CheckBox VerticalAlignment="Center" x:Name="isAdminUserCheckbox" IsEnabled="False"  Grid.Column="1"/>
@@ -73,18 +73,21 @@
     <Grid Grid.Row="6" Margin="5 0 0 5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="110"/>
-            <ColumnDefinition/>
+            <ColumnDefinition MinWidth="300" MaxWidth="400" Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Profile" />
         <TextBox IsReadOnly="True"  x:Name="userProfileTextbox" Grid.Column="1"/>
     </Grid>
-    <GroupBox Header="Password" Grid.Row="7" Margin="0 0 0 5">
-        <Grid Grid.Row="5" Margin="0 5 0 0">
+    <Grid Grid.Row="7" Margin="5 5 0 0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <CheckBox Content="Change password" x:Name="changePasswordCheckbox" Grid.Row="0" Margin="0 5 0 5" />
+            <TextBlock  Grid.Row="0"   Margin="5 5 0 5">
+        <Hyperlink x:Name="ChangePasswordLink" NavigateUri="http://localhost//bcephal//changePass">
+            <TextBlock Text="Change Password"/>
+             </Hyperlink>
+        </TextBlock>
          <Grid Grid.Row="1" x:Name="passwordPanel" Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -94,7 +97,7 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition MinWidth="300" MaxWidth="400" Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Content="Old password" Grid.Row="0"  Grid.Column="0"   Margin="0 0 0 5"   />
                 <PasswordBox Grid.Column="1" x:Name="passwordOldTextbox" Margin="0 0 0 5"/>
@@ -109,7 +112,5 @@
             </Grid>
             
          </Grid>
-    </GroupBox>
-    
 </Grid>
 

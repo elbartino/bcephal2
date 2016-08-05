@@ -49,38 +49,28 @@ namespace Misp.Kernel.Administration.UserProfile
         public Domain.User Fill(Kernel.Domain.User user)
         {
             user.email = userMailTextbox.Text.Trim();
-            user.password = confirmPasswordTextbox.Password;
+            if (!String.IsNullOrWhiteSpace(confirmPasswordTextbox.Password))
+            {
+                user.password = confirmPasswordTextbox.Password;
+            }
             return user;
         }
 
         public void InitializeHandlers()
         {
-            changePasswordCheckbox.Checked += OnActivatePasswordOptions;
-            changePasswordCheckbox.Unchecked += OnActivatePasswordOptions;
+            //changePasswordCheckbox.Checked += OnActivatePasswordOptions;
+            //changePasswordCheckbox.Unchecked += OnActivatePasswordOptions;
+           ChangePasswordLink.RequestNavigate += OnChangePassword;
         }
 
-        private void OnEndEditNewPassword(object sender, MouseEventArgs e)
+        private void OnChangePassword(object sender, RequestNavigateEventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(newPasswordTextbox.Password) && String.IsNullOrWhiteSpace(confirmPasswordTextbox.Password))
-            {
-                return;
-            }
-            if (!UserUtil.validatePassword(passwordOldTextbox.Password, confirmPasswordTextbox.Password))
-            {
-                if (Changed != null) Changed();
-            }
-        }
-
-     
-
-        private void OnActivatePasswordOptions(object sender, RoutedEventArgs e)
-        {
-            if (changePasswordCheckbox.IsChecked == true)
+            if (!passwordPanel.IsVisible)
             {
                 passwordPanel.Visibility = System.Windows.Visibility.Visible;
                 if (Changed != null) Changed();
             }
-            else if (changePasswordCheckbox.IsChecked == false)
+            else
             {
                 passwordPanel.Visibility = System.Windows.Visibility.Collapsed;
                 Console.Visibility = System.Windows.Visibility.Collapsed;
@@ -88,10 +78,10 @@ namespace Misp.Kernel.Administration.UserProfile
                 passwordOldTextbox.Password = "";
                 newPasswordTextbox.Password = "";
                 confirmPasswordTextbox.Password = "";
-            }
-            
+           }
         }
 
+       
         public bool ValidateEdition()
         {
             String errors = "";
@@ -191,5 +181,7 @@ namespace Misp.Kernel.Administration.UserProfile
             list.Add(userNameTextbox);
             return list;
         }
+
+        public object OnEditNewPassword { get; set; }
     }
 }

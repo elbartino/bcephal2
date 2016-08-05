@@ -276,7 +276,7 @@ namespace Misp.Kernel.Administration.UserRelations
 
         public void changeBorder()
         {
-           border.BorderBrush = new SolidColorBrush(Color.FromRgb(226, 222, 222));
+           //border.BorderBrush = new SolidColorBrush(Color.FromRgb(226, 222, 222));
         }
 
         public void FillUsers(List<Domain.User> list)

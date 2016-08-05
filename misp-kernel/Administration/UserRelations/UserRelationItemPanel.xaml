@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-       Background="White" Margin="1"
+       Background="White" Margin="1" 
              d:DesignHeight="30" d:DesignWidth="300">
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="56"/>
@@ -17,10 +17,7 @@
     <ComboBox x:Name="roleComboBox" x:FieldModifier="public" Grid.Column="1" Margin="1" FontSize="12" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
 
     <ComboBox x:Name="userComboBox" x:FieldModifier="public" Grid.Column="2" Margin="1" FontSize="12" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
-
-    <Border x:Name="border" x:FieldModifier="public" Grid.Column="2" BorderThickness="1" BorderBrush="#FFE2DEDE"/>
-
-    <Border Grid.Column="2"   BorderThickness="1" BorderBrush="#FFE2DEDE" />
+    
     <Button x:Name="newButton"  Grid.Column="3" ToolTip="Add Relation" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
         <Button.Template>
             <ControlTemplate>
@@ -29,8 +26,8 @@
         </Button.Template>
     </Button>
 
-    <Border Grid.Column="4"   BorderThickness="1" BorderBrush="#FFE2DEDE" />
-    <Button x:Name="deleteButton"  Grid.Column="4" ToolTip="Remove row" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+    
+    <Button x:Name="deleteButton"  Grid.Column="4" ToolTip="Remove Relation" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
         <Button.Template>
             <ControlTemplate>
                 <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>

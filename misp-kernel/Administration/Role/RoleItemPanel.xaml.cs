@@ -328,7 +328,7 @@ namespace Misp.Kernel.Administration.Role
         
         public void changeBorder()
         {
-           border.BorderBrush = new SolidColorBrush(Color.FromRgb(226, 222, 222));
+          // border.BorderBrush = new SolidColorBrush(Color.FromRgb(226, 222, 222));
         }
     }
 }
