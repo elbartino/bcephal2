@@ -25,5 +25,13 @@ namespace Misp.Sourcing.InputGrid
             return item;
         }
 
+        protected override void OnChildrenCollectionChanged()
+        {
+            base.OnChildrenCollectionChanged();
+            this.Children[0].CanClose = false;
+        }
+
+        protected override void InitializeNewPage() { }
+
     }
 }

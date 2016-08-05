@@ -1,6 +1,7 @@
 ﻿using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Util;
 using Misp.Reconciliation.Posting;
 using Misp.Sourcing.AutomaticSourcingViews;
 using Misp.Sourcing.GridViews;
@@ -41,8 +42,6 @@ namespace Misp.Sourcing.InputGrid
             form.GridForm.otherToolBarPanel.Children.Add(PostingToolBar);
             return form;
         }
-
-
 
 
         public void Search(int currentPage = 0)
@@ -169,11 +168,9 @@ namespace Misp.Sourcing.InputGrid
 
         private void OnDeletePostings(object sender, RoutedEventArgs e)
         {
-            //PostingEditorItem page = (PostingEditorItem)getEditor().getActivePage();
-            //MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Delete Postings", "You are about to delete selected postings.\nDo you confirm operation?");
-            //if (response != MessageBoxResult.Yes) return;
-            //List<long> ids = new List<long>(0);
-            //List<long> oids = page.getInputGridForm().GridForm.gridBrowser.GetSelectedOis();
+            MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Delete Postings", "You are about to delete selected postings.\nDo you confirm operation?");
+            if (response != MessageBoxResult.Yes) return;
+            List<long> oids = getInputGridForm().GridForm.gridBrowser.GetSelectedOis();
 
             //foreach (object item in page.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems)
             //{
@@ -189,12 +186,13 @@ namespace Misp.Sourcing.InputGrid
             //        ids.Add(data.id);
             //    }
             //}
-            //bool result = GetReconciliationGridService().PostingService.deletePosting(oids);
-            //if (result)
-            //{
-            //    Search();
-            //    if (page.ReconciliationEndedHandler != null) page.ReconciliationEndedHandler();
-            //}
+
+            bool result = ReconciliationGridService.PostingService.deletePosting(oids);
+            if (result)
+            {
+                Search();
+                if (ReconciliationEndedHandler != null) ReconciliationEndedHandler();
+            }
         }
 
         
