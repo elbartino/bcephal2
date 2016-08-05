@@ -42,11 +42,11 @@ namespace Misp.Reconciliation.Base
         protected override void initChildren()
         {
             this.Code = ApplicationMenu.RECONCILIATION_MENU_CODE;
-            this.Header = "Reconciliation";
-            ReconciliationFiltersMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "Reconciliation Filters", NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY));
-            ReconciliationFiltersListMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "List Reconciliation Filters ", NavigationToken.GetSearchViewToken(ReconciliationFunctionalitiesCode.LIST_RECONCILIATION_FILTERS_FUNCTIONALITY));
-            ReconciliationPostingMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "Postings", NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_POSTING_FUNCTIONALITY));
-            ReconciliationContextMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, "Reconciliation Configuration", NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_CONTEXT_FUNCTIONALITY));        
+            this.Header = FunctionalitiesLabel.RECONCILIATION_LABEL;
+            ReconciliationFiltersMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, FunctionalitiesLabel.RECONCILIATION_FILTERS_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY));
+            ReconciliationFiltersListMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, FunctionalitiesLabel.LIST_RECONCILIATION_FILTERS_LABEL, NavigationToken.GetSearchViewToken(ReconciliationFunctionalitiesCode.LIST_RECONCILIATION_FILTERS_FUNCTIONALITY));
+            ReconciliationPostingMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, FunctionalitiesLabel.RECONCILIATION_POSTING_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_POSTING_FUNCTIONALITY));
+            ReconciliationContextMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, FunctionalitiesLabel.RECONCILIATION_CONFIGURATION_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_CONTEXT_FUNCTIONALITY));        
         }
     }
 }

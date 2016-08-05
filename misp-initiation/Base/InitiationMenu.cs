@@ -45,9 +45,9 @@ namespace Misp.Initiation.Base
         protected override void initChildren()
         {
             this.Code = ApplicationMenu.INITIATION_MENU_CODE;
-            this.Header = "Initiation";
-            model = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, "Edit Model", NavigationToken.GetSearchViewToken(InitiationFunctionalitiesCode.INITIATION_FUNCTIONALITY));
-            period = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, "Edit Period", NavigationToken.GetSearchViewToken(InitiationFunctionalitiesCode.PERIOD_FUNCTIONALITY));
+            this.Header = FunctionalitiesLabel.INITIATION_LABEL;
+            model = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, FunctionalitiesLabel.INITIATION_EDIT_MODEL_LABEL, NavigationToken.GetSearchViewToken(InitiationFunctionalitiesCode.INITIATION_FUNCTIONALITY));
+            period = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, FunctionalitiesLabel.INITIATION_EDIT_PERIOD_LABEL, NavigationToken.GetSearchViewToken(InitiationFunctionalitiesCode.PERIOD_FUNCTIONALITY));
         }
 
     }

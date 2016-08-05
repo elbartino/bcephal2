@@ -38,6 +38,7 @@ namespace Misp.Kernel.Ui.Dashboard
         public DashboardBlock TreeBlock { get; set; }
         public DashboardBlock CombinedTreeBlock { get; set; }
         public DashboardBlock TargetBlock { get; set; }
+        public DashboardBlock AutomaticTargetBlock { get; set; }
         public DashboardBlock DesignBlock { get; set; }
         public DashboardBlock CalculatedMeasureBlock { get; set; }
         public DashboardBlock StructuredReportBlock { get; set; }
@@ -213,23 +214,23 @@ namespace Misp.Kernel.Ui.Dashboard
 
         private void InitializeBlocks()
         {
-            this.ModelBlock = buildBlock("Models", "New Model", "Recent Models", FunctionalitiesCode.INITIATION_FUNCTIONALITY);
+            this.ModelBlock = buildBlock(FunctionalitiesLabel.INITIATION_MODEL_LABEL, FunctionalitiesLabel.INITIATION_NEW_MODEL_LABEL, FunctionalitiesLabel.INITIATION_RECENT_MODEL_LABEL, FunctionalitiesCode.INITIATION_FUNCTIONALITY);
 
-            this.TableBlock = buildBlock("Input Tables", "New Input Table", "Recent Input Tables", FunctionalitiesCode.NEW_INPUT_TABLE_FUNCTIONALITY);
-            this.ReportBlock = buildBlock("Reports", "New Report", "Recent Reports", FunctionalitiesCode.NEW_REPORT_FUNCTIONALITY);
-            this.StructuredReportBlock = buildBlock("Structured Reports", "New Structured Report", "Recent Structured Reports", FunctionalitiesCode.NEW_STRUCTURED_REPORT_FUNCTIONALITY);
-            this.TreeBlock = buildBlock("Transformation Trees", "New Transformation Tree", "Recent Transformation Trees", FunctionalitiesCode.NEW_TRANSFORMATION_TREE_FUNCTIONALITY);
-            this.CombinedTreeBlock = buildBlock("Combined Transformation Trees", "New Combined Transformation Tree", "Recent Combined Transformation Trees", FunctionalitiesCode.NEW_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY);
-            this.TargetBlock = buildBlock("Targets", "New Target", "Recent Targets", FunctionalitiesCode.NEW_TARGET_FUNCTIONALITY);
-            this.DesignBlock = buildBlock("Designs", "New Design", "Recent Designs", FunctionalitiesCode.NEW_DESIGN_FUNCTIONALITY);
-            this.CalculatedMeasureBlock = buildBlock("Calculated Measures", "New Calculated Measure", "Recent Calculated Measures", FunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY);
-            this.AutomaticUploadBlock = buildBlock("Automatic Uploads", "New Automatic Upload", "Recent Automatic Uploads", FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY);
-            this.InputGridBlock = buildBlock("Input Grid", "New Input Grid", "Recent Input Grids", FunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY);
-            this.ReportGridBlock = buildBlock("Report Grid", "New Report Grid", "Recent Report Grids", FunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY);
-            this.AutomaticGridBlock = buildBlock("Automatic Grid", "New Automatic Grid", "Recent Automatic Grids", FunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY);
-            
+            this.TableBlock = buildBlock(FunctionalitiesLabel.INPUT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_INPUT_TABLE_LABEL, FunctionalitiesLabel.RECENT_INPUT_TABLE_LABEL, FunctionalitiesCode.NEW_INPUT_TABLE_FUNCTIONALITY);
+            this.ReportBlock = buildBlock(FunctionalitiesLabel.REPORT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_REPORT_LABEL, FunctionalitiesLabel.RECENT_REPORT_LABEL, FunctionalitiesCode.NEW_REPORT_FUNCTIONALITY);
+            this.StructuredReportBlock = buildBlock(FunctionalitiesLabel.STRUCTURED_REPORT_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_STRUCTURED_REPORT_LABEL, FunctionalitiesLabel.RECENT_STRUCTURED_REPORT_LABEL, FunctionalitiesCode.NEW_STRUCTURED_REPORT_FUNCTIONALITY);
+            this.TreeBlock = buildBlock(FunctionalitiesLabel.TRANSFORMATION_TREE_DASHBOARD_LABEL,  FunctionalitiesLabel.NEW_TRANSFORMATION_TREE_LABEL, FunctionalitiesLabel.RECENT_TRANSFORMATION_TREE_LABEL, FunctionalitiesCode.NEW_TRANSFORMATION_TREE_FUNCTIONALITY);
+            this.CombinedTreeBlock = buildBlock(FunctionalitiesLabel.COMBINED_TRANSFORMATION_TREE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_COMBINED_TRANSFORMATION_TREES_LABEL,FunctionalitiesLabel.RECENT_TRANSFORMATION_TREE_LABEL , FunctionalitiesCode.NEW_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY);
+            this.TargetBlock = buildBlock(FunctionalitiesLabel.TARGET_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_TARGET_LABEL, FunctionalitiesLabel.RECENT_TARGET_LABEL, FunctionalitiesCode.NEW_TARGET_FUNCTIONALITY);
+            this.DesignBlock = buildBlock(FunctionalitiesLabel.DESIGN_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_DESIGN_LABEL, FunctionalitiesLabel.RECENT_TARGET_LABEL, FunctionalitiesCode.NEW_DESIGN_FUNCTIONALITY);
+            this.CalculatedMeasureBlock = buildBlock(FunctionalitiesLabel.CALCULATED_MEASURE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_CALCULATED_MEASURE_LABEL, FunctionalitiesLabel.RECENT_CALCULATED_MEASURE_LABEL, FunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY);
+            this.AutomaticUploadBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_SOURCING_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_SOURCING_LABEL,FunctionalitiesLabel.RECENT_AUTOMATIC_SOURCING_LABEL , FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY);
+            this.InputGridBlock = buildBlock(FunctionalitiesLabel.INPUT_GRID_LABEL, FunctionalitiesLabel.NEW_INPUT_GRID_LABEL,FunctionalitiesLabel.RECENT_INPUT_GRID_LABEL, FunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY);
+            this.ReportGridBlock = buildBlock(FunctionalitiesLabel.REPORT_GRID_LABEL, FunctionalitiesLabel.NEW_REPORT_GRID_LABEL, FunctionalitiesLabel.RECENT_REPORT_GRID_LABEL, FunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY);
+            this.AutomaticGridBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_GRID_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_GRID_LABEL, FunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY);
+            this.AutomaticTargetBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_TARGET_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_TARGET_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_TARGET_LABEL, FunctionalitiesCode.NEW_AUTOMATIC_TARGET_FUNCTIONALITY);
 			if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
-                this.ReconciliationFilterBlock = buildBlock("Reconciliation Filters", "Reconciliation Filter", "Recent Reconciliation Filters", FunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY);
+                this.ReconciliationFilterBlock = buildBlock(FunctionalitiesLabel.RECONCILIATION_FILTERS_LABEL, FunctionalitiesLabel.RECONCILIATION_FILTERS_LABEL, FunctionalitiesLabel.RECENT_RECONCILIATION_LABEL, FunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY);
             
             Dictionary<string, object> dico = new Dictionary<string, object>(0);
             dico.Add(this.AutomaticUploadBlock.TitleLabel.Content.ToString(), this.AutomaticUploadBlock);
@@ -245,6 +246,7 @@ namespace Misp.Kernel.Ui.Dashboard
             dico.Add(this.AutomaticGridBlock.TitleLabel.Content.ToString(), this.AutomaticGridBlock);
             dico.Add(this.InputGridBlock.TitleLabel.Content.ToString(), this.InputGridBlock);
             dico.Add(this.ReportGridBlock.TitleLabel.Content.ToString(), this.ReportGridBlock);
+            dico.Add(this.AutomaticTargetBlock.TitleLabel.Content.ToString(), this.AutomaticTargetBlock);
             if (this.ReconciliationFilterBlock != null)
                 dico.Add(this.ReconciliationFilterBlock.TitleLabel.Content.ToString(), this.TreeBlock);
             
@@ -406,6 +408,7 @@ namespace Misp.Kernel.Ui.Dashboard
             if (this.InputGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.InputGridBlock;
             if (this.ReportGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.ReportGridBlock;
             if (this.AutomaticGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticGridBlock;
+            if (this.AutomaticTargetBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticTargetBlock;
             return null;
         }
 
@@ -474,6 +477,7 @@ namespace Misp.Kernel.Ui.Dashboard
             if (name.Equals(this.ReportGridBlock.TitleLabel.Content)) return this.ReportGridBlock;
             if (name.Equals(this.AutomaticGridBlock.TitleLabel.Content)) return this.AutomaticGridBlock;
             if (this.ReconciliationFilterBlock != null && name.Equals(this.ReconciliationFilterBlock.TitleLabel.Content)) return this.ReconciliationFilterBlock;
+            if (name.Equals(this.AutomaticTargetBlock.TitleLabel.Content)) return this.AutomaticTargetBlock;
             return null;
         }
 

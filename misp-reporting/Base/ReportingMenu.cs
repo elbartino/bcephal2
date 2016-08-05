@@ -87,32 +87,26 @@ namespace Misp.Reporting.Base
         protected override void initChildren()
         {
             this.Code = ApplicationMenu.REPORTING_MENU_CODE;
-            this.Header = "Reporting";
-            newReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "New Report", NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_REPORT_FUNCTIONALITY));
-            listReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "List Reports", NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_REPORT_FUNCTIONALITY));
-            newStructuredReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "New Structured Report", NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_STRUCTURED_REPORT_FUNCTIONALITY));
-            listStructuredReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "List Structured Reports", NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_STRUCTURED_REPORT_FUNCTIONALITY));
-            calculatedMeasureMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "New Calculated Measure", NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY));
-            listCalculatedMeasureMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "List Calculated Measure", NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_CALCULATED_MEASURE_FUNCTIONALITY));
-            exportBudgetMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "Export Budget", NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.EXPORT_BUDGET));
+            this.Header = FunctionalitiesLabel.REPORTING_LABEL;
+            newReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.NEW_REPORT_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_REPORT_FUNCTIONALITY));
+            listReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.LIST_REPORT_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_REPORT_FUNCTIONALITY));
+            newStructuredReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE,FunctionalitiesLabel.NEW_STRUCTURED_REPORT_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_STRUCTURED_REPORT_FUNCTIONALITY));
+            listStructuredReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE,FunctionalitiesLabel.LIST_STRUCTURED_REPORT_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_STRUCTURED_REPORT_FUNCTIONALITY));
+            calculatedMeasureMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE,FunctionalitiesLabel.NEW_CALCULATED_MEASURE_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY));
+            listCalculatedMeasureMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.LIST_CALCULATED_MEASURE_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_CALCULATED_MEASURE_FUNCTIONALITY));
+            exportBudgetMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.EXPORT_BUBGET_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.EXPORT_BUDGET));
+       
+            newPivotTableMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.NEW_PIVOT_TABLE_LABEL, null);
+            listPivotTableMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.LIST_PIVOT_TABLE_LABEL, null);
 
-            //newPivotTableMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "New Pivot Table", NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_PIVOT_TABLE_FUNCTIONALITY));
-            //listPivotTableMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "List Pivot Table", NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_PIVOT_TABLE_FUNCTIONALITY));
+            GridGroupMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.GRID_LABEL, null);
+            ReportGroupMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.REPORT_LABEL, null);
+            StructuredReportGrouMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.STRUCTURED_REPORT_LABEL, null);
+            CalculatedMeasureGroupMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.CALCULATED_MEASURE_LABEL, null);
+            PivotTableGroupMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.PIVOT_TABLE_LABEL, null);
 
-            newPivotTableMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "New Pivot Table", null);
-            listPivotTableMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "List Pivot Table", null);
-
-            newPivotTableMenu.IsEnabled = false;
-            listPivotTableMenu.IsEnabled = false;
-
-            GridGroupMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "Grid", null);
-            ReportGroupMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "Report", null);
-            StructuredReportGrouMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "Structured Report", null);
-            CalculatedMeasureGroupMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "Calculated Measure", null);
-            PivotTableGroupMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "Pivot Table", null);
-
-            NewReportGridMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "New Report Grid", NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY));
-            ListReportGridMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, "List Report Grid", NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_REPORT_GRID_FUNCTIONALITY));
+            NewReportGridMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.NEW_REPORT_GRID_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY));
+            ListReportGridMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.LIST_REPORT_GRID_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_REPORT_GRID_FUNCTIONALITY));
 
             
             

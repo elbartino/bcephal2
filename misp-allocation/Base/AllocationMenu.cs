@@ -49,12 +49,12 @@ namespace Misp.Allocation.Base
         protected override void initChildren()
         {
             this.Code = ApplicationMenu.SOURCING_MENU_CODE;
-            this.Header = "Load";
-            newAllocationRunMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, "New Allocation Runs", NavigationToken.GetCreateViewToken(AllocationFunctionalitiesCode.NEW_ALLOCATION_RUN_FUNCTIONALITY));
-            listAllocationRunMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, "List Allocation Runs", NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.LIST_ALLOCATION_RUN_FUNCTIONALITY));
-            runAllAllocationMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, "Load Tables...", NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.RUN_ALL_ALLOCATION_FUNCTIONALITY));
-            clearAllAllocationMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, "Clear Tables...", NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.CLEAR_ALL_ALLOCATION_FUNCTIONALITY));
-            allocationLogMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, "Load log’", NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.ALLOCATION_LOG_FUNCTIONALITY));
+            this.Header = FunctionalitiesLabel.ALLOCATION_LABEL;
+            newAllocationRunMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_RUN_LIST_LABEL, NavigationToken.GetCreateViewToken(AllocationFunctionalitiesCode.NEW_ALLOCATION_RUN_FUNCTIONALITY));
+            listAllocationRunMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_NEW_LABEL, NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.LIST_ALLOCATION_RUN_FUNCTIONALITY));
+            runAllAllocationMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_RUN_TABLES_LABEL, NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.RUN_ALL_ALLOCATION_FUNCTIONALITY));
+            clearAllAllocationMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_CLEAR_TABLES_LABEL, NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.CLEAR_ALL_ALLOCATION_FUNCTIONALITY));
+            allocationLogMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_LOG_LABEL, NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.ALLOCATION_LOG_FUNCTIONALITY));
         }
 
     }
