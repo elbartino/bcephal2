@@ -581,7 +581,7 @@ namespace Misp.Sourcing.InputGrid
             OnChange();
         }
 
-        public void Search(int currentPage = 0)
+        public virtual void Search(int currentPage = 0)
         {
             try
             {
