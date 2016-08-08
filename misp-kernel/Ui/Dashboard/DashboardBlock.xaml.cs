@@ -223,6 +223,9 @@ namespace Misp.Kernel.Ui.Dashboard
             else if (isReconciliationFilterUpload()) new DashboardActions().DeleteReconciliationFilters(oids, this);
             else if (isReconciliationPostingUpload()) new DashboardActions().DeleteReconciliationPostings(oids, this);
             else if (isTransactionFileTypeUpload()) new DashboardActions().DeleteTransactionFileTypes(oids, this);
+            else if (isInputGrid()) new DashboardActions().DeleteInputGrid(oids, this);
+            else if (isReportGrid()) new DashboardActions().DeleteReportGrid(oids, this);
+            else if (isAutomaticGrid()) new DashboardActions().DeleteAutomaticGrid(oids, this);
         }
 
         private void OnHide(object sender, RoutedEventArgs e)

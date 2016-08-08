@@ -995,6 +995,24 @@ namespace Misp.Kernel.Ui.Dashboard
         
         #endregion
 
+        #region Grid
+            public void DeleteInputGrid(List<int> oids, DashboardBlock block)
+            {
+                Delete(ResourcePath.INPUT_GRID_RESOURCE_PATH, oids, block);
+            }
+
+            public void DeleteReportGrid(List<int> oids, DashboardBlock block)
+            {
+                Delete(ResourcePath.REPORT_GRID_RESOURCE_PATH, oids, block);
+            }
+
+            public void DeleteAutomaticGrid(List<int> oids, DashboardBlock block)
+            {
+                Delete(ResourcePath.AUTOMATIC_SOURCING_GRID_RESOURCE_PATH, oids, block);
+            }
+
+        #endregion
+
 
         protected void Mask(bool mask, string content = "Running...")
         {
