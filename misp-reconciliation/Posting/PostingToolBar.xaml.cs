@@ -1,4 +1,6 @@
-﻿using Misp.Kernel.Domain.Browser;
+﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Domain.Browser;
+using Misp.Sourcing.GridViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,35 @@ namespace Misp.Reconciliation.Posting
         public PostingToolBar()
         {
             InitializeComponent();
+        }
+
+        public void displayBalance(System.Collections.IList rows, Kernel.Domain.ReconciliationContext context, Grille grid)
+        {
+            credit = 0;
+            debit = 0;
+            if (rows == null || rows.Count == 0)
+            {
+                displayBalance(0, 0);
+                return;
+            }
+            GrilleColumn amountColumn = grid.GetAmountColumn(context);
+            GrilleColumn creditDebitColumn = grid.GetDCColumn(context);
+            foreach (object row in rows)
+            {
+                if (row is GridItem)
+                {
+                    Object[] datas = ((GridItem)row).Datas;
+                    object item = datas[creditDebitColumn.position];
+                    Boolean isCredit = item != null && item.ToString().Equals("C", StringComparison.OrdinalIgnoreCase);
+                    Boolean isDebit = item != null && item.ToString().Equals("D", StringComparison.OrdinalIgnoreCase);
+                    Decimal amount = 0;
+                    item = datas[amountColumn.position];
+                    Decimal.TryParse(item.ToString(), out amount);
+                    if (isCredit) credit += amount;
+                    else if (isDebit) debit += amount; 
+                }            
+            }
+            displayBalance(credit, debit);
         }
 
         public void displayBalance(System.Collections.IList items)

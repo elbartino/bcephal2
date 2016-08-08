@@ -28,6 +28,17 @@ namespace Misp.Reporting.ReportGrid
             return state;
         }
 
+        public override void Search(int currentPage = 0)
+        {
+            try
+            {
+                PostingEditorItem page = (PostingEditorItem)getEditor().getActivePage();
+                page.Search(currentPage);
+                OnChange();
+            }
+            catch (ServiceExecption e) { }
+        }
+
         public override OperationState OnChange()
         {
             EditorItem<Grille> page = getEditor().getActivePage();

@@ -59,6 +59,7 @@ namespace Misp.Sourcing.InputGrid
                 filter.pageSize = (int)this.getInputGridForm().GridForm.toolBar.pageSizeComboBox.SelectedItem;
                 GrillePage rows = this.ReconciliationGridService.getGridRows(filter);
                 this.getInputGridForm().GridForm.displayPage(rows);
+                this.PostingToolBar.displayBalance(0, 0);
             }
             catch (ServiceExecption e) { }
         }
@@ -97,7 +98,9 @@ namespace Misp.Sourcing.InputGrid
 
         private void OnGridSelectionchange()
         {
-            this.PostingToolBar.displayBalance(this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems);
+            ReconciliationContext context = this.ReconciliationGridService.ReconciliationContextService.getReconciliationContext();
+            this.PostingToolBar.displayBalance(this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems, context, this.EditedObject);
+
             int count = this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems.Count;
             this.PostingToolBar.resetRecoButton.IsEnabled = count > 0;
             this.PostingToolBar.reconciliateButton.IsEnabled = count > 0;

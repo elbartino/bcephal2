@@ -19,6 +19,8 @@ namespace Misp.Kernel.Service
 
         public PostingService PostingService { get; set; }
 
+        public ReconciliationContextService ReconciliationContextService { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

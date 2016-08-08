@@ -307,6 +307,7 @@ namespace Misp.Kernel.Application
                 reconciliationGridService.CalculatedMeasureService = GetCalculatedMeasureService2();
                 reconciliationGridService.PeriodNameService = GetPeriodNameService();
                 reconciliationGridService.PostingService = GetPostingService();
+                reconciliationGridService.ReconciliationContextService = GetReconciliationContextService();
                 configureService(reconciliationGridService);
             }
             return reconciliationGridService;

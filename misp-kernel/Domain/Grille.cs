@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Application;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -119,6 +120,38 @@ namespace Misp.Kernel.Domain
             foreach (GrilleColumn column in columnListChangeHandler.Items)
             {
                 if (column.type.Equals(type) && column.valueOid == oid) return column;
+            }
+            return null;
+        }
+
+
+
+        public GrilleColumn GetRecoNbrColumn(ReconciliationContext context)
+        {
+            int? oid = context.recoNbreAttribute.oid;
+            foreach (GrilleColumn column in columnListChangeHandler.Items)
+            {
+                if (column.type.Equals(ParameterType.SCOPE.ToString()) && column.valueOid == oid) return column;
+            }
+            return null;
+        }
+
+        public GrilleColumn GetDCColumn(ReconciliationContext context)
+        {
+            int? oid = context.dcNbreAttribute.oid;
+            foreach (GrilleColumn column in columnListChangeHandler.Items)
+            {
+                if (column.type.Equals(ParameterType.SCOPE.ToString()) && column.valueOid == oid) return column;
+            }
+            return null;
+        }
+
+        public GrilleColumn GetAmountColumn(ReconciliationContext context)
+        {
+            int? oid = context.amountMeasure.oid;
+            foreach (GrilleColumn column in columnListChangeHandler.Items)
+            {
+                if (column.type.Equals(ParameterType.MEASURE.ToString()) && column.valueOid == oid) return column;
             }
             return null;
         }
