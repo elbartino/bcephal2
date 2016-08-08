@@ -3,6 +3,7 @@ using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Util;
 using Misp.Reconciliation.Posting;
+using Misp.Reconciliation.RecoGrid;
 using Misp.Sourcing.AutomaticSourcingViews;
 using Misp.Sourcing.GridViews;
 using System;
@@ -21,7 +22,7 @@ namespace Misp.Sourcing.InputGrid
 
         public Kernel.Ui.Base.ChangeEventHandler ReconciliationEndedHandler;
 
-        PostingConfirmationDialog dialog;
+        RecoDialog dialog;
 
         public ReconciliationGridService ReconciliationGridService { get; set; }
 
@@ -75,7 +76,7 @@ namespace Misp.Sourcing.InputGrid
             reco.writeOffAmount = dialog.getWriteOffAmount();
             reco.writeOffDC = dialog.getWriteOffDC();
             reco.writeOffAccount = dialog.getWriteOffAccount();
-            reco.debitedOrCreditedAccount = dialog.getDebitedOrCreditedAccount();
+            //reco.debitedOrCreditedAccount = dialog.getDebitedOrCreditedAccount();
 
             bool result = ReconciliationGridService.PostingService.reconciliate(reco);
             if (result)
@@ -123,9 +124,16 @@ namespace Misp.Sourcing.InputGrid
             //    }
             //}
 
-            dialog = new PostingConfirmationDialog();
-            dialog.PostingService = this.ReconciliationGridService.PostingService;
-            dialog.display(this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems);
+            //dialog = new PostingConfirmationDialog();
+            //dialog.PostingService = this.ReconciliationGridService.PostingService;
+            //dialog.display(this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems);
+            //dialog.yesButton.Click += OnConfirmReconciliation;
+            //dialog.noButton.Click += OnCancelReconciliation;
+            //dialog.ShowDialog();
+
+            dialog = new RecoDialog();
+            dialog.ReconciliationGridService = this.ReconciliationGridService;
+            dialog.display(this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems, EditedObject);
             dialog.yesButton.Click += OnConfirmReconciliation;
             dialog.noButton.Click += OnCancelReconciliation;
             dialog.ShowDialog();

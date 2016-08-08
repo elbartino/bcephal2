@@ -106,6 +106,9 @@
     <Compile Include="RecoGrid\PostingEditor.cs" />
     <Compile Include="RecoGrid\PostingEditorItem.cs" />
     <Compile Include="RecoGrid\PostingEditorController.cs" />
+    <Compile Include="RecoGrid\RecoDialog.xaml.cs">
+      <DependentUpon>RecoDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReconciliationContext\ReconciliationContextEditorController.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextItem.xaml.cs">
       <DependentUpon>ReconciliationContextItem.xaml</DependentUpon>
@@ -192,6 +195,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Posting\WriteOffForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecoGrid\RecoDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
