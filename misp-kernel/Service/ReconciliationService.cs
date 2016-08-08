@@ -57,6 +57,9 @@ namespace Misp.Kernel.Service
         /// <returns></returns>
         public override ReconciliationTemplate Save(ReconciliationTemplate rTemplate)
         {
+            //getExcel();
+            //sendExcelFile();
+
             if (rTemplate != null)
             {
                 try
@@ -90,8 +93,58 @@ namespace Misp.Kernel.Service
             }
             else return rTemplate;
         }
-        
 
+        //test envoi de fichier. code a supprimer !!!
+        public bool sendExcelFile()
+        {
+            Kernel.Service.FileDirs fileDirs = this.FileService.GetFileDirs();
+            string filePath = fileDirs.InputTableDir + "testTransfert.xlsx";
+            try
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                var request = new RestRequest(ResourcePath + "/sends", Method.POST);
+                byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+                request.AddFile("dsp", fileBytes, filePath);
+                request.RequestFormat = DataFormat.Json;
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = serializer.Serialize(filePath);
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
+                var response = RestClient.ExecuteTaskAsync(request);
+                RestResponse queryResult = (RestResponse)response.Result;
+                bool resp = serializer.Deserialize<bool>(queryResult.Content);
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        /// get Role by oid
+        /// </summary>
+        /// <param name="oid"></param>
+        /// <returns></returns>
+        public void getExcel()
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/getexcel", Method.GET);
+                request.RequestFormat = DataFormat.Json;
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                Object name = queryResult.Headers[0].Value;
+                String fileName = name.ToString().Split("=".ToCharArray())[1];
+                byte[] fileByte = (byte[])RestSharp.SimpleJson.DeserializeObject(queryResult.Content);
+
+                Kernel.Service.FileDirs fileDirs = this.FileService.GetFileDirs();
+                string filePath = fileDirs.InputTableDir + fileName + ".xlsx";
+                System.IO.File.WriteAllBytes(filePath, fileByte);
+            }
+            catch (Exception e)
+            {
+            }
+        }
         #endregion
 
     }
