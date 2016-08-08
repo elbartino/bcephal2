@@ -138,7 +138,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         protected void saveConfigAndRefreshData()
         {
-            Configuration = this.DashBoardService.saveDashboardConfiguration(Configuration); RefreshData();
+            Configuration = this.DashBoardService.saveDashboardConfiguration(Configuration);
             RefreshData();
         }
 
