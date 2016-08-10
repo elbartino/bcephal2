@@ -38,6 +38,9 @@ namespace Misp.Kernel.Service
         public static String INPUT_GRID = "inputgrids";
         public static String REPORT_GRID = "reportgrids";
 
+        public static String AUTOMATIC_POSTING_GRID = "automaticpostinggrids";
+        public static String POSTING_GRID = "postinggrids";
+
         /// <summary>
         /// 
         /// </summary>

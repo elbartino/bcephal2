@@ -1013,6 +1013,20 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #endregion
 
+        #region Posting Grid
+        
+        public void DeletePostingGrid(List<int> oids, DashboardBlock block)
+        {
+            Delete(ResourcePath.POSTING_GRID_RESOURCE_PATH, oids, block);
+        }
+
+        public void DeleteAutomaticPostingGrid(List<int> oids, DashboardBlock block)
+        {
+            Delete(ResourcePath.AUTOMATIC_POSTING_GRID_RESOURCE_PATH, oids, block);
+        }
+
+        #endregion
+
 
         protected void Mask(bool mask, string content = "Running...")
         {

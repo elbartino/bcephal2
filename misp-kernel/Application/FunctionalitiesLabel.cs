@@ -46,18 +46,22 @@ namespace Misp.Kernel.Application
         public static string LIST_INPUT_TABLE_LABEL = "List Inputtables";
 
         public static string POSTING_LABEL = "Posting";
-        public static string AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL = "Automatic Posting Grid";
+        public static string AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL = "Automatic Sourcing for Posting Grid";
+        public static string POSTING_GRID_DASHBOARD_LABEL = "Posting Grid";
         public static string NEW_POSTING_GRID_LABEL = "New Posting Grid";
         public static string LIST_POSTING_GRID_LABEL = "List Posting Grid";
         public static string NEW_AUTOMATIC_POSTING_GRID_LABEL = "New Automatic Sourcing for Posting Grid";
         public static string LIST_AUTOMATIC_POSTING_GRID_LABEL = "List Automatic Sourcing for Posting Grid";
 
+        public static string RECENT_POSTING_GRID_LABEL = "Recent Posting Grid";
+        public static string RECENT_AUTOMATIC_POSTING_GRID_LABEL = "Recent Automatic Sourcing for Posting Grid";
+
         public static string TARGET_LABEL = "Target";
         public static string RECENT_TARGET_LABEL = "Recent Targets";
         public static string TARGET_DASHBOARD_LABEL = "Targets";
         public static string NEW_TARGET_LABEL = "New Target";
-        public static string AUTOMATIC_TARGET_DASHBOARD_LABEL = "Target Automatic Sourcing";
-        public static string RECENT_AUTOMATIC_TARGET_LABEL = "Target Automatic Sourcing";
+        public static string AUTOMATIC_TARGET_DASHBOARD_LABEL = "Automatic Sourcing for Target";
+        public static string RECENT_AUTOMATIC_TARGET_LABEL = "Recent Automatic Sourcing for Target";
         public static string NEW_AUTOMATIC_TARGET_LABEL = "New Automatic Sourcing for Target";
         public static string LIST_AUTOMATIC_TARGET_LABEL = "List Automatic Sourcing for Target";
         public static string LIST_TARGET_LABEL = "List Targets";
@@ -70,8 +74,8 @@ namespace Misp.Kernel.Application
 
         public static string ACCESSORIES_LABEL = "Accessories";
         public static string UPLOAD_STRUCTURED_FILE_LABEL= "Upload Multiple Files";
-        public static string AUTOMATIC_SOURCING_DASHBOARD_LABEL = "Table Automatic Sourcing";
-        public static string RECENT_AUTOMATIC_SOURCING_LABEL = "Recents Table Automatic Sourcing";
+        public static string AUTOMATIC_SOURCING_DASHBOARD_LABEL = "Automatic Sourcing for Table";
+        public static string RECENT_AUTOMATIC_SOURCING_LABEL = "Automatic Sourcing for Table";
         public static string LIST_AUTOMATIC_SOURCING_LABEL = "List Automatic Sourcing for table";
         public static string NEW_AUTOMATIC_SOURCING_LABEL = "New Automatic Sourcing for table";
 
@@ -119,8 +123,8 @@ namespace Misp.Kernel.Application
         public static string INPUT_GRID_LABEL = "Input Grid";
         public static string REPORT_GRID_LABEL = "Report Grid";
         public static string GRID_DASHBOARD_LABEL = "Grids";
-        public static string AUTOMATIC_GRID_DASHBOARD_LABEL = "Grid Automatic Sourcing";
-        public static string RECENT_AUTOMATIC_GRID_LABEL = "Recent Grid Automatic Sourcing";
+        public static string AUTOMATIC_GRID_DASHBOARD_LABEL = "Automatic Sourcing for Grid";
+        public static string RECENT_AUTOMATIC_GRID_LABEL = "Recent Automatic Sourcing for Grid";
         public static string NEW_AUTOMATIC_GRID_LABEL = "New Automatic Sourcing for Grid";
         public static string LIST_AUTOMATIC_GRID_LABEL = "List Automatic Sourcing for Grid";
 

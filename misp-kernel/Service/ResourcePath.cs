@@ -87,7 +87,7 @@ namespace Misp.Kernel.Service
         public static string RECONCILIATION_CONTEXT_RESOURCE_PATH = RECONCILIATION_RESOURCE_PATH + "/context";
 
         public static string POSTING_GRID_RESOURCE_PATH = "/posting-grid";
-        public static string AUTOMATIC_POSTING_GRID_RESOURCE_PATH = AUTOMATIC_SOURCING_GRID_RESOURCE_PATH;
+        public static string AUTOMATIC_POSTING_GRID_RESOURCE_PATH = "/automatic-posting-grid";
         public static string SOCKET_AUTOMATIC_POSTING_GRID_RESOURCE_PATH = SOCKET_AUTOMATIC_SOURCING_GRID_RESOURCE_PATH;
 
 

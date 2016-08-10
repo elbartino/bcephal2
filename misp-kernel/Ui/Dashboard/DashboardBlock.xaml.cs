@@ -226,6 +226,8 @@ namespace Misp.Kernel.Ui.Dashboard
             else if (isInputGrid()) new DashboardActions().DeleteInputGrid(oids, this);
             else if (isReportGrid()) new DashboardActions().DeleteReportGrid(oids, this);
             else if (isAutomaticGrid()) new DashboardActions().DeleteAutomaticGrid(oids, this);
+            else if (isAutomaticPostingGrid()) new DashboardActions().DeleteAutomaticPostingGrid(oids, this);
+            else if (isPostingGrid()) new DashboardActions().DeletePostingGrid(oids, this);
         }
 
         private void OnHide(object sender, RoutedEventArgs e)
@@ -420,6 +422,16 @@ namespace Misp.Kernel.Ui.Dashboard
             return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY);
         }
 
+        public Boolean isPostingGrid()
+        {
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_POSTING_GRID_FUNCTIONALITY);
+        }
+
+        public Boolean isAutomaticPostingGrid()
+        {
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY);
+        }
+
         public Boolean isAutomaticTarget() 
         {
             return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_TARGET_FUNCTIONALITY);
@@ -459,6 +471,8 @@ namespace Misp.Kernel.Ui.Dashboard
             if (isReportGrid()) return DashBoardService.REPORT_GRID;
             if (isAutomaticGrid()) return DashBoardService.AUTOMATIC_GRID;
             if (isAutomaticTarget()) return DashBoardService.AUTOMATIC_TARGET;
+            if (isAutomaticPostingGrid()) return DashBoardService.AUTOMATIC_POSTING_GRID;
+            if (isPostingGrid()) return DashBoardService.POSTING_GRID;
 
             return null;
         }
