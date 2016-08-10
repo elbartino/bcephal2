@@ -36,6 +36,8 @@ namespace Misp.Kernel.Domain
         public bool isGrid { get; set; }
 
         public bool isAutomaticGrid { get; set; }
+
+        public bool isPosting { get; set; }
                 
         /// <summary>
         /// La date de début

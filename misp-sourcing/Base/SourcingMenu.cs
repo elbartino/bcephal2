@@ -39,7 +39,13 @@ namespace Misp.Sourcing.Base
 
         public ApplicationMenu AccessoriesMenu { get; private set; }
         public ApplicationMenu UploadMultipleFileSourcingMenu { get; private set; }
-     
+
+
+        public ApplicationMenu PostingMenu { get; private set; }
+        public ApplicationMenu NewPostingGridMenu { get; private set; }
+        public ApplicationMenu ListPostingGridMenu { get; private set; }
+        public ApplicationMenu NewAutomaticPostingGridMenu { get; private set; }
+        public ApplicationMenu ListAutomaticPostingGridMenu { get; private set; }
 
 
         /// <summary>
@@ -49,7 +55,18 @@ namespace Misp.Sourcing.Base
         protected override List<Control> getControls()
         {
             List<Control> menus = new List<Control>(0);
-            
+
+            PostingMenu.Items.Add(NewPostingGridMenu);
+            PostingMenu.Items.Add(ListPostingGridMenu);
+            PostingMenu.Items.Add(new Separator());
+            PostingMenu.Items.Add(NewAutomaticPostingGridMenu);
+            PostingMenu.Items.Add(ListAutomaticPostingGridMenu);
+            if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
+            {
+                menus.Add(PostingMenu);
+                menus.Add(new Separator());
+            }
+
             InputTableMenu.Items.Add(NewInputTableMenu);
             InputTableMenu.Items.Add(ListInputTableMenu);
             InputTableMenu.Items.Add(new Separator());
@@ -92,6 +109,12 @@ namespace Misp.Sourcing.Base
         {
             this.Code = ApplicationMenu.SOURCING_MENU_CODE;
             this.Header = FunctionalitiesLabel.SOURCING_LABEL;
+
+            PostingMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.POSTING_LABEL, null);
+            NewPostingGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_POSTING_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.NEW_POSTING_GRID_FUNCTIONALITY));
+            ListPostingGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_POSTING_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.LIST_POSTING_GRID_FUNCTIONALITY));
+            NewAutomaticPostingGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_AUTOMATIC_POSTING_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY));
+            ListAutomaticPostingGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_AUTOMATIC_POSTING_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.LIST_AUTOMATIC_POSTING_GRID_FUNCTIONALITY));
 
             InputTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.INPUT_TABLE_LABEL, null);
             NewInputTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_INPUT_TABLE_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.NEW_INPUT_TABLE_FUNCTIONALITY));

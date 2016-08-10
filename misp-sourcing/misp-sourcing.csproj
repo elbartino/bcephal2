@@ -222,6 +222,11 @@
     </Compile>
     <Compile Include="MultipleFilesUpload\UploadMultipleFilesController.cs" />
     <Compile Include="PlugIn.cs" />
+    <Compile Include="Posting\AutomaticPostingGridBrowerController.cs" />
+    <Compile Include="Posting\AutomaticPostingGridEditorController.cs" />
+    <Compile Include="Posting\PostingGridBrowser.cs" />
+    <Compile Include="Posting\PostingGridBrowserController.cs" />
+    <Compile Include="Posting\PostingGridEditorController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

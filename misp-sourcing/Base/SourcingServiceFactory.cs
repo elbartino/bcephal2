@@ -17,6 +17,9 @@ namespace Misp.Sourcing.Base
         private AutomaticSourcingGridService automaticSourcingGridService;
         private AutomaticTargetService automaticTargetService;
         private UploadMultipleFilesService uploadMultipleFilesService;
+
+        private AutomaticPostingGridService automaticPostingGridService;
+        
         
 
         /// <summary>
@@ -50,6 +53,7 @@ namespace Misp.Sourcing.Base
             }
             return inputTableService;
         }
+
         public AutomaticSourcingService GetAutomaticSourcingService()
         {
             if (automaticSourcingService == null)
@@ -122,6 +126,28 @@ namespace Misp.Sourcing.Base
             }
             return automaticSourcingGridService;
         }
+
+        public AutomaticPostingGridService GetAutomaticPostingGridService()
+        {
+            if (automaticPostingGridService == null)
+            {
+                automaticPostingGridService = new AutomaticPostingGridService();
+                automaticPostingGridService.ResourcePath = ResourcePath.AUTOMATIC_POSTING_GRID_RESOURCE_PATH;
+                automaticPostingGridService.SocketResourcePath = ResourcePath.SOCKET_AUTOMATIC_POSTING_GRID_RESOURCE_PATH;
+                automaticPostingGridService.FileService = GetFileService();
+                automaticPostingGridService.ModelService = GetModelService();
+                automaticPostingGridService.MeasureService = GetMeasureService();
+                automaticPostingGridService.PeriodicityService = GetPeriodicityService();
+                automaticPostingGridService.GroupService = GetGroupService();
+                automaticPostingGridService.InputTableService = GetInputTableService();
+                automaticPostingGridService.CalculatedMeasureService = GetCalculatedMeasureService2();
+                automaticPostingGridService.PeriodNameService = GetPeriodNameService();
+                configureService(automaticPostingGridService);
+            }
+            return automaticPostingGridService;
+        }
+
+        
         
         
     }

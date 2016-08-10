@@ -262,6 +262,8 @@
     <Compile Include="Service\AutomaticSourcingGridService.cs" />
     <Compile Include="Service\AutomaticTargetService.cs" />
     <Compile Include="Service\CombineTransformationTreeService.cs" />
+    <Compile Include="Service\AutomaticPostingGridService.cs" />
+    <Compile Include="Service\PostingGridService.cs" />
     <Compile Include="Service\ReconciliationContextService.cs" />
     <Compile Include="Service\ReconciliationGridService.cs" />
     <Compile Include="Service\InputGridService.cs" />

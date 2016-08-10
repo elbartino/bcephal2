@@ -38,6 +38,8 @@ namespace Misp.Kernel.Application
         private UserService userService;
         private ProfilService profilService;
 
+        private PostingGridService postingGridService;
+
         /// <summary>
         /// Build a new instance of ServiceFactory.
         /// </summary>
@@ -69,6 +71,28 @@ namespace Misp.Kernel.Application
                 configureService(inputGridService);
             }
             return inputGridService;
+        }
+
+        /// <summary>
+        /// Gets PostingGridService
+        /// </summary>
+        public PostingGridService GetPostingGridService()
+        {
+            if (postingGridService == null)
+            {
+                postingGridService = new PostingGridService();
+                postingGridService.ResourcePath = ResourcePath.POSTING_GRID_RESOURCE_PATH;
+                postingGridService.SocketResourcePath = ResourcePath.SOCKET_GRID_RESOURCE_PATH;
+                postingGridService.FileService = GetFileService();
+                postingGridService.ModelService = GetModelService();
+                postingGridService.MeasureService = GetMeasureService();
+                postingGridService.PeriodicityService = GetPeriodicityService();
+                postingGridService.GroupService = GetGroupService();
+                postingGridService.CalculatedMeasureService = GetCalculatedMeasureService2();
+                postingGridService.PeriodNameService = GetPeriodNameService();
+                configureService(postingGridService);
+            }
+            return postingGridService;
         }
 
         /// <summary>
