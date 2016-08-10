@@ -420,6 +420,11 @@ namespace Misp.Kernel.Ui.Dashboard
             return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY);
         }
 
+        public Boolean isAutomaticTarget() 
+        {
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_TARGET_FUNCTIONALITY);
+        }
+
         public Boolean isReconciliationFilterUpload()
         {
             return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY);
@@ -453,6 +458,7 @@ namespace Misp.Kernel.Ui.Dashboard
             if (isInputGrid()) return DashBoardService.INPUT_GRID;
             if (isReportGrid()) return DashBoardService.REPORT_GRID;
             if (isAutomaticGrid()) return DashBoardService.AUTOMATIC_GRID;
+            if (isAutomaticTarget()) return DashBoardService.AUTOMATIC_TARGET;
 
             return null;
         }
