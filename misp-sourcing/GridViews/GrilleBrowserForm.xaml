@@ -14,7 +14,7 @@
         <RowDefinition x:Name="otherToolBarRow" Height="Auto"/>
     </Grid.RowDefinitions>
 
-    <filter:GrilleFilterForm x:Name="filterForm" x:FieldModifier="public" Margin="2" Grid.Row="0"/>
+    <!--<filter:GrilleFilterForm x:Name="filterForm" x:FieldModifier="public" Margin="2" Grid.Row="0"/>-->
     <filter:GridBrowser x:Name="gridBrowser" x:FieldModifier="public" Grid.Row="1"/>
     <GridSplitter x:Name="splitter" Height="5" ResizeDirection="Rows" Background="#FFFBF8F8"
                           VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="1"/>

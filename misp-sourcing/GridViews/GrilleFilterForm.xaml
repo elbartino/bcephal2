@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Background="White">
     <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
         <RowDefinition x:Name="TargetPeriodFilter" Height="*"/>
         <RowDefinition x:Name="ValidatePanel" Height="Auto"/>
     </Grid.RowDefinitions>
@@ -15,7 +16,13 @@
         <ColumnDefinition x:Name="checketPanel" Width="Auto"/>
     </Grid.ColumnDefinitions>
 
-    <GroupBox x:Name="filterGroupBox">
+    <StackPanel Grid.Row="0" Margin="10" x:Name="RecoPanel" x:FieldModifier="public" Visibility="Collapsed" Orientation="Horizontal">
+        <CheckBox x:Name="creditCheckBox" x:FieldModifier="public" Content="Credit" Margin="5 0" Grid.Row="0" VerticalAlignment="Center"/>
+        <CheckBox x:Name="debitCheckBox" x:FieldModifier="public" Content="Debit" Margin="20 0" Grid.Row="1" VerticalAlignment="Center"/>
+        <CheckBox x:Name="includeRecoCheckBox" x:FieldModifier="public" Content="Incl Reco" Margin="5 0" Grid.Row="2" VerticalAlignment="Center"/>
+    </StackPanel>
+
+    <GroupBox x:Name="filterGroupBox" Grid.Row="1">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="TargetFilter" Height="*"/>
@@ -31,13 +38,13 @@
     </GroupBox>
 
 
-    <Grid Grid.Row="1" Grid.ColumnSpan = "2" x:Name="go" HorizontalAlignment="Center">
+    <Grid Grid.Row="2" Grid.ColumnSpan = "2" x:Name="go" HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="clearFilter" Width="Auto"/>
             <ColumnDefinition x:Name="validateFilter" Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="searchButton" x:FieldModifier="public" ToolTip="Apply filter" Margin="0 0 5 0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+        <Button x:Name="searchButton" x:FieldModifier="public" ToolTip="Apply filter" Margin="0 0 5 0" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" >
             <DockPanel>
                 <Image Source="/bcephal;Component/Resources/Images/Icons/Check.png" Height="15"/>
                 <TextBlock VerticalAlignment="center">Search</TextBlock>
@@ -52,10 +59,6 @@
         </Button>
     </Grid>
 
-    <StackPanel Grid.Column="1" Margin="0 0 5 0" x:Name="RecoPanel" x:FieldModifier="public" Visibility="Collapsed">
-        <CheckBox x:Name="creditCheckBox" x:FieldModifier="public" Content="Credit" Margin="5,0,0,0" Grid.Row="0" VerticalAlignment="Center"/>
-        <CheckBox x:Name="debitCheckBox" x:FieldModifier="public" Content="Debit" Margin="5,15,0,0" Grid.Row="1" VerticalAlignment="Center"/>
-        <CheckBox x:Name="includeRecoCheckBox" x:FieldModifier="public" Content="Incl Reco" Margin="5,15,0,0" Grid.Row="2" VerticalAlignment="Center"/>
-    </StackPanel>
+    
     
 </Grid>

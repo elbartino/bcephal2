@@ -61,6 +61,8 @@ namespace Misp.Reporting.ReportGrid
         {
             InputGridToolBar toolBar = new InputGridToolBar();
             toolBar.SaveButton.Visibility = Visibility.Collapsed;
+            toolBar.LoadButton.Visibility = Visibility.Collapsed;
+            toolBar.ClearButton.Visibility = Visibility.Collapsed;
             return toolBar;
         }
 

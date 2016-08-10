@@ -335,7 +335,7 @@ namespace Misp.Sourcing.InputGrid
         {
             if (page == null) return;
             InputGridForm form = ((InputGridEditorItem)page).getInputGridForm();
-            ((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = form.InputGridSheetForm.InputGridPropertiesPanel;
+            //((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = form.InputGridSheetForm.InputGridPropertiesPanel;
             OnSelectedTabChange(null, null);
         }
         
@@ -484,10 +484,15 @@ namespace Misp.Sourcing.InputGrid
             if (e == null) return;
             if (!(e.Source is InputGridForm)) return;
             InputGridEditorItem page = (InputGridEditorItem)getEditor().getActivePage();
-            if (page.getInputGridForm().SelectedIndex == 1) ApplicationManager.MainWindow.displayPropertyBar(this.PropertyBar);
+            if (page.getInputGridForm().SelectedIndex == 1)
+            {
+                ((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel;
+                //ApplicationManager.MainWindow.displayPropertyBar(this.PropertyBar);
+            }
             else
             {
-                ApplicationManager.MainWindow.displayPropertyBar(null);
+                ((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getInputGridForm().GridForm.filterForm;
+                //ApplicationManager.MainWindow.displayPropertyBar(null);
                 if (page.getInputGridForm().GridForm.gridBrowser.RebuildGrid) UpdateGridForm();
             }
             e.Handled = true;

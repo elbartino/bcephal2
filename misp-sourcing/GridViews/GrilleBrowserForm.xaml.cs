@@ -45,10 +45,13 @@ namespace Misp.Sourcing.GridViews
 
         public Misp.Sourcing.GridViews.GridBrowser.EditCellEventHandler EditEventHandler { get; set; }
 
+        public GrilleFilterForm filterForm { get; private set; }
+
 
         public GrilleBrowserForm()
         {
             InitializeComponent();
+            filterForm = new GrilleFilterForm();
             filterForm.periodFilter.DisplayPeriod(null);
             gridBrowser.SortEventHandler += OnSort;
             gridBrowser.EditEventHandler += OnEdit;
