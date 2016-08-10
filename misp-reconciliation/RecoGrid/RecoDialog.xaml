@@ -4,7 +4,7 @@
         xmlns:grille="clr-namespace:Misp.Sourcing.GridViews;assembly=Misp.Sourcing"
         xmlns:posting="clr-namespace:Misp.Reconciliation.Posting"
         Icon="/bcephal;Component/Resources/Images/Logo/bcephal.ico" WindowStartupLocation="CenterOwner"
-        Title="Reconciliation Confirmation" Height="500" Width="500">
+        Title="Reconciliation Confirmation" Height="600" Width="950">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
