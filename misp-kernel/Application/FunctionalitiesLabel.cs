@@ -90,7 +90,7 @@ namespace Misp.Kernel.Application
         public static string NEW_STRUCTURED_REPORT_LABEL = "New Structured Report";
         public static string LIST_STRUCTURED_REPORT_LABEL = "List Structured Reports";
 
-        public static string CALCULATED_MEASURE_DASHBOARD_LABEL = " Calculated Measures";
+        public static string CALCULATED_MEASURE_DASHBOARD_LABEL = "Calculated Measures";
         public static string CALCULATED_MEASURE_LABEL = " Calculated Measure";
         public static string NEW_CALCULATED_MEASURE_LABEL = "New Calculated Measure";
         public static string RECENT_CALCULATED_MEASURE_LABEL = "Recents Calculated Measures";
