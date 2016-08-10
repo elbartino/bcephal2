@@ -48,11 +48,22 @@ namespace Misp.Reconciliation.RecoGrid
             decimal balance = toolbar.getBalance();
             writeOffForm.Visibility = balance == 0 ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
 
-            //if (balance != 0)
-            //{
-            //    writeOffForm.displayAount(balance);
+            if (balance != 0)
+            {
+                writeOffForm.displayAount(balance);
             //    List<PostingBrowserData> datas = new List<PostingBrowserData>(0);
-            //    List<String> numbers = new List<String>(0);
+                List<String> numbers = new List<String>(0);
+                int position = grille.GetAccountNbrColumn(context).position;
+                foreach (object item in items)
+                {
+                    if (item is GridItem)
+                    {
+                        object account = ((GridItem)item).Datas[position];
+                        if (account != null && !numbers.Contains(account.ToString())) numbers.Add(account.ToString());
+                    }
+                }
+                writeOffForm.debitedOrCreditedAccountComboBox.ItemsSource = numbers;
+
             //    foreach (object item in items)
             //    {
             //        if (item is PostingBrowserData)
@@ -68,7 +79,7 @@ namespace Misp.Reconciliation.RecoGrid
             //    writeOffForm.debitedOrCreditedAccountComboBox.ItemsSource = datas;
             //    List<Account> accounts = this.PostingService.getAllAccount();
             //    writeOffForm.writeOffAccountComboBox.ItemsSource = accounts;
-            //}
+            }
         }
 
         public bool validateEdition()

@@ -131,32 +131,22 @@ namespace Misp.Kernel.Domain
 
         public GrilleColumn GetRecoNbrColumn(ReconciliationContext context)
         {
-            int? oid = context.recoNbreAttribute.oid;
-            foreach (GrilleColumn column in columnListChangeHandler.Items)
-            {
-                if (column.type.Equals(ParameterType.SCOPE.ToString()) && column.valueOid == oid) return column;
-            }
-            return null;
+            return GetColumn(ParameterType.SCOPE.ToString(), context.recoNbreAttribute.oid.Value);
         }
 
         public GrilleColumn GetDCColumn(ReconciliationContext context)
         {
-            int? oid = context.dcNbreAttribute.oid;
-            foreach (GrilleColumn column in columnListChangeHandler.Items)
-            {
-                if (column.type.Equals(ParameterType.SCOPE.ToString()) && column.valueOid == oid) return column;
-            }
-            return null;
+            return GetColumn(ParameterType.SCOPE.ToString(), context.dcNbreAttribute.oid.Value);
         }
 
         public GrilleColumn GetAmountColumn(ReconciliationContext context)
         {
-            int? oid = context.amountMeasure.oid;
-            foreach (GrilleColumn column in columnListChangeHandler.Items)
-            {
-                if (column.type.Equals(ParameterType.MEASURE.ToString()) && column.valueOid == oid) return column;
-            }
-            return null;
+            return GetColumn(ParameterType.MEASURE.ToString(), context.amountMeasure.oid.Value);
+        }
+
+        public GrilleColumn GetAccountNbrColumn(ReconciliationContext context)
+        {
+            return GetColumn(ParameterType.SCOPE.ToString(), context.accountNbreAttribute.oid.Value);
         }
 
     }
