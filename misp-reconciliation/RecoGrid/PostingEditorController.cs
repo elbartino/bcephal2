@@ -81,6 +81,5 @@ namespace Misp.Reporting.ReportGrid
         }
 
 
-
     }
 }

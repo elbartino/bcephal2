@@ -102,11 +102,48 @@ namespace Misp.Sourcing.InputGrid
         {
             InputGridEditorItem page = (InputGridEditorItem)getEditor().addOrSelectPage(grid);
             UpdateStatusBar();
+            UpdateToolBar(page.EditedObject);
             initializePageHandlers(page);
             getEditor().ListChangeHandler.AddNew(grid);
             DisplayActiveColumn();
             Search();
             return OperationState.CONTINUE;
+        }
+
+        public virtual OperationState LoadGrid()
+        {
+            OperationState state = OperationState.CONTINUE;
+            InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
+            if (page == null) return state;
+            if (!page.EditedObject.oid.HasValue) return state;
+            bool result = GetInputGridService().Load(page.EditedObject.oid.Value);
+            if (result)
+            {
+                page.EditedObject.loaded = true;
+                UpdateToolBar(page.EditedObject);
+            }
+            return state;
+        }
+
+        public virtual OperationState ClearGrid()
+        {
+            OperationState state = OperationState.CONTINUE;
+            InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
+            if (page == null) return state;
+            if (!page.EditedObject.oid.HasValue) return state;
+            bool result = GetInputGridService().Clear(page.EditedObject.oid.Value);
+            if (result)
+            {
+                page.EditedObject.loaded = false;
+                UpdateToolBar(page.EditedObject);
+            }
+            return state;
+        }
+
+        protected void UpdateToolBar(Grille grid)
+        {
+            if (grid == null || !grid.oid.HasValue) ((InputGridToolBar)ToolBar).SetNew();
+            else ((InputGridToolBar)ToolBar).SetLoaded(grid.loaded);
         }
 
         protected virtual Grille GetNewGrid()
@@ -390,6 +427,17 @@ namespace Misp.Sourcing.InputGrid
         }
 
         /// <summary>
+        /// Initialisation des Handlers sur la ToolBar.
+        /// </summary>
+        protected override void initializeToolBarHandlers()
+        {
+            base.initializeToolBarHandlers();
+            if (this.ToolBar == null) return;
+            ((InputGridToolBar)this.ToolBar).LoadButton.Click += OnLoad;
+            ((InputGridToolBar)this.ToolBar).ClearButton.Click += OnClear;
+        }
+
+        /// <summary>
         /// Initialisation des Handlers sur une nouvelle page.
         /// En plus des handlers de base, on initialise les handlers sur :
         /// - DesignerPropertiesPanel
@@ -419,7 +467,17 @@ namespace Misp.Sourcing.InputGrid
 
             editorPage.getInputGridForm().SelectionChanged += OnSelectedTabChange;
         }
-        
+
+        private void OnLoad(object sender, RoutedEventArgs e)
+        {
+            OperationState result = LoadGrid();
+        }
+
+        private void OnClear(object sender, RoutedEventArgs e)
+        {
+            OperationState result = ClearGrid();
+        }
+
         private void OnSelectedTabChange(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (sender == null) return;

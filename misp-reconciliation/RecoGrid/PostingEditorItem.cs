@@ -56,6 +56,8 @@ namespace Misp.Sourcing.InputGrid
                 filter.grid.report = this.EditedObject.report;
                 filter.grid.oid = this.EditedObject.oid;
                 filter.grid.name = this.EditedObject.name;
+                filter.grid.reconciliation = true;
+                filter.grid.report = this.EditedObject.report;
                 filter.page = currentPage;
                 filter.pageSize = (int)this.getInputGridForm().GridForm.toolBar.pageSizeComboBox.SelectedItem;
                 GrillePage rows = this.ReconciliationGridService.getGridRows(filter);

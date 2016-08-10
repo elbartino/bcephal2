@@ -15,6 +15,7 @@ namespace Misp.Kernel.Domain
         {
             this.columnListChangeHandler = new PersistentListChangeHandler<GrilleColumn>();
             this.visibleInShortcut = true;
+            this.loaded = true;
         }
 
         public String code {get;set;}
@@ -24,6 +25,8 @@ namespace Misp.Kernel.Domain
         public bool report { get; set; }
 
         public bool reconciliation { get; set; }
+
+        public bool loaded { get; set; }
 		
         public bool? visibleInShortcut {get;set;}
 	

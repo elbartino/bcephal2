@@ -50,6 +50,39 @@ namespace Misp.Kernel.Service
         public PeriodNameService PeriodNameService { get; set; }
 
 
+        public bool Load(int oid)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/load/" + oid, Method.GET);               
+                var response = RestClient.ExecuteTaskAsync(request);
+                RestResponse queryResult = (RestResponse)response.Result;
+                bool result = RestSharp.SimpleJson.DeserializeObject<bool>(queryResult.Content);
+                return result;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to load grid.", e);
+                throw new ServiceExecption("Unable to load grid.", e);
+            }
+        }
+
+        public bool Clear(int oid)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/clear/" + oid, Method.GET);
+                var response = RestClient.ExecuteTaskAsync(request);
+                RestResponse queryResult = (RestResponse)response.Result;
+                bool result = RestSharp.SimpleJson.DeserializeObject<bool>(queryResult.Content);
+                return result;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to clear grid.", e);
+                throw new ServiceExecption("Unable to clear grid.", e);
+            }
+        }
 
         public GrillePage getGridRows(GrilleFilter filter)
         {

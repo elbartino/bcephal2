@@ -26,5 +26,17 @@ namespace Misp.Reporting.ReportGrid
             return grid;
         }
 
+        /// <summary>
+        /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.
+        /// </summary>
+        /// <returns>Une nouvelle instance de la ToolBar</returns>
+        protected override Kernel.Ui.Base.ToolBar getNewToolBar() 
+        {
+            InputGridToolBar toolbar = new InputGridToolBar();
+            toolbar.LoadButton.Visibility = System.Windows.Visibility.Collapsed;
+            toolbar.ClearButton.Visibility = System.Windows.Visibility.Collapsed;
+            return toolbar; 
+        }
+
     }
 }
