@@ -21,6 +21,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Drawing;
 using Misp.Kernel.Service;
+using Misp.Sourcing.GridViews;
 
 namespace Misp.Sourcing.InputGrid
 {
@@ -32,8 +33,8 @@ namespace Misp.Sourcing.InputGrid
         public static int COLUMNS_COLOR = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightCoral);
         
         public InputGridPropertiesPanel InputGridPropertiesPanel { get; private set; }
-
-        public SheetPanel SpreadSheet { get; private set; }
+        
+        public GridBrowser GridBrowser { get; private set; }
 
         public Periodicity periodicity { get; set; }
         /// <summary>
@@ -76,67 +77,10 @@ namespace Misp.Sourcing.InputGrid
 
             Uri rd1 = new Uri("../Resources/Styles/TabControl.xaml", UriKind.Relative);
             this.Resources.MergedDictionaries.Add(Application.LoadComponent(rd1) as ResourceDictionary);
-            
-            try
-            {
-                windowsFormsHost = new WindowsFormsHost();
-                this.SpreadSheet = new SheetPanel();
-                this.SpreadSheet.CreateNewExcelFile();
-                this.SpreadSheet.BuildSheetPanelMethod();
-                this.SpreadSheet.RemoveTempFiles();
-                windowsFormsHost.Child = SpreadSheet;
-
-                image = new System.Windows.Controls.Image();
-                Grid grid = new Grid();
-                grid.Children.Add(windowsFormsHost);
-                grid.Children.Add(image);
-                image.Visibility = System.Windows.Visibility.Hidden;
-                windowsFormsHost.Visibility = System.Windows.Visibility.Visible;
-                this.Content = grid;
-            }
-            catch (Exception e)
-            {
-                Console.Out.WriteLine(e);
-            }
+            this.GridBrowser = new GridBrowser();
+            this.Content = this.GridBrowser;
         }
-
-        WindowsFormsHost windowsFormsHost;
-        System.Windows.Controls.Image image;
-
-        bool isMasked = false;
-        public void Mask(bool mask)
-        {
-            if (mask)
-            {
-                if (isMasked) return;
-                image.Source = GetScreenInt();
-                image.Visibility = System.Windows.Visibility.Visible;
-                windowsFormsHost.Visibility = System.Windows.Visibility.Hidden;
-            }
-            else
-            {
-                image.Visibility = System.Windows.Visibility.Hidden;
-                windowsFormsHost.Visibility = System.Windows.Visibility.Visible;
-            }
-            isMasked = mask;
-        }
-
-        public BitmapSource GetScreenInt()
-        {
-            Bitmap bm = new Bitmap(SpreadSheet.ClientRectangle.Width, SpreadSheet.ClientRectangle.Height);
-            Graphics g = Graphics.FromImage(bm);
-            PrintWindow(SpreadSheet.Handle, g.GetHdc(), 0);
-            g.ReleaseHdc(); g.Flush();
-            BitmapSource src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bm.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
-            src.Freeze();
-            bm.Dispose();
-            bm = null;
-            return src;
-        }
-
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags); 
-
+               
 
         #endregion
         
@@ -189,7 +133,7 @@ namespace Misp.Sourcing.InputGrid
         public void displayObject()
         {
             this.InputGridPropertiesPanel.Display(this.EditedObject);
-            BuildSheetTable();
+            BuildColunms();
         }
 
         /// <summary>
@@ -202,40 +146,12 @@ namespace Misp.Sourcing.InputGrid
             return controls;
         }
 
-        public void BuildSheetTable()
-        {
-            //fillObject();
-            //this.SpreadSheet.DisableSheet(false);
-            this.SpreadSheet.protectSheet(false);
-            BuildSheetTableWithoutFill();
-            this.SpreadSheet.protectSheet();
-            //this.SpreadSheet.DisableSheet();
-        }
-
-        public void BuildSheetTableWithoutFill()
-        {
-            Grille grid = this.EditedObject;
-            if (grid == null) return;
-            this.SpreadSheet.ClearUsedExcelCells();
-            BuildColunms();
-        }
-        
         /// <summary>
         /// Build columns
         /// </summary>
         public void BuildColunms()
         {
-            Grille grid = this.EditedObject;
-            string sheetName = this.SpreadSheet.getActiveSheetName();
-            int row = 1;
-            int col = 1;
-            foreach (GrilleColumn column in grid.columnListChangeHandler.Items)
-            {
-                if(!column.show) continue;
-                String value = column.name;
-                this.SpreadSheet.SetValueAt(row, col, value);
-                this.SpreadSheet.SetColorAt(row, col++, COLUMNS_COLOR);
-            }            
+            this.GridBrowser.buildColumns(this.EditedObject);
         }
 
 

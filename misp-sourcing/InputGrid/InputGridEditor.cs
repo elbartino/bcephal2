@@ -27,13 +27,7 @@ namespace Misp.Sourcing.InputGrid
         public Kernel.Service.GroupService GroupService { get; set; }
 
         public InputGridService Service { get; set; }
-
-        protected override void InitializeNewPage()
-        {
-            base.InitializeNewPage();
-            ((InputGridEditorItem)NewPage).getInputGridForm().InputGridSheetForm.SpreadSheet.Close();
-        }
-
+        
         protected override void OnChildrenCollectionChanged()
         {
             base.OnChildrenCollectionChanged();

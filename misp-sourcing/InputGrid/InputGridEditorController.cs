@@ -84,7 +84,6 @@ namespace Misp.Sourcing.InputGrid
             initializePageHandlers(page);
             page.Title = grid.name;
             getEditor().ListChangeHandler.AddNew(grid);
-            DisplayActiveColumn();           
             return OperationState.CONTINUE;
         }
 
@@ -105,7 +104,6 @@ namespace Misp.Sourcing.InputGrid
             UpdateToolBar(page.EditedObject);
             initializePageHandlers(page);
             getEditor().ListChangeHandler.AddNew(grid);
-            DisplayActiveColumn();
             Search();
             return OperationState.CONTINUE;
         }
@@ -231,7 +229,7 @@ namespace Misp.Sourcing.InputGrid
         protected void Mask(bool mask, string content = "Saving...")
         {
             InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
-            if (page != null) page.getInputGridForm().InputGridSheetForm.Mask(mask);
+            
             ApplicationManager.MainWindow.BusyBorder.Visibility = mask ? Visibility.Visible : Visibility.Hidden;
             if (mask)
             {
@@ -277,44 +275,12 @@ namespace Misp.Sourcing.InputGrid
             base.AfterClose();
             foreach (InputGridEditorItem page in getInputGridEditor().getPages())
             {
-                if (page.getInputGridForm().InputGridSheetForm.SpreadSheet != null)
-                {
-                    page.getInputGridForm().InputGridSheetForm.SpreadSheet.Close();
-                }
                 page.getInputGridForm().SelectionChanged -= OnSelectedTabChange;
-            }
-            if (getInputGridEditor().NewPage != null && ((InputGridEditorItem)getInputGridEditor().NewPage).getInputGridForm().InputGridSheetForm.SpreadSheet != null)
-                ((InputGridEditorItem)getInputGridEditor().NewPage).getInputGridForm().InputGridSheetForm.SpreadSheet.Close();
+            }            
             ApplicationManager.MainWindow.StatusLabel.Content = "";
         }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        protected override void OnPageClosing(object sender, CancelEventArgs args)
-        {
-            base.OnPageClosing(sender, args);
-            if (!args.Cancel)
-            {
-                InputGridEditorItem page = (InputGridEditorItem)sender;
-                if (page.getInputGridForm().InputGridSheetForm.SpreadSheet != null && OperationState.STOP == page.getInputGridForm().InputGridSheetForm.SpreadSheet.Close())
-                {
-                    try
-                    {
-                        args.Cancel = true;
-                    }
-                    catch (Exception)
-                    {
-                        DisplayError("Unable to save Grid", "Unable to save Excel file.");
-                     
-                    }
-                }
-            }
-        }
-
+        
+        
         /// <summary>
         /// 
         /// </summary>
@@ -461,8 +427,7 @@ namespace Misp.Sourcing.InputGrid
 
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.Changed += OnInputGridPropertiesChange;
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.selectionColumnChanged += OnInputGridPropertiesSelectionColumnChange;
-            editorPage.getInputGridForm().InputGridSheetForm.SpreadSheet.SelectionChanged += OnSpreadSheetSelectionChanged;
-        
+            
             initializeGridFormHandlers(editorPage.getInputGridForm().GridForm);
 
             editorPage.getInputGridForm().SelectionChanged += OnSelectedTabChange;
@@ -890,11 +855,8 @@ namespace Misp.Sourcing.InputGrid
                 EditorItem<Grille> page = getInputGridEditor().getPage(grid.name);
                 if (page != null)
                 {
-                    ((InputGridEditorItem)page).getInputGridForm().InputGridSheetForm.SpreadSheet.protectSheet(false);
                     page.fillObject();
-                    getInputGridEditor().selectePage(page);
-                    ((InputGridEditorItem)page).getInputGridForm().InputGridSheetForm.SpreadSheet.protectSheet();
-                    
+                    getInputGridEditor().selectePage(page);                    
                 }
                 else if (grid.oid != null && grid.oid.HasValue)
                 {
@@ -903,13 +865,11 @@ namespace Misp.Sourcing.InputGrid
                 }
                 else
                 {
-                    ((InputGridEditorItem)page).getInputGridForm().InputGridSheetForm.SpreadSheet.protectSheet(false);
                     page = getInputGridEditor().addOrSelectPage(grid);
                     initializePageHandlers(page);
                     page.Title = grid.name;
 
                     getInputGridEditor().ListChangeHandler.AddNew(grid);
-                    ((InputGridEditorItem)page).getInputGridForm().InputGridSheetForm.SpreadSheet.protectSheet();
                 }
                 InputGridEditorItem pageOpen = (InputGridEditorItem)getInputGridEditor().getActivePage();
                 UpdateStatusBar();
@@ -1020,25 +980,6 @@ namespace Misp.Sourcing.InputGrid
             OnChange();
         }
         
-        /// <summary>
-        /// Cette méthode est éxécutée lorsque la selection change dans le SpreadSheet.
-        /// On affiche le nom de la cellule active.
-        /// </summary>
-        /// <param name="args"></param>
-        protected void OnSpreadSheetSelectionChanged(Kernel.Ui.Office.ExcelEventArg args)
-        {
-            DisplayActiveColumn();
-        }
-
-        protected void DisplayActiveColumn()
-        {
-            InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
-            if (page == null) return;
-            Kernel.Ui.Office.Cell activeCell = page.getInputGridForm().InputGridSheetForm.SpreadSheet.getActiveCell();
-            String activeCellName = activeCell != null ? activeCell.Name : null;
-            page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.SelecteColumn(activeCell);
-        }
-
 
         private void OnInputGridPropertiesSelectionColumnChange(object obj)
         {
@@ -1081,15 +1022,15 @@ namespace Misp.Sourcing.InputGrid
         {
             InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
             if (page == null) return;
-            if(obj is bool && (bool)obj) BuildSheetTable();
+            if (obj is bool && (bool)obj) BuildConfigurationGridColumns();
             OnChange();
         }
 
-        protected void BuildSheetTable()
+        protected void BuildConfigurationGridColumns()
         {
             InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
             if (page == null) return;
-            page.getInputGridForm().InputGridSheetForm.BuildSheetTable();
+            page.getInputGridForm().InputGridSheetForm.BuildColunms();
         }
         
         /// <summary>
@@ -1145,7 +1086,6 @@ namespace Misp.Sourcing.InputGrid
 
             ((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.updateGrille(newName, table.name, false);
             table.name = newName;
-            page.getInputGridForm().InputGridSheetForm.SpreadSheet.ChangeTitleBarCaption(newName);
             page.Title = newName;
             return OperationState.CONTINUE;
         }
