@@ -576,7 +576,7 @@ namespace Misp.Sourcing.InputGrid
                 filter.pageSize = (int)page.getInputGridForm().GridForm.toolBar.pageSizeComboBox.SelectedItem;
                 GrillePage rows = this.GetInputGridService().getGridRows(filter);
                 page.getInputGridForm().GridForm.displayPage(rows);
-                OnChange();
+                //OnChange();
             }
             catch (ServiceExecption e) { }
         }
