@@ -51,7 +51,6 @@ namespace Misp.Reconciliation.RecoGrid
             if (balance != 0)
             {
                 writeOffForm.displayAount(balance);
-            //    List<PostingBrowserData> datas = new List<PostingBrowserData>(0);
                 List<String> numbers = new List<String>(0);
                 int position = grille.GetAccountNbrColumn(context).position;
                 foreach (object item in items)
@@ -63,6 +62,8 @@ namespace Misp.Reconciliation.RecoGrid
                     }
                 }
                 writeOffForm.debitedOrCreditedAccountComboBox.ItemsSource = numbers;
+                List<Account> accounts = this.ReconciliationGridService.PostingService.getAllAccount();
+                writeOffForm.writeOffAccountComboBox.ItemsSource = accounts;
 
             //    foreach (object item in items)
             //    {

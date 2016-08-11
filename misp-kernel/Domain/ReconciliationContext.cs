@@ -13,6 +13,8 @@ namespace Misp.Kernel.Domain
 
         public Attribute accountNbreAttribute { get; set; }
 
+        public Attribute accountNameAttribute { get; set; }
+
         public Attribute recoNbreAttribute { get; set; }
 
         public Attribute dcNbreAttribute { get; set; }
@@ -22,6 +24,10 @@ namespace Misp.Kernel.Domain
         public AttributeValue creditAttributeValue { get; set; }
 
         public Measure amountMeasure { get; set; }
+
+        public AttributeValue writeOffAccount { get; set; }
+
+        public AttributeValue chargeBackAccount { get; set; }
 
         public int lastPostingNumber { get; set; }
 
