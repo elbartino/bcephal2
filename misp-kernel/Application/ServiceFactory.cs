@@ -40,6 +40,8 @@ namespace Misp.Kernel.Application
 
         private PostingGridService postingGridService;
 
+        private FileTransferService fileTransferService;
+
         /// <summary>
         /// Build a new instance of ServiceFactory.
         /// </summary>
@@ -53,6 +55,21 @@ namespace Misp.Kernel.Application
         /// Gets or sets the ApplicationManager
         /// </summary>
         public ApplicationManager ApplicationManager { get; set; }
+
+
+        /// <summary>
+        /// Gets FileTransferService
+        /// </summary>
+        public FileTransferService GetFileTransferService()
+        {
+            if (fileTransferService == null)
+            {
+                fileTransferService = new FileTransferService();
+                fileTransferService.ResourcePath = AdministrationResourcePath.FILE_TRANSFER_RESOURCE_PATH;
+                configureService(fileTransferService);
+            }
+            return fileTransferService;
+        }
 
 		public InputGridService GetInputGridService()
         {

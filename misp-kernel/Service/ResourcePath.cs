@@ -9,6 +9,8 @@ namespace Misp.Kernel.Service
 {
     public class ResourcePath
     {
+        public static string FILE_TRANSFER_RESOURCE_PATH = "/file-transfer";
+
         public static string FILE_RESOURCE_PATH     = "file";
         public static string GROUP_RESOURCE_PATH    = "group";
 
