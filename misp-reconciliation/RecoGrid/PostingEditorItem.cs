@@ -7,6 +7,7 @@ using Misp.Reconciliation.RecoGrid;
 using Misp.Sourcing.AutomaticSourcingViews;
 using Misp.Sourcing.GridViews;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -112,30 +113,26 @@ namespace Misp.Sourcing.InputGrid
 
         private void OnReconciliate(object sender, RoutedEventArgs e)
         {
-            List<long> oids = this.getInputGridForm().GridForm.gridBrowser.GetSelectedOis();
-            //foreach (object item in PostingEditorItem page = (PostingEditorItem)getEditor().getActivePage();.SelectedItems)
-            //{
-            //    if (item is PostingBrowserData)
-            //    {
-            //        PostingBrowserData data = (PostingBrowserData)item;
-            //        if (!String.IsNullOrWhiteSpace(data.reconciliationNumber))
-            //        {
-            //            MessageDisplayer.DisplayWarning("Reconciliation", "Unable to perform reconciliation.\nAn Item in the selection is already reconciliated.");
-            //            return;
-            //        }
-            //    }
-            //}
-
-            //dialog = new PostingConfirmationDialog();
-            //dialog.PostingService = this.ReconciliationGridService.PostingService;
-            //dialog.display(this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems);
-            //dialog.yesButton.Click += OnConfirmReconciliation;
-            //dialog.noButton.Click += OnCancelReconciliation;
-            //dialog.ShowDialog();
+            Kernel.Domain.ReconciliationContext context = this.ReconciliationGridService.ReconciliationContextService.getReconciliationContext();
+            IList items = this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems;
+            int position = this.EditedObject.GetRecoNbrColumn(context).position;
+            foreach (object item in items)
+            {
+                if (item is GridItem)
+                {
+                    object reco = ((GridItem)item).Datas[position];
+                    if (reco != null && !String.IsNullOrWhiteSpace(reco.ToString()))
+                    {
+                        MessageDisplayer.DisplayWarning("Reconciliation", "Unable to perform reconciliation.\nAn Item in the selection is already reconciliated.");
+                        return;
+                    }
+                }
+            }
 
             dialog = new RecoDialog();
             dialog.ReconciliationGridService = this.ReconciliationGridService;
-            dialog.display(this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems, EditedObject);
+            dialog.Context = context;
+            dialog.display(items, EditedObject);
             dialog.yesButton.Click += OnConfirmReconciliation;
             dialog.noButton.Click += OnCancelReconciliation;
             dialog.ShowDialog();

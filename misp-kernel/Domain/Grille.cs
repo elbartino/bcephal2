@@ -149,5 +149,10 @@ namespace Misp.Kernel.Domain
             return GetColumn(ParameterType.SCOPE.ToString(), context.accountNbreAttribute.oid.Value);
         }
 
+        public GrilleColumn GetAccountNameColumn(ReconciliationContext context)
+        {
+            return GetColumn(ParameterType.SCOPE.ToString(), context.accountNameAttribute.oid.Value);
+        }
+
     }
 }

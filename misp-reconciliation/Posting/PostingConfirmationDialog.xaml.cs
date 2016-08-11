@@ -59,7 +59,7 @@ namespace Misp.Reconciliation.Posting
                     }
                 }
                 writeOffForm.debitedOrCreditedAccountComboBox.ItemsSource = datas;
-                List<Account> accounts = this.PostingService.getAllAccount();
+                List<Account> accounts = this.PostingService.getAllAccounts();
                 writeOffForm.writeOffAccountComboBox.ItemsSource = accounts;
             }
         }

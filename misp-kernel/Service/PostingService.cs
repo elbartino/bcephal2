@@ -131,13 +131,33 @@ namespace Misp.Kernel.Service
         /// <summary>
         /// All account
         /// </summary>
-        public List<Account> getAllAccount()
+        public List<Account> getAllAccounts()
         {
             try
             {
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 var request = new RestRequest(ResourcePath + "/all-accounts", Method.GET);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);                
+                List<Account> objects = RestSharp.SimpleJson.DeserializeObject<List<Account>>(queryResult.Content);
+                return objects;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve accounts.", e);
+                throw new ServiceExecption("Unable to retrieve accounts.", e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<Account> getWriteOffAccounts()
+        {
+            try
+            {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                var request = new RestRequest(ResourcePath + "/write-off-accounts", Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
                 List<Account> objects = RestSharp.SimpleJson.DeserializeObject<List<Account>>(queryResult.Content);
                 return objects;
             }

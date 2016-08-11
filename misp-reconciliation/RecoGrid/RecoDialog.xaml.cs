@@ -25,6 +25,7 @@ namespace Misp.Reconciliation.RecoGrid
     public partial class RecoDialog : Window
     {
         public ReconciliationGridService ReconciliationGridService { get; set; }
+        public Kernel.Domain.ReconciliationContext Context { get; set; }
 
         public RecoDialog()
         {
@@ -36,7 +37,7 @@ namespace Misp.Reconciliation.RecoGrid
         public void display(IList items, Grille grille)
         {
             this.grid.buildColumns(grille);
-            Kernel.Domain.ReconciliationContext context = this.ReconciliationGridService.ReconciliationContextService.getReconciliationContext();
+            if(Context == null) Context = this.ReconciliationGridService.ReconciliationContextService.getReconciliationContext();
             
             List<Object[]> rows = new List<object[]>(0);
             foreach(object item in items){
@@ -44,7 +45,7 @@ namespace Misp.Reconciliation.RecoGrid
             }
             grid.displayRows(rows);
             grid.grid.SelectAll();
-            this.toolbar.displayBalance(grid.grid.SelectedItems, context, grille);
+            this.toolbar.displayBalance(grid.grid.SelectedItems, Context, grille);
             decimal balance = toolbar.getBalance();
             writeOffForm.Visibility = balance == 0 ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
 
@@ -52,34 +53,29 @@ namespace Misp.Reconciliation.RecoGrid
             {
                 writeOffForm.displayAount(balance);
                 List<String> numbers = new List<String>(0);
-                int position = grille.GetAccountNbrColumn(context).position;
+                List<Account> accounts = new List<Account>(0);
+                int accountNbrposition = grille.GetAccountNbrColumn(Context).position;
+                int accountNameposition = grille.GetAccountNameColumn(Context).position;
                 foreach (object item in items)
                 {
                     if (item is GridItem)
                     {
-                        object account = ((GridItem)item).Datas[position];
-                        if (account != null && !numbers.Contains(account.ToString())) numbers.Add(account.ToString());
+                        object nbr = ((GridItem)item).Datas[accountNbrposition];
+                        object name = ((GridItem)item).Datas[accountNameposition];
+                        if (nbr != null && !numbers.Contains(nbr.ToString()))
+                        {
+                            Account account = new Account();
+                            account.number = nbr.ToString();
+                            account.name = name.ToString();
+                            accounts.Add(account);
+                            numbers.Add(nbr.ToString());
+                        }
                     }
                 }
-                writeOffForm.debitedOrCreditedAccountComboBox.ItemsSource = numbers;
-                List<Account> accounts = this.ReconciliationGridService.PostingService.getAllAccount();
+                writeOffForm.debitedOrCreditedAccountComboBox.ItemsSource = accounts;                
+                accounts = this.ReconciliationGridService.PostingService.getWriteOffAccounts();
                 writeOffForm.writeOffAccountComboBox.ItemsSource = accounts;
-
-            //    foreach (object item in items)
-            //    {
-            //        if (item is PostingBrowserData)
-            //        {
-            //            PostingBrowserData data = (PostingBrowserData)item;
-            //            if (!numbers.Contains(data.account))
-            //            {
-            //                datas.Add(data);
-            //                numbers.Add(data.account);
-            //            }
-            //        }
-            //    }
-            //    writeOffForm.debitedOrCreditedAccountComboBox.ItemsSource = datas;
-            //    List<Account> accounts = this.PostingService.getAllAccount();
-            //    writeOffForm.writeOffAccountComboBox.ItemsSource = accounts;
+                if (accounts.Count == 1) writeOffForm.writeOffAccountComboBox.SelectedIndex = 0;
             }
         }
 
