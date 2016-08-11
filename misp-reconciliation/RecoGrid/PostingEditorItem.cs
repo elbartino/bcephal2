@@ -79,7 +79,7 @@ namespace Misp.Sourcing.InputGrid
             reco.writeOffAmount = dialog.getWriteOffAmount();
             reco.writeOffDC = dialog.getWriteOffDC();
             reco.writeOffAccount = dialog.getWriteOffAccount();
-            //reco.debitedOrCreditedAccount = dialog.getDebitedOrCreditedAccount();
+            reco.debitedOrCreditedAccount = dialog.getDebitedOrCreditedAccount();
 
             bool result = ReconciliationGridService.PostingService.reconciliate(reco);
             if (result)

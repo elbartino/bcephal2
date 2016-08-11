@@ -475,10 +475,10 @@ namespace Misp.Sourcing.InputGrid
         {
  	        form.filterForm.periodFilter.DefaultPeriodName = defaultPeriodName;
             form.filterForm.periodFilter.DisplayPeriod(null);
-            form.filterForm.periodFilter.ItemChanged += OnPeriodItemChanged;
-            form.filterForm.targetFilter.ItemChanged += OnTargetItemChanged;
-            form.filterForm.periodFilter.ItemDeleted += OnPeriodItemDeleted;
-            form.filterForm.targetFilter.ItemDeleted += OnTargetItemDeleted;
+            //form.filterForm.periodFilter.ItemChanged += OnPeriodItemChanged;
+            //form.filterForm.targetFilter.ItemChanged += OnTargetItemChanged;
+            //form.filterForm.periodFilter.ItemDeleted += OnPeriodItemDeleted;
+            //form.filterForm.targetFilter.ItemDeleted += OnTargetItemDeleted;
             form.filterForm.searchButton.Click += OnSearchClick;
             form.filterForm.resetButton.Click += OnResetClick;
             form.filterForm.ChangeHandler += OnFilterChange;
@@ -557,57 +557,7 @@ namespace Misp.Sourcing.InputGrid
             Search((int)item);
         }
 
-        private void OnPeriodItemDeleted(object item)
-        {
-            if (item == null || !(item is PeriodItem)) return;
-            PeriodItem periodItem = (PeriodItem)item;
-            InputGridEditorItem page = (InputGridEditorItem)getEditor().getActivePage();
-            GrilleFilter grilleFilter = page.getInputGridForm().GridForm.filterForm.GrilleFilter;
-            if (grilleFilter == null) grilleFilter = new GrilleFilter();
-            if (grilleFilter.filterPeriod == null) grilleFilter.filterPeriod = new Period();
-            grilleFilter.filterPeriod.SynchronizeDeletePeriodItem(periodItem);
-            page.getInputGridForm().GridForm.filterForm.Display(grilleFilter);
-            OnChange();
-        }
-
-        private void OnTargetItemDeleted(object item)
-        {
-            if (item == null || !(item is TargetItem)) return;
-            TargetItem targetItem = (TargetItem)item;
-            InputGridEditorItem page = (InputGridEditorItem)getEditor().getActivePage();
-            GrilleFilter grilleFilter = page.getInputGridForm().GridForm.filterForm.GrilleFilter;
-            if (grilleFilter == null) grilleFilter = new GrilleFilter();
-            if (grilleFilter.filterScope == null) grilleFilter.filterScope = new Target(Target.Type.OBJECT_VC, Target.TargetType.COMBINED);
-            grilleFilter.filterScope.SynchronizeDeleteTargetItem(targetItem);
-            page.getInputGridForm().GridForm.filterForm.Display(grilleFilter);
-            OnChange();
-        }
-
-        private void OnTargetItemChanged(object item)
-        {
-            if (item == null || !(item is TargetItem)) return;
-            TargetItem targetItem = (TargetItem)item;
-            InputGridEditorItem page = (InputGridEditorItem)getEditor().getActivePage();
-            GrilleFilter grilleFilter = page.getInputGridForm().GridForm.filterForm.GrilleFilter;
-            if (grilleFilter == null) grilleFilter = new GrilleFilter();
-            if (grilleFilter.filterScope == null) grilleFilter.filterScope = new Target(Target.Type.OBJECT_VC, Target.TargetType.COMBINED);
-            grilleFilter.filterScope.SynchronizeTargetItems(targetItem);
-            page.getInputGridForm().GridForm.filterForm.Display(grilleFilter);
-            OnChange();
-        }
-
-        private void OnPeriodItemChanged(object item)
-        {
-            if (item == null || !(item is PeriodItem)) return;
-            PeriodItem periodItem = (PeriodItem)item;
-            InputGridEditorItem page = (InputGridEditorItem)getEditor().getActivePage();
-            GrilleFilter grilleFilter = page.getInputGridForm().GridForm.filterForm.GrilleFilter;
-            if (grilleFilter == null) grilleFilter = new GrilleFilter();
-            if (grilleFilter.filterPeriod == null) grilleFilter.filterPeriod = new Period();
-            PeriodItem itemUpdated = grilleFilter.filterPeriod.SynchronizePeriodItems(periodItem);
-            page.getInputGridForm().GridForm.filterForm.Display(grilleFilter);
-            OnChange();
-        }
+        
 
         public virtual void Search(int currentPage = 0)
         {

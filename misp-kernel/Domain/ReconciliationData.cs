@@ -13,7 +13,7 @@ namespace Misp.Kernel.Domain
         public decimal writeOffAmount { get; set; }
         public String writeOffDC { get; set; }
         public Account writeOffAccount { get; set; }
-        public PostingBrowserData debitedOrCreditedAccount { get; set; }
+        public Account debitedOrCreditedAccount { get; set; }
 
         public ReconciliationData()
         {

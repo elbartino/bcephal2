@@ -115,10 +115,10 @@ namespace Misp.Reconciliation.RecoGrid
             return (Account)writeOffForm.writeOffAccountComboBox.SelectedItem;
         }
 
-        //public PostingBrowserData getDebitedOrCreditedAccount()
-        //{
-        //    return (PostingBrowserData)writeOffForm.debitedOrCreditedAccountComboBox.SelectedItem;
-        //}
+        public Account getDebitedOrCreditedAccount()
+        {
+            return (Account)writeOffForm.debitedOrCreditedAccountComboBox.SelectedItem;
+        }
 
 
     }

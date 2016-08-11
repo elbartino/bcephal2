@@ -41,8 +41,8 @@ namespace Misp.Sourcing.GridViews
         private void IntializeHandlers()
         {
             this.resetButton.Click += OnReset;
-            this.targetFilter.Changed += OnChange;
-            this.periodFilter.Changed += OnChange;
+            //this.targetFilter.Changed += OnChange;
+            //this.periodFilter.Changed += OnChange;
 
             this.creditCheckBox.Checked += OnChange;
             this.creditCheckBox.Unchecked += OnChange;
@@ -50,7 +50,57 @@ namespace Misp.Sourcing.GridViews
             this.debitCheckBox.Unchecked += OnChange;
             this.includeRecoCheckBox.Checked += OnChange;
             this.includeRecoCheckBox.Unchecked += OnChange;
+
+            this.periodFilter.ItemChanged += OnPeriodItemChanged;
+            this.targetFilter.ItemChanged += OnTargetItemChanged;
+            this.periodFilter.ItemDeleted += OnPeriodItemDeleted;
+            this.targetFilter.ItemDeleted += OnTargetItemDeleted;
         }
+
+        private void OnPeriodItemDeleted(object item)
+        {
+            if (GrilleFilter == null || GrilleFilter.filterPeriod == null || item == null || !(item is PeriodItem)) return;
+            PeriodItem periodItem = (PeriodItem)item;
+            GrilleFilter.filterPeriod.SynchronizeDeletePeriodItem(periodItem);
+            this.Display(GrilleFilter);
+            OnChange();
+        }
+
+        private void OnTargetItemDeleted(object item)
+        {
+            if (GrilleFilter == null || GrilleFilter.filterScope == null || item == null || !(item is TargetItem)) return;
+            if (item == null || !(item is TargetItem)) return;
+            TargetItem targetItem = (TargetItem)item;            
+            GrilleFilter.filterScope.SynchronizeDeleteTargetItem(targetItem);
+            this.Display(GrilleFilter);
+            OnChange();
+        }
+
+        private void OnTargetItemChanged(object item)
+        {
+            if (item == null || !(item is TargetItem)) return;
+            TargetItem targetItem = (TargetItem)item;
+            if (GrilleFilter == null) GrilleFilter = new GrilleFilter();
+            if (GrilleFilter.filterScope == null) GrilleFilter.filterScope = new Target(Target.Type.OBJECT_VC, Target.TargetType.COMBINED);
+            GrilleFilter.filterScope.SynchronizeTargetItems(targetItem);
+            this.Display(GrilleFilter);
+            OnChange();
+        }
+
+        private void OnPeriodItemChanged(object item)
+        {
+            if (item == null || !(item is PeriodItem)) return;
+            PeriodItem periodItem = (PeriodItem)item;
+            if (GrilleFilter == null) GrilleFilter = new GrilleFilter();
+            if (GrilleFilter.filterPeriod == null) GrilleFilter.filterPeriod = new Period();
+            PeriodItem itemUpdated = GrilleFilter.filterPeriod.SynchronizePeriodItems(periodItem);
+            this.Display(GrilleFilter);
+            OnChange();
+        }
+
+
+
+
 
                         
         /// <summary>
