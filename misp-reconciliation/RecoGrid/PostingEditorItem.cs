@@ -128,7 +128,6 @@ namespace Misp.Sourcing.InputGrid
                     }
                 }
             }
-
             dialog = new RecoDialog();
             dialog.ReconciliationGridService = this.ReconciliationGridService;
             dialog.Context = context;
@@ -151,52 +150,48 @@ namespace Misp.Sourcing.InputGrid
 
         private void OnResetReconciliation(object sender, RoutedEventArgs e)
         {
-            //PostingEditorItem page = (PostingEditorItem)getEditor().getActivePage();
-            //MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Reset Reconciliation", "You are about to reset reconciliation for the selected items.\nDo you confirm operation?");
-            //if (response != MessageBoxResult.Yes) return;
-            //List<string> numbers = new List<string>(0);
-
-            //List<int> oids = page.getInputGridForm().GridForm.gridBrowser.GetSelectedOis();
-
-            //foreach (object item in page.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems)
-            //{
-            //    Object[] objects = (Object[])item;
-
-            //    if (item is PostingBrowserData)
-            //    {
-            //        PostingBrowserData data = (PostingBrowserData)item;
-            //        if (!String.IsNullOrWhiteSpace(data.reconciliationNumber) && !numbers.Contains(data.reconciliationNumber)) numbers.Add(data.reconciliationNumber);
-            //    }
-            //}
-            //bool result = GetReconciliationGridService().PostingService.resetReconciliation(numbers);
-            //if (result)
-            //{
-            //    Search();
-            //    if (page.ReconciliationEndedHandler != null) page.ReconciliationEndedHandler();
-            //}
+            MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Reset Reconciliation", "You are about to reset reconciliation.\nDo you confirm operation?");
+            if (response != MessageBoxResult.Yes) return;
+            Kernel.Domain.ReconciliationContext context = this.ReconciliationGridService.ReconciliationContextService.getReconciliationContext();
+            IList items = this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems;
+            int position = this.EditedObject.GetRecoNbrColumn(context).position;
+            List<string> numbers = new List<string>(0);
+            foreach (object item in items)
+            {
+                if (item is GridItem)
+                {
+                    object reco = ((GridItem)item).Datas[position];
+                    if (reco != null && !numbers.Contains(reco.ToString())) numbers.Add(reco.ToString());
+                }
+            }
+            bool result = this.ReconciliationGridService.PostingService.resetReconciliation(numbers);
+            if (result)
+            {
+                Search();
+                if (ReconciliationEndedHandler != null) ReconciliationEndedHandler();
+            }
         }
 
         private void OnDeletePostings(object sender, RoutedEventArgs e)
         {
             MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Delete Postings", "You are about to delete selected postings.\nDo you confirm operation?");
             if (response != MessageBoxResult.Yes) return;
+            Kernel.Domain.ReconciliationContext context = this.ReconciliationGridService.ReconciliationContextService.getReconciliationContext();
+            IList items = this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems;
+            int position = this.EditedObject.GetRecoNbrColumn(context).position;
+            foreach (object item in items)
+            {
+                if (item is GridItem)
+                {
+                    object reco = ((GridItem)item).Datas[position];
+                    if (reco != null && !String.IsNullOrWhiteSpace(reco.ToString()))
+                    {
+                        MessageDisplayer.DisplayWarning("Delete Postings", "Unable to delete postings.\nAn Item in the selection is reconciliated.\nReset reconciliation and try again.");
+                        return;
+                    }
+                }
+            }            
             List<long> oids = getInputGridForm().GridForm.gridBrowser.GetSelectedOis();
-
-            //foreach (object item in page.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems)
-            //{
-            //    Object[] objects = (Object[]) item;
-            //    if (item is PostingBrowserData)
-            //    {
-            //        PostingBrowserData data = (PostingBrowserData)item;
-            //        if (!String.IsNullOrWhiteSpace(data.reconciliationNumber))
-            //        {
-            //            MessageDisplayer.DisplayWarning("Delete Postings", "Unable to delete postings.\nAn Item in the selection is reconciliated.\nReset reconciliation and try again.");
-            //            return;
-            //        }
-            //        ids.Add(data.id);
-            //    }
-            //}
-
             bool result = ReconciliationGridService.PostingService.deletePosting(oids);
             if (result)
             {
