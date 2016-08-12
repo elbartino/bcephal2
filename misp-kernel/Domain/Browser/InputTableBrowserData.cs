@@ -21,7 +21,13 @@ namespace Misp.Kernel.Domain.Browser
         public bool isGrid { get; set; }
 
         [JsonIgnore]
-        public String type { get; set; }
+        public String type
+        {
+            get
+            {
+                return this.isGrid ? "Grid" : "InputTable";
+            }
+        } 
 
         public InputTableBrowserData() { }
 
@@ -33,7 +39,6 @@ namespace Misp.Kernel.Domain.Browser
             this.visibleInShortcut = data.visibleInShortcut;
             this.isReport = data.isReport;
             this.lastUpdate = data.lastUpdate;
-            this.type = isGrid ? "Grid" : "InputTable";
         }
 
         public InputTableBrowserData(InputTableBrowserData data,bool isgrid)

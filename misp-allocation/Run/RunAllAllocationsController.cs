@@ -98,7 +98,7 @@ namespace Misp.Allocation.Run
         /// </returns>
         public OperationState Create() 
         {
-            runWindow = new RunWindow();
+            runWindow = new RunWindow(true);
             runWindow.Owner = ApplicationManager.MainWindow;
             runWindow.initializeGroup(this.Service);
             runWindow.SetRunClearLabel("Run");
