@@ -256,11 +256,13 @@ namespace Misp.Sourcing.GridViews
 
         public void displayRows(List<object[]> rows)
         {
-            List<GridItem> items = new List<GridItem>();
+            //CollectionViewSource collection = new CollectionViewSource();
+            ObservableCollection<GridItem> items = new ObservableCollection<GridItem>();
             foreach (object[] row in rows)
             {
-                items.Add(new GridItem(row));
+                items.Add(new GridItem(row));                
             }
+            //collection.Source = items;
             this.grid.ItemsSource = items;
         }
 

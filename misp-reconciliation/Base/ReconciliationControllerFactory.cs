@@ -7,13 +7,12 @@ using Misp.Kernel.Application;
 using Misp.Kernel.Controller;
 using Misp.Kernel.Service;
 using Misp.Kernel.Domain;
-using Misp.Reconciliation.Reconciliation;
 using Misp.Reconciliation.Posting;
 using Misp.Kernel.Administration.Role;
 using Misp.Kernel.Administration.User;
 using Misp.Kernel.Administration.Profil;
-using Misp.Reporting.ReportGrid;
 using Misp.Reconciliation.ReconciliationContext;
+using Misp.Reconciliation.RecoGrid;
 
 namespace Misp.Reconciliation.Base
 {
@@ -40,22 +39,22 @@ namespace Misp.Reconciliation.Base
             
             if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY)
             {
-                ReconciliationEditorController recoEditorController = new ReconciliationEditorController();
-                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                recoEditorController.Functionality = fonctionality;
-                recoEditorController.ApplicationManager = this.ApplicationManager;
-                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationService();
-                return recoEditorController;
+                //ReconciliationEditorController recoEditorController = new ReconciliationEditorController();
+                //recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                //recoEditorController.Functionality = fonctionality;
+                //recoEditorController.ApplicationManager = this.ApplicationManager;
+                //recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationService();
+                //return recoEditorController;
             }
 
             if (fonctionality == ReconciliationFunctionalitiesCode.LIST_RECONCILIATION_FILTERS_FUNCTIONALITY)
             {
-                ReconciliationBrowserController recoBrowserController = new ReconciliationBrowserController();
-                recoBrowserController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                recoBrowserController.Functionality = fonctionality;
-                recoBrowserController.ApplicationManager = this.ApplicationManager;
-                recoBrowserController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationService();
-                return recoBrowserController;
+                //ReconciliationBrowserController recoBrowserController = new ReconciliationBrowserController();
+                //recoBrowserController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                //recoBrowserController.Functionality = fonctionality;
+                //recoBrowserController.ApplicationManager = this.ApplicationManager;
+                //recoBrowserController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationService();
+                //return recoBrowserController;
             }
 
             if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_POSTING_FUNCTIONALITY)
@@ -73,6 +72,44 @@ namespace Misp.Reconciliation.Base
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationGridService();
                 return controller;
+            }
+
+            if (fonctionality == ReconciliationFunctionalitiesCode.LIST_POSTING_GRID_FUNCTIONALITY)
+            {
+                PostingGridBrowserController controller = new PostingGridBrowserController();
+                controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                controller.Functionality = fonctionality;
+                controller.ApplicationManager = this.ApplicationManager;
+                controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingGridService();
+                return controller;
+            }
+            if (fonctionality == ReconciliationFunctionalitiesCode.NEW_POSTING_GRID_FUNCTIONALITY)
+            {
+                PostingGridEditorController controller = new PostingGridEditorController();
+                controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                controller.Functionality = fonctionality;
+                controller.ApplicationManager = this.ApplicationManager;
+                controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingGridService();
+                return controller;
+            }
+            if (fonctionality == ReconciliationFunctionalitiesCode.NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY)
+            {
+                AutomaticPostingGridEditorController automaticSourcingGridController = new AutomaticPostingGridEditorController();
+                automaticSourcingGridController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                automaticSourcingGridController.Functionality = fonctionality;
+                automaticSourcingGridController.ApplicationManager = this.ApplicationManager;
+                automaticSourcingGridController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetAutomaticPostingGridService();
+                //automaticSourcingGridController.InputTableService = ((ReconciliationServiceFactory)ServiceFactory).GetInputTableService();
+                return automaticSourcingGridController;
+            }
+            if (fonctionality == ReconciliationFunctionalitiesCode.LIST_AUTOMATIC_POSTING_GRID_FUNCTIONALITY)
+            {
+                AutomaticPostingGridBrowerController automaticSourcingGridBrowerController = new AutomaticPostingGridBrowerController();
+                automaticSourcingGridBrowerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                automaticSourcingGridBrowerController.Functionality = fonctionality;
+                automaticSourcingGridBrowerController.ApplicationManager = this.ApplicationManager;
+                automaticSourcingGridBrowerController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetAutomaticPostingGridService();
+                return automaticSourcingGridBrowerController;
             }
 
             if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_CONTEXT_FUNCTIONALITY)

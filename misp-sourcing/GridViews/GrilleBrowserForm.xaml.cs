@@ -137,7 +137,7 @@ namespace Misp.Sourcing.GridViews
             this.filterForm.Display(this.EditedObject.GrilleFilter);
             if (!this.gridBrowser.RebuildGrid) return;            
             this.gridBrowser.buildColumns(this.EditedObject);
-            this.filterForm.OnChange();
+            //this.filterForm.OnChange();
         }
 
         public void displayPage(GrillePage page)

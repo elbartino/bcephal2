@@ -2,10 +2,10 @@
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Util;
-using Misp.Reconciliation.Posting;
 using Misp.Reconciliation.RecoGrid;
 using Misp.Sourcing.AutomaticSourcingViews;
 using Misp.Sourcing.GridViews;
+using Misp.Sourcing.InputGrid;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,20 +14,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Misp.Sourcing.InputGrid
+namespace Misp.Reconciliation.Posting
 {
-    public class PostingEditorItem : InputGridEditorItem
+    public class PostingGridEditorItem : InputGridEditorItem
     {
 
         public PostingToolBar PostingToolBar { get; set; }
 
         public Kernel.Ui.Base.ChangeEventHandler ReconciliationEndedHandler;
 
-        RecoDialog dialog;
+        ReconciliationDialog dialog;
 
-        public ReconciliationGridService ReconciliationGridService { get; set; }
+        public PostingGridService PostingGridService { get; set; }
 
-        public PostingEditorItem() : base()
+        public PostingGridEditorItem() : base()
         {
             initializePageHandlers();
         }
@@ -53,7 +53,7 @@ namespace Misp.Sourcing.InputGrid
                 GrilleFilter filter = this.getInputGridForm().GridForm.filterForm.Fill();
                 filter.grid = new Grille();
                 filter.grid.code = this.EditedObject.code;
-                filter.grid.columnListChangeHandler = this.EditedObject.columnListChangeHandler;
+                filter.grid.columnListChangeHandler.originalList = this.EditedObject.columnListChangeHandler.Items.ToList();
                 filter.grid.report = this.EditedObject.report;
                 filter.grid.oid = this.EditedObject.oid;
                 filter.grid.name = this.EditedObject.name;
@@ -61,7 +61,7 @@ namespace Misp.Sourcing.InputGrid
                 filter.grid.report = this.EditedObject.report;
                 filter.page = currentPage;
                 filter.pageSize = (int)this.getInputGridForm().GridForm.toolBar.pageSizeComboBox.SelectedItem;
-                GrillePage rows = this.ReconciliationGridService.getGridRows(filter);
+                GrillePage rows = this.PostingGridService.getGridRows(filter);
                 this.getInputGridForm().GridForm.displayPage(rows);
                 this.PostingToolBar.displayBalance(0, 0);
             }
@@ -81,7 +81,7 @@ namespace Misp.Sourcing.InputGrid
             reco.writeOffAccount = dialog.getWriteOffAccount();
             reco.debitedOrCreditedAccount = dialog.getDebitedOrCreditedAccount();
 
-            bool result = ReconciliationGridService.PostingService.reconciliate(reco);
+            bool result = PostingGridService.PostingService.reconciliate(reco);
             if (result)
             {
                 Search();
@@ -98,11 +98,46 @@ namespace Misp.Sourcing.InputGrid
             this.PostingToolBar.reconciliateButton.Click += OnReconciliate;
             this.PostingToolBar.resetRecoButton.Click += OnResetReconciliation;
             this.PostingToolBar.deleteButton.Click += OnDeletePostings;
+
+            getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.CanRemoveColumn += OnTryToRemoveColumns;
         }
 
+        private bool OnTryToRemoveColumns(object columns)
+        {
+            bool response = true;
+            if (columns != null && columns is IList)
+            {
+                
+                int count = 0;
+                String values = "";
+                String coma = "";
+                Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
+                foreach (Object item in (IList)columns)
+                {
+                    if (item is GrilleColumn)
+                    {
+                        GrilleColumn column = (GrilleColumn)item;
+                        if (context.isDefaultColumn(column))
+                        {
+                            response = false;
+                            values += coma + column.name;
+                            coma = " ; ";
+                            count++;
+                        }
+                    }
+                }
+                if (!response)
+                {
+                    String message = "You are not allowed to remove default column" + (count > 1 ? "s" : "") + " : " + values;
+                    MessageDisplayer.DisplayWarning("Unable to remove column", message);
+                }
+            }
+            return response;
+        }
+        
         private void OnGridSelectionchange()
         {
-            ReconciliationContext context = this.ReconciliationGridService.ReconciliationContextService.getReconciliationContext();
+            Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
             this.PostingToolBar.displayBalance(this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems, context, this.EditedObject);
 
             int count = this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems.Count;
@@ -113,7 +148,7 @@ namespace Misp.Sourcing.InputGrid
 
         private void OnReconciliate(object sender, RoutedEventArgs e)
         {
-            Kernel.Domain.ReconciliationContext context = this.ReconciliationGridService.ReconciliationContextService.getReconciliationContext();
+            Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
             IList items = this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems;
             int position = this.EditedObject.GetRecoNbrColumn(context).position;
             foreach (object item in items)
@@ -128,8 +163,8 @@ namespace Misp.Sourcing.InputGrid
                     }
                 }
             }
-            dialog = new RecoDialog();
-            dialog.ReconciliationGridService = this.ReconciliationGridService;
+            dialog = new ReconciliationDialog();
+            dialog.PostingGridService = this.PostingGridService;
             dialog.Context = context;
             dialog.display(items, EditedObject);
             dialog.yesButton.Click += OnConfirmReconciliation;
@@ -152,7 +187,7 @@ namespace Misp.Sourcing.InputGrid
         {
             MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Reset Reconciliation", "You are about to reset reconciliation.\nDo you confirm operation?");
             if (response != MessageBoxResult.Yes) return;
-            Kernel.Domain.ReconciliationContext context = this.ReconciliationGridService.ReconciliationContextService.getReconciliationContext();
+            Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
             IList items = this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems;
             int position = this.EditedObject.GetRecoNbrColumn(context).position;
             List<string> numbers = new List<string>(0);
@@ -164,7 +199,7 @@ namespace Misp.Sourcing.InputGrid
                     if (reco != null && !numbers.Contains(reco.ToString())) numbers.Add(reco.ToString());
                 }
             }
-            bool result = this.ReconciliationGridService.PostingService.resetReconciliation(numbers);
+            bool result = this.PostingGridService.PostingService.resetReconciliation(numbers);
             if (result)
             {
                 Search();
@@ -176,7 +211,7 @@ namespace Misp.Sourcing.InputGrid
         {
             MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Delete Postings", "You are about to delete selected postings.\nDo you confirm operation?");
             if (response != MessageBoxResult.Yes) return;
-            Kernel.Domain.ReconciliationContext context = this.ReconciliationGridService.ReconciliationContextService.getReconciliationContext();
+            Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
             IList items = this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems;
             int position = this.EditedObject.GetRecoNbrColumn(context).position;
             foreach (object item in items)
@@ -192,7 +227,7 @@ namespace Misp.Sourcing.InputGrid
                 }
             }            
             List<long> oids = getInputGridForm().GridForm.gridBrowser.GetSelectedOis();
-            bool result = ReconciliationGridService.PostingService.deletePosting(oids);
+            bool result = PostingGridService.PostingService.deletePosting(oids);
             if (result)
             {
                 Search();

@@ -30,6 +30,7 @@ namespace Misp.Sourcing.InputGrid
 
         public event SelectedItemChangedEventHandler selectionColumnChanged;
         public event UpdateEventHandler Changed;
+        public event ActionEventHandler CanRemoveColumn;
 
         public event ChangeItemEventHandler OnSetTableVisible;
 
@@ -205,12 +206,22 @@ namespace Misp.Sourcing.InputGrid
         private void OnRemoveColumn(object sender, RoutedEventArgs e)
         {
             if(ColumnsListBox.SelectedIndex == -1) return;
+
+            e.Handled = true;
+            if (!canRemoveColumn(ColumnsListBox.SelectedItems)) return;
+
             foreach (Object column in ColumnsListBox.SelectedItems)
             {
                 this.Grid.RemoveColumn((GrilleColumn)column);
             }
             this.ColumnsListBox.ItemsSource = new ObservableCollection<GrilleColumn>(this.Grid.columnListChangeHandler.Items);
             OnChanged(true);
+        }
+
+        private bool canRemoveColumn(Object column)
+        {
+            if (CanRemoveColumn != null) return CanRemoveColumn(column);
+            else return true;
         }
 
         private void OnChanged(bool rebuild)

@@ -66,26 +66,18 @@
     <Compile Include="Base\ReconciliationResourcePath.cs" />
     <Compile Include="Base\ReconciliationServiceFactory.cs" />
     <Compile Include="PlugIn.cs" />
-    <Compile Include="Posting\PeriodTargetFilterForm.xaml.cs">
-      <DependentUpon>PeriodTargetFilterForm.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Posting\PostingBrowser.cs" />
-    <Compile Include="Posting\PostingBrowserController.cs" />
-    <Compile Include="Posting\PostingBrowserForm.xaml.cs">
-      <DependentUpon>PostingBrowserForm.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Posting\PostingConfirmationDialog.xaml.cs">
-      <DependentUpon>PostingConfirmationDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Posting\PostingFilterForm.xaml.cs">
-      <DependentUpon>PostingFilterForm.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Posting\PostingGrid.xaml.cs">
-      <DependentUpon>PostingGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Posting\PostingSideBar.cs" />
+    <Compile Include="Posting\AutomaticPostingGridBrowerController.cs" />
+    <Compile Include="Posting\AutomaticPostingGridEditorController.cs" />
+    <Compile Include="Posting\PostingGridEditor.cs" />
+    <Compile Include="Posting\PostingGridEditorItem.cs" />
+    <Compile Include="Posting\PostingGridBrowser.cs" />
+    <Compile Include="Posting\PostingGridBrowserController.cs" />
+    <Compile Include="Posting\PostingGridEditorController.cs" />
     <Compile Include="Posting\PostingToolBar.xaml.cs">
       <DependentUpon>PostingToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Posting\ReconciliationDialog.xaml.cs">
+      <DependentUpon>ReconciliationDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Posting\WriteOffForm.xaml.cs">
       <DependentUpon>WriteOffForm.xaml</DependentUpon>
@@ -104,11 +96,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="RecoGrid\PostingEditor.cs" />
-    <Compile Include="RecoGrid\PostingEditorItem.cs" />
     <Compile Include="RecoGrid\PostingEditorController.cs" />
-    <Compile Include="RecoGrid\RecoDialog.xaml.cs">
-      <DependentUpon>RecoDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ReconciliationContext\ReconciliationContextEditorController.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextItem.xaml.cs">
       <DependentUpon>ReconciliationContextItem.xaml</DependentUpon>
@@ -122,22 +110,6 @@
     <Compile Include="ReconciliationContext\ReconciliationContextForm.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextToolBar.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextPropertyBar.cs" />
-    <Compile Include="Reconciliation\ReconciliationEditor.cs" />
-    <Compile Include="Reconciliation\ReconciliationEditorController.cs" />
-    <Compile Include="Reconciliation\ReconciliationForm.cs" />
-    <Compile Include="Reconciliation\ReconciliationPropertyBar.cs" />
-    <Compile Include="Reconciliation\ReconciliationSideBar.cs" />
-    <Compile Include="Reconciliation\ReconciliationToolBar.cs" />
-    <Compile Include="Reconciliation\ReconciliationGroup.cs" />
-    <Compile Include="Reconciliation\ReconciliationEditorItem.cs" />
-    <Compile Include="Reconciliation\ReconciliationBrowser.cs" />
-    <Compile Include="Reconciliation\ReconciliationBrowserController.cs" />
-    <Compile Include="Reconciliation\ReconciliationMainPanel.xaml.cs">
-      <DependentUpon>ReconciliationMainPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Reconciliation\ReconciliationPropertiePanel.xaml.cs">
-      <DependentUpon>ReconciliationPropertiePanel.xaml</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -170,35 +142,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Posting\PeriodTargetFilterForm.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Posting\PostingBrowserForm.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Posting\PostingConfirmationDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Posting\PostingFilterForm.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Posting\PostingGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Posting\PostingToolBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Posting\WriteOffForm.xaml">
+    <Page Include="Posting\ReconciliationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RecoGrid\RecoDialog.xaml">
+    <Page Include="Posting\WriteOffForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -209,14 +161,6 @@
     <Page Include="ReconciliationContext\ReconciliationContextPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Reconciliation\ReconciliationMainPanel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Reconciliation\ReconciliationPropertiePanel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\Stencils\MispStyle.xaml">
       <Generator>MSBuild:Compile</Generator>

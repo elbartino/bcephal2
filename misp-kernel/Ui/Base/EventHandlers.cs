@@ -43,4 +43,6 @@ namespace Misp.Kernel.Ui.Base
     public delegate void TransformationTreeSaveInfoEventHandler(SaveInfo info, object transformationTree);
 
     public delegate void PowerpointLoadInfoEventHandler(PowerpointLoadInfo info);
+
+    public delegate bool ActionEventHandler(object item);
 }

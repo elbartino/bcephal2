@@ -1,29 +1,19 @@
 ﻿using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
+using Misp.Reconciliation.Posting;
 using Misp.Sourcing.AutomaticSourcingViews;
+using Misp.Sourcing.InputGrid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Misp.Sourcing.InputGrid
+namespace Misp.Reconciliation.RecoGrid
 {
-    public class PostingEditor : InputGridEditor
+    public class PostingEditor : PostingGridEditor
     {
-
-        /// <summary>
-        /// Retourne une nouvelle page.Posting
-        /// </summary>
-        /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<Grille> getNewPage() 
-        {
-            PostingEditorItem item = new PostingEditorItem();
-            item.getInputGridForm().GridForm.gridBrowser.Service = this.Service;
-            item.ReconciliationGridService = (ReconciliationGridService)this.Service;
-            return item;
-        }
 
         protected override void OnChildrenCollectionChanged()
         {

@@ -71,8 +71,10 @@ namespace Misp.Kernel.Domain
         public override int CompareTo(object obj)
         {
             if (obj == null || !(obj is GrilleColumn)) return 1;
-            if (this.name != null && this.name.Equals(((GrilleColumn)obj).name)) return 0;
-            return this.position.CompareTo(((GrilleColumn)obj).position);
+            int c = this.position.CompareTo(((GrilleColumn)obj).position);
+            if (c != 0) return c;
+            if (this.name != null) return this.name.CompareTo(((GrilleColumn)obj).name);
+            return 1;
         }
 
 
