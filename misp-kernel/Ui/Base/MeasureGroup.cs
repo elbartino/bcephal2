@@ -12,7 +12,12 @@ namespace Misp.Kernel.Ui.Base
 
         #region Properties
 
+        public delegate void SelectMeasureEventHandler(Domain.Target target);
+        public event SelectMeasureEventHandler SelectMeasureHandler;
+
         public MeasureTreeview MeasureTreeview { get; set; }
+
+        public Service.MeasureService MeasureService { get; set; }
 
         #endregion
 
@@ -37,6 +42,18 @@ namespace Misp.Kernel.Ui.Base
         }
 
         #endregion
+
+        public void InitializeTreeViewDatas(bool showPostingMeasure)
+        {
+            Domain.Measure rootMeasure = this.MeasureService.getRootMeasure(showPostingMeasure);
+            this.MeasureTreeview.DisplayRoot(rootMeasure);
+        }
+
+        public void InitializeTreeViewDatas(bool showPostingMeasure, List<Domain.CalculatedMeasure> CalculatedMeasures)
+        {
+            Domain.Measure rootMeasure = this.MeasureService.getRootMeasure(showPostingMeasure);
+            this.MeasureTreeview.DisplayRoot(rootMeasure, CalculatedMeasures);
+        }
 
     }
 }

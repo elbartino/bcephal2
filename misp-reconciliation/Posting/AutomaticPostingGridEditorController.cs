@@ -47,7 +47,13 @@ namespace Misp.Reconciliation.Posting
             automaticGrid.isPosting = true;
             automaticGrid.group = GetAutomaticSourcingGridService().GroupService.getDefaultGroup();
             return automaticGrid;
-        }             
+        }
+
+        protected override void initializeSideBarData()
+        {
+            base.initializeSideBarData();
+            ((AutomaticSourcingSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(true);
+        }
 
     }
 }

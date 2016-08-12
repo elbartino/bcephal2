@@ -490,7 +490,9 @@ namespace Misp.Reporting.Calculated_Measure
            if(CalculatedMeasures!=null)
            ((CalculatedMeasureSideBar)SideBar).CalculatedMeasureGroup.CalculatedMeasureTreeview.fillTree(new ObservableCollection<CalculatedMeasure>(CalculatedMeasures));
 
-           ((CalculatedMeasureSideBar)SideBar).MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure, CalculatedMeasures);          
+           ((CalculatedMeasureSideBar)SideBar).MeasureGroup.MeasureService = GetCalculatedMeasureService().MeasureService;
+           ((CalculatedMeasureSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(true, CalculatedMeasures);
+
            BGroup group = GetCalculatedMeasureService().GroupService.getDefaultGroup();
         }
 

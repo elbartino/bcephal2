@@ -101,7 +101,7 @@ namespace Misp.Reporting.Report
             toolBar.SaveClearRunButton.Visibility = System.Windows.Visibility.Collapsed;
             return toolBar; 
         }
-
+        
         /// <summary>
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>

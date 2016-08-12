@@ -270,6 +270,9 @@ namespace Misp.Reconciliation.ReconciliationContext
 
             Measure rootMeasure = GetReconciliationContextService().MeasureService.getRootMeasure();
             ((ReconciliationContextSideBar)SideBar).MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
+
+            ((ReconciliationContextSideBar)SideBar).MeasureGroup.MeasureService = GetReconciliationContextService().MeasureService;
+            ((ReconciliationContextSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(true);
         }
 
         /// <summary>

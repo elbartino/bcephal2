@@ -1964,10 +1964,8 @@ namespace Misp.Sourcing.Table
              List<InputTableBrowserData> datas = this.Service.getBrowserDatas();
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.fillTree(new ObservableCollection<InputTableBrowserData>(datas));
                         
-          
-
-            Measure rootMeasure = GetInputTableService().MeasureService.getRootMeasure();
-            ((InputTableSideBar)SideBar).MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
+            ((InputTableSideBar)SideBar).MeasureGroup.MeasureService = GetInputTableService().MeasureService;
+            ((InputTableSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(isReport());
             
             rootPeriodName = GetInputTableService().PeriodNameService.getRootPeriodName();
             defaultPeriodName = rootPeriodName.getDefaultPeriodName();

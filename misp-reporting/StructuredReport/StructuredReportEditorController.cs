@@ -511,8 +511,9 @@ namespace Misp.Reporting.StructuredReport
             Measure rootMeasure = GetStructuredReportService().MeasureService.getRootMeasure();
 
             List<CalculatedMeasure> CalculatedMeasures = GetStructuredReportService().CalculatedMeasureService.getAllCalculatedMeasure();
-            ((StructuredReportSideBar)SideBar).MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure, CalculatedMeasures);
-
+            
+            ((StructuredReportSideBar)SideBar).MeasureGroup.MeasureService = GetStructuredReportService().MeasureService;
+            ((StructuredReportSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(true, CalculatedMeasures);
 
             PeriodName rootPeriodName = GetStructuredReportService().PeriodNameService.getRootPeriodName();
             ((StructuredReportSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);

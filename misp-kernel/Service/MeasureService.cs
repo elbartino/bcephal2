@@ -17,11 +17,11 @@ namespace Misp.Kernel.Service
         /// </summary>
         /// <param name="file"></param>
         /// <returns>La liste de mesures du fichier ouvert</returns>
-        public Kernel.Domain.Measure getRootMeasure()
+        public Kernel.Domain.Measure getRootMeasure(bool showPostingMeasure = true)
         {
             try
             {
-                var request = new RestRequest(ResourcePath + "/root", Method.GET);
+                var request = new RestRequest(ResourcePath + "/root/" + showPostingMeasure, Method.GET);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
                 try
                 {

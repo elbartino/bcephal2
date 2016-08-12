@@ -450,9 +450,9 @@ namespace Misp.Planification.Tranformation
         {
             SideBar.EntityGroup.ModelService = TransformationTreeService.ModelService;
             SideBar.EntityGroup.InitializeTreeViewDatas();
-
-            Measure rootMeasure = TransformationTreeService.MeasureService.getRootMeasure();
-            SideBar.MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
+                        
+            SideBar.MeasureGroup.MeasureService = TransformationTreeService.MeasureService;
+            SideBar.MeasureGroup.InitializeTreeViewDatas(true);
 
             List<Kernel.Domain.CalculatedMeasure> CalculatedMeasures = TransformationTreeService.CalculatedMeasureService.getAllCalculatedMeasure();
             if (CalculatedMeasures != null)

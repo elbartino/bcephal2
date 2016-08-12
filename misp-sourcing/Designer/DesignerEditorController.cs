@@ -394,9 +394,9 @@ namespace Misp.Sourcing.Designer
             ((DesignerSideBar)SideBar).EntityGroup.ModelService = GetDesignService().ModelService;
             ((DesignerSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
 
-            Measure rootMeasure = GetDesignService().MeasureService.getRootMeasure();
             ((DesignerSideBar)SideBar).MeasureGroup.MeasureTreeview.setDisplacherInterval(new TimeSpan(0, 0,1));
-            ((DesignerSideBar)SideBar).MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
+            ((DesignerSideBar)SideBar).MeasureGroup.MeasureService = GetDesignService().MeasureService;
+            ((DesignerSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(false);
 
             
             List<Kernel.Domain.CalculatedMeasure> CalculatedMeasures = GetDesignService().CalculatedMeasureService.getAllCalculatedMeasure();

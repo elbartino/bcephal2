@@ -675,8 +675,8 @@ namespace Misp.Planification.PresentationView
             List<Kernel.Domain.Browser.BrowserData> datas = this.Service.getBrowserDatas();
             ((PresentationSideBar)SideBar).PresentationGroup.PresentationTreeView.fillTree(new ObservableCollection<Kernel.Domain.Browser.BrowserData>(datas));
 
-            Measure rootMeasure = GetPresentationService().MeasureService.getRootMeasure();
-            ((PresentationSideBar)SideBar).MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
+            ((PresentationSideBar)SideBar).MeasureGroup.MeasureService = GetPresentationService().MeasureService;
+            ((PresentationSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(true);
 
             ((PresentationSideBar)SideBar).SpecialGroup.SpecialTreeView.Items.RemoveAt(1);
 

@@ -432,8 +432,8 @@ namespace Misp.Sourcing.Base
 
             if (!isAutomaticTarget())
             {
-                Measure rootMeasure = GetAutomaticSourcingService().MeasureService.getRootMeasure();
-                ((AutomaticSourcingSideBar)SideBar).MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
+                ((AutomaticSourcingSideBar)SideBar).MeasureGroup.MeasureService = GetAutomaticSourcingService().MeasureService;
+                ((AutomaticSourcingSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(false);
 
                 List<CalculatedMeasure> ListCalculatedMeasure = GetAutomaticSourcingService().CalculatedMeasureService.getAllCalculatedMeasure();
                 ((AutomaticSourcingSideBar)SideBar).CaculatedMeasureGroup.CalculatedMeasureTreeview.fillTree(new ObservableCollection<CalculatedMeasure>(ListCalculatedMeasure));

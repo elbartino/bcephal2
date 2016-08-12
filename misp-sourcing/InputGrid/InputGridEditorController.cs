@@ -674,11 +674,10 @@ namespace Misp.Sourcing.InputGrid
 
             ((InputGridSideBar)SideBar).EntityGroup.ModelService = GetInputGridService().ModelService;
             ((InputGridSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
-
-            Measure rootMeasure = GetInputGridService().MeasureService.getRootMeasure();
-
-            List<CalculatedMeasure> CalculatedMeasures = GetInputGridService().CalculatedMeasureService.getAllCalculatedMeasure();
-            ((InputGridSideBar)SideBar).MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure, CalculatedMeasures);
+            
+            List<CalculatedMeasure> CalculatedMeasures = GetInputGridService().CalculatedMeasureService.getAllCalculatedMeasure();            
+            ((InputGridSideBar)SideBar).MeasureGroup.MeasureService = GetInputGridService().MeasureService;
+            ((InputGridSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(false, CalculatedMeasures);
 
 
             PeriodName rootPeriodName = GetInputGridService().PeriodNameService.getRootPeriodName();

@@ -42,8 +42,8 @@ namespace Misp.Kernel.Application
         public static string RECENT_INPUT_TABLE_LABEL = "Recent Input Tables";
         public static string INPUT_TABLE_LABEL = "Input Table";
         public static string INPUT_TABLE_DASHBOARD_LABEL = "Input Tables";
-        public static string NEW_INPUT_TABLE_LABEL= "New Inputtable";
-        public static string LIST_INPUT_TABLE_LABEL = "List Inputtables";
+        public static string NEW_INPUT_TABLE_LABEL= "New Input Table";
+        public static string LIST_INPUT_TABLE_LABEL = "List Input Tables";
 
         public static string POSTING_LABEL = "Posting";
         public static string AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL = "Automatic Sourcing for Posting Grid";

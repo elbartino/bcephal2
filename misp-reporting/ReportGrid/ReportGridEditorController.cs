@@ -38,5 +38,11 @@ namespace Misp.Reporting.ReportGrid
             return toolbar; 
         }
 
+        protected override void initializeSideBarData()
+        {
+            base.initializeSideBarData();
+            ((InputGridSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(true);
+        }
+
     }
 }
