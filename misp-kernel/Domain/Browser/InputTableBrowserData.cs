@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Domain.Browser
 {
@@ -20,7 +21,7 @@ namespace Misp.Kernel.Domain.Browser
 
         public bool isGrid { get; set; }
 
-        [JsonIgnore]
+        [ScriptIgnore]
         public String type
         {
             get

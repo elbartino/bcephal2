@@ -116,29 +116,8 @@ namespace Misp.Allocation.Run
                 Kernel.Util.MessageDisplayer.DisplayWarning(runClearLabel+"table", "You have to select at least on table before click "+runClearLabel.ToLower()+"!");
                 return;
             }
-           // this.Close();
             if (Controller is RunAllAllocationsController) ((RunAllAllocationsController)Controller).Run(items);
-            if (Controller is ClearAllocationController)
-            {
-
-                if ((Datas.Count > items.Count)
-                   ||(GroupTreeview.GroupTreeview.GroupTree.SelectedItem != null && !(GroupTreeview.GroupTreeview.GroupTree.SelectedItem as Kernel.Domain.BGroup).name.Equals("All Groups") && Datas.Count == items.Count)) 
-                {
-                    TableActionData data = new TableActionData();
-                    foreach (InputTableBrowserData table in items)
-                    {
-                        data.oids.Add(table.oid);
-                    }
-                    ((ClearAllocationController)Controller).Clear(data);
-                }
-                else if ((GroupTreeview.GroupTreeview.GroupTree.SelectedItem == null ||
-                  (GroupTreeview.GroupTreeview.GroupTree.SelectedItem as Kernel.Domain.BGroup).name.Equals("All Groups"))
-                   && items.Count == Datas.Count)
-                {
-                    ((ClearAllocationController)Controller).Clear();
-                }
-            }
-            //Controller.Run(items);            
+            if (Controller is ClearAllocationController) ((ClearAllocationController)Controller).Clear(items);
         }
 
         /// <summary>

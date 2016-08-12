@@ -306,6 +306,7 @@ namespace Misp.Kernel.Application
         /// </summary>
         public bool StopServer()
         {
+            if (this.ApplcationConfiguration.IsMultiuser()) return true;
             logger.Info("Try to shutdown server...");
             try
             {

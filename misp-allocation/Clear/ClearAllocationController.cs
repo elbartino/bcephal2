@@ -2,6 +2,7 @@
 using Misp.Kernel.Application;
 using Misp.Kernel.Controller;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Util;
 using System;
@@ -95,14 +96,16 @@ namespace Misp.Allocation.Clear
         /// </returns>
         public OperationState Create() 
         {
-            runWindow = new RunWindow(false);
-            runWindow.Owner = ApplicationManager.MainWindow;
-            runWindow.initializeGroup(this.Service);
-            runWindow.SetRunClearLabel("Clear");
-            runWindow.Controller = this;
-            if (this.Service.getRunnedTableBrowserDatas().Count > 0)
+            List<InputTableBrowserData> items = this.Service.getRunnedTableBrowserDatas();
+            if (items.Count > 0)
             {
-                runWindow.DisplayDatas(this.Service);
+                runWindow = new RunWindow(false);
+                runWindow.Owner = ApplicationManager.MainWindow;
+                runWindow.initializeGroup(this.Service);
+                runWindow.SetRunClearLabel("Clear");
+                runWindow.Controller = this;
+                runWindow.Service = this.Service;
+                runWindow.DisplayDatas(items);
                 runWindow.ShowDialog();
             }
             else MessageDisplayer.DisplayInfo("Clear Grid/Table", "There is no runned Grid/Table!");
@@ -120,25 +123,17 @@ namespace Misp.Allocation.Clear
         /// OperationState.CONTINUE si l'opération a réussi
         /// OperationState.STOP sinon
         /// </returns>
-        public virtual OperationState Clear(TableActionData data=null)
+        public virtual OperationState Clear(System.Collections.IList items)
         {
             OperationState state = OperationState.CONTINUE;
-            string message = data == null ? "You are about to clear loaded grids/tables.\n Do you want to continue ?" : "You are about to clear selected loaded grids/tables.\n Do you want to continue ?";
-            MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Clear allocation", message);
+            string message = "You are about to clear selected grids and tables.\n Do you want to continue ?";
+            MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Clear load", message);
             if (response == MessageBoxResult.Yes)
             {
                 Mask(true);
+                TableActionData data = new TableActionData(items);
                 Service.ClearAllocationTableHandler += updateClearAllocationProgress;
-                if (data != null)
-                {
-                    Service.ClearAllocationTable(data);
-                    
-                }
-                else
-                {
-                    Service.CleaAllAllocation();
-                    runWindow.Close();
-                }
+                Service.ClearAllocationTable(data);                
             }
             return state;
         }

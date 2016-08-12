@@ -10,6 +10,7 @@ namespace Misp.Kernel.Domain
     public  class TableActionData
     {
         public List<int> oids { get; set; }
+        public List<InputTableBrowserData> datas { get; set; }
         public Kernel.Ui.Office.Range range { get; set; }
         public bool writeInExcel { get; set; }
 
@@ -20,6 +21,7 @@ namespace Misp.Kernel.Domain
         public TableActionData()
         {
             this.oids = new List<int>(0);
+            this.datas = new List<InputTableBrowserData>(0);
             saveBeforePerformAction = false;
             clearBeforePerformAction = false;
             writeInExcel = false;
@@ -29,30 +31,25 @@ namespace Misp.Kernel.Domain
         {
             this.oids = oids;
         }
-
-        public TableActionData(List<int> oids, Kernel.Ui.Office.Range range)
-            : this(oids)
+        
+        public TableActionData(System.Collections.IList objects) : this()
         {
-            this.range = range;
-        }
-
-        public TableActionData(System.Collections.IList objects)
-            : this()
-        {
-            this.oids = new List<int>(0);
             foreach (object obj in objects)
             {
-                if (obj is InputTableBrowserData) this.oids.Add(((InputTableBrowserData)obj).oid);
+                if (obj is InputTableBrowserData)
+                {
+                    this.oids.Add(((InputTableBrowserData)obj).oid);
+                    this.datas.Add((InputTableBrowserData)obj);
+                }
             }
         }
 
-        public TableActionData(int oid, Ui.Office.Range range)
-            : this()
+        public TableActionData(int oid, Ui.Office.Range range) : this()
         {
-            this.oids = new List<int>(0);
             this.oids.Add(oid);
             this.range = range;
         }
+
         List<TransformationTreeBrowserData> treeData;
         public TableActionData(List<TransformationTreeBrowserData> objects) 
         {
