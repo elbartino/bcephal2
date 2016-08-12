@@ -87,59 +87,6 @@ namespace Misp.Reconciliation.Base
             }
 
 
-
-
-
-            if (fonctionality == ReconciliationFunctionalitiesCode.ADMINISTRATION_ROLE)
-            {
-                RoleBrowserController recoEditorController = new RoleBrowserController();
-                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                recoEditorController.Functionality = fonctionality;
-                recoEditorController.ApplicationManager = this.ApplicationManager;
-                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetRoleService();
-                return recoEditorController;
-            }
-
-            if (fonctionality == ReconciliationFunctionalitiesCode.ADMINISTRATION_NEW_USER)
-            {
-                UserEditorController recoEditorController = new UserEditorController();
-                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                recoEditorController.Functionality = fonctionality;
-                recoEditorController.ApplicationManager = this.ApplicationManager;
-                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetUserService();
-                return recoEditorController;
-            }
-
-            if (fonctionality == ReconciliationFunctionalitiesCode.ADMINISTRATION_LIST_USER)
-            {
-                UserBrowserController recoEditorController = new UserBrowserController();
-                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                recoEditorController.Functionality = fonctionality;
-                recoEditorController.ApplicationManager = this.ApplicationManager;
-                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetUserService();
-                return recoEditorController;
-            }
-
-            if (fonctionality == ReconciliationFunctionalitiesCode.ADMINISTRATION_NEW_PROFIL)
-            {
-                ProfilEditorController recoEditorController = new ProfilEditorController();
-                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                recoEditorController.Functionality = fonctionality;
-                recoEditorController.ApplicationManager = this.ApplicationManager;
-                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetProfilService();
-                return recoEditorController;
-            }
-
-            if (fonctionality == ReconciliationFunctionalitiesCode.ADMINISTRATION_LIST_PROFIL)
-            {
-                ProfilBrowserController recoEditorController = new ProfilBrowserController();
-                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                recoEditorController.Functionality = fonctionality;
-                recoEditorController.ApplicationManager = this.ApplicationManager;
-                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetProfilService();
-                return recoEditorController;
-            }
-
             return null;
         }
 
