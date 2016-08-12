@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Misp.Kernel.Application;
 using Misp.Sourcing.Table;
 using Misp.Kernel.Service;
-using Misp.Reconciliation.Reconciliation;
 using Misp.Kernel.Administration.Base;
 
 namespace Misp.Reconciliation.Base
@@ -16,10 +15,7 @@ namespace Misp.Reconciliation.Base
 
         private ReconciliationService reconciliationService;
         private PostingService postingService;
-
-        private RoleService roleService;
-        private UserService userService;
-        private ProfilService profilService;
+        private AutomaticPostingGridService automaticPostingGridService;
 
         /// <summary>
         /// Build a new instance of InitiationServiceFactory.
@@ -68,54 +64,26 @@ namespace Misp.Reconciliation.Base
             return postingService;
         }
 
-
-        /// <summary>
-        /// Gets RoleService
-        /// </summary>
-        public RoleService GetRoleService()
+        public AutomaticPostingGridService GetAutomaticPostingGridService()
         {
-            if (roleService == null)
+            if (automaticPostingGridService == null)
             {
-                roleService = new RoleService();
-                roleService.ResourcePath = AdministrationResourcePath.SECURITY_RESOURCE_PATH; // SECURITY_ROLE_RESOURCE_PATH;
-                roleService.GroupService = GetGroupService();
-                roleService.FileService = GetFileService();
-                roleService.ModelService = GetModelService();
-                configureService(roleService);
+                automaticPostingGridService = new AutomaticPostingGridService();
+                automaticPostingGridService.ResourcePath = ResourcePath.AUTOMATIC_POSTING_GRID_RESOURCE_PATH;
+                automaticPostingGridService.SocketResourcePath = ResourcePath.SOCKET_AUTOMATIC_POSTING_GRID_RESOURCE_PATH;
+                automaticPostingGridService.FileService = GetFileService();
+                automaticPostingGridService.ModelService = GetModelService();
+                automaticPostingGridService.MeasureService = GetMeasureService();
+                automaticPostingGridService.PeriodicityService = GetPeriodicityService();
+                automaticPostingGridService.GroupService = GetGroupService();
+                //automaticPostingGridService.InputTableService = GetInputTableService();
+                automaticPostingGridService.CalculatedMeasureService = GetCalculatedMeasureService2();
+                automaticPostingGridService.PeriodNameService = GetPeriodNameService();
+                configureService(automaticPostingGridService);
             }
-            return roleService;
+            return automaticPostingGridService;
         }
 
-        /// <summary>
-        /// Gets UserService
-        /// </summary>
-        public UserService GetUserService()
-        {
-            if (userService == null)
-            {
-                userService = new UserService();
-                userService.ResourcePath = AdministrationResourcePath.SECURITY_RESOURCE_PATH;//SECURITY_USER_RESOURCE_PATH;
-                userService.ProfilService = GetProfilService();
-                configureService(userService);
-            }
-            return userService;
-        }
-
-        /// <summary>
-        /// Gets ProfilService
-        /// </summary>
-        public ProfilService GetProfilService()
-        {
-            if (profilService == null)
-            {
-                profilService = new ProfilService();
-                profilService.ResourcePath = AdministrationResourcePath.SECURITY_RESOURCE_PATH;//SECURITY_PROFIL_RESOURCE_PATH;
-                profilService.GroupService = GetGroupService();
-                configureService(profilService);
-            }
-            return profilService;
-        }
-        
        
     }
 }

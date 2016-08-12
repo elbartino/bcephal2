@@ -188,48 +188,6 @@ namespace Misp.Sourcing.Base
             }
 
 
-
-
-
-
-            if (fonctionality == SourcingFunctionalitiesCode.LIST_POSTING_GRID_FUNCTIONALITY)
-            {
-                PostingGridBrowserController controller = new PostingGridBrowserController();
-                controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                controller.Functionality = fonctionality;
-                controller.ApplicationManager = this.ApplicationManager;
-                controller.Service = ((SourcingServiceFactory)ServiceFactory).GetPostingGridService();
-                return controller;
-            }
-            if (fonctionality == SourcingFunctionalitiesCode.NEW_POSTING_GRID_FUNCTIONALITY)
-            {
-                PostingGridEditorController controller = new PostingGridEditorController();
-                controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                controller.Functionality = fonctionality;
-                controller.ApplicationManager = this.ApplicationManager;
-                controller.Service = ((SourcingServiceFactory)ServiceFactory).GetPostingGridService();
-                return controller;
-            }
-            if (fonctionality == SourcingFunctionalitiesCode.NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY)
-            {
-                AutomaticPostingGridEditorController automaticSourcingGridController = new AutomaticPostingGridEditorController();
-                automaticSourcingGridController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                automaticSourcingGridController.Functionality = fonctionality;
-                automaticSourcingGridController.ApplicationManager = this.ApplicationManager;
-                automaticSourcingGridController.Service = ((SourcingServiceFactory)ServiceFactory).GetAutomaticPostingGridService();
-                automaticSourcingGridController.InputTableService = ((SourcingServiceFactory)ServiceFactory).GetInputTableService();
-                return automaticSourcingGridController;
-            }
-            if (fonctionality == SourcingFunctionalitiesCode.LIST_AUTOMATIC_POSTING_GRID_FUNCTIONALITY)
-            {
-                AutomaticPostingGridBrowerController automaticSourcingGridBrowerController = new AutomaticPostingGridBrowerController();
-                automaticSourcingGridBrowerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                automaticSourcingGridBrowerController.Functionality = fonctionality;
-                automaticSourcingGridBrowerController.ApplicationManager = this.ApplicationManager;
-                automaticSourcingGridBrowerController.Service = ((SourcingServiceFactory)ServiceFactory).GetAutomaticPostingGridService();
-                return automaticSourcingGridBrowerController;
-            }
-
             return null;
         }
 

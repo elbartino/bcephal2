@@ -107,6 +107,8 @@ namespace Misp.Kernel.Application
                 postingGridService.GroupService = GetGroupService();
                 postingGridService.CalculatedMeasureService = GetCalculatedMeasureService2();
                 postingGridService.PeriodNameService = GetPeriodNameService();
+                postingGridService.PostingService = GetPostingService();
+                postingGridService.ReconciliationContextService = GetReconciliationContextService();
                 configureService(postingGridService);
             }
             return postingGridService;

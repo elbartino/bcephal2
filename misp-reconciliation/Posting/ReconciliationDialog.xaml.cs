@@ -17,17 +17,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Misp.Reconciliation.RecoGrid
+namespace Misp.Reconciliation.Posting
 {
     /// <summary>
-    /// Interaction logic for RecoDialog.xaml
+    /// Interaction logic for ReconciliationDialog.xaml
     /// </summary>
-    public partial class RecoDialog : Window
+    public partial class ReconciliationDialog : Window
     {
-        public ReconciliationGridService ReconciliationGridService { get; set; }
+
+        public PostingGridService PostingGridService { get; set; }
         public Kernel.Domain.ReconciliationContext Context { get; set; }
 
-        public RecoDialog()
+        public ReconciliationDialog()
         {
             InitializeComponent();
             this.confirmationMessageLabel.Content = "You are about to create a reconciliation posting for the selected items.\nDo you confirm the operation?";
@@ -37,7 +38,7 @@ namespace Misp.Reconciliation.RecoGrid
         public void display(IList items, Grille grille)
         {
             this.grid.buildColumns(grille);
-            if(Context == null) Context = this.ReconciliationGridService.ReconciliationContextService.getReconciliationContext();
+            if (Context == null) Context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
             
             List<Object[]> rows = new List<object[]>(0);
             foreach(object item in items){
@@ -72,8 +73,8 @@ namespace Misp.Reconciliation.RecoGrid
                         }
                     }
                 }
-                writeOffForm.debitedOrCreditedAccountComboBox.ItemsSource = accounts;                
-                accounts = this.ReconciliationGridService.PostingService.getWriteOffAccounts();
+                writeOffForm.debitedOrCreditedAccountComboBox.ItemsSource = accounts;
+                accounts = this.PostingGridService.PostingService.getWriteOffAccounts();
                 writeOffForm.writeOffAccountComboBox.ItemsSource = accounts;
                 if (accounts.Count == 1) writeOffForm.writeOffAccountComboBox.SelectedIndex = 0;
             }
@@ -119,7 +120,6 @@ namespace Misp.Reconciliation.RecoGrid
         {
             return (Account)writeOffForm.debitedOrCreditedAccountComboBox.SelectedItem;
         }
-
 
     }
 }
