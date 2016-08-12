@@ -62,7 +62,7 @@ namespace Misp.Kernel.Application
         /// </summary>
         public Controllable ActivePage { get; set; }
 
-
+        public String InternalErrorMessage { get; set; }
 
         /// <summary>
         /// Procède à la fermeture de la page.
@@ -154,7 +154,7 @@ namespace Misp.Kernel.Application
             //worker.OnWorkWithParameter += OnOpenPage;
             //worker.StartWork(token);
             OnOpenPage(token);
-            return OperationState.CONTINUE;
+            return OperationState.CONTINUE ;
         }
 
         /// <summary>
@@ -164,10 +164,11 @@ namespace Misp.Kernel.Application
         /// </summary>
         /// <param name="token"></param>
         protected void OnOpenPage(object param)
-        {            
+        {
+            NavigationToken token = (NavigationToken)param;
+            Controllable page = null;
             try
             {
-                NavigationToken token = (NavigationToken)param;
                 string functionality = token.Functionality;
                 if (functionality == FunctionalitiesCode.ABOUT_FUNCTIONALITY) { OpenAboutDialog(); return; }
                 if (functionality == FunctionalitiesCode.RUN_ALL_ALLOCATION_FUNCTIONALITY) { StartRunAllAllocation(); return; }
@@ -196,7 +197,7 @@ namespace Misp.Kernel.Application
                 if (isMainFonctionality && !(ActivePage != null && ActivePage is FileController))
                 {
                     string activefunctionality = ActivePage != null ? ActivePage.Functionality : null;
-                    Controllable page = searchInOpenedPages(activefunctionality);
+                    page = searchInOpenedPages(activefunctionality);
                     bool tryToSaveActivePage = page != null && activefunctionality != null && !activefunctionality.Equals(functionality);
                     state = tryToSaveActivePage ? page.Close() : OperationState.CONTINUE;
 
@@ -214,7 +215,13 @@ namespace Misp.Kernel.Application
                     }
                     else if (viewType == ViewType.EDITION)
                     {
-                        openEditionPage(token); return;
+                        openEditionPage(token);
+                        if (!String.IsNullOrEmpty(InternalErrorMessage))
+                        {
+                            MessageDisplayer.DisplayError("Error", InternalErrorMessage);
+                            InternalErrorMessage = null;
+                        }
+                        return;
                     }
                     else
                     {
@@ -489,49 +496,59 @@ namespace Misp.Kernel.Application
         /// <param name="token">NavigationToken</param>
         protected OperationState openEditionPage(NavigationToken token)
         {
-            String functionality = token.Functionality;
-            
-            if (functionality == FunctionalitiesCode.FILE_SAVE_FUNCTIONALITY)
-              return saveFile(token);
-
-            Controllable page = searchInOpenedPages(functionality);
-              
-            if (page == null)
+            Controllable page = null;
+            try
             {
-                page = ApplicationManager.ControllerFactory.GetController(functionality);
+                String functionality = token.Functionality;
+
+                if (functionality == FunctionalitiesCode.FILE_SAVE_FUNCTIONALITY)
+                    return saveFile(token);
+
+                page = searchInOpenedPages(functionality);
+
                 if (page == null)
                 {
-                    return openHomePage();
+                    page = ApplicationManager.ControllerFactory.GetController(functionality);
+                    if (page == null)
+                    {
+                        return openHomePage();
+                    }
+                    OpenedPages.Add(page);
+                    page.NavigationToken = token;
+                    page.Initialize();
                 }
-                OpenedPages.Add(page);
-                page.NavigationToken = token;
-                page.Initialize();
-            }
-            openPage(page);
-            EditionMode editionMode = token.EditionMode;
-            object oid = token.ItemId;
-            if (editionMode == EditionMode.CREATE)
-            {
-                page.Create();
-            }
-            else if (editionMode == EditionMode.READ_ONLY)
-            {
-                if (token.ItemIds.Count == 0) page.Open(oid);
+                openPage(page);
+                EditionMode editionMode = token.EditionMode;
+                object oid = token.ItemId;
+                if (editionMode == EditionMode.CREATE)
+                {
+                    page.Create();
+                }
+                else if (editionMode == EditionMode.READ_ONLY)
+                {
+                    if (token.ItemIds.Count == 0) page.Open(oid);
 
-                foreach (object id in token.ItemIds)
+                    foreach (object id in token.ItemIds)
+                    {
+                        if (id != null)
+                            page.Open(id);
+                    }
+                }
+                else if (editionMode == EditionMode.MODIFY)
                 {
-                    if(id!=null)
-                    page.Open(id);
+                    if (token.ItemIds.Count == 0) page.Edit(oid);
+                    foreach (object id in token.ItemIds)
+                    {
+                        if (id != null)
+                            page.Edit(id);
+                    }
                 }
             }
-            else if (editionMode == EditionMode.MODIFY)
+            catch (Exception ex) 
             {
-                if (token.ItemIds.Count == 0) page.Edit(oid);
-                foreach (object id in token.ItemIds)
-                {
-                    if (id != null)
-                        page.Edit(id);
-                }
+                InternalErrorMessage = ex.Message;
+                OnClosePage(page);
+                
             }
             return OperationState.CONTINUE;
         }

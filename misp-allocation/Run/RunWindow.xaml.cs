@@ -43,7 +43,15 @@ namespace Misp.Allocation.Run
         public Controllable Controller;
 
 
-        public string header = " table - Select Tables";
+        //public string header = " table - Select Tables";
+        public string header 
+        {
+            get 
+            {
+                return isRun ? " table - Select Tables" : " grid/table - Select Grids/Tables";
+            }
+        }
+
 
         public string runClearLabel = "";
 
@@ -54,6 +62,14 @@ namespace Misp.Allocation.Run
         public RunWindow()
         {
             InitializeComponent();
+            
+        }
+
+        private bool isRun { get; set; }
+
+        public RunWindow(bool isRunAction) :this()
+        {
+            isRun = isRunAction;
             initializeGrid();
         }
 
@@ -97,7 +113,7 @@ namespace Misp.Allocation.Run
             System.Collections.IList items = grid.SelectedItems;
             if (items == null || items.Count == 0)
             {
-                Kernel.Util.MessageDisplayer.DisplayWarning(runClearLabel+" table", "You have to select at least on table before click "+runClearLabel.ToLower()+"!");
+                Kernel.Util.MessageDisplayer.DisplayWarning(runClearLabel+"table", "You have to select at least on table before click "+runClearLabel.ToLower()+"!");
                 return;
             }
            // this.Close();
@@ -135,7 +151,7 @@ namespace Misp.Allocation.Run
             this.grid.ItemsSource = null;
             foreach(InputTableBrowserData data in datas)
             {
-                if(data.active)
+                if (data.active || data.isGrid)
                 Datas.Add(data);
             }
             //Datas = new System.Collections.ObjectModel.ObservableCollection<InputTableBrowserData>(datas);                     
@@ -163,7 +179,7 @@ namespace Misp.Allocation.Run
             Datas = new System.Collections.ObjectModel.ObservableCollection<InputTableBrowserData>();
             foreach (InputTableBrowserData data in datas)
             {
-                if(data.active)
+                if(data.active || data.isGrid)
                 Datas.Add(data);
             }
             this.grid.ItemsSource = null;
@@ -240,7 +256,7 @@ namespace Misp.Allocation.Run
         /// <returns></returns>
         protected int getColumnCount()
         {
-            return 2;
+            return isRun ? 2 : 3;
         }
 
         /// <summary>
@@ -254,8 +270,9 @@ namespace Misp.Allocation.Run
             {
                 case 0: return new DataGridTextColumn();
                 case 1: return new DataGridTextColumn();
-                case 2: return new DataGridCheckBoxColumn();
+                case 2: return new DataGridTextColumn();
                 case 3: return new DataGridCheckBoxColumn();
+                case 4: return new DataGridCheckBoxColumn();
                 default: return new DataGridTextColumn();
             }
         }
@@ -272,8 +289,9 @@ namespace Misp.Allocation.Run
             {
                 case 0: return "Name";
                 case 1: return "Creation Date";
-                case 2: return "Active";
-                case 3: return "Template";
+                case 2: return "Type";
+                case 3: return "Active";
+                case 4: return "Template";
                 default: return "";
             }
         }
@@ -291,6 +309,7 @@ namespace Misp.Allocation.Run
                 case 1: return 120;
                 case 2: return 70;
                 case 3: return 70;
+                case 4: return 70;
                 default: return 100;
             }
         }
@@ -306,8 +325,9 @@ namespace Misp.Allocation.Run
             {
                 case 0: return "name";
                 case 1: return "creationDate";
-                case 2: return "active";
-                case 3: return "template";
+                case 2: return "type";
+                case 3: return "active";
+                case 4: return "template";
                 default: return "oid";
             }
         }

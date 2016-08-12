@@ -95,7 +95,7 @@ namespace Misp.Allocation.Clear
         /// </returns>
         public OperationState Create() 
         {
-            runWindow = new RunWindow();
+            runWindow = new RunWindow(false);
             runWindow.Owner = ApplicationManager.MainWindow;
             runWindow.initializeGroup(this.Service);
             runWindow.SetRunClearLabel("Clear");
@@ -105,7 +105,7 @@ namespace Misp.Allocation.Clear
                 runWindow.DisplayDatas(this.Service);
                 runWindow.ShowDialog();
             }
-            else MessageDisplayer.DisplayInfo("Clear Table", "There is no runned Table!");
+            else MessageDisplayer.DisplayInfo("Clear Grid/Table", "There is no runned Grid/Table!");
             return OperationState.CONTINUE;
          //   return Clear(); 
         }
@@ -123,7 +123,7 @@ namespace Misp.Allocation.Clear
         public virtual OperationState Clear(TableActionData data=null)
         {
             OperationState state = OperationState.CONTINUE;
-            string message = data == null ? "You are about to clear loaded tables.\n Do you want to continue ?" : "You are about to clear selected loaded tables.\n Do you want to continue ?";
+            string message = data == null ? "You are about to clear loaded grids/tables.\n Do you want to continue ?" : "You are about to clear selected loaded grids/tables.\n Do you want to continue ?";
             MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Clear allocation", message);
             if (response == MessageBoxResult.Yes)
             {
@@ -160,7 +160,7 @@ namespace Misp.Allocation.Clear
                 if (rate > 100) rate = 100;
                 ApplicationManager.MainWindow.LoadingProgressBar.Maximum = runInfo.totalCellCount;
                 ApplicationManager.MainWindow.LoadingProgressBar.Value = runInfo.runedCellCount;
-                ApplicationManager.MainWindow.LoadingLabel.Content = "Tables clearing: " + rate + " %"
+                ApplicationManager.MainWindow.LoadingLabel.Content = "Grids/Tables clearing: " + rate + " %"
                     + " (" + runInfo.runedCellCount + "/" + runInfo.totalCellCount + ")";
             }
         }
@@ -191,7 +191,7 @@ namespace Misp.Allocation.Clear
 
                 this.ApplicationManager.MainWindow.StatusBarLabel2.Content = "";
                 this.ApplicationManager.MainWindow.SetPogressBar2Visible(false);
-                Kernel.Util.MessageDisplayer.DisplayInfo("Clear table", "Clear table ended!");
+                Kernel.Util.MessageDisplayer.DisplayInfo("Clear grid/table", "Clear grid/table ended!");
                 this.ApplicationManager.AllocationCount = this.Service.FileService.GetAllocationCount();
                 Service.FileService.SaveCurrentFile();
             }
@@ -199,7 +199,7 @@ namespace Misp.Allocation.Clear
             {
                 int rate = runInfo.totalCellCount != 0 ? (Int32)(runInfo.runedCellCount * 100 / runInfo.totalCellCount) : 0;
                 if (rate > 100) rate = 100;
-                this.ApplicationManager.MainWindow.StatusBarLabel2.Content = rate == 100 ? "Clear table ended!" : "Clear table...";
+                this.ApplicationManager.MainWindow.StatusBarLabel2.Content = rate == 100 ? "Clear grid/table ended!" : "Clear grid/table...";
                 this.ApplicationManager.MainWindow.UpdatePogressBar2(runInfo.runedCellCount, runInfo.totalCellCount, "" + rate + " %");
             }
         }

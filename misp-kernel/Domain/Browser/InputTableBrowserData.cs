@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,17 @@ namespace Misp.Kernel.Domain.Browser
 
         public string lastUpdate { get; set; }
 
+        public bool isGrid { get; set; }
+
+        [JsonIgnore]
+        public String type
+        {
+            get
+            {
+                return this.isGrid ? "Grid" : "InputTable";
+            }
+        } 
+
         public InputTableBrowserData() { }
 
         public InputTableBrowserData(InputTableBrowserData data)
@@ -29,5 +41,10 @@ namespace Misp.Kernel.Domain.Browser
             this.lastUpdate = data.lastUpdate;
         }
 
+        public InputTableBrowserData(InputTableBrowserData data,bool isgrid)
+            : this(data)
+        {
+            this.isGrid = isgrid;
+        }
     }
 }
