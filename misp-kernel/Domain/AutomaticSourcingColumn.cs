@@ -319,5 +319,17 @@ namespace Misp.Kernel.Domain
         {
             this.parameterType = (Kernel.Application.ParameterType)element;
         }
+
+
+        public bool isValid()
+        {
+            return this.parameterType != null && (
+                (this.parameterType == ParameterType.SCOPE && this.attribute != null) ||
+                (this.parameterType == ParameterType.MEASURE && this.measure != null) ||
+                (this.parameterType == ParameterType.PERIOD && !string.IsNullOrWhiteSpace(this.periodName)) ||
+                (this.parameterType == ParameterType.TARGET && this.columnTargetItemListChangeHandler.Items.Count > 0)
+                );       
+        }
+
     }
 }

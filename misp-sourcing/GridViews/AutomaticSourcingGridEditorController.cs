@@ -1,6 +1,7 @@
 ﻿using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
+using Misp.Kernel.Util;
 using Misp.Sourcing.AutomaticSourcingViews;
 using Misp.Sourcing.Base;
 using System;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Misp.Sourcing.GridViews
 {
@@ -19,13 +21,42 @@ namespace Misp.Sourcing.GridViews
         AutomaticGridDataDialog dialog;
         protected override void performRun(AutomaticSourcingEditorItem page)
         {
-            dialog = new AutomaticGridDataDialog();
-            dialog.InputGridService = ApplicationManager.ControllerFactory.ServiceFactory.GetInputGridService();
-            dialog.loadGrids();
-            dialog.NewGridNameTextBox.Text = page.getAutomaticSourcingForm().SpreadSheet.DocumentName;
-            dialog.cancelButton.Click += OnCancelAutomaticGridDataDialog;
-            dialog.runButton.Click += OnRunAutomaticGridDataDialog;
-            dialog.ShowDialog();            
+            if (validateColumns(page))
+            {
+                dialog = new AutomaticGridDataDialog();
+                dialog.InputGridService = ApplicationManager.ControllerFactory.ServiceFactory.GetInputGridService();
+                dialog.loadGrids();
+                dialog.NewGridNameTextBox.Text = page.getAutomaticSourcingForm().SpreadSheet.DocumentName;
+                dialog.cancelButton.Click += OnCancelAutomaticGridDataDialog;
+                dialog.runButton.Click += OnRunAutomaticGridDataDialog;
+                dialog.ShowDialog();
+            }
+        }
+
+        protected virtual bool validateColumns(AutomaticSourcingEditorItem page)
+        {
+            List<String> columns = new List<string>(0);
+            foreach (AutomaticSourcingSheet sheet in page.EditedObject.automaticSourcingSheetListChangeHandler.Items)
+            {
+                foreach (AutomaticSourcingColumn column in sheet.automaticSourcingColumnListChangeHandler.Items)
+                {
+                    if (!column.isValid()) columns.Add(column.Name);
+                }
+            }
+            if (columns.Count > 0)
+            {
+                String message = "There is columns with no definition : ";
+                String coma = "";
+                foreach (String column in columns) {
+                    message += coma + "\"" + column + "\"";
+                    coma = ", ";
+                }
+                message += "\nDo you want to continue?";
+                MessageBoxResult response =  MessageDisplayer.DisplayYesNoQuestion("Run", message);
+                if (response == MessageBoxResult.Yes) return true;
+                return false;
+            }
+            return true;
         }
 
         private void OnRunAutomaticGridDataDialog(object sender, System.Windows.RoutedEventArgs e)
