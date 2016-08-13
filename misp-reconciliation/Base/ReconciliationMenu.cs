@@ -28,9 +28,9 @@ namespace Misp.Reconciliation.Base
         {
             List<Control> menus = new List<Control>(0);
             menus.Add(ReconciliationPostingMenu);
-            menus.Add(new Separator());
-            menus.Add(ReconciliationFiltersMenu);
-            menus.Add(ReconciliationFiltersListMenu);
+            //menus.Add(new Separator());
+           // menus.Add(ReconciliationFiltersMenu);
+           // menus.Add(ReconciliationFiltersListMenu);
             menus.Add(new Separator());
             menus.Add(ReconciliationContextMenu);
             return menus;
