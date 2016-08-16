@@ -59,7 +59,7 @@ namespace Misp.Reporting.StructuredReport
         {
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            Socket socket = new Socket(SocketResourcePath + "/structured/run/");
+            Socket socket = buildSocket(SocketResourcePath + "/structured/run/");
             socket.OnMessage += (sender, e) =>
             {
                 AllocationRunInfo runInfo = deserializeRunInfo(e.Data);

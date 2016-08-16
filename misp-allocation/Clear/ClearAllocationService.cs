@@ -31,7 +31,7 @@ namespace Misp.Allocation.Clear
 
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            Socket socket = new Socket(SocketResourcePath + "/clear/");
+            Socket socket = buildSocket(SocketResourcePath + "/clear/");
             socket.OnMessage += (sender, e) =>
             {
                 AllocationRunInfo runInfo = deserializeRunInfo(e.Data);
@@ -80,7 +80,7 @@ namespace Misp.Allocation.Clear
         {
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            Socket socket = new Socket(ClearAllSocketResourcePath);
+            Socket socket = buildSocket(ClearAllSocketResourcePath);
             socket.OnOpen += (sender, e) => { logger.Debug("Socket opened"); };
             socket.OnError += (sender, e) => { logger.Debug("Socket error  : " + e.Message); };
             socket.OnClose += (sender, e) => { logger.Debug("Socket closed : " + e.Reason); };

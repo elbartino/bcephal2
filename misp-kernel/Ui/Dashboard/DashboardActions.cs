@@ -101,7 +101,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            Socket socket = new Socket(ResourcePath.SOCKET_ALLOCATION_RESOURCE_PATH + "/run/all/");
+            Socket socket = buildSocket(ResourcePath.SOCKET_ALLOCATION_RESOURCE_PATH + "/run/all/");
             socket.OnMessage += (sender, e) =>
             {
                 AllocationRunInfo runInfo = deserializeRunInfo(e.Data);
@@ -127,7 +127,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            Socket socket = new Socket(ResourcePath.SOCKET_ALLOCATION_RESOURCE_PATH + "/clear/");
+            Socket socket = buildSocket(ResourcePath.SOCKET_ALLOCATION_RESOURCE_PATH + "/clear/");
             socket.OnMessage += (sender, e) =>
             {
                 AllocationRunInfo runInfo = deserializeRunInfo(e.Data);
@@ -246,7 +246,7 @@ namespace Misp.Kernel.Ui.Dashboard
             
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            Socket socket = new Socket(ResourcePath.SOCKET_REPORT_RESOURCE_PATH + "/run/all/");
+            Socket socket = buildSocket(ResourcePath.SOCKET_REPORT_RESOURCE_PATH + "/run/all/");
             socket.OnMessage += (sender, e) =>
             {
                 AllocationRunInfo runInfo = deserializeRunInfo(e.Data);
@@ -362,7 +362,7 @@ namespace Misp.Kernel.Ui.Dashboard
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
 
-            Socket socket = new Socket(ResourcePath.SOCKET_AUTOMATIC_SOURCING_RESOURCE_PATH + "/Run/");
+            Socket socket = buildSocket(ResourcePath.SOCKET_AUTOMATIC_SOURCING_RESOURCE_PATH + "/Run/");
             socket.OnMessage += (sender, e) =>
             {
                 SaveInfo info = deserializeSaveInfo(e.Data);
@@ -582,7 +582,7 @@ namespace Misp.Kernel.Ui.Dashboard
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
             string socketHeader = "/run/" + (oids != null && oids.Count > 1 ? "all/" : "");
-            socket = new Socket(ResourcePath.SOCKET_TRANSFORMATION_TREE_RESOURCE_PATH + socketHeader);
+            socket = buildSocket(ResourcePath.SOCKET_TRANSFORMATION_TREE_RESOURCE_PATH + socketHeader);
             socket.OnMessage += (sender, e) =>
             {
                 PowerpointLoadInfo pptLoadInfo = deserializePowerpointLoadInfo(e.Data);
@@ -622,7 +622,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            Socket socket = new Socket(ResourcePath.SOCKET_TRANSFORMATION_TREE_RESOURCE_PATH + "/clear/");
+            Socket socket = buildSocket(ResourcePath.SOCKET_TRANSFORMATION_TREE_RESOURCE_PATH + "/clear/");
             
             socket.OnMessage += (sender, e) =>
             {
@@ -800,7 +800,7 @@ namespace Misp.Kernel.Ui.Dashboard
             
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            socket = new Socket(ResourcePath.SOCKET_TRANSFORMATION_TREE_RESOURCE_PATH + "/run/all/");
+            socket = buildSocket(ResourcePath.SOCKET_TRANSFORMATION_TREE_RESOURCE_PATH + "/run/all/");
             socket.OnMessage += (sender, e) =>
             {
                 PowerpointLoadInfo pptLoadInfo = deserializePowerpointLoadInfo(e.Data);
@@ -840,7 +840,7 @@ namespace Misp.Kernel.Ui.Dashboard
             Mask(true, "Clearing...");
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            Socket socket = new Socket(ResourcePath.SOCKET_TRANSFORMATION_TREE_RESOURCE_PATH + "/clear/");            
+            Socket socket = buildSocket(ResourcePath.SOCKET_TRANSFORMATION_TREE_RESOURCE_PATH + "/clear/");            
             socket.OnMessage += (sender, e) =>
             {
                 AllocationRunInfo runInfo = deserializeRunInfo(e.Data, false);
@@ -925,7 +925,7 @@ namespace Misp.Kernel.Ui.Dashboard
             Mask(true, "Running...");
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            Socket socket = new Socket(ResourcePath.SOCKET_REPORT_RESOURCE_PATH + "/structured/run/");
+            Socket socket = buildSocket(ResourcePath.SOCKET_REPORT_RESOURCE_PATH + "/structured/run/");
             socket.OnMessage += (sender, e) =>
             {
                 AllocationRunInfo runInfo = deserializeRunInfo(e.Data, false);
@@ -1058,6 +1058,18 @@ namespace Misp.Kernel.Ui.Dashboard
                     ApplicationManager.Instance.MainWindow.setCloseButton1ToolTip("Stop run");
                 }
             }
+        }
+
+        public Socket buildSocket(string path)
+        {
+            String login = "";
+            String password = "";
+            if (ApplicationManager.Instance.User != null)
+            {
+                login = ApplicationManager.Instance.User.login;
+                password = ApplicationManager.Instance.User.password;
+            }
+            return new Socket(path, login, password);
         }
 
     }

@@ -62,7 +62,7 @@ namespace Misp.Sourcing.Table
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
 
-            Socket socket = new Socket(SocketResourcePath + "/Save/");            
+            Socket socket = buildSocket(SocketResourcePath + "/Save/"); 
             socket.OnMessage += (sender, e) =>
             {
                 SaveInfo info = deserializeSaveInfo(e.Data);
@@ -128,7 +128,7 @@ namespace Misp.Sourcing.Table
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
 
-            Socket socket = new Socket(SocketResourcePath + "/SaveAs/");
+            Socket socket = buildSocket(SocketResourcePath + "/SaveAs/");
             socket.OnMessage += (sender, e) =>
             {
                 SaveInfo info = deserializeSaveInfo(e.Data);
@@ -201,7 +201,7 @@ namespace Misp.Sourcing.Table
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
 
-            Socket socket = new Socket(SocketResourcePath + "/multiple_load/");            
+            Socket socket = buildSocket(SocketResourcePath + "/multiple_load/");            
             socket.OnMessage += (sender, e) =>
             {
                 SaveInfo info = deserializeSaveInfo(e.Data);
@@ -615,7 +615,7 @@ namespace Misp.Sourcing.Table
         {
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            Socket socket = new Socket(SocketResourcePath + "/run/");
+            Socket socket = buildSocket(SocketResourcePath + "/run/");
             socket.OnMessage += (sender, e) =>
             {
                 AllocationRunInfo runInfo = deserializeRunInfo(e.Data);
@@ -647,7 +647,7 @@ namespace Misp.Sourcing.Table
 
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            Socket socket = new Socket(SocketResourcePath + "/clear/");
+            Socket socket = buildSocket(SocketResourcePath + "/clear/");
             socket.OnOpen += (sender, e) => { logger.Debug("Socket opened"); };
             socket.OnError += (sender, e) => { logger.Debug("Socket error  : " + e.Message); };
             socket.OnClose += (sender, e) => { logger.Debug("Socket closed : " + e.Reason); };

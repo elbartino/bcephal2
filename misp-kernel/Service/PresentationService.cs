@@ -82,7 +82,7 @@ namespace Misp.Kernel.Service
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
 
-            Socket socket = new Socket(SocketResourcePath + "/Save/");
+            Socket socket = buildSocket(SocketResourcePath + "/Save/");
             socket.OnMessage += (sender, e) =>
             {
                 SaveInfo info = deserializeSaveInfo(e.Data);

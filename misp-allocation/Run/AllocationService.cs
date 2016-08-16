@@ -25,7 +25,7 @@ namespace Misp.Allocation.Run
         {
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            Socket socket = new Socket(SocketResourcePath + "/run/all/");
+            Socket socket = buildSocket(SocketResourcePath + "/run/all/");
             socket.OnMessage += (sender, e) =>
             {
                 AllocationRunInfo runInfo = deserializeRunInfo(e.Data);

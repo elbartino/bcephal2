@@ -23,10 +23,11 @@ namespace Misp.Kernel.Service
         public string ResourcePath { get; set; }
 
 
-        public Socket(string path) : base(path)
+        public Socket(string path, string user, string password) : base(path)
         {
             logger = LogManager.GetLogger(this.GetType());
             this.ResourcePath = path;
+            this.SetCredentials(user, password, true);
             //Initialize();
         }
 

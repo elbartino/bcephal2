@@ -520,5 +520,17 @@ namespace Misp.Kernel.Service
             return serializer.Serialize(item);
         }
 
+        public Socket buildSocket(string path)
+        {
+            String login = "";
+            String password = "";
+            if (Application.ApplicationManager.Instance.User != null)
+            {
+                login = Application.ApplicationManager.Instance.User.login;
+                password = Application.ApplicationManager.Instance.User.password;
+            }
+            return new Socket(path, login, password);
+        }
+
     }
 }

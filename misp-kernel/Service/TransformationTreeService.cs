@@ -144,7 +144,7 @@ namespace Misp.Kernel.Service
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
             string socketHeader = "/run/" + (isRunAllMode ? "all/" : "");
-            Socket socket = new Socket(SocketResourcePath +socketHeader);
+            Socket socket =buildSocket(SocketResourcePath +socketHeader);
             socket.OnMessage += (sender, e) =>
             {
                 PowerpointLoadInfo pptLoadInfo = deserializePowerpointLoadInfo(e.Data);
@@ -192,7 +192,7 @@ namespace Misp.Kernel.Service
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
 
-            Socket socket = new Socket(SocketResourcePath + "/Save/");
+            Socket socket =buildSocket(SocketResourcePath + "/Save/");
             socket.OnMessage += (sender, e) =>
             {
                 SaveInfo info = deserializeSaveInfo(e.Data);
@@ -277,7 +277,7 @@ namespace Misp.Kernel.Service
         {
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             serializer.MaxJsonLength = int.MaxValue;
-            Socket socket = new Socket(SocketResourcePath + "/clear/");
+            Socket socket = buildSocket(SocketResourcePath + "/clear/");
             socket.OnOpen += (sender, e) => { logger.Debug("Socket opened"); };
             socket.OnError += (sender, e) => { logger.Debug("Socket error  : " + e.Message); };
             socket.OnClose += (sender, e) => { logger.Debug("Socket closed : " + e.Reason); };
