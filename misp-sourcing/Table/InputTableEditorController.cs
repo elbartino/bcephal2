@@ -167,7 +167,6 @@ namespace Misp.Sourcing.Table
         /// </returns>
         public override OperationState Create()
         {
-            getInputTableEditor().TempTableFolder = System.IO.Path.GetTempPath() + "bcephal\\tables\\";
             InputTable table = GetNewInputTable();
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.AddInputTable(table);
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().addOrSelectPage(table);
@@ -222,7 +221,7 @@ namespace Misp.Sourcing.Table
             {
 
             }
-            getInputTableEditor().TempTableFolder = tempPath;
+           
             filePath = tempPath + table.name + EdrawOffice.EXCEL_EXT;
 
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.AddInputTableIfNatExist(table);
@@ -2909,7 +2908,7 @@ namespace Misp.Sourcing.Table
         protected virtual string buildExcelFilePath(string name)
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
-            string excelDir = getInputTableEditor().TempTableFolder;
+            string excelDir = "";
             string filePath = excelDir + name + EdrawOffice.EXCEL_EXT;
             string newName = name;
             int i = 0;
@@ -2925,11 +2924,6 @@ namespace Misp.Sourcing.Table
         }
 
 
-        protected virtual string getExcelTempFolder() 
-        {
-            return getInputTableEditor().TempTableFolder;
-        }
-
         protected virtual string getExcelFolder()
         {
             Kernel.Service.FileDirs fileDirs = this.Service.FileService.GetFileDirs();
@@ -2943,28 +2937,30 @@ namespace Misp.Sourcing.Table
         /// <returns></returns>
         protected override InputTable GetObjectByName(string name)
         {
-            return ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.getInputTableByName(name);
-            //return GetInputTableService().getByName(name);
+            //return ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.getInputTableByName(name);
+            return GetInputTableService().getByName(name);
         }
 
         protected override string getNewPageName(string prefix)
         {
-            int i = 1;
-            string name = prefix + i;
-            bool valid = false;
-            while (!valid)
-            {
-                name = prefix + i;
-                InputTable obj = GetObjectByName(name);
-                if (obj == null)
-                {
-                    string fileName = buildExcelFilePath(name);
-                    if (!System.IO.File.Exists(fileName)) return name;
-                }
-                i++;
-            }
-            return name;
+            //int i = 1;
+            //string name = prefix + i;
+            //bool valid = false;
+            //while (!valid)
+            //{
+            //    name = prefix + i;
+            //    InputTable obj = GetObjectByName(name);
+            //    if (obj == null)
+            //    {
+            //        string fileName = buildExcelFilePath(name);
+            //        if (!System.IO.File.Exists(fileName)) return name;
+            //    }
+            //    i++;
+            //}
+            return GetInputTableService().getNewTableName(prefix);
         }
+
+
 
         protected virtual void UpdateInputTableSidebarName(string newName, string tableName, bool updateGroup)
         {

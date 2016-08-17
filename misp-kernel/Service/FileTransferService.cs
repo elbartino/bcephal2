@@ -38,9 +38,9 @@ namespace Misp.Kernel.Service
         {
             try
             {
-                string ext = Path.GetExtension(path);
-                string namewithNoext = Path.GetFileNameWithoutExtension(path);
-                string copy = namewithNoext + "-copy" + ext;
+                string ext = Path.GetExtension(name);
+                string namewithNoext = Path.GetFileNameWithoutExtension(name);
+                string copy = path +"\\"+ namewithNoext + "-copy" + ext;
                 if (!File.Exists(path)) return false;
                 File.Copy(path, copy);
                 byte[] dataToSend = File.ReadAllBytes(copy);
