@@ -69,6 +69,7 @@ namespace Misp.Sourcing.GridViews
             {
                 grid.CellEditEnding -= OnCellEditEnding;
                 grid.Sorting -= OnSort;
+                grid.SelectionChanged -= onSelectionchange;
                 if (this.BrowserGridContextMenu != null)
                 {
                     //this.BrowserGridContextMenu.NewMenuItem.Click -= OnNewMenuClick;
@@ -117,6 +118,7 @@ namespace Misp.Sourcing.GridViews
 
         private void onSelectionchange(object sender, SelectionChangedEventArgs e)
         {
+            if (e.OriginalSource != sender) return;
             if (ChangeHandler != null) ChangeHandler();
         }
 
@@ -254,15 +256,14 @@ namespace Misp.Sourcing.GridViews
             displayRows(page.rows);
         }
 
+       
         public void displayRows(List<object[]> rows)
         {
-            //CollectionViewSource collection = new CollectionViewSource();
             ObservableCollection<GridItem> items = new ObservableCollection<GridItem>();
             foreach (object[] row in rows)
             {
                 items.Add(new GridItem(row));                
             }
-            //collection.Source = items;
             this.grid.ItemsSource = items;
         }
 

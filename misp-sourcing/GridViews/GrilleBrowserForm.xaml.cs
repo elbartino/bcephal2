@@ -23,6 +23,7 @@ namespace Misp.Sourcing.GridViews
     public partial class GrilleBrowserForm : Grid, IEditableView<Grille>
     {
         
+        protected bool throwHandler = true;
 
         /// <summary>
         /// Indique si la vue a été modifiée.
@@ -121,9 +122,11 @@ namespace Misp.Sourcing.GridViews
         /// </summary>
         public void displayObject()
         {
+            throwHandler = false;
             if (this.EditedObject == null)
             {
                 this.filterForm.Display(null);
+                throwHandler = true;
                 return;
             }
 
@@ -135,9 +138,11 @@ namespace Misp.Sourcing.GridViews
             }
 
             this.filterForm.Display(this.EditedObject.GrilleFilter);
-            if (!this.gridBrowser.RebuildGrid) return;            
-            this.gridBrowser.buildColumns(this.EditedObject);
-            //this.filterForm.OnChange();
+            if (this.gridBrowser.RebuildGrid)
+            {
+                this.gridBrowser.buildColumns(this.EditedObject);
+            }
+            throwHandler = true;
         }
 
         public void displayPage(GrillePage page)
