@@ -496,8 +496,10 @@ namespace Misp.Sourcing.Table
                 Mask(false);
                 return OperationState.STOP;
             }
-            GetInputTableService().FileService.FileTransferService.uploadTable(page.EditedObject.excelFileName);
-            
+            String file = currentPage.getInputTableForm().SpreadSheet.DocumentName;
+            String path = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
+            GetInputTableService().FileService.FileTransferService.uploadTable(file, path);
+            page.EditedObject.excelFileName = file;            
 
             if (!saveAs)
             {

@@ -13,32 +13,6 @@ namespace Misp.Kernel.Service
     public class FileTransferService : Service<Domain.Persistent, BrowserData>
     {
 
-        public bool uploadFile()
-        {
-            try
-            {
-                string name = "cards";
-                string ext = ".xlsx";
-                string filePath = "D:\\" + name + ext;
-                var request = new RestRequest(ResourcePath + "/upload/" + name + "/" + ext, Method.POST);
-                request.AddHeader("Content-Type", "application/octet-stream");
-                request.RequestFormat = RestSharp.DataFormat.Json;
-                byte[] dataToSend = File.ReadAllBytes(filePath);
-                request.AddParameter("application/octet-stream", dataToSend, ParameterType.RequestBody);
-                IRestResponse response = RestClient.Execute(request);
-                JavaScriptSerializer Serializer = new JavaScriptSerializer();
-                Serializer.MaxJsonLength = int.MaxValue;
-                bool ok = Serializer.Deserialize<bool>(response.Content);
-                return ok;
-            }
-            catch (Exception e)
-            {
-                logger.Error("Unable to save Item.", e);
-            }
-            return false;
-        }
-
-
         public String downloadTable(String name)
         {
             try
@@ -60,37 +34,30 @@ namespace Misp.Kernel.Service
             return null;
         }
 
-        public bool uploadTable(String name)
+        public bool uploadTable(String name, String path)
         {
             try
             {
-                string tempPath = System.IO.Path.GetTempPath() + "bcephal\\tables\\";
-                Directory.CreateDirectory(tempPath);
-                string filePath = tempPath + name;
-                string ext = Path.GetExtension(name);
-                string namewithNoext = Path.GetFileNameWithoutExtension(name);
-                string nameCopy = namewithNoext + "-copy";
-                if (!File.Exists(filePath))
-                {
-                    File.Create(filePath);
-                }
-                File.Copy(filePath, (tempPath + nameCopy + ext));
-                filePath = tempPath + nameCopy + ext;
-                byte[] dataToSend = File.ReadAllBytes(filePath);
-                File.Delete(filePath);
-                var request = new RestRequest(ResourcePath + "/upload/" + namewithNoext + "/" + ext, Method.POST);
+                string ext = Path.GetExtension(path);
+                string namewithNoext = Path.GetFileNameWithoutExtension(path);
+                string copy = namewithNoext + "-copy" + ext;
+                if (!File.Exists(path)) return false;
+                File.Copy(path, copy);
+                byte[] dataToSend = File.ReadAllBytes(copy);
+                File.Delete(copy);
+                var request = new RestRequest(ResourcePath + "/upload-table/" + name, Method.POST);
                 request.AddHeader("Content-Type", "application/octet-stream");
                 request.RequestFormat = RestSharp.DataFormat.Json;
                 request.AddParameter("application/octet-stream", dataToSend, ParameterType.RequestBody);
                 IRestResponse response = RestClient.Execute(request);
                 JavaScriptSerializer Serializer = new JavaScriptSerializer();
                 Serializer.MaxJsonLength = int.MaxValue;
-                String messageRes = Serializer.Deserialize<String>(response.Content);
-                return true;
+                bool ok = Serializer.Deserialize<bool>(response.Content);
+                return ok;
             }
             catch (Exception e)
             {
-                logger.Error("Unable to save Item.", e);
+                logger.Error("Unable to save file.", e);
             }
             return false;
         }
@@ -116,7 +83,30 @@ namespace Misp.Kernel.Service
             return false;
         }
 
-
+        public bool uploadFile()
+        {
+            try
+            {
+                string name = "cards";
+                string ext = ".xlsx";
+                string filePath = "D:\\" + name + ext;
+                var request = new RestRequest(ResourcePath + "/upload/" + name + "/" + ext, Method.POST);
+                request.AddHeader("Content-Type", "application/octet-stream");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                byte[] dataToSend = File.ReadAllBytes(filePath);
+                request.AddParameter("application/octet-stream", dataToSend, ParameterType.RequestBody);
+                IRestResponse response = RestClient.Execute(request);
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                bool ok = Serializer.Deserialize<bool>(response.Content);
+                return ok;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to save Item.", e);
+            }
+            return false;
+        }
         
 
     }
