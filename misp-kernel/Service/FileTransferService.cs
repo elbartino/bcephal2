@@ -39,6 +39,26 @@ namespace Misp.Kernel.Service
         }
 
 
+        public String downloadTable(String name)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/download-table/" + name, Method.GET);
+                request.AddHeader("Content-Type", "application/octet-stream");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                byte[] data = RestClient.DownloadData(request);
+                string tempPath = System.IO.Path.GetTempPath() + "bcephal\\tables\\";
+                Directory.CreateDirectory(tempPath);
+                string filePath = tempPath + name;
+                File.WriteAllBytes(filePath, data);
+                return filePath;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to save Item.", e);
+            }
+            return null;
+        }
 
         public bool downloadFile()
         {

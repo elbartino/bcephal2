@@ -215,7 +215,13 @@ namespace Misp.Sourcing.Table
         public override OperationState Open(InputTable table)
         {
             string excelDir = getExcelFolder();
-            string filePath = excelDir + table.name + EdrawOffice.EXCEL_EXT ;
+            string filePath = excelDir + table.name + EdrawOffice.EXCEL_EXT;
+            filePath = GetInputTableService().FileService.FileTransferService.downloadTable(table.name + EdrawOffice.EXCEL_EXT);
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+
+            }
+
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.AddInputTableIfNatExist(table);
             EditorItem<InputTable> page = getEditor().addOrSelectPage(table);   
             ((InputTableEditorItem)page).getInputTableForm().SpreadSheet.Open(filePath, EdrawOffice.EXCEL_ID);

@@ -141,6 +141,7 @@ namespace Misp.Kernel.Application
                 fileService.ResourcePath = ResourcePath.FILE_RESOURCE_PATH;
                 fileService.FileService = fileService;
                 fileService.DashBoardService = GetDashBoardService();
+                fileService.FileTransferService = GetFileTransferService();
                 configureService(fileService);
             }
             return fileService;

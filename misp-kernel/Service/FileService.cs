@@ -27,6 +27,8 @@ namespace Misp.Kernel.Service
 
         public DashBoardService DashBoardService { get; set; }
 
+        public FileTransferService FileTransferService { get; set; }
+
         /// <summary>
         /// Is server alive?
         /// </summary>
