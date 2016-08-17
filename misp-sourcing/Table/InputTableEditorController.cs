@@ -481,31 +481,31 @@ namespace Misp.Sourcing.Table
         protected OperationState saveSpreedSheet(EditorItem<InputTable> page, String fileName = null,bool saveAs = false) 
         {
             InputTableEditorItem currentPage = (InputTableEditorItem)page;
-            String filePath = buildExcelFileName(page.EditedObject.excelFileName);
+            String excelfileName = buildExcelFileName(page.EditedObject.excelFileName);
             //page.EditedObject.excelFileName = filePath;
             String oldFilePath = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
             if (String.IsNullOrEmpty(page.EditedObject.excelFileName)) page.EditedObject.excelFileName = page.EditedObject.name + EdrawOffice.EXCEL_EXT;
-
-            String pathexcel = GetInputTableService().FileService.GetFileDirs().TempTableFolder + filePath;
+            String tempFolder = GetInputTableService().FileService.GetFileDirs().TempTableFolder;
+            String pathexcel = tempFolder + excelfileName;
 
             if (currentPage.getInputTableForm().SpreadSheet.SaveAs(pathexcel, true) != OperationState.CONTINUE)
             {
                 String name = page.EditedObject is Report ? "Report" : "Input Table";
-                MessageDisplayer.DisplayError("Unable to save " + name, "Unable to save file :\n" + filePath);
+                MessageDisplayer.DisplayError("Unable to save " + name, "Unable to save file :\n" + excelfileName);
                 if (currentPage.groupProperty != null) GetInputTableService().buildCellProperty(page.EditedObject.name, currentPage.groupProperty);
                 Mask(false);
                 return OperationState.STOP;
             }
             String file = currentPage.getInputTableForm().SpreadSheet.DocumentName;
             String path = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
-            GetInputTableService().FileService.FileTransferService.uploadTable(file, path);
-            page.EditedObject.excelFileName = file;            
+            GetInputTableService().FileService.FileTransferService.uploadTable(excelfileName, tempFolder);
+            page.EditedObject.excelFileName = excelfileName;            
 
             if (!saveAs)
             {
                 try
                 {
-                    if (!String.IsNullOrWhiteSpace(oldFilePath) && !oldFilePath.Equals(filePath) && System.IO.File.Exists(oldFilePath))
+                    if (!String.IsNullOrWhiteSpace(oldFilePath) && !oldFilePath.Equals(excelfileName) && System.IO.File.Exists(oldFilePath))
                     {
                         string bcephalFileName = System.IO.Directory.GetParent(oldFilePath).Parent.Name;
                         if (bcephalFileName.Equals(ApplicationManager.File.name)) System.IO.File.Delete(oldFilePath);

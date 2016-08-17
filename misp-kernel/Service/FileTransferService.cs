@@ -40,7 +40,8 @@ namespace Misp.Kernel.Service
                 string ext = Path.GetExtension(name);
                 string namewithNoext = Path.GetFileNameWithoutExtension(name);
                 string copy = path +"\\"+ namewithNoext + "-copy" + ext;
-                if (!File.Exists(path)) return false;
+                if (!Directory.Exists(path)) return false;
+                path += name;
                 File.Copy(path, copy);
                 byte[] dataToSend = File.ReadAllBytes(copy);
                 File.Delete(copy);
