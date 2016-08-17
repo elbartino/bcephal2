@@ -68,7 +68,8 @@ namespace Misp.Kernel.Service
                 Directory.CreateDirectory(tempPath);
                 string filePath = tempPath + name;
                 string ext = Path.GetExtension(name);
-                string nameCopy = Path.GetFileNameWithoutExtension(name) + "-copy";
+                string namewithNoext = Path.GetFileNameWithoutExtension(name);
+                string nameCopy = namewithNoext + "-copy";
                 if (!File.Exists(filePath))
                 {
                     File.Create(filePath);
@@ -77,7 +78,7 @@ namespace Misp.Kernel.Service
                 filePath = tempPath + nameCopy + ext;
                 byte[] dataToSend = File.ReadAllBytes(filePath);
                 File.Delete(filePath);
-                var request = new RestRequest(ResourcePath + "/upload-table/" + name, Method.POST);
+                var request = new RestRequest(ResourcePath + "/upload/" + namewithNoext + "/" + ext, Method.POST);
                 request.AddHeader("Content-Type", "application/octet-stream");
                 request.RequestFormat = RestSharp.DataFormat.Json;
                 request.AddParameter("application/octet-stream", dataToSend, ParameterType.RequestBody);

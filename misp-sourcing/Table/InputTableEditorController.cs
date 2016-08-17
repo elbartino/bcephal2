@@ -167,6 +167,7 @@ namespace Misp.Sourcing.Table
         /// </returns>
         public override OperationState Create()
         {
+            getInputTableEditor().TempTableFolder = System.IO.Path.GetTempPath() + "bcephal\\tables\\";
             InputTable table = GetNewInputTable();
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.AddInputTable(table);
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().addOrSelectPage(table);
@@ -495,11 +496,8 @@ namespace Misp.Sourcing.Table
                 Mask(false);
                 return OperationState.STOP;
             }
-            bool ok = GetInputTableService().FileService.FileTransferService.uploadTable(page.EditedObject.excelFileName);
-            if (!ok)
-            {
-                return OperationState.STOP;
-            }
+            GetInputTableService().FileService.FileTransferService.uploadTable(page.EditedObject.excelFileName);
+            
 
             if (!saveAs)
             {
