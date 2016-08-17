@@ -27,6 +27,8 @@ namespace Misp.Sourcing.Table
 
         public Kernel.Service.GroupService GroupService { get; set; }
 
+        public String TempTableFolder { get; set; }
+
         protected override void InitializeNewPage()
         {
             base.InitializeNewPage();

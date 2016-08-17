@@ -216,11 +216,13 @@ namespace Misp.Sourcing.Table
         {
             string excelDir = getExcelFolder();
             string filePath = excelDir + table.name + EdrawOffice.EXCEL_EXT;
-            filePath = GetInputTableService().FileService.FileTransferService.downloadTable(table.name + EdrawOffice.EXCEL_EXT);
+            string tempPath = GetInputTableService().FileService.FileTransferService.downloadTable(table.name + EdrawOffice.EXCEL_EXT);
             if (string.IsNullOrWhiteSpace(filePath))
             {
 
             }
+            getInputTableEditor().TempTableFolder = tempPath;
+            filePath = tempPath + table.name + EdrawOffice.EXCEL_EXT;
 
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.AddInputTableIfNatExist(table);
             EditorItem<InputTable> page = getEditor().addOrSelectPage(table);   
@@ -480,8 +482,11 @@ namespace Misp.Sourcing.Table
         {
             InputTableEditorItem currentPage = (InputTableEditorItem)page;
             String filePath = buildExcelFilePath(fileName == null ? page.EditedObject.name : fileName);
-            page.EditedObject.excelFileName = filePath;
+            //page.EditedObject.excelFileName = filePath;
             String oldFilePath = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
+            if (String.IsNullOrEmpty(page.EditedObject.excelFileName)) page.EditedObject.excelFileName = page.EditedObject.name + EdrawOffice.EXCEL_EXT;
+
+            
             if (currentPage.getInputTableForm().SpreadSheet.SaveAs(filePath, true) != OperationState.CONTINUE)
             {
                 String name = page.EditedObject is Report ? "Report" : "Input Table";
@@ -490,6 +495,12 @@ namespace Misp.Sourcing.Table
                 Mask(false);
                 return OperationState.STOP;
             }
+            bool ok = GetInputTableService().FileService.FileTransferService.uploadTable(page.EditedObject.excelFileName);
+            if (!ok)
+            {
+                return OperationState.STOP;
+            }
+
             if (!saveAs)
             {
                 try
@@ -2898,7 +2909,7 @@ namespace Misp.Sourcing.Table
         protected virtual string buildExcelFilePath(string name)
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
-            string excelDir = getExcelFolder();
+            string excelDir = getInputTableEditor().TempTableFolder;
             string filePath = excelDir + name + EdrawOffice.EXCEL_EXT;
             string newName = name;
             int i = 0;
@@ -2911,6 +2922,12 @@ namespace Misp.Sourcing.Table
                 }
             }
             return filePath;
+        }
+
+
+        protected virtual string getExcelTempFolder() 
+        {
+            return getInputTableEditor().TempTableFolder;
         }
 
         protected virtual string getExcelFolder()

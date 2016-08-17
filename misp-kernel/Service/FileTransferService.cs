@@ -51,13 +51,47 @@ namespace Misp.Kernel.Service
                 Directory.CreateDirectory(tempPath);
                 string filePath = tempPath + name;
                 File.WriteAllBytes(filePath, data);
-                return filePath;
+                return tempPath;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to download file.", e);
+            }
+            return null;
+        }
+
+        public bool uploadTable(String name)
+        {
+            try
+            {
+                string tempPath = System.IO.Path.GetTempPath() + "bcephal\\tables\\";
+                Directory.CreateDirectory(tempPath);
+                string filePath = tempPath + name;
+                string ext = Path.GetExtension(name);
+                string nameCopy = Path.GetFileNameWithoutExtension(name) + "-copy";
+                if (!File.Exists(filePath))
+                {
+                    File.Create(filePath);
+                }
+                File.Copy(filePath, (tempPath + nameCopy + ext));
+                filePath = tempPath + nameCopy + ext;
+                byte[] dataToSend = File.ReadAllBytes(filePath);
+                File.Delete(filePath);
+                var request = new RestRequest(ResourcePath + "/upload-table/" + name, Method.POST);
+                request.AddHeader("Content-Type", "application/octet-stream");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                request.AddParameter("application/octet-stream", dataToSend, ParameterType.RequestBody);
+                IRestResponse response = RestClient.Execute(request);
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                String messageRes = Serializer.Deserialize<String>(response.Content);
+                return true;
             }
             catch (Exception e)
             {
                 logger.Error("Unable to save Item.", e);
             }
-            return null;
+            return false;
         }
 
         public bool downloadFile()
