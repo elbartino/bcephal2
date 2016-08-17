@@ -306,7 +306,11 @@ namespace Misp.Kernel.Application
         /// </summary>
         public bool StopServer()
         {
-            if (this.ApplcationConfiguration.IsMultiuser()) return true;
+            if (this.ApplcationConfiguration.IsMultiuser())
+            {
+                DeleteTempFolderDir();
+                return true;
+            }
             logger.Info("Try to shutdown server...");
             try
             {
@@ -320,6 +324,32 @@ namespace Misp.Kernel.Application
                 if (response != MessageBoxResult.Yes) return false;
                 ForceServerToStop();
                 return true;
+            }
+        }
+
+        public void DeleteTempFolderDir() 
+        {
+            clearFolder(Service.FileDirs.getTempFolder());
+        }
+
+        public void clearFolder(string FolderName)
+        {
+            try
+            {
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(FolderName);
+                foreach (System.IO.FileInfo fi in dir.GetFiles())
+                {
+                    fi.Delete();
+                }
+                foreach (System.IO.DirectoryInfo di in dir.GetDirectories())
+                {
+                    clearFolder(di.FullName);
+                    di.Delete();
+                }
+            }
+            catch (Exception ex) 
+            {
+                logger.Error("Unable to delete folder"+ ex.Message);
             }
         }
 

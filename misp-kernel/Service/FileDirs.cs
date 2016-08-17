@@ -17,6 +17,14 @@ namespace Misp.Kernel.Service
 
         public string PresentationDir { get; set; }
 
+        public static string getTempFolder()
+        {
+            String tempPath = System.IO.Path.GetTempPath() + "bcephal\\";
+            if (!System.IO.Directory.Exists(tempPath))
+                System.IO.Directory.CreateDirectory(tempPath);
+            return tempPath;
+        }
+
         public static string getTableTempFolder()
         {
             String tempPath = System.IO.Path.GetTempPath() + "bcephal\\tables\\";
