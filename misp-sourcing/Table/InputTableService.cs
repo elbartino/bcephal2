@@ -743,5 +743,24 @@ namespace Misp.Sourcing.Table
                 return null;
             }   
         }
+
+        public string buildExcelFileName(string name)
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath + "/build-excel-name/" + name, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+
+                System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                String value = Serializer.Deserialize<String>(queryResult.Content);
+                return value;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve object from server.", e);
+                throw new ServiceExecption("Unable to retrieve object from server.", e);
+            }
+        }
     }
 }

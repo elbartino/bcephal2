@@ -481,13 +481,14 @@ namespace Misp.Sourcing.Table
         protected OperationState saveSpreedSheet(EditorItem<InputTable> page, String fileName = null,bool saveAs = false) 
         {
             InputTableEditorItem currentPage = (InputTableEditorItem)page;
-            String filePath = buildExcelFilePath(fileName == null ? page.EditedObject.name : fileName);
+            String filePath = buildExcelFileName(page.EditedObject.excelFileName);
             //page.EditedObject.excelFileName = filePath;
             String oldFilePath = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
             if (String.IsNullOrEmpty(page.EditedObject.excelFileName)) page.EditedObject.excelFileName = page.EditedObject.name + EdrawOffice.EXCEL_EXT;
 
-            
-            if (currentPage.getInputTableForm().SpreadSheet.SaveAs(filePath, true) != OperationState.CONTINUE)
+            String pathexcel = GetInputTableService().FileService.GetFileDirs().TempTableFolder + filePath;
+
+            if (currentPage.getInputTableForm().SpreadSheet.SaveAs(pathexcel, true) != OperationState.CONTINUE)
             {
                 String name = page.EditedObject is Report ? "Report" : "Input Table";
                 MessageDisplayer.DisplayError("Unable to save " + name, "Unable to save file :\n" + filePath);
@@ -2923,6 +2924,10 @@ namespace Misp.Sourcing.Table
             return filePath;
         }
 
+        protected virtual string buildExcelFileName(String name)
+        {
+            return GetInputTableService().buildExcelFileName(name);
+        }
 
         protected virtual string getExcelFolder()
         {
@@ -2952,7 +2957,7 @@ namespace Misp.Sourcing.Table
             //    InputTable obj = GetObjectByName(name);
             //    if (obj == null)
             //    {
-            //        string fileName = buildExcelFilePath(name);
+            //        string fileName = buildExcelFileName(name);
             //        if (!System.IO.File.Exists(fileName)) return name;
             //    }
             //    i++;

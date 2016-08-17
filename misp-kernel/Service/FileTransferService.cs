@@ -21,8 +21,7 @@ namespace Misp.Kernel.Service
                 request.AddHeader("Content-Type", "application/octet-stream");
                 request.RequestFormat = RestSharp.DataFormat.Json;
                 byte[] data = RestClient.DownloadData(request);
-                string tempPath = System.IO.Path.GetTempPath() + "bcephal\\tables\\";
-                Directory.CreateDirectory(tempPath);
+                string tempPath = FileDirs.getTableTempFolder();
                 string filePath = tempPath + name;
                 File.WriteAllBytes(filePath, data);
                 return tempPath;

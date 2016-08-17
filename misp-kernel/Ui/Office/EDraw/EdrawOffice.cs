@@ -74,7 +74,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
         public const string RENAME_AUTOMATICCOLUMN_LABEL = "&Renommer";
 
         public static bool isPaste = false;
-        
+
         /// <summary>
         /// Assigne ou retourne l'url du document courant
         /// </summary>
