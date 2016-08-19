@@ -169,7 +169,13 @@ namespace Misp.Planification.PresentationView
         /// </returns>
         public override OperationState Open(Presentation presentation)
         {
-            string filePath = getPowerPointFolder() + presentation.name + EdrawSlide.POWER_POINT_EXT;
+            string filePath = GetPresentationService().FileService.FileTransferService.downloadPresentation(presentation.name + EdrawSlide.POWER_POINT_EXT);
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+
+            }
+
+            filePath = filePath + presentation.name + EdrawSlide.POWER_POINT_EXT;
             ((PresentationSideBar)SideBar).PresentationGroup.PresentationTreeView.AddPresentationIfNatExist(presentation);
             PresentationEditorItem page = (PresentationEditorItem)getEditor().addOrSelectPage(presentation);
             OperationState sate = page.getPresentationForm().SlideView.Open(filePath);
@@ -772,9 +778,11 @@ namespace Misp.Planification.PresentationView
                     {
                         String savingFolder =  currentPage.getPresentationForm().PresentationPropertiesPanel.savingFolderTextBox.Text;
                         String filePath = buildPowerPointFilePath(page.EditedObject.name);
+                        String tempFolder = GetPresentationService().FileService.GetFileDirs().TempPresentationFolder;
                         page.EditedObject.userSavingDir = buildPowerPointSavingFolderPath(savingFolder);
                         page.EditedObject.slideFileName = Path.GetFileName(filePath);
                         page.EditedObject.slideFileExtension = Path.GetExtension(filePath);
+                        filePath = tempFolder + Path.DirectorySeparatorChar + Path.GetFileName(filePath); 
                         if (currentPage.getPresentationForm().SlideView.SaveAs(filePath) != OperationState.CONTINUE)
                         {
                             MessageDisplayer.DisplayError("Unable to save " + page.EditedObject.name, "Unable to save file :\n" + filePath);
@@ -782,6 +790,10 @@ namespace Misp.Planification.PresentationView
                             Mask(false);
                             return OperationState.STOP;
                         }
+                        String fileName = currentPage.getPresentationForm().SlideView.DocumentName + Path.GetExtension(filePath);
+                        String path = currentPage.getPresentationForm().SlideView.DocumentUrl;
+                        GetPresentationService().FileService.FileTransferService.uploadPresentation(fileName, tempFolder);
+                        page.EditedObject.slideFileName = fileName;            
                     }
                     
                     GetPresentationService().SavePresentationHandler += UpdateSaveInfo;

@@ -33,6 +33,55 @@ namespace Misp.Kernel.Service
             return null;
         }
 
+        public String downloadPresentation(String name)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/download-presentation/" + name, Method.GET);
+                request.AddHeader("Content-Type", "application/octet-stream");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                byte[] data = RestClient.DownloadData(request);
+                string tempPath = FileDirs.getPresentationTempFolder();
+                string filePath = tempPath + name;
+                File.WriteAllBytes(filePath, data);
+                return tempPath;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to download file.", e);
+            }
+            return null;
+        }
+
+        public bool uploadPresentation(String name, String path)
+        {
+            try
+            {
+                string ext = Path.GetExtension(name);
+                string namewithNoext = Path.GetFileNameWithoutExtension(name);
+                string copy = path + "\\" + namewithNoext + "-copy" + ext;
+                if (!Directory.Exists(path)) return false;
+                path += name;
+                File.Copy(path, copy);
+                byte[] dataToSend = File.ReadAllBytes(copy);
+                File.Delete(copy);
+                var request = new RestRequest(ResourcePath + "/upload-presentation/" + name, Method.POST);
+                request.AddHeader("Content-Type", "application/octet-stream");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                request.AddParameter("application/octet-stream", dataToSend, ParameterType.RequestBody);
+                IRestResponse response = RestClient.Execute(request);
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                bool ok = Serializer.Deserialize<bool>(response.Content);
+                return ok;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to save file.", e);
+            }
+            return false;
+        }
+
         public bool uploadTable(String name, String path)
         {
             try
