@@ -15,6 +15,8 @@ namespace Misp.Kernel.Domain
         public bool isLast { get; set; }
         public AutomaticGridAction action { get; set; }
 
+        public byte[] fileBytes { get; set; }
+
         public AutomaticSourcingData() { }
 
         public AutomaticSourcingData( int oid, String tablename, String excelfilepath) 
