@@ -68,7 +68,7 @@ namespace Misp.Sourcing.GridViews
             GetAutomaticSourcingService().OnUpdateUniverse += OnUpdateUniverse;
             Mask(true, "Running ...");            
             data.automaticSourcingOid = page.EditedObject.oid.Value;
-            data.excelFilePath = page.getAutomaticSourcingForm().SpreadSheet.DocumentUrl;
+            data.setExcelFilePath(page.getAutomaticSourcingForm().SpreadSheet.DocumentUrl);
             OnCancelAutomaticGridDataDialog(sender, e);
             GetAutomaticSourcingService().Run(data);            
         }
