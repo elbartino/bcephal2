@@ -23,12 +23,24 @@ namespace Misp.Kernel.Domain
         {
             this.tableName = tablename;
             this.automaticSourcingOid = oid;
-            this.excelFilePath = excelfilepath;
+            setExcelFilePath(excelfilepath);
         }
-
+               
         public AutomaticSourcingData(int oid, String tablename, String excelfilepath,string tablegroup): this(oid,tablename,excelfilepath)
         {
             this.tableGroup = tablegroup;
         }
+
+        public void setExcelFilePath(String excelfilepath)
+        {
+            this.excelFilePath = excelfilepath;
+            fileBytes = null;
+            if (!string.IsNullOrWhiteSpace(this.excelFilePath) && System.IO.File.Exists(this.excelFilePath))
+            {
+                fileBytes = System.IO.File.ReadAllBytes(this.excelFilePath);
+            }
+        }
+
+
    }
 }
