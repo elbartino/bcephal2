@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Service;
+using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -153,16 +154,16 @@ namespace Misp.Kernel.Administration.User
                     focusSetted = true;
                 }
             }
-            else if (!validateEmail(emailTextBox.Text))
+            else if (!UserUtil.validateEmail(emailTextBox.Text))
             {
-                //errors += line + "Wrong email format.";
-                //line = "\n";
-                //if (!focusSetted)
-                //{
-                //    emailTextBox.Focus();
-                //    emailTextBox.SelectAll();
-                //    focusSetted = true;
-                //}
+                errors += line + "Wrong email format.";
+                line = "\n";
+                if (!focusSetted)
+                {
+                   emailTextBox.Focus();
+                   emailTextBox.SelectAll();
+                   focusSetted = true;
+                }
             }
 
             if (String.IsNullOrWhiteSpace(loginTextBox.Text))
