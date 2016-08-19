@@ -161,5 +161,22 @@ namespace Misp.Kernel.Service
             }
             return null;
         }
+
+        public String getUserSavingdir(int oid)
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath + "/usersavingdir/"+oid, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+                string path = RestSharp.SimpleJson.DeserializeObject<string>(queryResult.Content);
+                return path;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve list of BrowserData.", e);
+                throw new ServiceExecption("Unable to retrieve list of BrowserData.", e);
+            }
+        }
+      
     }
 }

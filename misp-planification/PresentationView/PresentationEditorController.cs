@@ -779,7 +779,7 @@ namespace Misp.Planification.PresentationView
                         String savingFolder =  currentPage.getPresentationForm().PresentationPropertiesPanel.savingFolderTextBox.Text;
                         String filePath = buildPowerPointFilePath(page.EditedObject.name);
                         String tempFolder = GetPresentationService().FileService.GetFileDirs().TempPresentationFolder;
-                        page.EditedObject.userSavingDir = buildPowerPointSavingFolderPath(savingFolder);
+                        page.EditedObject.userSavingDir = buildPowerPointSavingFolderPath(savingFolder,page.EditedObject.oid);
                         page.EditedObject.slideFileName = Path.GetFileName(filePath);
                         page.EditedObject.slideFileExtension = Path.GetExtension(filePath);
                         filePath = tempFolder + Path.DirectorySeparatorChar + Path.GetFileName(filePath); 
@@ -949,9 +949,10 @@ namespace Misp.Planification.PresentationView
             return filePath;
         }
 
-        protected virtual string buildPowerPointSavingFolderPath(string savingFolder)
+        protected virtual string buildPowerPointSavingFolderPath(string savingFolder,int? oid)
         {
             String powerPointSavingDir = null;
+            if (oid != null) savingFolder = GetPresentationService().getUserSavingdir(oid.Value);
             if (string.IsNullOrWhiteSpace(savingFolder) || savingFolder == Presentation.defaultSavingFolder) powerPointSavingDir = null;
             else powerPointSavingDir = savingFolder + (savingFolder.EndsWith(Path.DirectorySeparatorChar.ToString()) ? "" : Path.DirectorySeparatorChar.ToString());
             return powerPointSavingDir;
