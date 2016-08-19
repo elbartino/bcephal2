@@ -24,6 +24,8 @@ namespace Misp.Kernel.Domain
             this.tableName = tablename;
             this.automaticSourcingOid = oid;
             this.excelFilePath = excelfilepath;
+            if(!String.IsNullOrEmpty(excelfilepath))
+            this.fileBytes = System.IO.File.ReadAllBytes(excelfilepath);
         }
 
         public AutomaticSourcingData(int oid, String tablename, String excelfilepath,string tablegroup): this(oid,tablename,excelfilepath)
