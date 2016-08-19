@@ -46,7 +46,7 @@ namespace Misp.Planification.Base
             this.Code = ApplicationMenu.SOURCING_MENU_CODE;
             this.Header = FunctionalitiesLabel.TRANSFORMATION_LABEL;
             NewTransformationTreeMenu = BuildMenu(ApplicationMenu.PLANIFICATION_MENU_CODE,FunctionalitiesLabel.NEW_TRANSFORMATION_TREE_LABEL, NavigationToken.GetCreateViewToken(PlanificationFunctionalitiesCode.NEW_TRANSFORMATION_TREE_FUNCTIONALITY));
-            ListTransformationTreeMenu = BuildMenu(ApplicationMenu.PLANIFICATION_MENU_CODE, FunctionalitiesLabel.NEW_TRANSFORMATION_TREE_LABEL, NavigationToken.GetSearchViewToken(PlanificationFunctionalitiesCode.LIST_TRANSFORMATION_TREE_FUNCTIONALITY));
+            ListTransformationTreeMenu = BuildMenu(ApplicationMenu.PLANIFICATION_MENU_CODE, FunctionalitiesLabel.LIST_TRANSFORMATION_TREE_LABEL, NavigationToken.GetSearchViewToken(PlanificationFunctionalitiesCode.LIST_TRANSFORMATION_TREE_FUNCTIONALITY));
             LoadTransformationTreesMenu = BuildMenu(ApplicationMenu.PLANIFICATION_MENU_CODE, FunctionalitiesLabel.LOAD_TRANSFORMATION_TREES_LABEL, NavigationToken.GetCreateViewToken(PlanificationFunctionalitiesCode.LOAD_TRANSFORMATION_TREES_FUNCTIONALITY));
             ClearTransformationTreesMenu = BuildMenu(ApplicationMenu.PLANIFICATION_MENU_CODE, FunctionalitiesLabel.CLEAR_TRANSFORMATION_TREES_LABEL, NavigationToken.GetCreateViewToken(PlanificationFunctionalitiesCode.CLEAR_TRANSFORMATION_TREES_FUNCTIONALITY));
             CreateCombinedTransformationTreesMenu = BuildMenu(ApplicationMenu.PLANIFICATION_MENU_CODE,FunctionalitiesLabel.NEW_COMBINED_TRANSFORMATION_TREES_LABEL, NavigationToken.GetCreateViewToken(PlanificationFunctionalitiesCode.NEW_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY));
