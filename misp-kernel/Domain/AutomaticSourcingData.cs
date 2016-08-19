@@ -37,7 +37,14 @@ namespace Misp.Kernel.Domain
             fileBytes = null;
             if (!string.IsNullOrWhiteSpace(this.excelFilePath) && System.IO.File.Exists(this.excelFilePath))
             {
-                fileBytes = System.IO.File.ReadAllBytes(this.excelFilePath);
+                String name = System.IO.Path.GetFileNameWithoutExtension(this.excelFilePath) + "11111111111";//DateTime.Now.ToLongTimeString();
+                String ext = System.IO.Path.GetExtension(this.excelFilePath);
+                String path = System.IO.Path.GetDirectoryName(this.excelFilePath)
+                    + System.IO.Path.DirectorySeparatorChar + name + ext;
+
+                System.IO.File.Copy(this.excelFilePath, path);
+                fileBytes = System.IO.File.ReadAllBytes(path);
+                System.IO.File.Delete(path);                
             }
         }
 
