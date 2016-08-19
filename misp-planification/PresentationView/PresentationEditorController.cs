@@ -953,8 +953,10 @@ namespace Misp.Planification.PresentationView
         {
             String powerPointSavingDir = null;
             if (oid != null) savingFolder = GetPresentationService().getUserSavingdir(oid.Value);
-            if (string.IsNullOrWhiteSpace(savingFolder) || savingFolder == Presentation.defaultSavingFolder) powerPointSavingDir = null;
-            else powerPointSavingDir = savingFolder + (savingFolder.EndsWith(Path.DirectorySeparatorChar.ToString()) ? "" : Path.DirectorySeparatorChar.ToString());
+            if (!string.IsNullOrEmpty(savingFolder)) return savingFolder;
+            //powerPointSavingDir = Presentation.defaultSavingFolder + (savingFolder.EndsWith(Path.DirectorySeparatorChar.ToString()) ? "" : Path.DirectorySeparatorChar.ToString());
+            powerPointSavingDir =  Presentation.defaultSavingFolder + "Bcephal" + Path.DirectorySeparatorChar + ApplicationManager.Instance.File.name + Path.DirectorySeparatorChar + "PowerPoints";
+            if(!System.IO.Directory.Exists(powerPointSavingDir)) System.IO.Directory.CreateDirectory(powerPointSavingDir);
             return powerPointSavingDir;
         }
 

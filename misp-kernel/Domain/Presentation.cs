@@ -24,7 +24,12 @@ namespace Misp.Kernel.Domain
         public string userSavingDir { get; set; }
 
         [ScriptIgnore]
-        public static string defaultSavingFolder = "PowerPoints";
+        public static string defaultSavingFolder 
+        {
+            get{
+                return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + System.IO.Path.DirectorySeparatorChar;
+            }
+        }
 
         public Presentation()
         {
