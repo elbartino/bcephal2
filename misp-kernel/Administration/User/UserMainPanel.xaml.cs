@@ -23,6 +23,7 @@ namespace Misp.Kernel.Administration.User
     /// </summary>
     public partial class UserMainPanel : Grid
     {
+        private Domain.User currentUser;
 
         public UserMainPanel()
         {
@@ -45,6 +46,7 @@ namespace Misp.Kernel.Administration.User
 
         public void Display(Domain.User user)
         {
+            currentUser = user;
             nameTextBox.Text = user.name;
             firstNameTextBox.Text = user.firstName;
             emailTextBox.Text = user.email;
@@ -74,33 +76,14 @@ namespace Misp.Kernel.Administration.User
                 Domain.Profil profil = (Domain.Profil)profilcomboBox.SelectedItem;
                 user.profil = profil;
             }
-            //foreach (UIElement el in this.RelationPanel.panel.Children)
-            //{
-            //    UserRelations.UserRelationItemPanel item = (UserRelations.UserRelationItemPanel)el;
-            //    if (item.userComboBox.SelectedItem == null && item.roleComboBox.SelectedItem == null) continue;
-            //    Domain.Relation relation = new Domain.Relation();
-            //    relation.owner = item.userComboBox.SelectedItem as Domain.User;
-            //    relation.role = item.roleComboBox.SelectedItem as Domain.Role;
-            //    if (item.RelationItem != null)
-            //    {
-
-            //    }
-            //    String roleName = item.TextBox.Text;
-            //    if (String.IsNullOrEmpty(roleName)) continue;
-            //    Domain.Role roleItem = new Domain.Role()
-            //    {
-            //        name = roleName
-            //    };
-            //    if (item.Role != null)
-            //    {
-            //        item.Role.name = roleName;
-            //        role.UpdateChild(item.Role);
-            //    }
-            //    else
-            //    {
-            //        role.AddChild(roleItem);
-            //    }
-            //}
+            foreach (UIElement el in this.RelationPanel.panel.Children)
+            {
+                UserRelations.UserRelationItemPanel item = (UserRelations.UserRelationItemPanel)el;
+                if (item.userComboBox.SelectedItem == null && item.roleComboBox.SelectedItem == null) continue;
+                Domain.Relation relation = new Domain.Relation();
+                relation.owner = item.userComboBox.SelectedItem as Domain.User;
+                relation.role = item.roleComboBox.SelectedItem as Domain.Role;
+            }
         }
 
         public void InitProfilComboBox(ProfilService profilService)
@@ -112,9 +95,8 @@ namespace Misp.Kernel.Administration.User
 
         public void InitRelationPanel(UserService userservice) 
         {
-            List<Domain.User> users = userservice.getAll();
             Domain.Role RootRole = userservice.RoleService.getRootRole();
-            this.RelationPanel.FillUsers(users);
+            this.RelationPanel.FillUsers(userservice.getUsersRelation(currentUser));
             this.RelationPanel.FillRoles(RootRole.childrenListChangeHandler.Items.ToList());
         }
 

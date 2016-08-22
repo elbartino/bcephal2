@@ -25,9 +25,11 @@ namespace Misp.Kernel.Service
         {
             try
             {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 var request = new RestRequest(ResourcePath + "/save", Method.POST);
-                string json = Serialize(profil);
+                serializer.MaxJsonLength = int.MaxValue;
                 request.RequestFormat = DataFormat.Json;
+                string json = serializer.Serialize(profil);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
                 Profil pf = RestSharp.SimpleJson.DeserializeObject<Profil>(queryResult.Content);

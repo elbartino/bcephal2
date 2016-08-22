@@ -133,9 +133,9 @@ namespace Misp.Kernel.Administration.Profil
                 currentPage = (ProfilEditorItem)page;
                 if (base.Save(page) == OperationState.STOP) return OperationState.STOP;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                DisplayError("Unable to save Profil", "Unable to save Excel file.");
+                DisplayError("Unable to save Profil", "Unable to save Profil.");
                 return OperationState.STOP;
             }
             return OperationState.CONTINUE;
@@ -417,6 +417,7 @@ namespace Misp.Kernel.Administration.Profil
         protected virtual OperationState ValidateEditedNewName(string newName = "")
         {
             ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
+            if(page == null)  return OperationState.CONTINUE;
             Domain.Profil table = page.EditedObject;
             if (string.IsNullOrEmpty(newName))
             {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
 
 namespace Misp.Kernel.Ui.Base.Menu
 {
@@ -128,6 +129,14 @@ namespace Misp.Kernel.Ui.Base.Menu
             }
 
             //ApplicationManager.PageManager.performOperation(OperationType.LIST, ApplicationManager.ControllerFactory.FolderBrowserController);
+        }
+
+        public virtual ApplicationMenu customize(User user)
+        {
+            if (user == null || !user.active.Value) return null;
+            if (user.IsAdmin()) return this;
+            if (user.profil == null || !user.profil.active) return null;
+            return this;
         }
 
     }

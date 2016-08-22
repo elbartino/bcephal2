@@ -14,6 +14,8 @@ namespace Misp.Kernel.Domain
 
         public bool editRight { get; set; }
 
+        
+
         [ScriptIgnore]
         public Profil profil { get; set;}
 
@@ -21,13 +23,25 @@ namespace Misp.Kernel.Domain
         public User user { get; set;}
 
         //[ScriptIgnore]
-        //public UserAction action { get; set; }
+        //public Rights parent { get; set; }
 
+        //[ScriptIgnore]
+        //public List<Rights> childs { get; set; }
+
+        //[ScriptIgnore]
+        //public UserAction action { get; set; }
 
         public Rights()
         {
-            this.viewRight = true;
-            this.editRight = true;
+            this.viewRight = false;
+            this.editRight = false;
+        }
+
+        public Rights(String function)
+        {
+            this.functionnality = function;
+            this.viewRight = false;
+            this.editRight = false;
         }
 
         public Rights(String function, Boolean view, Boolean edit)
@@ -36,35 +50,21 @@ namespace Misp.Kernel.Domain
             this.viewRight = view;
             this.editRight = edit;
         }
-
-        public static List<Rights> generateDefaultFunction()
-        {
-            List<Rights> functionRights = new List<Rights>(0);
-            functionRights.Add(new Rights("Initialisation", false, false));
-            functionRights.Add(new Rights("InputTable", false, false));
-            functionRights.Add(new Rights("Report", false, false));
-            functionRights.Add(new Rights("TransformationTree", false, false));
-            functionRights.Add(new Rights("Target", false, false));
-            functionRights.Add(new Rights("StructuredReport", false, false));
-            functionRights.Add(new Rights("AutomaticSourcing", false, false));
-            functionRights.Add(new Rights("Grid", false, false));
-            functionRights.Add(new Rights("MultipleUplaod", false, false));
-            functionRights.Add(new Rights("Design", false, false));
-            functionRights.Add(new Rights("AutomaticTarget", false, false));
-            functionRights.Add(new Rights("CombinedTranformationTree", false, false));
-            functionRights.Add(new Rights("Load", false, false));
-            functionRights.Add(new Rights("Clear", false, false));
-            functionRights.Add(new Rights("Posting", false, false));
-            functionRights.Add(new Rights("ReconciliationFilter", false, false));
-            functionRights.Add(new Rights("Clear Launch", false, false));
-            functionRights.Add(new Rights("Laod Launch", false, false));
-
-            return functionRights;
-        }
-
+        
         public override string ToString()
         {
-            return functionnality + " - "; // + action;
+            return functionnality ;//+ " - "  + action;
+        }
+
+        /// <summary>
+        /// compare
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override int CompareTo(object obj)
+        {
+            if (obj == null || !(obj is Rights)) return 1;
+            return this.functionnality.CompareTo(((Rights)obj).functionnality);
         }
     }
 }

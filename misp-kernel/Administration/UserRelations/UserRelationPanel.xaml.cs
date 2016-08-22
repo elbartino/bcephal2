@@ -219,16 +219,18 @@ namespace Misp.Kernel.Administration.UserRelations
         #endregion
 
 
-        public List<Domain.Role> Roles = new List<Domain.Role>();
+        public List<Domain.Role> Roles;
         public void FillRoles(List<Domain.Role> roles)
         {
+            Roles = new List<Domain.Role>();
             this.Roles.AddRange(roles);
             this.ActiveItemPanel.FillRoles(roles);
         }
 
-        public List<Domain.User> Users = new List<Domain.User>();
+        public List<Domain.User> Users;
         public void FillUsers(List<Domain.User> users)
         {
+            Users = new List<Domain.User>();
             this.Users.AddRange(users);
             this.ActiveItemPanel.FillUsers(users);
         }
