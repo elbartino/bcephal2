@@ -77,7 +77,7 @@ namespace Misp.Kernel.Service
         {
             if (user.oid == null)
             {
-                return new List<Domain.User>();
+                return getAll();
             }
             var request = new RestRequest(ResourcePath + "/user_relation/" + user.oid, Method.GET);
             request.RequestFormat = DataFormat.Json;

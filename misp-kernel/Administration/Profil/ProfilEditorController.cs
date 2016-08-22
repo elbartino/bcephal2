@@ -417,6 +417,7 @@ namespace Misp.Kernel.Administration.Profil
         protected virtual OperationState ValidateEditedNewName(string newName = "")
         {
             ProfilEditorItem page = (ProfilEditorItem)getProfilEditor().getActivePage();
+            if(page == null)  return OperationState.CONTINUE;
             Domain.Profil table = page.EditedObject;
             if (string.IsNullOrEmpty(newName))
             {
