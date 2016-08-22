@@ -40,6 +40,12 @@ namespace Misp.Kernel.Domain
             this.position = position;
         }
 
+        public DashBoardConfiguration(String name, int position, int? userOid) : this(name, position)
+        {
+            if(userOid != null)
+            this.userOid = userOid.Value;
+        }
+
 	    public String name { get; set; }
 	
 	    public int position { get; set; }
@@ -49,6 +55,8 @@ namespace Misp.Kernel.Domain
 	    public String orderBy { get; set; }
                
         public String orderByDirection { get; set; }
+
+        public int userOid { get; set; }
 
     }
 }

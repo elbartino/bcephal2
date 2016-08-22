@@ -45,12 +45,17 @@ namespace Misp.Kernel.Service
         /// 
         /// </summary>
         /// <returns>DashboardData</returns>
-        public List<BrowserData> getDashboardDatas(string param)
+        public List<BrowserData> getDashboardDatas(string param,int? userOid=null)
         {
             if (string.IsNullOrWhiteSpace(param)) return new List<BrowserData>(0);
             try
             {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 var request = new RestRequest(ResourcePath + "/" + param, Method.POST);
+                request.RequestFormat = DataFormat.Json;
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = userOid != null ? serializer.Serialize(userOid) : null;
+                request.AddParameter("application/json", json, RestSharp.ParameterType.RequestBody);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
                 List<BrowserData> datas = RestSharp.SimpleJson.DeserializeObject<List<BrowserData>>(queryResult.Content);
                 return datas;
@@ -61,11 +66,16 @@ namespace Misp.Kernel.Service
             }
         }
 
-        public List<DashBoardConfiguration> getAllDashboardConfiguration() 
+        public List<DashBoardConfiguration> getAllDashboardConfiguration(int? userOid = null) 
         {
             try
             {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 var request = new RestRequest(ResourcePath + "/allconfiguration", Method.POST);
+                request.RequestFormat = DataFormat.Json;
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = userOid != null ? serializer.Serialize(userOid) : null;
+                request.AddParameter("application/json", json, RestSharp.ParameterType.RequestBody);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
                 List<DashBoardConfiguration> datas = RestSharp.SimpleJson.DeserializeObject<List<DashBoardConfiguration>>(queryResult.Content);
                 return datas;
@@ -76,11 +86,16 @@ namespace Misp.Kernel.Service
             }
         }
 
-        public DashBoardConfiguration getDashboardConfigurationByName(String name) 
+        public DashBoardConfiguration getDashboardConfigurationByName(String name, int? userOid = null) 
         {
             try
             {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 var request = new RestRequest(ResourcePath + "/configurationbyname/" + name, Method.POST);
+                request.RequestFormat = DataFormat.Json;
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = userOid != null ? serializer.Serialize(userOid) : null;
+                request.AddParameter("application/json", json, RestSharp.ParameterType.RequestBody);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
                 DashBoardConfiguration data = RestSharp.SimpleJson.DeserializeObject<DashBoardConfiguration>(queryResult.Content);
                 return data;
@@ -92,11 +107,16 @@ namespace Misp.Kernel.Service
            
         }
 
-        public DashBoardConfiguration getDashboardConfigurationByPosition(int position)
+        public DashBoardConfiguration getDashboardConfigurationByPosition(int position,int? userOid = null)
         {
             try
             {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 var request = new RestRequest(ResourcePath + "/configurationbyposition/" + position, Method.POST);
+                request.RequestFormat = DataFormat.Json;
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = userOid != null ? serializer.Serialize(userOid) : null;
+                request.AddParameter("application/json", json, RestSharp.ParameterType.RequestBody);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
                 DashBoardConfiguration data = RestSharp.SimpleJson.DeserializeObject<DashBoardConfiguration>(queryResult.Content);
                 return data;
@@ -108,12 +128,14 @@ namespace Misp.Kernel.Service
 
         }
 
-        public DashBoardConfiguration saveDashboardConfiguration(DashBoardConfiguration dashboardConfiguration)
+        public DashBoardConfiguration saveDashboardConfiguration(DashBoardConfiguration dashboardConfiguration,int? userOid = null)
         {
             try
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
-                var request = new RestRequest(ResourcePath + "/configuration/save", Method.POST);
+
+                string resPath = userOid != null ? ResourcePath + "/configuration/save/"+userOid : ResourcePath + "/configuration/save";
+                var request = new RestRequest(resPath, Method.POST);
                 request.RequestFormat = DataFormat.Json;
                 serializer.MaxJsonLength = int.MaxValue;
                 string json = serializer.Serialize(dashboardConfiguration);
@@ -128,12 +150,13 @@ namespace Misp.Kernel.Service
             }
         }
 
-        public List<DashBoardConfiguration> saveListDashboardConfiguration(List<DashBoardConfiguration> dashboardConfigurations)
+        public List<DashBoardConfiguration> saveListDashboardConfiguration(List<DashBoardConfiguration> dashboardConfigurations,int? userOid = null)
         {
             try
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
-                var request = new RestRequest(ResourcePath + "/configuration/saveall", Method.POST);
+                string resPath = userOid != null ? ResourcePath + "/configuration/saveall/" + userOid : ResourcePath + "/configuration/saveall";
+                var request = new RestRequest(resPath, Method.POST);
                 request.RequestFormat = DataFormat.Json;
                 serializer.MaxJsonLength = int.MaxValue;
                 string json = serializer.Serialize(dashboardConfigurations);
@@ -191,6 +214,8 @@ namespace Misp.Kernel.Service
             }
         }
 
+
+       
 
     }
 }

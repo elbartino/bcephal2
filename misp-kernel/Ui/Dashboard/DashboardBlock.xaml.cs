@@ -29,7 +29,14 @@ namespace Misp.Kernel.Ui.Dashboard
         public string FunctionalityCode { get; set; }
         public DashBoardConfiguration Configuration { get; set; }
         public DashBoardService DashBoardService { get; set; }
-
+        public int? userOid 
+        {
+            get 
+            {
+                return ApplicationManager.Instance.User != null ? ApplicationManager.Instance.User.oid : null;
+            }
+        }
+        
         public DashboardView DashboardView { get; set; }
 
         protected DashboardConfigurationForm configurationForm;
@@ -138,7 +145,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         protected void saveConfigAndRefreshData()
         {
-            Configuration = this.DashBoardService.saveDashboardConfiguration(Configuration);
+            Configuration = this.DashBoardService.saveDashboardConfiguration(Configuration,userOid);
             RefreshData();
         }
 
