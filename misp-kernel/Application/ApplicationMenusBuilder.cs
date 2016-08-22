@@ -82,13 +82,12 @@ namespace Misp.Kernel.Application
         {
             foreach(IPlugin plugin in ApplicationManager.Plugins){
                 foreach (ApplicationMenu menu in plugin.Menus)
-                {                   
-                    menuBar.DisplayMenu(menu);
-                    RadioButton button = new RadioButton();
-                    button.Content = menu.Header;
-                    button.Margin = new Thickness(10);
-                    button.IsEnabled = false;
-                    //SideBar.StatusGroup.ContentPanel.Children.Add(button);
+                {
+                    if (ApplicationManager.ApplcationConfiguration.IsMultiuser())
+                    {
+                        if (menu.customize(ApplicationManager.User) != null) menuBar.DisplayMenu(menu);
+                    }
+                    else menuBar.DisplayMenu(menu);
                 }
             }
         }

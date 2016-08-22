@@ -7,6 +7,7 @@ using Misp.Kernel.Ui.Base;
 using System.Windows.Controls;
 using Misp.Kernel.Application;
 using Misp.Kernel.Ui.Base.Menu;
+using Misp.Kernel.Domain;
 
 namespace Misp.Sourcing.Base
 {
@@ -144,6 +145,15 @@ namespace Misp.Sourcing.Base
 
             AccessoriesMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE,FunctionalitiesLabel.ACCESSORIES_LABEL, null);
             UploadMultipleFileSourcingMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.UPLOAD_MULTIPLE_FILES, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.UPLOAD_MULTIPLE_FILES));
+        }
+
+        public override ApplicationMenu customize(User user)
+        {
+            if (user == null || !user.active.Value) return null;
+            if (user.IsAdmin()) return this;
+            if (user.profil == null || !user.profil.active) return null;
+            
+            return this;
         }
 
 
