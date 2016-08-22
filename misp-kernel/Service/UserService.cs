@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Service
 {
@@ -64,6 +65,27 @@ namespace Misp.Kernel.Service
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// get all user in data base 
+        /// different to @user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public List<Domain.User> getUsersRelation(Domain.User user)
+        {
+            if (user.oid == null)
+            {
+                return new List<Domain.User>();
+            }
+            var request = new RestRequest(ResourcePath + "/user_relation/" + user.oid, Method.GET);
+            request.RequestFormat = DataFormat.Json;
+            RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+            JavaScriptSerializer Serializer = new JavaScriptSerializer();
+            Serializer.MaxJsonLength = int.MaxValue;
+            List<Domain.User> users = Serializer.Deserialize<List<Domain.User>>(queryResult.Content);
+            return users;
         }
 
         /// <summary>

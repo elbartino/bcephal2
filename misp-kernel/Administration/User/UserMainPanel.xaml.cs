@@ -23,6 +23,7 @@ namespace Misp.Kernel.Administration.User
     /// </summary>
     public partial class UserMainPanel : Grid
     {
+        private Domain.User currentUser;
 
         public UserMainPanel()
         {
@@ -45,6 +46,7 @@ namespace Misp.Kernel.Administration.User
 
         public void Display(Domain.User user)
         {
+            currentUser = user;
             nameTextBox.Text = user.name;
             firstNameTextBox.Text = user.firstName;
             emailTextBox.Text = user.email;
@@ -93,9 +95,8 @@ namespace Misp.Kernel.Administration.User
 
         public void InitRelationPanel(UserService userservice) 
         {
-            List<Domain.User> users = userservice.getAll();
             Domain.Role RootRole = userservice.RoleService.getRootRole();
-            this.RelationPanel.FillUsers(users);
+            this.RelationPanel.FillUsers(userservice.getUsersRelation(currentUser));
             this.RelationPanel.FillRoles(RootRole.childrenListChangeHandler.Items.ToList());
         }
 
