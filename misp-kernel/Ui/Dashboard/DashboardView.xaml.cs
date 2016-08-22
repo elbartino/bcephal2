@@ -53,6 +53,14 @@ namespace Misp.Kernel.Ui.Dashboard
         public DashboardBlock AutomaticPostingGridBlock { get; set; }
         public DashboardBlock PostingGridBlock { get; set; }
 
+        public int? userOid
+        { 
+            get  
+            {
+              return ApplicationManager.Instance.User != null ? ApplicationManager.Instance.User.oid : null;
+            }
+        }
+          
         public DashboardView()
         {
             this.DisplayedBlocks = new List<DashboardBlock>(0);
@@ -65,13 +73,13 @@ namespace Misp.Kernel.Ui.Dashboard
         {
             if (block == null) return;
             if (DisplayedBlocks.Count >= MAX_BLOCK) return;
-            DashBoardConfiguration configuration = DashBoardService.getDashboardConfigurationByName(block.TitleLabel.Content.ToString());
+            DashBoardConfiguration configuration = DashBoardService.getDashboardConfigurationByName(block.TitleLabel.Content.ToString(),this.userOid);
             if (configuration == null)
             {
-                configuration = new DashBoardConfiguration(block.TitleLabel.Content.ToString(), DisplayedBlocks.Count);                
+                configuration = new DashBoardConfiguration(block.TitleLabel.Content.ToString(), DisplayedBlocks.Count);
             }
             configuration.position = DisplayedBlocks.Count + 1;
-            block.Configuration = DashBoardService.saveDashboardConfiguration(configuration);           
+            block.Configuration = DashBoardService.saveDashboardConfiguration(configuration,userOid);           
             
             RefreshData(block);
             this.DisplayedBlocks.Add(block);
@@ -84,7 +92,7 @@ namespace Misp.Kernel.Ui.Dashboard
             if (block.Configuration != null)
             {
                 block.Configuration.position = DashBoardConfiguration.DEFAULT_POSITION;
-                block.Configuration = DashBoardService.saveDashboardConfiguration(block.Configuration);
+                block.Configuration = DashBoardService.saveDashboardConfiguration(block.Configuration,userOid);
             }
             block.Reset();
             this.DisplayedBlocks.Remove(block);
@@ -103,24 +111,24 @@ namespace Misp.Kernel.Ui.Dashboard
             if (DisplayedBlocks.Count == 0)
             {
                 Dictionary<string, object> dico = new Dictionary<string, object>(0);
-                List<DashBoardConfiguration> configurations = DashBoardService.getAllDashboardConfiguration();
+                List<DashBoardConfiguration> configurations = DashBoardService.getAllDashboardConfiguration(userOid);
                 if (configurations == null || configurations.Count == 0)
                 {
                     if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
                     {
-                        configurations.Add(new DashBoardConfiguration(this.ModelBlock.TitleLabel.Content.ToString(), 1));
-                        configurations.Add(new DashBoardConfiguration(this.AutomaticUploadBlock.TitleLabel.Content.ToString(), 2));
-                        configurations.Add(new DashBoardConfiguration(this.ReconciliationFilterBlock.TitleLabel.Content.ToString(), 3));
+                        configurations.Add(new DashBoardConfiguration(this.ModelBlock.TitleLabel.Content.ToString(), 1,userOid));
+                        configurations.Add(new DashBoardConfiguration(this.AutomaticUploadBlock.TitleLabel.Content.ToString(), 2,userOid));
+                        configurations.Add(new DashBoardConfiguration(this.ReconciliationFilterBlock.TitleLabel.Content.ToString(), 3,userOid));
                         configurations.Add(new DashBoardConfiguration(this.ReportBlock.TitleLabel.Content.ToString(), 4));
                     }
                     else
                     {
-                        configurations.Add(new DashBoardConfiguration(this.ModelBlock.TitleLabel.Content.ToString(), 1));
-                        configurations.Add(new DashBoardConfiguration(this.TreeBlock.TitleLabel.Content.ToString(), 2));
-                        configurations.Add(new DashBoardConfiguration(this.TableBlock.TitleLabel.Content.ToString(), 3));
-                        configurations.Add(new DashBoardConfiguration(this.ReportBlock.TitleLabel.Content.ToString(), 4));
+                        configurations.Add(new DashBoardConfiguration(this.ModelBlock.TitleLabel.Content.ToString(), 1,userOid));
+                        configurations.Add(new DashBoardConfiguration(this.TreeBlock.TitleLabel.Content.ToString(), 2,userOid));
+                        configurations.Add(new DashBoardConfiguration(this.TableBlock.TitleLabel.Content.ToString(), 3,userOid));
+                        configurations.Add(new DashBoardConfiguration(this.ReportBlock.TitleLabel.Content.ToString(), 4,userOid));
                     }
-                    configurations = DashBoardService.saveListDashboardConfiguration(configurations);
+                    configurations = DashBoardService.saveListDashboardConfiguration(configurations,userOid);
                     if (configurations == null) configurations = new List<DashBoardConfiguration>(0);
                 }
                 foreach (DashBoardConfiguration configuration in configurations)
