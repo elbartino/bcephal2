@@ -119,7 +119,7 @@ namespace Misp.Kernel.Ui.Dashboard
                         configurations.Add(new DashBoardConfiguration(this.ModelBlock.TitleLabel.Content.ToString(), 1,userOid));
                         configurations.Add(new DashBoardConfiguration(this.AutomaticUploadBlock.TitleLabel.Content.ToString(), 2,userOid));
                         configurations.Add(new DashBoardConfiguration(this.ReconciliationFilterBlock.TitleLabel.Content.ToString(), 3,userOid));
-                        configurations.Add(new DashBoardConfiguration(this.ReportBlock.TitleLabel.Content.ToString(), 4));
+                        configurations.Add(new DashBoardConfiguration(this.ReportBlock.TitleLabel.Content.ToString(), 4,userOid));
                     }
                     else
                     {
