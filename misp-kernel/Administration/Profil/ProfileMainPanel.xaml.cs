@@ -26,9 +26,6 @@ namespace Misp.Kernel.Administration.Profil
         {
             InitializeComponent();
             IntializeHandlers();
-
-            //List<Rights> items = Misp.Kernel.Domain.Profil.generateDefaultFunction();
-            //functionnalityGrid.ItemsSource = items;
         }
 
         public List<object> getEditableControls()
@@ -36,6 +33,8 @@ namespace Misp.Kernel.Administration.Profil
             List<object> controls = new List<object>(0);
             controls.Add(this.nameTextBox);
             controls.Add(this.activeBox);
+            controls.Add(this.selectAll);
+            controls.Add(this.deselectAll);
             controls.Add(this.functionnalityGrid);
             return controls;
         }
@@ -82,7 +81,33 @@ namespace Misp.Kernel.Administration.Profil
         private void IntializeHandlers()
         {
             functionnalityGrid.ChangeHandler += OnGridSelectionchange;
+            this.selectAll.Checked += OnManageSelectAll;
+            this.deselectAll.Checked += OnManageDeSelectAll;
             
+        }
+
+        private void OnManageSelectAll(object sender, RoutedEventArgs e)
+        {
+            List<Rights> items = new List<Rights>(0);
+            foreach (object item in functionnalityGrid.Items)
+            {
+                ((Rights)item).viewRight = true;
+                ((Rights)item).editRight = true;
+                items.Add(((Rights)item));
+            }
+            functionnalityGrid.ItemsSource = items;
+        }
+
+        private void OnManageDeSelectAll(object sender, RoutedEventArgs e)
+        {
+            List<Rights> items = new List<Rights>(0);
+            foreach (object item in functionnalityGrid.Items)
+            {
+                ((Rights)item).viewRight = false;
+                ((Rights)item).editRight = false;
+                items.Add(((Rights)item));
+            }
+            functionnalityGrid.ItemsSource = items;
         }
 
         private void OnGridSelectionchange()
