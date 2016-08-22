@@ -28,8 +28,8 @@ namespace Misp.Kernel.Administration.Role
             this.BorderBrush = null;
             
             //this.CalculatedMeasurePropertiesPanel = new CalculatedMeasurePropertiesPanel();
-           this.RolePanel = new RolePanel();
-           this.AddChild(this.RolePanel);
+            this.RolePanel = new RolePanel();
+            this.AddChild(this.RolePanel);
         }
         
         #endregion

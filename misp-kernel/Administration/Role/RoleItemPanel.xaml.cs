@@ -51,10 +51,6 @@ namespace Misp.Kernel.Administration.Role
         /// </summary>
         public event ActivateEventHandler Activated;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public event SelectedItemChangedEventHandler CloseParOrEqualSelected;
 
         #endregion
 
@@ -148,7 +144,7 @@ namespace Misp.Kernel.Administration.Role
             }
             //this.Role = value.GetCopy(this.Role);
             //updateMeasureItemOperator();
-            added = setCalculatedMeasureItemOperator();
+            added = setRoleItemAdded();
             this.TextBox.Text = this.Role != null ? this.Role.name : "";
             if (Added != null && added) Added(this);
             if (Updated != null && !added) Updated(this);
@@ -202,7 +198,7 @@ namespace Misp.Kernel.Administration.Role
         /// validate selection and set selected operator
         /// </summary>
         /// <returns></returns>
-        private bool setCalculatedMeasureItemOperator()
+        private bool setRoleItemAdded()
         {
             added = false;
             if (this.Role == null)
@@ -214,71 +210,11 @@ namespace Misp.Kernel.Administration.Role
 
             bool add = this.added == true ? true : false;
             if (Added != null && added) Added(this);
-            updateMeasureItemOperator();
-
-            /*if (this.SignComboBox.SelectedItem == null && index==1)
-            {
-               
-                this.CalculatedMeasureItem.closePar = false;
-               if (this.CalculatedMeasureItem.openPar == true) this.OpenParComboBox.SelectedItem = this.OpenParComboBox.Items.GetItemAt(0);
-                if (this.CalculatedMeasureItem.sign != null) this.CalculatedMeasureItem.sign = null;
-                return false ;
-            }
-            else
-            {
-
-                if (this.OpenParComboBox.SelectedItem != null && this.OpenParComboBox.SelectedItem.ToString().Equals(" "))
-                {
-                    this.CalculatedMeasureItem.closePar = false;
-                    this.CalculatedMeasureItem.openPar = false;
-                    if (this.CalculatedMeasureItem.sign != null) this.CalculatedMeasureItem.sign = null;
-                }
-                if (this.OpenParComboBox.SelectedItem.ToString().Equals("("))
-                {
-                    this.CalculatedMeasureItem.openPar = true;
-                    this.CalculatedMeasureItem.closePar = false;
-                    if (this.CalculatedMeasureItem.sign != null) this.CalculatedMeasureItem.sign = null;
-                    
-                    int pos = this.CalculatedMeasureItem.position;
-                    CalculatedMeasureItem last = null;
-                    if (pos > 0)
-                    {
-                        last = this.CalculatedMeasureItem.calculatedMeasure.GetItemByPosition(pos - 1);
-                    }
-                    
-                    if (last != null && last.measure != null)
-                    {
-                        last.measure = null;
-                        this.CalculatedMeasureItem.calculatedMeasure.UpdateItem(last);
-                    }
-                }
-                if (this.CloseParComboBox.SelectedItem.ToString().Equals(")"))
-                {
-                   
-                        this.CalculatedMeasureItem.closePar = true;
-                        
-                }
-
-                
-                if (this.OpenParComboBox.SelectedItem.ToString().Equals("+") || this.OpenParComboBox.SelectedItem.ToString().Equals("-") || this.OpenParComboBox.SelectedItem.ToString().Equals("/") || this.OpenParComboBox.SelectedItem.ToString().Equals("*") || this.OpenParComboBox.SelectedItem.ToString().Equals("^"))
-                {
-                    this.CalculatedMeasureItem.sign = this.OpenParComboBox.SelectedItem.ToString();
-                    this.CalculatedMeasureItem.closePar = false;
-                    this.CalculatedMeasureItem.openPar = false;
-                }
-
-            }*/
-            
             if (Updated != null && !added) Updated(this);
             return add;
 
         }
 
-        private void updateMeasureItemOperator()
-        {
-            //openParCombobox
-            
-         }
 
        
         /// <summary>
