@@ -133,9 +133,9 @@ namespace Misp.Kernel.Administration.Profil
                 currentPage = (ProfilEditorItem)page;
                 if (base.Save(page) == OperationState.STOP) return OperationState.STOP;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                DisplayError("Unable to save Profil", "Unable to save Excel file.");
+                DisplayError("Unable to save Profil", "Unable to save Profil.");
                 return OperationState.STOP;
             }
             return OperationState.CONTINUE;

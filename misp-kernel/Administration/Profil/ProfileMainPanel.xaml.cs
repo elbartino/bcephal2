@@ -27,8 +27,8 @@ namespace Misp.Kernel.Administration.Profil
             InitializeComponent();
             IntializeHandlers();
 
-            List<Rights> items = Misp.Kernel.Domain.Rights.generateDefaultFunction();
-            functionnalityGrid.ItemsSource = items;
+            //List<Rights> items = Misp.Kernel.Domain.Profil.generateDefaultFunction();
+            //functionnalityGrid.ItemsSource = items;
         }
 
         public List<object> getEditableControls()
@@ -47,6 +47,11 @@ namespace Misp.Kernel.Administration.Profil
             if (profil.rightsListChangeHandler.getItems().Count > 0)
             {
                 functionnalityGrid.ItemsSource = profil.rightsListChangeHandler.getItems();
+            }
+            else
+            {
+                profil.buildRight();
+                functionnalityGrid.ItemsSource = profil.defaultListRights;
             }
         }
 

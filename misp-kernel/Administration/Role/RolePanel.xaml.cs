@@ -36,7 +36,7 @@ namespace Misp.Kernel.Administration.Role
         public event DeleteEventHandler ItemDeleted;
 
         
-        public event SelectedItemChangedEventHandler ItemCloseParOrEqualSelected;
+        public event SelectedItemChangedEventHandler ItemAddedSelected;
 
         #endregion
 
@@ -100,7 +100,7 @@ namespace Misp.Kernel.Administration.Role
         /// et affiche cette valeur dans le TextBox
         /// </summary>
         /// <param name="value">La valeur du TargetItem en cour d'édition</param>
-        public bool SetCalculatedMeasureItemValue(Domain.Role value)
+        public bool SetRoleItemValue(Domain.Role value)
         {
             if (this.ActiveItemPanel == null) this.ActiveItemPanel = (RoleItemPanel)this.panel.Children[this.panel.Children.Count - 1];
            
@@ -115,7 +115,6 @@ namespace Misp.Kernel.Administration.Role
             itemPanel.Updated += OnUpdated;
             itemPanel.Deleted += OnDeleted;
             itemPanel.Activated += OnActivated;
-            itemPanel.CloseParOrEqualSelected += OnCloseParOrEqualSelected;
             this.panel.Children.Add(itemPanel);
         }
 
@@ -124,17 +123,17 @@ namespace Misp.Kernel.Administration.Role
 
         #region Handlers
 
-        private void OnCloseParOrEqualSelected(object newSelection)
+        private void OnNewItemSelected(object newSelection)
         {
-            if (ItemCloseParOrEqualSelected != null)
-                ItemCloseParOrEqualSelected(newSelection);
+            if (ItemAddedSelected != null)
+                ItemAddedSelected(newSelection);
         }
 
 
         private void OnActivated(object item)
         {
             RoleItemPanel panel = (RoleItemPanel)item;
-            if (this.ActiveItemPanel != panel)
+            if (this.ActiveItemPanel.Role != null && this.ActiveItemPanel.Role != panel.Role)
             {
                 this.ActiveItemPanel = panel;
                 if (ItemChanged != null && panel.Role != null) ItemChanged(panel.Role);
@@ -148,6 +147,7 @@ namespace Misp.Kernel.Administration.Role
             if (this.RootRole == null) this.RootRole = new Domain.Role();
             updated = false;
             OnChanged(panel);
+            OnActivated(item);
         }
 
 
