@@ -26,7 +26,6 @@ namespace Misp.Kernel.Administration.Profil
         {
             InitializeComponent();
             IntializeHandlers();
-            activeBox.IsChecked = true;
             this.deselectAll.IsChecked = true;
         }
 

@@ -96,6 +96,7 @@ namespace Misp.Kernel.Administration.Profil
             Domain.Profil profil = new Domain.Profil();
             profil.name = getNewPageName("Profil");
             profil.visibleInShortcut = true;
+            profil.active = true;
             return profil;
         }
 
