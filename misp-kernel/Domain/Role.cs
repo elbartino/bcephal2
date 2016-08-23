@@ -292,8 +292,7 @@ namespace Misp.Kernel.Domain
                 }
             }
         }
-
-        
+                
 
         public override int CompareTo(object obj)
         {

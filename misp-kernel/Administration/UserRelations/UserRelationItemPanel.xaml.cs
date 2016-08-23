@@ -281,12 +281,19 @@ namespace Misp.Kernel.Administration.UserRelations
 
         public void FillUsers(List<Domain.User> list)
         {
-            this.userComboBox.ItemsSource = list;
+            var strings = (from o in list
+                           select o.ToString()).ToList();
+            this.userComboBox.ItemsSource = strings;
         }
+           
 
         public void FillRoles(List<Domain.Role> list)
         {
-            this.roleComboBox.ItemsSource = list;
+            var strings = (from o in list
+                           select o.ToString()).ToList();
+            this.roleComboBox.ItemsSource = strings;
         }
+
+      
     }
 }

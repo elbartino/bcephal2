@@ -24,6 +24,7 @@ namespace Misp.Kernel.Administration.User
     public partial class UserMainPanel : Grid
     {
         public Domain.User currentUser;
+        private UserService service;
 
         public UserMainPanel()
         {
@@ -81,8 +82,8 @@ namespace Misp.Kernel.Administration.User
                 UserRelations.UserRelationItemPanel item = (UserRelations.UserRelationItemPanel)el;
                 if (item.userComboBox.SelectedItem == null && item.roleComboBox.SelectedItem == null) continue;
                 Domain.Relation relation = new Domain.Relation();
-                relation.owner = item.userComboBox.SelectedItem as Domain.User;
-                relation.role = item.roleComboBox.SelectedItem as Domain.Role;
+                relation.owner = this.service.getByName(item.userComboBox.SelectedItem.ToString());
+                relation.role =  this.service.RoleService.getByName(item.roleComboBox.SelectedItem.ToString());
             }
         }
 
@@ -95,6 +96,7 @@ namespace Misp.Kernel.Administration.User
 
         public void InitRelationPanel(UserService userservice) 
         {
+            service = userservice;
             Domain.Role RootRole = userservice.RoleService.getRootRole();
             this.RelationPanel.FillUsers(userservice.getUsersRelation(currentUser));
             this.RelationPanel.FillRoles(RootRole.childrenListChangeHandler.Items.ToList());
