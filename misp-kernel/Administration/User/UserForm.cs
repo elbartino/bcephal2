@@ -107,11 +107,23 @@ namespace Misp.Kernel.Administration.User
         /// </summary>
         public void displayObject()
         {
-            this.userMainPanel.Display(this.EditedObject);
             if (UserService == null) return;
+            refreshRolesAndOwner();
             Domain.Role rootRole = UserService.RoleService.getRootRole();
             this.userMainPanel.RelationPanel.FillRoles(rootRole.childrenListChangeHandler.Items.ToList());
             this.userMainPanel.RelationPanel.FillUsers(UserService.getUsersRelation(this.EditedObject));
+            this.userMainPanel.Display(this.EditedObject);
+        }
+
+        public void refreshRolesAndOwner() 
+        {
+            if (this.EditedObject.relationsListChangeHandler.Items.Count == 0) return;
+            for (int i = this.EditedObject.relationsListChangeHandler.Items.Count - 1; i >= 0; i--) 
+            {
+                Domain.Relation rel = this.EditedObject.relationsListChangeHandler.Items[i];
+                this.EditedObject.relationsListChangeHandler.Items[i].owner = UserService.getByName(rel.ownerName);
+                this.EditedObject.relationsListChangeHandler.Items[i].role = UserService.RoleService.getByName(rel.roleName);
+            }
         }
 
 

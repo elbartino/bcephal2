@@ -23,7 +23,7 @@ namespace Misp.Kernel.Administration.User
     /// </summary>
     public partial class UserMainPanel : Grid
     {
-        private Domain.User currentUser;
+        public Domain.User currentUser;
 
         public UserMainPanel()
         {

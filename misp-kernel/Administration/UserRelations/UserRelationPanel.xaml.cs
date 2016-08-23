@@ -81,7 +81,11 @@ namespace Misp.Kernel.Administration.UserRelations
             }
             foreach (Relation item in user.relationsListChangeHandler.Items)
             {
-                UserRelationItemPanel itemPanel = new UserRelationItemPanel(item);
+                UserRelationItemPanel itemPanel = new UserRelationItemPanel();
+                itemPanel.Index = index;
+                itemPanel.FillRoles(this.Roles);
+                itemPanel.FillUsers(this.Users);
+                itemPanel.Display(item);
                 AddItemPanel(itemPanel);
                 index++;
             }
@@ -224,7 +228,9 @@ namespace Misp.Kernel.Administration.UserRelations
         {
             Roles = new List<Domain.Role>();
             this.Roles.AddRange(roles);
-            this.ActiveItemPanel.FillRoles(roles);
+            //this.ActiveItemPanel.FillRoles(roles);
+            this.relationItem.FillRoles(roles);
+            this.relationItem1.FillRoles(roles);
         }
 
         public List<Domain.User> Users;
@@ -232,7 +238,9 @@ namespace Misp.Kernel.Administration.UserRelations
         {
             Users = new List<Domain.User>();
             this.Users.AddRange(users);
-            this.ActiveItemPanel.FillUsers(users);
+            //this.ActiveItemPanel.FillUsers(users);
+            this.relationItem.FillUsers(users);
+            this.relationItem1.FillUsers(users);
         }
     }
 }

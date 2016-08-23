@@ -9,7 +9,7 @@
 
 
     <StackPanel x:Name="panel" >
-        <src:UserRelationItemPanel HorizontalAlignment="Center"/>
-        <src:UserRelationItemPanel HorizontalAlignment="Center"/>
+        <src:UserRelationItemPanel x:Name="relationItem" x:FieldModifier="public" HorizontalAlignment="Center"/>
+        <src:UserRelationItemPanel x:Name="relationItem1" x:FieldModifier="public" HorizontalAlignment="Center"/>
     </StackPanel>
 </ScrollViewer>
