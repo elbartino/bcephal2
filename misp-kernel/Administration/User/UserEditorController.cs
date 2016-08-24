@@ -92,6 +92,7 @@ namespace Misp.Kernel.Administration.User
             page.getUserForm().userMainPanel.InitRelationPanel();
             page.getUserForm().displayObject();
             getEditor().ListChangeHandler.AddNew(user);
+            if (this.ToolBar != null) this.ToolBar.SaveButton.IsEnabled = false;
             
             return OperationState.CONTINUE;
         }

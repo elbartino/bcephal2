@@ -63,7 +63,7 @@ namespace Misp.Kernel.Administration.User
             ManageAdministratorView(user.IsAdmin());
             if (!user.IsAdmin() && user.profil != null)
             {
-                profilcomboBox.SelectedItem = user.profil.ToString();
+                profilcomboBox.SelectedItem = user.profil.name;
             }
             RelationPanel.DisplayUserRelations(user);
         }
@@ -107,7 +107,7 @@ namespace Misp.Kernel.Administration.User
         {
             List<string> profils = profilService.getProfilsRelation();
             this.profilcomboBox.ItemsSource = profils;
-            this.profilcomboBox.SelectedIndex = 0;
+            //this.profilcomboBox.SelectedIndex = 0;
         }
 
         public void InitRelationPanel() 
