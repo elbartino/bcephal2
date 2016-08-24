@@ -180,7 +180,7 @@ namespace Misp.Kernel.Administration.UserRelations
             }
             if (panel.RelationItem != null)
             {
-                if (this.User.relationsListChangeHandler.Items.Count > 1)
+                if (this.User.relationsListChangeHandler.Items.Count > 0)
                 {
                     if (this.User == null)
                     {
