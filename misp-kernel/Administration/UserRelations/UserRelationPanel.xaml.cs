@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Service;
 
 namespace Misp.Kernel.Administration.UserRelations
 {
@@ -81,10 +82,10 @@ namespace Misp.Kernel.Administration.UserRelations
             }
             foreach (Relation item in user.relationsListChangeHandler.Items)
             {
-                UserRelationItemPanel itemPanel = new UserRelationItemPanel();
-                itemPanel.Display(item);
+                UserRelationItemPanel itemPanel = new UserRelationItemPanel();                
                 itemPanel.Index = index;
                 AddItemPanel(itemPanel);
+                itemPanel.Display(item);
                 index++;
             }
 
