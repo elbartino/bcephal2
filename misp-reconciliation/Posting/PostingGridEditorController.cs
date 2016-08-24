@@ -29,7 +29,7 @@ namespace Misp.Reconciliation.Posting
                 PostingGridEditorItem page = (PostingGridEditorItem)getEditor().getActivePage();
                 page.Search(currentPage);
             }
-            catch (ServiceExecption e) { }
+            catch (ServiceExecption) { }
         }
                 
         protected override Kernel.Ui.Base.ToolBar getNewToolBar()

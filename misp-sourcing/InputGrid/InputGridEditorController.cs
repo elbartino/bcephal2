@@ -548,7 +548,7 @@ namespace Misp.Sourcing.InputGrid
             {
                 return this.GetInputGridService().editCell(element);
             }
-            catch (ServiceExecption e) { }
+            catch (ServiceExecption) { }
             return false;
         }
 
@@ -578,7 +578,7 @@ namespace Misp.Sourcing.InputGrid
                 page.getInputGridForm().GridForm.displayPage(rows);
                 //OnChange();
             }
-            catch (ServiceExecption e) { }
+            catch (ServiceExecption) { }
         }
 
         public void Export()
@@ -594,7 +594,7 @@ namespace Misp.Sourcing.InputGrid
                 bool response = this.GetInputGridService().exportToExcel(filter);
                 if (response) MessageDisplayer.DisplayInfo("Export to Excel", "Grid exported!");
             }
-            catch (ServiceExecption e) { }
+            catch (ServiceExecption) { }
         }
 
         protected virtual string openFileDialog(string title, string initialDirectory)

@@ -128,7 +128,7 @@ namespace Misp.Initiation.Model
                 Kernel.Domain.Model model = GetModelService().getByOid(idModel);
                 getModelEditor().getPageAndSelect(model.name);
             }
-            catch (Exception exce) { }
+            catch (Exception) { }
             return OperationState.CONTINUE;
         }
         /// <summary>
@@ -151,7 +151,7 @@ namespace Misp.Initiation.Model
                 page.Title = model.name;
                 getModelEditor().ListChangeHandler.AddNew(model);
             }
-            catch (Exception e)
+            catch (Exception)
             {
             }
             return OperationState.CONTINUE;

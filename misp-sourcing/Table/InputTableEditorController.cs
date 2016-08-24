@@ -511,7 +511,7 @@ namespace Misp.Sourcing.Table
                         if (bcephalFileName.Equals(ApplicationManager.File.name)) System.IO.File.Delete(oldFilePath);
                     }
                 }
-                catch (Exception e) { }
+                catch (Exception) { }
             }
 
             return OperationState.CONTINUE;
@@ -1686,7 +1686,7 @@ namespace Misp.Sourcing.Table
                         {
                             ok = Convert.ToInt32(obj) > 0;
                         }
-                        catch (Exception exe) 
+                        catch (Exception) 
                         {
                             ok = false;
                         }

@@ -256,7 +256,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                     return OperationState.CONTINUE;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return OperationState.STOP;
             }
@@ -381,7 +381,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                     shape.Name = "" + reportOid;
                     if (ShapeAdded != null) ShapeAdded(activeSlide.SlideNumber, activeSlide.Name, shape.Id, "" + reportOid, SlideItemType.REPORT, "");
                 }
-                catch (Exception ex) 
+                catch (Exception) 
                 {
                     MessageDisplayer.DisplayError("Insert Report", "Problem while adding report");
                 }
@@ -461,7 +461,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                 result = this.Office.SaveAs(filePath);
                 if (result) return OperationState.CONTINUE;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return OperationState.STOP;
             }

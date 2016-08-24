@@ -155,17 +155,17 @@ namespace Misp.Sourcing.Table
             if (e.ClickCount == 1)
             {
                 // Single Click occurred.
-                 string Content = "Single Click";
+                 //string Content = "Single Click";
             }
             if (e.ClickCount == 2)
             {
                 // Double Click occurred.
-                string Content = "Double Click";
+                //string Content = "Double Click";
             }
             if (e.ClickCount >= 3)
             {
                 // Triple Click occurred.
-                string Content = "Triple Click";
+                //string Content = "Triple Click";
             }
         }
 

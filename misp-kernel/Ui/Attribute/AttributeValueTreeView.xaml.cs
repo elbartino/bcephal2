@@ -648,7 +648,7 @@ namespace Misp.Kernel.Ui.Attribute
                 //set the TreeViewItem's Header to the new text
                 e.Canceled = true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return;
             }

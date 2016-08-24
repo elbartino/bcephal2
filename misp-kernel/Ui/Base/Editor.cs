@@ -270,7 +270,7 @@ namespace Misp.Kernel.Ui.Base
                 this.Children.Add(page);
                 if (canAddNewPage) this.Children.Add(NewPage);
            }
-           catch (Exception e)
+           catch (Exception)
            {
            }
            page.IsActive = true;

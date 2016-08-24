@@ -503,7 +503,7 @@ namespace Misp.Kernel.Ui.Role
                 //set the TreeViewItem's Header to the new text
                 e.Canceled = true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return;
             }

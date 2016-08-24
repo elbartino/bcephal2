@@ -41,7 +41,7 @@ namespace Misp.Kernel.Ui.Office
                         break;
                     }
                 }
-                catch (Exception ex) { }
+                catch (Exception) { }
             }
 
             if (worksheet == null) return;

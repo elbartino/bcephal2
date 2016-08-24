@@ -61,7 +61,7 @@ namespace Misp.Kernel.Service
                 User admin = RestSharp.SimpleJson.DeserializeObject<User>(queryResult.Content);
                 return admin;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

@@ -135,7 +135,7 @@ namespace Misp.Kernel.Service
                 System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 Serializer.MaxJsonLength = int.MaxValue;
                 SaveInfo saveInfo = Serializer.Deserialize<SaveInfo>(json);
-                if (saveInfo == null || saveInfo.stepCount == null || saveInfo.stepCount < 1) return null;
+                if (saveInfo == null || saveInfo.stepCount < 1) return null;
                 return saveInfo;
             }
             catch (Exception e)

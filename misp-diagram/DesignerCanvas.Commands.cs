@@ -950,7 +950,7 @@ namespace DiagramDesigner
             {
                 if(item.Tag != null) item.Tag =  itemXML.Attribute("Tag").Value;
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
             return item;
         }
 
@@ -973,7 +973,7 @@ namespace DiagramDesigner
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
 

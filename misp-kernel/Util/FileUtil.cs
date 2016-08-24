@@ -17,7 +17,7 @@ namespace Misp.Kernel.Util
                 else CopyFile(sourcePath, destPath, true);
                 return true;
             }
-            catch (Exception exce) 
+            catch (Exception) 
             {
                 return false;
             }

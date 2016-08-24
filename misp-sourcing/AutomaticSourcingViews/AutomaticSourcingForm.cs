@@ -106,7 +106,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
                 host.Child = SpreadSheet;
                 this.Content = host;
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
 
         

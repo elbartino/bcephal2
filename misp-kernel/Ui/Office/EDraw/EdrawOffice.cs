@@ -467,7 +467,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                     return OperationState.CONTINUE;
                 }
             }
-            catch (Exception ex) 
+            catch (Exception) 
             {
                 return OperationState.STOP;
             }
@@ -499,7 +499,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                     return OperationState.CONTINUE;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return OperationState.STOP;
             }
@@ -551,11 +551,11 @@ namespace Misp.Kernel.Ui.Office.EDraw
 
                     return null;
                 }
-                catch (COMException cExce)
+                catch (COMException)
                 {
                     return null;
                 }
-                catch (NullReferenceException nExce) 
+                catch (NullReferenceException) 
                 {
                     return null;
                 }
@@ -605,7 +605,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                     rangePreviousValue = range;
                     return rangeRetour;
                 }
-                catch (COMException cExce)
+                catch (COMException )
                 {
                     xlApp.DisplayAlerts = false;
                     return new List<RangeItem>(0);
@@ -660,7 +660,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                     }
                     return rangeRetour;
                 }
-                catch (COMException cExce)
+                catch (COMException)
                 {
                     return new List<String>(0);
                 }
@@ -705,7 +705,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
 
                 }
@@ -735,7 +735,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                     }
                     return null;
                 }
-                catch (Exception ex) 
+                catch (Exception ) 
                 {
                     return null;
                 }
@@ -758,7 +758,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                     Excel.Worksheet sheet = (Excel.Worksheet)xlApp.Sheets.get_Item(sheetIndex);
                     if (sheet != null && sheet.Name != null) return new Sheet(sheet.Index, sheet.Name);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return null;
                 }
@@ -827,7 +827,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                         return rangeCourant;
                     }
                 }
-                catch (Exception ex) 
+                catch (Exception) 
                 {
                     return null;
                 }
@@ -847,7 +847,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                  Excel._Worksheet xlWorkSheet = xlApp.ActiveSheet as Excel._Worksheet;
                  xlWorkSheet.Rows.EntireRow.Delete(Missing.Value);
              }
-             catch (Exception ex) { }
+             catch (Exception ) { }
         }
 
         public void deleteExcelRow(int row) {
@@ -857,7 +857,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                 Excel._Worksheet xlWorkSheet = xlApp.ActiveSheet as Excel._Worksheet;
                 xlWorkSheet.Rows[row].EntireRow.Delete(Missing.Value);
             }
-            catch (Exception ex) { }
+            catch (Exception ) { }
         }
 
         public void deleteExcelCol(int row,int Col)
@@ -868,7 +868,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                 Excel._Worksheet xlWorkSheet = xlApp.ActiveSheet as Excel._Worksheet;
                 xlWorkSheet.Columns[row, Col].Delete(Missing.Value);
             }
-            catch (Exception ex) { }
+            catch (Exception ) { }
         }
         
         public void DisableSheet(bool disable = true)
@@ -888,7 +888,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                            Type.Missing);
                     xlApp.DisplayAlerts = false;
                 }
-                catch (Exception ex) { }
+                catch (Exception ) { }
             }
       }
 
@@ -1022,7 +1022,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                         }
                     }
                 }
-                catch (Exception ex) 
+                catch (Exception ) 
                 {
                     return null;
                 }
@@ -1082,7 +1082,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                 }
                 return cellule;
             }
-            catch (Exception ex) 
+            catch (Exception ) 
             {
                 return null;
             }
@@ -1158,7 +1158,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                        return ColumnValues;
                    }
                }
-               catch (Exception ex) 
+               catch (Exception ) 
                {
                    return null;
                }
@@ -1186,7 +1186,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
            {
                 xlWorkSheet = xlApp.ActiveSheet;
            }
-           catch (Exception ex) 
+           catch (Exception ) 
            {
                return new System.Drawing.Rectangle(1,1, 1, 1);
            }
@@ -1288,7 +1288,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                {
                    xlWorkSheet = xlApp.ActiveSheet;
                }
-               catch (Exception e) 
+               catch (Exception) 
                {
                    return null;
                }
@@ -1424,7 +1424,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                     Ui.Office.Sheet sheet = new Ui.Office.Sheet(xlWorkSheet.Index, xlWorkSheet.Name);
                     if (sheet != null && sheet.Name != null) return sheet.Name.ToString();
                 }
-                catch (Exception ex) 
+                catch (Exception ) 
                 {
                     return "";
                 }
@@ -1447,7 +1447,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                     if (sheet == null) return -1;
                     return sheet.Index;
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
                     return -1;
                 }
@@ -1481,7 +1481,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                     }
                     return new List<Sheet>(0);
                 }
-                catch (Exception ex) 
+                catch (Exception) 
                 {
                     return null;
                 }

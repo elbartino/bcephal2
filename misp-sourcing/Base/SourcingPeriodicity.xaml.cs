@@ -45,7 +45,7 @@ namespace Misp.Sourcing.Base
 
         public string GetDateFromAsString()
         {
-            string format = "{0:dd-MM-yyyy}";
+            //string format = "{0:dd-MM-yyyy}";
             DateTime? from = dateFrom.SelectedDate;
             //return from != null && from.HasValue ? String.Format(format, from.Value) : null;
             return from != null && from.HasValue ? from.Value.ToShortDateString() : null;
@@ -53,7 +53,7 @@ namespace Misp.Sourcing.Base
 
         public string GetDateToAsString()
         {
-            string format = "{0:dd-MM-yyyy}";
+            //string format = "{0:dd-MM-yyyy}";
             DateTime? to = dateTo.SelectedDate;
             //return to != null && to.HasValue ? String.Format(format, to.Value) : null;
             return to != null && to.HasValue ? to.Value.ToShortDateString() : null;

@@ -38,7 +38,7 @@ namespace Misp.Kernel.Service
                 Role rule = RestSharp.SimpleJson.DeserializeObject<Role>(queryResult.Content);
                 return rule;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -86,7 +86,7 @@ namespace Misp.Kernel.Service
                 Role ru = RestSharp.SimpleJson.DeserializeObject<Role>(queryResult.Content);
                 return ru;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }

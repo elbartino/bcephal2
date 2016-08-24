@@ -137,7 +137,7 @@ namespace Misp.Kernel.Service
                 bool value = RestSharp.SimpleJson.DeserializeObject<bool>(queryResult.Content);
                 return value;
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 return true;
             }
@@ -344,7 +344,7 @@ namespace Misp.Kernel.Service
                 bool result = RestSharp.SimpleJson.DeserializeObject<bool>(response.Result.Content);
                 return result;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }            
@@ -360,7 +360,7 @@ namespace Misp.Kernel.Service
                 long result = RestSharp.SimpleJson.DeserializeObject<int>(response.Result.Content);
                 return result;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return 0;
             }      
@@ -418,7 +418,6 @@ namespace Misp.Kernel.Service
                 logger.Error("Unable to save ArchiveConfiguration.", e);
                 throw new BcephalException("Unable to save ArchiveConfiguration.", e);
             }
-            return false;
         }
 
         public bool saveSimpleArchive(SimpleArchive archive)
@@ -446,7 +445,6 @@ namespace Misp.Kernel.Service
                 logger.Error("Unable to save SimpleArchive.", e);
                 throw new BcephalException("Unable to save SimpleArchive.", e);
             }
-            return false;
         }
         
 

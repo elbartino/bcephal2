@@ -519,7 +519,7 @@ namespace Misp.Initiation.Periodicity
                 //set the TreeViewItem's Header to the new text
                 e.Canceled = true;
             }
-            catch (Exception ex) { return; }
+            catch (Exception) { return; }
         }
       
 

@@ -44,7 +44,7 @@ namespace Misp.Kernel.Ui.Office
         {
             this.FilePath = FilePath;
             MsoTriState ofalse = MsoTriState.msoFalse;
-            MsoTriState otrue = MsoTriState.msoTrue;
+            //MsoTriState otrue = MsoTriState.msoTrue;
             if (PowerPointApplication == null) PowerPointApplication = new PowerPoint.Application();
             PowerPointApplication.Presentations.Open(@FilePath, ofalse, ofalse, ofalse);
             int currrent =  PowerPointApplication.Presentations.Count;
@@ -75,7 +75,7 @@ namespace Misp.Kernel.Ui.Office
                         break;
                     }
                 }
-                catch (Exception ex) {}
+                catch (Exception) {}
             }
             
             if (worksheet == null) return;
@@ -95,7 +95,7 @@ namespace Misp.Kernel.Ui.Office
                 workbook = (Excel.Workbook)shape.OLEFormat.Object;
                 if (workbook == null) worksheet = null;
             }
-            catch (Exception ex) 
+            catch (Exception) 
             {
                 worksheet = null;
             }

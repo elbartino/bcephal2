@@ -306,7 +306,7 @@ namespace Misp.Kernel.Domain
                 dataObj.SetData(format.Name, false, this);
                 Clipboard.SetDataObject(dataObj, false);
             }
-            catch (Exception ex) 
+            catch (Exception) 
             {
                 return false;
             }

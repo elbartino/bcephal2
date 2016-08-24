@@ -375,7 +375,7 @@ namespace Misp.Kernel.Util
                         copiedElements.Add(System.Windows.Clipboard.GetData(format) as Domain.IHierarchyObject);
                     return copiedElements;
                 }
-                catch (Exception exce)
+                catch (Exception)
                 {
                     Kernel.Util.MessageDisplayer.DisplayError("Error copy", "Unable to paste "+format.Split('.')[1]);
                     return null;
@@ -549,7 +549,7 @@ namespace Misp.Kernel.Util
                     if (ob != null && ob.Count > 0) return ob;
                 }
             }
-            catch (Exception exce)
+            catch (Exception)
             {
             }
             return null;
@@ -572,7 +572,7 @@ namespace Misp.Kernel.Util
                     if (ob != null && ob.Count > 0) return ob;
                 }
             }
-            catch (Exception exce)
+            catch (Exception)
             {
             }
             return null;

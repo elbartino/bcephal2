@@ -253,7 +253,7 @@ namespace Misp.Sourcing.Base
                     }
                     tagName = GetAutomaticSourcingService().PeriodNameService.Save(tagName);
                 }
-                catch (BcephalException ex) { }
+                catch (BcephalException) { }
 
                 tagNames = GetAutomaticSourcingService().PeriodNameService.getAll();
 
@@ -1743,7 +1743,7 @@ namespace Misp.Sourcing.Base
                 {
                     colName = page.getAutomaticSourcingForm().SpreadSheet.getValueAt(1, colPosition, activeSheetName).ToString();
                 }
-                catch (Exception exc)
+                catch (Exception)
                 {
                     colName = Kernel.Util.RangeUtil.GetColumnName(colPosition);
                 }

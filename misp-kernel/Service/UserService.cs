@@ -38,7 +38,7 @@ namespace Misp.Kernel.Service
                 User usr = RestSharp.SimpleJson.DeserializeObject<User>(queryResult.Content);
                 return usr;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -61,7 +61,7 @@ namespace Misp.Kernel.Service
                 User u = RestSharp.SimpleJson.DeserializeObject<User>(queryResult.Content);
                 return u;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
@@ -103,7 +103,7 @@ namespace Misp.Kernel.Service
                 User u = RestSharp.SimpleJson.DeserializeObject<User>(queryResult.Content);
                 return u;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }

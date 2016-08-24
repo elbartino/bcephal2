@@ -261,7 +261,7 @@ namespace Misp.Sourcing.Table
                 System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 Serializer.MaxJsonLength = int.MaxValue;
                 SaveInfo saveInfo = Serializer.Deserialize<SaveInfo>(json);
-                if (saveInfo == null || saveInfo.stepCount == null || saveInfo.stepCount < 1) return null;
+                if (saveInfo == null || saveInfo.stepCount < 1) return null;
                 return saveInfo;
             }
             catch (Exception e)
@@ -570,12 +570,12 @@ namespace Misp.Sourcing.Table
                     if (result == null) return null;
                     return result;
                 }
-                catch (Exception exce)
+                catch (Exception)
                 {
                     return null;
                 }
             }
-            catch (Exception exce)
+            catch (Exception)
             {
                 return null;
             }
@@ -595,15 +595,15 @@ namespace Misp.Sourcing.Table
                 try
                 {
                     bool result = RestSharp.SimpleJson.DeserializeObject<bool>(queryResult.Content);
-                    if (result == null) return false;
+                    
                     return result;
                 }
-                catch (Exception exce)
+                catch (Exception)
                 {
                     return false;
                 }
             }
-            catch (Exception exce)
+            catch (Exception)
             {
                 return false;
             }
@@ -738,7 +738,7 @@ namespace Misp.Sourcing.Table
                     group = new BGroup(value.group, "")
                 };
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }   

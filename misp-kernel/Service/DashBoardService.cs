@@ -60,7 +60,7 @@ namespace Misp.Kernel.Service
                 List<BrowserData> datas = RestSharp.SimpleJson.DeserializeObject<List<BrowserData>>(queryResult.Content);
                 return datas;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new List<BrowserData>(0);
             }
@@ -80,7 +80,7 @@ namespace Misp.Kernel.Service
                 List<DashBoardConfiguration> datas = RestSharp.SimpleJson.DeserializeObject<List<DashBoardConfiguration>>(queryResult.Content);
                 return datas;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new List<DashBoardConfiguration>(0);
             }
@@ -100,7 +100,7 @@ namespace Misp.Kernel.Service
                 DashBoardConfiguration data = RestSharp.SimpleJson.DeserializeObject<DashBoardConfiguration>(queryResult.Content);
                 return data;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new DashBoardConfiguration();
             }
@@ -121,7 +121,7 @@ namespace Misp.Kernel.Service
                 DashBoardConfiguration data = RestSharp.SimpleJson.DeserializeObject<DashBoardConfiguration>(queryResult.Content);
                 return data;
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 return new DashBoardConfiguration();
             }
@@ -144,7 +144,7 @@ namespace Misp.Kernel.Service
                 DashBoardConfiguration data = RestSharp.SimpleJson.DeserializeObject<DashBoardConfiguration>(queryResult.Content);
                 return data;
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 return null;
             }
@@ -165,7 +165,7 @@ namespace Misp.Kernel.Service
                 List<DashBoardConfiguration> data = RestSharp.SimpleJson.DeserializeObject<List<DashBoardConfiguration>>(queryResult.Content);
                 return data;
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 return new List<DashBoardConfiguration>(0);
             }

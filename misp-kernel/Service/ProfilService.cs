@@ -35,7 +35,7 @@ namespace Misp.Kernel.Service
                 Profil pf = RestSharp.SimpleJson.DeserializeObject<Profil>(queryResult.Content);
                 return pf;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -56,7 +56,7 @@ namespace Misp.Kernel.Service
                 Profil profil = RestSharp.SimpleJson.DeserializeObject<Profil>(queryResult.Content);
                 return profil;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }

@@ -65,7 +65,7 @@ namespace Misp.Reconciliation.Posting
                 this.getInputGridForm().GridForm.displayPage(rows);
                 this.PostingToolBar.displayBalance(0, 0);
             }
-            catch (ServiceExecption e) { }
+            catch (ServiceExecption) { }
         }
 
         public void Reconciliate()

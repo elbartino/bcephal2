@@ -186,7 +186,7 @@ namespace Misp.Kernel.Util
                     index =  Convert.ToInt64(rangeTab[j].ToString());
                     break;
                 }
-                catch (Exception exce)
+                catch (Exception)
                 {
                     colValue += rangeTab[j];
                 }

@@ -220,7 +220,7 @@ namespace Misp.Kernel.Ui.Dashboard
                 if (check && (runInfo == null || (runInfo.runedCellCount == 0 && runInfo.currentInfo == null))) return null;
                 return runInfo;
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }
@@ -512,7 +512,7 @@ namespace Misp.Kernel.Ui.Dashboard
                 if (automaticSourcingdata == null || automaticSourcingdata.automaticSourcingOid == 0) return null;
                 return automaticSourcingdata;
             }
-            catch (Exception e) { }
+            catch (Exception) { }
             return null;
         }
 
@@ -526,7 +526,7 @@ namespace Misp.Kernel.Ui.Dashboard
                 if (issue == null || issue.decision == null) return null;
                 return issue;
             }
-            catch (Exception e) { }
+            catch (Exception ) { }
             return null;
         }
 
@@ -537,10 +537,10 @@ namespace Misp.Kernel.Ui.Dashboard
                 System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 Serializer.MaxJsonLength = int.MaxValue;
                 SaveInfo saveInfo = Serializer.Deserialize<SaveInfo>(json);
-                if (saveInfo == null || saveInfo.stepCount == null || saveInfo.stepCount < 1) return null;
+                if (saveInfo == null || saveInfo.stepCount < 1) return null;
                 return saveInfo;
             }
-            catch (Exception e) { }
+            catch (Exception ) { }
             return null;
         }
 
@@ -748,7 +748,7 @@ namespace Misp.Kernel.Ui.Dashboard
                 TransformationTreeRunInfo runInfo = Serializer.Deserialize<TransformationTreeRunInfo>(json);
                 return runInfo;
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 
             }
@@ -764,7 +764,7 @@ namespace Misp.Kernel.Ui.Dashboard
                 PowerpointLoadInfo info = Serializer.Deserialize<PowerpointLoadInfo>(json);
                 return info;
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 
             }

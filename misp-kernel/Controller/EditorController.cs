@@ -260,7 +260,7 @@ namespace Misp.Kernel.Controller
         {
             EditorItem<T> page = getEditor().getActivePage();
             page.InitializeCustomDialog("Save as");
-            if (!page.EditedObject.oid.HasValue || page.EditedObject.oid.Value == null)
+            if (!page.EditedObject.oid.HasValue)
             {
                 Rename(name);
                 return Save(page);

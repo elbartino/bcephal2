@@ -50,7 +50,6 @@ namespace Misp.Kernel.Service
             {
                 throw new BcephalException("Unable to Return group named: " + name, e);
             }
-            return null;
         }
 
         /// <summary>
@@ -70,7 +69,7 @@ namespace Misp.Kernel.Service
                     BGroup root = RestSharp.SimpleJson.DeserializeObject<BGroup>(queryResult.Content);
                     return root;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return null;
                 }

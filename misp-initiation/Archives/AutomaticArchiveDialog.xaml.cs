@@ -137,7 +137,7 @@ namespace Misp.Initiation.Archives
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Kernel.Util.MessageDisplayer.DisplayWarning("Automatic Archive ", "The Minut Interval is not valid !");
                 return;
@@ -153,7 +153,7 @@ namespace Misp.Initiation.Archives
                     return;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Kernel.Util.MessageDisplayer.DisplayWarning("Automatic Archive ", "The max archive number is not valid !");
                 return;

@@ -90,12 +90,12 @@ namespace Misp.Kernel.Service
                     if (tableOid > 0)
                         return tableOid;
                 }
-                catch (Exception exce) 
+                catch (Exception) 
                 {
                     return -1;
                 }
            }
-            catch (Exception exce)
+            catch (Exception)
             {
                   return -1;
             }
@@ -122,12 +122,12 @@ namespace Misp.Kernel.Service
                     return result;
 
                 }
-                catch (Exception exce)
+                catch (Exception)
                 {
                     return null;
                 }
             }
-            catch (Exception exce)
+            catch (Exception)
             {
                 return null;
             }
@@ -223,7 +223,7 @@ namespace Misp.Kernel.Service
                 System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 Serializer.MaxJsonLength = int.MaxValue;
                 SaveInfo saveInfo = Serializer.Deserialize<SaveInfo>(json);
-                if (saveInfo == null || saveInfo.stepCount == null || saveInfo.stepCount < 1) return null;
+                if (saveInfo == null || saveInfo.stepCount < 1) return null;
                 return saveInfo;
             }
             catch (Exception e)
@@ -248,7 +248,7 @@ namespace Misp.Kernel.Service
                 if (result == null) return new List<string>(0);
                 return result;
             }
-            catch (Exception exce)
+            catch (Exception)
             {
                 return new List<string>(0);
             }

@@ -146,7 +146,7 @@ namespace Misp.Sourcing.Designer
                 currentPage = (DesignerEditorItem)page;
                 if (base.Save(page) == OperationState.STOP) return OperationState.STOP;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 DisplayError("Unable to save Design", "Unable to save Excel file.");
                 return OperationState.STOP;

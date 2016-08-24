@@ -35,7 +35,7 @@ namespace Misp.Kernel.Service
                 object obj = base.DeserializeObject(value, type);
                 return obj;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             } 

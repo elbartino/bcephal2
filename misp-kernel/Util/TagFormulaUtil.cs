@@ -251,7 +251,7 @@ namespace Misp.Kernel.Util
             {
                 point.Y = int.Parse(row);
             }
-            catch (Exception ex) 
+            catch (Exception) 
             {
                 return new Point(-1,-1);
             }

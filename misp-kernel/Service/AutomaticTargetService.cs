@@ -46,12 +46,12 @@ namespace Misp.Kernel.Service
                     if (tableOid > 0)
                         return tableOid;
                 }
-                catch (Exception exce)
+                catch (Exception)
                 {
                     return -1;
                 }
             }
-            catch (Exception exce)
+            catch (Exception)
             {
                 return -1;
             }
@@ -78,12 +78,12 @@ namespace Misp.Kernel.Service
                     return result;
 
                 }
-                catch (Exception exce)
+                catch (Exception)
                 {
                     return null;
                 }
             }
-            catch (Exception exce)
+            catch (Exception)
             {
                 return null;
             }
