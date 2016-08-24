@@ -75,10 +75,9 @@ namespace Misp.Kernel.Service
         /// <returns></returns>
         public List<string> getUsersRelation(Domain.User user)
         {
-            List<User> us = new List<User>();
             if (user.oid == null)
             {
-                us = getAll();
+                return  (from o in getAll() select o.ToString()).ToList();
             }
             else
             {
@@ -87,10 +86,10 @@ namespace Misp.Kernel.Service
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
                 JavaScriptSerializer Serializer = new JavaScriptSerializer();
                 Serializer.MaxJsonLength = int.MaxValue;
-                us = Serializer.Deserialize<List<Domain.User>>(queryResult.Content);
+                List<string> us = Serializer.Deserialize<List<string>>(queryResult.Content);
+                return us;
             }
-            List<string> ostring = (from o in us select o.ToString()).ToList();
-            return ostring;
+            
         }
 
         /// <summary>

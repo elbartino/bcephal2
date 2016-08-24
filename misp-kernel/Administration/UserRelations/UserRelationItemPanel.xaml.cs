@@ -120,11 +120,8 @@ namespace Misp.Kernel.Administration.UserRelations
         {
             update = false;
             this.RelationItem = item;
-            this.RoleComboBox.SelectedItem = item.role.ToString();
-            this.userComboBox.SelectedItem = item.owner.ToString();
-
-            //this.RoleComboBox.SelectedItem = item.role;
-            //this.userComboBox.SelectedItem = item.owner;
+            this.RoleComboBox.SelectedItem = item.role;
+            this.userComboBox.SelectedItem = item.owner;
             update = true;
         }
 
@@ -199,8 +196,8 @@ namespace Misp.Kernel.Administration.UserRelations
             //this.RelationItem.role = this.roleComboBox.SelectedItem as Domain.Role;
             //this.RelationItem.owner = this.userComboBox.SelectedItem as Domain.User;
 
-            this.RelationItem.roleS = this.roleComboBox.SelectedItem as string;
-            this.RelationItem.ownerS = this.userComboBox.SelectedItem as string;
+            this.RelationItem.role = this.roleComboBox.SelectedItem as string;
+            this.RelationItem.owner= this.userComboBox.SelectedItem as string;
 
             bool add = this.added == true ? true : false;
             if (Added != null && added) Added(this);

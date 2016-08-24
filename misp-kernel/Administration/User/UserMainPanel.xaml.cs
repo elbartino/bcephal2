@@ -90,15 +90,9 @@ namespace Misp.Kernel.Administration.User
                 UserRelations.UserRelationItemPanel item = (UserRelations.UserRelationItemPanel)el;
                 if (item.userComboBox.SelectedItem == null && item.roleComboBox.SelectedItem == null) continue;
                 Domain.Relation relation = new Domain.Relation();
-                string ownerS = item.userComboBox.SelectedItem as string;
-                string roleS = item.roleComboBox.SelectedItem as string;
-                item.RelationItem.owner = getUserByName(ownerS);
-                item.RelationItem.role = getRoleByName(roleS);
+                item.RelationItem.owner = item.userComboBox.SelectedItem as string;
+                item.RelationItem.role = item.roleComboBox.SelectedItem as string;
 
-                //relation.owner = item.userComboBox.SelectedItem as Domain.User;
-                //relation.role = item.roleComboBox.SelectedItem as Domain.Role;
-
-                
             }
         }
 
@@ -111,7 +105,6 @@ namespace Misp.Kernel.Administration.User
 
         public void InitProfilComboBox()
         {
-            //List<Domain.Profil> profils = profilService.getAll();
             List<string> profils = profilService.getProfilsRelation();
             this.profilcomboBox.ItemsSource = profils;
             this.profilcomboBox.SelectedIndex = 0;
@@ -122,24 +115,11 @@ namespace Misp.Kernel.Administration.User
             Domain.Role RootRole = userService.RoleService.getRootRole();
             this.RelationPanel.FillUsers(userService.getUsersRelation(currentUser));
             this.RelationPanel.FillRoles(userService.RoleService.getRolesRelation());
-            //this.RelationPanel.FillRoles(RootRole.childrenListChangeHandler.Items.ToList());
         }
 
         public Domain.Profil getProfilByName(string name)
         {
             if(name != null) return profilService.getByName(name);
-            return null;
-        }
-
-        public Domain.Role getRoleByName(string name)
-        {
-            if (name != null) return roleService.getByName(name);
-            return null;
-        }
-
-        public Domain.User getUserByName(string name)
-        {
-            if (name != null)  return userService.getByName(name);
             return null;
         }
 
