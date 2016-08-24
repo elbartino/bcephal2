@@ -193,8 +193,11 @@ namespace Misp.Kernel.Administration.UserRelations
                 added = true;
             }
 
-            this.RelationItem.role = this.roleComboBox.SelectedItem as Domain.Role;
-            this.RelationItem.owner = this.userComboBox.SelectedItem as Domain.User;
+            this.RelationItem.roleName = this.roleComboBox.SelectedItem != null ? this.roleComboBox.SelectedItem.ToString() : null;
+            this.RelationItem.ownerName = this.userComboBox.SelectedItem != null ? this.userComboBox.SelectedItem.ToString() : null;
+
+            //this.RelationItem.role = this.roleComboBox.SelectedItem as Domain.Role;
+            //this.RelationItem.owner = this.userComboBox.SelectedItem as Domain.User;
 
             bool add = this.added == true ? true : false;
             if (Added != null && added) Added(this);

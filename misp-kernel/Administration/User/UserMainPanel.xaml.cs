@@ -77,14 +77,14 @@ namespace Misp.Kernel.Administration.User
                 Domain.Profil profil = (Domain.Profil)profilcomboBox.SelectedItem;
                 user.profil = profil;
             }
-            foreach (UIElement el in this.RelationPanel.panel.Children)
-            {
-                UserRelations.UserRelationItemPanel item = (UserRelations.UserRelationItemPanel)el;
-                if (item.userComboBox.SelectedItem == null && item.roleComboBox.SelectedItem == null) continue;
-                Domain.Relation relation = new Domain.Relation();
-                relation.owner = this.service.getByName(item.userComboBox.SelectedItem.ToString());
-                relation.role =  this.service.RoleService.getByName(item.roleComboBox.SelectedItem.ToString());
-            }
+            //foreach (UIElement el in this.RelationPanel.panel.Children)
+            //{
+            //    UserRelations.UserRelationItemPanel item = (UserRelations.UserRelationItemPanel)el;
+            //    if (item.userComboBox.SelectedItem == null && item.roleComboBox.SelectedItem == null) continue;
+            //    Domain.Relation relation = new Domain.Relation();
+            //    relation.owner = this.service.getByName(item.userComboBox.SelectedItem.ToString());
+            //    relation.role =  this.service.RoleService.getByName(item.roleComboBox.SelectedItem.ToString());
+            //}
         }
 
         public void InitProfilComboBox(ProfilService profilService)
