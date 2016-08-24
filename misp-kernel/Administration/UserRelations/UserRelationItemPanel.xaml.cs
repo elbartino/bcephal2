@@ -120,8 +120,8 @@ namespace Misp.Kernel.Administration.UserRelations
         {
             update = false;
             this.RelationItem = item;
-            this.RoleComboBox.SelectedItem = item.role;
-            this.userComboBox.SelectedItem = item.owner;
+            this.RoleComboBox.SelectedItem = item.role != null ? item.role.name :"";
+            this.userComboBox.SelectedItem = item.owner != null ? item.owner.name : "";
             update = true;
         }
 
