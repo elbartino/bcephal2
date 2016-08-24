@@ -73,19 +73,24 @@ namespace Misp.Kernel.Service
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public List<Domain.User> getUsersRelation(Domain.User user)
+        public List<string> getUsersRelation(Domain.User user)
         {
+            List<User> us = new List<User>();
             if (user.oid == null)
             {
-                return getAll();
+                us = getAll();
             }
-            var request = new RestRequest(ResourcePath + "/user_relation/" + user.oid, Method.GET);
-            request.RequestFormat = DataFormat.Json;
-            RestResponse queryResult = (RestResponse)RestClient.Execute(request);
-            JavaScriptSerializer Serializer = new JavaScriptSerializer();
-            Serializer.MaxJsonLength = int.MaxValue;
-            List<Domain.User> users = Serializer.Deserialize<List<Domain.User>>(queryResult.Content);
-            return users;
+            else
+            {
+                var request = new RestRequest(ResourcePath + "/user_relation/" + user.oid, Method.GET);
+                request.RequestFormat = DataFormat.Json;
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                us = Serializer.Deserialize<List<Domain.User>>(queryResult.Content);
+            }
+            List<string> ostring = (from o in us select o.ToString()).ToList();
+            return ostring;
         }
 
         /// <summary>

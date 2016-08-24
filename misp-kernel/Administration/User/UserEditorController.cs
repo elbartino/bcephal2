@@ -64,11 +64,12 @@ namespace Misp.Kernel.Administration.User
             UserEditorItem page = (UserEditorItem)getUserEditor().addOrSelectPage(user);
             initializePageHandlers(page);
             page.getUserForm().UserService = GetUserService();
+            page.getUserForm().userMainPanel.InitService(GetUserService());
             page.Title = user.name;
             page.getUserForm().displayObject();
             getUserEditor().ListChangeHandler.AddNew(user);
-            page.getUserForm().userMainPanel.InitProfilComboBox(GetUserService().ProfilService);
-            page.getUserForm().userMainPanel.InitRelationPanel(GetUserService());
+            page.getUserForm().userMainPanel.InitProfilComboBox();
+            page.getUserForm().userMainPanel.InitRelationPanel();
             return OperationState.CONTINUE;
         }
 
@@ -86,8 +87,9 @@ namespace Misp.Kernel.Administration.User
         {
             UserEditorItem page = (UserEditorItem)getEditor().addOrSelectPage(user);
             initializePageHandlers(page);
-            page.getUserForm().userMainPanel.InitProfilComboBox(GetUserService().ProfilService);
-            page.getUserForm().userMainPanel.InitRelationPanel(GetUserService());
+            page.getUserForm().userMainPanel.InitService(GetUserService());
+            page.getUserForm().userMainPanel.InitProfilComboBox();
+            page.getUserForm().userMainPanel.InitRelationPanel();
             page.getUserForm().displayObject();
             getEditor().ListChangeHandler.AddNew(user);
             
@@ -505,10 +507,11 @@ namespace Misp.Kernel.Administration.User
             if (page != null)
             {
                 string name = page.getUserForm().userMainPanel.profilcomboBox.SelectedItem.ToString();
-                Domain.Profil profil = (Domain.Profil)page.getUserForm().userMainPanel.profilcomboBox.SelectedItem;
+                string profilS = (string)page.getUserForm().userMainPanel.profilcomboBox.SelectedItem;
+                //Domain.Profil profil = (Domain.Profil)page.getUserForm().userMainPanel.profilcomboBox.SelectedItem;
                 ((UserSideBar)SideBar).UserGroup.UserTreeview.updateUser(name, page.Title, true);
                 Domain.User usTemp = page.EditedObject;
-                usTemp.profil = profil;
+                usTemp.profil = GetUserService().ProfilService.getByName(profilS);
                 page.EditedObject = usTemp;
                 page.EditedObject.isModified = true;
                 OnChange();

@@ -71,6 +71,20 @@ namespace Misp.Kernel.Service
             }
         }
 
+
+        /// <summary>
+        /// get all Role in data base 
+        /// different to @user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public List<string> getRolesRelation()
+        {
+            Role root = getRootRole();
+            List<string> ostring = (from o in root.childrenListChangeHandler.Items.ToList() select o.ToString()).ToList();
+            return ostring;
+        }
+
         /// <summary>
         /// get Role by oid
         /// </summary>

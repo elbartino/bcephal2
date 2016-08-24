@@ -25,6 +25,12 @@ namespace Misp.Kernel.Administration.User
     {
         private Domain.User currentUser;
 
+        public ProfilService profilService;
+
+        public RoleService roleService;
+
+        public UserService userService;
+
         public UserMainPanel()
         {
             InitializeComponent();
@@ -55,9 +61,9 @@ namespace Misp.Kernel.Administration.User
             loginTextBox.Text = user.login;
             passwordTextBox.Password = user.password;
             ManageAdministratorView(user.IsAdmin());
-            if (!user.IsAdmin())
+            if (!user.IsAdmin() && user.profil != null)
             {
-                profilcomboBox.SelectedItem = user.profil;
+                profilcomboBox.SelectedItem = user.profil.ToString();
             }
             RelationPanel.DisplayUserRelations(user);
         }
@@ -73,31 +79,68 @@ namespace Misp.Kernel.Administration.User
             user.password = passwordTextBox.Password;
             if (!user.IsAdmin())
             {
-                Domain.Profil profil = (Domain.Profil)profilcomboBox.SelectedItem;
-                user.profil = profil;
+                string profilS = (string)profilcomboBox.SelectedItem;
+                user.profil = getProfilByName(profilS); ;
+
+                //Domain.Profil profil = (Domain.Profil)profilcomboBox.SelectedItem;
+                //user.profil = profil;
             }
             foreach (UIElement el in this.RelationPanel.panel.Children)
             {
                 UserRelations.UserRelationItemPanel item = (UserRelations.UserRelationItemPanel)el;
                 if (item.userComboBox.SelectedItem == null && item.roleComboBox.SelectedItem == null) continue;
                 Domain.Relation relation = new Domain.Relation();
-                relation.owner = item.userComboBox.SelectedItem as Domain.User;
-                relation.role = item.roleComboBox.SelectedItem as Domain.Role;
+                string ownerS = item.userComboBox.SelectedItem as string;
+                string roleS = item.roleComboBox.SelectedItem as string;
+                item.RelationItem.owner = getUserByName(ownerS);
+                item.RelationItem.role = getRoleByName(roleS);
+
+                //relation.owner = item.userComboBox.SelectedItem as Domain.User;
+                //relation.role = item.roleComboBox.SelectedItem as Domain.Role;
+
+                
             }
         }
 
-        public void InitProfilComboBox(ProfilService profilService)
+        public void InitService(UserService userServic)
         {
-            List<Domain.Profil> profils = profilService.getAll();
+            profilService = userServic.ProfilService;
+            roleService = userServic.RoleService;
+            userService = userServic;
+        }
+
+        public void InitProfilComboBox()
+        {
+            //List<Domain.Profil> profils = profilService.getAll();
+            List<string> profils = profilService.getProfilsRelation();
             this.profilcomboBox.ItemsSource = profils;
             this.profilcomboBox.SelectedIndex = 0;
         }
 
-        public void InitRelationPanel(UserService userservice) 
+        public void InitRelationPanel() 
         {
-            Domain.Role RootRole = userservice.RoleService.getRootRole();
-            this.RelationPanel.FillUsers(userservice.getUsersRelation(currentUser));
-            this.RelationPanel.FillRoles(RootRole.childrenListChangeHandler.Items.ToList());
+            Domain.Role RootRole = userService.RoleService.getRootRole();
+            this.RelationPanel.FillUsers(userService.getUsersRelation(currentUser));
+            this.RelationPanel.FillRoles(userService.RoleService.getRolesRelation());
+            //this.RelationPanel.FillRoles(RootRole.childrenListChangeHandler.Items.ToList());
+        }
+
+        public Domain.Profil getProfilByName(string name)
+        {
+            if(name != null) return profilService.getByName(name);
+            return null;
+        }
+
+        public Domain.Role getRoleByName(string name)
+        {
+            if (name != null) return roleService.getByName(name);
+            return null;
+        }
+
+        public Domain.User getUserByName(string name)
+        {
+            if (name != null)  return userService.getByName(name);
+            return null;
         }
 
         public bool ValidateEdition()

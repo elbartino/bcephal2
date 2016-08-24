@@ -17,6 +17,12 @@ namespace Misp.Kernel.Domain
         [ScriptIgnore]
         public User user { get; set; }
 
+        [ScriptIgnore]
+        public string ownerS { get; set; }
+
+        [ScriptIgnore]
+        public string roleS { get; set; }
+
         public User owner
         {
             get { return _owner; }

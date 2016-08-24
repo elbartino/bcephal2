@@ -110,8 +110,8 @@ namespace Misp.Kernel.Administration.User
             this.userMainPanel.Display(this.EditedObject);
             if (UserService == null) return;
             Domain.Role rootRole = UserService.RoleService.getRootRole();
-            this.userMainPanel.RelationPanel.FillRoles(rootRole.childrenListChangeHandler.Items.ToList());
-            this.userMainPanel.RelationPanel.FillUsers(UserService.getUsersRelation(this.EditedObject));
+            //this.userMainPanel.RelationPanel.FillRoles(rootRole.childrenListChangeHandler.Items.ToList());
+            //this.userMainPanel.RelationPanel.FillUsers(UserService.getUsersRelation(this.EditedObject));
         }
 
 

@@ -120,8 +120,11 @@ namespace Misp.Kernel.Administration.UserRelations
         {
             update = false;
             this.RelationItem = item;
-            this.RoleComboBox.SelectedItem = item.role;
-            this.userComboBox.SelectedItem = item.owner;
+            this.RoleComboBox.SelectedItem = item.role.ToString();
+            this.userComboBox.SelectedItem = item.owner.ToString();
+
+            //this.RoleComboBox.SelectedItem = item.role;
+            //this.userComboBox.SelectedItem = item.owner;
             update = true;
         }
 
@@ -193,8 +196,11 @@ namespace Misp.Kernel.Administration.UserRelations
                 added = true;
             }
 
-            this.RelationItem.role = this.roleComboBox.SelectedItem as Domain.Role;
-            this.RelationItem.owner = this.userComboBox.SelectedItem as Domain.User;
+            //this.RelationItem.role = this.roleComboBox.SelectedItem as Domain.Role;
+            //this.RelationItem.owner = this.userComboBox.SelectedItem as Domain.User;
+
+            this.RelationItem.roleS = this.roleComboBox.SelectedItem as string;
+            this.RelationItem.ownerS = this.userComboBox.SelectedItem as string;
 
             bool add = this.added == true ? true : false;
             if (Added != null && added) Added(this);
@@ -279,12 +285,23 @@ namespace Misp.Kernel.Administration.UserRelations
            //border.BorderBrush = new SolidColorBrush(Color.FromRgb(226, 222, 222));
         }
 
-        public void FillUsers(List<Domain.User> list)
+        //public void FillUsers(List<Domain.User> list)
+        //{
+        //    this.userComboBox.ItemsSource = list;
+        //}
+
+        //public void FillRoles(List<Domain.Role> list)
+        //{
+        //    this.roleComboBox.ItemsSource = list;
+        //}
+
+
+        public void FillUsers(List<string> list)
         {
             this.userComboBox.ItemsSource = list;
         }
 
-        public void FillRoles(List<Domain.Role> list)
+        public void FillRoles(List<string> list)
         {
             this.roleComboBox.ItemsSource = list;
         }
