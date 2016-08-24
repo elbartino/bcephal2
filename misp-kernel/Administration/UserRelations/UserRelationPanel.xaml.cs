@@ -81,7 +81,9 @@ namespace Misp.Kernel.Administration.UserRelations
             }
             foreach (Relation item in user.relationsListChangeHandler.Items)
             {
-                UserRelationItemPanel itemPanel = new UserRelationItemPanel(item);
+                UserRelationItemPanel itemPanel = new UserRelationItemPanel();
+                itemPanel.Display(item);
+                itemPanel.Index = index;
                 AddItemPanel(itemPanel);
                 index++;
             }

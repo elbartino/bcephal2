@@ -86,10 +86,11 @@ namespace Misp.Kernel.Administration.User
         {
             UserEditorItem page = (UserEditorItem)getEditor().addOrSelectPage(user);
             initializePageHandlers(page);
-            page.getUserForm().displayObject();
-            getEditor().ListChangeHandler.AddNew(user);
             page.getUserForm().userMainPanel.InitProfilComboBox(GetUserService().ProfilService);
             page.getUserForm().userMainPanel.InitRelationPanel(GetUserService());
+            page.getUserForm().displayObject();
+            getEditor().ListChangeHandler.AddNew(user);
+            
             return OperationState.CONTINUE;
         }
 
