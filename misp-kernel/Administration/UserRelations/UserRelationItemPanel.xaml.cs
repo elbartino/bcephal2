@@ -120,8 +120,8 @@ namespace Misp.Kernel.Administration.UserRelations
         {
             update = false;
             this.RelationItem = item;
-            this.RoleComboBox.SelectedItem = item.role != null ? item.role.name :"";
-            this.userComboBox.SelectedItem = item.owner != null ? item.owner.name : "";
+            this.RoleComboBox.SelectedItem = item.role;
+            this.userComboBox.SelectedItem = item.owner;
             update = true;
         }
 
@@ -193,11 +193,8 @@ namespace Misp.Kernel.Administration.UserRelations
                 added = true;
             }
 
-            this.RelationItem.roleName = this.roleComboBox.SelectedItem != null ? this.roleComboBox.SelectedItem.ToString() : null;
-            this.RelationItem.ownerName = this.userComboBox.SelectedItem != null ? this.userComboBox.SelectedItem.ToString() : null;
-
-            //this.RelationItem.role = this.roleComboBox.SelectedItem as Domain.Role;
-            //this.RelationItem.owner = this.userComboBox.SelectedItem as Domain.User;
+            this.RelationItem.role = this.roleComboBox.SelectedItem as Domain.Role;
+            this.RelationItem.owner = this.userComboBox.SelectedItem as Domain.User;
 
             bool add = this.added == true ? true : false;
             if (Added != null && added) Added(this);
@@ -284,19 +281,12 @@ namespace Misp.Kernel.Administration.UserRelations
 
         public void FillUsers(List<Domain.User> list)
         {
-            var strings = (from o in list
-                           select o.ToString()).ToList();
-            this.userComboBox.ItemsSource = strings;
+            this.userComboBox.ItemsSource = list;
         }
-           
 
         public void FillRoles(List<Domain.Role> list)
         {
-            var strings = (from o in list
-                           select o.ToString()).ToList();
-            this.roleComboBox.ItemsSource = strings;
+            this.roleComboBox.ItemsSource = list;
         }
-
-      
     }
 }

@@ -84,16 +84,12 @@ namespace Misp.Kernel.Administration.User
         /// <returns></returns>
         public override OperationState Open(Domain.User user)
         {
-            
             UserEditorItem page = (UserEditorItem)getEditor().addOrSelectPage(user);
             initializePageHandlers(page);
-            page.getUserForm().UserService = GetUserService();
-            page.getUserForm().userMainPanel.currentUser = user;
-            page.getUserForm().userMainPanel.InitProfilComboBox(GetUserService().ProfilService);
-            page.getUserForm().userMainPanel.InitRelationPanel(GetUserService());
             page.getUserForm().displayObject();
             getEditor().ListChangeHandler.AddNew(user);
-           
+            page.getUserForm().userMainPanel.InitProfilComboBox(GetUserService().ProfilService);
+            page.getUserForm().userMainPanel.InitRelationPanel(GetUserService());
             return OperationState.CONTINUE;
         }
 

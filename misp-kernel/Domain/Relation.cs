@@ -9,27 +9,35 @@ namespace Misp.Kernel.Domain
 {
     public class Relation : Persistent
     {
-        [ScriptIgnore]
-        public User owner { get; set; }
+        private User _owner;
+        private Role _role;
+
+
 
         [ScriptIgnore]
         public User user { get; set; }
 
-        [ScriptIgnore]
-        public Role role { get; set; }
+        public User owner
+        {
+            get { return _owner; }
 
-        private String ownername;
-
-        private String rolename;
-
-        public String ownerName { get { return this.owner != null ? this.owner.name : this.ownername; }
-            set { ownername = value; }
+            set
+            {
+                _owner = value;
+                this.OnPropertyChanged("owner");
+            }
         }
 
-        public String roleName { get { return this.role != null ? this.role.name : this.rolename ;}
-            set { rolename = value; }
+        public Role role
+        {
+            get { return _role; }
+
+            set
+            {
+                _role = value;
+                this.OnPropertyChanged("role");
+            }
         }
-	
 
         public override int CompareTo(object obj)
         {

@@ -23,8 +23,7 @@ namespace Misp.Kernel.Administration.User
     /// </summary>
     public partial class UserMainPanel : Grid
     {
-        public Domain.User currentUser;
-        private UserService service;
+        private Domain.User currentUser;
 
         public UserMainPanel()
         {
@@ -77,14 +76,14 @@ namespace Misp.Kernel.Administration.User
                 Domain.Profil profil = (Domain.Profil)profilcomboBox.SelectedItem;
                 user.profil = profil;
             }
-            //foreach (UIElement el in this.RelationPanel.panel.Children)
-            //{
-            //    UserRelations.UserRelationItemPanel item = (UserRelations.UserRelationItemPanel)el;
-            //    if (item.userComboBox.SelectedItem == null && item.roleComboBox.SelectedItem == null) continue;
-            //    Domain.Relation relation = new Domain.Relation();
-            //    relation.owner = this.service.getByName(item.userComboBox.SelectedItem.ToString());
-            //    relation.role =  this.service.RoleService.getByName(item.roleComboBox.SelectedItem.ToString());
-            //}
+            foreach (UIElement el in this.RelationPanel.panel.Children)
+            {
+                UserRelations.UserRelationItemPanel item = (UserRelations.UserRelationItemPanel)el;
+                if (item.userComboBox.SelectedItem == null && item.roleComboBox.SelectedItem == null) continue;
+                Domain.Relation relation = new Domain.Relation();
+                relation.owner = item.userComboBox.SelectedItem as Domain.User;
+                relation.role = item.roleComboBox.SelectedItem as Domain.Role;
+            }
         }
 
         public void InitProfilComboBox(ProfilService profilService)
@@ -96,7 +95,6 @@ namespace Misp.Kernel.Administration.User
 
         public void InitRelationPanel(UserService userservice) 
         {
-            service = userservice;
             Domain.Role RootRole = userservice.RoleService.getRootRole();
             this.RelationPanel.FillUsers(userservice.getUsersRelation(currentUser));
             this.RelationPanel.FillRoles(RootRole.childrenListChangeHandler.Items.ToList());
