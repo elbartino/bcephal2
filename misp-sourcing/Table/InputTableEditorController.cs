@@ -173,7 +173,7 @@ namespace Misp.Sourcing.Table
             page.getInputTableForm().InputTableService = (InputTableService)this.Service;
 
             page.DEFAULT_NAME = table.name;
-            String fileName = page.getInputTableForm().SpreadSheet.CreateNewExcelFile();
+            String fileName = page.getInputTableForm().SpreedSheet.CreateNewExcelFile();
             if (fileName == null)
             {
                 MessageDisplayer.DisplayError("Bcephal - MS Excel Error", "Unable to create excel file!");
@@ -194,7 +194,7 @@ namespace Misp.Sourcing.Table
             }
             page.getInputTableForm().EditedObject = table;
             page.getInputTableForm().displayObject();
-            OnDisplayActiveCellData();
+            //OnDisplayActiveCellData();
             return OperationState.CONTINUE;
         }
 
@@ -1044,20 +1044,20 @@ namespace Misp.Sourcing.Table
             editorPage.getInputTableForm().TableCellParameterPanel.CellMeasurePanel.ValidateFormula += OnValidateMeasureFormula;
 
             editorPage.Closed += editorPage_Closed;
-            editorPage.getInputTableForm().SpreadSheet.DisableAddingSheet += SpreadSheet_DisableAddingSheet;
+          //  editorPage.getInputTableForm().DevSpreedSheet.DisableAddingSheet += SpreadSheet_DisableAddingSheet;
             
-            if (editorPage.getInputTableForm().SpreadSheet != null)
+            if (editorPage.getInputTableForm().SpreedSheet != null)
             {
-                editorPage.getInputTableForm().SpreadSheet.SelectionChanged += OnSpreadSheetSelectionChanged;
-                editorPage.getInputTableForm().SpreadSheet.Edited += OnSpreadSheetEdited;
-                editorPage.getInputTableForm().SpreadSheet.SheetActivated += OnDisplayActiveCellData;
-                editorPage.getInputTableForm().SpreadSheet.CopyBcephal += SpreadSheet_CopyBcephal;
-                editorPage.getInputTableForm().SpreadSheet.PasteBcephal += SpreadSheet_PasteBcephal;
-                editorPage.getInputTableForm().SpreadSheet.PartialPasteBcephal += SpreadSheet_PartialPasteBcephal;
-                editorPage.getInputTableForm().SpreadSheet.OnBeforeRightClick +=SpreadSheet_OnBeforeRightClick;
-                
-                editorPage.getInputTableForm().SpreadSheet.AuditCell += SpreadSheet_AuditCell;
-                editorPage.getInputTableForm().SpreadSheet.createDesign += SpreadSheet_CreateDesign;
+                editorPage.getInputTableForm().SpreedSheet.SelectionChanged += OnSpreadSheetSelectionChanged;
+                editorPage.getInputTableForm().SpreedSheet.Edited += OnSpreadSheetEdited;
+                editorPage.getInputTableForm().SpreedSheet.SheetActivated += OnDisplayActiveCellData;
+                //editorPage.getInputTableForm().DevSpreedSheet.CopyBcephal += SpreadSheet_CopyBcephal;
+                //editorPage.getInputTableForm().DevSpreedSheet.PasteBcephal += SpreadSheet_PasteBcephal;
+                //editorPage.getInputTableForm().DevSpreedSheet.PartialPasteBcephal += SpreadSheet_PartialPasteBcephal;
+                //editorPage.getInputTableForm().DevSpreedSheet.OnBeforeRightClick += SpreadSheet_OnBeforeRightClick;
+
+                //editorPage.getInputTableForm().DevSpreedSheet.AuditCell += SpreadSheet_AuditCell;
+                //editorPage.getInputTableForm().DevSpreedSheet.createDesign += SpreadSheet_CreateDesign;
             }
         }
 
@@ -2427,9 +2427,9 @@ namespace Misp.Sourcing.Table
         protected void OnDisplayActiveCellData()
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
-            if (page == null) return;        
-            Kernel.Ui.Office.Range activeCell = page.getInputTableForm().SpreadSheet.getActiveCellAsRange();
-            Kernel.Ui.Office.Range activeRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+            if (page == null) return;
+            Kernel.Ui.Office.Range activeCell = page.getInputTableForm().SpreedSheet.getActiveCellAsRange();
+            Kernel.Ui.Office.Range activeRange = page.getInputTableForm().SpreedSheet.GetSelectedRange();
             if (activeCell == null) return;
             if (activeRange == null) return;
             int row = activeCell.Items[0].Row1;
@@ -2889,16 +2889,17 @@ namespace Misp.Sourcing.Table
         /// <param name="page"></param>
         private void CustomizeSpreedSheet(InputTableEditorItem page)
         {
-            page.getInputTableForm().SpreadSheet.DisableTitleBar(true);
-            page.getInputTableForm().SpreadSheet.DisableFormualaBar(false);
-            page.getInputTableForm().SpreadSheet.DisableToolBar(false);
-            page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
-            //page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.PARTIAL_PASTE_BCEPHAL_LABEL);
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.PASTE_BCEPHAL_LABEL);
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.COPY_BCEPHAL_LABEL);
-            page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.CREATE_DESIGN_LABEL);
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.AUDIT_CELL_LABEL);
+            page.getInputTableForm().SpreedSheet.DisableTitleBar(true);
+            page.getInputTableForm().SpreedSheet.DisableTitleBar(false);
+            //page.getInputTableForm().DevSpreedSheet.DisableFormualaBar(false);
+            //page.getInputTableForm().DevSpreedSheet.DisableToolBar(false);
+            //page.getInputTableForm().DevSpreedSheet.AddSeparatorMenu();
+            ////page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.PARTIAL_PASTE_BCEPHAL_LABEL);
+            //page.getInputTableForm().DevSpreedSheet.AddExcelMenu(EdrawOffice.PASTE_BCEPHAL_LABEL);
+            //page.getInputTableForm().DevSpreedSheet.AddExcelMenu(EdrawOffice.COPY_BCEPHAL_LABEL);
+            //page.getInputTableForm().DevSpreedSheet.AddSeparatorMenu();
+            page.getInputTableForm().SpreedSheet.AddExcelMenu(EdrawOffice.CREATE_DESIGN_LABEL);
+            page.getInputTableForm().SpreedSheet.AddExcelMenu(EdrawOffice.AUDIT_CELL_LABEL);
         }
 
         /// <summary>

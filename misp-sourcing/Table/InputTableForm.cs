@@ -21,6 +21,7 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Collections.ObjectModel;
 using Misp.Kernel.Util;
+using Misp.Kernel.Ui.Office.DevExpres;
 namespace Misp.Sourcing.Table
 {
     /// <summary>
@@ -36,6 +37,8 @@ namespace Misp.Sourcing.Table
         public CheckBox ApplyToAllMenuItem;
 
         public MenuItem AuditMenuItem;
+
+        public SpreedSheet SpreedSheet;
 
         #endregion
 
@@ -106,7 +109,8 @@ namespace Misp.Sourcing.Table
             try
             {
                 windowsFormsHost = new WindowsFormsHost();
-                this.SpreadSheet = new EdrawOffice();
+               // this.SpreadSheet = new EdrawOffice();
+                this.SpreedSheet = new SpreedSheet();
                 windowsFormsHost.Child = SpreadSheet;
 
                 image = new System.Windows.Controls.Image();
