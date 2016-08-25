@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "misp-planification", "misp-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "misp-reconciliation", "misp-reconciliation\misp-reconciliation.csproj", "{E63E193F-E061-423C-B210-50FFB592ED84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress", "DevExpress\DevExpress.csproj", "{C3D3B270-676B-4180-9F5A-8C90B19308E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{E63E193F-E061-423C-B210-50FFB592ED84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E63E193F-E061-423C-B210-50FFB592ED84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E63E193F-E061-423C-B210-50FFB592ED84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3D3B270-676B-4180-9F5A-8C90B19308E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3D3B270-676B-4180-9F5A-8C90B19308E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3D3B270-676B-4180-9F5A-8C90B19308E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3D3B270-676B-4180-9F5A-8C90B19308E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
