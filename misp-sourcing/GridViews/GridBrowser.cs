@@ -259,7 +259,7 @@ namespace Misp.Sourcing.GridViews
        
         public void displayRows(List<object[]> rows)
         {
-            ObservableCollection<GridItem> items = new ObservableCollection<GridItem>();
+            List<GridItem> items = new List<GridItem>(0);
             foreach (object[] row in rows)
             {
                 items.Add(new GridItem(row));                
