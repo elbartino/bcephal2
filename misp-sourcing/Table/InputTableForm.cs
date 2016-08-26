@@ -115,7 +115,7 @@ namespace Misp.Sourcing.Table
 
                 image = new System.Windows.Controls.Image();
                 Grid grid = new Grid();
-                grid.Children.Add(windowsFormsHost);
+                grid.Children.Add(this.SpreedSheet);
                 grid.Children.Add(image);
 
                 image.Visibility = System.Windows.Visibility.Hidden;
@@ -142,12 +142,16 @@ namespace Misp.Sourcing.Table
                 if (isMasked) return;
                 image.Source = GetScreenInt();
                 image.Visibility = System.Windows.Visibility.Visible;
+                if(windowsFormsHost != null)
                 windowsFormsHost.Visibility = System.Windows.Visibility.Hidden;
+                this.SpreedSheet.Visibility = System.Windows.Visibility.Hidden;
             }
             else
             {
                 image.Visibility = System.Windows.Visibility.Hidden;
-                windowsFormsHost.Visibility = System.Windows.Visibility.Visible;
+                if(windowsFormsHost != null)
+                    windowsFormsHost.Visibility = System.Windows.Visibility.Visible;
+                this.SpreedSheet.Visibility = System.Windows.Visibility.Visible;
             }
             isMasked = mask;
         }
@@ -164,6 +168,9 @@ namespace Misp.Sourcing.Table
             bm = null;
             return src;
         }
+
+       
+
 
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);

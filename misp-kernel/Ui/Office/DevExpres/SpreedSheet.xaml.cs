@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Application;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,35 @@ namespace Misp.Kernel.Ui.Office.DevExpres
     /// <summary>
     /// Interaction logic for SpreedSheet.xaml
     /// </summary>
-    public partial class SpreedSheet : UserControl,ISpreadsheet
+    public partial class SpreedSheet : UserControl
     {
         public SpreedSheet()
         {
             InitializeComponent();
+            InitHandlers();
+        }
+
+        private void InitHandlers()
+        {
+            this.SpreadSheet.SelectionChanged += OnSelectionChanged;
+            this.SpreadSheet.ActiveSheetChanged += OnSelectionChanged;
+            this.SpreadSheet.CellValueChanged += OnCellChanged;
+        }
+
+        private void OnCellChanged(object sender, DevExpress.XtraSpreadsheet.SpreadsheetCellEventArgs e)
+        {
+            Range range = new Range();
+            Sheet sheet = new Sheet(this.SpreadSheet.ActiveSheetIndex, this.SpreadSheet.ActiveSheetName);
+            List<RangeItem> lis = new List<RangeItem>();
+            lis.Add(new RangeItem(e.Cell.RowIndex + 1, e.Cell.RowIndex + 1, e.Cell.ColumnIndex, e.Cell.ColumnIndex));
+            range = new Range(sheet, lis);
+            ExcelEventArg arg = new ExcelEventArg(sheet, range);
+            if (Edited != null) Edited(arg);
+        }
+        
+        private void OnSelectionChanged(object sender, EventArgs e)
+        {
+            if (SelectionChanged != null) SelectionChanged(null);
         }
 
         public event Base.ChangeEventHandler Changed;
@@ -39,52 +64,68 @@ namespace Misp.Kernel.Ui.Office.DevExpres
 
         public object AddExcelMenu(string Header)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public Application.OperationState Import()
         {
-            throw new NotImplementedException();
+            //this.SpreadSheet.
+            return OperationState.CONTINUE;
         }
 
         public string CreateNewExcelFile()
         {
-            throw new NotImplementedException();
+            return "";
         }
 
         public Application.OperationState Open(string filePath, string progID)
         {
-            throw new NotImplementedException();
+            return OperationState.CONTINUE;
         }
 
         public object RemoveExcelMenu(string Header)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public Application.OperationState Close()
         {
-            throw new NotImplementedException();
+            return OperationState.CONTINUE;
         }
 
         public Application.OperationState SaveAs(string filePath, bool overwrite)
         {
-            throw new NotImplementedException();
+            return OperationState.CONTINUE;
         }
 
         public Application.OperationState Export(string filePath)
         {
-            throw new NotImplementedException();
+            return OperationState.CONTINUE;
         }
 
         public string GetFilePath()
         {
-            throw new NotImplementedException();
+            return "";
+
         }
 
         public Range GetSelectedRange()
         {
-            return null;
+            
+            IList<DevExpress.Spreadsheet.Range> currentSelection = this.SpreadSheet.GetSelectedRanges();
+            Range range = new Range();
+            Sheet sheet = new Sheet(this.SpreadSheet.ActiveSheetIndex, this.SpreadSheet.ActiveSheetName);
+            List<RangeItem> lis = new List<RangeItem>();
+            foreach (DevExpress.Spreadsheet.Range rang in currentSelection)
+            {
+                string sheetName = "";
+                string rangeName = rang.Name;
+                sheet.Name = sheetName;
+                RangeItem rangeitem = new RangeItem(rang.TopRowIndex+1, rang.TopRowIndex+1,rang.BottomRowIndex,rang.BottomRowIndex);
+                lis.Add(rangeitem);
+            }
+            range = new Range(sheet,lis);
+            return range;
         }
 
         public void SetValueAt(int row, int colunm, string sheetName, object value)
@@ -104,12 +145,12 @@ namespace Misp.Kernel.Ui.Office.DevExpres
 
         public Cell getActiveCell()
         {
-            return new Cell(this.SpreadSheet.ActiveCell.RowIndex, this.SpreadSheet.ActiveCell.ColumnIndex);
+            return new Cell(this.SpreadSheet.ActiveCell.RowIndex, this.SpreadSheet.ActiveCell.ColumnIndex+1);
         }
 
         public void DisableToolBar(bool value)
         {
-            
+            //SpreadSheet.too
         }
 
         public void DisableTitleBar(bool value)
@@ -119,7 +160,14 @@ namespace Misp.Kernel.Ui.Office.DevExpres
 
         public Range getActiveCellAsRange()
         {
-            throw new NotImplementedException();
+            Range range = new Range();
+            range.Sheet = new Sheet(this.SpreadSheet.ActiveWorksheet.Index, this.SpreadSheet.ActiveWorksheet.Name);
+            Cell active = getActiveCell();
+            RangeItem rangItem = new RangeItem(active.Row+1, active.Row+1, active.Column, active.Column);
+            List<RangeItem> itemList = new List<RangeItem>();
+            itemList.Add(rangItem);
+            range.Items.Add(rangItem);
+            return range;
         }
     }
 }

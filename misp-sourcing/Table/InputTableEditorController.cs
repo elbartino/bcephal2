@@ -194,7 +194,7 @@ namespace Misp.Sourcing.Table
             }
             page.getInputTableForm().EditedObject = table;
             page.getInputTableForm().displayObject();
-            //OnDisplayActiveCellData();
+            OnDisplayActiveCellData();
             return OperationState.CONTINUE;
         }
 
@@ -452,7 +452,7 @@ namespace Misp.Sourcing.Table
                 {
                     Mask(true);
                     InputTableEditorItem currentPage = (InputTableEditorItem)page;
-                    if (currentPage.getInputTableForm().SpreadSheet != null)
+                    if (currentPage.getInputTableForm().SpreedSheet != null)
                     {
                         if (saveSpreedSheet(page) == OperationState.STOP)
                         {
@@ -488,7 +488,7 @@ namespace Misp.Sourcing.Table
             String tempFolder = GetInputTableService().FileService.GetFileDirs().TempTableFolder;
             String pathexcel = tempFolder + excelfileName;
 
-            if (currentPage.getInputTableForm().SpreadSheet.SaveAs(pathexcel, true) != OperationState.CONTINUE)
+            if (currentPage.getInputTableForm().SpreedSheet.SaveAs(pathexcel, true) != OperationState.CONTINUE)
             {
                 String name = page.EditedObject is Report ? "Report" : "Input Table";
                 MessageDisplayer.DisplayError("Unable to save " + name, "Unable to save file :\n" + excelfileName);
@@ -496,8 +496,8 @@ namespace Misp.Sourcing.Table
                 Mask(false);
                 return OperationState.STOP;
             }
-            String file = currentPage.getInputTableForm().SpreadSheet.DocumentName;
-            String path = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
+            String file = "";//currentPage.getInputTableForm().SpreedSheet.DocumentName;
+            String path = "";//currentPage.getInputTableForm().SpreedSheet.DocumentUrl;
             GetInputTableService().FileService.FileTransferService.uploadTable(excelfileName, tempFolder);
             page.EditedObject.excelFileName = excelfileName;            
 
@@ -2546,10 +2546,10 @@ namespace Misp.Sourcing.Table
         protected void UpdateStatusBar(Parameter parameter)
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
-            Kernel.Ui.Office.Range range = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+            Kernel.Ui.Office.Range range = page.getInputTableForm().SpreedSheet.GetSelectedRange();
             if (range == null) return;
             string sheetName = range.Sheet.Name;
-            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreadSheet.getActiveCell();
+            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreedSheet.getActiveCell();
             String activeCellName = activeCell != null ? activeCell.Name : "";
 
             if (parameter == null)
@@ -2576,8 +2576,8 @@ namespace Misp.Sourcing.Table
         public string getStatusBarLabel(long cardinality = 0)
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
-            Kernel.Ui.Office.Range range = page.getInputTableForm().SpreadSheet.GetSelectedRange();
-            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreadSheet.getActiveCell();
+            Kernel.Ui.Office.Range range = page.getInputTableForm().SpreedSheet.GetSelectedRange();
+            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreedSheet.getActiveCell();
             if (range == null) return "";
             if (activeCell == null) return "";
             return "Selected Range: " + range.FullName
