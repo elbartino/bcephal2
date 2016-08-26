@@ -1,6 +1,8 @@
-﻿using Misp.Kernel.Application;
+﻿using DevExpress.Spreadsheet;
+using Misp.Kernel.Application;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +21,7 @@ namespace Misp.Kernel.Ui.Office.DevExpres
     /// <summary>
     /// Interaction logic for SpreedSheet.xaml
     /// </summary>
-    public partial class SpreedSheet : UserControl
+    public partial class SpreedSheet : Grid
     {
         public SpreedSheet()
         {
@@ -80,6 +82,9 @@ namespace Misp.Kernel.Ui.Office.DevExpres
 
         public Application.OperationState Open(string filePath, string progID)
         {
+            using (FileStream stream = new FileStream(filePath, FileMode.Open))
+                SpreadSheet.LoadDocument(stream, DocumentFormat.OpenXml);
+            ;
             return OperationState.CONTINUE;
         }
 
@@ -95,6 +100,13 @@ namespace Misp.Kernel.Ui.Office.DevExpres
 
         public Application.OperationState SaveAs(string filePath, bool overwrite)
         {
+            IWorkbook workbook = SpreadSheet.Document;
+            // Save the modified document to a stream. 
+            using (FileStream stream = new FileStream(filePath,
+                FileMode.Create, FileAccess.ReadWrite))
+            {
+                workbook.SaveDocument(stream, DocumentFormat.OpenXml);
+            }
             return OperationState.CONTINUE;
         }
 
@@ -151,6 +163,7 @@ namespace Misp.Kernel.Ui.Office.DevExpres
         public void DisableToolBar(bool value)
         {
             //SpreadSheet.too
+            
         }
 
         public void DisableTitleBar(bool value)

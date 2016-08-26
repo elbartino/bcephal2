@@ -1,9 +1,13 @@
-﻿<UserControl
+﻿<Grid
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:dxsps="http://schemas.devexpress.com/winfx/2008/xaml/spreadsheet" x:Class="Misp.Kernel.Ui.Office.DevExpres.SpreedSheet" 
-             mc:Ignorable="d">
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"         
+            mc:Ignorable="d">
+    
+    <dxsps:SpreadsheetFormulaBarControl x:Name="FormulaBar"     />
     <dxsps:SpreadsheetControl   x:Name="SpreadSheet"/>
-</UserControl>
+</Grid>
