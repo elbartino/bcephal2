@@ -4,17 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Misp.Kernel.Ui.Office.DevExpres
 {
@@ -23,6 +13,8 @@ namespace Misp.Kernel.Ui.Office.DevExpres
     /// </summary>
     public partial class SpreedSheet : Grid
     {
+        public string DocumentName {get;set;}
+
         public SpreedSheet()
         {
             InitializeComponent();
@@ -101,12 +93,14 @@ namespace Misp.Kernel.Ui.Office.DevExpres
         public Application.OperationState SaveAs(string filePath, bool overwrite)
         {
             IWorkbook workbook = SpreadSheet.Document;
+              
             // Save the modified document to a stream. 
             using (FileStream stream = new FileStream(filePath,
                 FileMode.Create, FileAccess.ReadWrite))
             {
                 workbook.SaveDocument(stream, DocumentFormat.OpenXml);
             }
+            DocumentName = SpreadSheet.Options.Save.CurrentFileName;
             return OperationState.CONTINUE;
         }
 
