@@ -160,6 +160,11 @@ namespace Misp.Kernel.Ui.Office.DevExpres
             
         }
 
+        public void DisableFormulaBar(bool value) 
+        {
+            this.formulaBar.Visibility = value ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+        }
+
         public void DisableTitleBar(bool value)
         {
             
