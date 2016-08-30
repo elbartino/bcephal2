@@ -264,6 +264,11 @@ namespace Misp.Sourcing.GridViews
             {
                 items.Add(new GridItem(row));                
             }
+            if (!this.Grille.report)
+            {
+                items.Add(new GridItem(new object[this.grid.Columns.Count]));
+            }
+
             this.grid.ItemsSource = items;
         }
 
