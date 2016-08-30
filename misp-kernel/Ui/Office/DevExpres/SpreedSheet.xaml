@@ -3,12 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
              xmlns:dxsps="http://schemas.devexpress.com/winfx/2008/xaml/spreadsheet" x:Class="Misp.Kernel.Ui.Office.DevExpres.SpreedSheet" 
             mc:Ignorable="d">
+    <Grid.Resources>
+        <dxsps:SpreadsheetUICommand x:Key="commands"/>
+        <dxsps:SpreadsheetStringIdConverter x:Key="stringIdConverter"/>
+    </Grid.Resources>
     <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="1*"/>
     </Grid.RowDefinitions>
-    <dxsps:SpreadsheetFormulaBarControl x:Name="formulaBar" Grid.Row="0" />
-    <dxsps:SpreadsheetControl x:Name="SpreadSheet" Grid.Row="1"/>
+   
+    <dxsps:SpreadsheetControl x:Name="SpreadSheet"  Grid.Row="1"/>
+    <dxsps:SpreadsheetFormulaBarControl  SpreadsheetControl="{Binding ElementName=SpreadSheet, Mode=OneTime}"/>
+
 </Grid>
