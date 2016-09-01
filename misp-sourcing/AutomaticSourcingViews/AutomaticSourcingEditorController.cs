@@ -1191,6 +1191,7 @@ namespace Misp.Sourcing.Base
             state = beforeRun(page);
             if (state == OperationState.STOP) return state;
             performRun(page);
+            this.AfterRun();
             return OperationState.CONTINUE;
         }
 
