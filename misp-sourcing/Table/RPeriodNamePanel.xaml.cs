@@ -84,7 +84,7 @@ namespace Misp.Sourcing.Table
             if (items.Count > 1) this.ItemPanel2.Display(items[1]);
             if (items.Count == 0) this.ItemPanel1.SignComboBox.SelectedItem = DateOperator.EQUALS.sign;
             OnSign1Changed(null, null);
-            if (items.Count == 1) this.ItemPanel2.Visibility = System.Windows.Visibility.Collapsed;
+            //if (items.Count == 1) this.ItemPanel2.Visibility = System.Windows.Visibility.Collapsed;
             InitializeHandlers();
         }
 
