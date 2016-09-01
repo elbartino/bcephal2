@@ -65,14 +65,14 @@ namespace Misp.Kernel.Ui.Base.Menu
         {
             this.Code = ApplicationMenu.FILE_MENU_CODE;
             this.Header = "File";
-            newFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "New File", NavigationToken.GetCreateViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY));
-            openFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Open File", NavigationToken.GetSearchViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY));
-            recentFiles = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Open Recent File", null);
+            newFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "New Project", NavigationToken.GetCreateViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY));
+            openFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Open Project", NavigationToken.GetSearchViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY));
+            recentFiles = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Open Recent Project", null);
             BuildRecentOpenedFiles();
             BuildSaveAsMenu();
             NavigationToken token =  NavigationToken.GetCreateViewToken(FunctionalitiesCode.FILE_SAVE_FUNCTIONALITY);
             token.FunctionalityType = FunctionalityType.SUB_FONCTIONALITY;
-            saveFile = BuildMenu(ApplicationMenu.FILE_MENU_SAVE_CODE, "Save File", token);
+            saveFile = BuildMenu(ApplicationMenu.FILE_MENU_SAVE_CODE, "Save Project", token);
             saveFile.IsEnabled = false;
             saveAsFile.IsEnabled = false;
 

@@ -121,10 +121,7 @@ namespace Misp.Kernel.Ui.Base
 
         private void OnSelectionChange(object sender, SelectionChangedEventArgs e)
         {
-            /*Worker worker = new Worker("Loading...");
-            worker.OnWork += SelectionChange;
-            worker.StartWork(null);*/
-            SelectionChange();
+            if (e.OriginalSource != null && e.OriginalSource is DataGrid) SelectionChange();
         }
 
         private void SelectionChange()

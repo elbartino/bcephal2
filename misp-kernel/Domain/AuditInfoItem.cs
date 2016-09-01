@@ -18,7 +18,7 @@ namespace Misp.Kernel.Domain
 
         public String cellPeriod { get; set; }
 
-        public int cellID { get; set; }
+        public int? cellID { get; set; }
 
         public String cellTableName { get; set; }
 

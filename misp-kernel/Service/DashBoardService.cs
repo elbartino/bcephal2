@@ -45,7 +45,7 @@ namespace Misp.Kernel.Service
         /// 
         /// </summary>
         /// <returns>DashboardData</returns>
-        public List<BrowserData> getDashboardDatas(string param,int? userOid=null)
+        public List<BrowserData> getDashboardDatas(string param, int? userOid=null)
         {
             if (string.IsNullOrWhiteSpace(param)) return new List<BrowserData>(0);
             try
@@ -54,8 +54,6 @@ namespace Misp.Kernel.Service
                 var request = new RestRequest(ResourcePath + "/" + param, Method.POST);
                 request.RequestFormat = DataFormat.Json;
                 serializer.MaxJsonLength = int.MaxValue;
-                string json = userOid != null ? serializer.Serialize(userOid) : null;
-                request.AddParameter("application/json", json, RestSharp.ParameterType.RequestBody);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
                 List<BrowserData> datas = RestSharp.SimpleJson.DeserializeObject<List<BrowserData>>(queryResult.Content);
                 return datas;
