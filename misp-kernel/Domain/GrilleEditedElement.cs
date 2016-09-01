@@ -20,5 +20,7 @@ namespace Misp.Kernel.Domain
         public decimal measure { get; set; }
 
         public string date { get; set; }
+
+        public Grille grid;
     }
 }
