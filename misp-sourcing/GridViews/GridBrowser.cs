@@ -264,7 +264,7 @@ namespace Misp.Sourcing.GridViews
             {
                 items.Add(new GridItem(row));                
             }
-            if (!this.Grille.report)
+            if (!this.Grille.report || this.Grille.reconciliation)
             {
                 items.Add(new GridItem(new object[this.grid.Columns.Count]));
             }

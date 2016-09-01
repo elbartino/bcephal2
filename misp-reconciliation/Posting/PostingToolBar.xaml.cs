@@ -53,7 +53,11 @@ namespace Misp.Reconciliation.Posting
                     Boolean isDebit = item != null && item.ToString().Equals("D", StringComparison.OrdinalIgnoreCase);
                     Decimal amount = 0;
                     item = datas[amountColumn.position];
-                    Decimal.TryParse(item.ToString(), out amount);
+                    try
+                    {
+                        Decimal.TryParse(item.ToString(), out amount);
+                    }
+                    catch (Exception) { }
                     if (isCredit) credit += amount;
                     else if (isDebit) debit += amount; 
                 }            

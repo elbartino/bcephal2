@@ -22,6 +22,20 @@ namespace Misp.Reconciliation.Posting
             ModuleName = PlugIn.MODULE_NAME;
         }
 
+        /// <summary>
+        /// Cette methode permet de créer une nouvelle table.
+        /// </summary>
+        /// <returns>CONTINUE si la création du nouveau Model se termine avec succès. STOP sinon</returns>
+        public override OperationState Create()
+        {
+            OperationState state = base.Create();
+            PostingGridEditorItem page = (PostingGridEditorItem)getEditor().getActivePage();
+            GrillePage rows = new GrillePage();
+            rows.rows = new List<object[]>(0);
+            page.getInputGridForm().GridForm.displayPage(rows);
+            return OperationState.CONTINUE;
+        }
+
         public override void Search(int currentPage = 0)
         {
             try
