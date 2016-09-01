@@ -279,7 +279,7 @@ namespace Misp.Sourcing.GridViews
             DataGridColumn column = getColumn(grilleColumn);
             column.Header = name;
             column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
-            column.IsReadOnly = this.Grille.report || this.Grille.reconciliation;
+            column.IsReadOnly = this.Grille.report && !this.Grille.reconciliation;
             grid.Columns.Add(column);
             columnNames.Add(name);
         }

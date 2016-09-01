@@ -551,6 +551,7 @@ namespace Misp.Sourcing.InputGrid
                     MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Edit row", "You have to save the grid before editing row.\nDou you want to save the grid?");
                     if (response != MessageBoxResult.Yes) return false;
                     grid.loaded = true;
+                    page.IsModify = true;
                     OperationState state = Save(page);
                 }
 
