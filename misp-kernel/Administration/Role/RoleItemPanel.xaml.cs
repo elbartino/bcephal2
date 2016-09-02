@@ -51,6 +51,7 @@ namespace Misp.Kernel.Administration.Role
         /// </summary>
         public event ActivateEventHandler Activated;
 
+        public RolePanel rolePanel;
 
         #endregion
 
@@ -249,6 +250,21 @@ namespace Misp.Kernel.Administration.Role
         private void OnValidateEdition()
         {
             String text = this.TextBox.Text;
+            if (rolePanel != null)
+            {
+                foreach (UIElement el in rolePanel.panel.Children)
+                {
+                    RoleItemPanel item = (RoleItemPanel)el;
+                    String roleName = item.TextBox.Text;
+
+                    if (roleName.Equals(text) && item != this)
+                    {
+                        Util.MessageDisplayer.DisplayError("Duplicate Name", "There is another Target named: " + text);
+                        this.TextBox.Text = null;
+                    }
+                }
+            }
+
             decimal amount;
             bool valid = decimal.TryParse(text, out amount);
             if (!valid) return;

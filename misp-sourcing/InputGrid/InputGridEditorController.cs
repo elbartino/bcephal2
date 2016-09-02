@@ -184,11 +184,9 @@ namespace Misp.Sourcing.InputGrid
             }
             catch (Exception)
             {
-                DisplayError("Unable to save Grid", "Unable to save Excel file.");
+                DisplayError("Unable to save Grid", "Unable to save Grid.");
                 return OperationState.STOP;
-            }
-            Grille editedObject = page.EditedObject;
-            
+            }            
             return OperationState.CONTINUE;
         }
 
@@ -546,6 +544,25 @@ namespace Misp.Sourcing.InputGrid
         {
             try
             {
+                EditorItem<Grille> page = getEditor().getActivePage();
+                Grille grid = page.EditedObject;
+                if (grid != null && !grid.oid.HasValue)
+                {
+                    MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Edit row", "You have to save the grid before editing row.\nDou you want to save the grid?");
+                    if (response != MessageBoxResult.Yes) return false;
+                    grid.loaded = true;
+                    page.IsModify = true;
+                    OperationState state = Save(page);
+                }
+
+                element.grid = new Grille();
+                element.grid.code = page.EditedObject.code;
+                //element.grid.columnListChangeHandler.originalList = page.EditedObject.columnListChangeHandler.Items.ToList();
+                element.grid.report = page.EditedObject.report;
+                element.grid.oid = page.EditedObject.oid;
+                element.grid.name = page.EditedObject.name;
+                element.grid.reconciliation = true;
+                element.grid.report = page.EditedObject.report;
                 return this.GetInputGridService().editCell(element);
             }
             catch (ServiceExecption) { }

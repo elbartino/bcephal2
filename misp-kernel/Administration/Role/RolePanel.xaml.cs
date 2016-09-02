@@ -72,10 +72,10 @@ namespace Misp.Kernel.Administration.Role
         {
             this.panel.Children.Clear();
             int index = 1;
-            this.ActiveItemPanel = new RoleItemPanel(index);
             if (root == null)
             {
                 this.ActiveItemPanel = new RoleItemPanel(index);
+                this.ActiveItemPanel.rolePanel = this;
                 AddItemPanel(this.ActiveItemPanel);
                 return;
             }
@@ -90,6 +90,7 @@ namespace Misp.Kernel.Administration.Role
             }
 
             this.ActiveItemPanel = new RoleItemPanel(index);
+            this.ActiveItemPanel.rolePanel = this;
             AddItemPanel(this.ActiveItemPanel);
         }
 
@@ -215,6 +216,7 @@ namespace Misp.Kernel.Administration.Role
             if (!updated)
             {
                 this.ActiveItemPanel = new RoleItemPanel(count + 1);
+                this.ActiveItemPanel.rolePanel = this;
                 AddItemPanel(this.ActiveItemPanel);
             }
           

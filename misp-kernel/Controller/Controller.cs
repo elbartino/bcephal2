@@ -339,6 +339,16 @@ namespace Misp.Kernel.Controller
         }
 
         /// <summary>
+        /// Methode executée quand le run est effectuée avec succes
+        /// </summary>
+        public virtual void AfterRun()
+        {
+            this.IsModify = false;
+            ApplicationManager.Instance.MainWindow.MenuBar.GetFileMenu().EnableSaveMenu(false);
+            if (this.ToolBar != null) this.ToolBar.SaveButton.IsEnabled = false;
+        }
+
+        /// <summary>
         /// Crée un nouvel objet et affiche la view d'édition 
         /// </summary>
         /// <returns>

@@ -7,6 +7,7 @@ using Misp.Reporting.ReportGrid;
 using Misp.Sourcing.InputGrid;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,20 @@ namespace Misp.Reconciliation.Posting
         public PostingGridEditorController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+        }
+
+        /// <summary>
+        /// Cette methode permet de créer une nouvelle table.
+        /// </summary>
+        /// <returns>CONTINUE si la création du nouveau Model se termine avec succès. STOP sinon</returns>
+        public override OperationState Create()
+        {
+            OperationState state = base.Create();
+            PostingGridEditorItem page = (PostingGridEditorItem)getEditor().getActivePage();
+            GrillePage rows = new GrillePage();
+            rows.rows = new List<object[]>(0);
+            page.getInputGridForm().GridForm.displayPage(rows);
+            return OperationState.CONTINUE;
         }
 
         public override void Search(int currentPage = 0)
@@ -47,7 +62,8 @@ namespace Misp.Reconciliation.Posting
             grid.report = false;
             grid.reconciliation = true;
             //grid.group = GetInputGridService().GroupService.getDefaultGroup();
-            grid.visibleInShortcut = true;     
+            grid.visibleInShortcut = true;
+            grid.columnListChangeHandler.Items = new ObservableCollection<GrilleColumn>(grid.columnListChangeHandler.newItems);            
             return grid;
         }
 

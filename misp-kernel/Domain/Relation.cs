@@ -9,15 +9,15 @@ namespace Misp.Kernel.Domain
 {
     public class Relation : Persistent
     {
-        private User _owner;
-        private Role _role;
+        private string _owner;
+        private string _role;
 
 
 
         [ScriptIgnore]
         public User user { get; set; }
 
-        public User owner
+       public string owner
         {
             get { return _owner; }
 
@@ -28,7 +28,7 @@ namespace Misp.Kernel.Domain
             }
         }
 
-        public Role role
+        public string role
         {
             get { return _role; }
 

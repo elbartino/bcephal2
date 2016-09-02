@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Service;
 
 namespace Misp.Kernel.Administration.UserRelations
 {
@@ -81,8 +82,10 @@ namespace Misp.Kernel.Administration.UserRelations
             }
             foreach (Relation item in user.relationsListChangeHandler.Items)
             {
-                UserRelationItemPanel itemPanel = new UserRelationItemPanel(item);
+                UserRelationItemPanel itemPanel = new UserRelationItemPanel();                
+                itemPanel.Index = index;
                 AddItemPanel(itemPanel);
+                itemPanel.Display(item);
                 index++;
             }
 
@@ -219,20 +222,37 @@ namespace Misp.Kernel.Administration.UserRelations
         #endregion
 
 
-        public List<Domain.Role> Roles;
-        public void FillRoles(List<Domain.Role> roles)
+        public List<string> Roles;
+        public void FillRoles(List<string> roles)
         {
-            Roles = new List<Domain.Role>();
+            Roles = new List<string>();
             this.Roles.AddRange(roles);
             this.ActiveItemPanel.FillRoles(roles);
         }
 
-        public List<Domain.User> Users;
-        public void FillUsers(List<Domain.User> users)
+        public List<string> Users;
+        public void FillUsers(List<string> users)
         {
-            Users = new List<Domain.User>();
+            Users = new List<string>();
             this.Users.AddRange(users);
             this.ActiveItemPanel.FillUsers(users);
         }
+
+
+        //public List<Domain.Role> Roles;
+        //public void FillRoles(List<Domain.Role> roles)
+        //{
+        //    Roles = new List<Domain.Role>();
+        //    this.Roles.AddRange(roles);
+        //    this.ActiveItemPanel.FillRoles(roles);
+        //}
+
+        //public List<Domain.User> Users;
+        //public void FillUsers(List<Domain.User> users)
+        //{
+        //    Users = new List<Domain.User>();
+        //    this.Users.AddRange(users);
+        //    this.ActiveItemPanel.FillUsers(users);
+        //}
     }
 }

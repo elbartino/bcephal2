@@ -259,11 +259,16 @@ namespace Misp.Sourcing.GridViews
        
         public void displayRows(List<object[]> rows)
         {
-            ObservableCollection<GridItem> items = new ObservableCollection<GridItem>();
+            List<GridItem> items = new List<GridItem>(0);
             foreach (object[] row in rows)
             {
                 items.Add(new GridItem(row));                
             }
+            if (!this.Grille.report || this.Grille.reconciliation)
+            {
+                items.Add(new GridItem(new object[this.grid.Columns.Count]));
+            }
+
             this.grid.ItemsSource = items;
         }
 
@@ -274,7 +279,7 @@ namespace Misp.Sourcing.GridViews
             DataGridColumn column = getColumn(grilleColumn);
             column.Header = name;
             column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
-            column.IsReadOnly = this.Grille.report || this.Grille.reconciliation;
+            column.IsReadOnly = this.Grille.report && !this.Grille.reconciliation;
             grid.Columns.Add(column);
             columnNames.Add(name);
         }

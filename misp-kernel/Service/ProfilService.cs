@@ -62,6 +62,18 @@ namespace Misp.Kernel.Service
             }
         }
 
+        /// <summary>
+        /// get all Role in data base 
+        /// different to @user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public List<string> getProfilsRelation()
+        {
+            List<Profil> root = getAll();
+            List<string> ostring = (from o in root select o.ToString()).ToList();
+            return ostring;
+        }
         
         #endregion
         
