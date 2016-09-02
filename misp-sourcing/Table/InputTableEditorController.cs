@@ -308,11 +308,11 @@ namespace Misp.Sourcing.Table
             }
 
             InputTableEditorItem page = (InputTableEditorItem)editorItem;
-            if (page.getInputTableForm().SpreadSheet.Import() != OperationState.CONTINUE) return OperationState.STOP;
-            page.getInputTableForm().SpreadSheet.RemoveTempFiles();
+            if (page.getInputTableForm().SpreedSheet.Import() != OperationState.CONTINUE) return OperationState.STOP;
+            //page.getInputTableForm().SpreedSheet.RemoveTempFiles();
 
-            string nameAfterImport;
-            nameAfterImport = page.getInputTableForm().SpreadSheet.DocumentName;
+            string nameAfterImport = "";
+            //nameAfterImport = page.getInputTableForm().SpreedSheet.DocumentName;
             if (page.EditedObject.oid.HasValue)
             {
                 if (page.EditedObject.name == page.DEFAULT_NAME)
@@ -341,18 +341,18 @@ namespace Misp.Sourcing.Table
             //int index = page.getInputTableForm().SpreadSheet.getActiveSheetIndex();
             //string sheetName = page.getInputTableForm().SpreadSheet.getSheetName(index);
 
-            List<String> sheetNames = page.getInputTableForm().SpreadSheet.getSheetNames();
+            //List<String> sheetNames = page.getInputTableForm().SpreedSheet.getSheetNames();
         
-            ObservableCollection<CellProperty> cellproperties = new ObservableCollection<CellProperty>(page.EditedObject.cellPropertyListChangeHandler.Items);
-            foreach (CellProperty cellproperty in cellproperties)
-            {
-                if (sheetNames.Contains(cellproperty.nameSheet))
-                {
-                    cellproperty.isValueChanged = true;
-                    page.EditedObject.UpdateCellProperty(cellproperty, false);
-                }
-            }
-            Range range = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+            //ObservableCollection<CellProperty> cellproperties = new ObservableCollection<CellProperty>(page.EditedObject.cellPropertyListChangeHandler.Items);
+            //foreach (CellProperty cellproperty in cellproperties)
+            //{
+            //    if (sheetNames.Contains(cellproperty.nameSheet))
+            //    {
+            //        cellproperty.isValueChanged = true;
+            //        page.EditedObject.UpdateCellProperty(cellproperty, false);
+            //    }
+            //}
+            Range range = page.getInputTableForm().SpreedSheet.GetSelectedRange();
             if (range == null) return OperationState.STOP;
             range.Sheet.TableName = page.EditedObject.name;
             int row = range.Items[0].Row1;
@@ -496,7 +496,7 @@ namespace Misp.Sourcing.Table
                 Mask(false);
                 return OperationState.STOP;
             }
-            String file = "";//currentPage.getInputTableForm().SpreedSheet.DocumentName;
+            String file = currentPage.getInputTableForm().SpreedSheet.DocumentName;
             String path = "";//currentPage.getInputTableForm().SpreedSheet.DocumentUrl;
             GetInputTableService().FileService.FileTransferService.uploadTable(excelfileName, tempFolder);
             page.EditedObject.excelFileName = excelfileName;            
@@ -1234,7 +1234,7 @@ namespace Misp.Sourcing.Table
             {
                 ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.RemoveInputTable(removedPage.EditedObject);
             }
-            removedPage.getInputTableForm().SpreadSheet.Close();
+            removedPage.getInputTableForm().SpreedSheet.Close();
             Action action = () =>
             {
                 GetInputTableService().closeTable(removedPage.EditedObject.name);
@@ -1460,7 +1460,7 @@ namespace Misp.Sourcing.Table
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
             page.EditedObject.isModified = true;
 
-            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreadSheet.getActiveCell();
+            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreedSheet.getActiveCell();
             if (activeCell != null)
             {
                 int row = activeCell.Row;
