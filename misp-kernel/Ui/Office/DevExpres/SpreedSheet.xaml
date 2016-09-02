@@ -17,6 +17,6 @@
     </Grid.RowDefinitions>
    
     <dxsps:SpreadsheetControl x:Name="SpreadSheet"  Grid.Row="1"/>
-    <dxsps:SpreadsheetFormulaBarControl  SpreadsheetControl="{Binding ElementName=SpreadSheet, Mode=OneTime}"/>
+    <dxsps:SpreadsheetFormulaBarControl x:Name="FormulaBar" SpreadsheetControl="{Binding ElementName=SpreadSheet, Mode=OneTime}"/>
 
 </Grid>

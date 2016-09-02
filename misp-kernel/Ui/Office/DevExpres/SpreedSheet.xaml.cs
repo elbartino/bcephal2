@@ -19,7 +19,7 @@ namespace Misp.Kernel.Ui.Office.DevExpres
         {
             InitializeComponent();
             InitHandlers();
-            DisableFormulaBar(false);
+            DisableFormulaBar(true);
         }
 
         private void InitHandlers()
@@ -163,8 +163,8 @@ namespace Misp.Kernel.Ui.Office.DevExpres
 
         public void DisableFormulaBar(bool value) 
         {
-            //this.formulaBar.Visibility = !value ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            //this.formulaBar.IsEnabled = !value;
+            this.FormulaBar.Visibility = !value ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            this.FormulaBar.IsEnabled = !value;
         }
 
         public void DisableTitleBar(bool value)
