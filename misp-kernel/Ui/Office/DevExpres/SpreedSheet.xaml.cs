@@ -13,13 +13,35 @@ namespace Misp.Kernel.Ui.Office.DevExpres
     /// </summary>
     public partial class SpreedSheet : Grid
     {
-        public string DocumentName {get;set;}
+        public string DocumentUrl
+        {
+            get
+            {
+                return this.SpreadSheet.Options.Save.CurrentFileName;
+            }
+            set 
+            {
+                documenturl = value;
+            }
+        }
+
+
+        public string DocumentName
+        {
+            get
+            {
+                return System.IO.Path.GetFileNameWithoutExtension(DocumentUrl);
+            }
+        }
+
+        private string documenturl;
 
         public SpreedSheet()
         {
             InitializeComponent();
             InitHandlers();
-            DisableFormulaBar(true);
+            customizeToolbar();
+            DisableTitleBar(true);
         }
 
         private void InitHandlers()
@@ -64,7 +86,7 @@ namespace Misp.Kernel.Ui.Office.DevExpres
 
         public Application.OperationState Import()
         {
-            //this.SpreadSheet.
+            biFileOpen.PerformClick();
             return OperationState.CONTINUE;
         }
 
@@ -77,7 +99,6 @@ namespace Misp.Kernel.Ui.Office.DevExpres
         {
             using (FileStream stream = new FileStream(filePath, FileMode.Open))
                 SpreadSheet.LoadDocument(stream, DocumentFormat.OpenXml);
-            ;
             return OperationState.CONTINUE;
         }
 
@@ -101,12 +122,14 @@ namespace Misp.Kernel.Ui.Office.DevExpres
             {
                 workbook.SaveDocument(stream, DocumentFormat.OpenXml);
             }
-            DocumentName = SpreadSheet.Options.Save.CurrentFileName;
+            DocumentUrl = SpreadSheet.Options.Save.CurrentFileName;
+            biFileSave.IsEnabled = false;
             return OperationState.CONTINUE;
         }
 
         public Application.OperationState Export(string filePath)
         {
+            biFileSaveAs.PerformClick();
             return OperationState.CONTINUE;
         }
 
@@ -169,7 +192,14 @@ namespace Misp.Kernel.Ui.Office.DevExpres
 
         public void DisableTitleBar(bool value)
         {
-            
+
+            this.SpreadSheet.Ribbon.Visibility = !value ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+
+            //this.barManager1.Visibility = !value ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            //this.barManager1.IsEnabled = !value;
+
+            //this.ribbonControl1.Visibility = !value ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            //this.ribbonControl1.IsEnabled = !value;
         }
 
         public Range getActiveCellAsRange()
@@ -182,6 +212,13 @@ namespace Misp.Kernel.Ui.Office.DevExpres
             itemList.Add(rangItem);
             range.Items.Add(rangItem);
             return range;
+        }
+
+        private void customizeToolbar() 
+        {
+            biFileSave.IsVisible = false;
+            biFileSaveAs.IsVisible = false;
+            biFileOpen.IsVisible = false;
         }
     }
 }

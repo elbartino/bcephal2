@@ -312,7 +312,7 @@ namespace Misp.Sourcing.Table
             //page.getInputTableForm().SpreedSheet.RemoveTempFiles();
 
             string nameAfterImport = "";
-            //nameAfterImport = page.getInputTableForm().SpreedSheet.DocumentName;
+            nameAfterImport = page.getInputTableForm().SpreedSheet.DocumentName;
             if (page.EditedObject.oid.HasValue)
             {
                 if (page.EditedObject.name == page.DEFAULT_NAME)
@@ -1592,7 +1592,7 @@ namespace Misp.Sourcing.Table
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
             if (page == null) return;
-            Kernel.Ui.Office.Range range = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+            Kernel.Ui.Office.Range range = page.getInputTableForm().SpreedSheet.GetSelectedRange();
             if (range == null) return;
             string sheetName = range.Sheet.Name;
             bool? forAllocation = page.getInputTableForm().TableCellParameterPanel.ForAllocationCheckBox.IsChecked;
@@ -2976,8 +2976,8 @@ namespace Misp.Sourcing.Table
         protected virtual void ChangeExcelFileName(string newName, InputTableEditorItem page, InputTable table)
         {
             UpdateInputTableSidebarName(newName, page.Title, false);
-            page.getInputTableForm().SpreadSheet.DocumentName = newName;
-            page.getInputTableForm().SpreadSheet.ChangeTitleBarCaption(newName);
+            //page.getInputTableForm().SpreedSheet.DocumentName = newName;
+            //page.getInputTableForm().SpreadSheet.ChangeTitleBarCaption(newName);
             page.Title = newName;
             table.excelFileName = newName + EdrawOffice.EXCEL_EXT;
             page.getInputTableForm().TablePropertiesPanel.nameTextBox.Text = newName;
