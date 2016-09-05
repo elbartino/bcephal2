@@ -33,6 +33,8 @@ namespace Misp.Kernel.Ui.Office.DevExpres
 
         Workbook workbook;
 
+        public event AuditCellEventHandler AuditCell;
+        public event CreateDesignEventHandler createDesign;
 
         public string DocumentUrl
         {
@@ -116,11 +118,15 @@ namespace Misp.Kernel.Ui.Office.DevExpres
             {
                 case AUDIT_CELL_LABEL: 
                 {
+                    //Permet de lancer l'audit
+                    AuditCell(new ExcelEventArg(getActiveSheet(), GetSelectedRange()));
                     break;
                 }
 
                 case CREATE_DESIGN_LABEL:
                 {
+                    //Permet de definir un design de parametrisation
+                    createDesign(new ExcelEventArg(getActiveSheet(), GetSelectedRange()));
                     break;
                 }
                 
@@ -255,9 +261,9 @@ namespace Misp.Kernel.Ui.Office.DevExpres
 
         public void SetValueAt(int row, int colunm, string sheetName, object value)
         {
-            Workbook workbook = this.SpreadSheet.
-            string cell = Kernel.Util.RangeUtil.GetColumnName(colunm) + "" + row;
-            sheet.Cells[cell].Value = value.ToString();
+            //Workbook workbook = this.SpreadSheet.
+            //string cell = Kernel.Util.RangeUtil.GetColumnName(colunm) + "" + row;
+            //sheet.Cells[cell].Value = value.ToString();
         }
 
         public object getValueAt(int row, int colunm, string sheetName)
@@ -273,6 +279,16 @@ namespace Misp.Kernel.Ui.Office.DevExpres
         public Cell getActiveCell()
         {
             return new Cell(this.SpreadSheet.ActiveCell.RowIndex, this.SpreadSheet.ActiveCell.ColumnIndex+1);
+        }
+
+        /// <summary>
+        /// Retourne la feuille excel courante
+        /// </summary>
+        /// <returns></returns>
+        public Sheet getActiveSheet()
+        {
+            Sheet sheet = new Sheet(this.SpreadSheet.ActiveSheetIndex,this.SpreadSheet.ActiveSheetName);
+            return sheet;
         }
 
         public void DisableToolBar(bool value)
