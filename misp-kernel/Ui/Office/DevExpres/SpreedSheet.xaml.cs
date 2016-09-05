@@ -31,6 +31,9 @@ namespace Misp.Kernel.Ui.Office.DevExpres
         public const string REMOVE_AUTOMATICCOLUMN_LABEL = "Remove Column";
         public const string RENAME_AUTOMATICCOLUMN_LABEL = "Renommer";
 
+        Workbook workbook;
+
+
         public string DocumentUrl
         {
             get
@@ -252,7 +255,9 @@ namespace Misp.Kernel.Ui.Office.DevExpres
 
         public void SetValueAt(int row, int colunm, string sheetName, object value)
         {
-            
+            Workbook workbook = this.SpreadSheet.
+            string cell = Kernel.Util.RangeUtil.GetColumnName(colunm) + "" + row;
+            sheet.Cells[cell].Value = value.ToString();
         }
 
         public object getValueAt(int row, int colunm, string sheetName)

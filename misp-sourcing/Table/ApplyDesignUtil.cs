@@ -194,7 +194,7 @@ namespace Misp.Sourcing.Table
                             {
                                 if (showHeader)
                                 {
-                                    this.page.getInputTableForm().SpreadSheet.SetValueAt(cell.Row - inc, cell.Column + addColIndex, sheetName, item.GetValue().ToString(), Designer.DesignerForm.COLUMNS_COLOR);
+                                    this.page.getInputTableForm().SpreedSheet.SetValueAt(cell.Row - inc, cell.Column + addColIndex, sheetName, item.GetValue().ToString(), Designer.DesignerForm.COLUMNS_COLOR);
                                    // this.page.getInputTableForm().SpreadSheet.SetValueAt(cell.Row - inc, cell.Column + addColIndex, sheetName, item.GetValue().ToString());
                                 }
                                 addColIndex++;
