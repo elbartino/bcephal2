@@ -46,11 +46,23 @@ namespace Misp.Reconciliation.Posting
         }
 
 
-        public void Search(int currentPage = 0)
+        public virtual void Search(int currentPage = 0)
         {
             try
             {
-                GrilleFilter filter = this.getInputGridForm().GridForm.filterForm.Fill();
+                GrilleFilter filter = this.getInputGridForm().GridForm.filterForm.Fill();                
+                filter.page = currentPage;
+                GrillePage rows = PerformSearch(filter);
+                this.getInputGridForm().GridForm.displayPage(rows);
+                this.PostingToolBar.displayBalance(0, 0);
+            }
+            catch (ServiceExecption) { }
+        }
+
+        public virtual GrillePage PerformSearch(GrilleFilter filter)
+        {
+            try
+            {
                 filter.grid = new Grille();
                 filter.grid.code = this.EditedObject.code;
                 filter.grid.columnListChangeHandler.originalList = this.EditedObject.columnListChangeHandler.Items.ToList();
@@ -59,13 +71,12 @@ namespace Misp.Reconciliation.Posting
                 filter.grid.name = this.EditedObject.name;
                 filter.grid.reconciliation = true;
                 filter.grid.report = this.EditedObject.report;
-                filter.page = currentPage;
                 filter.pageSize = (int)this.getInputGridForm().GridForm.toolBar.pageSizeComboBox.SelectedItem;
                 GrillePage rows = this.PostingGridService.getGridRows(filter);
-                this.getInputGridForm().GridForm.displayPage(rows);
-                this.PostingToolBar.displayBalance(0, 0);
+                return rows;
             }
             catch (ServiceExecption) { }
+            return null;
         }
 
         public void Reconciliate()

@@ -15,9 +15,13 @@ namespace Misp.Reconciliation.Filter
 {
     public class ReconciliationFilterForm : InputGridForm
     {
-
+        public GrilleBrowserForm ActiveBrowserForm;
         public GrilleBrowserForm leftGrilleBrowserForm;
         public GrilleBrowserForm rigthGrilleBrowserForm;
+
+        public PostingToolBar ActiveToolBar;
+        public PostingToolBar leftPostingToolBar;
+        public PostingToolBar rigthPostingToolBar;
 
 
         protected override void InitializeComponent()
@@ -26,6 +30,9 @@ namespace Misp.Reconciliation.Filter
             this.GridForm.filterForm.RecoPanel.Visibility = Visibility.Visible;
             //GridForm.Children.Remove(GridForm.splitter);
 
+            leftPostingToolBar = new PostingToolBar();
+            rigthPostingToolBar = new PostingToolBar();
+
             this.AuditTabItem.Content = null;
             
 
@@ -33,11 +40,14 @@ namespace Misp.Reconciliation.Filter
             leftGrilleBrowserForm.filterForm.Margin = new Thickness(2.0);
             Grid.SetRow(leftGrilleBrowserForm.filterForm, 0);
             leftGrilleBrowserForm.Children.Add(leftGrilleBrowserForm.filterForm);
+            leftGrilleBrowserForm.Children.Add(leftPostingToolBar);
 
             rigthGrilleBrowserForm = new GrilleBrowserForm();
             rigthGrilleBrowserForm.filterForm.Margin = new Thickness(2.0);
             Grid.SetRow(rigthGrilleBrowserForm.filterForm, 0);
             rigthGrilleBrowserForm.Children.Add(rigthGrilleBrowserForm.filterForm);
+            rigthGrilleBrowserForm.Children.Add(rigthPostingToolBar);
+
 
             GridSplitter splitter = new GridSplitter();
             splitter.ResizeDirection = GridResizeDirection.Columns;
@@ -74,7 +84,23 @@ namespace Misp.Reconciliation.Filter
 
             ScrollViewer viewer = new ScrollViewer();
             viewer.Content = panel;
-            this.AuditTabItem.Content = viewer;            
+            this.AuditTabItem.Content = viewer;
+
+            leftGrilleBrowserForm.GotFocus += OnLeftFocus;
+            rigthGrilleBrowserForm.GotFocus += OnRigthFocus;
+
+            this.ActiveBrowserForm = leftGrilleBrowserForm;
+
+        }
+
+        private void OnLeftFocus(object sender, RoutedEventArgs e)
+        {
+            this.ActiveBrowserForm = leftGrilleBrowserForm;
+        }
+
+        private void OnRigthFocus(object sender, RoutedEventArgs e)
+        {
+            this.ActiveBrowserForm = rigthGrilleBrowserForm;
         }
 
         /// <summary> 

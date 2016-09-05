@@ -2,12 +2,14 @@
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using Misp.Reconciliation.Posting;
+using Misp.Sourcing.InputGrid;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Misp.Reconciliation.Filter
 {
@@ -40,6 +42,55 @@ namespace Misp.Reconciliation.Filter
             grid.columnListChangeHandler.Items = new ObservableCollection<GrilleColumn>(grid.columnListChangeHandler.newItems); 
             return grid;
         }
+
+        protected override void initializeGridFormHandlers(InputGridForm inputGridForm)
+        {
+            ReconciliationFilterForm recoForm = (ReconciliationFilterForm)inputGridForm;
+
+            recoForm.GridForm.filterForm.periodFilter.DefaultPeriodName = defaultPeriodName;
+            recoForm.GridForm.filterForm.periodFilter.DisplayPeriod(null);
+            recoForm.leftGrilleBrowserForm.filterForm.periodFilter.DefaultPeriodName = defaultPeriodName;
+            recoForm.leftGrilleBrowserForm.filterForm.periodFilter.DisplayPeriod(null);
+            recoForm.rigthGrilleBrowserForm.filterForm.periodFilter.DefaultPeriodName = defaultPeriodName;
+            recoForm.rigthGrilleBrowserForm.filterForm.periodFilter.DisplayPeriod(null);
+
+            recoForm.rigthGrilleBrowserForm.filterForm.searchButton.Click += OnSearchClick;
+            recoForm.rigthGrilleBrowserForm.filterForm.resetButton.Click += OnResetClick;
+            recoForm.rigthGrilleBrowserForm.filterForm.ChangeHandler += OnFilterChange;
+            recoForm.rigthGrilleBrowserForm.toolBar.ChangeHandler += OnPageChange;
+
+            recoForm.leftGrilleBrowserForm.filterForm.searchButton.Click += OnSearchClick;
+            recoForm.leftGrilleBrowserForm.filterForm.resetButton.Click += OnResetClick;
+            recoForm.leftGrilleBrowserForm.filterForm.ChangeHandler += OnFilterChange;
+            recoForm.leftGrilleBrowserForm.toolBar.ChangeHandler += OnPageChange;
+            
+            //recoForm.rigthGrilleBrowserForm.EditEventHandler += OnEditColumn;
+            //recoForm.rigthGrilleBrowserForm.gridBrowser.DuplicateEventHandler += OnDuplicateRows;
+            //recoForm.rigthGrilleBrowserForm.gridBrowser.DeleteEventHandler += OnDeleteRows;
+        }
+        
+        private void OnFilterChange()
+        {
+            Search();
+        }
+
+        private void OnResetClick(object sender, RoutedEventArgs e)
+        {
+            ((ReconciliationFilterEditorItem)getEditor().getActivePage()).getReconciliationFilterForm().ActiveBrowserForm.filterForm.reset();
+            Search();
+        }
+
+        private void OnSearchClick(object sender, RoutedEventArgs e)
+        {
+            Search();
+        }
+
+        private void OnPageChange(object item)
+        {
+            Search((int)item);
+        }
+
+
 
     }
 }

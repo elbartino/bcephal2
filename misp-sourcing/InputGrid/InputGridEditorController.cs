@@ -29,7 +29,7 @@ namespace Misp.Sourcing.InputGrid
         protected System.Windows.Threading.DispatcherTimer runTimer;
         public override void DeleteCommandEnabled(object sender, CanExecuteRoutedEventArgs e) { e.CanExecute = false; }
 
-        PeriodName defaultPeriodName { get; set; }
+        protected PeriodName defaultPeriodName { get; set; }
 
         public static RoutedCommand ExportCommand = new RoutedCommand();
         public static MenuItem ExportMenuItem = BuildContextMenuItem("Export to Excel", ExportCommand);
@@ -426,7 +426,7 @@ namespace Misp.Sourcing.InputGrid
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.Changed += OnInputGridPropertiesChange;
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.selectionColumnChanged += OnInputGridPropertiesSelectionColumnChange;
             
-            initializeGridFormHandlers(editorPage.getInputGridForm().GridForm);
+            initializeGridFormHandlers(editorPage.getInputGridForm());
 
             editorPage.getInputGridForm().SelectionChanged += OnSelectedTabChange;
         }
@@ -469,8 +469,9 @@ namespace Misp.Sourcing.InputGrid
             Search(page.EditedObject.GrilleFilter != null ? page.EditedObject.GrilleFilter.page : 1);
         }
 
-        protected void initializeGridFormHandlers(GridViews.GrilleBrowserForm form)
+        protected virtual void initializeGridFormHandlers(InputGridForm inputGridForm)
         {
+            GridViews.GrilleBrowserForm form = inputGridForm.GridForm;
  	        form.filterForm.periodFilter.DefaultPeriodName = defaultPeriodName;
             form.filterForm.periodFilter.DisplayPeriod(null);
             //form.filterForm.periodFilter.ItemChanged += OnPeriodItemChanged;
