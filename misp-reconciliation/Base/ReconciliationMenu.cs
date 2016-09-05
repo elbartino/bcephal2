@@ -28,9 +28,9 @@ namespace Misp.Reconciliation.Base
         {
             List<Control> menus = new List<Control>(0);
             menus.Add(ReconciliationPostingMenu);
-            //menus.Add(new Separator());
-           // menus.Add(ReconciliationFiltersMenu);
-           // menus.Add(ReconciliationFiltersListMenu);
+            menus.Add(new Separator());
+            menus.Add(ReconciliationFiltersMenu);
+            menus.Add(ReconciliationFiltersListMenu);
             menus.Add(new Separator());
             menus.Add(ReconciliationContextMenu);
             return menus;
@@ -43,7 +43,7 @@ namespace Misp.Reconciliation.Base
         {
             this.Code = ApplicationMenu.RECONCILIATION_MENU_CODE;
             this.Header = FunctionalitiesLabel.RECONCILIATION_LABEL;
-            ReconciliationFiltersMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, FunctionalitiesLabel.RECONCILIATION_FILTERS_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY));
+            ReconciliationFiltersMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, FunctionalitiesLabel.RECONCILIATION_FILTER_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_FUNCTIONALITY));
             ReconciliationFiltersListMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, FunctionalitiesLabel.LIST_RECONCILIATION_FILTERS_LABEL, NavigationToken.GetSearchViewToken(ReconciliationFunctionalitiesCode.LIST_RECONCILIATION_FILTERS_FUNCTIONALITY));
             ReconciliationPostingMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, FunctionalitiesLabel.RECONCILIATION_POSTING_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_POSTING_FUNCTIONALITY));
             ReconciliationContextMenu = BuildMenu(ApplicationMenu.RECONCILIATION_MENU_CODE, FunctionalitiesLabel.RECONCILIATION_CONFIGURATION_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_CONTEXT_FUNCTIONALITY));        

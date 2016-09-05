@@ -1,5 +1,6 @@
 ﻿using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Sourcing.GridViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,38 @@ namespace Misp.Sourcing.InputGrid
     /// <summary>
     /// Interaction logic for InputGridForm.xaml
     /// </summary>
-    public partial class InputGridForm : TabControl, IEditableView<Grille>
+    public class InputGridForm : TabControl, IEditableView<Grille>
     {
+
+        public TabItem AuditTabItem;
+        public TabItem ConfigurationTabItem;
+        public GrilleBrowserForm GridForm;
+        public InputGridSheetForm InputGridSheetForm;
+
         public InputGridForm()
         {
             InitializeComponent();
+        }
+
+        protected virtual void InitializeComponent()
+        {
+            this.Background = Brushes.White;
+            this.TabStripPlacement = Dock.Bottom;
+            AuditTabItem = new TabItem();
+            ConfigurationTabItem = new TabItem();
+            GridForm = new GrilleBrowserForm();
+            InputGridSheetForm = new InputGridSheetForm();
+
+            AuditTabItem.Header = "Grid";
+            AuditTabItem.Background = Brushes.White;
+            AuditTabItem.Content = GridForm;
+
+            ConfigurationTabItem.Header = "Configuration";
+            ConfigurationTabItem.Background = Brushes.White;
+            ConfigurationTabItem.Content = InputGridSheetForm;
+
+            this.Items.Add(AuditTabItem);
+            this.Items.Add(ConfigurationTabItem);
         }
 
         /// <summary>
@@ -51,7 +79,7 @@ namespace Misp.Sourcing.InputGrid
         {
             return this.InputGridSheetForm.getNewObject();
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -61,7 +89,7 @@ namespace Misp.Sourcing.InputGrid
             this.ChangeEventHandler = ChangeEventHandler;
             this.InputGridSheetForm.SetChangeEventHandler(ChangeEventHandler);
         }
-        
+
         /// <summary>
         /// Cette méthode permet valider les données éditée.
         /// </summary>
@@ -75,7 +103,7 @@ namespace Misp.Sourcing.InputGrid
         /// Cette méthode permet de prendre les données éditées à l'écran 
         /// pour les charger dans l'objet en édition.
         /// </summary>
-        public void fillObject()
+        public virtual void fillObject()
         {
             this.GridForm.fillObject();
             this.InputGridSheetForm.fillObject();
@@ -85,7 +113,7 @@ namespace Misp.Sourcing.InputGrid
         /// Cette méthode permet d'afficher les données de l'objet à éditer 
         /// pour les afficher dans la vue.
         /// </summary>
-        public void displayObject()
+        public virtual void displayObject()
         {
             this.InputGridSheetForm.EditedObject = this.EditedObject;
             this.InputGridSheetForm.displayObject();

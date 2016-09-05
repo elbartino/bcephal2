@@ -150,5 +150,23 @@ namespace Misp.Kernel.Domain
             return result;
         }
 
+        public GrilleFilter ToGrilleFilter()
+        {
+            GrilleFilter filter = new GrilleFilter();
+            filter.creditChecked = this.creditChecked;
+            filter.debitChecked = this.debitChecked;
+            filter.filterPeriod = this.filterPeriod;
+            filter.filterScope = this.filterScope;
+            return filter;
+        }
+
+        public void FromGrilleFilter(GrilleFilter filter)
+        {
+            this.creditChecked = filter.creditChecked;
+            this.debitChecked = filter.debitChecked;
+            this.filterPeriod = filter.filterPeriod;
+            this.filterScope = filter.filterScope;
+        }
+
     }
 }

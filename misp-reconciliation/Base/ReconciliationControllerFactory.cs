@@ -13,6 +13,7 @@ using Misp.Kernel.Administration.User;
 using Misp.Kernel.Administration.Profil;
 using Misp.Reconciliation.ReconciliationContext;
 using Misp.Reconciliation.RecoGrid;
+using Misp.Reconciliation.Filter;
 
 namespace Misp.Reconciliation.Base
 {
@@ -37,24 +38,24 @@ namespace Misp.Reconciliation.Base
         public override Controllable GetController(string fonctionality)
         {
             
-            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY)
+            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_FUNCTIONALITY)
             {
-                //ReconciliationEditorController recoEditorController = new ReconciliationEditorController();
-                //recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                //recoEditorController.Functionality = fonctionality;
-                //recoEditorController.ApplicationManager = this.ApplicationManager;
-                //recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationService();
-                //return recoEditorController;
+                ReconciliationFilterEditorController recoEditorController = new ReconciliationFilterEditorController();
+                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                recoEditorController.Functionality = fonctionality;
+                recoEditorController.ApplicationManager = this.ApplicationManager;
+                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterService();
+                return recoEditorController;
             }
 
             if (fonctionality == ReconciliationFunctionalitiesCode.LIST_RECONCILIATION_FILTERS_FUNCTIONALITY)
             {
-                //ReconciliationBrowserController recoBrowserController = new ReconciliationBrowserController();
-                //recoBrowserController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                //recoBrowserController.Functionality = fonctionality;
-                //recoBrowserController.ApplicationManager = this.ApplicationManager;
-                //recoBrowserController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationService();
-                //return recoBrowserController;
+                ReconciliationFilterBrowserController recoBrowserController = new ReconciliationFilterBrowserController();
+                recoBrowserController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                recoBrowserController.Functionality = fonctionality;
+                recoBrowserController.ApplicationManager = this.ApplicationManager;
+                recoBrowserController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterService();
+                return recoBrowserController;
             }
 
             if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_POSTING_FUNCTIONALITY)

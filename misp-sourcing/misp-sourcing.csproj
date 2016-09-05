@@ -206,7 +206,7 @@
     <Compile Include="InputGrid\InputGridEditor.cs" />
     <Compile Include="InputGrid\InputGridEditorController.cs" />
     <Compile Include="InputGrid\InputGridEditorItem.cs" />
-    <Compile Include="InputGrid\InputGridForm.xaml.cs" />
+    <Compile Include="InputGrid\InputGridForm.cs" />
     <Compile Include="InputGrid\InputGridPropertiesPanel.xaml.cs" />
     <Compile Include="InputGrid\InputGridPropertyBar.cs" />
     <Compile Include="InputGrid\InputGridSheetForm.cs" />
@@ -411,10 +411,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="InputGrid\InputGridColumnForm.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="InputGrid\InputGridForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

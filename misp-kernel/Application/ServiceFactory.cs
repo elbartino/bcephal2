@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Misp.Kernel.Service;
 using RestSharp;
 using Misp.Kernel.Administration.Base;
+using Misp.Kernel.Domain;
 
 
 namespace Misp.Kernel.Application
@@ -39,6 +40,7 @@ namespace Misp.Kernel.Application
         private ProfilService profilService;
 
         private PostingGridService postingGridService;
+        private ReconciliationFilterService reconciliationFilterService;
 
         private FileTransferService fileTransferService;
 
@@ -355,6 +357,29 @@ namespace Misp.Kernel.Application
                 configureService(reconciliationGridService);
             }
             return reconciliationGridService;
+        }
+
+        /// <summary>
+        /// Gets ReconciliationFilterService
+        /// </summary>
+        public ReconciliationFilterService GetReconciliationFilterService()
+        {
+            if (reconciliationFilterService == null)
+            {
+                reconciliationFilterService = new ReconciliationFilterService();
+                reconciliationFilterService.ResourcePath = ResourcePath.RECONCILIATON_FILTER_RESOURCE_PATH;
+                reconciliationFilterService.FileService = GetFileService();
+                reconciliationFilterService.ModelService = GetModelService();
+                reconciliationFilterService.MeasureService = GetMeasureService();
+                reconciliationFilterService.PeriodicityService = GetPeriodicityService();
+                reconciliationFilterService.GroupService = GetGroupService();
+                reconciliationFilterService.CalculatedMeasureService = GetCalculatedMeasureService2();
+                reconciliationFilterService.PeriodNameService = GetPeriodNameService();
+                reconciliationFilterService.PostingService = GetPostingService();
+                reconciliationFilterService.ReconciliationContextService = GetReconciliationContextService();
+                configureService(reconciliationFilterService);
+            }
+            return reconciliationFilterService;
         }
 
         /// <summary>

@@ -146,7 +146,7 @@ namespace Misp.Kernel.Application
         //RECONCILIATION
         public static string RECONCILIATION_LABEL = "Reconciliation";
         public static string RECENT_RECONCILIATION_LABEL = "Recent Reconciliation Filters";
-        public static string RECONCILIATION_FILTERS_LABEL = "Reconciliation Filters";
+        public static string RECONCILIATION_FILTER_LABEL = "New Reconciliation Filter";
         public static string LIST_RECONCILIATION_FILTERS_LABEL = "List Reconciliation Filters ";
         public static string RECONCILIATION_POSTING_LABEL = "Postings";
         public static string TRANSACTION_FILE_TYPES_LABEL = "TRANSACTION_FILE_TYPES_FUNCTIONALITY";

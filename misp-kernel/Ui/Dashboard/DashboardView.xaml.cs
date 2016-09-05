@@ -245,7 +245,7 @@ namespace Misp.Kernel.Ui.Dashboard
                 this.PostingGridBlock = buildBlock(FunctionalitiesLabel.POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_POSTING_GRID_LABEL, FunctionalitiesLabel.RECENT_POSTING_GRID_LABEL, FunctionalitiesCode.NEW_POSTING_GRID_FUNCTIONALITY);
                 this.AutomaticPostingGridBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_POSTING_GRID_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_POSTING_GRID_LABEL, FunctionalitiesCode.NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY);
             
-                this.ReconciliationFilterBlock = buildBlock(FunctionalitiesLabel.RECONCILIATION_FILTERS_LABEL, FunctionalitiesLabel.RECONCILIATION_FILTERS_LABEL, FunctionalitiesLabel.RECENT_RECONCILIATION_LABEL, FunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY);
+                this.ReconciliationFilterBlock = buildBlock(FunctionalitiesLabel.RECONCILIATION_FILTER_LABEL, FunctionalitiesLabel.RECONCILIATION_FILTER_LABEL, FunctionalitiesLabel.RECENT_RECONCILIATION_LABEL, FunctionalitiesCode.RECONCILIATION_FILTER_FUNCTIONALITY);
             }
 
             Dictionary<string, object> dico = new Dictionary<string, object>(0);
@@ -398,7 +398,7 @@ namespace Misp.Kernel.Ui.Dashboard
                 block.contextMenu.Items.Add(block.OrderByMenuItem);
                 block.contextMenu.Items.Add(block.ConfigurationMenuItem);
             }
-            else if (newFunctionCode.Equals(FunctionalitiesCode.RECONCILIATION_FILTERS_FUNCTIONALITY)
+            else if (newFunctionCode.Equals(FunctionalitiesCode.RECONCILIATION_FILTER_FUNCTIONALITY)
                 || newFunctionCode.Equals(FunctionalitiesCode.RECONCILIATION_POSTING_FUNCTIONALITY)
                 || newFunctionCode.Equals(FunctionalitiesCode.TRANSACTION_FILE_TYPES_FUNCTIONALITY))
             {

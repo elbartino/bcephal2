@@ -979,7 +979,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public void DeleteReconciliationFilters(List<int> oids, DashboardBlock block)
         {
-            Delete(ResourcePath.RECONCILIATON_FILTERS_RESOURCE_PATH, oids, block);
+            Delete(ResourcePath.RECONCILIATON_FILTER_RESOURCE_PATH, oids, block);
         }
 
         public void DeleteReconciliationPostings(List<int> oids, DashboardBlock block)

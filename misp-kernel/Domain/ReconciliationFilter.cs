@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Domain
 {
-    public class ReconciliationGrid : Grille
+    public class ReconciliationFilter : Grille
     {
 
         public bool basic { get; set; }
@@ -16,7 +16,7 @@ namespace Misp.Kernel.Domain
         public PostingFilter rigthPostingFilter { get; set; }
 
 
-        public ReconciliationGrid()
+        public ReconciliationFilter()
         {
             basic = false;
         }

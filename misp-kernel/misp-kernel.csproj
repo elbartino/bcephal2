@@ -73,9 +73,19 @@
     <Reference Include="log4net">
       <HintPath>..\misp-build\libs\dotnet\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.PowerPoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.PowerPoint\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.PowerPoint.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OFFICE, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\office\15.0.0.0__71e9bce111e9429c\OFFICE.DLL</HintPath>
     </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\misp-build\libs\dotnet\RestSharp.dll</HintPath>
@@ -206,7 +216,7 @@
     <Compile Include="Domain\GrilleFilter.cs" />
     <Compile Include="Domain\GrillePage.cs" />
     <Compile Include="Domain\ReconciliationContext.cs" />
-    <Compile Include="Domain\ReconciliationGrid.cs" />
+    <Compile Include="Domain\ReconciliationFilter.cs" />
     <Compile Include="Domain\UserAction.cs" />
     <Compile Include="Domain\AllocationRunBrowserDataPage.cs" />
     <Compile Include="Domain\ApplcationConfiguration.cs" />
@@ -263,6 +273,7 @@
     <Compile Include="Service\FileTransferService.cs" />
     <Compile Include="Service\PostingGridService.cs" />
     <Compile Include="Service\ReconciliationContextService.cs" />
+    <Compile Include="Service\ReconciliationFilterService.cs" />
     <Compile Include="Service\ReconciliationGridService.cs" />
     <Compile Include="Service\InputGridService.cs" />
     <Compile Include="Service\UserService.cs" />
@@ -1129,28 +1140,10 @@
     <Resource Include="Resources\Images\Icons\sort_incr.png" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="Microsoft.Office.Core">
-      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>4</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="Microsoft.Office.Interop.Excel">
       <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>6</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="Microsoft.Office.Interop.PowerPoint">
-      <Guid>{91493440-5A91-11CF-8700-00AA0060263B}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>9</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>

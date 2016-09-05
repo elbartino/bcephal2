@@ -26,7 +26,7 @@ namespace Misp.Kernel.Service
         /// </summary>
         /// <param name="oid">Oid of the object to return.</param>
         /// <returns>Object such that object.oid == oid.</returns>
-        public Grille getNewReconciliationGrid(String name)
+        public virtual Grille getNewReconciliationGrid(String name)
         {
             try
             {

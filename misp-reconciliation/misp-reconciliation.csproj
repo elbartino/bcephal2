@@ -65,6 +65,12 @@
     <Compile Include="Base\ReconciliationMenu.cs" />
     <Compile Include="Base\ReconciliationResourcePath.cs" />
     <Compile Include="Base\ReconciliationServiceFactory.cs" />
+    <Compile Include="Filter\ReconciliationFilterBrowser.cs" />
+    <Compile Include="Filter\ReconciliationFilterBrowserController.cs" />
+    <Compile Include="Filter\ReconciliationFilterEditor.cs" />
+    <Compile Include="Filter\ReconciliationFilterEditorController.cs" />
+    <Compile Include="Filter\ReconciliationFilterEditorItem.cs" />
+    <Compile Include="Filter\ReconciliationFilterForm.cs" />
     <Compile Include="PlugIn.cs" />
     <Compile Include="Posting\AutomaticPostingGridBrowerController.cs" />
     <Compile Include="Posting\AutomaticPostingGridEditorController.cs" />
@@ -95,8 +101,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="RecoGrid\PostingEditor.cs" />
-    <Compile Include="RecoGrid\PostingEditorController.cs" />
+    <Compile Include="Posting\RecoGrid\PostingEditor.cs" />
+    <Compile Include="Posting\RecoGrid\PostingEditorController.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextEditorController.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextItem.xaml.cs">
       <DependentUpon>ReconciliationContextItem.xaml</DependentUpon>

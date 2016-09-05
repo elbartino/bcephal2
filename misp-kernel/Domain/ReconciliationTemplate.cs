@@ -8,7 +8,7 @@ using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Domain
 {
-    public class ReconciliationTemplate : Persistent
+    public class ReconciliationTemplate : Grille
     {
         
         public string name { get; set; }

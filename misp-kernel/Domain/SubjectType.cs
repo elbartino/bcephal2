@@ -53,6 +53,8 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType RECONCILIATION = new SubjectType("Reconciliation");
 
+        public static SubjectType RECONCILIATION_FILTER = new SubjectType("Reconciliation Filter");
+
         public static SubjectType USER = new SubjectType("User");
 
         public static SubjectType PROFIL = new SubjectType("Profil");
