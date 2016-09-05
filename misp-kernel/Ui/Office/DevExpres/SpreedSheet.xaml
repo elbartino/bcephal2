@@ -24,9 +24,9 @@
     <dxb:BarManager x:Name="barManager1" ToolbarGlyphSize="Small" Grid.Row="0">
         <dxb:BarManager.Items>
             <dxb:BarButtonItem x:Name="biFileNew" Command="{Binding FileNew, Mode=OneTime, Source={StaticResource commands}}"/>
-            <dxb:BarButtonItem x:Name="biFileOpen" Command="{Binding FileOpen, Mode=OneTime, Source={StaticResource commands}}"/>
-            <dxb:BarButtonItem x:Name="biFileSave" Command="{Binding FileSave, Mode=OneTime, Source={StaticResource commands}}"/>
-            <dxb:BarButtonItem x:Name="biFileSaveAs" Command="{Binding FileSaveAs, Mode=OneTime, Source={StaticResource commands}}"/>
+            <dxb:BarButtonItem x:Name="biFileOpen" IsVisible="false" Command="{Binding FileOpen, Mode=OneTime, Source={StaticResource commands}}"/>
+            <dxb:BarButtonItem x:Name="biFileSave" IsVisible="False" Command="{Binding FileSave, Mode=OneTime, Source={StaticResource commands}}"/>
+            <dxb:BarButtonItem x:Name="biFileSaveAs" IsVisible="False" Command="{Binding FileSaveAs, Mode=OneTime, Source={StaticResource commands}}"/>
             <dxb:BarButtonItem x:Name="biFileQuickPrint" Command="{Binding FileQuickPrint, Mode=OneTime, Source={StaticResource commands}}"/>
             <dxb:BarButtonItem x:Name="biFilePrint" Command="{Binding FilePrint, Mode=OneTime, Source={StaticResource commands}}"/>
             <dxb:BarButtonItem x:Name="biFilePrintPreview" Command="{Binding FilePrintPreview, Mode=OneTime, Source={StaticResource commands}}"/>
