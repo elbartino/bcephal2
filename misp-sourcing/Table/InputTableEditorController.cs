@@ -8,6 +8,7 @@ using Misp.Kernel.Ui.Designer;
 using Misp.Kernel.Ui.File;
 using Misp.Kernel.Ui.Group;
 using Misp.Kernel.Ui.Office;
+using Misp.Kernel.Ui.Office.DevExpres;
 using Misp.Kernel.Ui.Office.EDraw;
 using Misp.Kernel.Util;
 using Misp.Sourcing.Base;
@@ -2901,8 +2902,8 @@ namespace Misp.Sourcing.Table
             //page.getInputTableForm().DevSpreedSheet.AddExcelMenu(EdrawOffice.PASTE_BCEPHAL_LABEL);
             //page.getInputTableForm().DevSpreedSheet.AddExcelMenu(EdrawOffice.COPY_BCEPHAL_LABEL);
             //page.getInputTableForm().DevSpreedSheet.AddSeparatorMenu();
-            page.getInputTableForm().SpreedSheet.AddExcelMenu(EdrawOffice.CREATE_DESIGN_LABEL);
-            page.getInputTableForm().SpreedSheet.AddExcelMenu(EdrawOffice.AUDIT_CELL_LABEL);
+            page.getInputTableForm().SpreedSheet.AddExcelMenu(SpreedSheet.CREATE_DESIGN_LABEL);
+            page.getInputTableForm().SpreedSheet.AddExcelMenu(SpreedSheet.AUDIT_CELL_LABEL);
         }
 
         /// <summary>
