@@ -384,11 +384,14 @@ namespace Misp.Sourcing.Table
             if (editorItem == null) return OperationState.STOP;
 
             InputTableEditorItem page = (InputTableEditorItem)editorItem;
-            if (page.getInputTableForm().SpreadSheet != null)
+            if (page.getInputTableForm().SpreedSheet != null)
             {
-                if (page.getInputTableForm().SpreadSheet.Export(openSaveDialog()) != OperationState.CONTINUE) return OperationState.STOP;
-                page.getInputTableForm().SpreadSheet.RemoveTempFiles();
+                if (page.getInputTableForm().SpreedSheet.Export("") != OperationState.CONTINUE) return OperationState.STOP;
+                //page.getInputTableForm().SpreadSheet.RemoveTempFiles();
                 Save(page);
+                //if (page.getInputTableForm().SpreedSheet.Export(openSaveDialog()) != OperationState.CONTINUE) return OperationState.STOP;
+                //page.getInputTableForm().SpreadSheet.RemoveTempFiles();
+                //Save(page);
             }
             return OperationState.CONTINUE;
         }
