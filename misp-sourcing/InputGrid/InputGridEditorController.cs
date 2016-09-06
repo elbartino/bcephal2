@@ -441,7 +441,7 @@ namespace Misp.Sourcing.InputGrid
             OperationState result = ClearGrid();
         }
 
-        private void OnSelectedTabChange(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        protected virtual void OnSelectedTabChange(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (sender == null) return;
             if (e == null) return;
@@ -461,11 +461,11 @@ namespace Misp.Sourcing.InputGrid
             e.Handled = true;
         }
 
-        private void UpdateGridForm()
+        protected void UpdateGridForm()
         {
             InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
-            page.getInputGridForm().GridForm.EditedObject = page.EditedObject;
-            page.getInputGridForm().GridForm.displayObject();
+            page.getInputGridForm().EditedObject = page.EditedObject;
+            page.getInputGridForm().displayObjectInGridForm();
             Search(page.EditedObject.GrilleFilter != null ? page.EditedObject.GrilleFilter.page : 1);
         }
 

@@ -68,6 +68,25 @@ namespace Misp.Reconciliation.Filter
             //recoForm.rigthGrilleBrowserForm.gridBrowser.DuplicateEventHandler += OnDuplicateRows;
             //recoForm.rigthGrilleBrowserForm.gridBrowser.DeleteEventHandler += OnDeleteRows;
         }
+
+        protected virtual void OnSelectedTabChange(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (sender == null) return;
+            if (e == null) return;
+            if (!(e.Source is ReconciliationFilterForm)) return;
+            ReconciliationFilterEditorItem page = (ReconciliationFilterEditorItem)getEditor().getActivePage();
+            if (page.getReconciliationFilterForm().SelectedIndex == 1)
+            {
+                ((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel;
+                ApplicationManager.MainWindow.displayPropertyBar(this.PropertyBar);
+            }
+            else
+            {
+                ApplicationManager.MainWindow.displayPropertyBar(null);
+                if (page.getReconciliationFilterForm().GridForm.gridBrowser.RebuildGrid) UpdateGridForm();
+            }
+            e.Handled = true;
+        }
         
         private void OnFilterChange()
         {

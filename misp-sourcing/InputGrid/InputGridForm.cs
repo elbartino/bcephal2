@@ -137,6 +137,12 @@ namespace Misp.Sourcing.InputGrid
             this.GridForm.displayObject();
         }
 
+        public virtual void displayObjectInGridForm()
+        {
+            this.GridForm.EditedObject = this.EditedObject;
+            this.GridForm.displayObject();
+        }
+
         /// <summary>
         /// 
         /// </summary>
