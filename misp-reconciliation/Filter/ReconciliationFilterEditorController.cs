@@ -69,7 +69,7 @@ namespace Misp.Reconciliation.Filter
             //recoForm.rigthGrilleBrowserForm.gridBrowser.DeleteEventHandler += OnDeleteRows;
         }
 
-        protected virtual void OnSelectedTabChange(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        protected override void OnSelectedTabChange(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (sender == null) return;
             if (e == null) return;
