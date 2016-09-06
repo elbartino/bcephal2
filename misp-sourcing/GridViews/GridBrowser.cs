@@ -30,6 +30,8 @@ namespace Misp.Sourcing.GridViews
         public ChangeItemEventHandler DuplicateEventHandler { get; set; }
 
         public Kernel.Ui.Base.ChangeEventHandler ChangeHandler;
+        public Kernel.Ui.Base.SelectedItemChangedEventHandler SelectedItemChangedHandler;
+        public Kernel.Ui.Base.SelectedItemChangedEventHandler DeselectedItemChangedHandler;
 
         private List<string> columnNames = new List<string>(0);
 
@@ -120,6 +122,8 @@ namespace Misp.Sourcing.GridViews
         {
             if (e.OriginalSource != sender) return;
             if (ChangeHandler != null) ChangeHandler();
+            if (e.AddedItems.Count > 0 && SelectedItemChangedHandler != null) SelectedItemChangedHandler(e.AddedItems[0]);
+            if (e.RemovedItems.Count > 0 && DeselectedItemChangedHandler != null) DeselectedItemChangedHandler(e.RemovedItems[0]);
         }
 
         /// <summary>
@@ -264,7 +268,7 @@ namespace Misp.Sourcing.GridViews
             {
                 items.Add(new GridItem(row));                
             }
-            if (!this.Grille.report || this.Grille.reconciliation)
+            if (!this.Grille.IsReadOnly())
             {
                 items.Add(new GridItem(new object[this.grid.Columns.Count]));
             }
@@ -272,6 +276,11 @@ namespace Misp.Sourcing.GridViews
             this.grid.ItemsSource = items;
         }
 
+        public void displayItems(List<GridItem> items)
+        {            
+            this.grid.ItemsSource = items;
+        }
+        
 
         public void AddColumn(GrilleColumn grilleColumn)
         {
@@ -279,7 +288,7 @@ namespace Misp.Sourcing.GridViews
             DataGridColumn column = getColumn(grilleColumn);
             column.Header = name;
             column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
-            column.IsReadOnly = this.Grille.report && !this.Grille.reconciliation;
+            column.IsReadOnly = this.Grille.IsReadOnly();
             grid.Columns.Add(column);
             columnNames.Add(name);
         }

@@ -21,5 +21,10 @@ namespace Misp.Kernel.Domain
             basic = false;
         }
 
+        public override bool IsReadOnly()
+        {
+            return true;
+        }
+
     }
 }

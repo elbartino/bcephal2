@@ -18,10 +18,11 @@ namespace Misp.Reconciliation.Filter
         public GrilleBrowserForm ActiveBrowserForm;
         public GrilleBrowserForm leftGrilleBrowserForm;
         public GrilleBrowserForm rigthGrilleBrowserForm;
-
+        
         public PostingToolBar ActiveToolBar;
         public PostingToolBar leftPostingToolBar;
         public PostingToolBar rigthPostingToolBar;
+        public PostingToolBar recoPostingToolBar;
 
 
         protected override void InitializeComponent()
@@ -29,26 +30,36 @@ namespace Misp.Reconciliation.Filter
             base.InitializeComponent();
             this.GridForm.filterForm.RecoPanel.Visibility = Visibility.Visible;
             //GridForm.Children.Remove(GridForm.splitter);
+            this.GridForm.toolBar.Visibility = System.Windows.Visibility.Visible;
 
             leftPostingToolBar = new PostingToolBar();
-            rigthPostingToolBar = new PostingToolBar();
-
-            this.AuditTabItem.Content = null;
+            leftPostingToolBar.hideButtons();
             
+            rigthPostingToolBar = new PostingToolBar();
+            rigthPostingToolBar.hideButtons();
+
+            recoPostingToolBar = new PostingToolBar();
+
+            this.AuditTabItem.Content = null;            
 
             leftGrilleBrowserForm = new GrilleBrowserForm();
             leftGrilleBrowserForm.filterForm.Margin = new Thickness(2.0);
-            Grid.SetRow(leftGrilleBrowserForm.filterForm, 0);
+            //Grid.SetRow(leftGrilleBrowserForm.filterForm, 0);
             leftGrilleBrowserForm.Children.Add(leftGrilleBrowserForm.filterForm);
-            leftGrilleBrowserForm.Children.Add(leftPostingToolBar);
+            leftGrilleBrowserForm.filterForm.RecoPanel.Visibility = System.Windows.Visibility.Visible;
+            leftGrilleBrowserForm.toolBar.Visibility = System.Windows.Visibility.Visible;
+            leftGrilleBrowserForm.otherToolBarPanel.Visibility = System.Windows.Visibility.Visible;
+            leftGrilleBrowserForm.otherToolBarPanel.Children.Add(leftPostingToolBar);
 
             rigthGrilleBrowserForm = new GrilleBrowserForm();
             rigthGrilleBrowserForm.filterForm.Margin = new Thickness(2.0);
-            Grid.SetRow(rigthGrilleBrowserForm.filterForm, 0);
+            //Grid.SetRow(rigthGrilleBrowserForm.filterForm, 0);
             rigthGrilleBrowserForm.Children.Add(rigthGrilleBrowserForm.filterForm);
-            rigthGrilleBrowserForm.Children.Add(rigthPostingToolBar);
-
-
+            rigthGrilleBrowserForm.filterForm.RecoPanel.Visibility = System.Windows.Visibility.Visible;
+            rigthGrilleBrowserForm.toolBar.Visibility = System.Windows.Visibility.Visible;
+            rigthGrilleBrowserForm.otherToolBarPanel.Visibility = System.Windows.Visibility.Visible;
+            rigthGrilleBrowserForm.otherToolBarPanel.Children.Add(rigthPostingToolBar);
+            
             GridSplitter splitter = new GridSplitter();
             splitter.ResizeDirection = GridResizeDirection.Columns;
             splitter.Width = 5.0;
@@ -56,30 +67,43 @@ namespace Misp.Reconciliation.Filter
             splitter.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
             splitter.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
 
-            //StackPanel filterPnel = new StackPanel();
-            //filterPnel.Orientation = Orientation.Horizontal;
-            //filterPnel.Children.Add(leftGrilleBrowserForm);
-            //filterPnel.Children.Add(splitter);
-            //filterPnel.Children.Add(rigthGrilleBrowserForm);
+
+            GridForm.filterForm.Margin = new Thickness(12.0);
+            Grid.SetRow(GridForm.filterForm, 1);
+            GridForm.otherToolBarPanel.Visibility = System.Windows.Visibility.Visible;
+            GridForm.otherToolBarPanel.Children.Add(recoPostingToolBar);
+            GridForm.Children.Remove(GridForm.splitter);
+
+            GridSplitter splitter1 = new GridSplitter();
+            splitter1.ResizeDirection = GridResizeDirection.Rows;
+            splitter1.Height = 5.0;
+            splitter1.Background = Brushes.Gray;
+            splitter1.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
+            splitter1.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+
 
             Grid filterPnel = new Grid();
-
             filterPnel.ColumnDefinitions.Add(new ColumnDefinition());
             filterPnel.ColumnDefinitions.Add(new ColumnDefinition());
             filterPnel.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
             filterPnel.ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
-
             Grid.SetColumn(rigthGrilleBrowserForm, 0);
             filterPnel.Children.Add(leftGrilleBrowserForm);
-
             Grid.SetColumn(splitter, 0);
             filterPnel.Children.Add(splitter);
-
             Grid.SetColumn(rigthGrilleBrowserForm, 1);            
             filterPnel.Children.Add(rigthGrilleBrowserForm);
 
-            StackPanel panel = new StackPanel();
+            Grid panel = new Grid();
+            panel.RowDefinitions.Add(new RowDefinition());
+            panel.RowDefinitions.Add(new RowDefinition());
+            panel.RowDefinitions[0].Height = new GridLength(300);
+            panel.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);
+            Grid.SetRow(filterPnel, 0);
             panel.Children.Add(filterPnel);
+            Grid.SetRow(splitter1, 0);
+            panel.Children.Add(splitter1);
+            Grid.SetRow(GridForm, 1);
             panel.Children.Add(GridForm);
 
             ScrollViewer viewer = new ScrollViewer();
@@ -92,15 +116,32 @@ namespace Misp.Reconciliation.Filter
             this.ActiveBrowserForm = leftGrilleBrowserForm;
 
         }
-
+        
         private void OnLeftFocus(object sender, RoutedEventArgs e)
         {
             this.ActiveBrowserForm = leftGrilleBrowserForm;
+            this.ActiveToolBar = leftPostingToolBar;
         }
 
         private void OnRigthFocus(object sender, RoutedEventArgs e)
         {
             this.ActiveBrowserForm = rigthGrilleBrowserForm;
+            this.ActiveToolBar = rigthPostingToolBar;
+        }
+
+        public override void SetTarget(Target target)
+        {
+            this.ActiveBrowserForm.filterForm.targetFilter.SetTargetValue(target);
+        }
+
+        public override void SetPeriodInterval(PeriodInterval interval)
+        {
+            this.ActiveBrowserForm.filterForm.periodFilter.SetPeriodInterval(interval);
+        }
+
+        public override void SetPeriodItemName(string name)
+        {
+            this.ActiveBrowserForm.filterForm.periodFilter.SetPeriodItemName(name);
         }
 
         /// <summary> 
@@ -123,7 +164,7 @@ namespace Misp.Reconciliation.Filter
         public override void displayObject()
         {
             base.displayObject();
-
+            
             this.leftGrilleBrowserForm.EditedObject = this.EditedObject;
             this.leftGrilleBrowserForm.filterForm.GrilleFilter = ((ReconciliationFilter)this.EditedObject).leftPostingFilter.ToGrilleFilter();
             this.leftGrilleBrowserForm.displayObject();

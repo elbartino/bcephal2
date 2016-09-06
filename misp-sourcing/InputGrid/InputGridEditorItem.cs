@@ -13,6 +13,39 @@ namespace Misp.Sourcing.InputGrid
     public class InputGridEditorItem : EditorItem<Grille>
     {
 
+        public virtual void SetTarget(Target target)
+        {
+            if (getInputGridForm().SelectedIndex == 1 && target is Kernel.Domain.Attribute)
+                getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.SetValue(target);
+            else if (getInputGridForm().SelectedIndex != 1 && !(target is Kernel.Domain.Attribute))
+                getInputGridForm().SetTarget((Target)target);
+        }
+
+        public virtual void SetPeriod(object period)
+        {
+            if (getInputGridForm().SelectedIndex == 1)
+                getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.SetValue(period);
+            else
+            {
+                if (period is PeriodInterval)
+                {
+                    PeriodInterval periodInterval = (PeriodInterval)period;
+                    getInputGridForm().SetPeriodInterval(periodInterval);
+                }
+                else if (period is PeriodName)
+                {
+                    getInputGridForm().SetPeriodItemName(((PeriodName)period).name);
+                }
+            }
+        }
+
+        public virtual void SetMeasure(Measure mesure)
+        {
+            if (getInputGridForm().SelectedIndex == 1)
+                getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.SetValue(mesure);
+        }
+
+
         /// <summary>
         /// UNe nouvelle instance de la form.
         /// </summary>

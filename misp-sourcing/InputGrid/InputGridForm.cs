@@ -34,6 +34,21 @@ namespace Misp.Sourcing.InputGrid
             InitializeComponent();
         }
 
+        public virtual void SetTarget(Target target)
+        {
+            this.GridForm.filterForm.targetFilter.SetTargetValue(target);
+        }
+
+        public virtual void SetPeriodInterval(PeriodInterval interval)
+        {
+            this.GridForm.filterForm.periodFilter.SetPeriodInterval(interval);
+        }
+
+        public virtual void SetPeriodItemName(string name)
+        {
+            this.GridForm.filterForm.periodFilter.SetPeriodItemName(name);
+        }
+
         protected virtual void InitializeComponent()
         {
             this.Background = Brushes.White;

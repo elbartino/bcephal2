@@ -32,6 +32,13 @@ namespace Misp.Reconciliation.Posting
             InitializeComponent();
         }
 
+        public void hideButtons()
+        {
+            this.reconciliateButton.Visibility = System.Windows.Visibility.Collapsed;
+            this.deleteButton.Visibility = System.Windows.Visibility.Collapsed;
+            this.resetRecoButton.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
         public void displayBalance(System.Collections.IList rows, Kernel.Domain.ReconciliationContext context, Grille grid)
         {
             credit = 0;

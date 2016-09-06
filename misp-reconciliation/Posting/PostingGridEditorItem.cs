@@ -113,7 +113,7 @@ namespace Misp.Reconciliation.Posting
             getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.CanRemoveColumn += OnTryToRemoveColumns;
         }
 
-        private bool OnTryToRemoveColumns(object columns)
+        protected bool OnTryToRemoveColumns(object columns)
         {
             bool response = true;
             if (columns != null && columns is IList)
@@ -146,7 +146,7 @@ namespace Misp.Reconciliation.Posting
             return response;
         }
         
-        private void OnGridSelectionchange()
+        protected virtual void OnGridSelectionchange()
         {
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
             this.PostingToolBar.displayBalance(this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems, context, this.EditedObject);
@@ -157,7 +157,7 @@ namespace Misp.Reconciliation.Posting
             this.PostingToolBar.deleteButton.IsEnabled = count > 0;
         }
 
-        private void OnReconciliate(object sender, RoutedEventArgs e)
+        protected void OnReconciliate(object sender, RoutedEventArgs e)
         {
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
             IList items = this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems;
@@ -194,7 +194,7 @@ namespace Misp.Reconciliation.Posting
             if (dialog.validateEdition()) Reconciliate();
         }
 
-        private void OnResetReconciliation(object sender, RoutedEventArgs e)
+        protected void OnResetReconciliation(object sender, RoutedEventArgs e)
         {
             MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Reset Reconciliation", "You are about to reset reconciliation.\nDo you confirm operation?");
             if (response != MessageBoxResult.Yes) return;
@@ -218,7 +218,7 @@ namespace Misp.Reconciliation.Posting
             }
         }
 
-        private void OnDeletePostings(object sender, RoutedEventArgs e)
+        protected void OnDeletePostings(object sender, RoutedEventArgs e)
         {
             MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Delete Postings", "You are about to delete selected postings.\nDo you confirm operation?");
             if (response != MessageBoxResult.Yes) return;

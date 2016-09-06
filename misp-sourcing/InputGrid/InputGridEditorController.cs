@@ -855,8 +855,7 @@ namespace Misp.Sourcing.InputGrid
             {
                 InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
                 if (page == null) return;
-                if (page.getInputGridForm().SelectedIndex == 1)
-                    page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.SetValue(sender);
+                page.SetMeasure((Measure)sender);
             }
         }
 
@@ -870,20 +869,7 @@ namespace Misp.Sourcing.InputGrid
             {
                 InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
                 if (page == null) return;
-                if (page.getInputGridForm().SelectedIndex == 1)
-                    page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.SetValue(sender);
-                else
-                {
-                    if (sender is PeriodInterval)
-                    {
-                        PeriodInterval periodInterval = (PeriodInterval)sender;
-                        page.getInputGridForm().GridForm.filterForm.periodFilter.SetPeriodInterval(periodInterval);
-                    }
-                    else if (sender is PeriodName)
-                    {
-                        page.getInputGridForm().GridForm.filterForm.periodFilter.SetPeriodItemName(((PeriodName)sender).name);
-                    }
-                }
+                page.SetPeriod(sender);
             }
             
         }
@@ -898,10 +884,7 @@ namespace Misp.Sourcing.InputGrid
         {
             InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
             if (page == null) return;
-            if (page.getInputGridForm().SelectedIndex == 1 && target is Kernel.Domain.Attribute)
-                page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.SetValue(target);
-            else if (page.getInputGridForm().SelectedIndex != 1 && !(target is Kernel.Domain.Attribute)) 
-                page.getInputGridForm().GridForm.filterForm.targetFilter.SetTargetValue((Target)target);
+            page.SetTarget((Target)target);
           
         }
 

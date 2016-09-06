@@ -154,5 +154,10 @@ namespace Misp.Kernel.Domain
             return GetColumn(ParameterType.SCOPE.ToString(), context.accountNameAttribute.oid.Value);
         }
 
+        public virtual bool IsReadOnly()
+        {
+            return this.report && !this.reconciliation;
+        }
+
     }
 }

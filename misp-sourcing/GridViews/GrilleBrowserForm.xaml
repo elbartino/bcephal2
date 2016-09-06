@@ -16,7 +16,7 @@
 
     <!--<filter:GrilleFilterForm x:Name="filterForm" x:FieldModifier="public" Margin="2" Grid.Row="0"/>-->
     <filter:GridBrowser x:Name="gridBrowser" x:FieldModifier="public" Grid.Row="1"/>
-    <GridSplitter x:Name="splitter" Height="5" ResizeDirection="Rows" Background="#FFFBF8F8"
+    <GridSplitter x:Name="splitter" Height="5" ResizeDirection="Rows" Background="#FFFBF8F8" x:FieldModifier="public"
                           VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="1"/>
     <filter:GridBrowserToolbar x:Name="toolBar" x:FieldModifier="public" Grid.Row="2"/>
     <StackPanel x:Name="otherToolBarPanel" x:FieldModifier="public" Grid.Row="3" />
