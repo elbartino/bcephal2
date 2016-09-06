@@ -114,7 +114,7 @@ namespace Misp.Reconciliation.Filter
             rigthGrilleBrowserForm.GotFocus += OnRigthFocus;
 
             this.ActiveBrowserForm = leftGrilleBrowserForm;
-
+            this.ActiveToolBar = leftPostingToolBar;
         }
         
         private void OnLeftFocus(object sender, RoutedEventArgs e)
@@ -171,6 +171,15 @@ namespace Misp.Reconciliation.Filter
 
             this.rigthGrilleBrowserForm.EditedObject = this.EditedObject;
             this.rigthGrilleBrowserForm.filterForm.GrilleFilter = ((ReconciliationFilter)this.EditedObject).rigthPostingFilter.ToGrilleFilter();
+            this.rigthGrilleBrowserForm.displayObject();
+        }
+
+        public override void displayObjectInGridForm()
+        {
+            base.displayObjectInGridForm();
+            this.leftGrilleBrowserForm.EditedObject = this.EditedObject;
+            this.leftGrilleBrowserForm.displayObject();
+            this.rigthGrilleBrowserForm.EditedObject = this.EditedObject;
             this.rigthGrilleBrowserForm.displayObject();
         }
 

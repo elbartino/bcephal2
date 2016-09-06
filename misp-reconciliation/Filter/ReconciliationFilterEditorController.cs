@@ -69,6 +69,14 @@ namespace Misp.Reconciliation.Filter
             //recoForm.rigthGrilleBrowserForm.gridBrowser.DeleteEventHandler += OnDeleteRows;
         }
 
+        protected override void UpdateGridForm()
+        {
+            ReconciliationFilterEditorItem page = (ReconciliationFilterEditorItem)getInputGridEditor().getActivePage();
+            page.getReconciliationFilterForm().EditedObject = page.EditedObject;
+            page.getReconciliationFilterForm().displayObjectInGridForm();
+            page.SearchAll();
+        }
+
         protected override void OnSelectedTabChange(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (sender == null) return;

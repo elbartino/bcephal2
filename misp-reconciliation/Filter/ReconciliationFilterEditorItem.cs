@@ -28,6 +28,21 @@ namespace Misp.Reconciliation.Filter
             catch (ServiceExecption) { }
         }
 
+        public void SearchAll(int currentPage = 0)
+        {
+            GrilleBrowserForm activeFrom = getReconciliationFilterForm().ActiveBrowserForm;
+            PostingToolBar activeToolbar = getReconciliationFilterForm().ActiveToolBar;
+
+            getReconciliationFilterForm().ActiveBrowserForm = getReconciliationFilterForm().leftGrilleBrowserForm;
+            getReconciliationFilterForm().ActiveToolBar = getReconciliationFilterForm().leftPostingToolBar;
+            Search(currentPage);
+            getReconciliationFilterForm().ActiveBrowserForm = getReconciliationFilterForm().rigthGrilleBrowserForm;
+            getReconciliationFilterForm().ActiveToolBar = getReconciliationFilterForm().rigthPostingToolBar;
+            Search(currentPage);
+            getReconciliationFilterForm().ActiveBrowserForm = activeFrom;
+            getReconciliationFilterForm().ActiveToolBar = activeToolbar;
+        }
+
 
         protected override void initializePageHandlers()
         {
@@ -45,17 +60,7 @@ namespace Misp.Reconciliation.Filter
         private void OnReconciliateEnded()
         {
             getReconciliationFilterForm().GridForm.gridBrowser.displayItems(new List<GridItem>(0));
-            GrilleBrowserForm activeFrom = getReconciliationFilterForm().ActiveBrowserForm;
-            PostingToolBar activeToolbar = getReconciliationFilterForm().ActiveToolBar;
-
-            getReconciliationFilterForm().ActiveBrowserForm = getReconciliationFilterForm().leftGrilleBrowserForm;
-            getReconciliationFilterForm().ActiveToolBar = getReconciliationFilterForm().leftPostingToolBar;
-            Search();
-            getReconciliationFilterForm().ActiveBrowserForm = getReconciliationFilterForm().rigthGrilleBrowserForm;
-            getReconciliationFilterForm().ActiveToolBar = getReconciliationFilterForm().rigthPostingToolBar;
-            Search();
-            getReconciliationFilterForm().ActiveBrowserForm = activeFrom;
-            getReconciliationFilterForm().ActiveToolBar = activeToolbar;
+            SearchAll();
         }
 
         protected void AddToRecoGrid(GridItem item)

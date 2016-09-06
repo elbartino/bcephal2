@@ -461,7 +461,7 @@ namespace Misp.Sourcing.InputGrid
             e.Handled = true;
         }
 
-        protected void UpdateGridForm()
+        protected virtual void UpdateGridForm()
         {
             InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
             page.getInputGridForm().EditedObject = page.EditedObject;
