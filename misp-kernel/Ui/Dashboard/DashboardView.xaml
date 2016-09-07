@@ -10,23 +10,25 @@
     <Grid.RowDefinitions>
         <RowDefinition Height="23" />
         <RowDefinition Height="*" />
-        <RowDefinition Height="60" />
+        <RowDefinition Height="55" />
     </Grid.RowDefinitions>
 
     <Dashboard:MultiSelectorCombobox x:FieldModifier="public" x:Name="MultiSelectorCombobox" HorizontalAlignment="Right" Width="200"/>
 
-    <Grid x:Name="BlockGrid" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Grid.RowDefinitions>
-            <RowDefinition x:Name="Row1" Height="*" />
-            <RowDefinition x:Name="Row2" Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="Col1" Width="*" />
-            <ColumnDefinition x:Name="Col2" Width="*" />
-            <ColumnDefinition x:Name="Col3" Width="*" />            
-        </Grid.ColumnDefinitions>
-        
-    </Grid>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid x:Name="BlockGrid" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="Row1" Height="Auto" />
+                <RowDefinition x:Name="Row2" Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="Col1" Width="*" />
+                <ColumnDefinition x:Name="Col2" Width="*" />
+                <ColumnDefinition x:Name="Col3" Width="*" />
+            </Grid.ColumnDefinitions>
+
+        </Grid>
+    </ScrollViewer>     
 
     <Border Grid.Row="2" Style="{DynamicResource GuidedTourStyle}">
         <TextBlock x:Name="GuidedTourTextBlock" Text="First time using B-CEPHAL? Follow this " 

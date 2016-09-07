@@ -72,7 +72,7 @@
             </avalonDock:DockingManager>
             <Ui:DashBoard x:Name="DashBoard" x:FieldModifier="public" Background="#FFDEE0E0" Visibility="Collapsed" Grid.Row="2"/>
             <Ui:FileClosedView x:Name="FileClosedView" x:FieldModifier="public" Background="White" Margin="50"  Grid.Row="2"/>
-            <Dashboard:DashboardView x:Name="DashboardView" x:FieldModifier="public" Background="White" Margin="20" Grid.Row="2" />
+            <Dashboard:DashboardView x:Name="DashboardView" x:FieldModifier="public" Background="White" Margin="5" Grid.Row="2" />
             <User:LoginPanel x:Name="LoginPanel" x:FieldModifier="public" Background="White" Grid.Row="2" VerticalAlignment="Center" Visibility="Collapsed"/>
             <User:AdministratorPanel x:Name="AdministratorPanel" x:FieldModifier="public" Background="White" Grid.Row="2" VerticalAlignment="Center" Visibility="Collapsed" MaxWidth="500"/>
             <!--<Ui:FileOpenedView x:Name="FileOpenedView" x:FieldModifier="public" Background="White" Margin="20" Grid.Row="2"/>-->

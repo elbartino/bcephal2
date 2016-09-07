@@ -27,7 +27,7 @@ namespace Misp.Kernel.Ui.Dashboard
     public partial class DashboardView : Grid
     {
 
-        protected static int MAX_BLOCK = 6;
+        protected static int MAX_BLOCK = 30;
 
         public List<DashboardBlock> DisplayedBlocks { get; set; }
         public DashBoardService DashBoardService { get; set; }
@@ -165,7 +165,7 @@ namespace Misp.Kernel.Ui.Dashboard
             foreach (DashboardBlock block in blocks)
             {
                 n++;
-                if(n > 6) return;
+                if (n > MAX_BLOCK) return;
                 int row = (n <= 2 || (n == 3 && blockCount > 4)) ? 0 : 1;
                 int col = 0;
                 if(n == 1 || (n == 3 && blockCount <= 4) || (n == 4 && blockCount > 4)) col = 0;
@@ -173,6 +173,14 @@ namespace Misp.Kernel.Ui.Dashboard
                 else if (n == 4 && blockCount == 4) col = 1;
                 else if (n == 3 && blockCount > 4) col = 3;
                 else if(n > 5) col = 3;
+
+                if (n > 6)
+                {
+                    int rest = n % 3;
+                    int dev = (n - rest) / 3;
+                    row = rest > 0 ? dev : dev - 1;
+                    col = rest > 0 ? rest - 1 : 2;
+                }
 
                 int rowSpan = 1;
                 int colSpan = 1;
@@ -206,19 +214,27 @@ namespace Misp.Kernel.Ui.Dashboard
             else if (blockCount == 4) { row = 2; col = 2; }
             else if (blockCount == 5) { row = 2; col = 3; }
             else if (blockCount == 6) { row = 2; col = 3; }
-            else { row = 2; col = 3; }
+
+            else if (blockCount == 7) { row = 3; col = 3; }
+            else if (blockCount == 8) { row = 3; col = 3; }
+            else if (blockCount == 9) { row = 3; col = 3; }
+            else if (blockCount == 10) { row = 4; col = 3; }
+            else if (blockCount == 11) { row = 4; col = 3; }
+            else if (blockCount == 12) { row = 4; col = 3; }
+
+            else { row = 5; col = 3; }
 
             for (int i = 1; i <= row; i++)
             {
                 RowDefinition def = new RowDefinition();
-                def.Height = new GridLength(ModelBlock.Height + 30);//new GridLength(1, GridUnitType.Star);
+                def.Height = new GridLength(ModelBlock.Height + 20);//new GridLength(1, GridUnitType.Star);
                 this.BlockGrid.RowDefinitions.Add(def);
             }
 
             for (int i = 1; i <= col; i++)
             {
                 ColumnDefinition def = new ColumnDefinition();
-                def.Width = new GridLength(ModelBlock.Width + 30);//new GridLength(1, GridUnitType.Star);
+                def.Width = new GridLength(1, GridUnitType.Star);//new GridLength(ModelBlock.Width + 30);//new GridLength(1, GridUnitType.Star);
                 this.BlockGrid.ColumnDefinitions.Add(def);
             }
         }
