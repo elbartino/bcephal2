@@ -165,7 +165,9 @@ namespace Misp.Kernel.Domain
             this.creditChecked = filter.creditChecked;
             this.debitChecked = filter.debitChecked;
             this.filterPeriod = filter.filterPeriod;
+            if (this.filterPeriod != null) this.filterPeriod.itemListChangeHandler.resetOriginalList();
             this.filterScope = filter.filterScope;
+            if (this.filterScope != null) this.filterScope.targetItemListChangeHandler.resetOriginalList();
         }
 
     }

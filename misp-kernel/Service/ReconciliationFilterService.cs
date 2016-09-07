@@ -67,7 +67,7 @@ namespace Misp.Kernel.Service
             try
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
-                var request = new RestRequest(ResourcePath + "/save", Method.POST);
+                var request = new RestRequest(ResourcePath + "/save-filter", Method.POST);
 
                 request.RequestFormat = DataFormat.Json;
                 serializer.MaxJsonLength = int.MaxValue;

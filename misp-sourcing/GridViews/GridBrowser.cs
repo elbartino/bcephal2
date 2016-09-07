@@ -92,7 +92,7 @@ namespace Misp.Sourcing.GridViews
             grid.Background = bruch;
             grid.BorderBrush = bruch;
             grid.HeadersVisibility = DataGridHeadersVisibility.All;
-            grid.GridLinesVisibility = DataGridGridLinesVisibility.All;
+            grid.GridLinesVisibility = DataGridGridLinesVisibility.None;
             grid.RowHeaderWidth = 20;
             grid.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
             grid.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;

@@ -99,6 +99,7 @@ namespace Misp.Reconciliation.Filter
         private void OnFilterChange()
         {
             Search();
+            OnChange();
         }
 
         private void OnResetClick(object sender, RoutedEventArgs e)
