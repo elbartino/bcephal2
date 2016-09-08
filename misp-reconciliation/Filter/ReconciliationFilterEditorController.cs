@@ -24,6 +24,13 @@ namespace Misp.Reconciliation.Filter
             return state;
         }
 
+        public override OperationState Open(Grille grid)
+        {
+            OperationState state = base.Open(grid);
+            ((ReconciliationFilterEditorItem)getEditor().getActivePage()).SearchAll();
+            return state;
+        }
+
         /// <summary>
         /// Service pour acceder aux opérations liés aux InputGrids.
         /// </summary>

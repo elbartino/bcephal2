@@ -70,12 +70,15 @@ namespace Misp.Reconciliation.Filter
 
             List<GridItem> items = new List<GridItem>(0);
             List<int> ids = new List<int>(0);
-            foreach (object row in getReconciliationFilterForm().GridForm.gridBrowser.grid.ItemsSource)
+            if (getReconciliationFilterForm().GridForm.gridBrowser.grid.ItemsSource != null)
             {
-                if (row is GridItem)
+                foreach (object row in getReconciliationFilterForm().GridForm.gridBrowser.grid.ItemsSource)
                 {
-                    items.Add((GridItem)row);
-                    if(((GridItem)row).GetOid().HasValue) ids.Add(((GridItem)row).GetOid().Value);
+                    if (row is GridItem)
+                    {
+                        items.Add((GridItem)row);
+                        if (((GridItem)row).GetOid().HasValue) ids.Add(((GridItem)row).GetOid().Value);
+                    }
                 }
             }
             if (!ids.Contains(itemToAdd.GetOid().Value)) items.Add(itemToAdd);
