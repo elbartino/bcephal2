@@ -287,7 +287,7 @@ namespace Misp.Sourcing.Table
                                 if (showHeader)
                                 {
                                     int colone = cell.Column - inc > 0 ? cell.Column - inc : 1;
-                                    this.page.getInputTableForm().SpreadSheet.SetValueAt(cell.Row + addRowIndex, colone, sheetName, item.GetValue().ToString(), Designer.DesignerForm.ROWS_COLOR);
+                                    this.page.getInputTableForm().SpreedSheet.SetValueAt(cell.Row + addRowIndex, colone, sheetName, item.GetValue().ToString(), Designer.DesignerForm.ROWS_COLOR);
                                     //this.page.getInputTableForm().SpreadSheet.SetColorAt(cell.Row + addRowIndex, colone, sheetName, Designer.DesignerForm.ROWS_COLOR);
                                 }
                                for (int c = 0; c < columnCount; c++)

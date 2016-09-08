@@ -542,7 +542,7 @@ namespace Misp.Sourcing.Table
         private void MaskDesign(bool mask, string content = "Applying design...")
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
-            if (page != null) page.getInputTableForm().Mask(mask);
+            //if (page != null) page.getInputTableForm().Mask(mask);
             ApplicationManager.MainWindow.BusyBorder.Visibility = mask ? Visibility.Visible : Visibility.Hidden;
             if (mask)
             {
@@ -2302,9 +2302,9 @@ namespace Misp.Sourcing.Table
             else if (applydesignDialog.requestApplyDesign)
             {
 
-                Range currentRange = page.getInputTableForm().SpreadSheet.getActiveCellAsRange();
+                Range currentRange = page.getInputTableForm().SpreedSheet.getActiveCellAsRange();
                 if (currentRange == null) return;
-                currentRange.Sheet = page.getInputTableForm().SpreadSheet.getActiveSheet();
+                currentRange.Sheet = page.getInputTableForm().SpreedSheet.getActiveSheet();
                 currentRange.Sheet.TableName = page.EditedObject.name;
 
 
