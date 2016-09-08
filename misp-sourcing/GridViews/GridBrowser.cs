@@ -91,6 +91,7 @@ namespace Misp.Sourcing.GridViews
             System.Windows.Media.Brush bruch = (System.Windows.Media.Brush)brushConverter.ConvertFrom(System.Windows.Media.Brushes.White.Color.ToString());
             grid.Background = bruch;
             grid.BorderBrush = bruch;
+            grid.AlternatingRowBackground = System.Windows.Media.Brushes.LightBlue;
             grid.HeadersVisibility = DataGridHeadersVisibility.All;
             grid.GridLinesVisibility = DataGridGridLinesVisibility.None;
             grid.RowHeaderWidth = 20;
