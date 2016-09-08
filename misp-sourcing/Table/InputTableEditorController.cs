@@ -1060,8 +1060,8 @@ namespace Misp.Sourcing.Table
                 //editorPage.getInputTableForm().DevSpreedSheet.PartialPasteBcephal += SpreadSheet_PartialPasteBcephal;
                 //editorPage.getInputTableForm().DevSpreedSheet.OnBeforeRightClick += SpreadSheet_OnBeforeRightClick;
 
-                //editorPage.getInputTableForm().DevSpreedSheet.AuditCell += SpreadSheet_AuditCell;
-                //editorPage.getInputTableForm().DevSpreedSheet.createDesign += SpreadSheet_CreateDesign;
+                editorPage.getInputTableForm().SpreedSheet.AuditCell += SpreadSheet_AuditCell;
+                editorPage.getInputTableForm().SpreedSheet.createDesign += SpreadSheet_CreateDesign;
             }
         }
 
