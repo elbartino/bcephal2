@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Domain;
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using Misp.Reconciliation.Posting;
@@ -15,6 +16,13 @@ namespace Misp.Reconciliation.Filter
 {
     public class ReconciliationFilterEditorController : PostingGridEditorController
     {
+
+        public override OperationState Create()
+        {
+            OperationState state = base.Create();
+            ((ReconciliationFilterEditorItem)getEditor().getActivePage()).SearchAll();
+            return state;
+        }
 
         /// <summary>
         /// Service pour acceder aux opérations liés aux InputGrids.

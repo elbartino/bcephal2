@@ -8,6 +8,7 @@ using Misp.Reporting.ReportGrid;
 using Misp.Sourcing.InputGrid;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,6 +59,7 @@ namespace Misp.Reconciliation.RecoGrid
         {
             Grille grid = GetPostingGridService().getNewReconciliationGrid("Postings");
             grid.name = "Postings";
+            grid.columnListChangeHandler.Items = new ObservableCollection<GrilleColumn>(grid.columnListChangeHandler.newItems); 
             return grid;
         }
         

@@ -63,7 +63,7 @@ namespace Misp.Reconciliation.Filter
             GridSplitter splitter = new GridSplitter();
             splitter.ResizeDirection = GridResizeDirection.Columns;
             splitter.Width = 5.0;
-            splitter.Background = Brushes.Gray;
+            splitter.Background = Brushes.LightGray;
             splitter.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
             splitter.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
 
@@ -77,7 +77,7 @@ namespace Misp.Reconciliation.Filter
             GridSplitter splitter1 = new GridSplitter();
             splitter1.ResizeDirection = GridResizeDirection.Rows;
             splitter1.Height = 5.0;
-            splitter1.Background = Brushes.Gray;
+            splitter1.Background = Brushes.LightGray;
             splitter1.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
             splitter1.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
 
