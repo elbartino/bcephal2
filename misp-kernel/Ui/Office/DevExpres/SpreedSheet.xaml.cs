@@ -245,13 +245,13 @@ namespace Misp.Kernel.Ui.Office.DevExpres
             
             IList<DevExpress.Spreadsheet.Range> currentSelection = this.SpreadSheet.GetSelectedRanges();
             Range range = new Range();
-            Sheet sheet = new Sheet(this.SpreadSheet.ActiveSheetIndex, this.SpreadSheet.ActiveSheetName);
+            Sheet sheet = new Sheet(this.SpreadSheet.ActiveWorksheet.Index, this.SpreadSheet.ActiveWorksheet.Name);
             List<RangeItem> lis = new List<RangeItem>();
             foreach (DevExpress.Spreadsheet.Range rang in currentSelection)
             {
-                string sheetName = "";
-                string rangeName = rang.Name;
-                sheet.Name = sheetName;
+                //string sheetName = "";
+                //string rangeName = rang.Name;
+                //sheet.Name = sheetName;
                 RangeItem rangeitem = new RangeItem(rang.TopRowIndex+1, rang.TopRowIndex+1,rang.BottomRowIndex,rang.BottomRowIndex);
                 lis.Add(rangeitem);
             }
@@ -266,8 +266,23 @@ namespace Misp.Kernel.Ui.Office.DevExpres
             //sheet.Cells[cell].Value = value.ToString();
         }
 
-        public object getValueAt(int row, int colunm, string sheetName)
+        public void SetValueAt(int row, int colunm, string sheetName, object value, int color)
         {
+            //Excel.Range cell = getCellAt(row, colunm, sheetName);
+            //if (cell != null)
+            //{
+            //   cell.Value = value;
+            //   cell.Interior.Color = color;
+            //}
+        }
+
+        public object getValueAt(int row, int column, string sheetName)
+        {
+            var sheet = this.SpreadSheet.Document.Worksheets[sheetName];
+            if (sheet.GetCellValue(column, row).IsText) return  sheet.GetCellValue(column, row).TextValue;
+            if (sheet.GetCellValue(column, row).IsBoolean) return sheet.GetCellValue(column, row).BooleanValue;
+            if (sheet.GetCellValue(column, row).IsDateTime) return sheet.GetCellValue(column, row).DateTimeValue.ToShortDateString();
+            if (sheet.GetCellValue(column, row).IsNumeric) return sheet.GetCellValue(column, row).NumericValue;
             return null;
         }
 
@@ -332,6 +347,11 @@ namespace Misp.Kernel.Ui.Office.DevExpres
             biFileSave.IsVisible = false;
             biFileSaveAs.IsVisible = false;
             biFileOpen.IsVisible = false;
+        }
+
+        public int getActiveSheetIndex()
+        {
+            return this.SpreadSheet.ActiveWorksheet.Index;
         }
     }
 }

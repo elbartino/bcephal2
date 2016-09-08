@@ -43,6 +43,12 @@ namespace Misp.Kernel.Util
         return int.Parse(tab[tab.Length-1]);
     }
 
+    public static int getSpreedSheetRow(String cell)
+    {
+        String[] tab = cell.Split(CELL_SEPARATOR.ToArray());
+        return int.Parse(tab[tab.Length - 1]) -1;
+    }
+
     /**
      * Calculate and returns the column of the given cell.
      * <P>
@@ -95,7 +101,30 @@ namespace Misp.Kernel.Util
     	}
     	return getPosition(chars, length-1);
     }
-    
+
+
+    /**
+    * Column index
+    * @param name Column name
+    * @return
+    */
+    public static int getSpreedSheetColumnIndex(String name)
+    {
+        char[] chars = name.ToUpper().ToCharArray();
+        int length = chars.Length;
+        int position = -1;
+        if (length == 1)
+        {
+            position = getPosition(chars[0]);
+        }
+        else
+        {
+            position = getPosition(chars, length - 1);
+        }
+
+        return position - 1;
+    }
+
     
     protected static int getPosition(char[] chars, int index){
     	int length = chars.Length;

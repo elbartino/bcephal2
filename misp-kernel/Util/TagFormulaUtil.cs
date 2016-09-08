@@ -216,7 +216,56 @@ namespace Misp.Kernel.Util
         return null;
         
     }
-    
+
+    /**
+   * 
+   * @param formula
+   * @return 
+   */
+    public static Point getSpreedSheetCoordonne(String formula)
+    {
+        Point point = new Point();
+        Type type = gettType(formula);
+        if (type.Equals(Type.CELLREF) || type.Equals(Type.ROWREF))
+        {
+            point.X = DataFormater.getSpreedSheetColumnIndex(DataFormater.getColumn(formula));
+            point.Y = DataFormater.getSpreedSheetRow(formula);
+        }
+        else if (type.Equals(Type.COLREF) || type.Equals(Type.CELL))
+        {
+            if (formula.StartsWith(CELL_REF_SEPARATOR))
+            {
+                formula = formula.Substring(1);
+            }
+            String row = "";
+            String col = "";
+            for (int i = 0; i < formula.Length; i++)
+            {
+                String car = formula.Substring(i, 1);
+                if ((car.ToUpper().CompareTo(MIN_CHAR) >= 0 && car.ToUpper().CompareTo(MAX_CHAR) <= 0))
+                {
+                    col += car;
+                }
+                else
+                {
+                    row += car;
+                }
+            }
+            point.X = DataFormater.getSpreedSheetColumnIndex(col.ToUpper());
+            try
+            {
+                point.Y = int.Parse(row) - 1;
+            }
+            catch (Exception ex)
+            {
+                return new Point(-1, -1);
+            }
+        }
+        return point;
+    }
+
+
+
     /**
      * 
      * @param formula

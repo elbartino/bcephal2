@@ -320,7 +320,6 @@ namespace Misp.Kernel.Util
             List<Point> borne = getCellsCoord(range);
             List<Point> borneIn = getCellsCoord(rangeIn);
 
-
             int startLine = (int)borne[0].Y;
             int endLine = startLine;
 
