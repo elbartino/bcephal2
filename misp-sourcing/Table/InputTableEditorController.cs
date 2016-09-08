@@ -1096,7 +1096,7 @@ namespace Misp.Sourcing.Table
                     return;
                 }
                 String formulaRef = TagFormulaUtil.getFormulaWithoutEqualSign(formula);
-                Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(formula));
+                Point coord = TagFormulaUtil.getSpreedSheetCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(formula));
                 if (coord.X == coord.Y && coord.Y == -1)
                 {
                     MessageDisplayer.DisplayWarning("Wrong measure formula", formula + " Is not a correct formula!");
@@ -1104,12 +1104,12 @@ namespace Misp.Sourcing.Table
                 }
             }            
 
-            Kernel.Ui.Office.Range range = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+            Kernel.Ui.Office.Range range = page.getInputTableForm().SpreedSheet.GetSelectedRange();
             if (range == null) return;
             string sheetName = range.Sheet.Name;
             InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
             propertyBar.ParameterLayoutAnchorable.IsActive = true;
-            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreadSheet.getActiveCell();
+            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreedSheet.getActiveCell();
             int row = activeCell.Row;
             int col = activeCell.Column;
             CellProperty cellProperty = page.getInputTableForm().TableCellParameterPanel.CellProperty;
@@ -1131,9 +1131,9 @@ namespace Misp.Sourcing.Table
             if (TagFormulaUtil.isFormula(formula))
             {
                 String formulaRef = TagFormulaUtil.getFormulaWithoutEqualSign(formula);
-                Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(formula));
-                int sheetIndex = page.getInputTableForm().SpreadSheet.getActiveSheetIndex();
-                object value = page.getInputTableForm().SpreadSheet.getValueAt((int)coord.Y, (int)coord.X, sheetName);
+                Point coord = TagFormulaUtil.getSpreedSheetCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(formula));
+                int sheetIndex = page.getInputTableForm().SpreedSheet.getActiveSheetIndex();
+                object value = page.getInputTableForm().SpreedSheet.getValueAt((int)coord.Y, (int)coord.X, sheetName);
                 String measureName = value != null ? value.ToString() : "";
                 cellProperty.cellMeasure.name = measureName;
             }   
@@ -2461,7 +2461,7 @@ namespace Misp.Sourcing.Table
                 {
                     if (TagFormulaUtil.isFormula(item.formula))
                     {
-                        Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
+                        Point coord = TagFormulaUtil.getSpreedSheetCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
                         Object value = GetValue((int)coord.X, (int)coord.Y);
                         item.refValueName = value != null ? value.ToString() : null;
                         if(item.value != null)  item.value.name = item.refValueName;
@@ -2477,7 +2477,7 @@ namespace Misp.Sourcing.Table
                 {
                     if (TagFormulaUtil.isFormula(item.formula))
                     {
-                        Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
+                        Point coord = TagFormulaUtil.getSpreedSheetCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
                         Object value = GetValue((int)coord.X, (int)coord.Y);
                         DateTime date;
                         item.value = value != null && DateTime.TryParse(value.ToString(), out date) ? value.ToString() : null;
@@ -2492,9 +2492,9 @@ namespace Misp.Sourcing.Table
                 if (TagFormulaUtil.isFormula(cellProperty.cellMeasure.formula))
                 {
                     String formulaRef = TagFormulaUtil.getFormulaWithoutEqualSign(cellProperty.cellMeasure.formula);
-                    Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(cellProperty.cellMeasure.formula));
-                    int sheetIndex = page.getInputTableForm().SpreadSheet.getActiveSheetIndex();
-                    object value = page.getInputTableForm().SpreadSheet.getValueAt((int)coord.Y, (int)coord.X, cellProperty.nameSheet);
+                    Point coord = TagFormulaUtil.getSpreedSheetCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(cellProperty.cellMeasure.formula));
+                    int sheetIndex = page.getInputTableForm().SpreedSheet.getActiveSheetIndex();
+                    object value = page.getInputTableForm().SpreedSheet.getValueAt((int)coord.Y, (int)coord.X, cellProperty.nameSheet);
                     String measureName = value != null ? value.ToString() : "";
                     cellProperty.cellMeasure.name = measureName;
                     if (cellProperty.cellMeasure.measure != null) cellProperty.cellMeasure.measure.name = measureName;
@@ -2510,7 +2510,7 @@ namespace Misp.Sourcing.Table
                 {
                     if (TagFormulaUtil.isFormula(item.formula))
                     {
-                        Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
+                        Point coord = TagFormulaUtil.getSpreedSheetCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
                         Object value = GetValue((int)coord.X, (int)coord.Y);
                         item.refValueName = value != null ? value.ToString() : null;
                         if (item.value != null) item.value.name = item.refValueName;
@@ -2526,7 +2526,7 @@ namespace Misp.Sourcing.Table
                 {
                     if (TagFormulaUtil.isFormula(item.formula))
                     {
-                        Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
+                        Point coord = TagFormulaUtil.getSpreedSheetCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
                         Object value = GetValue((int)coord.X, (int)coord.Y);
                         DateTime date;
                         item.value = value != null && DateTime.TryParse(value.ToString(), out date) ? value.ToString() : null;
