@@ -129,7 +129,7 @@ namespace Misp.Sourcing.Table
         protected void BuildCentralPart(Range range,bool showHeader)
         {
             Design design = this.design;
-            string sheetName = this.page.getInputTableForm().SpreadSheet.getActiveSheetName();
+            string sheetName = this.page.getInputTableForm().SpreedSheet.getActiveSheetName();
             string value = "";
             string cont = "";
             foreach (DesignDimensionLine line in design.central.lineListChangeHandler.Items)
@@ -146,7 +146,7 @@ namespace Misp.Sourcing.Table
                 if (!string.IsNullOrEmpty(value))
                 {
                     //this.page.getInputTableForm().SpreadSheet.deleteExcelRow(1);
-                    this.page.getInputTableForm().SpreadSheet.SetValueAt(range.Items[0].Row1 - 1, range.Items[0].Column1 - 1, sheetName,value, Designer.DesignerForm.CENTRAL_COLOR);
+                    this.page.getInputTableForm().SpreedSheet.SetValueAt(range.Items[0].Row1 - 1, range.Items[0].Column1 - 1, sheetName,value, Designer.DesignerForm.CENTRAL_COLOR);
                 }
             }
         }
@@ -223,7 +223,7 @@ namespace Misp.Sourcing.Table
                                 {
                                     if (showHeader)
                                     {
-                                        this.page.getInputTableForm().SpreadSheet.SetValueAt(cell.Row - inc, cell.Column + addColIndex, sheetName, item.GetValue().ToString(), Designer.DesignerForm.COLUMNS_COLOR);
+                                        this.page.getInputTableForm().SpreedSheet.SetValueAt(cell.Row - inc, cell.Column + addColIndex, sheetName, item.GetValue().ToString(), Designer.DesignerForm.COLUMNS_COLOR);
                                         
                                     }
                                    for (int l = 0; l < rowCount; l++)
@@ -324,7 +324,7 @@ namespace Misp.Sourcing.Table
                                     if (showHeader)
                                     {
                                         int colone = cell.Column - inc > 0 ? cell.Column - inc : 1;
-                                        this.page.getInputTableForm().SpreadSheet.SetValueAt(cell.Row + addRowIndex, colone, sheetName, item.GetValue().ToString(), Designer.DesignerForm.ROWS_COLOR);
+                                        this.page.getInputTableForm().SpreedSheet.SetValueAt(cell.Row + addRowIndex, colone, sheetName, item.GetValue().ToString(), Designer.DesignerForm.ROWS_COLOR);
                                         //this.page.getInputTableForm().SpreadSheet.SetColorAt(cell.Row + addRowIndex, colone, sheetName, Designer.DesignerForm.ROWS_COLOR);
                                     }
                                     for (int c = 0; c < columnCount; c++)
@@ -396,7 +396,7 @@ namespace Misp.Sourcing.Table
             this.cellsDictionary.TryGetValue(cellName, out cellProperty);
             if (cellProperty != null) return cellProperty;
 
-            object value = page.getInputTableForm().SpreadSheet.getValueAt(row, col, sheetName);
+            object value = page.getInputTableForm().SpreedSheet.getValueAt(row, col, sheetName);
             cellProperty = new CellProperty(Kernel.Util.RangeUtil.GetColumnName(col) + row, row, col);
             cellProperty.nameSheet = sheetName;
             cellProperty.SetDecimalMeasure(value);

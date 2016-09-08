@@ -373,5 +373,10 @@ namespace Misp.Kernel.Ui.Office.DevExpres
         {
             return this.SpreadSheet.ActiveWorksheet.Index;
         }
+
+        public string getActiveSheetName()
+        {
+            return this.SpreadSheet.ActiveWorksheet.Name; ;
+        }
     }
 }
