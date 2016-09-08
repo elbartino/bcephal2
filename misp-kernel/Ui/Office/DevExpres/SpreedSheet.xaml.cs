@@ -322,7 +322,7 @@ namespace Misp.Kernel.Ui.Office.DevExpres
         /// <returns></returns>
         public Sheet getActiveSheet()
         {
-            Sheet sheet = new Sheet(this.SpreadSheet.ActiveSheetIndex,this.SpreadSheet.ActiveSheetName);
+            Sheet sheet = new Sheet(this.SpreadSheet.ActiveWorksheet.Index, this.SpreadSheet.ActiveWorksheet.Name);
             return sheet;
         }
 
