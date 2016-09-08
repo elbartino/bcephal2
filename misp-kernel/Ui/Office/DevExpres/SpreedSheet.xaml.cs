@@ -261,19 +261,39 @@ namespace Misp.Kernel.Ui.Office.DevExpres
 
         public void SetValueAt(int row, int colunm, string sheetName, object value)
         {
-            //Workbook workbook = this.SpreadSheet.
-            //string cell = Kernel.Util.RangeUtil.GetColumnName(colunm) + "" + row;
-            //sheet.Cells[cell].Value = value.ToString();
+            SetValueAt(row, colunm, sheetName, value,-1);
         }
+
 
         public void SetValueAt(int row, int colunm, string sheetName, object value, int color)
         {
-            //Excel.Range cell = getCellAt(row, colunm, sheetName);
-            //if (cell != null)
-            //{
-            //   cell.Value = value;
-            //   cell.Interior.Color = color;
-            //}
+            var sheet = this.SpreadSheet.Document.Worksheets[sheetName];
+            if (value is string)
+            {
+                sheet.Cells[row, colunm].Value = value.ToString();
+            }
+
+            if (value is int)
+            {
+                sheet.Cells[row, colunm].Value = int.Parse(value.ToString());
+            }
+
+            if (value is float) 
+            {
+                sheet.Cells[row, colunm].Value = float.Parse(value.ToString());
+            }
+
+            if (value is double) 
+            {
+                sheet.Cells[row, colunm].Value = double.Parse(value.ToString());
+            }
+
+            if (value is DateTime) 
+            {
+                sheet.Cells[row, colunm].Value = DateTime.Parse(value.ToString());
+            }
+            if (color > -1 )
+            sheet.Cells[row, colunm].FillColor = System.Drawing.ColorTranslator.FromOle(color);
         }
 
         public object getValueAt(int row, int column, string sheetName)
