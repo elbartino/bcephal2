@@ -41,6 +41,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataGridFilterLibrary\DataGridFilterLibrary.csproj">
+      <Project>{04a9e6a9-9dc0-4d7b-ae43-d3b2c6dc2a43}</Project>
+      <Name>DataGridFilterLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\misp-diagram\misp-diagram.csproj">
       <Project>{b437df5f-20e0-4082-a92e-5c1d9c31a8e9}</Project>
       <Name>misp-dotnet-diagram</Name>
@@ -51,9 +55,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DataGridFilterLibrary">
-      <HintPath>..\misp-build\libs\dotnet\DataGridFilterLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="EO.Wpf, Version=3.0.21.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\EO.Wpf.dll</HintPath>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataGridFilterLibrary;
+using DataGridFilterLibrary.Support;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,18 +24,37 @@ namespace Misp.Kernel.Ui.Base
     {
 
         public BrowserGridContextMenu BrowserGridContextMenu { get; set; }
+        public FilterHandler FilterHandler { get; set; }
+        public FilterDatas FilterData { get; set; }
+
+        public event ChangeEventHandler FilterChanged;
 
         public BrowserGrid()
         {
             InitializeComponent();
             this.BrowserGridContextMenu = new BrowserGridContextMenu();
             this.ContextMenu = this.BrowserGridContextMenu;
+
+
+            FilterHandler = new FilterHandler();
+            FilterHandler.Handler += OnFilter;
+            DataGridExtensions.SetFilterHandler(this, FilterHandler);
+
+            FilterData = new FilterDatas();
+            DataGridExtensions.SetFilterDatas(this, FilterData);
+        }
+
+        protected virtual void OnFilter(DataGridFilterLibrary.Support.FilterData data)
+        {
+            if (FilterChanged != null) FilterChanged();
         }
 
         public void hideContextMenu()
         {
             this.BrowserGridContextMenu.Visibility = System.Windows.Visibility.Collapsed;
         }
-                
+
+
+        
     }
 }

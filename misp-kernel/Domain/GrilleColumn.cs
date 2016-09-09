@@ -22,6 +22,8 @@ namespace Misp.Kernel.Domain
 
         public int? valueOid { get; set; }
 
+        public string filterValue { get; set; }
+
         [ScriptIgnore]
         public bool isAdded { get; set; }
 
@@ -91,6 +93,17 @@ namespace Misp.Kernel.Domain
             if(string.IsNullOrWhiteSpace(name)) return null;
             foreach (BrowserData value in values) if (value.name.Equals(name)) return value;
             return null;
+        }
+
+        [ScriptIgnore]
+        public List<string> Items {
+            get 
+            {
+                List<string> names = new List<string>(0);
+                foreach (BrowserData value in values) names.Add(value.name);
+                names.Insert(0, "");
+                return names;
+            }
         }
 
     }

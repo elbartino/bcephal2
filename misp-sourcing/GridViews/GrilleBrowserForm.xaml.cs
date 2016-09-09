@@ -56,6 +56,12 @@ namespace Misp.Sourcing.GridViews
             filterForm.periodFilter.DisplayPeriod(null);
             gridBrowser.SortEventHandler += OnSort;
             gridBrowser.EditEventHandler += OnEdit;
+            gridBrowser.FilterEventHandler += OnFilter;
+        }
+
+        private void OnFilter()
+        {
+            this.filterForm.OnChange();
         }
 
         private void OnSort(object col)

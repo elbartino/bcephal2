@@ -12,6 +12,7 @@
              AlternatingRowBackground="LightBlue"
              filter:DataGridExtensions.UseBackgroundWorkerForFiltering="True"
              filter:DataGridExtensions.IsClearButtonVisible="False" 
+             
              filter:DataGridExtensions.IsFilterVisible="{Binding Path=IsChecked, ElementName=ShowHideFilterCheckBox, Mode=TwoWay}"                        
              ColumnHeaderStyle="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type filter:DataGridHeaderFilterControl}, 
 		                       ResourceId=DataGridHeaderFilterControlStyle}}"

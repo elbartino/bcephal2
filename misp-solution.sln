@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "misp-planification", "misp-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "misp-reconciliation", "misp-reconciliation\misp-reconciliation.csproj", "{E63E193F-E061-423C-B210-50FFB592ED84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGridFilterLibrary", "DataGridFilterLibrary\DataGridFilterLibrary.csproj", "{04A9E6A9-9DC0-4D7B-AE43-D3B2C6DC2A43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{E63E193F-E061-423C-B210-50FFB592ED84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E63E193F-E061-423C-B210-50FFB592ED84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E63E193F-E061-423C-B210-50FFB592ED84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04A9E6A9-9DC0-4D7B-AE43-D3B2C6DC2A43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04A9E6A9-9DC0-4D7B-AE43-D3B2C6DC2A43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04A9E6A9-9DC0-4D7B-AE43-D3B2C6DC2A43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04A9E6A9-9DC0-4D7B-AE43-D3B2C6DC2A43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

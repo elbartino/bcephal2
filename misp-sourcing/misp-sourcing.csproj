@@ -41,10 +41,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\AxInterop.EDOfficeLib.dll</HintPath>
     </Reference>
-    <Reference Include="DataGridFilterLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\misp-build\libs\dotnet\DataGridFilterLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="EO.Wpf, Version=3.0.21.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\EO.Wpf.dll</HintPath>
@@ -520,6 +516,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataGridFilterLibrary\DataGridFilterLibrary.csproj">
+      <Project>{04a9e6a9-9dc0-4d7b-ae43-d3b2c6dc2a43}</Project>
+      <Name>DataGridFilterLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\misp-diagram\misp-diagram.csproj">
       <Project>{B437DF5F-20E0-4082-A92E-5C1D9C31A8E9}</Project>
       <Name>misp-dotnet-diagram</Name>

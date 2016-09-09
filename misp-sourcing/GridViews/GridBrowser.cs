@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Application;
+﻿using DataGridFilterLibrary.Support;
+using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Service;
@@ -21,7 +22,9 @@ namespace Misp.Sourcing.GridViews
     public class GridBrowser : Grid
     {
 
-        public Misp.Kernel.Ui.Base.ChangeItemEventHandler SortEventHandler { get; set; }
+        public ChangeEventHandler FilterEventHandler { get; set; }
+
+        public ChangeItemEventHandler SortEventHandler { get; set; }
 
         public delegate bool EditCellEventHandler(GrilleEditedElement element);
         public EditCellEventHandler EditEventHandler { get; set; }
@@ -35,7 +38,7 @@ namespace Misp.Sourcing.GridViews
 
         private List<string> columnNames = new List<string>(0);
 
-        public DataGrid grid;
+        public BrowserGrid grid;
 
         public bool RebuildGrid = true;
         
@@ -69,6 +72,7 @@ namespace Misp.Sourcing.GridViews
         {
             if (grid != null)
             {
+                grid.FilterChanged -= OnFilterChanged;
                 grid.CellEditEnding -= OnCellEditEnding;
                 grid.Sorting -= OnSort;
                 grid.SelectionChanged -= onSelectionchange;
@@ -82,8 +86,8 @@ namespace Misp.Sourcing.GridViews
                 }
             }
             this.Children.Clear();
-            
-            grid = new DataGrid();
+
+            grid = new BrowserGrid();
             initializeContextMenu();
             grid.SelectionChanged += onSelectionchange;
 
@@ -117,6 +121,7 @@ namespace Misp.Sourcing.GridViews
 
             grid.CellEditEnding += OnCellEditEnding;
             grid.Sorting += OnSort;
+            grid.FilterChanged += OnFilterChanged;
         }
 
         private void onSelectionchange(object sender, SelectionChangedEventArgs e)
@@ -175,7 +180,20 @@ namespace Misp.Sourcing.GridViews
                 this.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = this.grid.SelectedItems.Count > 0;
             }
         }
-        
+
+        protected void OnFilterChanged()
+        {
+            foreach (FilterData data in grid.FilterData.Datas)
+            {
+                String name = data.Column;
+                GrilleColumn column = this.Grille.GetColumn(name);
+                if (column == null) continue;
+                if (data.IsEmpty()) column.filterValue = null;
+                else column.filterValue = data.QueryString;
+            }
+            if (FilterEventHandler != null) FilterEventHandler();
+        }
+
         private void OnSort(object sender, DataGridSortingEventArgs e)
         {
             DataGridColumn col = e.Column;
@@ -308,8 +326,13 @@ namespace Misp.Sourcing.GridViews
                 {
                     grilleColumn.values = Service.ModelService.getLeafAttributeValues(grilleColumn.valueOid.Value);
                 }catch(Exception){}
-                column.ItemsSource = grilleColumn.getValueNames();
-                //column.SelectedItemBinding = new Binding("SelectedValue");
+                
+                //column.ItemsSource = grilleColumn.getValueNames();
+                Binding binding = new Binding();
+                binding.Source = grilleColumn;
+                binding.Path = new PropertyPath("Items");
+                BindingOperations.SetBinding(column, ComboBox.ItemsSourceProperty, binding);
+
                 column.SelectedValueBinding = new Binding(getBindingName(grilleColumn));
 
                 return column;
