@@ -26,7 +26,7 @@ namespace Misp.Sourcing.GridViews
 
         public ChangeItemEventHandler SortEventHandler { get; set; }
 
-        public delegate bool EditCellEventHandler(GrilleEditedElement element);
+        public delegate Object[] EditCellEventHandler(GrilleEditedElement element);
         public EditCellEventHandler EditEventHandler { get; set; }
 
         public DeleteEventHandler DeleteEventHandler { get; set; }
@@ -257,10 +257,32 @@ namespace Misp.Sourcing.GridViews
 
                 if (this.EditEventHandler != null)
                 {
-                    if (!EditEventHandler(element)) args.Cancel = true;
+                    Object[] row = EditEventHandler(element);
+                    if (row == null) args.Cancel = true;
+                    else item.Datas = row;
+                    Refresh();
+                    this.grid.SelectedItem = item;
                 }
             }
         }
+
+        protected void Refresh()
+        {            
+            List<object[]> rows = new List<object[]>(0);
+            if (this.grid.ItemsSource != null)
+            {
+                foreach (object row in this.grid.ItemsSource)
+                {
+                    if (row is GridItem)
+                    {
+                        GridItem item = (GridItem)row;
+                        if (item.GetOid().HasValue) rows.Add(item.Datas);
+                    }
+                }
+            }
+            displayRows(rows);
+        }
+
 
         public void buildColumns(Grille grid)
         {

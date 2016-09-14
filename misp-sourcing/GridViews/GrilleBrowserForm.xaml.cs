@@ -73,10 +73,10 @@ namespace Misp.Sourcing.GridViews
             this.filterForm.OnChange();
         }
 
-        private bool OnEdit(GrilleEditedElement element)
+        private Object[] OnEdit(GrilleEditedElement element)
         {
             if (this.EditEventHandler != null) return EditEventHandler(element);
-            return false;
+            return null;
         }
 
         /// <summary>

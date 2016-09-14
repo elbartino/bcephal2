@@ -533,7 +533,7 @@ namespace Misp.Sourcing.InputGrid
             }
         }
 
-        private bool OnEditColumn(GrilleEditedElement element)
+        private Object[] OnEditColumn(GrilleEditedElement element)
         {
             try
             {
@@ -542,7 +542,7 @@ namespace Misp.Sourcing.InputGrid
                 if (grid != null && !grid.oid.HasValue)
                 {
                     MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Edit row", "You have to save the grid before editing row.\nDou you want to save the grid?");
-                    if (response != MessageBoxResult.Yes) return false;
+                    if (response != MessageBoxResult.Yes) return null;
                     grid.loaded = true;
                     page.IsModify = true;
                     OperationState state = Save(page);
@@ -550,7 +550,7 @@ namespace Misp.Sourcing.InputGrid
 
                 element.grid = new Grille();
                 element.grid.code = page.EditedObject.code;
-                //element.grid.columnListChangeHandler.originalList = page.EditedObject.columnListChangeHandler.Items.ToList();
+                element.grid.columnListChangeHandler.originalList = page.EditedObject.columnListChangeHandler.Items.ToList();
                 element.grid.report = page.EditedObject.report;
                 element.grid.oid = page.EditedObject.oid;
                 element.grid.name = page.EditedObject.name;
@@ -559,7 +559,7 @@ namespace Misp.Sourcing.InputGrid
                 return this.GetInputGridService().editCell(element);
             }
             catch (ServiceExecption) { }
-            return false;
+            return null;
         }
 
         private void OnPageChange(object item)

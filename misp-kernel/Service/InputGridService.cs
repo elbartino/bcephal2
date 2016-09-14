@@ -107,7 +107,7 @@ namespace Misp.Kernel.Service
         }
 
 
-        public bool editCell(GrilleEditedElement element)
+        public Object[] editCell(GrilleEditedElement element)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace Misp.Kernel.Service
 
                 var response = RestClient.ExecuteTaskAsync(request);
                 RestResponse queryResult = (RestResponse)response.Result;
-                bool objects = RestSharp.SimpleJson.DeserializeObject<bool>(queryResult.Content);
+                Object[] objects = RestSharp.SimpleJson.DeserializeObject<Object[]>(queryResult.Content);
                 return objects;
             }
             catch (Exception e)
