@@ -18,8 +18,19 @@ namespace Misp.Reconciliation.Filter
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
         protected override EditorItem<Grille> getNewPage()
-        {
+        {                       
             ReconciliationFilterEditorItem item = new ReconciliationFilterEditorItem();
+            if (this.Service != null)
+            {
+                PeriodName name = this.Service.PeriodNameService.getRootPeriodName();
+                PeriodName defaultName = name.getDefaultPeriodName();
+                item.getReconciliationFilterForm().GridForm.filterForm.periodFilter.DefaultPeriodName = defaultName;
+                item.getReconciliationFilterForm().GridForm.filterForm.periodFilter.DisplayPeriod(null);
+                item.getReconciliationFilterForm().leftGrilleBrowserForm.filterForm.periodFilter.DefaultPeriodName = defaultName;
+                item.getReconciliationFilterForm().leftGrilleBrowserForm.filterForm.periodFilter.DisplayPeriod(null);
+                item.getReconciliationFilterForm().rigthGrilleBrowserForm.filterForm.periodFilter.DefaultPeriodName = defaultName;
+                item.getReconciliationFilterForm().rigthGrilleBrowserForm.filterForm.periodFilter.DisplayPeriod(null);
+            }
             item.getInputGridForm().GridForm.gridBrowser.Service = this.Service;
             item.PostingGridService = (PostingGridService)this.Service;
             return item;

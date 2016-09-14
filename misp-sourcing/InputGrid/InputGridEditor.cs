@@ -20,6 +20,13 @@ namespace Misp.Sourcing.InputGrid
         protected override EditorItem<Grille> getNewPage() 
         { 
             InputGridEditorItem item = new InputGridEditorItem();
+            if (this.Service != null)
+            {
+                PeriodName name = this.Service.PeriodNameService.getRootPeriodName();
+                PeriodName defaultName = name.getDefaultPeriodName();
+                item.getInputGridForm().GridForm.filterForm.periodFilter.DefaultPeriodName = defaultName;
+                item.getInputGridForm().GridForm.filterForm.periodFilter.DisplayPeriod(null);
+            }
             item.getInputGridForm().GridForm.gridBrowser.Service = this.Service;
             return item;
         }

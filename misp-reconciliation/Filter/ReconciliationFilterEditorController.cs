@@ -20,14 +20,16 @@ namespace Misp.Reconciliation.Filter
         public override OperationState Create()
         {
             OperationState state = base.Create();
-            ((ReconciliationFilterEditorItem)getEditor().getActivePage()).SearchAll();
+            ReconciliationFilterEditorItem page = (ReconciliationFilterEditorItem)getEditor().getActivePage();                        
+            page.SearchAll();
             return state;
         }
 
         public override OperationState Open(Grille grid)
         {
             OperationState state = base.Open(grid);
-            ((ReconciliationFilterEditorItem)getEditor().getActivePage()).SearchAll();
+            ReconciliationFilterEditorItem page = (ReconciliationFilterEditorItem)getEditor().getActivePage();
+            page.SearchAll();
             return state;
         }
 
@@ -61,14 +63,7 @@ namespace Misp.Reconciliation.Filter
         protected override void initializeGridFormHandlers(InputGridForm inputGridForm)
         {
             ReconciliationFilterForm recoForm = (ReconciliationFilterForm)inputGridForm;
-
-            recoForm.GridForm.filterForm.periodFilter.DefaultPeriodName = defaultPeriodName;
-            recoForm.GridForm.filterForm.periodFilter.DisplayPeriod(null);
-            recoForm.leftGrilleBrowserForm.filterForm.periodFilter.DefaultPeriodName = defaultPeriodName;
-            recoForm.leftGrilleBrowserForm.filterForm.periodFilter.DisplayPeriod(null);
-            recoForm.rigthGrilleBrowserForm.filterForm.periodFilter.DefaultPeriodName = defaultPeriodName;
-            recoForm.rigthGrilleBrowserForm.filterForm.periodFilter.DisplayPeriod(null);
-
+            
             recoForm.rigthGrilleBrowserForm.filterForm.searchButton.Click += OnSearchClick;
             recoForm.rigthGrilleBrowserForm.filterForm.resetButton.Click += OnResetClick;
             recoForm.rigthGrilleBrowserForm.filterForm.ChangeHandler += OnFilterChange;
@@ -78,10 +73,6 @@ namespace Misp.Reconciliation.Filter
             recoForm.leftGrilleBrowserForm.filterForm.resetButton.Click += OnResetClick;
             recoForm.leftGrilleBrowserForm.filterForm.ChangeHandler += OnFilterChange;
             recoForm.leftGrilleBrowserForm.toolBar.ChangeHandler += OnPageChange;
-            
-            //recoForm.rigthGrilleBrowserForm.EditEventHandler += OnEditColumn;
-            //recoForm.rigthGrilleBrowserForm.gridBrowser.DuplicateEventHandler += OnDuplicateRows;
-            //recoForm.rigthGrilleBrowserForm.gridBrowser.DeleteEventHandler += OnDeleteRows;
         }
 
         protected override void UpdateGridForm()

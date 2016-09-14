@@ -21,6 +21,13 @@ namespace Misp.Reconciliation.Posting
         protected override EditorItem<Grille> getNewPage() 
         {
             PostingGridEditorItem item = new PostingGridEditorItem();
+            if (this.Service != null)
+            {
+                PeriodName name = this.Service.PeriodNameService.getRootPeriodName();
+                PeriodName defaultName = name.getDefaultPeriodName();
+                item.getInputGridForm().GridForm.filterForm.periodFilter.DefaultPeriodName = defaultName;
+                item.getInputGridForm().GridForm.filterForm.periodFilter.DisplayPeriod(null);
+            }
             item.getInputGridForm().GridForm.gridBrowser.Service = this.Service;
             item.PostingGridService = (PostingGridService)this.Service;
             return item;

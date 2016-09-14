@@ -28,9 +28,7 @@ namespace Misp.Sourcing.InputGrid
         #region Properties
         protected System.Windows.Threading.DispatcherTimer runTimer;
         public override void DeleteCommandEnabled(object sender, CanExecuteRoutedEventArgs e) { e.CanExecute = false; }
-
-        protected PeriodName defaultPeriodName { get; set; }
-
+        
         public static RoutedCommand ExportCommand = new RoutedCommand();
         public static MenuItem ExportMenuItem = BuildContextMenuItem("Export to Excel", ExportCommand);
         public CommandBinding ExportCommandBinding { get; set; }
@@ -472,12 +470,6 @@ namespace Misp.Sourcing.InputGrid
         protected virtual void initializeGridFormHandlers(InputGridForm inputGridForm)
         {
             GridViews.GrilleBrowserForm form = inputGridForm.GridForm;
- 	        form.filterForm.periodFilter.DefaultPeriodName = defaultPeriodName;
-            form.filterForm.periodFilter.DisplayPeriod(null);
-            //form.filterForm.periodFilter.ItemChanged += OnPeriodItemChanged;
-            //form.filterForm.targetFilter.ItemChanged += OnTargetItemChanged;
-            //form.filterForm.periodFilter.ItemDeleted += OnPeriodItemDeleted;
-            //form.filterForm.targetFilter.ItemDeleted += OnTargetItemDeleted;
             form.filterForm.searchButton.Click += OnSearchClick;
             form.filterForm.resetButton.Click += OnResetClick;
             form.filterForm.ChangeHandler += OnFilterChange;
@@ -699,7 +691,6 @@ namespace Misp.Sourcing.InputGrid
 
 
             PeriodName rootPeriodName = GetInputGridService().PeriodNameService.getRootPeriodName();
-            defaultPeriodName = rootPeriodName.getDefaultPeriodName();
             ((InputGridSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
 
             Target targetAll = GetInputGridService().ModelService.getTargetAll();
