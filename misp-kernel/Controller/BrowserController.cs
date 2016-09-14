@@ -147,8 +147,11 @@ namespace Misp.Kernel.Controller
             try
             {
                 int p = 0;
+                BGroup group = null;
                 if (item != null && item is int) p = (int)item;
+                else if (item != null && item is Kernel.Domain.BGroup) group = (BGroup)item;
                 BrowserDataFilter filter = GetBrowser().BuildFilter(p);
+                if (group != null && group.oid.HasValue) filter.groupOid = group.oid;
                 BrowserDataPage<B> page = this.Service.getBrowserDatas(filter);
                 GetBrowser().DisplayPage(page);
                 return OperationState.CONTINUE;
@@ -538,8 +541,9 @@ namespace Misp.Kernel.Controller
         {
             if(newSelection == null) return;
             Kernel.Domain.BGroup group = (Kernel.Domain.BGroup) newSelection;
-            if (group.oid == null || !group.oid.HasValue) Search();
-            else FilterByGroup(group.oid.Value);
+            Search(group);
+            //if (group.oid == null || !group.oid.HasValue) Search();
+            //else FilterByGroup(group.oid.Value);
         }
 
         #endregion

@@ -15,6 +15,8 @@ namespace Misp.Kernel.Domain.Browser
 
         public int pageSize { get; set; }
 
+        public int? groupOid { get; set; }
+
         public List<BrowserDataFilterItem> items { get; set; }
 
         public BrowserDataFilter()
