@@ -9,7 +9,7 @@ namespace Misp.Kernel.Domain.Browser
     public class BrowserDataFilter
     {
 
-        public static int DEFAULT_PAGE_SIZE = 5;
+        public static int DEFAULT_PAGE_SIZE = 25;
 
         public int page { get; set; }
 

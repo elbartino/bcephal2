@@ -46,12 +46,7 @@ namespace Misp.Kernel.Ui.Group
         {
             return SubjectType.GROUP;
         }
-
-        public override Kernel.Application.OperationState Search(object oid)
-        {
-            return Kernel.Application.OperationState.CONTINUE;
-        }
-
+        
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.
         /// </summary>
@@ -113,9 +108,10 @@ namespace Misp.Kernel.Ui.Group
         {
             if (String.IsNullOrEmpty(category)) return Search();
             try
-            {
-                List<BrowserData> items = ((GroupService)this.Service).getBrowserDatasByCategory(category);
-                GetBrowser().Grid.ItemsSource = items;
+            {                
+                BrowserDataFilter filter = GetBrowser().BuildFilter(0);
+                BrowserDataPage<BrowserData> page = ((GroupService)this.Service).getBrowserDatasByCategory(filter, category);
+                GetBrowser().DisplayPage(page);
                 return OperationState.CONTINUE;
             }
             catch (ServiceExecption e)

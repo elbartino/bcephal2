@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Misp.Kernel.Domain;
 using RestSharp;
 using Misp.Kernel.Domain.Browser;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Service
 {
@@ -13,13 +14,19 @@ namespace Misp.Kernel.Service
     {
 
 
-        public List<BrowserData> getBrowserDatasByCategory(String category)
+        public BrowserDataPage<BrowserData> getBrowserDatasByCategory(BrowserDataFilter filter, String category)
         {
             try
             {
-                var request1 = new RestRequest(ResourcePath + "/browserdatasbycategory/" + category, Method.GET);
-                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
-                List<BrowserData> objects = RestSharp.SimpleJson.DeserializeObject<List<BrowserData>>(queryResult.Content);
+                var request = new RestRequest(ResourcePath + "/browserdatasbycategory/" + category, Method.POST);
+
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = serializer.Serialize(filter);
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
+
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                BrowserDataPage<BrowserData> objects = RestSharp.SimpleJson.DeserializeObject<BrowserDataPage<BrowserData>>(queryResult.Content);
                 return objects;
             }
             catch (Exception e)

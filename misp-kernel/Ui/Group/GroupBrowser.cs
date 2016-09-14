@@ -84,8 +84,22 @@ namespace Misp.Kernel.Ui.Group
             {
                 case 0: return "name";
                 case 1: return "group";
-                case 2: return "creationDate";
+                case 2: return "creationDateTime";
                 default: return "oid";
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        protected override string getBindingStringFormatAt(int index)
+        {
+            switch (index)
+            {
+                case 2: return "{0:dd/MM/yyyy HH:mm:ss}";
+                default: return null;
             }
         }
 
