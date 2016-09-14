@@ -776,6 +776,9 @@ namespace Misp.Planification.PresentationView
                     PresentationEditorItem currentPage = (PresentationEditorItem)page;
                     if (currentPage.getPresentationForm().SlideView != null)
                     {
+
+                        String name = currentPage.getPresentationForm().PresentationPropertiesPanel.nameTextBox.Text;
+                        Rename(name);
                         String savingFolder =  currentPage.getPresentationForm().PresentationPropertiesPanel.savingFolderTextBox.Text;
                         String filePath = buildPowerPointFilePath(page.EditedObject.name);
                         String tempFolder = GetPresentationService().FileService.GetFileDirs().TempPresentationFolder;
