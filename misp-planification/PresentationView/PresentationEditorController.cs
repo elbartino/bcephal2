@@ -952,7 +952,7 @@ namespace Misp.Planification.PresentationView
         protected virtual string buildPowerPointSavingFolderPath(string savingFolder,int? oid)
         {
             String powerPointSavingDir = null;
-            if (System.IO.Directory.Exists(savingFolder)) return savingFolder;
+            if (System.IO.Directory.Exists(savingFolder)) return savingFolder + (savingFolder.EndsWith(Path.DirectorySeparatorChar.ToString()) ? "" : Path.DirectorySeparatorChar.ToString());
             else
             {
                 powerPointSavingDir = Presentation.defaultSavingFolder + "Bcephal" + Path.DirectorySeparatorChar + ApplicationManager.Instance.File.name + Path.DirectorySeparatorChar + "PowerPoints";
