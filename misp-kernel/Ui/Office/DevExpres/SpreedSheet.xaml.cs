@@ -35,6 +35,8 @@ namespace Misp.Kernel.Ui.Office.DevExpres
 
         public event AuditCellEventHandler AuditCell;
         public event CreateDesignEventHandler createDesign;
+        public event CopyEventHandler CopyBcephal;
+        public event PasteEventHandler PasteBcephal;
 
         public string DocumentUrl
         {
@@ -121,6 +123,21 @@ namespace Misp.Kernel.Ui.Office.DevExpres
                     //Permet de lancer l'audit
                     AuditCell(new ExcelEventArg(getActiveSheet(), GetSelectedRange()));
                     break;
+                }
+
+                case COPY_BCEPHAL_LABEL: 
+                {
+                    //Permet de faire une copy Bcephal
+                    CopyBcephal(new ExcelEventArg(getActiveSheet(), GetSelectedRange()));
+                    break;
+                }
+
+                case PASTE_BCEPHAL_LABEL: 
+                {
+
+                    //Permet de faire un paste Bcephal
+                    PasteBcephal(new ExcelEventArg(getActiveSheet(), getActiveCellAsRange()));
+                    break;    
                 }
 
                 case CREATE_DESIGN_LABEL:
@@ -377,6 +394,11 @@ namespace Misp.Kernel.Ui.Office.DevExpres
         public string getActiveSheetName()
         {
             return this.SpreadSheet.ActiveWorksheet.Name; ;
+        }
+
+        public string getSheetName(int sheetIndex)
+        {
+            throw new NotImplementedException();
         }
     }
 }
