@@ -22,11 +22,22 @@ namespace Misp.Kernel.Administration.Profil
     /// </summary>
     public partial class ProfileMainPanel : Grid
     {
+        public event OnSelectAllClickedEventHandler OnSelectAllClicked;
+        public delegate void OnSelectAllClickedEventHandler();
+
+        public event OnDeSelectAllClickedEventHandler OnDeSelectAllClicked;
+        public delegate void OnDeSelectAllClickedEventHandler();               
+
+        public Hyperlink SelectAllHyperlink { get; private set; }
+
+        public Hyperlink DeSelectAllHyperlink { get; private set; }
+
         public ProfileMainPanel()
         {
             InitializeComponent();
+            BuildSelectAllHyperlink();
+            BuildDeSelectAllHyperlink();
             IntializeHandlers();
-            this.deselectAll.IsChecked = true;
         }
 
         public List<object> getEditableControls()
@@ -34,9 +45,8 @@ namespace Misp.Kernel.Administration.Profil
             List<object> controls = new List<object>(0);
             controls.Add(this.nameTextBox);
             controls.Add(this.activeBox);
-            controls.Add(this.selectAll);
-            controls.Add(this.deselectAll);
             controls.Add(this.functionnalityGrid);
+
             return controls;
         }
 
@@ -82,12 +92,37 @@ namespace Misp.Kernel.Administration.Profil
         private void IntializeHandlers()
         {
             functionnalityGrid.ChangeHandler += OnGridSelectionchange;
-            this.selectAll.Checked += OnManageSelectAll;
-            this.deselectAll.Checked += OnManageDeSelectAll;
             
         }
 
-        private void OnManageSelectAll(object sender, RoutedEventArgs e)
+        protected void BuildSelectAllHyperlink()
+        {
+            Run run1 = new Run("Select All");
+            SelectAllHyperlink = new Hyperlink(run1)
+            {
+                NavigateUri = new Uri("http://localhost//" + "Select All")
+            };
+            SelectAllHyperlink.RequestNavigate += OnManageSelectAll;
+            selectAllTextBlock.Inlines.Add(SelectAllHyperlink);
+            selectAllTextBlock.ToolTip = "Select All Right : View and Edit";
+        }
+
+        
+
+        protected void BuildDeSelectAllHyperlink()
+        {
+            Run run1 = new Run("De-Select All");
+            DeSelectAllHyperlink = new Hyperlink(run1)
+            {
+                NavigateUri = new Uri("http://localhost//" + "De-Select All")
+            };
+            DeSelectAllHyperlink.RequestNavigate += OnManageDeSelectAll;
+            deselectAllTextBlock.Inlines.Add(DeSelectAllHyperlink);
+            deselectAllTextBlock.ToolTip = "De-Select All Right : View and Edit";
+        }
+
+
+        private void OnManageSelectAll(object sender, RequestNavigateEventArgs e)
         {
             List<Rights> items = new List<Rights>(0);
             foreach (object item in functionnalityGrid.Items)
@@ -99,7 +134,7 @@ namespace Misp.Kernel.Administration.Profil
             functionnalityGrid.ItemsSource = items;
         }
 
-        private void OnManageDeSelectAll(object sender, RoutedEventArgs e)
+        private void OnManageDeSelectAll(object sender, RequestNavigateEventArgs e)
         {
             List<Rights> items = new List<Rights>(0);
             foreach (object item in functionnalityGrid.Items)

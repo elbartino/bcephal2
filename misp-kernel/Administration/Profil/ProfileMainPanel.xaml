@@ -26,8 +26,8 @@
                 <Label x:Name="NameLabel" Content="Name" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="nameTextBox" Grid.Column="1"  />
                 <CheckBox x:Name="activeBox" Grid.Column="2" Content="Active" IsChecked="True" Margin="20 5 0 0"  />
-                <RadioButton x:Name="selectAll" Grid.Column="3" GroupName="Right" Margin="30 5 0 0" Content="Select All" />
-                <RadioButton x:Name="deselectAll" Grid.Column="4" GroupName="Right" Content="De-Select All" Margin="40 5 0 0" IsChecked="True"/>
+                <TextBlock x:Name="selectAllTextBlock" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="40 5 0 0" FontSize="12"/>
+                <TextBlock x:Name="deselectAllTextBlock" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="30 5 0 0" FontSize="12"/>
             </Grid>
 
             <Label x:Name="Rights" Content="Rights" Grid.Row="2" VerticalAlignment="Center"/>
