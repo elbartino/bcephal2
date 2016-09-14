@@ -131,7 +131,9 @@ namespace Misp.Sourcing.GridViews
         public GrilleFilter Fill()
         {
             if (this.GrilleFilter == null) this.GrilleFilter = new GrilleFilter();
+            if (targetFilter.Scope != null) targetFilter.Scope.targetItemListChangeHandler.resetOriginalList();
             this.GrilleFilter.filterScope = targetFilter.Scope;
+            if (periodFilter.Period != null) periodFilter.Period.itemListChangeHandler.resetOriginalList();
             this.GrilleFilter.filterPeriod = periodFilter.Period;
             this.GrilleFilter.creditChecked = this.creditCheckBox.IsChecked.Value;
             this.GrilleFilter.debitChecked = this.debitCheckBox.IsChecked.Value;
