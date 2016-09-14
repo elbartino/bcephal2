@@ -45,12 +45,7 @@ namespace Misp.Kernel.Administration.User
         {
             return Misp.Kernel.Domain.SubjectType.USER;
         }
-
-        public override Kernel.Application.OperationState Search(object oid)
-        {
-            return Kernel.Application.OperationState.CONTINUE;
-        }
-
+        
         public UserService getUserService()
         {
             return (UserService)Service;

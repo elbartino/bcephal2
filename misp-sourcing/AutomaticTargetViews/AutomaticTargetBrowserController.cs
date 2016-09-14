@@ -30,11 +30,6 @@ namespace Misp.Sourcing.AutomaticTargetViews
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
         protected override IView getNewView() { return new AutomaticTargetBrowser(); }
-
-        public override Kernel.Application.OperationState Search(object oid)
-        {
-            return Kernel.Application.OperationState.CONTINUE;
-        }
-
+        
     }
 }

@@ -90,9 +90,23 @@ namespace Misp.Kernel.Administration.User
                 case 0: return "name";
                 case 1: return "firstName";
                 case 2: return "profil";
-                case 3: return "creationDate";
+                case 3: return "creationDateTime";
                 case 4: return "active";
                 default: return "oid";
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        protected override string getBindingStringFormatAt(int index)
+        {
+            switch (index)
+            {
+                case 3: return "{0:dd/MM/yyyy HH:mm:ss}";
+                default: return null;
             }
         }
 

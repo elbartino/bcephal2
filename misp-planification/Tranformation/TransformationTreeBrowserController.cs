@@ -45,11 +45,6 @@ namespace Misp.Planification.Tranformation
             return Misp.Kernel.Domain.SubjectType.TRANSFORMATION_TREE;
         }
 
-        public override Kernel.Application.OperationState Search(object oid)
-        {
-            return Kernel.Application.OperationState.CONTINUE;
-        }
-
         public TransformationTreeService getTransformationTreeService()
         {
             return (TransformationTreeService)Service;

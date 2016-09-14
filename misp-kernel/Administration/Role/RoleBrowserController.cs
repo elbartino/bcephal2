@@ -20,27 +20,27 @@ namespace Misp.Kernel.Administration.Role
         }
        
 
-        /// <summary>
-        /// effectue la recherche
-        /// </summary>
-        /// <returns></returns>
-        public override OperationState Search()
-        {
-            try
-            {
-                Kernel.Domain.Role root = getRoleService().getRootRole();
-                GetRoleBrowser().form.EditedObject = root;
-                GetRoleBrowser().form.ChangeEventHandler = this.ChangeEventHandler;
-                GetRoleBrowser().form.displayObject();
-                return OperationState.CONTINUE;
-            }
-            catch (ServiceExecption e)
-            {
-                DisplayError("error", e.Message);
-            }
+        ///// <summary>
+        ///// effectue la recherche
+        ///// </summary>
+        ///// <returns></returns>
+        //public override OperationState Search()
+        //{
+        //    try
+        //    {
+        //        Kernel.Domain.Role root = getRoleService().getRootRole();
+        //        GetRoleBrowser().form.EditedObject = root;
+        //        GetRoleBrowser().form.ChangeEventHandler = this.ChangeEventHandler;
+        //        GetRoleBrowser().form.displayObject();
+        //        return OperationState.CONTINUE;
+        //    }
+        //    catch (ServiceExecption e)
+        //    {
+        //        DisplayError("error", e.Message);
+        //    }
 
-            return OperationState.STOP;
-        }
+        //    return OperationState.STOP;
+        //}
 
         
 
@@ -104,12 +104,6 @@ namespace Misp.Kernel.Administration.Role
         }
 
         
-
-        public override Kernel.Application.OperationState Search(object oid)
-        {
-            return Kernel.Application.OperationState.CONTINUE;
-        }
-
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la SideBar liée à ce controller.

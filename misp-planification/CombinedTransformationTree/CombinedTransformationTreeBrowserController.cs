@@ -98,12 +98,6 @@ namespace Misp.Planification.CombinedTransformationTree
             Mask(true, RunMessageUtil.getMaskStartText());
         }
 
-        public override Kernel.Application.OperationState Search(object oid)
-        {
-            return Kernel.Application.OperationState.CONTINUE;
-        }
-
-
         private void updateRunProgress(TransformationTreeRunInfo info)
         {
             if (info == null || info.runEnded == true)

@@ -45,12 +45,7 @@ namespace Misp.Kernel.Administration.Profil
         {
             return Misp.Kernel.Domain.SubjectType.PROFIL;
         }
-
-        public override Kernel.Application.OperationState Search(object oid)
-        {
-            return Kernel.Application.OperationState.CONTINUE;
-        }
-
+        
         /// <summary>
         /// Initialisation des donnée sur la SideBar.
         /// </summary>

@@ -39,11 +39,6 @@ namespace Misp.Sourcing.Designer
             return Misp.Kernel.Domain.SubjectType.DESIGN;
         }
 
-        public override Kernel.Application.OperationState Search(object oid)
-        {
-            return Kernel.Application.OperationState.CONTINUE;
-        }
-
         protected override OperationState EditProperty(BrowserData item, String header, Object value)
         {
             if (item == null || String.IsNullOrWhiteSpace(header) || value == null) return OperationState.STOP;
