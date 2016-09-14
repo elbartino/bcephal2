@@ -1055,8 +1055,8 @@ namespace Misp.Sourcing.Table
                 editorPage.getInputTableForm().SpreedSheet.SelectionChanged += OnSpreadSheetSelectionChanged;
                 editorPage.getInputTableForm().SpreedSheet.Edited += OnSpreadSheetEdited;
                 editorPage.getInputTableForm().SpreedSheet.SheetActivated += OnDisplayActiveCellData;
-                //editorPage.getInputTableForm().DevSpreedSheet.CopyBcephal += SpreadSheet_CopyBcephal;
-                //editorPage.getInputTableForm().DevSpreedSheet.PasteBcephal += SpreadSheet_PasteBcephal;
+                editorPage.getInputTableForm().SpreedSheet.CopyBcephal += SpreadSheet_CopyBcephal;
+                editorPage.getInputTableForm().SpreedSheet.PasteBcephal += SpreadSheet_PasteBcephal;
                 //editorPage.getInputTableForm().DevSpreedSheet.PartialPasteBcephal += SpreadSheet_PartialPasteBcephal;
                 //editorPage.getInputTableForm().DevSpreedSheet.OnBeforeRightClick += SpreadSheet_OnBeforeRightClick;
 
@@ -1797,10 +1797,10 @@ namespace Misp.Sourcing.Table
 
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
             if (page == null) return;
-            Kernel.Ui.Office.Range range = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+            Kernel.Ui.Office.Range range = page.getInputTableForm().SpreedSheet.GetSelectedRange();
             if (range == null) return;
             string sheetName = range.Sheet.Name;
-            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreadSheet.getActiveCell();
+            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreedSheet.getActiveCell();
             int row = activeCell.Row;
             int col = activeCell.Column;
 
@@ -1819,7 +1819,7 @@ namespace Misp.Sourcing.Table
                 Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(formula));
                 String valueName = null;
                 if(coord.Y != -1 && coord.X != -1 ){
-                    object value = page.getInputTableForm().SpreadSheet.getValueAt((int)coord.Y, (int)coord.X, sheetName);
+                    object value = page.getInputTableForm().SpreedSheet.getValueAt((int)coord.Y, (int)coord.X, sheetName);
                     valueName = value != null ? value.ToString() : "";
                 }
                 targetItem.refValueName = valueName;
@@ -1862,10 +1862,10 @@ namespace Misp.Sourcing.Table
             TargetItem targetItem = (TargetItem)item;
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
             if (page == null) return;
-            Kernel.Ui.Office.Range range = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+            Kernel.Ui.Office.Range range = page.getInputTableForm().SpreedSheet.GetSelectedRange();
             if (range == null) return;
             string sheetName = range.Sheet.Name;
-            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreadSheet.getActiveCell();
+            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreedSheet.getActiveCell();
             int row = activeCell.Row;
             int col = activeCell.Column;
             CellProperty cellProperty = page.getInputTableForm().TableCellParameterPanel.CellProperty;
@@ -1908,10 +1908,10 @@ namespace Misp.Sourcing.Table
         protected Object GetValue(int colFormula, int rowFormula)
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
-            int sheetIndex = page.getInputTableForm().SpreadSheet.getActiveSheetIndex();
-            string sheetName = page.getInputTableForm().SpreadSheet.getSheetName(sheetIndex);
+            int sheetIndex = page.getInputTableForm().SpreedSheet.getActiveSheetIndex();
+            string sheetName = page.getInputTableForm().SpreedSheet.getActiveSheetName();
             if (sheetName == null) return null;
-            object value = page.getInputTableForm().SpreadSheet.getValueAt(rowFormula, colFormula, sheetName);
+            object value = page.getInputTableForm().SpreedSheet.getValueAt(rowFormula, colFormula, sheetName);
             return value;
         }
 
@@ -2037,7 +2037,7 @@ namespace Misp.Sourcing.Table
             page.getInputTableForm().TablePropertiesPanel.filterScopePanel.ActiveItemPanel.inputTableService = this.GetInputTableService();
             if (propertyBar.Pane.SelectedContent == propertyBar.ParameterLayoutAnchorable)
             {
-                Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+                Range currentRange = page.getInputTableForm().SpreedSheet.GetSelectedRange();
                 if (currentRange == null) return;
                 page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetTargetValue(target);
             }
@@ -2101,12 +2101,12 @@ namespace Misp.Sourcing.Table
                 Measure measure = (Measure)sender;
                 InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
                 if (page == null) return;
-                Kernel.Ui.Office.Range range = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+                Kernel.Ui.Office.Range range = page.getInputTableForm().SpreedSheet.GetSelectedRange();
                 if (range == null) return;
                 string sheetName = range.Sheet.Name;
                 InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
                 propertyBar.ParameterLayoutAnchorable.IsActive = true;
-                Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreadSheet.getActiveCell();
+                Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreedSheet.getActiveCell();
                 int  row = activeCell.Row;
                 int col = activeCell.Column;
                 CellProperty cellProperty = page.getInputTableForm().TableCellParameterPanel.CellProperty;
@@ -2164,7 +2164,7 @@ namespace Misp.Sourcing.Table
                 InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
                 if (propertyBar.Pane.SelectedContent == propertyBar.ParameterLayoutAnchorable)
                 {
-                    Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+                    Range currentRange = page.getInputTableForm().SpreedSheet.GetSelectedRange();
                     if (currentRange == null) return;
                     setCellPeriodName(page, periodName.name);
                 }
@@ -2178,7 +2178,7 @@ namespace Misp.Sourcing.Table
                 InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
                 if (propertyBar.Pane.SelectedContent == propertyBar.ParameterLayoutAnchorable)
                 {
-                    Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+                    Range currentRange = page.getInputTableForm().SpreedSheet.GetSelectedRange();
                     if (currentRange == null) return;
                     setCellPeriodInterval(page, periodInterval);
                 }
@@ -2223,7 +2223,7 @@ namespace Misp.Sourcing.Table
                 page.getInputTableForm().TablePropertiesPanel.filterScopePanel.ActiveItemPanel.inputTableService = this.GetInputTableService();
                 if (propertyBar.Pane.SelectedContent == propertyBar.ParameterLayoutAnchorable)
                 {
-                    Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+                    Range currentRange = page.getInputTableForm().SpreedSheet.GetSelectedRange();
                     if (currentRange == null) return;
                     page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetTargetValue(target);
                 }
@@ -2246,7 +2246,7 @@ namespace Misp.Sourcing.Table
                 
                 if (propertyBar.Pane.SelectedContent == propertyBar.ParameterLayoutAnchorable)
                 {
-                    Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+                    Range currentRange = page.getInputTableForm().SpreedSheet.GetSelectedRange();
                     if (currentRange == null) return;
 
                     if (loop.IsScope) page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetLoopValue(loop);
@@ -2632,16 +2632,17 @@ namespace Misp.Sourcing.Table
         }
 
         private void SpreadSheet_PasteBcephal(ExcelEventArg arg)
-        {            
+        {
+            if (arg == null) return;
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
             if (page == null) return;
-            Kernel.Ui.Office.Range range = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+            Kernel.Ui.Office.Range range = arg.Range;
             if (range == null) return;
             Kernel.Ui.Office.Range copiedRange = null;
             System.Windows.Application.Current.Dispatcher.Invoke((Action)(() => copiedRange = Kernel.Util.ClipbordUtil.getRange()));
             if (copiedRange == null) return;
             string sheetName = range.Sheet.Name;
-            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreadSheet.getActiveCell();
+            Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreedSheet.getActiveCell();
             int row = activeCell.Row;
             int col = activeCell.Column;
             CellProperty cellProperty = page.getInputTableForm().TableCellParameterPanel.CellProperty;
@@ -2903,7 +2904,8 @@ namespace Misp.Sourcing.Table
             //page.getInputTableForm().DevSpreedSheet.AddExcelMenu(EdrawOffice.COPY_BCEPHAL_LABEL);
             //page.getInputTableForm().DevSpreedSheet.AddSeparatorMenu();
             page.getInputTableForm().SpreedSheet.AddExcelMenu(SpreedSheet.CREATE_DESIGN_LABEL);
-            page.getInputTableForm().SpreedSheet.AddExcelMenu(SpreedSheet.AUDIT_CELL_LABEL);
+            page.getInputTableForm().SpreedSheet.AddExcelMenu(SpreedSheet.PASTE_BCEPHAL_LABEL);
+            page.getInputTableForm().SpreedSheet.AddExcelMenu(SpreedSheet.COPY_BCEPHAL_LABEL);
         }
 
         /// <summary>
