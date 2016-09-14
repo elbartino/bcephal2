@@ -957,7 +957,7 @@ namespace Misp.Planification.PresentationView
             {
                 powerPointSavingDir = Presentation.defaultSavingFolder + "Bcephal" + Path.DirectorySeparatorChar + ApplicationManager.Instance.File.name + Path.DirectorySeparatorChar + "PowerPoints";
                 if (!System.IO.Directory.Exists(powerPointSavingDir)) System.IO.Directory.CreateDirectory(powerPointSavingDir);
-                return powerPointSavingDir;
+                return powerPointSavingDir; 
             }
             //if (oid != null) savingFolder = GetPresentationService().getUserSavingdir(oid.Value);
             //if (!string.IsNullOrEmpty(savingFolder)) return savingFolder;
