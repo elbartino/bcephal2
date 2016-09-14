@@ -952,12 +952,16 @@ namespace Misp.Planification.PresentationView
         protected virtual string buildPowerPointSavingFolderPath(string savingFolder,int? oid)
         {
             String powerPointSavingDir = null;
-            if (oid != null) savingFolder = GetPresentationService().getUserSavingdir(oid.Value);
-            if (!string.IsNullOrEmpty(savingFolder)) return savingFolder;
-            //powerPointSavingDir = Presentation.defaultSavingFolder + (savingFolder.EndsWith(Path.DirectorySeparatorChar.ToString()) ? "" : Path.DirectorySeparatorChar.ToString());
-            powerPointSavingDir =  Presentation.defaultSavingFolder + "Bcephal" + Path.DirectorySeparatorChar + ApplicationManager.Instance.File.name + Path.DirectorySeparatorChar + "PowerPoints";
-            if(!System.IO.Directory.Exists(powerPointSavingDir)) System.IO.Directory.CreateDirectory(powerPointSavingDir);
-            return powerPointSavingDir;
+            if (!System.IO.Directory.Exists(savingFolder)) return savingFolder;
+            else
+            {
+                powerPointSavingDir = Presentation.defaultSavingFolder + "Bcephal" + Path.DirectorySeparatorChar + ApplicationManager.Instance.File.name + Path.DirectorySeparatorChar + "PowerPoints";
+                if (!System.IO.Directory.Exists(powerPointSavingDir)) System.IO.Directory.CreateDirectory(powerPointSavingDir);
+                return powerPointSavingDir;
+            }
+            //if (oid != null) savingFolder = GetPresentationService().getUserSavingdir(oid.Value);
+            //if (!string.IsNullOrEmpty(savingFolder)) return savingFolder;
+            //powerPointSavingDir = Presentation.defaultSavingFolder + (savingFolder.EndsWith(Path.DirectorySeparatorChar.ToString()) ? "" : Path.DirectorySeparatorChar.ToString());            
         }
 
         protected virtual string getPowerPointFolder()
