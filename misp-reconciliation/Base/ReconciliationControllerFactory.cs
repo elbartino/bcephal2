@@ -37,8 +37,8 @@ namespace Misp.Reconciliation.Base
         /// <returns></returns>
         public override Controllable GetController(string fonctionality)
         {
-            
-            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_FUNCTIONALITY)
+
+            if (fonctionality == ReconciliationFunctionalitiesCode.NEW_RECONCILIATION_FILTER_FUNCTIONALITY)
             {
                 ReconciliationFilterEditorController recoEditorController = new ReconciliationFilterEditorController();
                 recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;

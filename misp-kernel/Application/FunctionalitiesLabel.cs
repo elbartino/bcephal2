@@ -90,12 +90,12 @@ namespace Misp.Kernel.Application
 
         public static string STRUCTURED_REPORT_DASHBOARD_LABEL = "Structured Reports";
         public static string RECENT_STRUCTURED_REPORT_LABEL = "Recent Structured Reports";
-        public static string STRUCTURED_REPORT_LABEL = "List Report";
+        public static string STRUCTURED_REPORT_LABEL = "Structured Report";
         public static string NEW_STRUCTURED_REPORT_LABEL = "New Structured Report";
         public static string LIST_STRUCTURED_REPORT_LABEL = "List Structured Reports";
 
         public static string CALCULATED_MEASURE_DASHBOARD_LABEL = "Calculated Measures";
-        public static string CALCULATED_MEASURE_LABEL = " Calculated Measure";
+        public static string CALCULATED_MEASURE_LABEL = "Calculated Measure";
         public static string NEW_CALCULATED_MEASURE_LABEL = "New Calculated Measure";
         public static string RECENT_CALCULATED_MEASURE_LABEL = "Recents Calculated Measures";
         public static string LIST_CALCULATED_MEASURE_LABEL = "List Calculated Measure";
@@ -146,8 +146,10 @@ namespace Misp.Kernel.Application
         //RECONCILIATION
         public static string RECONCILIATION_LABEL = "Reconciliation";
         public static string RECENT_RECONCILIATION_LABEL = "Recent Reconciliation Filters";
-        public static string RECONCILIATION_FILTER_LABEL = "New Reconciliation Filter";
+        public static string RECONCILIATION_FILTER_DASHBOARD_LABEL = "Reconciliation Filters";
+        public static string NEW_RECONCILIATION_FILTER_LABEL = "New Reconciliation Filter";
         public static string LIST_RECONCILIATION_FILTERS_LABEL = "List Reconciliation Filters ";
+
         public static string RECONCILIATION_POSTING_LABEL = "Postings";
         public static string TRANSACTION_FILE_TYPES_LABEL = "TRANSACTION_FILE_TYPES_FUNCTIONALITY";
         public static string RECONCILIATION_RUN_CONFIRM_LABEL = "RECONCILIATION_RUN_CONFIRM";

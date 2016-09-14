@@ -26,7 +26,7 @@ namespace Misp.Reconciliation.Filter
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_FUNCTIONALITY; }
+        public override string GetEditorFuntionality() { return ReconciliationFunctionalitiesCode.NEW_RECONCILIATION_FILTER_FUNCTIONALITY; }
 
     }
 }
