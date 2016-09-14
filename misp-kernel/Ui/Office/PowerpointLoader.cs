@@ -18,6 +18,7 @@ namespace Misp.Kernel.Ui.Office
         public static Dictionary<String, PowerpointLoader> PRESENTATIONS = new Dictionary<String, PowerpointLoader>(0);
 
         public static event TransformationTreeRunInfoEventHandler RunHandler;
+        public static Kernel.Service.FileTransferService FileTransfertService { get; set; }
         public static int LoopCount { get; set; }
 
         public String TemplateFilePath { get; set; }
@@ -112,6 +113,12 @@ namespace Misp.Kernel.Ui.Office
             workbook = null;
         }
 
+        public void copyFile(String destPath, String name) 
+        {
+            if (FileTransfertService == null) return;
+            FileTransfertService.downloadPresentationTemplate(destPath, name);
+        }
+
         public void duplicateSlide(int sileIndex)
         {
             PowerPoint.Slide slide = getSilde(sileIndex);
@@ -172,6 +179,10 @@ namespace Misp.Kernel.Ui.Office
             
             if (info == null || string.IsNullOrEmpty(info.action)) return;
 
+            //if(info.action.Equals(PowerpointLoadInfoActions.COPY))
+            //{
+            //    copyFile(info.destPath, info.name);
+            //}
             if (info.action.Equals(PowerpointLoadInfoActions.DUPLICATE_SLIDE))
             {
                 duplicateSlide(info.slideIndex + 1);
@@ -204,7 +215,9 @@ namespace Misp.Kernel.Ui.Office
         public static void Load(PowerpointLoadInfo info)
         {
             if (stop) return;
-            if (info == null || string.IsNullOrEmpty(info.filePath) || !System.IO.File.Exists(info.filePath)) return;
+            bool condition1 = (info == null || string.IsNullOrEmpty(info.destPath) || !System.IO.Directory.Exists(info.destPath));
+            bool condition2 = (info == null || string.IsNullOrEmpty(info.filePath) || !System.IO.File.Exists(info.filePath));
+            if (condition1 && condition2) return;
 
             if (info.items != null && info.items.Count > 0)
             {
@@ -228,10 +241,25 @@ namespace Misp.Kernel.Ui.Office
                 return;
             }
             PowerpointLoader loader;
-            if (!PRESENTATIONS.TryGetValue(info.filePath, out loader))
+            //if (!PRESENTATIONS.TryGetValue(info.filePath, out loader))
+            //{
+            //    loader = new PowerpointLoader(info.filePath);
+            //    PRESENTATIONS.Add(info.filePath, loader);
+            //}
+            string path = info.destPath != null ? info.destPath : info.filePath;
+            if (!PRESENTATIONS.TryGetValue(path, out loader))
             {
-                loader = new PowerpointLoader(info.filePath);
-                PRESENTATIONS.Add(info.filePath, loader);
+                
+                bool isCopyAction = info.action.Equals(PowerpointLoadInfoActions.COPY);
+                string filePath = isCopyAction ? (path + info.name) : path;
+                if (!System.IO.File.Exists(filePath) && isCopyAction)
+                {
+                    loader = new PowerpointLoader();
+                    loader.copyFile(path, info.name);
+                }
+                loader = new PowerpointLoader(filePath);
+                if(!isCopyAction)
+                 PRESENTATIONS.Add(filePath, loader);
             }
             if (stop) return;
             loader.loadInfo(info);

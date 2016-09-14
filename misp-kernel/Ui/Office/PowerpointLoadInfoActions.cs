@@ -9,6 +9,7 @@ namespace Misp.Kernel.Ui.Office
     public class PowerpointLoadInfoActions
     {
 
+        public static string COPY               = "COPY";
         public static string SAVE               = "SAVE";
         public static string CLOSE              = "CLOSE";
         public static string SAVE_AND_CLOSE     = "SAVE AND CLOSE";

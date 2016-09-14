@@ -11,6 +11,7 @@ namespace Misp.Kernel.Ui.Office
 
         public String name { get; set; }
         public String filePath { get; set; }
+        public String destPath { get; set; }
         public String action { get; set; }
         public int slideIndex { get; set; }
         public int shapeIndex { get; set; }

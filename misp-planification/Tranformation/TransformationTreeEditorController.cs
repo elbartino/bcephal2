@@ -175,6 +175,7 @@ namespace Misp.Planification.Tranformation
         {
             if (info == null) return;
             PowerpointLoader.RunHandler += updatePowerpointLoadProgress;
+            PowerpointLoader.FileTransfertService = GetTransformationTreeService().FileService.FileTransferService;
             PowerpointLoader.LoopCount = info.items.Count;
             PowerpointLoader.Load(info);
         }

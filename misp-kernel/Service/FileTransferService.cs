@@ -53,6 +53,25 @@ namespace Misp.Kernel.Service
             return null;
         }
 
+        public String downloadPresentationTemplate(String destPath, String name)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/download-presentation-template/" + name, Method.GET);
+                request.AddHeader("Content-Type", "application/octet-stream");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                byte[] data = RestClient.DownloadData(request);
+                string filePath = destPath + name ;
+                File.WriteAllBytes(filePath, data);
+                return destPath;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to download file.", e);
+            }
+            return null;
+        }
+
         public bool uploadPresentation(String name, String path)
         {
             try
