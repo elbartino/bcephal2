@@ -97,6 +97,8 @@ namespace Misp.Reconciliation.Filter
             else
             {
                 ApplicationManager.MainWindow.displayPropertyBar(null);
+                page.getReconciliationFilterForm().leftGrilleBrowserForm.gridBrowser.RebuildGrid = page.getReconciliationFilterForm().GridForm.gridBrowser.RebuildGrid;
+                page.getReconciliationFilterForm().rigthGrilleBrowserForm.gridBrowser.RebuildGrid = page.getReconciliationFilterForm().GridForm.gridBrowser.RebuildGrid;
                 if (page.getReconciliationFilterForm().GridForm.gridBrowser.RebuildGrid) UpdateGridForm();
             }
             e.Handled = true;
