@@ -41,7 +41,8 @@ namespace DataGridFilterLibrary.Support
                     case FilterType.Numeric:
                     case FilterType.DateTime:
 
-                        filterChanged = (Operator != FilterOperator.Undefined || QueryString != String.Empty);
+                        //filterChanged = (Operator != FilterOperator.Undefined || QueryString != String.Empty);
+                        filterChanged = true;
                         break;
 
                     case FilterType.NumericBetween:

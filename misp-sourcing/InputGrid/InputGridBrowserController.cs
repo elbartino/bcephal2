@@ -41,11 +41,6 @@ namespace Misp.Sourcing.InputGrid
             return Misp.Kernel.Domain.SubjectType.INPUT_GRID;
         }
 
-        public override Kernel.Application.OperationState Search(object oid)
-        {
-            return Kernel.Application.OperationState.CONTINUE;
-        }
-
 
         protected override OperationState EditProperty(BrowserData item, String header, Object value)
         {

@@ -12,6 +12,7 @@ using System.Windows.Input;
 using Misp.Kernel.Task;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Util;
+using Misp.Kernel.Domain.Browser;
 
 
 namespace Misp.Kernel.Controller
@@ -123,16 +124,40 @@ namespace Misp.Kernel.Controller
         {
             try
             {
-                List<B> items = this.Service.getBrowserDatas();
-                items.BubbleSort();
-                GetBrowser().Grid.ItemsSource = items;
-                return OperationState.CONTINUE;
+                return Search(0);
+                //List<B> items = this.Service.getBrowserDatas();
+                //items.BubbleSort();
+                //GetBrowser().Grid.ItemsSource = items;
+                //return OperationState.CONTINUE;
             }
             catch (ServiceExecption e)
             {
                DisplayError("error", e.Message);
             }
             
+            return OperationState.STOP;
+        }
+
+        /// <summary>
+        /// effectue la recherche
+        /// </summary>
+        /// <returns></returns>
+        public override OperationState Search(object item)
+        {
+            try
+            {
+                int p = 0;
+                if (item != null && item is int) p = (int)item;
+                BrowserDataFilter filter = GetBrowser().BuildFilter(p);
+                BrowserDataPage<B> page = this.Service.getBrowserDatas(filter);
+                GetBrowser().DisplayPage(page);
+                return OperationState.CONTINUE;
+            }
+            catch (ServiceExecption e)
+            {
+                DisplayError("error", e.Message);
+            }
+
             return OperationState.STOP;
         }
 
@@ -368,9 +393,11 @@ namespace Misp.Kernel.Controller
             this.GetBrowser().Grid.MouseDoubleClick += new MouseButtonEventHandler(OnDoubleClick);
             this.GetBrowser().Grid.CellEditEnding += new EventHandler<DataGridCellEditEndingEventArgs>(OnCellEditEnding);
             //this.GetBrowser().Grid.PreviewMouseRightButtonDown += OnPreviewMouseRightButtonDown;
+
+            this.GetBrowser().Grid.FilterChanged += OnFilterChanged;
+            this.GetBrowser().NavigationBar.ChangeHandler += OnPageChange;
         }
 
-        
 
         /// <summary>
         /// Initialisation des Handlers sur la ToolBar.
@@ -439,6 +466,16 @@ namespace Misp.Kernel.Controller
         protected virtual void customizeContextMenu()
         {
            
+        }
+
+        private void OnFilterChanged()
+        {
+            Search(0);
+        }
+
+        private void OnPageChange(object item)
+        {
+            Search((int)item);
         }
 
         protected virtual void OnKeyPress(object sender, KeyEventArgs args)

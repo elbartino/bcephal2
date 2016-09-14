@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using DataGridFilterLibrary;
 using Xceed.Wpf.AvalonDock.Layout;
+using Misp.Kernel.Domain.Browser;
+using DataGridFilterLibrary.Support;
 
 namespace Misp.Kernel.Ui.Base
 {
@@ -27,6 +29,7 @@ namespace Misp.Kernel.Ui.Base
         /// La grille du navigateur
         /// </summary>
         protected BrowserGrid grid;
+        protected BrowserGridNavigationBar navigationBar;
 
         #endregion
 
@@ -41,7 +44,7 @@ namespace Misp.Kernel.Ui.Base
             Datas = new ObservableCollection<B>();
             initializeGrid();
         }
-
+        
         #endregion
 
 
@@ -64,6 +67,8 @@ namespace Misp.Kernel.Ui.Base
         /// </summary>
         public BrowserGrid Grid { get { return grid; } }
 
+        public BrowserGridNavigationBar NavigationBar { get { return navigationBar; } }
+
         /// <summary>
         /// Assigne ou retourne la liste d'objets dans le navigateur.
         /// </summary>
@@ -73,6 +78,39 @@ namespace Misp.Kernel.Ui.Base
 
 
         #region Operation
+
+        public BrowserDataFilter BuildFilter(int page = 0)
+        {
+            BrowserDataFilter filter = new BrowserDataFilter();
+            filter.page = page;            
+            filter.pageSize = (int)navigationBar.pageSizeComboBox.SelectedItem;
+            if (filter.pageSize <= 0) filter.pageSize = BrowserDataFilter.DEFAULT_PAGE_SIZE;
+            foreach (FilterData data in grid.FilterData.Datas)
+            {
+                if (data.IsEmpty()) continue;
+                filter.items.Add(new BrowserDataFilterItem(data.ValuePropertyBindingPath, data.QueryString, data.Operator));                
+            }
+            return filter;
+        }
+
+        /// <summary>
+        /// Affiche une collection d'objets dans le navigateur.
+        /// </summary>
+        /// <param name="datas">La collection d'objet à afficher dans le navigateur</param>
+        public void DisplayPage(BrowserDataPage<B> page)
+        {
+            this.grid.ItemsSource = new ObservableCollection<B>();
+            if (page != null)
+            {
+                this.grid.ItemsSource = page.rows;
+                this.navigationBar.displayPage(page.pageSize, page.pageFirstItem, page.pageLastItem, page.totalItemCount, page.pageCount, page.currentPage);
+            }
+            else
+            {
+                this.grid.ItemsSource = new ObservableCollection<B>();
+                this.navigationBar.displayPage(10, 0, 0, 0, 0, 0);
+            }
+        }
 
         /// <summary>
         /// Affiche une collection d'objets dans le navigateur.
@@ -122,14 +160,28 @@ namespace Misp.Kernel.Ui.Base
                 grid.Columns.Add(column);
             }
 
+            navigationBar = new BrowserGridNavigationBar();
+
+            Grid panel = new Grid();
+            panel.Background = Brushes.White;
+            panel.RowDefinitions.Add(new RowDefinition());
+            panel.RowDefinitions.Add(new RowDefinition());
+
+            panel.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Star);
+            panel.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Auto);
+            System.Windows.Controls.Grid.SetRow(grid, 0);
+            panel.Children.Add(grid);
+            System.Windows.Controls.Grid.SetRow(navigationBar, 1);
+            panel.Children.Add(navigationBar);
+            
             LayoutDocument page = new LayoutDocument();
             page.CanClose = false;
             page.CanFloat = false;
             page.Title = getTitle();
-            page.Content = grid;
-            this.Children.Add(page);
-            
+            page.Content = panel;
+            this.Children.Add(page);            
         }
+
 
         /// <summary>
         /// Retourne le titre du navigateur
@@ -176,9 +228,22 @@ namespace Misp.Kernel.Ui.Base
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        protected System.Windows.Data.Binding getBindingAt(int index)
+        protected virtual System.Windows.Data.Binding getBindingAt(int index)
         {
-            return new System.Windows.Data.Binding(getBindingNameAt(index));
+            Binding binding = new Binding(getBindingNameAt(index));
+            String format = getBindingStringFormatAt(index);
+            if (!string.IsNullOrWhiteSpace(format)) binding.StringFormat = format;
+            return binding;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        protected virtual String getBindingStringFormatAt(int index)
+        {
+            return null;
         }
 
         /// <summary>

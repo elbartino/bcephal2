@@ -205,6 +205,7 @@
     <Compile Include="Domain\AutomaticSourcingColumnItem.cs" />
     <Compile Include="Domain\Browser\BrowserDataFilter.cs" />
     <Compile Include="Domain\Browser\BrowserDataFilterItem.cs" />
+    <Compile Include="Domain\Browser\BrowserDataPage.cs" />
     <Compile Include="Domain\Browser\RoleBrowserData.cs" />
     <Compile Include="Domain\Browser\ProfilBrowserData.cs" />
     <Compile Include="Domain\Browser\UserBrowserData.cs" />
@@ -417,6 +418,9 @@
     </Compile>
     <Compile Include="Ui\Attribute\AttributeValueTreeView.xaml.cs">
       <DependentUpon>AttributeValueTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\BrowserGridNavigationBar.xaml.cs">
+      <DependentUpon>BrowserGridNavigationBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Base\PaginationPanel.xaml.cs">
       <DependentUpon>PaginationPanel.xaml</DependentUpon>
@@ -791,6 +795,10 @@
     <Page Include="Ui\Attribute\AttributeValueTreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\Base\BrowserGridNavigationBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\Base\PaginationPanel.xaml">
       <SubType>Designer</SubType>

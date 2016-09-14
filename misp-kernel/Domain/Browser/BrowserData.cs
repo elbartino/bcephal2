@@ -29,6 +29,28 @@ namespace Misp.Kernel.Domain.Browser
         public string groupName { get { return group; } }
 
 
+
+        [ScriptIgnore]
+        public DateTime creationDateTime
+        {
+            get
+            {
+                return DateTime.ParseExact(creationDate, "dd-MM-yyyy HH:mm:ss",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+            }
+        }
+
+        [ScriptIgnore]
+        public DateTime modificationDateTime
+        {
+            get
+            {
+                return DateTime.ParseExact(modificationDate, "dd-MM-yyyy HH:mm:ss",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+            }
+        }
+
+
         public BrowserData() { }
 
         public BrowserData(BrowserData data)

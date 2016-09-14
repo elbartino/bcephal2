@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Misp.Sourcing.InputGrid
 {
@@ -12,8 +14,8 @@ namespace Misp.Sourcing.InputGrid
 
         protected override string getTitle()
         {
-            return "Input Grid";
+            return "Input Grids";
         }
-
+          
     }
 }

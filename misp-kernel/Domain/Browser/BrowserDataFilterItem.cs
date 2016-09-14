@@ -14,21 +14,39 @@ namespace Misp.Kernel.Domain.Browser
 
         public string value { get; set; }
 
-        public BrowserDataFilterItem()
-        {
-            
-        }
+        public string value2 { get; set; }
 
-        public BrowserDataFilterItem(string name, string value)
+        public String operation { get; set; }
+
+        public BrowserDataFilterItem() { }
+
+        public BrowserDataFilterItem(string name, string value) : this(name, value, "=") { }
+
+        public BrowserDataFilterItem(String name, String value, String operation)
         {
             this.name = name;
             this.value = value;
+            this.operation = operation;
         }
 
-        public BrowserDataFilterItem(FilterData data)
+        public BrowserDataFilterItem(String name, String value, FilterOperator operation) : this(name, value)
         {
-            this.name = data.ValuePropertyBindingPath;
-            this.value = data.QueryString;
+            setOperation(operation);
+        }
+
+        public BrowserDataFilterItem(FilterData data) : this(data.ValuePropertyBindingPath, data.QueryString, data.Operator) { }
+
+        public void setOperation(FilterOperator operation)
+        {
+            if (operation == null) return;
+            if (operation == FilterOperator.Between) this.operation = "Between";
+            else if (operation == FilterOperator.Equals) this.operation = "=";
+            else if (operation == FilterOperator.GreaterThan) this.operation = ">";
+            else if (operation == FilterOperator.GreaterThanOrEqual) this.operation = ">=";
+            else if (operation == FilterOperator.LessThan) this.operation = "<";
+            else if (operation == FilterOperator.LessThanOrEqual) this.operation = "<=";
+            else if (operation == FilterOperator.Like) this.operation = "Like";
+            //else if (operation == FilterOperator.Undefined) this.operation = "Undefined";
         }
 
     }

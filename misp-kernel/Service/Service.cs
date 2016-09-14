@@ -96,6 +96,33 @@ namespace Misp.Kernel.Service
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>List of BrowserData</returns>
+        public virtual BrowserDataPage<B> getBrowserDatas(BrowserDataFilter filter)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/browser-data-page", Method.POST);
+                request.RequestFormat = DataFormat.Json;
+
+                JavaScriptSerializer serializer = new JavaScriptSerializer();                
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = serializer.Serialize(filter);
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
+
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                BrowserDataPage<B> objects = RestSharp.SimpleJson.DeserializeObject<BrowserDataPage<B>>(queryResult.Content);
+                return objects;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve list of BrowserData.", e);
+                throw new ServiceExecption("Unable to retrieve list of BrowserData.", e);
+            }
+        }
+
         public virtual List<B> getBrowserDatas(bool isTarget)
         {
             return new List<B>(0);    

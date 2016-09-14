@@ -38,12 +38,7 @@ namespace Misp.Sourcing.Table
         {
             return Misp.Kernel.Domain.SubjectType.INPUT_TABLE;
         }
-
-        public override OperationState Search(object oid)
-        {
-            return OperationState.CONTINUE;
-        }
-
+        
         protected override OperationState EditProperty(InputTableBrowserData item, String header, Object value)
         {
             if (item == null || String.IsNullOrWhiteSpace(header) || value == null) return OperationState.STOP;
