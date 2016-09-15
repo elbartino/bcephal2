@@ -735,6 +735,8 @@ namespace Misp.Kernel.Ui.Dashboard
             if (info == null) return;
             PowerpointLoader.RunHandler += updatePowerpointLoadProgress;
             PowerpointLoader.LoopCount = info.items.Count;
+            DashboardBlock block = new DashboardBlock();
+            PowerpointLoader.FileTransfertService = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetFileTransferService(); 
             PowerpointLoader.Load(info);
         }
 
