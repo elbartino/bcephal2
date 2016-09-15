@@ -128,8 +128,8 @@ namespace Misp.Sourcing.GridViews
         {
             if (e.OriginalSource != sender) return;
             if (ChangeHandler != null) ChangeHandler();
-            if (e.AddedItems.Count > 0 && SelectedItemChangedHandler != null) SelectedItemChangedHandler(e.AddedItems[0]);
-            if (e.RemovedItems.Count > 0 && DeselectedItemChangedHandler != null) DeselectedItemChangedHandler(e.RemovedItems[0]);
+            if (e.AddedItems.Count > 0 && SelectedItemChangedHandler != null) SelectedItemChangedHandler(e.AddedItems);
+            if (e.RemovedItems.Count > 0 && DeselectedItemChangedHandler != null) DeselectedItemChangedHandler(e.RemovedItems);
         }
 
         /// <summary>

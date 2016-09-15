@@ -42,6 +42,19 @@ namespace Misp.Kernel.Ui.Base
 
             FilterData = new FilterDatas();
             DataGridExtensions.SetFilterDatas(this, FilterData);
+
+            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.SelectAll, SelectAll_Executed));
+        }
+        
+        private void SelectAll_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            DataGrid dataGrid = sender as DataGrid;
+            if (dataGrid.ItemsSource != null)
+            {
+                int itemsCount = dataGrid.Items.Count;
+                if (dataGrid.SelectedItems.Count < itemsCount) dataGrid.SelectAll();
+                else dataGrid.UnselectAll();
+            }
         }
 
         protected virtual void OnFilter(DataGridFilterLibrary.Support.FilterData data)
