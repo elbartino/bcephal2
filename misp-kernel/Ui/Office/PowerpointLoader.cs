@@ -216,8 +216,20 @@ namespace Misp.Kernel.Ui.Office
         public static void Load(PowerpointLoadInfo info)
         {
             if (stop) return;
-            bool condition1 = (info == null || string.IsNullOrEmpty(info.destPath) || !System.IO.Directory.Exists(info.destPath));
-            bool condition2 = (info == null || string.IsNullOrEmpty(info.filePath) || !System.IO.File.Exists(info.filePath));
+           
+            bool condition1 = (info == null || string.IsNullOrEmpty(info.destPath));
+            if (!condition1)
+            {
+                info.destPath =!System.IO.Directory.Exists(info.destPath) ?  Kernel.Domain.Presentation.defaultSavingFolder : info.destPath;
+            }
+
+            bool condition2 = (info == null || string.IsNullOrEmpty(info.filePath));
+            if(!condition2)
+            {
+                string defPath = Kernel.Domain.Presentation.defaultSavingFolder + Path.GetFileName(info.filePath);
+                info.filePath = !System.IO.File.Exists(info.filePath) ? defPath : info.filePath;
+            }
+            
             if (condition1 && condition2) return;
 
             if (info.items != null && info.items.Count > 0)
