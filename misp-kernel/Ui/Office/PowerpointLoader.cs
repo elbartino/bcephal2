@@ -10,6 +10,7 @@ using Misp.Kernel.Util;
 using System.Diagnostics;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Domain;
+using System.IO;
 
 namespace Misp.Kernel.Ui.Office
 {
@@ -249,17 +250,26 @@ namespace Misp.Kernel.Ui.Office
             string path = info.destPath != null ? info.destPath : info.filePath;
             if (!PRESENTATIONS.TryGetValue(path, out loader))
             {
-                
+                string filePath = path;
                 bool isCopyAction = info.action.Equals(PowerpointLoadInfoActions.COPY);
-                string filePath = isCopyAction ? (path + info.name) : path;
-                if (!System.IO.File.Exists(filePath) && isCopyAction)
+                if (isCopyAction)
                 {
+                    filePath = path + info.name;
+                    String name = Path.GetFileNameWithoutExtension(info.name);
+                    String ext = Path.GetExtension(info.name);
+                    int i = 0;
+                    while (System.IO.File.Exists(filePath))
+                    {
+                        filePath = path + name + ++i + ext;
+                    }
                     loader = new PowerpointLoader();
-                    loader.copyFile(path, info.name);
+                    loader.copyFile(filePath, info.name);
+
+                    path = path + info.name;
                 }
+                
                 loader = new PowerpointLoader(filePath);
-                if(!isCopyAction)
-                 PRESENTATIONS.Add(filePath, loader);
+                PRESENTATIONS.Add(path, loader);
             }
             if (stop) return;
             loader.loadInfo(info);
@@ -267,14 +277,14 @@ namespace Misp.Kernel.Ui.Office
 
         public static void ShowPresentationToUser(PowerpointLoadInfo info)
         {
-            if (!System.IO.File.Exists(info.filePath)) return;
+            //if (!System.IO.File.Exists(info.filePath)) return;
             PowerpointLoader loader;
             if (PRESENTATIONS.TryGetValue(info.filePath, out loader)) loader.saveAndClose();
 
             MsoTriState ofalse = MsoTriState.msoFalse;
             MsoTriState otrue = MsoTriState.msoTrue;
             PowerPoint.Application PowerPointApplication = new PowerPoint.Application();
-            PowerPointApplication.Presentations.Open(@info.filePath, otrue, otrue, otrue);
+            PowerPointApplication.Presentations.Open(@loader.FilePath, otrue, otrue, ofalse);
 
             int currrent = PowerPointApplication.Presentations.Count;
             PowerPoint.Presentation Presentation = PowerPointApplication.Presentations[currrent];
@@ -290,7 +300,7 @@ namespace Misp.Kernel.Ui.Office
                     
             Presentation.SlideShowSettings.StartingSlide = 1;
             Presentation.SlideShowSettings.EndingSlide = countSlide;
-            Presentation.Save();
+            //Presentation.Save();
             Presentation.SlideShowSettings.Run();
 
             //long wait = (countSlide * avanceTime) * 1000;

@@ -61,7 +61,7 @@ namespace Misp.Kernel.Service
                 request.AddHeader("Content-Type", "application/octet-stream");
                 request.RequestFormat = RestSharp.DataFormat.Json;
                 byte[] data = RestClient.DownloadData(request);
-                string filePath = destPath + name ;
+                string filePath = destPath;
                 File.WriteAllBytes(filePath, data);
                 return destPath;
             }
