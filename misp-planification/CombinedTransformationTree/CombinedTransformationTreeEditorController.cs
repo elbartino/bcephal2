@@ -363,6 +363,7 @@ namespace Misp.Planification.CombinedTransformationTree
         private void loadPowerpoint(Kernel.Ui.Office.PowerpointLoadInfo info)
         {
             if (info == null) return;
+            PowerpointLoader.FileTransfertService = GetCombineTransformationTreeService().FileService.FileTransferService;
             PowerpointLoader.Load(info);
         }
 

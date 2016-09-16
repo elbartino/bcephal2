@@ -324,7 +324,7 @@ namespace Misp.Kernel.Ui.Office
             //long wait = (countSlide * avanceTime) * 1000;
 
             //Wait for the slide show to end.
-            while (PowerPointApplication.SlideShowWindows.Count >= 1) 
+            while (PowerPointApplication.SlideShowWindows.Count >= 1)
                 System.Threading.Thread.Sleep(1000);
 
             //if (Presentation != null) Presentation.Close();
