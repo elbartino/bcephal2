@@ -152,7 +152,7 @@ namespace Misp.Reporting.Report
             OperationState state = OperationState.CONTINUE;
             ReportEditorItem page = (ReportEditorItem)getInputTableEditor().getActivePage();
             if (page == null) return state;
-        
+            page.EditedObject.excelFileName = page.EditedObject.excelFileName.Replace("\"","");
             nextRunActionData = null;
             TableActionData data = new TableActionData();
             if (page.EditedObject.oid.HasValue) data = new TableActionData(page.EditedObject.oid.Value, null);

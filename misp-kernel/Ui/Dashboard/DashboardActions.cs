@@ -273,7 +273,11 @@ namespace Misp.Kernel.Ui.Dashboard
                     ExcelLoader loader = null;
                     if (!ExcelLoader.Loaders.ContainsKey(data.table))
                     {
-                        loader = new ExcelLoader(data.excelFile);
+                        string ext = System.IO.Path.GetExtension(data.excelFile);
+                        string name = data.table + ext;
+                        string path = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetFileTransferService().downloadTable(name);
+                        path += name;
+                        loader = new ExcelLoader(path);
                         ExcelLoader.Loaders.Add(data.table, loader);
                     }
                     ExcelLoader.Loaders.TryGetValue(data.table, out loader);
