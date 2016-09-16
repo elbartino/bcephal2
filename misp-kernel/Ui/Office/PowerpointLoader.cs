@@ -218,18 +218,8 @@ namespace Misp.Kernel.Ui.Office
             if (stop) return;
            
             bool condition1 = (info == null || string.IsNullOrEmpty(info.destPath));
-            if (!condition1)
-            {
-                info.destPath =!System.IO.Directory.Exists(info.destPath) ?  Kernel.Domain.Presentation.defaultSavingFolder : info.destPath;
-            }
-
             bool condition2 = (info == null || string.IsNullOrEmpty(info.filePath));
-            if(!condition2)
-            {
-                string defPath = Kernel.Domain.Presentation.defaultSavingFolder + Path.GetFileName(info.filePath);
-                info.filePath = !System.IO.File.Exists(info.filePath) ? defPath : info.filePath;
-            }
-            
+                        
             if (condition1 && condition2) return;
 
             if (info.items != null && info.items.Count > 0)
@@ -266,13 +256,29 @@ namespace Misp.Kernel.Ui.Office
                 bool isCopyAction = info.action.Equals(PowerpointLoadInfoActions.COPY);
                 if (isCopyAction)
                 {
-                    filePath = path + info.name;
+                    String dir = path;                    
                     String name = Path.GetFileNameWithoutExtension(info.name);
                     String ext = Path.GetExtension(info.name);
+                                        
+                    if (!Directory.Exists(path))
+                    {
+                        try
+                        {
+                            String root = Directory.GetDirectoryRoot(path);
+                            if (Directory.Exists(root)) Directory.CreateDirectory(path);
+                            else dir = Presentation.defaultSavingFolder;
+                        }
+                        catch
+                        {
+                            dir = Presentation.defaultSavingFolder;
+                        }
+                    }
+
+                    filePath = dir + info.name;
                     int i = 0;
                     while (System.IO.File.Exists(filePath))
                     {
-                        filePath = path + name + ++i + ext;
+                        filePath = dir + name + ++i + ext;
                     }
                     loader = new PowerpointLoader();
                     loader.copyFile(filePath, info.name);

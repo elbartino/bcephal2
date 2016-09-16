@@ -27,7 +27,7 @@ namespace Misp.Kernel.Domain
         public static string defaultSavingFolder 
         {
             get{
-                return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + System.IO.Path.DirectorySeparatorChar;
+                return Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + System.IO.Path.DirectorySeparatorChar;
             }
         }
 
