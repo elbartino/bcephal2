@@ -618,7 +618,7 @@ namespace Misp.Planification.PresentationView
             if (report == null) return;
             PresentationEditorItem page = (PresentationEditorItem)getPresentationEditor().getActivePage();
             if (page == null) return;
-            string reportFilePath = !String.IsNullOrEmpty(getReportFolder()) ? getReportFolder() : null;
+            string reportFilePath = GetPresentationService().FileService.FileTransferService.downloadTable(report.name + EdrawOffice.EXCEL_EXT);
             if (reportFilePath == null) return;
             reportFilePath += report.excelFileName;
             page.getPresentationForm().SlideView.AddOrUpdateExcelShape(reportFilePath, (report).oid.Value);
@@ -954,6 +954,7 @@ namespace Misp.Planification.PresentationView
 
         protected virtual string buildPowerPointSavingFolderPath(string savingFolder,int? oid)
         {
+            if (string.IsNullOrEmpty(savingFolder)) return "";
             return savingFolder + (savingFolder.EndsWith(Path.DirectorySeparatorChar.ToString()) ? "" : Path.DirectorySeparatorChar.ToString());            
         }
 
