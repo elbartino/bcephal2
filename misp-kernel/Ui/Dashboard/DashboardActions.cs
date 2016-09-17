@@ -563,6 +563,40 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Transformation Tree Actions
 
+        public Dictionary<int,List<int>> getTreeOid(List<int> combinedTreeOids)
+        {
+            Dictionary<int, List<int>> combinetreeTreeAndTreeOids = new Dictionary<int, List<int>>(0);
+            foreach (int oid in combinedTreeOids) 
+            {
+               CombinedTransformationTree cTree = getByOid(oid);
+               if (cTree == null) continue;
+               combinetreeTreeAndTreeOids.Add(oid, cTree.getTransformationTreesOids());
+            }
+            return combinetreeTreeAndTreeOids;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="oid">Oid of the object to return.</param>
+        /// <returns>Object such that object.oid == oid.</returns>
+        public CombinedTransformationTree getByOid(int oid)
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath.TRANSFORMATION_COMBINED_RESOURCE_PATH + "/" + oid, Method.GET);
+                RestResponse queryResult = (RestResponse)ApplicationManager.Instance.RestClient.Execute(request1);
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                CombinedTransformationTree value = Serializer.Deserialize<CombinedTransformationTree>(queryResult.Content);
+                return value;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         public void DeleteTrees(List<int> oids, DashboardBlock block, DashboardBlock blockToUpdate)
         {
             this.BlockToUpdate = blockToUpdate;

@@ -304,7 +304,21 @@ namespace Misp.Kernel.Ui.Dashboard
                 }
                 DashboardBlock tableBlock = null;
                 if (this.DashboardView.DisplayedBlocks.Contains(this.DashboardView.TableBlock)) tableBlock = this.DashboardView.TableBlock;
-                new DashboardActions().RunCombinedTrees(oids, tableBlock);
+                Dictionary<int,List<int>> cTreeWithTreeOid = new DashboardActions().getTreeOid(oids);
+                if (cTreeWithTreeOid == null || cTreeWithTreeOid.Count == 0) return;
+                foreach (int s in cTreeWithTreeOid.Keys) 
+                {
+                    try
+                    {
+                        cTreeWithTreeOid.TryGetValue(s, out oids);
+                        if (oids == null || oids.Count <= 0) continue;
+                    }
+                    catch (Exception ex) 
+                    {
+                        continue;
+                    }
+                    new DashboardActions().RunCombinedTrees(oids, tableBlock);
+                }
             }
             else if (isStructuredReport())
             {
