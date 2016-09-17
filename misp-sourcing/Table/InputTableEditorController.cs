@@ -447,7 +447,7 @@ namespace Misp.Sourcing.Table
                 InputTable table;
                 if (page.EditedObject is Report) table = (Report)page.EditedObject;
                 else table = page.EditedObject;
-              
+                page.EditedObject.excelFileName = page.EditedObject.excelFileName.Replace("\"", "");
                 try
                 {
                     Mask(true);
