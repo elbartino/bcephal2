@@ -369,12 +369,14 @@ namespace Misp.Kernel.Controller
 
         public virtual bool validateName(EditorItem<T> page, string name)
         {
+            T objectEdit = page.EditedObject;
             if (string.IsNullOrEmpty(name))
             {
                 Kernel.Util.MessageDisplayer.DisplayError("Empty Name", "Name can't be empty!");
                 return false;
             }
-            if (Service.getByName(name) != null) return false;
+            T objectD = Service.getByName(name);
+            if (objectD != null && objectEdit.oid != objectD.oid) return false;
 
             //foreach (EditorItem<T> pageItem in getEditor().getPages())
             //{
