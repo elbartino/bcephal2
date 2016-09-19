@@ -444,7 +444,9 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
         protected void InitializeHandlers()
         {
             this.spreadsheetControl.SelectionChanged += OnSelectionChanged;
-            //this.spreadsheetControl.ActiveSheetChanged;
+            this.spreadsheetControl.ActiveSheetChanged += OnSelectionChanged;
+            this.spreadsheetControl.SheetInserted += OnSelectionChanged;
+            //this.spreadsheetControl.SheetRemoved;
             
 
             //this.spreadsheetControl. WorkbookNewSheet += Office_WorkbookNewSheet;
