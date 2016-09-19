@@ -10,6 +10,8 @@ namespace Misp.Kernel.Ui.Office
 {
     public interface ISpreadsheet
     {
+        
+
         event ChangeEventHandler Changed;
         event EditEventHandler Edited;
         event SelectionChangedEventHandler SelectionChanged;

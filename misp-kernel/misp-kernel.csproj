@@ -59,6 +59,14 @@
     <Reference Include="AxInterop.EDOfficeLib">
       <HintPath>..\misp-build\libs\dotnet\AxInterop.EDOfficeLib.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Mvvm.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Spreadsheet.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Core.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Ribbon.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Spreadsheet.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="EO.Wpf, Version=3.0.21.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\EO.Wpf.dll</HintPath>
@@ -428,6 +436,10 @@
     <Compile Include="Ui\File\FileNameDialog.xaml.cs">
       <DependentUpon>FileNameDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\Office\DevExpressSheet\DESpreadsheet.xaml.cs">
+      <DependentUpon>DESpreadsheet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Office\SheetConst.cs" />
     <Compile Include="Ui\Role\RoleTreeView.xaml.cs">
       <DependentUpon>RoleTreeView.xaml</DependentUpon>
     </Compile>
@@ -686,6 +698,7 @@
     <Compile Include="Util\MessageDisplayer.cs" />
     <Compile Include="Util\UserUtil.cs" />
     <Compile Include="Util\WindowPositioner.cs" />
+    <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -805,6 +818,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\File\FileNameDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Office\DevExpressSheet\DESpreadsheet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

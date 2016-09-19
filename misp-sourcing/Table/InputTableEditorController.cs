@@ -8,7 +8,7 @@ using Misp.Kernel.Ui.Designer;
 using Misp.Kernel.Ui.File;
 using Misp.Kernel.Ui.Group;
 using Misp.Kernel.Ui.Office;
-using Misp.Kernel.Ui.Office.EDraw;
+using Misp.Kernel.Ui.Office.DevExpressSheet;
 using Misp.Kernel.Util;
 using Misp.Sourcing.Base;
 using Misp.Sourcing.Designer;
@@ -215,18 +215,18 @@ namespace Misp.Sourcing.Table
         public override OperationState Open(InputTable table)
         {
             string excelDir = getExcelFolder();
-            string filePath = excelDir + table.name + EdrawOffice.EXCEL_EXT;
-            string tempPath = GetInputTableService().FileService.FileTransferService.downloadTable(table.name + EdrawOffice.EXCEL_EXT);
+            string filePath = excelDir + table.name + SheetConst.EXCEL_EXT;
+            string tempPath = GetInputTableService().FileService.FileTransferService.downloadTable(table.name + SheetConst.EXCEL_EXT);
             if (string.IsNullOrWhiteSpace(filePath))
             {
 
             }
-           
-            filePath = tempPath + table.name + EdrawOffice.EXCEL_EXT;
+
+            filePath = tempPath + table.name + SheetConst.EXCEL_EXT;
 
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.AddInputTableIfNatExist(table);
-            EditorItem<InputTable> page = getEditor().addOrSelectPage(table);   
-            ((InputTableEditorItem)page).getInputTableForm().SpreadSheet.Open(filePath, EdrawOffice.EXCEL_ID);
+            EditorItem<InputTable> page = getEditor().addOrSelectPage(table);
+            ((InputTableEditorItem)page).getInputTableForm().SpreadSheet.Open(filePath);
             ((InputTableEditorItem)page).getInputTableForm().InputTableService = (InputTableService)this.Service;
             UpdateStatusBar(null);
             CustomizeSpreedSheet((InputTableEditorItem)page);
@@ -309,8 +309,7 @@ namespace Misp.Sourcing.Table
 
             InputTableEditorItem page = (InputTableEditorItem)editorItem;
             if (page.getInputTableForm().SpreadSheet.Import() != OperationState.CONTINUE) return OperationState.STOP;
-            page.getInputTableForm().SpreadSheet.RemoveTempFiles();
-
+            
             string nameAfterImport;
             nameAfterImport = page.getInputTableForm().SpreadSheet.DocumentName;
             if (page.EditedObject.oid.HasValue)
@@ -387,7 +386,6 @@ namespace Misp.Sourcing.Table
             if (page.getInputTableForm().SpreadSheet != null)
             {
                 if (page.getInputTableForm().SpreadSheet.Export(openSaveDialog()) != OperationState.CONTINUE) return OperationState.STOP;
-                page.getInputTableForm().SpreadSheet.RemoveTempFiles();
                 Save(page);
             }
             return OperationState.CONTINUE;
@@ -484,7 +482,7 @@ namespace Misp.Sourcing.Table
             String excelfileName = saveAs ? buildExcelFileName(page.EditedObject.excelFileName) : page.EditedObject.excelFileName;
             //page.EditedObject.excelFileName = filePath;
             String oldFilePath = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
-            if (String.IsNullOrEmpty(page.EditedObject.excelFileName)) page.EditedObject.excelFileName = page.EditedObject.name + EdrawOffice.EXCEL_EXT;
+            if (String.IsNullOrEmpty(page.EditedObject.excelFileName)) page.EditedObject.excelFileName = page.EditedObject.name + SheetConst.EXCEL_EXT;
             String tempFolder = GetInputTableService().FileService.GetFileDirs().TempTableFolder;
             String pathexcel = tempFolder + excelfileName;
 
@@ -1044,7 +1042,7 @@ namespace Misp.Sourcing.Table
             editorPage.getInputTableForm().TableCellParameterPanel.CellMeasurePanel.ValidateFormula += OnValidateMeasureFormula;
 
             editorPage.Closed += editorPage_Closed;
-            editorPage.getInputTableForm().SpreadSheet.DisableAddingSheet += SpreadSheet_DisableAddingSheet;
+            //editorPage.getInputTableForm().SpreadSheet.DisableAddingSheet += SpreadSheet_DisableAddingSheet;
             
             if (editorPage.getInputTableForm().SpreadSheet != null)
             {
@@ -1054,7 +1052,7 @@ namespace Misp.Sourcing.Table
                 editorPage.getInputTableForm().SpreadSheet.CopyBcephal += SpreadSheet_CopyBcephal;
                 editorPage.getInputTableForm().SpreadSheet.PasteBcephal += SpreadSheet_PasteBcephal;
                 editorPage.getInputTableForm().SpreadSheet.PartialPasteBcephal += SpreadSheet_PartialPasteBcephal;
-                editorPage.getInputTableForm().SpreadSheet.OnBeforeRightClick +=SpreadSheet_OnBeforeRightClick;
+                //editorPage.getInputTableForm().SpreadSheet.OnBeforeRightClick +=SpreadSheet_OnBeforeRightClick;
                 
                 editorPage.getInputTableForm().SpreadSheet.AuditCell += SpreadSheet_AuditCell;
                 editorPage.getInputTableForm().SpreadSheet.createDesign += SpreadSheet_CreateDesign;
@@ -1229,7 +1227,7 @@ namespace Misp.Sourcing.Table
             InputTableEditorItem removedPage = (InputTableEditorItem)sender;
             Kernel.Service.FileDirs fileDirs = this.Service.FileService.GetFileDirs();
             string excelDir = getExcelFolder();
-            string filePath = excelDir + removedPage.EditedObject.name + EdrawOffice.EXCEL_EXT;
+            string filePath = excelDir + removedPage.EditedObject.name + SheetConst.EXCEL_EXT;
             if (!removedPage.EditedObject.oid.HasValue && !System.IO.File.Exists(filePath))
             {
                 ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.RemoveInputTable(removedPage.EditedObject);
@@ -2057,7 +2055,7 @@ namespace Misp.Sourcing.Table
                 EditorItem<InputTable> page = getInputTableEditor().getPage(table.name);
                 Kernel.Service.FileDirs fileDirs = this.Service.FileService.GetFileDirs();
                 string excelDir = getExcelFolder();
-                string filePath = excelDir + table.name + EdrawOffice.EXCEL_EXT;
+                string filePath = excelDir + table.name + SheetConst.EXCEL_EXT;
                 if (page != null)
                 {
                     page.fillObject();
@@ -2892,13 +2890,13 @@ namespace Misp.Sourcing.Table
             page.getInputTableForm().SpreadSheet.DisableTitleBar(true);
             page.getInputTableForm().SpreadSheet.DisableFormualaBar(false);
             page.getInputTableForm().SpreadSheet.DisableToolBar(false);
-            page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
-            //page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.PARTIAL_PASTE_BCEPHAL_LABEL);
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.PASTE_BCEPHAL_LABEL);
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.COPY_BCEPHAL_LABEL);
-            page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.CREATE_DESIGN_LABEL);
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.AUDIT_CELL_LABEL);
+            //page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
+            //page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.PARTIAL_PASTE_BCEPHAL_LABEL);
+            page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.PASTE_BCEPHAL_LABEL);
+            page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.COPY_BCEPHAL_LABEL);
+            //page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
+            page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.CREATE_DESIGN_LABEL);
+            page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.AUDIT_CELL_LABEL);
         }
 
         /// <summary>
@@ -2910,7 +2908,7 @@ namespace Misp.Sourcing.Table
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
             string excelDir = "";
-            string filePath = excelDir + name + EdrawOffice.EXCEL_EXT;
+            string filePath = excelDir + name + SheetConst.EXCEL_EXT;
             string newName = name;
             int i = 0;
             foreach (InputTableEditorItem unInputTable in getInputTableEditor().getPages())
@@ -2918,7 +2916,7 @@ namespace Misp.Sourcing.Table
                 i++;
                 if (unInputTable != page && filePath == unInputTable.EditedObject.excelFileName)
                 {
-                    filePath = excelDir + name + i + EdrawOffice.EXCEL_EXT;
+                    filePath = excelDir + name + i + SheetConst.EXCEL_EXT;
                 }
             }
             return filePath;
@@ -2978,7 +2976,7 @@ namespace Misp.Sourcing.Table
             page.getInputTableForm().SpreadSheet.DocumentName = newName;
             page.getInputTableForm().SpreadSheet.ChangeTitleBarCaption(newName);
             page.Title = newName;
-            table.excelFileName = newName + EdrawOffice.EXCEL_EXT;
+            table.excelFileName = newName + SheetConst.EXCEL_EXT;
             page.getInputTableForm().TablePropertiesPanel.nameTextBox.Text = newName;
             table.name = newName;
             table.isModified = true;           

@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Office;
-using Misp.Kernel.Ui.Office.EDraw;
+using Misp.Kernel.Ui.Office.DevExpressSheet;
 using Misp.Kernel.Domain;
 using System.Windows.Forms.Integration;
 using System.Runtime.InteropServices;
@@ -77,9 +77,6 @@ namespace Misp.Sourcing.Table
 
         TabItem auditTabItem;
         TabItem designTabItem;
-        WindowsFormsHost windowsFormsHost;
-        System.Windows.Controls.Image image;
-
 
         protected virtual void InitializeComponents()
         {
@@ -103,24 +100,9 @@ namespace Misp.Sourcing.Table
             this.TableCellParameterPanel = new TableCellParameterPanel();
             this.CellPropertyGrid = new CellPropertyGrid();
             this.CellPropertyGrid.hideContextMenu();
-            try
-            {
-                windowsFormsHost = new WindowsFormsHost();
-                this.SpreadSheet = new EdrawOffice();
-                windowsFormsHost.Child = SpreadSheet;
-
-                image = new System.Windows.Controls.Image();
-                Grid grid = new Grid();
-                grid.Children.Add(windowsFormsHost);
-                grid.Children.Add(image);
-
-                image.Visibility = System.Windows.Visibility.Hidden;
-
-                designTabItem.Content = grid;
-            }
-            catch (Exception e) {
-                Console.Out.WriteLine(e);
-            }
+            
+            this.SpreadSheet = new DESpreadsheet();
+            designTabItem.Content = this.SpreadSheet;
 
             auditTabItem.Content = CellPropertyGrid;
             this.Items.Add(designTabItem);
@@ -136,34 +118,15 @@ namespace Misp.Sourcing.Table
             if (mask)
             {
                 if (isMasked) return;
-                image.Source = GetScreenInt();
-                image.Visibility = System.Windows.Visibility.Visible;
-                windowsFormsHost.Visibility = System.Windows.Visibility.Hidden;
+                
             }
             else
             {
-                image.Visibility = System.Windows.Visibility.Hidden;
-                windowsFormsHost.Visibility = System.Windows.Visibility.Visible;
+                
             }
             isMasked = mask;
         }
-
-        public BitmapSource GetScreenInt()
-        {
-            Bitmap bm = new Bitmap(SpreadSheet.ClientRectangle.Width, SpreadSheet.ClientRectangle.Height);
-            Graphics g = Graphics.FromImage(bm);
-            PrintWindow(SpreadSheet.Handle, g.GetHdc(), 0);
-            g.ReleaseHdc(); g.Flush();
-            BitmapSource src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bm.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
-            src.Freeze();
-            bm.Dispose();
-            bm = null;
-            return src;
-        }
-
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
-
+        
         bool sendRequest = true;
         protected void onSelectTabChancged(object sender, SelectionChangedEventArgs e)
         {
@@ -240,7 +203,7 @@ namespace Misp.Sourcing.Table
 
         public TableCellParameterPanel TableCellParameterPanel { get; private set; }
 
-        public EdrawOffice SpreadSheet { get;  set; }
+        public DESpreadsheet SpreadSheet { get;  set; }
 
         public CellPropertyGrid CellPropertyGrid { get; private set; }
 
