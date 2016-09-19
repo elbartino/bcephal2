@@ -2892,11 +2892,14 @@ namespace Misp.Sourcing.Table
             page.getInputTableForm().SpreadSheet.DisableToolBar(false);
             //page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
             //page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.PARTIAL_PASTE_BCEPHAL_LABEL);
+            
+            //page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
+            page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.AUDIT_CELL_LABEL);
+            page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.CREATE_DESIGN_LABEL);
+            
+
             page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.PASTE_BCEPHAL_LABEL);
             page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.COPY_BCEPHAL_LABEL);
-            //page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.CREATE_DESIGN_LABEL);
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.AUDIT_CELL_LABEL);
         }
 
         /// <summary>

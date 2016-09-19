@@ -1,4 +1,8 @@
-﻿using Misp.Kernel.Application;
+﻿using DevExpress.Xpf.Spreadsheet;
+using DevExpress.Xpf.Spreadsheet.Menu.Internal;
+using DevExpress.XtraSpreadsheet.Commands;
+using DevExpress.XtraSpreadsheet.Services;
+using Misp.Kernel.Application;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
@@ -42,6 +46,15 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
 
 
         #region Properties
+
+        public const string COPY_BCEPHAL_LABEL = "Copy Bcephal";
+        public const string PASTE_BCEPHAL_LABEL = "Paste Bcephal";
+        public const string PARTIAL_PASTE_BCEPHAL_LABEL = "&Partial Paste Bcephal";
+        public const string AUDIT_CELL_LABEL = "Audit Cell";
+        public const string CREATE_DESIGN_LABEL = "Create Design";
+        public const string ADD_AUTOMATICCOLUMN_LABEL = "Add Column";
+        public const string REMOVE_AUTOMATICCOLUMN_LABEL = "Remove Column";
+        public const string RENAME_AUTOMATICCOLUMN_LABEL = "Renommer";
 
         public string DocumentUrl
         {
@@ -446,6 +459,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             this.spreadsheetControl.SelectionChanged += OnSelectionChanged;
             this.spreadsheetControl.ActiveSheetChanged += OnSelectionChanged;
             this.spreadsheetControl.SheetInserted += OnSelectionChanged;
+            this.spreadsheetControl.PopupMenuShowing += SpreadSheet_PopupMenuShowing;
             //this.spreadsheetControl.SheetRemoved;
             
 
@@ -455,6 +469,24 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             //this.spreadsheetControl.WindowSelectionChange += Office_WindowSelectionChange;
             //this.spreadsheetControl.WindowBeforeRightClick += Office_WindowBeforeRightClick;
             //this.MouseDown += EdrawOffice_MouseDown;
+        }
+
+        private void SpreadSheet_PopupMenuShowing(object sender, DevExpress.Xpf.Spreadsheet.Menu.PopupMenuShowingEventArgs e)
+        {
+            if (e.MenuType == SpreadsheetMenuType.Cell)
+            {
+                ISpreadsheetCommandFactoryService service = (ISpreadsheetCommandFactoryService)spreadsheetControl.GetService(typeof(ISpreadsheetCommandFactoryService));
+                SpreadsheetCommand cmd = service.CreateCommand(SpreadsheetCommandId.InsertPicture);
+                if (customlistMenuItems != null)
+                    foreach (string s in customlistMenuItems)
+                    {
+                        SpreadsheetMenuItem menuItem = new SpreadsheetMenuItem();
+                        menuItem.Tag = s;
+                        menuItem.Content = s;
+                        menuItem.ItemClick += menuItem_ItemClick;
+                        e.Menu.Items.Insert(0,menuItem);
+                    }
+            }
         }
 
         private void OnSelectionChanged(object sender, EventArgs e)
@@ -472,7 +504,65 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             if (ThrowEvent && SelectionChanged != null) SelectionChanged(arg);
         }
 
+        private void menuItem_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            string menu = e.Item.Content.ToString();
+            switch (menu)
+            {
+                case AUDIT_CELL_LABEL:
+                    {
+                        //Permet de lancer l'audit
+                        AuditCell(new ExcelEventArg(getActiveSheet(), GetSelectedRange()));
+                        break;
+                    }
+
+                case COPY_BCEPHAL_LABEL:
+                    {
+                        //Permet de faire une copy Bcephal
+                        CopyBcephal(new ExcelEventArg(getActiveSheet(), GetSelectedRange()));
+                        break;
+                    }
+
+                case PASTE_BCEPHAL_LABEL:
+                    {
+
+                        //Permet de faire un paste Bcephal
+                        PasteBcephal(new ExcelEventArg(getActiveSheet(), getActiveCellAsRange()));
+                        break;
+                    }
+
+                case CREATE_DESIGN_LABEL:
+                    {
+                        //Permet de definir un design de parametrisation
+                        createDesign(new ExcelEventArg(getActiveSheet(), GetSelectedRange()));
+                        break;
+                    }
+
+                case ADD_AUTOMATICCOLUMN_LABEL:
+                    {
+                        break;
+                    }
+
+                case REMOVE_AUTOMATICCOLUMN_LABEL:
+                    {
+                        break;
+                    }
+
+                case RENAME_AUTOMATICCOLUMN_LABEL:
+                    {
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+
         #endregion
 
+
+        public void DeleteExcelSheet()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
