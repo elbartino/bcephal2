@@ -464,7 +464,7 @@ namespace Misp.Sourcing.Table
                     if(rootPeriodName != null) GetInputTableService().PeriodNameService.Save(rootPeriodName);
                     GetInputTableService().SaveTableHandler += UpdateSaveInfo;
                     GetInputTableService().Save(table);
-                    if(closeEditorAfterSave) return OperationState.STOP;
+                    //if(closeEditorAfterSave) return OperationState.STOP;
                 }
                 catch (Exception)
                 {
