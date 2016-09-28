@@ -12,9 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Office;
 using Misp.Kernel.Ui.Office.EDraw;
+
+using Syncfusion.XlsIO;
+
 using Misp.Kernel.Domain;
 using System.Windows.Forms.Integration;
 using System.Runtime.InteropServices;
@@ -106,7 +110,8 @@ namespace Misp.Sourcing.Table
             try
             {
                 windowsFormsHost = new WindowsFormsHost();
-                this.SpreadSheet = new EdrawOffice();
+                //this.SpreadSheet = new EdrawOffice();
+                this.SpreadSheet = new SyncFusionOffice2();
                 windowsFormsHost.Child = SpreadSheet;
 
                 image = new System.Windows.Controls.Image();
@@ -240,7 +245,9 @@ namespace Misp.Sourcing.Table
 
         public TableCellParameterPanel TableCellParameterPanel { get; private set; }
 
-        public EdrawOffice SpreadSheet { get;  set; }
+        //public EdrawOffice SpreadSheet { get; set; }
+
+        public SyncFusionOffice2 SpreadSheet { get; set; }
 
         public CellPropertyGrid CellPropertyGrid { get; private set; }
 
