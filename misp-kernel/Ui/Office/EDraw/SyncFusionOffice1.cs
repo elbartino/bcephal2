@@ -24,7 +24,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
         #region Events
 
         public event ChangeEventHandler Changed;
-        public event EditEventHandler Edited;
+        public event EditEventHandler Edited; 
         public event SelectionChangedEventHandler SelectionChanged;
         public event SheetActivateEventHandler SheetActivated;
         public event SheetAddedEventHandler SheetAdded;
@@ -102,7 +102,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
         ///// Retourne le composant office
         ///// </summary>
         //public AxEDOfficeLib.AxEDOffice Office
-        //{
+        //{ 
         //    get { return this.axEDOffice1; }
         //}
 

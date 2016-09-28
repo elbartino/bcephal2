@@ -34,11 +34,11 @@ namespace Misp.Kernel.Ui.Office.EDraw
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelEngine));
             this.excelEngine1 = new ExcelEngine();
             this.SuspendLayout();
-            this.Name = "SyncFusionExcel";
+            this.Name = "SyncFusionExcel"; 
             //IApplication   newExcelApp = new this.excelEngine1.Excel.Application();
             //this.cont
             ////this.Controls.Add(this.excelEngine1);
-            //components.Add(this.excelEngine1.Excel.Workbooks[0]);
+            //components.Add(this.excelEngine1.Excel.Workbooks[0]); 
         }
 
         private ExcelEngine excelEngine1;

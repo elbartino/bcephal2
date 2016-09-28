@@ -22,7 +22,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
     {
          #region Events
 
-        public event ChangeEventHandler Changed;
+        public event ChangeEventHandler Changed; 
         public event EditEventHandler Edited;
         public event SelectionChangedEventHandler SelectionChanged;
         public event SheetActivateEventHandler SheetActivated;

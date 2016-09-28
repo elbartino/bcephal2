@@ -116,7 +116,7 @@ namespace Misp.Sourcing.Table
 
                 image = new System.Windows.Controls.Image();
                 Grid grid = new Grid();
-                grid.Children.Add(windowsFormsHost);
+                grid.Children.Add(windowsFormsHost); 
                 grid.Children.Add(image);
 
                 image.Visibility = System.Windows.Visibility.Hidden;

@@ -27,7 +27,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
     public partial class SyncFusionOffice : UserControl, ISpreadsheet
     {
 
-        #region Events
+        #region Events 
 
         public event ChangeEventHandler Changed;
         public event EditEventHandler Edited;
