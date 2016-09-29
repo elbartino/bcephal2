@@ -96,13 +96,35 @@
     <Reference Include="Syncfusion.Core, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Grid.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.GridCommon.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.SfCellGrid.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\Syncfusion.SfCellGrid.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfGridCommon.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\Syncfusion.SfGridCommon.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfSpreadsheet.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\Syncfusion.SfSpreadsheet.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfSpreadsheetHelper.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\Syncfusion.SfSpreadsheetHelper.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.Shared.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Tools.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\misp-build\libs\dotnet\Syncfusion.Tools.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.XlsIO.Base, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -433,6 +455,11 @@
     </Compile>
     <Compile Include="Ui\File\FileNameDialog.xaml.cs">
       <DependentUpon>FileNameDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Office\EDraw\Behavior\ImportBehavior.cs" />
+    <Compile Include="Ui\Office\EDraw\Behavior\ZoomSliderBehavior.cs" />
+    <Compile Include="Ui\Office\EDraw\SyncFunsionComponent.xaml.cs">
+      <DependentUpon>SyncFunsionComponent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Office\EDraw\SyncFusionOffice2.cs">
       <SubType>UserControl</SubType>
@@ -829,6 +856,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\File\FileNameDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Office\EDraw\SyncFunsionComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
