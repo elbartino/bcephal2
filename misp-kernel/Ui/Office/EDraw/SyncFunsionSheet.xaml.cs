@@ -19,6 +19,8 @@ using System.Windows.Shapes;
 using Syncfusion.XlsIO;
 using Syncfusion.UI.Xaml.Spreadsheet;
 using Misp.Kernel.Application;
+using Misp.Kernel.Ui.Base;
+using System.Runtime.InteropServices;
 
 namespace Misp.Kernel.Ui.Office.EDraw
 {
@@ -27,16 +29,28 @@ namespace Misp.Kernel.Ui.Office.EDraw
     /// </summary>
     public partial class SyncFunsionSheet : Grid
     {
-        private ExcelEngine excelEngine1;
 
+        public event ChangeEventHandler Changed;
+        public event EditEventHandler Edited;
+        public event SelectionChangedEventHandler SelectionChanged;
+        public event SheetActivateEventHandler SheetActivated;
+        public event SheetAddedEventHandler SheetAdded;
+        public event SheetDeletedEventHandler SheetDeleted;
+        public event CopyEventHandler CopyBcephal;
+        public event PasteEventHandler PasteBcephal;
+        public event PartialPasteEventHandler PartialPasteBcephal;
         public bool ThrowEvent = true;
+
+        public event DisableAddingSheetEventHandler DisableAddingSheet;
+        public delegate void DisableAddingSheetEventHandler();
 
         /// <summary>
         /// Assigne ou retourne l'url du document courant
         /// </summary>
-        public string DocumentUrl { get; set; }
-
-        //private OfficeProperties.CommandBarButton menuHeader;
+        public string DocumentUrl {
+            get { return this.spreadsheetControl.Name; }
+            set{}
+        }
 
         private string documentName;
 
@@ -47,25 +61,17 @@ namespace Misp.Kernel.Ui.Office.EDraw
         {
             get
             {
-                string exeDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                return "dsp";//this.Office.GetDocumentName().Split('.')[0];
+                string exeDir = System.IO.Path.GetDirectoryName(DocumentUrl);
+                return exeDir;
             }
-            set { documentName = value; }
-        }
-
-        /// <summary>
-        /// Retourne le composant office
-        /// </summary>
-        public ExcelEngine Office
-        {
-            get { return this.excelEngine1; }
+            set {/** documentName = value; **/}
         }
 
         /// <summary>
         /// Retourne le nom du fichier ouvert
         /// </summary>
         /// <returns></returns>
-        public String GetFilePath() { return this.DocumentUrl; }
+        public String GetFilePath() { return this.DocumentName; }
 
         /// <summary>
         /// Assigne ou retourne le range précédemment édité
@@ -76,9 +82,6 @@ namespace Misp.Kernel.Ui.Office.EDraw
         public SyncFunsionSheet()
         {
             InitializeComponent();
-
-            this.excelEngine1 = new ExcelEngine();
-
             InitializeHandlers();
             rangePreviousValue = new Range();
         }
@@ -116,10 +119,10 @@ namespace Misp.Kernel.Ui.Office.EDraw
             this.spreadsheetControl.Create(2);
             this.spreadsheetControl.Visibility = Visibility.Visible;
             GetSelectedRange();
-            //this.DocumentUrl = this.spreadsheetControl.GetDocumentName();
+            this.DocumentUrl = this.spreadsheetControl.Name;
 
 
-            return "Default Name";//this.DocumentUrl;
+            return this.DocumentUrl;
         }
 
         /// <summary>
@@ -138,7 +141,6 @@ namespace Misp.Kernel.Ui.Office.EDraw
             if (System.IO.File.Exists(filePath))
             {
                 this.spreadsheetControl.Open(filePath);
-                //IWorkbook actiWorkBook = this.spreadsheetControl.Workbook.Open(filePath);
                 this.spreadsheetControl.Workbook.Activate();
             }
             if (result)
@@ -159,7 +161,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
         /// </returns>
         public OperationState Close()
         {
-            if (this.spreadsheetControl.Workbook != null) this.spreadsheetControl.Workbook.Close();
+            //if (this.spreadsheetControl.Workbook != null) this.spreadsheetControl.Workbook.Close(true);
             //this.Office.Dispose();
             return OperationState.CONTINUE;
         }
@@ -193,7 +195,6 @@ namespace Misp.Kernel.Ui.Office.EDraw
             {
                 return OperationState.STOP;
             }
-            return OperationState.STOP;
         }
 
 
@@ -204,11 +205,26 @@ namespace Misp.Kernel.Ui.Office.EDraw
         protected void InitializeHandlers()
         {
             //this.Office.WorkbookNewSheet += Office_WorkbookNewSheet;
-            //this.Office.SheetActivate += Office_SheetActivate;
-            //this.Office.SheetChange +=Office_SheetChange;
-            //this.Office.WindowSelectionChange +=Office_WindowSelectionChange;
+            //this.spreadsheetControl. += SFS_SheetActivate;
+            this.spreadsheetControl.WorksheetAdding +=SFS_SheetAddingChange;
+            this.spreadsheetControl.PropertyChanged += SFS_PropertyChanged;
             //this.Office.WindowBeforeRightClick +=Office_WindowBeforeRightClick;
             //this.MouseDown += EdrawOffice_MouseDown;
+        }
+
+        private void SFS_SheetAddingChange(object sender, Syncfusion.UI.Xaml.Spreadsheet.Helpers.WorksheetAddingEventArgs args)
+        {
+            if (ThrowEvent && SheetAdded != null) SheetAdded();
+            if (ThrowEvent && DisableAddingSheet != null) this.DeleteExcelSheet();   
+        }
+
+        private void SFS_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            ExcelEventArg eventForRangeEdition = new ExcelEventArg() { };
+            eventForRangeEdition.Sheet = getActiveSheet();
+            eventForRangeEdition.Range = GetSelectedRange();
+            //_clipboardViewerNext = SetClipboardViewer(this.Handle);
+            if (ThrowEvent && SelectionChanged != null) SelectionChanged(eventForRangeEdition);
         }
 
         /// <summary>
@@ -476,12 +492,13 @@ namespace Misp.Kernel.Ui.Office.EDraw
                 if (spreadsheetControl.ActiveSheet is IWorksheet)
                 {
                     IWorksheet xlWorkSheet = spreadsheetControl.ActiveSheet;
-                    Ui.Office.Sheet sheet = new Ui.Office.Sheet(xlWorkSheet.Index, xlWorkSheet.Name);
-                    Ui.Office.Range range = new Ui.Office.Range(sheet);
-
+                    string name = xlWorkSheet.Name;
+                    int index = xlWorkSheet.Index + 1;                    
+                    Ui.Office.Sheet sheet = new Ui.Office.Sheet(index, name);
+                    
                     IRange xlRange = xlWorkSheet.Application.ActiveCell;
                     IRange xlRangeCourant = xlWorkSheet.Range;
-                    Range rangeCourant = new Range(sheet);
+                    Range rangeCourant = new Range();
 
                     RangeItem itemCourant = new RangeItem(xlRange.Cells[1].Row, xlRange.Cells[1].Row,
                         xlRange.Cells[1].Column, xlRange.Cells[1].Column);
@@ -489,7 +506,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
                     return rangeCourant;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -1144,9 +1161,17 @@ namespace Misp.Kernel.Ui.Office.EDraw
         /// <param name="value">True=>InVisible; False=>Visible</param>
         public void DisableFormualaBar(bool value)
         {
-             if (!value) spreadsheetControl.FormulaBarVisibility = Visibility.Hidden;
+             if (value) spreadsheetControl.FormulaBarVisibility = Visibility.Hidden;
              else spreadsheetControl.FormulaBarVisibility = Visibility.Visible;
         }
 
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern bool ChangeClipboardChain(IntPtr hWndRemove, IntPtr hWndNewNext);
+
+        private const int WM_DRAWCLIPBOARD = 0x0308;        // WM_DRAWCLIPBOARD message
+        private IntPtr _clipboardViewerNext;     // Our variable that will hold the value to identify the next window in the clipboard viewer chain
     }
 }

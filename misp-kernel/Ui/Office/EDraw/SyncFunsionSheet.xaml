@@ -9,17 +9,17 @@
              xmlns:local="clr-namespace:Misp.Kernel.Ui.Office.EDraw.Behavior"
             DataContext="{Binding ElementName=spreadsheetControl}"
            >
-
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <syncfusion:SfSpreadsheetRibbon DataContext="{Binding ElementName=spreadsheetControl}" syncfusion:SkinStorage.VisualStyle="Office2010Blue" />
+        <syncfusion:SfSpreadsheetRibbon x:Name="spreadsheetRibbon" DataContext="{Binding ElementName=spreadsheetControl}" syncfusion:SkinStorage.VisualStyle="Office2007Blue" />
         <syncfusion:SfSpreadsheet x:Name="spreadsheetControl"
                                        Grid.Row="1"
                                        FormulaBarVisibility="Visible"
-                                       syncfusion:SkinStorage.VisualStyle="Office2013" Margin="0,5,0,-5">
+                                       syncfusion:SkinStorage.VisualStyle="Office2007" Margin="0,5,0,-5">
             <Interactivity:Interaction.Behaviors>
                 <local:ImportBehavior/>
             </Interactivity:Interaction.Behaviors>

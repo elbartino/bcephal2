@@ -1048,9 +1048,9 @@ namespace Misp.Sourcing.Table
             
             if (editorPage.getInputTableForm().SpreadSheet != null)
             {
-                //editorPage.getInputTableForm().SpreadSheet.SelectionChanged += OnSpreadSheetSelectionChanged;
-                //editorPage.getInputTableForm().SpreadSheet.Edited += OnSpreadSheetEdited;
-                //editorPage.getInputTableForm().SpreadSheet.SheetActivated += OnDisplayActiveCellData;
+                editorPage.getInputTableForm().SpreadSheet.SelectionChanged += OnSpreadSheetSelectionChanged;
+                editorPage.getInputTableForm().SpreadSheet.Edited += OnSpreadSheetEdited;
+                editorPage.getInputTableForm().SpreadSheet.SheetActivated += OnDisplayActiveCellData;
                 //editorPage.getInputTableForm().SpreadSheet.CopyBcephal += SpreadSheet_CopyBcephal;
                 //editorPage.getInputTableForm().SpreadSheet.PasteBcephal += SpreadSheet_PasteBcephal;
                 //editorPage.getInputTableForm().SpreadSheet.PartialPasteBcephal += SpreadSheet_PartialPasteBcephal;
