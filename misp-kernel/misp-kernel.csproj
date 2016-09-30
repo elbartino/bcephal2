@@ -460,26 +460,11 @@
     </Compile>
     <Compile Include="Ui\Office\EDraw\Behavior\ImportBehavior.cs" />
     <Compile Include="Ui\Office\EDraw\Behavior\ZoomSliderBehavior.cs" />
+    <Compile Include="Ui\Office\EDraw\SyncFunsionSheet.xaml.cs">
+      <DependentUpon>SyncFunsionSheet.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\Office\EDraw\SyncFunsionComponent.xaml.cs">
       <DependentUpon>SyncFunsionComponent.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Ui\Office\EDraw\SyncFusionOffice2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Ui\Office\EDraw\SyncFusionOffice.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Ui\Office\EDraw\SyncFusionOffice.Designer.cs">
-      <DependentUpon>SyncFusionOffice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Ui\Office\EDraw\SyncFusionOffice1.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Ui\Office\EDraw\SyncFusionOffice1.Designer.cs">
-      <DependentUpon>SyncFusionOffice1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Ui\Office\EDraw\SyncFusionControl.xaml.cs">
-      <DependentUpon>SyncFusionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Role\RoleTreeView.xaml.cs">
       <DependentUpon>RoleTreeView.xaml</DependentUpon>
@@ -744,9 +729,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ui\Office\EDraw\SyncFusionOffice.resx">
-      <DependentUpon>SyncFusionOffice.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Ui\Office\EDraw\EdrawSlide.resx">
       <DependentUpon>EdrawSlide.cs</DependentUpon>
     </EmbeddedResource>
@@ -864,11 +846,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Office\EDraw\SyncFunsionComponent.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Ui\Office\EDraw\SyncFunsionSheet.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Ui\Office\EDraw\SyncFusionControl.xaml">
+    <Page Include="Ui\Office\EDraw\SyncFunsionComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
