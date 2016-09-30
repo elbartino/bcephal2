@@ -107,25 +107,9 @@ namespace Misp.Sourcing.Table
             this.TableCellParameterPanel = new TableCellParameterPanel();
             this.CellPropertyGrid = new CellPropertyGrid();
             this.CellPropertyGrid.hideContextMenu();
-            try
-            {
-                windowsFormsHost = new WindowsFormsHost();
-                //this.SpreadSheet = new EdrawOffice();
-                this.SpreadSheet = new SyncFusionOffice2();
-                windowsFormsHost.Child = SpreadSheet;
 
-                image = new System.Windows.Controls.Image();
-                Grid grid = new Grid();
-                grid.Children.Add(windowsFormsHost); 
-                grid.Children.Add(image);
-
-                image.Visibility = System.Windows.Visibility.Hidden;
-
-                designTabItem.Content = grid;
-            }
-            catch (Exception e) {
-                Console.Out.WriteLine(e);
-            }
+            this.SpreadSheet = new SyncFunsionSheet();
+            designTabItem.Content = this.SpreadSheet;
 
             auditTabItem.Content = CellPropertyGrid;
             this.Items.Add(designTabItem);
@@ -138,33 +122,9 @@ namespace Misp.Sourcing.Table
         bool isMasked = false;
         public void Mask(bool mask)
         {
-            if (mask)
-            {
-                if (isMasked) return;
-                image.Source = GetScreenInt();
-                image.Visibility = System.Windows.Visibility.Visible;
-                windowsFormsHost.Visibility = System.Windows.Visibility.Hidden;
-            }
-            else
-            {
-                image.Visibility = System.Windows.Visibility.Hidden;
-                windowsFormsHost.Visibility = System.Windows.Visibility.Visible;
-            }
-            isMasked = mask;
+           
         }
 
-        public BitmapSource GetScreenInt()
-        {
-            Bitmap bm = new Bitmap(SpreadSheet.ClientRectangle.Width, SpreadSheet.ClientRectangle.Height);
-            Graphics g = Graphics.FromImage(bm);
-            PrintWindow(SpreadSheet.Handle, g.GetHdc(), 0);
-            g.ReleaseHdc(); g.Flush();
-            BitmapSource src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bm.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
-            src.Freeze();
-            bm.Dispose();
-            bm = null;
-            return src;
-        }
 
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
@@ -247,7 +207,7 @@ namespace Misp.Sourcing.Table
 
         //public EdrawOffice SpreadSheet { get; set; }
 
-        public SyncFusionOffice2 SpreadSheet { get; set; }
+        public SyncFunsionSheet SpreadSheet { get; set; }
 
         public CellPropertyGrid CellPropertyGrid { get; private set; }
 
