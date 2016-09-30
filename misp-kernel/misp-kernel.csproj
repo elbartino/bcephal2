@@ -123,7 +123,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\system.windows.interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -475,6 +477,9 @@
     </Compile>
     <Compile Include="Ui\Office\EDraw\SyncFusionOffice1.Designer.cs">
       <DependentUpon>SyncFusionOffice1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Office\EDraw\SyncFusionControl.xaml.cs">
+      <DependentUpon>SyncFusionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Role\RoleTreeView.xaml.cs">
       <DependentUpon>RoleTreeView.xaml</DependentUpon>
@@ -860,6 +865,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\Office\EDraw\SyncFunsionComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Office\EDraw\SyncFusionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

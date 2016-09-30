@@ -36,7 +36,6 @@ namespace Misp.Kernel.Ui.Office.EDraw
             this.SuspendLayout();
             this.Name = "SyncFusionExcel"; 
             //IApplication   newExcelApp = new this.excelEngine1.Excel.Application();
-            //this.cont
             ////this.Controls.Add(this.excelEngine1);
             //components.Add(this.excelEngine1.Excel.Workbooks[0]); 
         }
