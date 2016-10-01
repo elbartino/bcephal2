@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              xmlns:Interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-             xmlns:local="clr-namespace:Misp.Kernel.Ui.Office.EDraw.Behavior"
+             xmlns:local2ds="clr-namespace:Misp.Kernel.Ui.Office.EDraw.Behavior"
             DataContext="{Binding ElementName=spreadsheetControl}"
            >
     
@@ -21,7 +21,7 @@
                                        FormulaBarVisibility="Visible"
                                        syncfusion:SkinStorage.VisualStyle="Office2007" Margin="0,5,0,-5">
             <Interactivity:Interaction.Behaviors>
-                <local:ImportBehavior/>
+                <local2ds:ImportBehavior/>
             </Interactivity:Interaction.Behaviors>
         </syncfusion:SfSpreadsheet>
     </Grid>

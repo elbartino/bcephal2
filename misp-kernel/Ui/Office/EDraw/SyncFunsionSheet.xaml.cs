@@ -1,26 +1,16 @@
 ﻿using System;
 using System.IO;
-using Syncfusion.Windows.Tools.Controls;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Syncfusion.XlsIO;
-using Syncfusion.UI.Xaml.Spreadsheet;
-using Misp.Kernel.Application;
 using Misp.Kernel.Ui.Base;
-using System.Runtime.InteropServices;
+using Misp.Kernel.Application;
+using Syncfusion.XlsIO;
+using Syncfusion.Windows.Tools.Controls;
+
+using System.Collections.Generic;
+//using System.Runtime.InteropServices;
+
 
 namespace Misp.Kernel.Ui.Office.EDraw
 {
@@ -81,8 +71,9 @@ namespace Misp.Kernel.Ui.Office.EDraw
 
         public SyncFunsionSheet()
         {
-            InitializeComponent();
+            InitializeComponent();            
             InitializeHandlers();
+            SyncFusionSheet1 hett = new SyncFusionSheet1();
             rangePreviousValue = new Range();
         }
 
@@ -117,6 +108,7 @@ namespace Misp.Kernel.Ui.Office.EDraw
         {
             Close();
             this.spreadsheetControl.Create(2);
+            int dd = spreadsheetControl.Workbook.Worksheets[1].Index;
             this.spreadsheetControl.Visibility = Visibility.Visible;
             GetSelectedRange();
             this.DocumentUrl = this.spreadsheetControl.Name;
@@ -1165,13 +1157,13 @@ namespace Misp.Kernel.Ui.Office.EDraw
              else spreadsheetControl.FormulaBarVisibility = Visibility.Visible;
         }
 
-        [DllImport("User32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
+        //[DllImport("User32.dll", CharSet = CharSet.Auto)]
+        //public static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
 
-        [DllImport("User32.dll", CharSet = CharSet.Auto)]
-        public static extern bool ChangeClipboardChain(IntPtr hWndRemove, IntPtr hWndNewNext);
+        //[DllImport("User32.dll", CharSet = CharSet.Auto)]
+        //public static extern bool ChangeClipboardChain(IntPtr hWndRemove, IntPtr hWndNewNext);
 
-        private const int WM_DRAWCLIPBOARD = 0x0308;        // WM_DRAWCLIPBOARD message
-        private IntPtr _clipboardViewerNext;     // Our variable that will hold the value to identify the next window in the clipboard viewer chain
+        //private const int WM_DRAWCLIPBOARD = 0x0308;        // WM_DRAWCLIPBOARD message
+        //private IntPtr _clipboardViewerNext;     // Our variable that will hold the value to identify the next window in the clipboard viewer chain
     }
 }

@@ -93,9 +93,6 @@
       <HintPath>..\misp-build\libs\dotnet\stdole.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Compression.Base, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
-    <Reference Include="Syncfusion.Core, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL" />
-    <Reference Include="Syncfusion.Grid.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
-    <Reference Include="Syncfusion.GridCommon.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.SfCellGrid.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\Syncfusion.SfCellGrid.WPF.dll</HintPath>
@@ -135,6 +132,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="websocket-sharp">
       <HintPath>..\misp-build\libs\dotnet\websocket-sharp.dll</HintPath>
     </Reference>
@@ -460,6 +459,9 @@
     </Compile>
     <Compile Include="Ui\Office\EDraw\Behavior\ImportBehavior.cs" />
     <Compile Include="Ui\Office\EDraw\Behavior\ZoomSliderBehavior.cs" />
+    <Compile Include="Ui\Office\EDraw\SyncFusionSheet1.xaml.cs">
+      <DependentUpon>SyncFusionSheet1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\Office\EDraw\SyncFunsionSheet.xaml.cs">
       <DependentUpon>SyncFunsionSheet.xaml</DependentUpon>
     </Compile>
@@ -845,6 +847,10 @@
     <Page Include="Ui\File\FileNameDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Office\EDraw\SyncFusionSheet1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Ui\Office\EDraw\SyncFunsionSheet.xaml">
       <Generator>MSBuild:Compile</Generator>
