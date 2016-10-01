@@ -2429,112 +2429,115 @@ namespace Misp.Sourcing.Table
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
             if (page == null) return;        
             Kernel.Ui.Office.Range activeCell = page.getInputTableForm().SpreadSheet.getActiveCellAsRange();
-            Kernel.Ui.Office.Range activeRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
-            if (activeCell == null) return;
-            if (activeRange == null) return;
-            int row = activeCell.Items[0].Row1;
-            int col = activeCell.Items[0].Column1;
-            String sheetname = activeCell.Sheet.Name;
-            updateAdressSelection(row, col, sheetname);
-            CellProperty cellProperty = GetInputTableService().getActiveCell(page.EditedObject.name, page.groupProperty, row, col, sheetname);
-            page.groupProperty = null;
-            if (cellProperty == null)
+            if (activeCell != null)
             {
-                cellProperty = new CellProperty(activeCell.Name, row, col, sheetname);
-            }
-            bool isNoAllocation = false;
-            if (!isReport())
-            {
-                page.getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
-                cellProperty.cellAllocationData = page.getInputTableForm().TableCellParameterPanel.allocationPanel.AllocationData;
-                isNoAllocation = cellProperty.cellAllocationData.type == CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
-            }
-
-            if (cellProperty.cellScope != null)
-            {
-                cellProperty.cellScope.targetItemListChangeHandler.Items = cellProperty.cellScope.targetItemListChangeHandler.getItems();
-                foreach (TargetItem item in cellProperty.cellScope.targetItemListChangeHandler.Items)
+                Kernel.Ui.Office.Range activeRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+                if (activeCell == null) return;
+                if (activeRange == null) return;
+                int row = activeCell.Items[0].Row1;
+                int col = activeCell.Items[0].Column1;
+                String sheetname = activeCell.Sheet.Name;
+                updateAdressSelection(row, col, sheetname);
+                CellProperty cellProperty = GetInputTableService().getActiveCell(page.EditedObject.name, page.groupProperty, row, col, sheetname);
+                page.groupProperty = null;
+                if (cellProperty == null)
                 {
-                    if (TagFormulaUtil.isFormula(item.formula))
+                    cellProperty = new CellProperty(activeCell.Name, row, col, sheetname);
+                }
+                bool isNoAllocation = false;
+                if (!isReport())
+                {
+                    page.getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
+                    cellProperty.cellAllocationData = page.getInputTableForm().TableCellParameterPanel.allocationPanel.AllocationData;
+                    isNoAllocation = cellProperty.cellAllocationData.type == CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
+                }
+
+                if (cellProperty.cellScope != null)
+                {
+                    cellProperty.cellScope.targetItemListChangeHandler.Items = cellProperty.cellScope.targetItemListChangeHandler.getItems();
+                    foreach (TargetItem item in cellProperty.cellScope.targetItemListChangeHandler.Items)
                     {
-                        Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
-                        Object value = GetValue((int)coord.X, (int)coord.Y);
-                        item.refValueName = value != null ? value.ToString() : null;
-                        if(item.value != null)  item.value.name = item.refValueName;
-                        if (page.isImported) item.value = null;
+                        if (TagFormulaUtil.isFormula(item.formula))
+                        {
+                            Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
+                            Object value = GetValue((int)coord.X, (int)coord.Y);
+                            item.refValueName = value != null ? value.ToString() : null;
+                            if (item.value != null) item.value.name = item.refValueName;
+                            if (page.isImported) item.value = null;
+                        }
                     }
                 }
-            }
 
-            if (cellProperty.period != null)
-            {
-                cellProperty.period.itemListChangeHandler.Items = cellProperty.period.itemListChangeHandler.getItems();
-                foreach (PeriodItem item in cellProperty.period.itemListChangeHandler.Items)
+                if (cellProperty.period != null)
                 {
-                    if (TagFormulaUtil.isFormula(item.formula))
+                    cellProperty.period.itemListChangeHandler.Items = cellProperty.period.itemListChangeHandler.getItems();
+                    foreach (PeriodItem item in cellProperty.period.itemListChangeHandler.Items)
                     {
-                        Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
-                        Object value = GetValue((int)coord.X, (int)coord.Y);
-                        DateTime date;
-                        item.value = value != null && DateTime.TryParse(value.ToString(), out date) ? value.ToString() : null;
-                        
-                        if (page.isImported) item.value = null;
+                        if (TagFormulaUtil.isFormula(item.formula))
+                        {
+                            Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
+                            Object value = GetValue((int)coord.X, (int)coord.Y);
+                            DateTime date;
+                            item.value = value != null && DateTime.TryParse(value.ToString(), out date) ? value.ToString() : null;
+
+                            if (page.isImported) item.value = null;
+                        }
                     }
                 }
-            }
-                       
-            if (cellProperty.cellMeasure != null && TagFormulaUtil.isFormula(cellProperty.cellMeasure.formula))
-            {
-                if (TagFormulaUtil.isFormula(cellProperty.cellMeasure.formula))
-                {
-                    String formulaRef = TagFormulaUtil.getFormulaWithoutEqualSign(cellProperty.cellMeasure.formula);
-                    Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(cellProperty.cellMeasure.formula));
-                    int sheetIndex = page.getInputTableForm().SpreadSheet.getActiveSheetIndex();
-                    object value = page.getInputTableForm().SpreadSheet.getValueAt((int)coord.Y, (int)coord.X, cellProperty.nameSheet);
-                    String measureName = value != null ? value.ToString() : "";
-                    cellProperty.cellMeasure.name = measureName;
-                    if (cellProperty.cellMeasure.measure != null) cellProperty.cellMeasure.measure.name = measureName;
-                }
-            }
 
-
-            if (page.EditedObject.filter != null)
-            {
-                page.EditedObject.filter = page.EditedObject.correctFilter();
-                //page.EditedObject.filter.targetItemListChangeHandler.Items = page.EditedObject.correctFilter().targetItemListChangeHandler.getItems();
-                foreach (TargetItem item in page.EditedObject.filter.targetItemListChangeHandler.Items)
+                if (cellProperty.cellMeasure != null && TagFormulaUtil.isFormula(cellProperty.cellMeasure.formula))
                 {
-                    if (TagFormulaUtil.isFormula(item.formula))
+                    if (TagFormulaUtil.isFormula(cellProperty.cellMeasure.formula))
                     {
-                        Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
-                        Object value = GetValue((int)coord.X, (int)coord.Y);
-                        item.refValueName = value != null ? value.ToString() : null;
-                        if (item.value != null) item.value.name = item.refValueName;
-                        if (page.isImported) item.value = null;
+                        String formulaRef = TagFormulaUtil.getFormulaWithoutEqualSign(cellProperty.cellMeasure.formula);
+                        Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(cellProperty.cellMeasure.formula));
+                        int sheetIndex = page.getInputTableForm().SpreadSheet.getActiveSheetIndex();
+                        object value = page.getInputTableForm().SpreadSheet.getValueAt((int)coord.Y, (int)coord.X, cellProperty.nameSheet);
+                        String measureName = value != null ? value.ToString() : "";
+                        cellProperty.cellMeasure.name = measureName;
+                        if (cellProperty.cellMeasure.measure != null) cellProperty.cellMeasure.measure.name = measureName;
                     }
                 }
-            }
 
-            if (page.EditedObject.period != null)
-            {
-                page.EditedObject.period.itemListChangeHandler.Items = page.EditedObject.period.itemListChangeHandler.getItems();
-                foreach (PeriodItem item in page.EditedObject.period.itemListChangeHandler.Items)
+
+                if (page.EditedObject.filter != null)
                 {
-                    if (TagFormulaUtil.isFormula(item.formula))
+                    page.EditedObject.filter = page.EditedObject.correctFilter();
+                    //page.EditedObject.filter.targetItemListChangeHandler.Items = page.EditedObject.correctFilter().targetItemListChangeHandler.getItems();
+                    foreach (TargetItem item in page.EditedObject.filter.targetItemListChangeHandler.Items)
                     {
-                        Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
-                        Object value = GetValue((int)coord.X, (int)coord.Y);
-                        DateTime date;
-                        item.value = value != null && DateTime.TryParse(value.ToString(), out date) ? value.ToString() : null;
-
-                        if (page.isImported) item.value = null;
+                        if (TagFormulaUtil.isFormula(item.formula))
+                        {
+                            Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
+                            Object value = GetValue((int)coord.X, (int)coord.Y);
+                            item.refValueName = value != null ? value.ToString() : null;
+                            if (item.value != null) item.value.name = item.refValueName;
+                            if (page.isImported) item.value = null;
+                        }
                     }
                 }
+
+                if (page.EditedObject.period != null)
+                {
+                    page.EditedObject.period.itemListChangeHandler.Items = page.EditedObject.period.itemListChangeHandler.getItems();
+                    foreach (PeriodItem item in page.EditedObject.period.itemListChangeHandler.Items)
+                    {
+                        if (TagFormulaUtil.isFormula(item.formula))
+                        {
+                            Point coord = TagFormulaUtil.getCoordonne(TagFormulaUtil.getFormulaWithoutEqualSign(item.formula));
+                            Object value = GetValue((int)coord.X, (int)coord.Y);
+                            DateTime date;
+                            item.value = value != null && DateTime.TryParse(value.ToString(), out date) ? value.ToString() : null;
+
+                            if (page.isImported) item.value = null;
+                        }
+                    }
+                }
+
+                page.getInputTableForm().TableCellParameterPanel.Display(cellProperty);
+                page.getInputTableForm().TablePropertiesPanel.displayTable(page.EditedObject, isNoAllocation);
+                UpdateStatusBar(null);
             }
-                        
-            page.getInputTableForm().TableCellParameterPanel.Display(cellProperty);
-            page.getInputTableForm().TablePropertiesPanel.displayTable(page.EditedObject,isNoAllocation);
-            UpdateStatusBar(null);
             
         }
         PeriodName rootPeriodName { get; set; }

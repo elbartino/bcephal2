@@ -18,6 +18,8 @@ using Syncfusion.XlsIO;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Syncfusion.UI.Xaml.CellGrid;
+using Syncfusion.UI.Xaml.CellGrid.Helpers;
+using Syncfusion.UI.Xaml.Spreadsheet.Helpers;
 
 namespace Misp.Kernel.Ui.Office.SyncFusion
 {
@@ -119,8 +121,6 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         {
             Close();
             this.spreadsheetControl.Create(2);
-            this.spreadsheetControl.Visibility = Visibility.Visible;
-            GetSelectedRange();
             this.DocumentUrl = this.spreadsheetControl.Name; 
 
 
@@ -206,28 +206,30 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         /// </summary>
         protected void InitializeHandlers()
         {
+            this.spreadsheetControl.WorksheetAdding += SFS_SheetAddingChange;
+            this.spreadsheetControl.ActiveGrid.SelectionChanged += grid_selectionChanged;
             //this.Office.WorkbookNewSheet += Office_WorkbookNewSheet;
-            //this.spreadsheetControl. += SFS_SheetActivate;
-            this.spreadsheetControl.WorksheetAdding +=SFS_SheetAddingChange;
-            this.spreadsheetControl.PropertyChanged += SFS_PropertyChanged;
+            //this.spreadsheetControl. += SFS_SheetActivate;            
+            //this.spreadsheetControl. PropertyChanged += SFS_PropertyChanged;            
             //this.Office.WindowBeforeRightClick +=Office_WindowBeforeRightClick;
             //this.MouseDown += EdrawOffice_MouseDown;
         }
 
-        private void SFS_SheetAddingChange(object sender, Syncfusion.UI.Xaml.Spreadsheet.Helpers.WorksheetAddingEventArgs args)
-        {
-            if (ThrowEvent && SheetAdded != null) SheetAdded();
-            if (ThrowEvent && DisableAddingSheet != null) this.DeleteExcelSheet();   
-        }
-
-        private void SFS_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void grid_selectionChanged(object sender, Syncfusion.UI.Xaml.CellGrid.Helpers.SelectionChangedEventArgs args)
         {
             ExcelEventArg eventForRangeEdition = new ExcelEventArg() { };
             eventForRangeEdition.Sheet = getActiveSheet();
             eventForRangeEdition.Range = GetSelectedRange();
             //_clipboardViewerNext = SetClipboardViewer(this.Handle);
             if (ThrowEvent && SelectionChanged != null) SelectionChanged(eventForRangeEdition);
+        }       
+        
+        private void SFS_SheetAddingChange(object sender, WorksheetAddingEventArgs args)
+        {
+            if (ThrowEvent && SheetAdded != null) SheetAdded();
+            if (ThrowEvent && DisableAddingSheet != null) this.DeleteExcelSheet();   
         }
+
 
         /// <summary>
         /// Les  cells selectionnées dans le sheet actif
@@ -253,12 +255,20 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
                     {
                         IWorksheet workSheet = (IWorksheet)xlWorkBook.Worksheets[i - 1];
                         IRange xlWorkSheetR = workSheet.UsedRange;
-                        foreach (IRange area in xlWorkSheetR)
-                        {
-                            RangeItem item = new RangeItem(area.Cells[1].Row, area.Cells[area.Cells.Count()].Row,
-                            area.Cells[1].Column, area.Cells[area.Cells.Count()].Column);
+
+                        GridCurrentCell cellG = spreadsheetControl.ActiveGrid.SelectionController.CurrentCell ;
+                        GridRangeInfoList selectionRange = spreadsheetControl.ActiveGrid.SelectionController.SelectedRanges;
+
+                        RangeItem item = new RangeItem(selectionRange[0].Top, selectionRange[0].Bottom,
+                                    selectionRange[0].Left, selectionRange[0].Right);
                             range.Items.Add(item);
-                        }
+
+                        //foreach (IRange area in xlWorkSheetR)
+                        //{
+                        //    RangeItem item = new RangeItem(area.Cells[1].Row, area.Cells[area.Cells.Count()].Row,
+                        //    area.Cells[1].Column, area.Cells[area.Cells.Count()].Column);
+                        //    range.Items.Add(item);
+                        //}
                     }
                     rangePreviousValue = range;
                 }
@@ -497,13 +507,14 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
                     string name = xlWorkSheet.Name;
                     int index = xlWorkSheet.Index + 1;                    
                     Ui.Office.Sheet sheet = new Ui.Office.Sheet(index, name);
-                    
-                    IRange xlRange = xlWorkSheet.Application.ActiveCell;
-                    IRange xlRangeCourant = xlWorkSheet.Range;
-                    Range rangeCourant = new Range();
 
-                    RangeItem itemCourant = new RangeItem(xlRange.Cells[1].Row, xlRange.Cells[1].Row,
-                        xlRange.Cells[1].Column, xlRange.Cells[1].Column);
+                    GridCurrentCell cellG = spreadsheetControl.ActiveGrid.SelectionController.CurrentCell;
+                    GridRangeInfoList selectionRange = spreadsheetControl.ActiveGrid.SelectionController.SelectedRanges;
+                    
+                    Range rangeCourant = new Range(sheet);
+
+                    RangeItem itemCourant = new RangeItem(selectionRange[0].Top, selectionRange[0].Bottom,
+                                    selectionRange[0].Left, selectionRange[0].Right);
                     rangeCourant.Items.Add(itemCourant);
                     return rangeCourant;
                 }
