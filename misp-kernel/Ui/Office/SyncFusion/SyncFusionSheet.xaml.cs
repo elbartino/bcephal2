@@ -121,7 +121,7 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             this.spreadsheetControl.Create(2);
             this.spreadsheetControl.Visibility = Visibility.Visible;
             GetSelectedRange();
-            this.DocumentUrl = this.spreadsheetControl.Name;
+            this.DocumentUrl = this.spreadsheetControl.Name; 
 
 
             return this.DocumentUrl;
