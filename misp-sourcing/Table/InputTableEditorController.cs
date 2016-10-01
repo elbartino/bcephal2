@@ -308,8 +308,8 @@ namespace Misp.Sourcing.Table
             }
 
             InputTableEditorItem page = (InputTableEditorItem)editorItem;
-            if (page.getInputTableForm().SpreadSheet.Import() != OperationState.CONTINUE) return OperationState.STOP;
-            page.getInputTableForm().SpreadSheet.RemoveTempFiles();
+            //if (page.getInputTableForm().SpreadSheet.Import() != OperationState.CONTINUE) return OperationState.STOP;
+            //page.getInputTableForm().SpreadSheet.RemoveTempFiles();
 
             string nameAfterImport;
             nameAfterImport = page.getInputTableForm().SpreadSheet.DocumentName;
@@ -386,8 +386,8 @@ namespace Misp.Sourcing.Table
             InputTableEditorItem page = (InputTableEditorItem)editorItem;
             if (page.getInputTableForm().SpreadSheet != null)
             {
-                if (page.getInputTableForm().SpreadSheet.Export(openSaveDialog()) != OperationState.CONTINUE) return OperationState.STOP;
-                page.getInputTableForm().SpreadSheet.RemoveTempFiles();
+                //if (page.getInputTableForm().SpreadSheet.Export(openSaveDialog()) != OperationState.CONTINUE) return OperationState.STOP;
+                //page.getInputTableForm().SpreadSheet.RemoveTempFiles();
                 Save(page);
             }
             return OperationState.CONTINUE;
@@ -1054,10 +1054,10 @@ namespace Misp.Sourcing.Table
                 editorPage.getInputTableForm().SpreadSheet.CopyBcephal += SpreadSheet_CopyBcephal;
                 editorPage.getInputTableForm().SpreadSheet.PasteBcephal += SpreadSheet_PasteBcephal;
                 editorPage.getInputTableForm().SpreadSheet.PartialPasteBcephal += SpreadSheet_PartialPasteBcephal;
-                editorPage.getInputTableForm().SpreadSheet.OnBeforeRightClick +=SpreadSheet_OnBeforeRightClick;
+                //editorPage.getInputTableForm().SpreadSheet.OnBeforeRightClick +=SpreadSheet_OnBeforeRightClick;
                 
-                editorPage.getInputTableForm().SpreadSheet.AuditCell += SpreadSheet_AuditCell;
-                editorPage.getInputTableForm().SpreadSheet.createDesign += SpreadSheet_CreateDesign;
+                //editorPage.getInputTableForm().SpreadSheet.AuditCell += SpreadSheet_AuditCell;
+                //editorPage.getInputTableForm().SpreadSheet.createDesign += SpreadSheet_CreateDesign;
             }
         }
 
@@ -1189,7 +1189,7 @@ namespace Misp.Sourcing.Table
             Action pasteAction = new Action((Action)(() =>
                 {
                     bool activatePasteMenu = !Kernel.Util.ClipbordUtil.IsClipBoardEmptyRange();
-                    page.getInputTableForm().SpreadSheet.ActivatePasteBcephal(activatePasteMenu);
+                    //page.getInputTableForm().SpreadSheet.ActivatePasteBcephal(activatePasteMenu);
                 }
             )
             );
@@ -2889,16 +2889,16 @@ namespace Misp.Sourcing.Table
         /// <param name="page"></param>
         private void CustomizeSpreedSheet(InputTableEditorItem page)
         {
-            page.getInputTableForm().SpreadSheet.DisableTitleBar(true);
+            //page.getInputTableForm().SpreadSheet.DisableTitleBar(true);
             page.getInputTableForm().SpreadSheet.DisableFormualaBar(false);
             page.getInputTableForm().SpreadSheet.DisableToolBar(false);
-            page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
+            //page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
             //page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.PARTIAL_PASTE_BCEPHAL_LABEL);
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.PASTE_BCEPHAL_LABEL);
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.COPY_BCEPHAL_LABEL);
-            page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.CREATE_DESIGN_LABEL);
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.AUDIT_CELL_LABEL);
+            //page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.PASTE_BCEPHAL_LABEL);
+            //page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.COPY_BCEPHAL_LABEL);
+            //page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
+            //page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.CREATE_DESIGN_LABEL);
+            //page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.AUDIT_CELL_LABEL);
         }
 
         /// <summary>
@@ -2976,7 +2976,7 @@ namespace Misp.Sourcing.Table
         {
             UpdateInputTableSidebarName(newName, page.Title, false);
             page.getInputTableForm().SpreadSheet.DocumentName = newName;
-            page.getInputTableForm().SpreadSheet.ChangeTitleBarCaption(newName);
+            //page.getInputTableForm().SpreadSheet.ChangeTitleBarCaption(newName);
             page.Title = newName;
             table.excelFileName = newName + EdrawOffice.EXCEL_EXT;
             page.getInputTableForm().TablePropertiesPanel.nameTextBox.Text = newName;
