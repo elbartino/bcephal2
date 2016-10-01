@@ -18,6 +18,7 @@ using System.Windows;
 using EDOfficeLib;
 using Misp.Kernel.Domain;
 using System.IO;
+using Misp.Kernel.Ui.Office.SyncFusion;
 namespace Misp.Kernel.Ui.Office.EDraw
 {
     public partial class EdrawOffice : UserControl, ISpreadsheet

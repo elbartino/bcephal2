@@ -92,11 +92,22 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\misp-build\libs\dotnet\stdole.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Compression.Base, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.SfCellGrid.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.SfGridCommon.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.SfSpreadsheet.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Shared.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Tools.WPF, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.XlsIO.Base, Version=14.2450.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="system.windows.interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\system.windows.interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -105,6 +116,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="websocket-sharp">
       <HintPath>..\misp-build\libs\dotnet\websocket-sharp.dll</HintPath>
     </Reference>
@@ -428,6 +441,11 @@
     <Compile Include="Ui\File\FileNameDialog.xaml.cs">
       <DependentUpon>FileNameDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\Office\SyncFusion\ImportBehavior.cs" />
+    <Compile Include="Ui\Office\SyncFusion\SyncFusionSheet.xaml.cs">
+      <DependentUpon>SyncFusionSheet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Office\SyncFusion\ZoomSliderBehavior.cs" />
     <Compile Include="Ui\Role\RoleTreeView.xaml.cs">
       <DependentUpon>RoleTreeView.xaml</DependentUpon>
     </Compile>
@@ -807,6 +825,10 @@
     <Page Include="Ui\File\FileNameDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Office\SyncFusion\SyncFusionSheet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Ui\Role\RoleTreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
