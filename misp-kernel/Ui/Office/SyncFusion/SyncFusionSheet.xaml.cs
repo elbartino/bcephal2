@@ -20,6 +20,7 @@ using System.Runtime.InteropServices;
 using Syncfusion.UI.Xaml.CellGrid;
 using Syncfusion.UI.Xaml.CellGrid.Helpers;
 using Syncfusion.UI.Xaml.Spreadsheet.Helpers;
+using Syncfusion.UI.Xaml.Spreadsheet;
 
 namespace Misp.Kernel.Ui.Office.SyncFusion
 {
@@ -43,6 +44,8 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
 
         public event DisableAddingSheetEventHandler DisableAddingSheet;
         public delegate void DisableAddingSheetEventHandler();
+
+        public bool gridSelectionActive = false;
 
         /// <summary>
         /// Assigne ou retourne l'url du document courant
@@ -84,10 +87,6 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             InitializeComponent();
             InitializeHandlers();
             rangePreviousValue = new Range();
-
-            //this.spreadsheetControl.Create(2);
-            //int dd = spreadsheetControl.Workbook.Worksheets[1].Index;
-            //string ddN = spreadsheetControl.Workbook.Names.ToString();
         }
 
         /// <summary>
@@ -207,7 +206,7 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         protected void InitializeHandlers()
         {
             this.spreadsheetControl.WorksheetAdding += SFS_SheetAddingChange;
-            this.spreadsheetControl.ActiveGrid.SelectionChanged += grid_selectionChanged;
+            //this.spreadsheetControl.ActiveGrid.SelectionChanged += grid_selectionChanged;
             //this.Office.WorkbookNewSheet += Office_WorkbookNewSheet;
             //this.spreadsheetControl. += SFS_SheetActivate;            
             //this.spreadsheetControl. PropertyChanged += SFS_PropertyChanged;            
@@ -228,6 +227,21 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         {
             if (ThrowEvent && SheetAdded != null) SheetAdded();
             if (ThrowEvent && DisableAddingSheet != null) this.DeleteExcelSheet();   
+        }
+
+        private void ActiveGrid_CurrentCellValueChanged(object sender, CurrentCellValueChangedEventArgs args)
+        {
+            ExcelEventArg eventForRangeEdition = new ExcelEventArg() { };
+            Range previousRange = rangePreviousValue;
+            Range range = GetSelectedRange();
+            if (range == null) return;
+            if (range.CellCount > 1) eventForRangeEdition.Range = range;
+            else eventForRangeEdition.Range = previousRange;
+            if (ThrowEvent && Edited != null)
+            {
+                Edited(eventForRangeEdition);
+            }
+            if (ThrowEvent && Changed != null) Changed();
         }
 
 
@@ -298,6 +312,9 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
                 Ui.Office.Sheet sheet = new Ui.Office.Sheet(xlWorkSheet.Index, xlWorkSheet.Name);
                 Ui.Office.Range range = new Ui.Office.Range(sheet);
 
+                GridCurrentCell cellG = spreadsheetControl.ActiveGrid.SelectionController.CurrentCell;
+                GridRangeInfoList selectionRange = spreadsheetControl.ActiveGrid.SelectionController.SelectedRanges;
+
                 // Enumerate the Rows within each Area of the Range.
                 int numberOfSheets = xlRange.Application.Worksheets.Count;
                 if (numberOfSheets > 1)
@@ -308,8 +325,8 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
                         IRange xlWorkSheetR = workSheet.UsedRange;
                         foreach (IRange area in xlWorkSheetR)
                         {
-                            RangeItem item = new RangeItem(area.Cells[1].Row, area.Cells[area.Cells.Count()].Row,
-                            area.Cells[1].Column, area.Cells[area.Cells.Count()].Column);
+                            RangeItem item = new RangeItem(selectionRange[0].Top, selectionRange[0].Bottom,
+                                selectionRange[0].Left, selectionRange[0].Right);
                             range.Items.Add(item);
                             rangeRetour.Add(item);
                         }
@@ -342,9 +359,9 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             {
                 List<String> rangeRetour = new List<String>(0);
                 IWorkbook xlWorkBook = spreadsheetControl.Workbook;
-                IRange xlRange = spreadsheetControl.ActiveSheet.UsedRange;
-
-
+                
+                GridCurrentCell cellG = spreadsheetControl.ActiveGrid.SelectionController.CurrentCell;
+                GridRangeInfoList xlRange = spreadsheetControl.ActiveGrid.SelectionController.SelectedRanges;
 
 
                 // Enumerate the Rows within each Area of the Range.
@@ -353,28 +370,37 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
                 {
                     for (int i = numberOfSheets; i > 1; i--)
                     {
-
                         IWorksheet workSheet = (IWorksheet)spreadsheetControl.Workbook.Worksheets[i - 1];
-                        IRange xlWorkSheet = workSheet.UsedRange;
-                        foreach (IRange area in xlWorkSheet)
-                        {
-                            RangeItem item = new RangeItem(area.Cells[1].Row, area.Cells[area.Cells.Count()].Row,
-                            area.Cells[1].Column, area.Cells[area.Cells.Count()].Column);
+                        RangeItem item = new RangeItem(xlRange[0].Top, xlRange[0].Bottom,
+                                xlRange[0].Left, xlRange[0].Right);
 
-                            Range r = new Range();
-                            r.Sheet = new Sheet(area.Worksheet.Index, area.Worksheet.Name);
-                            r.Items.Add(item);
-                            rangeRetour.Add(r.FullName);
-                        }
+                        Range r = new Range();
+                        r.Sheet = new Sheet(workSheet.Index, workSheet.Name);
+                        r.Items.Add(item);
+                        rangeRetour.Add(r.FullName);
+
+
+                        //IWorksheet workSheet = (IWorksheet)spreadsheetControl.Workbook.Worksheets[i - 1];
+                        //IRange xlWorkSheet = workSheet.UsedRange;
+                        //foreach (IRange area in xlWorkSheet)
+                        //{
+                        //    RangeItem item = new RangeItem(xlRange[0].Top, xlRange[0].Bottom,
+                        //        xlRange[0].Left, xlRange[0].Right);
+
+                        //    Range r = new Range();
+                        //    r.Sheet = new Sheet(area.Worksheet.Index, area.Worksheet.Name);
+                        //    r.Items.Add(item);
+                        //    rangeRetour.Add(r.FullName);
+                        //}
                     }
                 }
                 else
                 {
-                    RangeItem item = new RangeItem(xlRange.Cells[1].Row, xlRange.Cells[xlRange.Cells.Count()].Row,
-                        xlRange.Cells[1].Column, xlRange.Cells[xlRange.Cells.Count()].Column);
+                    RangeItem item = new RangeItem(xlRange[0].Top, xlRange[0].Bottom,
+                                xlRange[0].Left, xlRange[0].Right);
 
                     Range r = new Range();
-                    r.Sheet = new Sheet(xlRange.Worksheet.Index, xlRange.Worksheet.Name);
+                    r.Sheet = new Sheet(spreadsheetControl.Workbook.ActiveSheet.Index, spreadsheetControl.Workbook.ActiveSheet.Name);
                     r.Items.Add(item);
                     rangeRetour.Add(r.FullName);
                 }
@@ -399,7 +425,6 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
                 List<String> rangeRetour = new List<String>(0);
                 IWorkbook xlWorkBook = spreadsheetControl.Workbook;
                 IWorksheet xlWorkSheet = spreadsheetControl.ActiveSheet;
-                IRange xlRange = xlWorkSheet.UsedRange;
 
 
                 int numberOfSheets = spreadsheetControl.Workbook.Worksheets.Count;
@@ -499,6 +524,12 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         /// <returns></returns>
         public Range getActiveCellAsRange()
         {
+            if (!gridSelectionActive && this.spreadsheetControl.ActiveGrid != null)
+            {
+                this.spreadsheetControl.ActiveGrid.SelectionChanged += grid_selectionChanged;
+                this.spreadsheetControl.ActiveGrid.CurrentCellValueChanged += ActiveGrid_CurrentCellValueChanged;
+                gridSelectionActive = true;
+            }
             try
             {
                 if (spreadsheetControl.ActiveSheet is IWorksheet)
@@ -526,6 +557,8 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             return null;
 
         }
+
+        
 
         /// <summary>
         /// Cette méthode permet de vider les cellules utilisées.
@@ -769,6 +802,9 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         public object[,] getColumnsTitles(IWorksheet sheet, bool IsFirstRow, bool isRangeSelected = false, bool canSelectRange = false)
         {
             IWorkbook xlWorkBook = spreadsheetControl.Workbook;
+            GridCurrentCell cellG = spreadsheetControl.ActiveGrid.SelectionController.CurrentCell;
+            GridRangeInfoList xlRange = spreadsheetControl.ActiveGrid.SelectionController.SelectedRanges;
+
             try
             {
                 IWorksheet xlWorkSheet = spreadsheetControl.ActiveSheet;
@@ -784,11 +820,11 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
                 }
                 else return null;
 
-                int debutLigne = UsedRange.Cells[1].Row;
-                int finLigne = UsedRange.Cells[UsedRange.Cells.Count()].Row;
+                int debutLigne = xlRange[0].Top;
+                int finLigne = xlRange[0].Bottom;
 
-                int debutCol = UsedRange.Cells[1].Column;
-                int finCol = UsedRange.Cells[UsedRange.Cells.Count()].Column;
+                int debutCol = xlRange[0].Left;
+                int finCol = xlRange[0].Right;
                 object[,] ColumnValues = new object[2, (finCol - debutCol + 1)];
 
                 int c = 0;
@@ -854,6 +890,9 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         {
             IWorkbook xlWorkBook = spreadsheetControl.Workbook;
             IWorksheet xlWorkSheet = null;
+
+            GridCurrentCell cellG = spreadsheetControl.ActiveGrid.SelectionController.CurrentCell;
+            GridRangeInfoList xlRange  =  spreadsheetControl.ActiveGrid.SelectionController.SelectedRanges;
             try
             {
                 xlWorkSheet = spreadsheetControl.ActiveSheet;
@@ -881,11 +920,11 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
 
                 if (selectedRange != null)
                 {
-                    debutLigneUsedRange = UsedRange.Cells[1].Row;
-                    finLigneUsedRange = UsedRange.Cells[UsedRange.Cells.Count()].Row;
+                    debutLigneUsedRange = xlRange[0].Top;
+                    finLigneUsedRange = xlRange[0].Bottom;
 
-                    debutColUsedRange = UsedRange.Cells[1].Column;
-                    finColUsedRange = UsedRange.Cells[UsedRange.Cells.Count()].Column;
+                    debutColUsedRange = xlRange[0].Left;
+                    finColUsedRange = xlRange[0].Right;
 
                     debutLigneUsableRange = selectedRange.Cells[0].Row;
                     finLigneUsableRange = selectedRange.Cells[selectedRange.Cells.Count - 1].Row;
@@ -897,11 +936,11 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
                 else
                 {
                     UsableRange = xlWorkSheet.UsedRange as IRange;
-                    debutLigneUsedRange = UsedRange.Cells[1].Row;
-                    finLigneUsedRange = UsedRange.Cells[UsedRange.Cells.Count()].Row;
+                    debutLigneUsedRange = xlRange[0].Top;
+                    finLigneUsedRange = xlRange[0].Bottom;
 
-                    debutColUsedRange = UsedRange.Cells[1].Column;
-                    finColUsedRange = UsedRange.Cells[UsedRange.Cells.Count()].Column;
+                    debutColUsedRange = xlRange[0].Left;
+                    finColUsedRange = xlRange[0].Right;
 
                     debutLigneUsableRange = UsableRange.Cells[1].Row;
                     finLigneUsableRange = UsableRange.Cells[UsableRange.Cells.Count()].Row;
@@ -921,11 +960,11 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
                 UsableRange = xlWorkSheet.UsedRange;
                 UsedRange = UsableRange;
 
-                debutLigne = UsedRange.Cells[1].Row;
-                finLigne = UsedRange.Cells[UsedRange.Cells.Count()].Row;
+                debutLigne = xlRange[0].Top;
+                finLigne = xlRange[0].Bottom;
 
-                debutCol = UsedRange.Cells[1].Column;
-                finCol = UsedRange.Cells[UsedRange.Cells.Count()].Column;
+                debutCol = xlRange[0].Left;
+                finCol = xlRange[0].Right;
             }
 
             debutLigne = FirstRowIsHeader ? debutLigne == 1 ? debutLigne + 1 : debutLigne : debutLigne;
@@ -954,9 +993,12 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
 
             IWorkbook xlWorkBook = spreadsheetControl.Workbook;
             IWorksheet xlWorkSheet = null;
+            GridRangeInfoList xlRange = null;
             try
             {
                 xlWorkSheet = spreadsheetControl.ActiveSheet;
+                GridCurrentCell cellG = spreadsheetControl.ActiveGrid.SelectionController.CurrentCell;
+                xlRange = spreadsheetControl.ActiveGrid.SelectionController.SelectedRanges;
             }
             catch (Exception)
             {
@@ -980,11 +1022,11 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             else
             {
                 IRange UsedRange = xlWorkSheet.UsedRange;
-                debutLigne = UsedRange.Cells[1].Row;
-                finLigne = UsedRange.Cells[UsedRange.Cells.Count()].Row;
+                debutLigne = xlRange[1].Top;
+                finLigne = xlRange[1].Bottom;
 
-                debutCol = UsedRange.Cells[1].Column;
-                finCol = UsedRange.Cells[UsedRange.Cells.Count()].Column;
+                debutCol = xlRange[1].Left;
+                finCol = xlRange[1].Right;
             }
 
 
