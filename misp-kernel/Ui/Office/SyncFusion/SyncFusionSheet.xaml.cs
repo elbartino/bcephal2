@@ -1228,8 +1228,8 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             FileOpenCommand importFile = new FileOpenCommand(spreadsheetControl, EXCEL_FILTER);
             importFile.Execute(EXCEL_FILTER);
 
-            SfSpreadsheet spreadsheetContl = importFile.SfSpreadsheet;
-            this.DocumentUrl = spreadsheetContl.Name;
+            spreadsheetControl = importFile.SfSpreadsheet;
+            this.DocumentUrl = spreadsheetControl.Name;
 
             this.spreadsheetControl.ActiveGrid.SelectionChanged += grid_selectionChanged;
             this.spreadsheetControl.ActiveGrid.CurrentCellValueChanged += ActiveGrid_CurrentCellValueChanged;
