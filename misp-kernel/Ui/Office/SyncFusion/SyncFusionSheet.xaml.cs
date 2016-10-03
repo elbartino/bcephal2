@@ -21,6 +21,7 @@ using Syncfusion.UI.Xaml.CellGrid;
 using Syncfusion.UI.Xaml.CellGrid.Helpers;
 using Syncfusion.UI.Xaml.Spreadsheet.Helpers;
 using Syncfusion.UI.Xaml.Spreadsheet;
+using Syncfusion.UI.Xaml.Spreadsheet.Commands;
 
 
 namespace Misp.Kernel.Ui.Office.SyncFusion
@@ -47,6 +48,8 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         public delegate void DisableAddingSheetEventHandler();
 
         public bool gridSelectionActive = false;
+
+        public static String EXCEL_FILTER = "Excel files (*.xls)|*.xlsx";
 
         /// <summary>
         /// Assigne ou retourne l'url du document courant
@@ -1221,7 +1224,17 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         /// </returns>
         public OperationState Import()
         {
-            return OperationState.STOP;
+            Commands commands = new Commands(spreadsheetControl);
+            FileOpenCommand importFile = new FileOpenCommand(spreadsheetControl, EXCEL_FILTER);
+            importFile.Execute(EXCEL_FILTER);
+
+            SfSpreadsheet spreadsheetContl = importFile.SfSpreadsheet;
+            this.DocumentUrl = spreadsheetContl.Name;
+
+            this.spreadsheetControl.ActiveGrid.SelectionChanged += grid_selectionChanged;
+            this.spreadsheetControl.ActiveGrid.CurrentCellValueChanged += ActiveGrid_CurrentCellValueChanged;
+
+            return OperationState.CONTINUE;
         }
 
         /// <summary>
