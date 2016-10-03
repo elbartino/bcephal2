@@ -385,8 +385,7 @@ namespace Misp.Sourcing.Table
             InputTableEditorItem page = (InputTableEditorItem)editorItem;
             if (page.getInputTableForm().SpreadSheet != null)
             {
-                //if (page.getInputTableForm().SpreadSheet.Export(openSaveDialog()) != OperationState.CONTINUE) return OperationState.STOP;
-                //page.getInputTableForm().SpreadSheet.RemoveTempFiles();
+                if (page.getInputTableForm().SpreadSheet.Export() != OperationState.CONTINUE) return OperationState.STOP;
                 Save(page);
             }
             return OperationState.CONTINUE;
