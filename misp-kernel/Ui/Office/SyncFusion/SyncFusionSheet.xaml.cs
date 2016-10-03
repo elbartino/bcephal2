@@ -515,7 +515,7 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         public String getSheetName(int index)
         {
             if (spreadsheetControl.Workbook.Worksheets == null) return null;
-            Object sheet = spreadsheetControl.Workbook.Worksheets[index];
+            Object sheet = spreadsheetControl.Workbook.Worksheets[index -1];
             if (!(sheet is IWorksheet)) return null;
             return ((IWorksheet)sheet).Name;
         }
@@ -681,18 +681,19 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         public void SetValueAt(int row, int colunm, string sheetName, object value)
         {
             IRange cell = getCellAt(row, colunm, sheetName);
-            if (cell != null) cell.Value = value.ToString();
+            if (cell != null) spreadsheetControl.ActiveGrid.SetCellValue(cell, value.ToString());
+            
         }
 
         public void SetValueAt(int row, int column, String value)
         {
-            spreadsheetControl.ActiveSheet.Range[column, row].Text = value;
+            spreadsheetControl.ActiveGrid.SetCellValue(spreadsheetControl.ActiveSheet.Range[column, row], value.ToString());
         }
 
         public void SetValueAt(int row, int colunm, object value)
         {
             IRange cell = getCellAt(row, colunm);
-            if (cell != null) cell.Value = value.ToString();
+            if (cell != null) spreadsheetControl.ActiveGrid.SetCellValue(cell, value.ToString());
         }
 
         public IRange getCellAt(int row, int column)
@@ -736,14 +737,14 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             {
                 for (int i = 1; i <= xlWorkBook.Worksheets.Count; i++)
                 {
-                    if (xlWorkBook.Worksheets[i] is IWorksheet)
+                    if (xlWorkBook.Worksheets[i-1] is IWorksheet)
                     {
-                        IWorksheet sheet = xlWorkBook.Worksheets[i];
+                        IWorksheet sheet = xlWorkBook.Worksheets[i-1];
                         if (sheet.Name == sheetName)
                         {
-                            if (column < 0 || column > sheet.Columns.Count() || row < 0 || row > sheet.Rows.Count()) return null;
+                            if (column < 0 || row < 0) return null;
                             IRange xlRange = sheet.Range[row, column];
-                            IRange cell = xlRange.Cells[1];
+                            IRange cell = xlRange.Cells[0];
                             return cell;
                         }
                     }
@@ -1187,7 +1188,7 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
                     List<Sheet> listeSheet = new List<Sheet>(0);
                     for (int i = 1; i <= xlWorkBook.Worksheets.Count; i++)
                     {
-                        IWorksheet foundSheet = xlWorkBook.Worksheets[i];
+                        IWorksheet foundSheet = xlWorkBook.Worksheets[i-1];
                         listeSheet.Add(new Sheet(foundSheet.Index, foundSheet.Name));
                     }
                     return listeSheet;
