@@ -22,6 +22,7 @@ using Syncfusion.UI.Xaml.CellGrid.Helpers;
 using Syncfusion.UI.Xaml.Spreadsheet.Helpers;
 using Syncfusion.UI.Xaml.Spreadsheet;
 
+
 namespace Misp.Kernel.Ui.Office.SyncFusion
 {
     /// <summary>
@@ -206,12 +207,22 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         protected void InitializeHandlers()
         {
             this.spreadsheetControl.WorksheetAdding += SFS_SheetAddingChange;
-            //this.spreadsheetControl.ActiveGrid.SelectionChanged += grid_selectionChanged;
+            this.spreadsheetControl.PropertyChanged += grid_PropertyChanged;
             //this.Office.WorkbookNewSheet += Office_WorkbookNewSheet;
             //this.spreadsheetControl. += SFS_SheetActivate;            
             //this.spreadsheetControl. PropertyChanged += SFS_PropertyChanged;            
             //this.Office.WindowBeforeRightClick +=Office_WindowBeforeRightClick;
             //this.MouseDown += EdrawOffice_MouseDown;
+        }
+
+        private void grid_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (!gridSelectionActive && this.spreadsheetControl.ActiveGrid != null)
+            {
+                this.spreadsheetControl.ActiveGrid.SelectionChanged += grid_selectionChanged;
+                this.spreadsheetControl.ActiveGrid.CurrentCellValueChanged += ActiveGrid_CurrentCellValueChanged;
+                gridSelectionActive = true;
+            }
         }
 
         private void grid_selectionChanged(object sender, Syncfusion.UI.Xaml.CellGrid.Helpers.SelectionChangedEventArgs args)
@@ -1199,6 +1210,18 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             IRange usedRange = foundSheet.UsedRange;
 
             return !isFirsRowIn ? usedRange.Cells[usedRange.Count].Row : usedRange.Cells[usedRange.Count].Row - 1;
+        }
+
+        /// <summary>
+        /// Ouvre le dialogue permettant de choisir le document à importer.
+        /// </summary>
+        /// <returns>
+        /// OperationState.CONTINUE si l'opération a réussi
+        /// OperationState.STOP sinon
+        /// </returns>
+        public OperationState Import()
+        {
+            return OperationState.STOP;
         }
 
         /// <summary>

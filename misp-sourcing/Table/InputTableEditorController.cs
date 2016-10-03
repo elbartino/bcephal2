@@ -308,8 +308,8 @@ namespace Misp.Sourcing.Table
             }
 
             InputTableEditorItem page = (InputTableEditorItem)editorItem;
-            //if (page.getInputTableForm().SpreadSheet.Import() != OperationState.CONTINUE) return OperationState.STOP;
-            //page.getInputTableForm().SpreadSheet.RemoveTempFiles();
+            if (page.getInputTableForm().SpreadSheet.Import() != OperationState.CONTINUE) return OperationState.STOP;
+            page.getInputTableForm().SpreadSheet.RemoveTempFiles();
 
             string nameAfterImport;
             nameAfterImport = page.getInputTableForm().SpreadSheet.DocumentName;
