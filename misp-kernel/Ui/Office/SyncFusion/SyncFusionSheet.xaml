@@ -7,17 +7,16 @@
                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                          xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
                          DataContext="{Binding ElementName=spreadsheetControl}"
-                         Width="1024"
-                         Height="720"
+                         Width="Auto"
+                         Height="Auto"
                          syncfusion:SkinStorage.VisualStyle="Office2013"
                          mc:Ignorable="d">
-    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <syncfusion:SfSpreadsheetRibbon  DataContext="{Binding ElementName=spreadsheetControl}" syncfusion:SkinStorage.VisualStyle="Office2010Blue" />
-        <syncfusion:SfSpreadsheet x:Name="spreadsheetControl"
+        <syncfusion:SfSpreadsheetRibbon Margin="0 15 0 0" Grid.Row="0"  DataContext="{Binding ElementName=spreadsheetControl}" syncfusion:SkinStorage.VisualStyle="Office2010Blue" />
+        <syncfusion:SfSpreadsheet x:Name="spreadsheetControl" 
                                        Grid.Row="1"
                                        FormulaBarVisibility="Visible"
                                        syncfusion:SkinStorage.VisualStyle="Office2013">
@@ -25,5 +24,4 @@
                 <local:ImportBehavior/>
             </Interactivity:Interaction.Behaviors>
         </syncfusion:SfSpreadsheet>
-    </Grid>
  </Grid>
