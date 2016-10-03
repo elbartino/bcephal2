@@ -1238,6 +1238,21 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         }
 
         /// <summary>
+        /// Ouvre le dialogue permettant de choisir le document à importer.
+        /// </summary>
+        /// <returns>
+        /// OperationState.CONTINUE si l'opération a réussi
+        /// OperationState.STOP sinon
+        /// </returns>
+        public OperationState Export()
+        {
+            Commands commands = new Commands(spreadsheetControl);
+            FileSaveAsCommand exportFile = new FileSaveAsCommand(spreadsheetControl, EXCEL_FILTER);
+            exportFile.Execute(EXCEL_FILTER);
+            return OperationState.CONTINUE;
+        }
+
+        /// <summary>
         /// Rend visible/invisible la barre d'outils Excel
         /// </summary>
         /// <param name="value">True=>Visible; False=>Invisible</param>
