@@ -385,7 +385,10 @@ namespace Misp.Sourcing.Table
             InputTableEditorItem page = (InputTableEditorItem)editorItem;
             if (page.getInputTableForm().SpreadSheet != null)
             {
-                if (page.getInputTableForm().SpreadSheet.Export() != OperationState.CONTINUE) return OperationState.STOP;
+                InputTable table = page.getInputTableForm().EditedObject;
+                string excelDir = getExcelFolder();
+                string filePath = excelDir + table.name + EdrawOffice.EXCEL_EXT;
+                if (page.getInputTableForm().SpreadSheet.Export(filePath) != OperationState.CONTINUE) return OperationState.STOP;
                 Save(page);
             }
             return OperationState.CONTINUE;
@@ -480,7 +483,7 @@ namespace Misp.Sourcing.Table
         {
             InputTableEditorItem currentPage = (InputTableEditorItem)page;
             String excelfileName = saveAs ? buildExcelFileName(page.EditedObject.excelFileName) : page.EditedObject.excelFileName;
-            //page.EditedObject.excelFileName = filePath;
+            excelfileName = excelfileName.Replace("\"", "");
             String oldFilePath = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
             if (String.IsNullOrEmpty(page.EditedObject.excelFileName)) page.EditedObject.excelFileName = page.EditedObject.name + EdrawOffice.EXCEL_EXT;
             String tempFolder = GetInputTableService().FileService.GetFileDirs().TempTableFolder;
