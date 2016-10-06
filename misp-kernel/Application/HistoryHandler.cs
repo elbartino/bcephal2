@@ -822,7 +822,7 @@ namespace Misp.Kernel.Application
             {
                 ExcelExtension defaultExtension = ExcelUtil.GetDefaultExcelExtenstion();
                 if (defaultExtension == null) MessageDisplayer.DisplayWarning("Bcephal - MS Excel not found", "The MS Excel version of your computer is not supported or there is no MS Excel installed. \n You may not be able to use some functionnalities!");
-                else ApplicationManager.Instance.DefaultExcelExtension = defaultExtension;
+                else ApplicationManager.Instance.DefaultExcelExtension = ExcelExtension.XLSX;//defaultExtension;
             }
             catch (Exception)
             {

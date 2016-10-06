@@ -176,10 +176,10 @@ namespace Misp.Sourcing.Table
             String fileName = page.getInputTableForm().SpreadSheet.CreateNewExcelFile();
             if (fileName == null)
             {
-                MessageDisplayer.DisplayError("Bcephal - MS Excel Error", "Unable to create excel file!");
+                MessageDisplayer.DisplayError("Bcephal - Excel Error", "Unable to create excel file!");
                 return OperationState.STOP;
             }
-            table.excelFileName = table.name + this.ApplicationManager.DefaultExcelExtension;
+            table.excelFileName = table.name + ExcelExtension.XLSX.Extension;
 
             CustomizeSpreedSheet(page);
             initializePageHandlers(page);
