@@ -55,7 +55,7 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         /// Assigne ou retourne l'url du document courant
         /// </summary>
         public string DocumentUrl {
-            get { return this.spreadsheetControl.Name; }
+            get { return this.spreadsheetControl.FileName; }
             set{}
         }
 
@@ -68,8 +68,8 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         {
             get
             {
-                string exeDir = System.IO.Path.GetDirectoryName(DocumentUrl);
-                return exeDir;
+                string docN = System.IO.Path.GetDirectoryName(DocumentUrl);
+                return docN != "" ? docN : DocumentUrl; ;
             }
             set {/** documentName = value; **/}
         }
@@ -124,7 +124,7 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         {
             Close();
             this.spreadsheetControl.Create(2);
-            this.DocumentUrl = this.spreadsheetControl.Name; 
+            this.DocumentUrl = this.spreadsheetControl.FileName; 
 
 
             return this.DocumentUrl;
@@ -1230,7 +1230,8 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             importFile.Execute(EXCEL_FILTER);
 
             spreadsheetControl = importFile.SfSpreadsheet;
-            this.DocumentUrl = spreadsheetControl.Name;
+            this.DocumentUrl = importFile.SfSpreadsheet.FileName;
+            this.DocumentName = DocumentUrl;
 
             this.spreadsheetControl.ActiveGrid.SelectionChanged += grid_selectionChanged;
             this.spreadsheetControl.ActiveGrid.CurrentCellValueChanged += ActiveGrid_CurrentCellValueChanged;
