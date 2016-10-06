@@ -2943,8 +2943,10 @@ namespace Misp.Sourcing.Table
         /// <returns></returns>
         protected override InputTable GetObjectByName(string name)
         {
-            //return ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.getInputTableByName(name);
-            return GetInputTableService().getByName(name);
+            InputTable table =  ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.getInputTableByName(name);
+            if (table == null) table = GetInputTableService().getByName(name);
+            if (table == null) return null;
+            return table;
         }
 
         protected override string getNewPageName(string prefix)
@@ -2962,8 +2964,19 @@ namespace Misp.Sourcing.Table
             //        if (!System.IO.File.Exists(fileName)) return name;
             //    }
             //    i++;
-            //}
-            return GetInputTableService().getNewTableName(prefix);
+
+            int i = 1;
+            string name = prefix + i;
+            bool valid = false;
+            while (!valid)
+            {
+               InputTable obj = GetObjectByName(name);
+               //name = GetInputTableService().getNewTableName(prefix);
+               if (obj == null) return name;
+               i++;
+               name = prefix + i;
+            }
+            return name;
         }
 
 
