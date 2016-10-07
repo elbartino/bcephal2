@@ -196,7 +196,7 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
                 }
                 return OperationState.CONTINUE;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return OperationState.STOP;
             }
@@ -1246,11 +1246,12 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         /// OperationState.CONTINUE si l'opération a réussi
         /// OperationState.STOP sinon
         /// </returns>
-        public OperationState Export()
+        public OperationState Export(string filePath)
         {
             Commands commands = new Commands(spreadsheetControl);
             FileSaveAsCommand exportFile = new FileSaveAsCommand(spreadsheetControl, EXCEL_FILTER);
             exportFile.Execute(EXCEL_FILTER);
+            Open(filePath, EXCEL_FILTER);
             return OperationState.CONTINUE;
         }
 
