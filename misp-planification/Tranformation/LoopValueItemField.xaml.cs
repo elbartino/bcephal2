@@ -58,7 +58,21 @@ namespace Misp.Planification.Tranformation
             set
             {
                 this.loopValue = value;
-                if (loopValue != null) Label.Content = loopValue.GetValue();
+                if (loopValue != null)
+                {
+                    Label.Content = loopValue.GetValue();
+                    if ((loopValue.IsAnAttribute() || loopValue.IsPeriodName()))
+                    {
+                        this.CloseButton.Visibility = Visibility.Collapsed;
+                        this.CloseButton1.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        this.CloseButton.Visibility = Visibility.Visible;
+                        this.CloseButton1.Visibility = Visibility.Collapsed;
+                    }
+                    
+                }
             }
         }
 
@@ -104,6 +118,8 @@ namespace Misp.Planification.Tranformation
         {
             this.CloseButton.Click += OnButtonClick;
             this.CloseButton.GotFocus += OnGotFocus;
+            this.CloseButton1.Click += OnButtonClick;
+            this.CloseButton1.GotFocus += OnGotFocus;
             this.Label.GotFocus += OnGotFocus;
             this.MouseDown += OnMouseDown;
             this.Label.MouseDown += OnMouseDown;

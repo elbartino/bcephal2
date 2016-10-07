@@ -45,6 +45,18 @@ namespace Misp.Kernel.Domain
             return value != null && (value is PeriodName || value is Period);
         }
 
+        public bool IsAnAttribute() 
+        {
+            object value = GetValue();
+            return value != null && (value is Kernel.Domain.Attribute);
+        }
+
+        public bool IsPeriodName()
+        {
+            object value = GetValue();
+            return value != null && (value is PeriodName);
+        }
+
         public void SetValue(object value)
         {
             this.scope = null;
