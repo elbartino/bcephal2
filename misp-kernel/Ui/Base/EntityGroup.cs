@@ -51,7 +51,6 @@ namespace Misp.Kernel.Ui.Base
             base.InitComponents();
             this.EntityTreeview = new EntityTreeview();
             this.ContentPanel.Children.Add(this.EntityTreeview);
-          
         }
 
         private void InitializeHandlers()

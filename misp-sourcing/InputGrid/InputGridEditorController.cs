@@ -714,7 +714,8 @@ namespace Misp.Sourcing.InputGrid
             ((InputGridSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
             ((InputGridSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodFromSidebar;
-            
+            ((InputGridSideBar)SideBar).PeriodNameGroup.OnSelectPeriodName += onSelectPeriodFromSidebar;
+            ((InputGridSideBar)SideBar).PeriodNameGroup.OnSelectPeriodInterval += onSelectPeriodFromSidebar;
         }
 
         private void ExportCommandEnabled(object sender, CanExecuteRoutedEventArgs e) { e.CanExecute = true; }
