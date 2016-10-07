@@ -514,15 +514,8 @@ namespace Misp.Planification.Tranformation
             {
                 object value = null;
                 if (sender is Entity) value = sender;
-                if (sender is AttributeValue) value = sender;
-                if (sender is Kernel.Domain.Attribute)
-                {
-                    Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
-                    if (attribute.valueListChangeHandler.Items.Count <= 0) return;
-                    List<Kernel.Domain.AttributeValue> values = TransformationTreeService.ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
-                    value = values;
-                }
-                else value = sender;
+                else if (sender is Kernel.Domain.Attribute) value = sender;
+                else if (sender is AttributeValue) value = sender;
                 SetValue(value);
             }
         }
@@ -531,14 +524,21 @@ namespace Misp.Planification.Tranformation
         {
             if (sender != null && sender is Target)
             {
-                if (!(sender is AttributeValue))
+                object value = null;
+                if (sender is Entity) value = sender;
+                else if (sender is Kernel.Domain.Attribute)
                 {
-                    onSelectTargetFromSidebar(sender);
-                    return;
+                    Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute) sender;
+                    if (attribute.valueListChangeHandler.Items.Count <= 0) value = attribute;
+                    else value = TransformationTreeService.ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
                 }
-                AttributeValue value = (AttributeValue)sender;
-                if (value.childrenListChangeHandler.Items.Count <= 0) return;
-                SetValue(value.childrenListChangeHandler.Items);
+                else if (sender is AttributeValue)
+                {
+                    AttributeValue attributeValue = (AttributeValue)sender;
+                    if (attributeValue.childrenListChangeHandler.Items.Count <= 0) value = attributeValue;
+                    else value = attributeValue.childrenListChangeHandler.Items;
+                }
+                SetValue(value);
             }
         }
 
@@ -547,18 +547,39 @@ namespace Misp.Planification.Tranformation
         {
             if (sender != null)
             {
+                if (sender is PeriodName) SetValue(sender);
+                else if (sender is PeriodInterval) SetValue(sender);
+                //if (sender is PeriodName)
+                //{
+                //    PeriodName periodName = (PeriodName)sender;
+                //    if (periodName.intervalListChangeHandler.Items.Count <= 0) return;
+                //    object value = periodName.Leafs;                    
+                //    SetValue(value);
+                //}
+                //else if (sender is PeriodInterval)
+                //{
+                //    PeriodInterval periodInterval = (PeriodInterval)sender;
+                //    if (periodInterval.IsLeaf) SetValue(periodInterval);
+                //    else SetValue(periodInterval.Leafs);
+                //}
+            }
+        }
+
+        protected void onDoubleClickSelectPeriodNameFromSidebar(object sender)
+        {
+            if (sender != null)
+            {
                 if (sender is PeriodName)
                 {
                     PeriodName periodName = (PeriodName)sender;
-                    if (periodName.intervalListChangeHandler.Items.Count <= 0) return;
-                    object value = periodName.Leafs;                    
-                    SetValue(value);
+                    if (periodName.intervalListChangeHandler.Items.Count <= 0) SetValue(sender);
+                    else SetValue(periodName.intervalListChangeHandler.Items);                    
                 }
                 else if (sender is PeriodInterval)
                 {
                     PeriodInterval periodInterval = (PeriodInterval)sender;
-                    if (periodInterval.IsLeaf) SetValue(periodInterval);
-                    else SetValue(periodInterval.Leafs);
+                    if (periodInterval.IsLeaf) SetValue(sender);
+                    else SetValue(periodInterval.childrenListChangeHandler.Items);
                 }
             }
         }
