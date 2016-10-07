@@ -480,6 +480,7 @@ namespace Misp.Sourcing.Table
         {
             InputTableEditorItem currentPage = (InputTableEditorItem)page;
             String excelfileName = saveAs ? buildExcelFileName(page.EditedObject.excelFileName) : page.EditedObject.excelFileName;
+            excelfileName = excelfileName.Replace("\"", "");
             //page.EditedObject.excelFileName = filePath;
             String oldFilePath = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
             if (String.IsNullOrEmpty(page.EditedObject.excelFileName)) page.EditedObject.excelFileName = page.EditedObject.name + EdrawOffice.EXCEL_EXT;
