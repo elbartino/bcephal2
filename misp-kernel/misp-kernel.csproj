@@ -240,7 +240,7 @@
     <Compile Include="Domain\ReconciliationData.cs" />
     <Compile Include="Domain\ReconciliationTemplate.cs" />
     <Compile Include="Domain\Relation.cs" />
-    <Compile Include="Domain\Rights.cs" />
+    <Compile Include="Domain\Right.cs" />
     <Compile Include="Domain\Role.cs" />
     <Compile Include="Domain\SimpleArchive.cs" />
     <Compile Include="Domain\StructuredReportRunData.cs" />
@@ -270,6 +270,7 @@
     <Compile Include="Service\AutomaticTargetService.cs" />
     <Compile Include="Service\CombineTransformationTreeService.cs" />
     <Compile Include="Service\AutomaticPostingGridService.cs" />
+    <Compile Include="Service\RightService.cs" />
     <Compile Include="Service\FileTransferService.cs" />
     <Compile Include="Service\PostingGridService.cs" />
     <Compile Include="Service\ReconciliationContextService.cs" />

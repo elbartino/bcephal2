@@ -28,7 +28,7 @@ namespace Misp.Kernel.Domain
 
         public Profil profil { get; set; }
         
-        public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }
+        public PersistentListChangeHandler<Right> rightsListChangeHandler { get; set; }
 
         public PersistentListChangeHandler<Relation> relationsListChangeHandler { get; set; }
 
@@ -37,7 +37,7 @@ namespace Misp.Kernel.Domain
         {
             this.active = true;
             this.administrator = false;
-            rightsListChangeHandler = new PersistentListChangeHandler<Rights>();
+            rightsListChangeHandler = new PersistentListChangeHandler<Right>();
             relationsListChangeHandler = new PersistentListChangeHandler<Relation>();
         }
 

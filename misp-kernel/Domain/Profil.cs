@@ -16,14 +16,14 @@ namespace Misp.Kernel.Domain
         public bool visibleInShortcut { get; set; }
 
         [ScriptIgnore]
-        public  List<Rights> defaultListRights;
+        public  List<Right> defaultListRights;
 
-        public PersistentListChangeHandler<Rights> rightsListChangeHandler { get; set; }
+        public PersistentListChangeHandler<Right> rightsListChangeHandler { get; set; }
         
 
         public Profil()
         {
-            this.rightsListChangeHandler = new PersistentListChangeHandler<Rights>();            
+            this.rightsListChangeHandler = new PersistentListChangeHandler<Right>();            
         }
 
         #region Build Rights
@@ -32,7 +32,7 @@ namespace Misp.Kernel.Domain
         /// </summary>
         public void buildRight()
         {
-            defaultListRights = new List<Rights>();
+            defaultListRights = new List<Right>();
             buildInitiationRight();
             buildSourcingRight();
             buildTranformationTreeRight();
@@ -51,8 +51,8 @@ namespace Misp.Kernel.Domain
         /// <returns></returns>
         private void buildInitiationRight()
         {
-            defaultListRights.Add(new Rights(FunctionalityRights.INITIATION_EDIT_MODEL));
-            defaultListRights.Add(new Rights(FunctionalityRights.INITIATION_EDIT_PERIOD));
+            defaultListRights.Add(new Right(FunctionalityRights.INITIATION_EDIT_MODEL));
+            defaultListRights.Add(new Right(FunctionalityRights.INITIATION_EDIT_PERIOD));
         }
 
         /// <summary>
@@ -62,32 +62,32 @@ namespace Misp.Kernel.Domain
         private void buildSourcingRight()
         {
             // Posting Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.POSTING));
+            defaultListRights.Add(new Right(FunctionalityRights.POSTING));
             //defaultListRights.Add(new Rights(FunctionalityRights.POSTING_GRID));
             //defaultListRights.Add(new Rights(FunctionalityRights.POSTING_AUTO_SOURCING));
 
             // Input Table Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.INPUT_TABLE));
+            defaultListRights.Add(new Right(FunctionalityRights.INPUT_TABLE));
             //defaultListRights.Add(new Rights(FunctionalityRights.INPUT_TABLE_NEW));
             //defaultListRights.Add(new Rights(FunctionalityRights.INPUT_TABLE_LIST));
 
             // Grid Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.GRID));
+            defaultListRights.Add(new Right(FunctionalityRights.GRID));
             //defaultListRights.Add(new Rights(FunctionalityRights.GRID_INPUT));
             //defaultListRights.Add(new Rights(FunctionalityRights.GRID_AUTO_SOURCING));
 
             // Target Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.TARGET));
+            defaultListRights.Add(new Right(FunctionalityRights.TARGET));
             //defaultListRights.Add(new Rights(FunctionalityRights.TARGET_NEW));
             //defaultListRights.Add(new Rights(FunctionalityRights.TARGET_LIST));
 
             // DESIGN Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.DESIGN));
+            defaultListRights.Add(new Right(FunctionalityRights.DESIGN));
             //defaultListRights.Add(new Rights(FunctionalityRights.DESIGN_NEW));
             //defaultListRights.Add(new Rights(FunctionalityRights.DESIGN_LIST));
 
             // UPLOAD FILE Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.MULTIPLE_FILE_UPLOAD));
+            defaultListRights.Add(new Right(FunctionalityRights.MULTIPLE_FILE_UPLOAD));
         }
 
 
@@ -98,12 +98,12 @@ namespace Misp.Kernel.Domain
         private void buildTranformationTreeRight()
         {
             // Transformation Tree Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.TRANSFORMATION_TREE));
+            defaultListRights.Add(new Right(FunctionalityRights.TRANSFORMATION_TREE));
             //defaultListRights.Add(new Rights(FunctionalityRights.TRANSFORMATION_TREE_NEW));
             //defaultListRights.Add(new Rights(FunctionalityRights.TRANSFORMATION_TREE_LIST));
 
             // Combined Transformation Tree Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.COMBINED_TRANSFORMATION_TREE));
+            defaultListRights.Add(new Right(FunctionalityRights.COMBINED_TRANSFORMATION_TREE));
             //defaultListRights.Add(new Rights(FunctionalityRights.COMBINED_TRANSFORMATION_TREE_NEW));
             //defaultListRights.Add(new Rights(FunctionalityRights.COMBINED_TRANSFORMATION_TREE_LIST));
         }
@@ -115,9 +115,9 @@ namespace Misp.Kernel.Domain
         private void buildLoadTableRight()
         {
             // Load Table Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.LOAD_TABLE));
-            defaultListRights.Add(new Rights(FunctionalityRights.CLEAR_TABLE));
-            defaultListRights.Add(new Rights(FunctionalityRights.LOAD_LOG));
+            defaultListRights.Add(new Right(FunctionalityRights.LOAD_TABLE));
+            defaultListRights.Add(new Right(FunctionalityRights.CLEAR_TABLE));
+            defaultListRights.Add(new Right(FunctionalityRights.LOAD_LOG));
         }
 
         /// <summary>
@@ -127,22 +127,22 @@ namespace Misp.Kernel.Domain
         private void buildReportRight()
         {
             // Report Grid Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.REPORT_GRID));
+            defaultListRights.Add(new Right(FunctionalityRights.REPORT_GRID));
             //defaultListRights.Add(new Rights(FunctionalityRights.REPORT_GRID_NEW));
             //defaultListRights.Add(new Rights(FunctionalityRights.REPORT_GRID_LIST));
 
             // Report Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.REPORT));
+            defaultListRights.Add(new Right(FunctionalityRights.REPORT));
             //defaultListRights.Add(new Rights(FunctionalityRights.REPORT_NEW));
             //defaultListRights.Add(new Rights(FunctionalityRights.REPORT_LIST));
 
             // Calculated Measure Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.CALCULATED_MEASURE));
+            defaultListRights.Add(new Right(FunctionalityRights.CALCULATED_MEASURE));
             //defaultListRights.Add(new Rights(FunctionalityRights.CALCULATED_MEASURE_NEW));
             //defaultListRights.Add(new Rights(FunctionalityRights.CALCULATED_MEASURE_LIST));
 
             // Pivot Table Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.PIVOT_TABLE));
+            defaultListRights.Add(new Right(FunctionalityRights.PIVOT_TABLE));
             //defaultListRights.Add(new Rights(FunctionalityRights.PIVOT_TABLE_NEW));
             //defaultListRights.Add(new Rights(FunctionalityRights.PIVOT_TABLE_LIST));
         }
@@ -155,7 +155,7 @@ namespace Misp.Kernel.Domain
         private void buildReconciliationRight()
         {
             // Reconciliation Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.RECONCILIATION));
+            defaultListRights.Add(new Right(FunctionalityRights.RECONCILIATION));
             //defaultListRights.Add(new Rights(FunctionalityRights.POSTING_RECONCILIATION));
             //defaultListRights.Add(new Rights(FunctionalityRights.RECONCILIATION_CONFIG));
         }
@@ -167,17 +167,17 @@ namespace Misp.Kernel.Domain
         private void buildAdministrationRight()
         {
             // User Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.USER));
+            defaultListRights.Add(new Right(FunctionalityRights.USER));
             //defaultListRights.Add(new Rights(FunctionalityRights.USER_NEW));
             //defaultListRights.Add(new Rights(FunctionalityRights.USER_LIST));
 
             // Profil Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.PROFIL));
+            defaultListRights.Add(new Right(FunctionalityRights.PROFIL));
             //defaultListRights.Add(new Rights(FunctionalityRights.PROFIL_NEW));
             //defaultListRights.Add(new Rights(FunctionalityRights.PROFIL_LIST));
 
             // Role Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.MANAGE_ROLE));
+            defaultListRights.Add(new Right(FunctionalityRights.MANAGE_ROLE));
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace Misp.Kernel.Domain
         private void buildSettingRight()
         {
             // Reconciliation Functionality
-            defaultListRights.Add(new Rights(FunctionalityRights.GROUP));
+            defaultListRights.Add(new Right(FunctionalityRights.GROUP));
         }
         #endregion
 
@@ -195,7 +195,7 @@ namespace Misp.Kernel.Domain
         /// sort default right list
         /// </summary>
         /// <returns></returns>
-        private void sortList(List<Rights> l)
+        private void sortList(List<Right> l)
         {
             Misp.Kernel.Util.ListUtil.BubbleSort(l);
         }

@@ -69,15 +69,15 @@ namespace Misp.Kernel.Administration.Profil
         {
             profil.active = activeBox.IsChecked.Value;
             profil.name = nameTextBox.Text;
-            List<Rights> items = new List<Rights>(0);
+            List<Right> items = new List<Right>(0);
             foreach (object item in functionnalityGrid.Items)
             {
-                if (item is Rights)
+                if (item is Right)
                 {                    
-                    items.Add((Rights)item);
+                    items.Add((Right)item);
                 }
             }
-            profil.rightsListChangeHandler.updatedItems = new List<Rights>(items);
+            profil.rightsListChangeHandler.updatedItems = new List<Right>(items);
         }
 
         public bool ValidateEdition()
@@ -124,37 +124,37 @@ namespace Misp.Kernel.Administration.Profil
 
         private void OnManageSelectAll(object sender, RequestNavigateEventArgs e)
         {
-            List<Rights> items = new List<Rights>(0);
+            List<Right> items = new List<Right>(0);
             foreach (object item in functionnalityGrid.Items)
             {
-                ((Rights)item).viewRight = true;
-                ((Rights)item).editRight = true;
-                items.Add(((Rights)item));
+                ((Right)item).viewRight = true;
+                ((Right)item).editRight = true;
+                items.Add(((Right)item));
             }
             functionnalityGrid.ItemsSource = items;
         }
 
         private void OnManageDeSelectAll(object sender, RequestNavigateEventArgs e)
         {
-            List<Rights> items = new List<Rights>(0);
+            List<Right> items = new List<Right>(0);
             foreach (object item in functionnalityGrid.Items)
             {
-                ((Rights)item).viewRight = false;
-                ((Rights)item).editRight = false;
-                items.Add(((Rights)item));
+                ((Right)item).viewRight = false;
+                ((Right)item).editRight = false;
+                items.Add(((Right)item));
             }
             functionnalityGrid.ItemsSource = items;
         }
 
         private void OnGridSelectionchange()
         {
-            List<Rights> items = new List<Rights>(0);
+            List<Right> items = new List<Right>(0);
             List<long> ids = new List<long>(0);
             foreach (object item in functionnalityGrid.SelectedItems)
             {
-                if (item is Rights)
+                if (item is Right)
                 {
-                    items.Add((Rights)item);
+                    items.Add((Right)item);
                     //ids.Add(((Rights)item).id);
                 }
             }
