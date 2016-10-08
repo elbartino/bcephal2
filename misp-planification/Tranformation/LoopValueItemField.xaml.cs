@@ -58,23 +58,11 @@ namespace Misp.Planification.Tranformation
             set
             {
                 this.loopValue = value;
-                if (loopValue != null)
-                {
-                    Label.Content = loopValue.GetValue();
-                    if ((loopValue.IsAnAttribute() || loopValue.IsPeriodName()))
-                    {
-                        this.CloseButton.Visibility = Visibility.Collapsed;
-                        this.CloseButton1.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        this.CloseButton.Visibility = Visibility.Visible;
-                        this.CloseButton1.Visibility = Visibility.Collapsed;
-                    }
-                    
-                }
+                setLoopValue();
             }
         }
+
+
 
         #endregion
 
@@ -95,6 +83,24 @@ namespace Misp.Planification.Tranformation
             this.Index = index;            
         }
 
+        private void setLoopValue() 
+        {
+            if (loopValue != null)
+            {
+                Label.Content = loopValue.GetValue();
+                if ((loopValue.IsAnAttribute() || loopValue.IsPeriodName()))
+                {
+                    this.CloseButton.Visibility = Visibility.Collapsed;
+                    this.CloseButton1.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    this.CloseButton.Visibility = Visibility.Visible;
+                    this.CloseButton1.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
         /// <summary>
         /// Construit une nouvelle instance de LineItemField
         /// </summary>
@@ -103,7 +109,7 @@ namespace Misp.Planification.Tranformation
         public LoopValueItemField(TransformationTreeLoopValue item)
             : this(item.position)
         {
-            this.LoopValue = item; 
+            this.LoopValue = item;
         }
 
         #endregion
