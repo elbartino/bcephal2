@@ -127,8 +127,6 @@ namespace Misp.Kernel.Administration.Profil
             List<Right> items = new List<Right>(0);
             foreach (object item in functionnalityGrid.Items)
             {
-                ((Right)item).viewRight = true;
-                ((Right)item).editRight = true;
                 items.Add(((Right)item));
             }
             functionnalityGrid.ItemsSource = items;
@@ -139,8 +137,6 @@ namespace Misp.Kernel.Administration.Profil
             List<Right> items = new List<Right>(0);
             foreach (object item in functionnalityGrid.Items)
             {
-                ((Right)item).viewRight = false;
-                ((Right)item).editRight = false;
                 items.Add(((Right)item));
             }
             functionnalityGrid.ItemsSource = items;

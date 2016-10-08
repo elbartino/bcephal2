@@ -20,6 +20,11 @@ namespace Misp.Kernel.Domain
         {
            
         }
+
+        public Right(String function)
+        {
+            this.functionnality = function;
+        }
         
         public override string ToString()
         {
