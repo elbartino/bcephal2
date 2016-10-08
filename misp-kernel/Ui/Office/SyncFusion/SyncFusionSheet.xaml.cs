@@ -22,6 +22,8 @@ using Syncfusion.UI.Xaml.CellGrid.Helpers;
 using Syncfusion.UI.Xaml.Spreadsheet.Helpers;
 using Syncfusion.UI.Xaml.Spreadsheet;
 using Syncfusion.UI.Xaml.Spreadsheet.Commands;
+using Syncfusion.UI.Xaml.SpreadsheetHelper;
+using Syncfusion.UI.Xaml.Spreadsheet.GraphicCells;
 
 
 namespace Misp.Kernel.Ui.Office.SyncFusion
@@ -51,6 +53,12 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
 
         public static String EXCEL_FILTER = "Excel files (*.xls)|*.xlsx";
 
+        public static int spreadSheetDefaultRow;
+
+        public static int spreadSheetDefaultNumbersOfColumns = 5000;
+
+        public static int spreadSheetDefaultNumbersOfRows = 100;
+
         /// <summary>
         /// Assigne ou retourne l'url du document courant
         /// </summary>
@@ -74,6 +82,9 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             set {/** documentName = value; **/}
         }
 
+
+        MenuItem PasteSpecial = new MenuItem();
+
         /// <summary>
         /// Retourne le nom du fichier ouvert
         /// </summary>
@@ -89,6 +100,9 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         public SyncFusionSheet()
         {
             InitializeComponent();
+            this.spreadsheetControl.AddGraphicChartCellRenderer(new GraphicChartCellRenderer());
+            this.spreadsheetControl.DefaultColumnCount = spreadSheetDefaultNumbersOfColumns;
+            //this.spreadsheetControl.DefaultRowCount = spreadSheetDefaultNumberColumn;
             InitializeHandlers();
             rangePreviousValue = new Range();
         }
@@ -224,9 +238,24 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             {
                 this.spreadsheetControl.ActiveGrid.SelectionChanged += grid_selectionChanged;
                 this.spreadsheetControl.ActiveGrid.CurrentCellValueChanged += ActiveGrid_CurrentCellValueChanged;
+                //this.spreadsheetControl.ActiveGrid.CellContextMenuOpening += OnContextMenuOpening;
+                //this.spreadsheetControl.ActiveGrid.ContextMenuOpening += OnContextMenuOpening;
+                //this.spreadsheetControl.ActiveGrid.ContextMenuClosing += OnContextMenuClosing;
                 gridSelectionActive = true;
             }
         }
+
+        private void OnContextMenuClosing(object sender, ContextMenuEventArgs e)
+        {
+            this.spreadsheetControl.ActiveGrid.ContextMenu.Items.Remove(PasteSpecial);
+        }
+
+        private void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            PasteSpecial.Header = "Copy Bcephal";
+            this.spreadsheetControl.ActiveGrid.ContextMenu.Items.Add(PasteSpecial);   
+        }
+
 
         private void grid_selectionChanged(object sender, Syncfusion.UI.Xaml.CellGrid.Helpers.SelectionChangedEventArgs args)
         {
