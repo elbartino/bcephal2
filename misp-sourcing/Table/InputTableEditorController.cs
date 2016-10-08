@@ -1052,15 +1052,17 @@ namespace Misp.Sourcing.Table
                 editorPage.getInputTableForm().SpreadSheet.SelectionChanged += OnSpreadSheetSelectionChanged;
                 editorPage.getInputTableForm().SpreadSheet.Edited += OnSpreadSheetEdited;
                 editorPage.getInputTableForm().SpreadSheet.SheetActivated += OnDisplayActiveCellData;
-                editorPage.getInputTableForm().SpreadSheet.CopyBcephal += SpreadSheet_CopyBcephal;
-                editorPage.getInputTableForm().SpreadSheet.PasteBcephal += SpreadSheet_PasteBcephal;
-                editorPage.getInputTableForm().SpreadSheet.PartialPasteBcephal += SpreadSheet_PartialPasteBcephal;
+                editorPage.getInputTableForm().SpreadSheet.CopyBcephalEvent += SpreadSheet_CopyBcephal;
+                editorPage.getInputTableForm().SpreadSheet.PasteBcephalEvent += SpreadSheet_PasteBcephal;
+                editorPage.getInputTableForm().SpreadSheet.CreateDesignEvent += SpreadSheet_CreateDesign;
+                editorPage.getInputTableForm().SpreadSheet.AuditCellEvent += SpreadSheet_AuditCell;
+
                 //editorPage.getInputTableForm().SpreadSheet.OnBeforeRightClick +=SpreadSheet_OnBeforeRightClick;
-                
-                //editorPage.getInputTableForm().SpreadSheet.AuditCell += SpreadSheet_AuditCell;
                 //editorPage.getInputTableForm().SpreadSheet.createDesign += SpreadSheet_CreateDesign;
             }
         }
+
+        
 
 
         private void OnCellPropertiesPanelLoaded(object sender, RoutedEventArgs e)

@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <syncfusion:SfSpreadsheetRibbon Margin="0 15 0 0" Grid.Row="0"  DataContext="{Binding ElementName=spreadsheetControl}" syncfusion:SkinStorage.VisualStyle="Office2010Blue" />
+    <syncfusion:SfSpreadsheetRibbon x:Name="spreadsheetRibbonControl" Margin="0 15 0 0" Grid.Row="0"  DataContext="{Binding ElementName=spreadsheetControl}" syncfusion:SkinStorage.VisualStyle="Office2010Blue" />
         <syncfusion:SfSpreadsheet x:Name="spreadsheetControl" 
                                        Grid.Row="1"
                                        FormulaBarVisibility="Visible"

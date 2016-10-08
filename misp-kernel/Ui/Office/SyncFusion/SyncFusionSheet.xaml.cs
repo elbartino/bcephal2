@@ -41,13 +41,20 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         public event SheetActivateEventHandler SheetActivated;
         public event SheetAddedEventHandler SheetAdded;
         public event SheetDeletedEventHandler SheetDeleted;
-        public event CopyEventHandler CopyBcephal;
-        public event PasteEventHandler PasteBcephal;
-        public event PartialPasteEventHandler PartialPasteBcephal;
+        public event CopyEventHandler CopyBcephalEvent;
+        public event PasteEventHandler PasteBcephalEvent;
+        public event AuditCellEventHandler AuditCellEvent;
+        public event CreateDesignEventHandler CreateDesignEvent;
+        public event PartialPasteEventHandler PartialPasteBcephalEvent;
         public bool ThrowEvent = true;
 
         public event DisableAddingSheetEventHandler DisableAddingSheet;
         public delegate void DisableAddingSheetEventHandler();
+
+        public MenuItem PasteBCephalMenu = new MenuItem();
+        public MenuItem CopyBcephalMenu = new MenuItem();
+        public MenuItem AuditCellMenu = new MenuItem();
+        public MenuItem CreateDesignMenu = new MenuItem();
 
         public bool gridSelectionActive = false;
 
@@ -57,7 +64,7 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
 
         public static int spreadSheetDefaultNumbersOfColumns = 5000;
 
-        public static int spreadSheetDefaultNumbersOfRows = 100;
+        public static int spreadSheetDefaultNumbersOfRows = 15000;
 
         /// <summary>
         /// Assigne ou retourne l'url du document courant
@@ -83,7 +90,7 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         }
 
 
-        MenuItem PasteSpecial = new MenuItem();
+       
 
         /// <summary>
         /// Retourne le nom du fichier ouvert
@@ -102,7 +109,7 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             InitializeComponent();
             this.spreadsheetControl.AddGraphicChartCellRenderer(new GraphicChartCellRenderer());
             this.spreadsheetControl.DefaultColumnCount = spreadSheetDefaultNumbersOfColumns;
-            //this.spreadsheetControl.DefaultRowCount = spreadSheetDefaultNumberColumn;
+            this.spreadsheetControl.DefaultRowCount = spreadSheetDefaultNumbersOfRows;
             InitializeHandlers();
             rangePreviousValue = new Range();
         }
@@ -225,12 +232,14 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
         {
             this.spreadsheetControl.WorksheetAdding += SFS_SheetAddingChange;
             this.spreadsheetControl.PropertyChanged += grid_PropertyChanged;
-            //this.Office.WorkbookNewSheet += Office_WorkbookNewSheet;
-            //this.spreadsheetControl. += SFS_SheetActivate;            
-            //this.spreadsheetControl. PropertyChanged += SFS_PropertyChanged;            
-            //this.Office.WindowBeforeRightClick +=Office_WindowBeforeRightClick;
-            //this.MouseDown += EdrawOffice_MouseDown;
+
+            this.CopyBcephalMenu.Click += CopyBcephalMenu_Click;
+            this.PasteBCephalMenu.Click += PasteBCephalMenu_Click;
+            this.AuditCellMenu.Click += AuditCellMenu_Click;
+            this.CreateDesignMenu.Click += CreateDesignMenu_Click;
         }
+
+        
 
         private void grid_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -238,22 +247,25 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             {
                 this.spreadsheetControl.ActiveGrid.SelectionChanged += grid_selectionChanged;
                 this.spreadsheetControl.ActiveGrid.CurrentCellValueChanged += ActiveGrid_CurrentCellValueChanged;
-                //this.spreadsheetControl.ActiveGrid.CellContextMenuOpening += OnContextMenuOpening;
-                //this.spreadsheetControl.ActiveGrid.ContextMenuOpening += OnContextMenuOpening;
-                //this.spreadsheetControl.ActiveGrid.ContextMenuClosing += OnContextMenuClosing;
+                this.spreadsheetControl.ActiveGrid.ContextMenuOpening += OnContextMenuOpening;
                 gridSelectionActive = true;
             }
         }
 
-        private void OnContextMenuClosing(object sender, ContextMenuEventArgs e)
-        {
-            this.spreadsheetControl.ActiveGrid.ContextMenu.Items.Remove(PasteSpecial);
-        }
 
         private void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            PasteSpecial.Header = "Copy Bcephal";
-            this.spreadsheetControl.ActiveGrid.ContextMenu.Items.Add(PasteSpecial);   
+            CopyBcephalMenu.Header = "Copy Bcephal";
+            PasteBCephalMenu.Header = "Paste Bcephal";
+            AuditCellMenu.Header = "Audit Cell";
+            CreateDesignMenu.Header = "Create Design";            
+            if (!this.spreadsheetControl.ActiveGrid.ContextMenu.Items.Contains(CopyBcephalMenu))
+            {
+                this.spreadsheetControl.ActiveGrid.ContextMenu.Items.Add(CopyBcephalMenu);
+                this.spreadsheetControl.ActiveGrid.ContextMenu.Items.Add(PasteBCephalMenu);
+                this.spreadsheetControl.ActiveGrid.ContextMenu.Items.Add(CreateDesignMenu);
+                this.spreadsheetControl.ActiveGrid.ContextMenu.Items.Add(AuditCellMenu);
+            }  
         }
 
 
@@ -287,6 +299,29 @@ namespace Misp.Kernel.Ui.Office.SyncFusion
             if (ThrowEvent && Changed != null) Changed();
         }
 
+        public void CreateDesignMenu_Click(object sender, RoutedEventArgs e)
+        {
+            //Permet de definir un design de parametrisation
+            CreateDesignEvent(new ExcelEventArg(getActiveSheet(), GetSelectedRange()));
+        }
+
+        public void AuditCellMenu_Click(object sender, RoutedEventArgs e)
+        {
+            //Permet de lancer l'audit
+            AuditCellEvent(new ExcelEventArg(getActiveSheet(), GetSelectedRange()));
+        }
+
+        public void PasteBCephalMenu_Click(object sender, RoutedEventArgs e)
+        {
+            //Permet de faire un paste Bcephal
+            PasteBcephalEvent(new ExcelEventArg(getActiveSheet(), getActiveCellAsRange()));
+        }
+
+        public void CopyBcephalMenu_Click(object sender, RoutedEventArgs e)
+        {
+            //Permet de faire une copy Bcephal
+            CopyBcephalEvent(new ExcelEventArg(getActiveSheet(), GetSelectedRange()));
+        }
 
         /// <summary>
         /// Les  cells selectionnées dans le sheet actif
