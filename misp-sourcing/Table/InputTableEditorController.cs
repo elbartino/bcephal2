@@ -1984,9 +1984,11 @@ namespace Misp.Sourcing.Table
             ((InputTableSideBar)SideBar).MeasureGroup.MeasureService = GetInputTableService().MeasureService;
             ((InputTableSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(isReport());
             
-            rootPeriodName = GetInputTableService().PeriodNameService.getRootPeriodName();
+            ((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameService = GetInputTableService().PeriodNameService;
+            ((InputTableSideBar)SideBar).PeriodNameGroup.InitializeTreeViewDatas();
+            rootPeriodName = ((InputTableSideBar)SideBar).PeriodNameGroup.rootPeriodName;
             defaultPeriodName = rootPeriodName.getDefaultPeriodName();
-            ((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
+            
 
             List<BrowserData> designs = GetInputTableService().DesignService.getBrowserDatas();
             ((InputTableSideBar)SideBar).DesignerGroup.DesignerTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
@@ -2020,6 +2022,9 @@ namespace Misp.Sourcing.Table
             //((InputTableSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
             //((InputTableSideBar)SideBar).EntityGroup.EntityTreeview.OnRightClick += onRightClickFromSidebar;
             ((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
+            ((InputTableSideBar)SideBar).PeriodNameGroup.OnSelectPeriodInterval += onSelectPeriodNameFromSidebar;
+            ((InputTableSideBar)SideBar).PeriodNameGroup.OnSelectPeriodName += onSelectPeriodNameFromSidebar;
+
             ((InputTableSideBar)SideBar).DesignerGroup.DesignerTreeview.SelectionChanged += onSelectDesignFromSidebar;
             ((InputTableSideBar)SideBar).CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
             ((InputTableSideBar)SideBar).TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += onSelectLoopFromSidebar;

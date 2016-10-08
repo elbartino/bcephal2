@@ -13,6 +13,13 @@
             <ColumnDefinition Width="15"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="Label" x:FieldModifier="public" Grid.Column="0" HorizontalAlignment="Left" Content="Label"  />
+        <Button x:Name="CloseButton1" x:FieldModifier="public" Grid.Column="1" ToolTip="Remove element">
+            <Button.Template>
+                <ControlTemplate>
+                    <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButtonBlue1.png"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
         <Button x:Name="CloseButton" x:FieldModifier="public" Grid.Column="1" ToolTip="Remove element">
             <Button.Template>
                 <ControlTemplate>
@@ -20,6 +27,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        
         <Label Grid.Column="2" HorizontalAlignment="Center" Content=";"  />
     </Grid>
 </UserControl>
