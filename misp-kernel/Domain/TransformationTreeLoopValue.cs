@@ -48,7 +48,7 @@ namespace Misp.Kernel.Domain
         public bool IsAnAttribute() 
         {
             object value = GetValue();
-            return value != null && (value is Kernel.Domain.Attribute);
+            return (this.scope != null && (value is Kernel.Domain.Attribute || ((Persistent)value).typeName.Equals(typeof(Kernel.Domain.Attribute).Name)));
         }
 
         public bool IsPeriodName()
