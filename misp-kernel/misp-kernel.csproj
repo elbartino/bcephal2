@@ -209,6 +209,7 @@
     <Compile Include="Domain\Browser\RoleBrowserData.cs" />
     <Compile Include="Domain\Browser\ProfilBrowserData.cs" />
     <Compile Include="Domain\Browser\UserBrowserData.cs" />
+    <Compile Include="Domain\Class1.cs" />
     <Compile Include="Domain\FunctionalityRights.cs" />
     <Compile Include="Domain\Grille.cs" />
     <Compile Include="Domain\GrilleColumn.cs" />
