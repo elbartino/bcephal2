@@ -435,7 +435,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public Boolean isReportGrid()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.REPORT_GRID_EDIT);
         }
 
         public Boolean isAutomaticGrid()

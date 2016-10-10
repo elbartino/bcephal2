@@ -17,7 +17,7 @@ namespace Misp.Reporting.ReportGrid
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY; }
+        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.REPORT_GRID_EDIT; }
 
     }
 }

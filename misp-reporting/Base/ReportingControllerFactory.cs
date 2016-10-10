@@ -90,7 +90,7 @@ namespace Misp.Reporting.Base
                 calculatedMeasureBrowserController.Service = ((ReportingServiceFactory)ServiceFactory).GetCalculatedMeasureService2();
                 return calculatedMeasureBrowserController;
             }
-            if (fonctionality == ReportingFunctionalitiesCode.LIST_REPORT_GRID_FUNCTIONALITY)
+            if (fonctionality == ReportingFunctionalitiesCode.REPORT_GRID_LIST)
             {
                 ReportGridBrowserController controller = new ReportGridBrowserController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -100,7 +100,7 @@ namespace Misp.Reporting.Base
                 return controller;
             }
 
-            if (fonctionality == ReportingFunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY)
+            if (fonctionality == ReportingFunctionalitiesCode.REPORT_GRID_EDIT)
             {
                 ReportGridEditorController controller = new ReportGridEditorController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;

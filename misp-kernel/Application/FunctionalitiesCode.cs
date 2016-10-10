@@ -114,9 +114,16 @@ namespace Misp.Kernel.Application
         public static string CALCULATED_MEASURE_VIEW    = "functionality.calculate.measure.view";
         public static string CALCULATED_MEASURE_LIST    = "functionality.calculate.measure.list";
 
+        public static string REPORT_GRID        = "functionality.report.grid";
+        public static string REPORT_GRID_EDIT   = "functionality.report.grid.edit";
+        public static string REPORT_GRID_VIEW   = "functionality.report.grid.view";
+        public static string REPORT_GRID_LIST   = "functionality.report.grid.list";
+
+
         //PLANIFICATION
         public static string NEW_TRANSFORMATION_TREE_FUNCTIONALITY = "NEW_TRANSFORMATION_TREE_FUNCTIONALITY";
         public static string LIST_TRANSFORMATION_TREE_FUNCTIONALITY = "LIST_TRANSFORMATION_TREE_FUNCTIONALITY";
+
         public static string NEW_TRANSFORMATION_TABLE_FUNCTIONALITY = "NEW_TRANSFORMATION_TABLE_FUNCTIONALITY";
         public static string NEW_SLIDE_FUNCTIONALITY = "NEW_SLIDE_FUNCTIONALITY";
 
@@ -128,8 +135,7 @@ namespace Misp.Kernel.Application
 		public static string NEW_INPUT_GRID_FUNCTIONALITY = "NEW_INPUT_GRID_FUNCTIONALITY";
         public static string LIST_INPUT_GRID_FUNCTIONALITY = "LIST_INPUT_GRID_FUNCTIONALITY";
 
-        public static string NEW_REPORT_GRID_FUNCTIONALITY = "NEW_REPORT_GRID_FUNCTIONALITY";
-        public static string LIST_REPORT_GRID_FUNCTIONALITY = "LIST_REPORT_GRID_FUNCTIONALITY";
+        
 
 
         //PIVOT_TABLE
@@ -148,6 +154,7 @@ namespace Misp.Kernel.Application
         
         public static string NEW_POSTING_GRID_FUNCTIONALITY = "NEW_POSTING_GRID_FUNCTIONALITY";
         public static string LIST_POSTING_GRID_FUNCTIONALITY = "LIST_POSTING_GRID_FUNCTIONALITY";
+
         public static string NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY = "NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY";
         public static string LIST_AUTOMATIC_POSTING_GRID_FUNCTIONALITY = "LIST_AUTOMATIC_POSTING_GRID_FUNCTIONALITY";
 

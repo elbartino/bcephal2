@@ -100,8 +100,8 @@ namespace Misp.Reporting.Base
             CalculatedMeasureGroupMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.CALCULATED_MEASURE_LABEL, null);
             PivotTableGroupMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.PIVOT_TABLE_LABEL, null);
 
-            NewReportGridMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.NEW_REPORT_GRID_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY));
-            ListReportGridMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.LIST_REPORT_GRID_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_REPORT_GRID_FUNCTIONALITY));
+            NewReportGridMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.NEW_REPORT_GRID_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.REPORT_GRID_EDIT));
+            ListReportGridMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.LIST_REPORT_GRID_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.REPORT_GRID_LIST));
 
             
             
