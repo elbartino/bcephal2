@@ -50,17 +50,17 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
 
         protected void CustomizeView(Domain.Functionality data)
         {
-            Run run1 = new Run(data.name);
+            Run run1 = new Run(data.Name);
             Hyperlink hyperLink = new Hyperlink(run1)
             {
-                NavigateUri = new Uri("http://localhost//" + data.name),
+                NavigateUri = new Uri("http://localhost//" + data.Name),
                 //DataContext = token
             };
             //this.TextBlock.Inlines.Add(hyperLink);
             //this.TextBlock.ToolTip = data.name;
             hyperLink.RequestNavigate += OnRequestNavigate;
-            this.CheckBox.Content = data.name;
-            this.CheckBox.ToolTip = data.name;
+            this.CheckBox.Content = data.Name;
+            this.CheckBox.ToolTip = data.Name;
             this.CheckBox.Tag = data;
             this.CheckBox.Checked += OnSelectFunctionnality;
             

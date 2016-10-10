@@ -80,12 +80,13 @@ namespace Misp.Kernel.Application
         /// <param name="menuBar"></param>
         protected void buildPluginsMenus(MenuBar menuBar)
         {
+            PrivilegeObserver observer = new PrivilegeObserver();
             foreach(IPlugin plugin in ApplicationManager.Plugins){
                 foreach (ApplicationMenu menu in plugin.Menus)
                 {
                     if (ApplicationManager.ApplcationConfiguration.IsMultiuser())
                     {
-                        if (menu.customize(ApplicationManager.User) != null) menuBar.DisplayMenu(menu);
+                        if (menu.customize(observer) != null) menuBar.DisplayMenu(menu);
                     }
                     else menuBar.DisplayMenu(menu);
                 }

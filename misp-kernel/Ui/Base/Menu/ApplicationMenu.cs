@@ -131,11 +131,11 @@ namespace Misp.Kernel.Ui.Base.Menu
             //ApplicationManager.PageManager.performOperation(OperationType.LIST, ApplicationManager.ControllerFactory.FolderBrowserController);
         }
 
-        public virtual ApplicationMenu customize(User user)
+        public virtual ApplicationMenu customize(PrivilegeObserver observer)
         {
-            if (user == null || !user.active.Value) return null;
-            if (user.IsAdmin()) return this;
-            if (user.profil == null || !user.profil.active) return null;
+            if (observer.user == null || !observer.user.active.Value) return null;
+            if (observer.user.IsAdmin()) return this;
+            if (observer.user.profil == null || !observer.user.profil.active) return null;
             return this;
         }
 

@@ -21,7 +21,7 @@ namespace Misp.Sourcing.Table
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.NEW_INPUT_TABLE_FUNCTIONALITY; }
+        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.INPUT_TABLE_EDIT; }
         
         /// <summary>
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.

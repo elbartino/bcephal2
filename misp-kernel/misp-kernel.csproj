@@ -208,6 +208,10 @@
     <Compile Include="Application\ApplicationManagerBuilder.cs" />
     <Compile Include="Application\ApplicationMenusBuilder.cs" />
     <Compile Include="Application\FunctionalitiesLabel.cs" />
+    <Compile Include="Application\FunctionalityFactory.cs" />
+    <Compile Include="Application\HelpFunctionality.cs" />
+    <Compile Include="Application\PrivilegeObserver.cs" />
+    <Compile Include="Application\ProjectFunctionality.cs" />
     <Compile Include="Domain\Account.cs" />
     <Compile Include="Domain\AutomaticGridAction.cs" />
     <Compile Include="Domain\AutomaticGridData.cs" />

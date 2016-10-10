@@ -21,8 +21,6 @@ namespace Misp.Reporting.Base
         private ApplicationMenu listCalculatedMeasureMenu;
         private ApplicationMenu newPivotTableMenu;
         private ApplicationMenu listPivotTableMenu;
-        private ApplicationMenu exportBudgetMenu;
-
         public ApplicationMenu NewReportMenu { get { return newReportMenu; } }
         public ApplicationMenu ListReportMenu { get { return listReportMenu; } }
 
@@ -34,9 +32,7 @@ namespace Misp.Reporting.Base
 
         public ApplicationMenu NewPivotTableMenu { get { return newPivotTableMenu; } }
         public ApplicationMenu ListPivotTableMenu { get { return listPivotTableMenu; } }
-
-        public ApplicationMenu ExportBudgetMenu { get { return exportBudgetMenu; } }
-
+        
         public ApplicationMenu NewReportGridMenu { get; private set; }
         public ApplicationMenu ListReportGridMenu { get; private set; }
         public ApplicationMenu GridGroupMenu { get; private set; }
@@ -94,8 +90,7 @@ namespace Misp.Reporting.Base
             listStructuredReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE,FunctionalitiesLabel.LIST_STRUCTURED_REPORT_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_STRUCTURED_REPORT_FUNCTIONALITY));
             calculatedMeasureMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE,FunctionalitiesLabel.NEW_CALCULATED_MEASURE_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY));
             listCalculatedMeasureMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.LIST_CALCULATED_MEASURE_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_CALCULATED_MEASURE_FUNCTIONALITY));
-            exportBudgetMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.EXPORT_BUBGET_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.EXPORT_BUDGET));
-       
+            
             newPivotTableMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.NEW_PIVOT_TABLE_LABEL, null);
             listPivotTableMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.LIST_PIVOT_TABLE_LABEL, null);
 

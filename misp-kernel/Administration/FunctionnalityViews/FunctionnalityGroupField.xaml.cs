@@ -58,7 +58,7 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
         {
             if (this.functionality == null) return;
             setMainFunctionality(this.functionality);
-            setSubFunctionalities(this.functionality.children);
+            setSubFunctionalities(this.functionality.Children);
         }
 
         public void setMainFunctionality(Functionality data)

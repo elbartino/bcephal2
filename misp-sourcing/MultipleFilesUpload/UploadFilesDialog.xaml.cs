@@ -336,7 +336,7 @@ namespace Misp.Sourcing.MultipleFilesUpload
             {
                 Object item = this.Step4.Grid.SelectedItems[count - 1];
                 if (((SaveInfo)item).errorMessage == null) ids.Add(((SaveInfo)item).oid);
-                HistoryHandler.Instance.openPage(NavigationToken.GetModifyViewToken(Misp.Sourcing.Base.SourcingFunctionalitiesCode.NEW_INPUT_TABLE_FUNCTIONALITY, ids));
+                HistoryHandler.Instance.openPage(NavigationToken.GetModifyViewToken(Misp.Sourcing.Base.SourcingFunctionalitiesCode.INPUT_TABLE_EDIT, ids));
                 Close();
             }
         }

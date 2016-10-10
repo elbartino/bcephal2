@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Base.Menu;
 using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
 
 namespace Misp.Kernel.Plugin
 {
@@ -23,9 +24,8 @@ namespace Misp.Kernel.Plugin
             this.Name = GetPluinName();
             this.Priority = GetPluinPriority();
             this.Menus = GetPluinMenus();
+            this.Functionalities = GetPluinFunctionalities();
             this.ControllerFactory = GetPluinControllerFactory();
-            this.RadioButton = new RadioButton();
-            this.RadioButton.Content = this.Name;
 		}
 
         /// <summary>
@@ -47,6 +47,12 @@ namespace Misp.Kernel.Plugin
         protected abstract List<ApplicationMenu> GetPluinMenus();
 
         /// <summary>
+        /// Les fonctionalites du plugin
+        /// </summary>
+        /// <returns></returns>
+        protected abstract List<Functionality> GetPluinFunctionalities();
+
+        /// <summary>
         /// Le ControllerFactory du plugin
         /// </summary>
         /// <returns></returns>
@@ -56,6 +62,8 @@ namespace Misp.Kernel.Plugin
         public int Priority { get; set; }
         public ControllerFactory ControllerFactory { get; set; }
         public List<ApplicationMenu> Menus { get; set; }
+        public List<Functionality> Functionalities { get; set; }
+
 		public IPluginHost Host
 		{
 			get{ return host; }
@@ -65,9 +73,7 @@ namespace Misp.Kernel.Plugin
 				host.Register(this);
 			}
 		}
-
-        public RadioButton RadioButton { get; set; }
-
+        
         public int CompareTo(object obj)
         {
             if (obj == null || !(obj is IPlugin)) return 1;

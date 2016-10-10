@@ -161,7 +161,7 @@ namespace Misp.Sourcing.Table
             {
                 page.SideBar.SelectStatus(page.ModuleName);
             }
-            if (page.Functionality == FunctionalitiesCode.FILE_FUNCTIONALITY)
+            if (page.FunctionalityCode == FunctionalitiesCode.PROJECT)
             {
             }
             else

@@ -65,12 +65,12 @@ namespace Misp.Kernel.Ui.Base.Menu
         {
             this.Code = ApplicationMenu.FILE_MENU_CODE;
             this.Header = "File";
-            newFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "New Project", NavigationToken.GetCreateViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY));
-            openFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Open Project", NavigationToken.GetSearchViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY));
+            newFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "New Project", NavigationToken.GetCreateViewToken(FunctionalitiesCode.PROJECT));
+            openFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Open Project", NavigationToken.GetSearchViewToken(FunctionalitiesCode.PROJECT));
             recentFiles = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Open Recent Project", null);
             BuildRecentOpenedFiles();
             BuildSaveAsMenu();
-            NavigationToken token =  NavigationToken.GetCreateViewToken(FunctionalitiesCode.FILE_SAVE_FUNCTIONALITY);
+            NavigationToken token =  NavigationToken.GetCreateViewToken(FunctionalitiesCode.FILE_SAVE);
             token.FunctionalityType = FunctionalityType.SUB_FONCTIONALITY;
             saveFile = BuildMenu(ApplicationMenu.FILE_MENU_SAVE_CODE, "Save Project", token);
             saveFile.IsEnabled = false;
@@ -82,13 +82,13 @@ namespace Misp.Kernel.Ui.Base.Menu
             backupAutomaticMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE,FunctionalitiesLabel.BACKUP_AUTOMATIC_LABEL, NavigationToken.GetCreateViewToken(FunctionalitiesCode.BACKUP_AUTOMATIC_FUNCTIONALITY));          
        
 
-            quitApplication = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Close B-Cephal", new NavigationToken(FunctionalitiesCode.FILE_FUNCTIONALITY, ViewType.LOGOUT));
+            quitApplication = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Close B-Cephal", new NavigationToken(FunctionalitiesCode.PROJECT, ViewType.LOGOUT));
         
         }
         public string lastFilePath { get; set; }
         public void  BuildSaveAsMenu()
         {
-            NavigationToken token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.FILE_SAVE_AS_FUNCTIONALITY, lastFilePath);
+            NavigationToken token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.FILE_SAVE_AS, lastFilePath);
             this.saveAsFile = BuildMenu(ApplicationMenu.FILE_MENU_SAVE_AS_CODE, "Save As", token);
         }
 
@@ -148,7 +148,7 @@ namespace Misp.Kernel.Ui.Base.Menu
         /// <returns></returns>
         protected ApplicationMenu BuildRecentFileMenuItem(string filePath)
         {
-            NavigationToken token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY, filePath);
+            NavigationToken token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.PROJECT, filePath);
             int n = filePath.LastIndexOf(System.IO.Path.DirectorySeparatorChar);
             string header = filePath.Substring(n + 1);
             ApplicationMenu menu = BuildMenu(this.RecentFiles.Code, header, token);

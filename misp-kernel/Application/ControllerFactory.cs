@@ -44,14 +44,14 @@ namespace Misp.Kernel.Application
         /// <returns></returns>
         public virtual Controller.Controllable GetController(string fonctionality)
         {
-            if (fonctionality == FunctionalitiesCode.HOME_PAGE_FUNCTIONALITY)
+            if (fonctionality == FunctionalitiesCode.HOME_PAGE)
             {
                 HomePageController homeController = new HomePageController();
                 homeController.ApplicationManager = this.ApplicationManager;
                 homeController.Service = ServiceFactory.GetFileService();
                 return homeController;
             }
-            if (fonctionality == FunctionalitiesCode.FILE_FUNCTIONALITY)
+            if (fonctionality == FunctionalitiesCode.PROJECT)
             {
                 FileController fileController = new FileController();
                 fileController.ApplicationManager = this.ApplicationManager;
@@ -63,7 +63,7 @@ namespace Misp.Kernel.Application
                 GroupBrowserController controller = new GroupBrowserController();
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ServiceFactory.GetGroupService();
-                controller.Functionality = fonctionality;
+                controller.FunctionalityCode = fonctionality;
                 return controller;
             }
 
@@ -71,7 +71,7 @@ namespace Misp.Kernel.Application
             {
                 RoleEditorController roleEditorController = new RoleEditorController();
                 roleEditorController.ModuleName = "Administration";
-                roleEditorController.Functionality = fonctionality;
+                roleEditorController.FunctionalityCode = fonctionality;
                 roleEditorController.ApplicationManager = this.ApplicationManager;
                 roleEditorController.Service = ServiceFactory.GetRoleService();
                 return roleEditorController;
@@ -81,7 +81,7 @@ namespace Misp.Kernel.Application
             {
                 UserEditorController userEditorController = new UserEditorController();
                 userEditorController.ModuleName = "Administration";
-                userEditorController.Functionality = fonctionality;
+                userEditorController.FunctionalityCode = fonctionality;
                 userEditorController.ApplicationManager = this.ApplicationManager;
                 userEditorController.Service = ServiceFactory.GetUserService();
                 return userEditorController;
@@ -91,7 +91,7 @@ namespace Misp.Kernel.Application
             {
                 UserBrowserController userBrowserController = new UserBrowserController();
                 userBrowserController.ModuleName = "Administration";
-                userBrowserController.Functionality = fonctionality;
+                userBrowserController.FunctionalityCode = fonctionality;
                 userBrowserController.ApplicationManager = this.ApplicationManager;
                 userBrowserController.Service = ServiceFactory.GetUserService();
                 return userBrowserController;
@@ -101,7 +101,7 @@ namespace Misp.Kernel.Application
             {
                 ProfilEditorController profilEditorController = new ProfilEditorController();
                 profilEditorController.ModuleName = "Administration";
-                profilEditorController.Functionality = fonctionality;
+                profilEditorController.FunctionalityCode = fonctionality;
                 profilEditorController.ApplicationManager = this.ApplicationManager;
                 profilEditorController.Service = ServiceFactory.GetProfilService();
                 return profilEditorController;
@@ -111,7 +111,7 @@ namespace Misp.Kernel.Application
             {
                 ProfilBrowserController profilBrowserController = new ProfilBrowserController();
                 profilBrowserController.ModuleName = "Administration";
-                profilBrowserController.Functionality = fonctionality;
+                profilBrowserController.FunctionalityCode = fonctionality;
                 profilBrowserController.ApplicationManager = this.ApplicationManager;
                 profilBrowserController.Service = ServiceFactory.GetProfilService();
                 return profilBrowserController;
@@ -121,7 +121,7 @@ namespace Misp.Kernel.Application
             {
                 UserProfileEditorController userProfileEditorController = new UserProfileEditorController();
                 userProfileEditorController.ModuleName = "Administration";
-                userProfileEditorController.Functionality = fonctionality;
+                userProfileEditorController.FunctionalityCode = fonctionality;
                 userProfileEditorController.ApplicationManager = this.ApplicationManager;
                 userProfileEditorController.Service = ServiceFactory.GetUserService();
                 return userProfileEditorController;

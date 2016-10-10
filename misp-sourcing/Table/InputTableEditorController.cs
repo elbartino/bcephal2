@@ -1158,7 +1158,7 @@ namespace Misp.Sourcing.Table
         {
             DesignerForm designForm = new DesignerForm();
             DesignWindow designWindow = new DesignWindow();
-            NavigationToken token = NavigationToken.GetCreateViewToken(Sourcing.Base.SourcingFunctionalitiesCode.NEW_DESIGN_FUNCTIONALITY);
+            NavigationToken token = NavigationToken.GetCreateViewToken(Sourcing.Base.SourcingFunctionalitiesCode.DESIGN_EDIT);
             Controllable page = ApplicationManager.ControllerFactory.GetController(token.Functionality);
             page.NavigationToken = token;
             page.Initialize();

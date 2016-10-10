@@ -21,7 +21,7 @@ namespace Misp.Sourcing.Designer
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.NEW_DESIGN_FUNCTIONALITY; }
+        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.DESIGN_EDIT; }
         
         /// <summary>
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.

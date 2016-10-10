@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Plugin;
 using Misp.Kernel.Ui.Base.Menu;
 using Misp.Planification.Base;
@@ -37,6 +38,17 @@ namespace Misp.Planification
             List<ApplicationMenu> menus = new List<ApplicationMenu>(0);
             menus.Add(new PlanificationMenu());
             return menus;
+        }
+
+        /// <summary>
+        /// Les fonctionalites du plugin
+        /// </summary>
+        /// <returns></returns>
+        protected override List<Functionality> GetPluinFunctionalities()
+        {
+            List<Functionality> functionalities = new List<Functionality>(0);
+            //functionalities.Add();
+            return functionalities;
         }
 
         /// <summary>

@@ -34,7 +34,7 @@ namespace Misp.Planification.Base
             {
                 TransformationTreeEditorController tableController = new TransformationTreeEditorController();
                 tableController.ModuleName = Misp.Planification.PlugIn.MODULE_NAME;
-                tableController.Functionality = fonctionality;
+                tableController.FunctionalityCode = fonctionality;
                 tableController.ApplicationManager = this.ApplicationManager;
                 tableController.Service = ((PlanificationServiceFactory)ServiceFactory).GetTransformationTreeService();
                 return tableController;
@@ -43,7 +43,7 @@ namespace Misp.Planification.Base
             {
                 TransformationTreeBrowserController tableController = new TransformationTreeBrowserController();
                 tableController.ModuleName = Misp.Planification.PlugIn.MODULE_NAME;
-                tableController.Functionality = fonctionality;
+                tableController.FunctionalityCode = fonctionality;
                 tableController.ApplicationManager = this.ApplicationManager;
                 tableController.Service = ((PlanificationServiceFactory)ServiceFactory).GetTransformationTreeService();
                 return tableController;
@@ -53,7 +53,7 @@ namespace Misp.Planification.Base
             {
                 TransformationTableController transformationTableController = new TransformationTableController();
                 transformationTableController.ModuleName = Misp.Planification.PlugIn.MODULE_NAME;
-                transformationTableController.Functionality = fonctionality;
+                transformationTableController.FunctionalityCode = fonctionality;
                 transformationTableController.ApplicationManager = this.ApplicationManager;
                 transformationTableController.Service = ((PlanificationServiceFactory)ServiceFactory).GetTransformationTableService();
                 return transformationTableController;
@@ -63,7 +63,7 @@ namespace Misp.Planification.Base
             {
                 PresentationEditorController presentationEditorController = new PresentationEditorController();
                 presentationEditorController.ModuleName = Misp.Planification.PlugIn.MODULE_NAME;
-                presentationEditorController.Functionality = fonctionality;
+                presentationEditorController.FunctionalityCode = fonctionality;
                 presentationEditorController.ApplicationManager = this.ApplicationManager;
                 presentationEditorController.Service = ((PlanificationServiceFactory)ServiceFactory).GetPresentationService();
                 return presentationEditorController;
@@ -73,7 +73,7 @@ namespace Misp.Planification.Base
             {
                 RunAllTransformationTreesController RunAllTransformationTreesController = new RunAllTransformationTreesController();
                 RunAllTransformationTreesController.ModuleName = Misp.Planification.PlugIn.MODULE_NAME;
-                RunAllTransformationTreesController.Functionality = fonctionality;
+                RunAllTransformationTreesController.FunctionalityCode = fonctionality;
                 RunAllTransformationTreesController.ApplicationManager = this.ApplicationManager;
                 RunAllTransformationTreesController.Service = ((PlanificationServiceFactory)ServiceFactory).GetTransformationTreeService();
                 return RunAllTransformationTreesController;
@@ -84,7 +84,7 @@ namespace Misp.Planification.Base
                 RunAllTransformationTreesController RunAllTransformationTreesController = new RunAllTransformationTreesController();
                 RunAllTransformationTreesController.isClearOption = true;
                 RunAllTransformationTreesController.ModuleName = Misp.Planification.PlugIn.MODULE_NAME;
-                RunAllTransformationTreesController.Functionality = fonctionality;
+                RunAllTransformationTreesController.FunctionalityCode = fonctionality;
                 RunAllTransformationTreesController.ApplicationManager = this.ApplicationManager;
                 RunAllTransformationTreesController.Service = ((PlanificationServiceFactory)ServiceFactory).GetTransformationTreeService();
                 return RunAllTransformationTreesController;
@@ -94,7 +94,7 @@ namespace Misp.Planification.Base
             {
                 CombinedTransformationTree.CombinedTransformationTreeEditorController CombineTransformationTreeEditorController = new CombinedTransformationTree.CombinedTransformationTreeEditorController();
                 CombineTransformationTreeEditorController.ModuleName = Misp.Planification.PlugIn.MODULE_NAME;
-                CombineTransformationTreeEditorController.Functionality = fonctionality;
+                CombineTransformationTreeEditorController.FunctionalityCode = fonctionality;
                 CombineTransformationTreeEditorController.ApplicationManager = this.ApplicationManager;
                 CombineTransformationTreeEditorController.Service = ((PlanificationServiceFactory)ServiceFactory).GetCombinedTransformationTreeService();
                 return CombineTransformationTreeEditorController;
@@ -104,7 +104,7 @@ namespace Misp.Planification.Base
             {
                 CombinedTransformationTree.CombinedTransformationTreeBrowserController CombineTransformationTreeEditorBrowserController = new CombinedTransformationTree.CombinedTransformationTreeBrowserController();
                 CombineTransformationTreeEditorBrowserController.ModuleName = Misp.Planification.PlugIn.MODULE_NAME;
-                CombineTransformationTreeEditorBrowserController.Functionality = fonctionality;
+                CombineTransformationTreeEditorBrowserController.FunctionalityCode = fonctionality;
                 CombineTransformationTreeEditorBrowserController.ApplicationManager = this.ApplicationManager;
                 CombineTransformationTreeEditorBrowserController.Service = ((PlanificationServiceFactory)ServiceFactory).GetCombinedTransformationTreeService();
                 return CombineTransformationTreeEditorBrowserController;

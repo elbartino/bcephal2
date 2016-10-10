@@ -72,7 +72,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Budget\ExportBudgetController.cs" />
     <Compile Include="Calculated Measure\CalculatedMeasureBrowser.cs" />
     <Compile Include="Calculated Measure\CalculatedMeasureBrowserController.cs" />
     <Compile Include="Calculated Measure\CalculatedMeasureEditor.cs" />

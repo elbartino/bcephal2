@@ -13,7 +13,7 @@ namespace Misp.Kernel.Ui.File
 
         public HomePageController()
         {
-            Functionality = FunctionalitiesCode.HOME_PAGE_FUNCTIONALITY;
+            FunctionalityCode = FunctionalitiesCode.HOME_PAGE;
         }
 
         /// <summary>

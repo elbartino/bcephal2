@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Base.Menu;
 using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
 
 
 namespace Misp.Kernel.Plugin
@@ -40,8 +41,9 @@ namespace Misp.Kernel.Plugin
         List<ApplicationMenu> Menus { get; set; }
 
         /// <summary>
-        /// Side bar RadioButton
+        /// Functionalities
         /// </summary>
-        RadioButton RadioButton { get; set; }
+        List<Functionality> Functionalities { get; set; }
+
     }
 }

@@ -18,7 +18,7 @@ namespace Misp.Sourcing.AutomaticTargetViews
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.NEW_AUTOMATIC_TARGET_FUNCTIONALITY; }
+        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.AUTOMATIC_TARGET_EDIT; }
 
         public override Misp.Kernel.Domain.SubjectType SubjectTypeFound()
         {

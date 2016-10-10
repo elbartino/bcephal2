@@ -148,27 +148,26 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
                 
         private void InitializeGroupFields()
         {
-            this.ModelGroupField = buildGroupField(FunctionalitiesLabel.INITIATION_MODEL_LABEL, FunctionalitiesLabel.INITIATION_NEW_MODEL_LABEL, FunctionalitiesLabel.INITIATION_RECENT_MODEL_LABEL, FunctionalitiesCode.INITIATION_FUNCTIONALITY);
+            this.ModelGroupField = buildGroupField(FunctionalitiesLabel.INITIATION_MODEL_LABEL, FunctionalitiesLabel.INITIATION_NEW_MODEL_LABEL);
 
-            this.TableGroupField = buildGroupField(FunctionalitiesLabel.INPUT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_INPUT_TABLE_LABEL, FunctionalitiesLabel.RECENT_INPUT_TABLE_LABEL, FunctionalitiesCode.NEW_INPUT_TABLE_FUNCTIONALITY);
-            this.ReportGroupField = buildGroupField(FunctionalitiesLabel.REPORT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_REPORT_LABEL, FunctionalitiesLabel.RECENT_REPORT_LABEL, FunctionalitiesCode.NEW_REPORT_FUNCTIONALITY);
-            this.StructuredReportGroupField = buildGroupField(FunctionalitiesLabel.STRUCTURED_REPORT_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_STRUCTURED_REPORT_LABEL, FunctionalitiesLabel.RECENT_STRUCTURED_REPORT_LABEL, FunctionalitiesCode.NEW_STRUCTURED_REPORT_FUNCTIONALITY);
-            this.TreeGroupField = buildGroupField(FunctionalitiesLabel.TRANSFORMATION_TREE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_TRANSFORMATION_TREE_LABEL, FunctionalitiesLabel.RECENT_TRANSFORMATION_TREE_LABEL, FunctionalitiesCode.NEW_TRANSFORMATION_TREE_FUNCTIONALITY);
-            this.CombinedTreeGroupField = buildGroupField(FunctionalitiesLabel.COMBINED_TRANSFORMATION_TREE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_COMBINED_TRANSFORMATION_TREES_LABEL, FunctionalitiesLabel.RECENT_TRANSFORMATION_TREE_LABEL, FunctionalitiesCode.NEW_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY);
-            this.TargetGroupField = buildGroupField(FunctionalitiesLabel.TARGET_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_TARGET_LABEL, FunctionalitiesLabel.RECENT_TARGET_LABEL, FunctionalitiesCode.NEW_TARGET_FUNCTIONALITY);
-            this.DesignGroupField = buildGroupField(FunctionalitiesLabel.DESIGN_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_DESIGN_LABEL, FunctionalitiesLabel.RECENT_TARGET_LABEL, FunctionalitiesCode.NEW_DESIGN_FUNCTIONALITY);
-            this.CalculatedMeasureGroupField = buildGroupField(FunctionalitiesLabel.CALCULATED_MEASURE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_CALCULATED_MEASURE_LABEL, FunctionalitiesLabel.RECENT_CALCULATED_MEASURE_LABEL, FunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY);
-            this.AutomaticUploadGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_SOURCING_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_SOURCING_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_SOURCING_LABEL, FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY);
-            this.InputGridGroupField = buildGroupField(FunctionalitiesLabel.INPUT_GRID_LABEL, FunctionalitiesLabel.NEW_INPUT_GRID_LABEL, FunctionalitiesLabel.RECENT_INPUT_GRID_LABEL, FunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY);
-            this.ReportGridGroupField = buildGroupField(FunctionalitiesLabel.REPORT_GRID_LABEL, FunctionalitiesLabel.NEW_REPORT_GRID_LABEL, FunctionalitiesLabel.RECENT_REPORT_GRID_LABEL, FunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY);
-            this.AutomaticGridGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_GRID_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_GRID_LABEL, FunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY);
-            this.AutomaticTargetGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_TARGET_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_TARGET_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_TARGET_LABEL, FunctionalitiesCode.NEW_AUTOMATIC_TARGET_FUNCTIONALITY);
+            this.TableGroupField = buildGroupField(FunctionalitiesLabel.INPUT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_INPUT_TABLE_LABEL);
+            this.ReportGroupField = buildGroupField(FunctionalitiesLabel.REPORT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_REPORT_LABEL);
+            this.StructuredReportGroupField = buildGroupField(FunctionalitiesLabel.STRUCTURED_REPORT_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_STRUCTURED_REPORT_LABEL);
+            this.TreeGroupField = buildGroupField(FunctionalitiesLabel.TRANSFORMATION_TREE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_TRANSFORMATION_TREE_LABEL);
+            this.CombinedTreeGroupField = buildGroupField(FunctionalitiesLabel.COMBINED_TRANSFORMATION_TREE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_COMBINED_TRANSFORMATION_TREES_LABEL);
+            this.TargetGroupField = buildGroupField(FunctionalitiesLabel.TARGET_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_TARGET_LABEL);
+            this.DesignGroupField = buildGroupField(FunctionalitiesLabel.DESIGN_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_DESIGN_LABEL);
+            this.CalculatedMeasureGroupField = buildGroupField(FunctionalitiesLabel.CALCULATED_MEASURE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_CALCULATED_MEASURE_LABEL);
+            this.AutomaticUploadGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_SOURCING_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_SOURCING_LABEL);
+            this.InputGridGroupField = buildGroupField(FunctionalitiesLabel.INPUT_GRID_LABEL, FunctionalitiesLabel.NEW_INPUT_GRID_LABEL);
+            this.ReportGridGroupField = buildGroupField(FunctionalitiesLabel.REPORT_GRID_LABEL, FunctionalitiesLabel.NEW_REPORT_GRID_LABEL);
+            this.AutomaticGridGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_GRID_LABEL);
+            this.AutomaticTargetGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_TARGET_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_TARGET_LABEL);
             if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
             {
-                this.PostingGridGroupField = buildGroupField(FunctionalitiesLabel.POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_POSTING_GRID_LABEL, FunctionalitiesLabel.RECENT_POSTING_GRID_LABEL, FunctionalitiesCode.NEW_POSTING_GRID_FUNCTIONALITY);
-                this.AutomaticPostingGridGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_POSTING_GRID_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_POSTING_GRID_LABEL, FunctionalitiesCode.NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY);
-
-                this.ReconciliationFilterGroupField = buildGroupField(FunctionalitiesLabel.RECONCILIATION_FILTER_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_RECONCILIATION_FILTER_LABEL, FunctionalitiesLabel.RECENT_RECONCILIATION_LABEL, FunctionalitiesCode.NEW_RECONCILIATION_FILTER_FUNCTIONALITY);
+                this.PostingGridGroupField = buildGroupField(FunctionalitiesLabel.POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_POSTING_GRID_LABEL);
+                this.AutomaticPostingGridGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_POSTING_GRID_LABEL);
+                this.ReconciliationFilterGroupField = buildGroupField(FunctionalitiesLabel.RECONCILIATION_FILTER_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_RECONCILIATION_FILTER_LABEL);
             }
 
 
@@ -187,7 +186,7 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
             this.DisplayedGroupField.Add(this.CalculatedMeasureGroupField);
         }
 
-        private FunctionnalityGroupField buildGroupField(string title, string newLabel, string recentItemsLabel, string newFunctionCode)
+        private FunctionnalityGroupField buildGroupField(string title,string newFunctionCode)
         {
             FunctionnalityGroupField groupField = new FunctionnalityGroupField(newFunctionCode);
             groupField.FunctionnalityView = this;
@@ -204,7 +203,7 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
                 Functionality f = new Functionality("Code_" + i, "name " + i + "");
                 list.Add(f);
             }
-            data.children.AddRange(list);
+            data.Children.AddRange(list);
             return data;
         }
 

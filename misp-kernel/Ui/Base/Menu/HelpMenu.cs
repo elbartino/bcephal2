@@ -37,11 +37,11 @@ namespace Misp.Kernel.Ui.Base.Menu
         /// </summary>
         protected override void initChildren()
         {
-            this.Code = ApplicationMenu.HELP_MENU_CODE;
+            this.Code = FunctionalitiesCode.HELP;
             this.Header = "Help";
-            help = BuildMenu(ApplicationMenu.HELP_MENU_CODE, "Help...", null);
+            help = BuildMenu(FunctionalitiesCode.HELP, "Help...", null);
             help.IsEnabled = false;
-            aboutBcephal = BuildMenu(ApplicationMenu.HELP_MENU_CODE, "About B-Cephal...", NavigationToken.GetCreateViewToken(FunctionalitiesCode.ABOUT_FUNCTIONALITY));
+            aboutBcephal = BuildMenu(FunctionalitiesCode.HELP, "About B-Cephal...", NavigationToken.GetCreateViewToken(FunctionalitiesCode.HELP_ABOUT));
         }
 
     }
