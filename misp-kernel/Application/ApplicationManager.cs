@@ -24,6 +24,7 @@ namespace Misp.Kernel.Application
 
         protected ControllerFactory controllerFactory;
         protected HistoryHandler historyHandler;
+        
 
         /// <summary>
         /// 
@@ -90,6 +91,22 @@ namespace Misp.Kernel.Application
             set { this.historyHandler = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the FunctionalityFactory. 
+        /// </summary>
+        public FunctionalityFactory FunctionalityFactory
+        {
+            get
+            {
+                if (FunctionalityFactory.Instance == null)
+                {
+                    new FunctionalityFactory(this);
+                }
+                return FunctionalityFactory.Instance;
+            }
+            set { FunctionalityFactory.Instance = value; }
+        }
+        
         /// <summary>
         /// Gets or sets the ServerArg. 
         /// </summary>

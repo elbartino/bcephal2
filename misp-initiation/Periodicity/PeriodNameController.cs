@@ -22,7 +22,7 @@ namespace Misp.Initiation.Periodicity
         /// </summary>
         public PeriodNameController()
         {
-            Functionality = InitiationFunctionalitiesCode.PERIOD_FUNCTIONALITY;
+            FunctionalityCode = InitiationFunctionalitiesCode.PERIOD_FUNCTIONALITY;
             ModuleName = PlugIn.MODULE_NAME;
         }
 

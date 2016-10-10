@@ -11,6 +11,7 @@ using Misp.Kernel.Service;
 using Misp.Kernel.Application;
 using Misp.Kernel.Util;
 using log4net;
+using Misp.Kernel.Domain;
 
 namespace Misp.Kernel.Controller
 {
@@ -126,8 +127,8 @@ namespace Misp.Kernel.Controller
         /// <summary>
         /// Assigne ou retourne le nom (ou code) de la fonctionnalité contrôlée.
         /// </summary>
-        public string Functionality { get; set; }
-
+        public string FunctionalityCode { get; set; }
+        
         /// <summary>
         /// Assigne ou retourne le nom du module auquel appartient la fonctionnalité contrôlée. 
         /// </summary>

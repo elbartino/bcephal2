@@ -32,7 +32,7 @@ namespace Misp.Sourcing.MultipleFilesUpload
         /// <summary>
         /// Assigne ou retourne le nom (ou code) de la fonctionnalité contrôlée. 
         /// </summary>
-        public string Functionality { get; set; }
+        public string FunctionalityCode { get; set; }
 
         /// <summary>
         /// Assigne ou retourne le nom du module auquel appartient la fonctionnalité contrôlée. 

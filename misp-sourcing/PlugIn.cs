@@ -8,6 +8,7 @@ using Misp.Kernel.Ui.Base;
 using Misp.Sourcing.Base;
 using Misp.Kernel.Ui.Base.Menu;
 using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
 
 
 namespace Misp.Sourcing
@@ -39,6 +40,17 @@ namespace Misp.Sourcing
             List<ApplicationMenu> menus = new List<ApplicationMenu>(0);
             menus.Add(new SourcingMenu());
             return menus;
+        }
+
+        /// <summary>
+        /// Les fonctionalites du plugin
+        /// </summary>
+        /// <returns></returns>
+        protected override List<Functionality> GetPluinFunctionalities()
+        {
+            List<Functionality> functionalities = new List<Functionality>(0);
+            //functionalities.Add();
+            return functionalities;
         }
 
         /// <summary>

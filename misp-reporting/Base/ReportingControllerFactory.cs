@@ -39,7 +39,7 @@ namespace Misp.Reporting.Base
             {
                 ReportEditorController reportController = new ReportEditorController();
                 reportController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
-                reportController.Functionality = fonctionality;
+                reportController.FunctionalityCode = fonctionality;
                 reportController.ApplicationManager = this.ApplicationManager;
                 reportController.Service = ((ReportingServiceFactory)ServiceFactory).GetReportService();
                 return reportController;
@@ -48,7 +48,7 @@ namespace Misp.Reporting.Base
             {
                 ReportBrowserController reportController = new ReportBrowserController();
                 reportController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
-                reportController.Functionality = fonctionality;
+                reportController.FunctionalityCode = fonctionality;
                 reportController.ApplicationManager = this.ApplicationManager;
                 reportController.Service = ((ReportingServiceFactory)ServiceFactory).GetReportService();
                 return reportController;
@@ -58,7 +58,7 @@ namespace Misp.Reporting.Base
             {
                 StructuredReportEditorController reportController = new StructuredReportEditorController();
                 reportController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
-                reportController.Functionality = fonctionality;
+                reportController.FunctionalityCode = fonctionality;
                 reportController.ApplicationManager = this.ApplicationManager;
                 reportController.Service = ((ReportingServiceFactory)ServiceFactory).GetStructuredReportService();
                 return reportController;
@@ -67,7 +67,7 @@ namespace Misp.Reporting.Base
             {
                 StructuredReportBrowserController reportController = new StructuredReportBrowserController();
                 reportController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
-                reportController.Functionality = fonctionality;
+                reportController.FunctionalityCode = fonctionality;
                 reportController.ApplicationManager = this.ApplicationManager;
                 reportController.Service = ((ReportingServiceFactory)ServiceFactory).GetStructuredReportService();
                 return reportController;
@@ -77,7 +77,7 @@ namespace Misp.Reporting.Base
             {
                 CalculatedMeasureEditorController calculatedMeasureEditorController = new CalculatedMeasureEditorController();
                 calculatedMeasureEditorController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
-                calculatedMeasureEditorController.Functionality = fonctionality;
+                calculatedMeasureEditorController.FunctionalityCode = fonctionality;
                 calculatedMeasureEditorController.ApplicationManager = this.ApplicationManager;
                 calculatedMeasureEditorController.Service = ((ReportingServiceFactory)ServiceFactory).GetCalculatedMeasureService2();
                 return calculatedMeasureEditorController;
@@ -86,7 +86,7 @@ namespace Misp.Reporting.Base
             {
                 CalculatedMeasureBrowserController calculatedMeasureBrowserController = new CalculatedMeasureBrowserController();
                 calculatedMeasureBrowserController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
-                calculatedMeasureBrowserController.Functionality = fonctionality;
+                calculatedMeasureBrowserController.FunctionalityCode = fonctionality;
                 calculatedMeasureBrowserController.ApplicationManager = this.ApplicationManager;
                 calculatedMeasureBrowserController.Service = ((ReportingServiceFactory)ServiceFactory).GetCalculatedMeasureService2();
                 return calculatedMeasureBrowserController;
@@ -95,7 +95,7 @@ namespace Misp.Reporting.Base
             {
                 ExportBudgetController exportBudgetController = new ExportBudgetController();
                 exportBudgetController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
-                exportBudgetController.Functionality = fonctionality;
+                exportBudgetController.FunctionalityCode = fonctionality;
                 exportBudgetController.ApplicationManager = this.ApplicationManager;
                 exportBudgetController.Service = ((ReportingServiceFactory)ServiceFactory).GetReportService();
                 return exportBudgetController;
@@ -104,7 +104,7 @@ namespace Misp.Reporting.Base
             {
                 ReportGridBrowserController controller = new ReportGridBrowserController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                controller.Functionality = fonctionality;
+                controller.FunctionalityCode = fonctionality;
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ((ReportingServiceFactory)ServiceFactory).GetReportGridService();
                 return controller;
@@ -114,7 +114,7 @@ namespace Misp.Reporting.Base
             {
                 ReportGridEditorController controller = new ReportGridEditorController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                controller.Functionality = fonctionality;
+                controller.FunctionalityCode = fonctionality;
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ((ReportingServiceFactory)ServiceFactory).GetReportGridService();
                 return controller;

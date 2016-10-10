@@ -6,6 +6,7 @@ using System.Windows;
 using System.Threading.Tasks;
 using Misp.Kernel.Application;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Domain;
 
 namespace Misp.Kernel.Controller
 {
@@ -19,8 +20,8 @@ namespace Misp.Kernel.Controller
         /// <summary>
         /// Assigne ou retourne le nom (ou code) de la fonctionnalité contrôlée. 
         /// </summary>
-        string Functionality { get; set; }
-
+        string FunctionalityCode { get; set; }
+        
         /// <summary>
         /// Assigne ou retourne le nom du module auquel appartient la fonctionnalité contrôlée. 
         /// </summary>

@@ -8,6 +8,7 @@ using Misp.Kernel.Ui.Base;
 using Misp.Initiation.Base;
 using Misp.Kernel.Ui.Base.Menu;
 using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
 
 
 namespace Misp.Initiation
@@ -39,6 +40,17 @@ namespace Misp.Initiation
             List<ApplicationMenu> menus = new List<ApplicationMenu>(0);
             menus.Add(new InitiationMenu());
             return menus;
+        }
+
+        /// <summary>
+        /// Les fonctionalites du plugin
+        /// </summary>
+        /// <returns></returns>
+        protected override List<Functionality> GetPluinFunctionalities()
+        {
+            List<Functionality> functionalities = new List<Functionality>(0);
+            //functionalities.Add();
+            return functionalities;
         }
 
         /// <summary>

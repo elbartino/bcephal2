@@ -35,7 +35,7 @@ namespace Misp.Allocation.Base
             {
                 ClearAllocationController controller = new ClearAllocationController();
                 controller.ModuleName = Misp.Allocation.PlugIn.MODULE_NAME;
-                controller.Functionality = fonctionality;
+                controller.FunctionalityCode = fonctionality;
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ((AllocationServiceFactory)ServiceFactory).GetClearAllocationService();
                 return controller;
@@ -44,7 +44,7 @@ namespace Misp.Allocation.Base
             {
                 RunAllAllocationsController controller = new RunAllAllocationsController();
                 controller.ModuleName = Misp.Allocation.PlugIn.MODULE_NAME;
-                controller.Functionality = fonctionality;
+                controller.FunctionalityCode = fonctionality;
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ((AllocationServiceFactory)ServiceFactory).GetAllocationService();
                 return controller;
@@ -53,7 +53,7 @@ namespace Misp.Allocation.Base
             {
                 AllocationLogController controller = new AllocationLogController();
                 controller.ModuleName = Misp.Allocation.PlugIn.MODULE_NAME;
-                controller.Functionality = fonctionality;
+                controller.FunctionalityCode = fonctionality;
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ((AllocationServiceFactory)ServiceFactory).GetAllocationLogService();
                 return controller;

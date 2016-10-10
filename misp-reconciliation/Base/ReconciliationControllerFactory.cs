@@ -42,7 +42,7 @@ namespace Misp.Reconciliation.Base
             {
                 ReconciliationFilterEditorController recoEditorController = new ReconciliationFilterEditorController();
                 recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                recoEditorController.Functionality = fonctionality;
+                recoEditorController.FunctionalityCode = fonctionality;
                 recoEditorController.ApplicationManager = this.ApplicationManager;
                 recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterService();
                 return recoEditorController;
@@ -52,7 +52,7 @@ namespace Misp.Reconciliation.Base
             {
                 ReconciliationFilterBrowserController recoBrowserController = new ReconciliationFilterBrowserController();
                 recoBrowserController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                recoBrowserController.Functionality = fonctionality;
+                recoBrowserController.FunctionalityCode = fonctionality;
                 recoBrowserController.ApplicationManager = this.ApplicationManager;
                 recoBrowserController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterService();
                 return recoBrowserController;
@@ -69,7 +69,7 @@ namespace Misp.Reconciliation.Base
 
                 PostingEditorController controller = new PostingEditorController();
                 controller.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                controller.Functionality = fonctionality;
+                controller.FunctionalityCode = fonctionality;
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationGridService();
                 return controller;
@@ -79,7 +79,7 @@ namespace Misp.Reconciliation.Base
             {
                 PostingGridBrowserController controller = new PostingGridBrowserController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                controller.Functionality = fonctionality;
+                controller.FunctionalityCode = fonctionality;
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingGridService();
                 return controller;
@@ -88,7 +88,7 @@ namespace Misp.Reconciliation.Base
             {
                 PostingGridEditorController controller = new PostingGridEditorController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                controller.Functionality = fonctionality;
+                controller.FunctionalityCode = fonctionality;
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingGridService();
                 return controller;
@@ -97,7 +97,7 @@ namespace Misp.Reconciliation.Base
             {
                 AutomaticPostingGridEditorController automaticSourcingGridController = new AutomaticPostingGridEditorController();
                 automaticSourcingGridController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                automaticSourcingGridController.Functionality = fonctionality;
+                automaticSourcingGridController.FunctionalityCode = fonctionality;
                 automaticSourcingGridController.ApplicationManager = this.ApplicationManager;
                 automaticSourcingGridController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetAutomaticPostingGridService();
                 //automaticSourcingGridController.InputTableService = ((ReconciliationServiceFactory)ServiceFactory).GetInputTableService();
@@ -107,7 +107,7 @@ namespace Misp.Reconciliation.Base
             {
                 AutomaticPostingGridBrowerController automaticSourcingGridBrowerController = new AutomaticPostingGridBrowerController();
                 automaticSourcingGridBrowerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                automaticSourcingGridBrowerController.Functionality = fonctionality;
+                automaticSourcingGridBrowerController.FunctionalityCode = fonctionality;
                 automaticSourcingGridBrowerController.ApplicationManager = this.ApplicationManager;
                 automaticSourcingGridBrowerController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetAutomaticPostingGridService();
                 return automaticSourcingGridBrowerController;
@@ -118,7 +118,7 @@ namespace Misp.Reconciliation.Base
 
                 ReconciliationContextEditorController controller = new ReconciliationContextEditorController();
                 controller.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                controller.Functionality = fonctionality;
+                controller.FunctionalityCode = fonctionality;
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationContextService();
                 return controller;

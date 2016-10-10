@@ -19,7 +19,7 @@ namespace Misp.Kernel.Service
 
         #endregion
 
-        #region USER
+        #region User
 
         /// <summary>
         /// save role
@@ -114,10 +114,32 @@ namespace Misp.Kernel.Service
         }
         #endregion
         
-        #region User
-        #endregion
-
         #region Rights
+
+        /// <summary>
+        /// get all user in data base 
+        /// different to @user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public List<Right> getConnectedUserRights()
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/connected-user-rights", Method.GET);
+                request.RequestFormat = DataFormat.Json;
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                List<Right> rights = Serializer.Deserialize<List<Right>>(queryResult.Content);
+                return rights;
+            }
+            catch (Exception)
+            {
+                return new List<Right>(0);
+            }
+        }
+
         #endregion
 
     }

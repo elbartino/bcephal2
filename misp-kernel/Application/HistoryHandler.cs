@@ -179,7 +179,7 @@ namespace Misp.Kernel.Application
                 if (functionality == FunctionalitiesCode.PROPERTIES_FUNCTIONALITY) { createProperties(); return; }
                 if (functionality == FunctionalitiesCode.LOAD_TRANSFORMATION_TREES_FUNCTIONALITY) { LoadTransformationTrees(false); return; }
                 if (functionality == FunctionalitiesCode.CLEAR_TRANSFORMATION_TREES_FUNCTIONALITY) { LoadTransformationTrees(true); return; }
-                if (functionality == FunctionalitiesCode.FILE_SAVE_FUNCTIONALITY) token.currentActiveFunctionality = ActivePage.Functionality;
+                if (functionality == FunctionalitiesCode.FILE_SAVE_FUNCTIONALITY) token.currentActiveFunctionality = ActivePage.FunctionalityCode;
                 if (functionality == FunctionalitiesCode.FILE_SAVE_AS_FUNCTIONALITY) { SaveFileAs(token); return; }
                 if (functionality == FunctionalitiesCode.BACKUP_SIMPLE_FUNCTIONALITY || functionality == FunctionalitiesCode.BACKUP_AUTOMATIC_FUNCTIONALITY) 
                 {
@@ -196,7 +196,7 @@ namespace Misp.Kernel.Application
                 OperationState state = OperationState.CONTINUE;
                 if (isMainFonctionality && !(ActivePage != null && ActivePage is FileController))
                 {
-                    string activefunctionality = ActivePage != null ? ActivePage.Functionality : null;
+                    string activefunctionality = ActivePage != null ? ActivePage.FunctionalityCode : null;
                     page = searchInOpenedPages(activefunctionality);
                     bool tryToSaveActivePage = page != null && activefunctionality != null && !activefunctionality.Equals(functionality);
                     state = tryToSaveActivePage ? page.Close() : OperationState.CONTINUE;
@@ -394,7 +394,7 @@ namespace Misp.Kernel.Application
             for (int i = OpenedPages.Count - 1; i >= 0; i--)
             {
                 page = OpenedPages[i];
-                if(page.Functionality != FunctionalitiesCode.FILE_FUNCTIONALITY)
+                if(page.FunctionalityCode != FunctionalitiesCode.FILE_FUNCTIONALITY)
                 closePage(page);
             }
             page = searchInOpenedPages(FunctionalitiesCode.FILE_FUNCTIONALITY);
@@ -610,7 +610,7 @@ namespace Misp.Kernel.Application
 
             if (ActivePage != null && ActivePage is FileController) page.ParentController = ActivePage;
                       
-            if (ActivePage == null || (!page.Equals(ActivePage) || !page.Functionality.Equals(ActivePage.Functionality)))
+            if (ActivePage == null || (!page.Equals(ActivePage) || !page.FunctionalityCode.Equals(ActivePage.FunctionalityCode)))
             {
                 if (isSubFonctionality) { page.ParentController = ActivePage; }
  
@@ -852,7 +852,7 @@ namespace Misp.Kernel.Application
             {
                 foreach (Controllable page in OpenedPages)
                 {
-                    if (page.Functionality == functionality) { return page; }
+                    if (page.FunctionalityCode == functionality) { return page; }
                 }
             }
             return null;
