@@ -21,7 +21,7 @@ namespace Misp.Reporting.StructuredReport
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.NEW_STRUCTURED_REPORT_FUNCTIONALITY; }
+        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.STRUCTURED_REPORT_EDIT; }
         
         /// <summary>
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.

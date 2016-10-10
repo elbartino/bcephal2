@@ -390,7 +390,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public Boolean isReport()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_REPORT_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.REPORT_EDIT);
         }
         
         public Boolean isDesign()
@@ -400,7 +400,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public Boolean isStructuredReport()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_STRUCTURED_REPORT_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.STRUCTURED_REPORT_EDIT);
         }
 
         public Boolean isTarget()
@@ -420,12 +420,12 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public Boolean isCalculatedMeasure()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.CALCULATED_MEASURE_EDIT);
         }
 
         public Boolean isAutomaticUpload()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.AUTOMATIC_SOURCING_EDIT);
         }
 
         public Boolean isInputGrid()

@@ -34,7 +34,7 @@ namespace Misp.Reporting.Base
         /// <returns></returns>
         public override Controllable GetController(string fonctionality)
         {
-            if (fonctionality == ReportingFunctionalitiesCode.NEW_REPORT_FUNCTIONALITY)
+            if (fonctionality == ReportingFunctionalitiesCode.REPORT_EDIT)
             {
                 ReportEditorController reportController = new ReportEditorController();
                 reportController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
@@ -43,7 +43,7 @@ namespace Misp.Reporting.Base
                 reportController.Service = ((ReportingServiceFactory)ServiceFactory).GetReportService();
                 return reportController;
             }
-            if (fonctionality == ReportingFunctionalitiesCode.LIST_REPORT_FUNCTIONALITY)
+            if (fonctionality == ReportingFunctionalitiesCode.REPORT_LIST)
             {
                 ReportBrowserController reportController = new ReportBrowserController();
                 reportController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
@@ -53,7 +53,7 @@ namespace Misp.Reporting.Base
                 return reportController;
             }
 
-            if (fonctionality == ReportingFunctionalitiesCode.NEW_STRUCTURED_REPORT_FUNCTIONALITY)
+            if (fonctionality == ReportingFunctionalitiesCode.STRUCTURED_REPORT_EDIT)
             {
                 StructuredReportEditorController reportController = new StructuredReportEditorController();
                 reportController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
@@ -62,7 +62,7 @@ namespace Misp.Reporting.Base
                 reportController.Service = ((ReportingServiceFactory)ServiceFactory).GetStructuredReportService();
                 return reportController;
             }
-            if (fonctionality == ReportingFunctionalitiesCode.LIST_STRUCTURED_REPORT_FUNCTIONALITY)
+            if (fonctionality == ReportingFunctionalitiesCode.STRUCTURED_REPORT_LIST)
             {
                 StructuredReportBrowserController reportController = new StructuredReportBrowserController();
                 reportController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
@@ -72,7 +72,7 @@ namespace Misp.Reporting.Base
                 return reportController;
             }
 
-            if (fonctionality == ReportingFunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY)
+            if (fonctionality == ReportingFunctionalitiesCode.CALCULATED_MEASURE_EDIT)
             {
                 CalculatedMeasureEditorController calculatedMeasureEditorController = new CalculatedMeasureEditorController();
                 calculatedMeasureEditorController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
@@ -81,7 +81,7 @@ namespace Misp.Reporting.Base
                 calculatedMeasureEditorController.Service = ((ReportingServiceFactory)ServiceFactory).GetCalculatedMeasureService2();
                 return calculatedMeasureEditorController;
             }
-            if (fonctionality == ReportingFunctionalitiesCode.LIST_CALCULATED_MEASURE_FUNCTIONALITY)
+            if (fonctionality == ReportingFunctionalitiesCode.CALCULATED_MEASURE_LIST)
             {
                 CalculatedMeasureBrowserController calculatedMeasureBrowserController = new CalculatedMeasureBrowserController();
                 calculatedMeasureBrowserController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;

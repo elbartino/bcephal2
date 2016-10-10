@@ -21,7 +21,7 @@ namespace Misp.Reporting.Calculated_Measure
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return Misp.Reporting.Base.ReportingFunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY; }
+        public override string GetEditorFuntionality() { return Misp.Reporting.Base.ReportingFunctionalitiesCode.CALCULATED_MEASURE_EDIT; }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.

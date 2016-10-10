@@ -479,8 +479,8 @@ namespace Misp.Planification.PresentationView
             PresentationEditorItem page = (PresentationEditorItem)getPresentationEditor().getActivePage();
             if (page == null) return;
 
-            NavigationToken token = NavigationToken.GetCreateViewToken(Reporting.Base.ReportingFunctionalitiesCode.NEW_REPORT_FUNCTIONALITY);
-            if (reportoid > 0) token = NavigationToken.GetModifyViewToken(Reporting.Base.ReportingFunctionalitiesCode.NEW_REPORT_FUNCTIONALITY, reportoid);
+            NavigationToken token = NavigationToken.GetCreateViewToken(Reporting.Base.ReportingFunctionalitiesCode.REPORT_EDIT);
+            if (reportoid > 0) token = NavigationToken.GetModifyViewToken(Reporting.Base.ReportingFunctionalitiesCode.REPORT_EDIT, reportoid);
             
             controllable = ApplicationManager.ControllerFactory.GetController(token.Functionality);
             controllable.NavigationToken = token;

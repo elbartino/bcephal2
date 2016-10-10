@@ -94,7 +94,7 @@ namespace Misp.Sourcing.Base
                 return designerController;
             }
         
-            if (fonctionality == SourcingFunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY || fonctionality == SourcingFunctionalitiesCode.UPLOAD_STRUCTURED_FILE_FUNCTIONALITY)
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_EDIT || fonctionality == SourcingFunctionalitiesCode.UPLOAD_STRUCTURED_FILE_FUNCTIONALITY)
             {
                 AutomaticSourcingEditorController automaticSourcingController = new AutomaticSourcingEditorController();
                 automaticSourcingController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;

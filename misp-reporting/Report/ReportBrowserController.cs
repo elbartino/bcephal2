@@ -21,7 +21,7 @@ namespace Misp.Reporting.Report
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return Misp.Reporting.Base.ReportingFunctionalitiesCode.NEW_REPORT_FUNCTIONALITY; }
+        public override string GetEditorFuntionality() { return Misp.Reporting.Base.ReportingFunctionalitiesCode.REPORT_EDIT; }
 
         public override Misp.Kernel.Domain.SubjectType SubjectTypeFound()
         {

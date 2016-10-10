@@ -244,14 +244,14 @@ namespace Misp.Kernel.Ui.Dashboard
             this.ModelBlock = buildBlock(FunctionalitiesLabel.INITIATION_MODEL_LABEL, FunctionalitiesLabel.INITIATION_NEW_MODEL_LABEL, FunctionalitiesLabel.INITIATION_RECENT_MODEL_LABEL, FunctionalitiesCode.INITIATION);
 
             this.TableBlock = buildBlock(FunctionalitiesLabel.INPUT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_INPUT_TABLE_LABEL, FunctionalitiesLabel.RECENT_INPUT_TABLE_LABEL, FunctionalitiesCode.INPUT_TABLE_EDIT);
-            this.ReportBlock = buildBlock(FunctionalitiesLabel.REPORT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_REPORT_LABEL, FunctionalitiesLabel.RECENT_REPORT_LABEL, FunctionalitiesCode.NEW_REPORT_FUNCTIONALITY);
-            this.StructuredReportBlock = buildBlock(FunctionalitiesLabel.STRUCTURED_REPORT_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_STRUCTURED_REPORT_LABEL, FunctionalitiesLabel.RECENT_STRUCTURED_REPORT_LABEL, FunctionalitiesCode.NEW_STRUCTURED_REPORT_FUNCTIONALITY);
+            this.ReportBlock = buildBlock(FunctionalitiesLabel.REPORT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_REPORT_LABEL, FunctionalitiesLabel.RECENT_REPORT_LABEL, FunctionalitiesCode.REPORT_EDIT);
+            this.StructuredReportBlock = buildBlock(FunctionalitiesLabel.STRUCTURED_REPORT_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_STRUCTURED_REPORT_LABEL, FunctionalitiesLabel.RECENT_STRUCTURED_REPORT_LABEL, FunctionalitiesCode.STRUCTURED_REPORT_EDIT);
             this.TreeBlock = buildBlock(FunctionalitiesLabel.TRANSFORMATION_TREE_DASHBOARD_LABEL,  FunctionalitiesLabel.NEW_TRANSFORMATION_TREE_LABEL, FunctionalitiesLabel.RECENT_TRANSFORMATION_TREE_LABEL, FunctionalitiesCode.NEW_TRANSFORMATION_TREE_FUNCTIONALITY);
             this.CombinedTreeBlock = buildBlock(FunctionalitiesLabel.COMBINED_TRANSFORMATION_TREE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_COMBINED_TRANSFORMATION_TREES_LABEL,FunctionalitiesLabel.RECENT_TRANSFORMATION_TREE_LABEL , FunctionalitiesCode.NEW_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY);
             this.TargetBlock = buildBlock(FunctionalitiesLabel.TARGET_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_TARGET_LABEL, FunctionalitiesLabel.RECENT_TARGET_LABEL, FunctionalitiesCode.TARGET_EDIT);
             this.DesignBlock = buildBlock(FunctionalitiesLabel.DESIGN_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_DESIGN_LABEL, FunctionalitiesLabel.RECENT_TARGET_LABEL, FunctionalitiesCode.DESIGN_EDIT);
-            this.CalculatedMeasureBlock = buildBlock(FunctionalitiesLabel.CALCULATED_MEASURE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_CALCULATED_MEASURE_LABEL, FunctionalitiesLabel.RECENT_CALCULATED_MEASURE_LABEL, FunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY);
-            this.AutomaticUploadBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_SOURCING_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_SOURCING_LABEL,FunctionalitiesLabel.RECENT_AUTOMATIC_SOURCING_LABEL , FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY);
+            this.CalculatedMeasureBlock = buildBlock(FunctionalitiesLabel.CALCULATED_MEASURE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_CALCULATED_MEASURE_LABEL, FunctionalitiesLabel.RECENT_CALCULATED_MEASURE_LABEL, FunctionalitiesCode.CALCULATED_MEASURE_EDIT);
+            this.AutomaticUploadBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_SOURCING_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_SOURCING_LABEL,FunctionalitiesLabel.RECENT_AUTOMATIC_SOURCING_LABEL , FunctionalitiesCode.AUTOMATIC_SOURCING_EDIT);
             this.InputGridBlock = buildBlock(FunctionalitiesLabel.INPUT_GRID_LABEL, FunctionalitiesLabel.NEW_INPUT_GRID_LABEL,FunctionalitiesLabel.RECENT_INPUT_GRID_LABEL, FunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY);
             this.ReportGridBlock = buildBlock(FunctionalitiesLabel.REPORT_GRID_LABEL, FunctionalitiesLabel.NEW_REPORT_GRID_LABEL, FunctionalitiesLabel.RECENT_REPORT_GRID_LABEL, FunctionalitiesCode.NEW_REPORT_GRID_FUNCTIONALITY);
             this.AutomaticGridBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_GRID_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_GRID_LABEL, FunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY);
@@ -367,8 +367,8 @@ namespace Misp.Kernel.Ui.Dashboard
                 block.contextMenu.Items.Add(block.OrderByMenuItem);
                 block.contextMenu.Items.Add(block.ConfigurationMenuItem);
             }
-            else if (newFunctionCode.Equals(FunctionalitiesCode.NEW_REPORT_FUNCTIONALITY)
-                || newFunctionCode.Equals(FunctionalitiesCode.NEW_STRUCTURED_REPORT_FUNCTIONALITY))
+            else if (newFunctionCode.Equals(FunctionalitiesCode.REPORT_EDIT)
+                || newFunctionCode.Equals(FunctionalitiesCode.STRUCTURED_REPORT_EDIT))
             {
                 block.contextMenu.Items.Add(block.NewMenuItem);
                 block.contextMenu.Items.Add(block.OpenMenuItem);
@@ -381,7 +381,7 @@ namespace Misp.Kernel.Ui.Dashboard
                 block.contextMenu.Items.Add(block.OrderByMenuItem);
                 block.contextMenu.Items.Add(block.ConfigurationMenuItem);
             }
-            else if (newFunctionCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY)
+            else if (newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_SOURCING_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY)
                 || newFunctionCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY)
                 || newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_TARGET_EDIT))
@@ -397,7 +397,7 @@ namespace Misp.Kernel.Ui.Dashboard
                 block.contextMenu.Items.Add(block.OrderByMenuItem);
                 block.contextMenu.Items.Add(block.ConfigurationMenuItem);
             }
-            else if (newFunctionCode.Equals(FunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY)
+            else if (newFunctionCode.Equals(FunctionalitiesCode.CALCULATED_MEASURE_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.DESIGN_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.TARGET_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY)

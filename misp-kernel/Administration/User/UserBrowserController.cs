@@ -24,7 +24,7 @@ namespace Misp.Kernel.Administration.User
         /// </summary>
         public override string GetEditorFuntionality() 
         { 
-            return AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_USER; 
+            return AdministrationFunctionalitiesCode.ADMINISTRATION_USER_EDIT; 
         }
         
         /// <summary>

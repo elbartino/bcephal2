@@ -84,12 +84,12 @@ namespace Misp.Reporting.Base
         {
             this.Code = ApplicationMenu.REPORTING_MENU_CODE;
             this.Header = FunctionalitiesLabel.REPORTING_LABEL;
-            newReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.NEW_REPORT_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_REPORT_FUNCTIONALITY));
-            listReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.LIST_REPORT_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_REPORT_FUNCTIONALITY));
-            newStructuredReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE,FunctionalitiesLabel.NEW_STRUCTURED_REPORT_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_STRUCTURED_REPORT_FUNCTIONALITY));
-            listStructuredReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE,FunctionalitiesLabel.LIST_STRUCTURED_REPORT_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_STRUCTURED_REPORT_FUNCTIONALITY));
-            calculatedMeasureMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE,FunctionalitiesLabel.NEW_CALCULATED_MEASURE_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.NEW_CALCULATED_MEASURE_FUNCTIONALITY));
-            listCalculatedMeasureMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.LIST_CALCULATED_MEASURE_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.LIST_CALCULATED_MEASURE_FUNCTIONALITY));
+            newReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.NEW_REPORT_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.REPORT_EDIT));
+            listReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.LIST_REPORT_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.REPORT_LIST));
+            newStructuredReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE,FunctionalitiesLabel.NEW_STRUCTURED_REPORT_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.STRUCTURED_REPORT_EDIT));
+            listStructuredReportMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE,FunctionalitiesLabel.LIST_STRUCTURED_REPORT_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.STRUCTURED_REPORT_LIST));
+            calculatedMeasureMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE,FunctionalitiesLabel.NEW_CALCULATED_MEASURE_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.CALCULATED_MEASURE_EDIT));
+            listCalculatedMeasureMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.LIST_CALCULATED_MEASURE_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.CALCULATED_MEASURE_LIST));
             
             newPivotTableMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.NEW_PIVOT_TABLE_LABEL, null);
             listPivotTableMenu = BuildMenu(ApplicationMenu.REPORTING_MENU_CODE, FunctionalitiesLabel.LIST_PIVOT_TABLE_LABEL, null);

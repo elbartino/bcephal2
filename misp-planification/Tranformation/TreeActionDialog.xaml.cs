@@ -154,7 +154,7 @@ namespace Misp.Planification.Tranformation
 
         public void initializeReport()
         {
-            this.ReportEditorController = (ReportEditorController)ApplicationManager.Instance.ControllerFactory.GetController(ReportingFunctionalitiesCode.NEW_REPORT_FUNCTIONALITY);
+            this.ReportEditorController = (ReportEditorController)ApplicationManager.Instance.ControllerFactory.GetController(ReportingFunctionalitiesCode.REPORT_EDIT);
             this.ReportEditorController.Initialize();
             this.ReportEditorController.CustomizeMenuForTree(this.dockingManager);
             displayPage(this.ReportEditorController);

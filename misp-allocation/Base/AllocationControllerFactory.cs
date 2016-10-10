@@ -40,7 +40,7 @@ namespace Misp.Allocation.Base
                 controller.Service = ((AllocationServiceFactory)ServiceFactory).GetClearAllocationService();
                 return controller;
             }
-            if (fonctionality == FunctionalitiesCode.RUN_ALL_ALLOCATION_FUNCTIONALITY)
+            if (fonctionality == FunctionalitiesCode.ALLOCATION_RUN_ALL)
             {
                 RunAllAllocationsController controller = new RunAllAllocationsController();
                 controller.ModuleName = Misp.Allocation.PlugIn.MODULE_NAME;

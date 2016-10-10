@@ -77,7 +77,7 @@ namespace Misp.Kernel.Application
                 return roleEditorController;
             }
 
-            if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_USER)
+            if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_USER_EDIT)
             {
                 UserEditorController userEditorController = new UserEditorController();
                 userEditorController.ModuleName = "Administration";
@@ -87,7 +87,7 @@ namespace Misp.Kernel.Application
                 return userEditorController;
             }
 
-            if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_USER)
+            if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_USER_LIST)
             {
                 UserBrowserController userBrowserController = new UserBrowserController();
                 userBrowserController.ModuleName = "Administration";
@@ -97,7 +97,7 @@ namespace Misp.Kernel.Application
                 return userBrowserController;
             }
 
-            if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_NEW_PROFIL)
+            if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_PROFIL_EDIT)
             {
                 ProfilEditorController profilEditorController = new ProfilEditorController();
                 profilEditorController.ModuleName = "Administration";
@@ -107,7 +107,7 @@ namespace Misp.Kernel.Application
                 return profilEditorController;
             }
 
-            if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_LIST_PROFIL)
+            if (fonctionality == AdministrationFunctionalitiesCode.ADMINISTRATION_PROFIL_LIST)
             {
                 ProfilBrowserController profilBrowserController = new ProfilBrowserController();
                 profilBrowserController.ModuleName = "Administration";

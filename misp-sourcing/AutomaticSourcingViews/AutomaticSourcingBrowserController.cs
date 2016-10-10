@@ -25,7 +25,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         /// </summary>
         public override string GetEditorFuntionality()
         {
-            return Misp.Sourcing.Base.SourcingFunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY; 
+            return Misp.Sourcing.Base.SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_EDIT; 
         }
         
         /// <summary>

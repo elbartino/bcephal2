@@ -52,7 +52,7 @@ namespace Misp.Allocation.Base
             this.Header = FunctionalitiesLabel.ALLOCATION_LABEL;
             newAllocationRunMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_RUN_LIST_LABEL, NavigationToken.GetCreateViewToken(AllocationFunctionalitiesCode.NEW_ALLOCATION_RUN_FUNCTIONALITY));
             listAllocationRunMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_NEW_LABEL, NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.LIST_ALLOCATION_RUN_FUNCTIONALITY));
-            runAllAllocationMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_RUN_TABLES_LABEL, NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.RUN_ALL_ALLOCATION_FUNCTIONALITY));
+            runAllAllocationMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_RUN_TABLES_LABEL, NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.ALLOCATION_RUN_ALL));
             clearAllAllocationMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_CLEAR_TABLES_LABEL, NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.ALLOCATION_CLEAR_ALL));
             allocationLogMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_LOG_LABEL, NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.ALLOCATION_LOG));
         }

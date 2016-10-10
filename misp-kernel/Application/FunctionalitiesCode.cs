@@ -21,19 +21,19 @@ namespace Misp.Kernel.Application
         public static string FILE_SAVE_AS   = "FILE_SAVE_AS_FONCTIONALITY";
 
 
-        public static string HOME_PAGE = "HOME_PAGE";
+        public static string HOME_PAGE = "functionality.home.page";
 
-        public static string LOGOUT = "LOGOUT";
+        public static string LOGOUT = "functionality.logout";
+
+
+
+        
+        
         
 
-        
-        public static string RUN_ALL_ALLOCATION_FUNCTIONALITY = "RUN_ALL_ALLOCATION_FUNCTIONALITY";
-        
-        public static string NEW_AUTOMATIC_SOURCING_FUNCTIONALITY = "NEW_AUTOMATIC_SOURCING_FUNCTIONALITY";
 
-
-        public static string ALLOCATION_CLEAR_ALL = "ALLOCATION_CLEAR_ALL_FUNCTIONALITY";
-        public static string ALLOCATION_LOG = "ALLOCATION_LOG_FUNCTIONALITY";
+        
+        
         
 
         
@@ -60,6 +60,10 @@ namespace Misp.Kernel.Application
         public static string INITIATION_PERIOD  = "functionality.initiation.period";
         public static string INITIATION_MEASURE = "functionality.initiation.measure";
 
+        //ALLOCATION
+        public static string ALLOCATION_LOG         = "functionality.allocation.log";
+        public static string ALLOCATION_RUN_ALL     = "functionality.allocation.run.all";
+        public static string ALLOCATION_CLEAR_ALL   = "functionality.allocation.clear.all";
 
         //SOURCING
         public static string SOURCING           = "functionality.sourcing";
@@ -88,19 +92,27 @@ namespace Misp.Kernel.Application
         public static string AUTOMATIC_SOURCING_EDIT = "functionality.automatic.sourcing.edit";
         public static string AUTOMATIC_SOURCING_VIEW = "functionality.automatic.sourcing.view";
         public static string AUTOMATIC_SOURCING_LIST = "functionality.automatic.sourcing.list";
-
+        
         public static string UPLOAD_STRUCTURED_FILE_FUNCTIONALITY = "UPLOAD_STRUCTURED_FILE_FUNCTIONALITY";
        
 
         //REPORTING
-        public static string NEW_REPORT_FUNCTIONALITY = "NEW_REPORT_FUNCTIONALITY";
-        public static string LIST_REPORT_FUNCTIONALITY = "LIST_REPORT_FUNCTIONALITY";
+        public static string REPORTING = "functionality.reporting";
 
-        public static string NEW_STRUCTURED_REPORT_FUNCTIONALITY = "NEW_STRUCTURED_REPORT_FUNCTIONALITY";
-        public static string LIST_STRUCTURED_REPORT_FUNCTIONALITY = "LIST_STRUCTURED_REPORT_FUNCTIONALITY";
+        public static string REPORT         = "functionality.report";
+        public static string REPORT_EDIT    = "functionality.report.edit";
+        public static string REPORT_VIEW    = "functionality.report.view";
+        public static string REPORT_LIST    = "functionality.report.list";
 
-        public static string NEW_CALCULATED_MEASURE_FUNCTIONALITY = "NEW_CALCULATED_MEASURE_FUNCTIONALITY";
-        public static string LIST_CALCULATED_MEASURE_FUNCTIONALITY = "LIST_CALCULATED_MEASURE_FUNCTIONALITY";
+        public static string STRUCTURED_REPORT      = "functionality.structured.report";
+        public static string STRUCTURED_REPORT_EDIT = "functionality.structured.report.edit";
+        public static string STRUCTURED_REPORT_VIEW = "functionality.structured.report.view";
+        public static string STRUCTURED_REPORT_LIST = "functionality.structured.report.list";
+
+        public static string CALCULATED_MEASURE         = "functionality.calculate.measure";
+        public static string CALCULATED_MEASURE_EDIT    = "functionality.calculate.measure.edit";
+        public static string CALCULATED_MEASURE_VIEW    = "functionality.calculate.measure.view";
+        public static string CALCULATED_MEASURE_LIST    = "functionality.calculate.measure.list";
 
         //PLANIFICATION
         public static string NEW_TRANSFORMATION_TREE_FUNCTIONALITY = "NEW_TRANSFORMATION_TREE_FUNCTIONALITY";
@@ -140,12 +152,23 @@ namespace Misp.Kernel.Application
         public static string LIST_AUTOMATIC_POSTING_GRID_FUNCTIONALITY = "LIST_AUTOMATIC_POSTING_GRID_FUNCTIONALITY";
 
         //ADMINISTRATION
-        public static string ADMINISTRATION_NEW_USER = "ADMINISTRATION_NEW_USER";
-        public static string ADMINISTRATION_LIST_USER = "ADMINISTRATION_LIST_USER";
-        public static string ADMINISTRATION_LIST_PROFIL = "ADMINISTRATION_LIST_PROFIL";
-        public static string ADMINISTRATION_NEW_PROFIL = "ADMINISTRATION_NEW_PROFIL";
-        public static string ADMINISTRATION_ROLE = "ADMINISTRATION_ROLE";
-        public static string ADMINISTRATION_LIST_ROLE = "ADMINISTRATION_LIST_ROLE";
+        public static string ADMINISTRATION = "functionality.administration";
+
+        public static string ADMINISTRATION_USER        = "functionality.administration.user";
+        public static string ADMINISTRATION_USER_EDIT   = "functionality.administration.user.edit";
+        public static string ADMINISTRATION_USER_VIEW   = "functionality.administration.user.view";
+        public static string ADMINISTRATION_USER_LIST   = "functionality.administration.user.list";
+
+        public static string ADMINISTRATION_PROFIL      = "functionality.administration.profil";
+        public static string ADMINISTRATION_PROFIL_EDIT = "functionality.administration.profil.edit";
+        public static string ADMINISTRATION_PROFIL_VIEW = "functionality.administration.profil.view";
+        public static string ADMINISTRATION_PROFIL_LIST = "functionality.administration.profil.list";
+
+        public static string ADMINISTRATION_ROLE        = "functionality.administration.role";
+        public static string ADMINISTRATION_ROLE_EDIT   = "functionality.administration.role.edit";
+        public static string ADMINISTRATION_ROLE_VIEW   = "functionality.administration.role.view";
+        public static string ADMINISTRATION_ROLE_LIST   = "functionality.administration.role.list";
+
         public static string ADMINISTRATION_CONNECTED_USER_PROFILE = "ADMINISTRATION_CONNECTED_USER_PROFILE";
     }
 }

@@ -171,7 +171,7 @@ namespace Misp.Kernel.Application
             {
                 string functionality = token.Functionality;
                 if (functionality == FunctionalitiesCode.HELP_ABOUT) { OpenAboutDialog(); return; }
-                if (functionality == FunctionalitiesCode.RUN_ALL_ALLOCATION_FUNCTIONALITY) { StartRunAllAllocation(); return; }
+                if (functionality == FunctionalitiesCode.ALLOCATION_RUN_ALL) { StartRunAllAllocation(); return; }
                 if (functionality == FunctionalitiesCode.ALLOCATION_CLEAR_ALL) { StartClearAllAllocation(); return; }
                 if (functionality == FunctionalitiesCode.ALLOCATION_LOG) { StartAllocationLog(); return; }
                 if (functionality == FunctionalitiesCode.UPLOAD_MULTIPLE_FILES) { UploadMultipleFiles(); return; }
@@ -316,9 +316,9 @@ namespace Misp.Kernel.Application
                 else
                 {
                     if (oid is int)
-                        token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY, oid);
+                        token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.AUTOMATIC_SOURCING_EDIT, oid);
                     else
-                        token = NavigationToken.GetCreateViewToken(FunctionalitiesCode.NEW_AUTOMATIC_SOURCING_FUNCTIONALITY);
+                        token = NavigationToken.GetCreateViewToken(FunctionalitiesCode.AUTOMATIC_SOURCING_EDIT);
                     return openEditionPage(token);
                 }
                 
@@ -348,7 +348,7 @@ namespace Misp.Kernel.Application
         {
             try
             {
-                string functionality = FunctionalitiesCode.RUN_ALL_ALLOCATION_FUNCTIONALITY;
+                string functionality = FunctionalitiesCode.ALLOCATION_RUN_ALL;
                 Controllable page = ApplicationManager.ControllerFactory.GetController(functionality);
                 if (page != null) return page.Create();
                 return OperationState.CONTINUE;
