@@ -147,13 +147,9 @@ namespace Misp.Sourcing.Base
             UploadMultipleFileSourcingMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.UPLOAD_MULTIPLE_FILES, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.UPLOAD_MULTIPLE_FILES));
         }
 
-        public override ApplicationMenu customize(User user)
+        public override ApplicationMenu customize(PrivilegeObserver observer)
         {
-            if (user == null || !user.active.Value) return null;
-            if (user.IsAdmin()) return this;
-            if (user.profil == null || !user.profil.active) return null;
-            
-            return this;
+            return base.customize(observer);
         }
 
 

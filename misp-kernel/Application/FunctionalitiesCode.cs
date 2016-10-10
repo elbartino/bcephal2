@@ -18,7 +18,6 @@ namespace Misp.Kernel.Application
         public static string PROJECT        = "functionality.project";
         public static string PROJECT_EDIT   = "functionality.project.edit";
         public static string FILE_SAVE_AS   = "FILE_SAVE_AS_FONCTIONALITY";
-        public static string FILE_SAVE_AS   = "FILE_SAVE_AS_FONCTIONALITY";
 
         public static string HOME_PAGE = "HOME_PAGE";
 
