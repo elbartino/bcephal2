@@ -13,7 +13,7 @@ namespace Misp.Kernel.Application
         /// <summary>
         /// Connected user
         /// </summary>
-        protected User user;
+        public User user;
 
         protected List<String> privileges;
 
@@ -60,6 +60,7 @@ namespace Misp.Kernel.Application
         /// <returns></returns>
         public bool hasPrivilege(Functionality functionality)
         {
+            if (!user.active.HasValue || !user.active.Value) return false;
             if (user.IsAdmin()) return true;
             if (functionality == null) return false;
             if (containsPrivilege(functionality.Code)) return true;

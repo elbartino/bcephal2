@@ -379,10 +379,10 @@ namespace Misp.Kernel.Application
             for (int i = OpenedPages.Count - 1; i >= 0; i--)
             {
                 page = OpenedPages[i];
-                if(page.FunctionalityCode != FunctionalitiesCode.FILE)
+                if(page.FunctionalityCode != FunctionalitiesCode.PROJECT)
                 closePage(page);
             }
-            page = searchInOpenedPages(FunctionalitiesCode.FILE);
+            page = searchInOpenedPages(FunctionalitiesCode.PROJECT);
             if (page.SaveAs() == OperationState.STOP) return OperationState.STOP;
             return openPage(page);
 

@@ -153,7 +153,7 @@ namespace Misp.Kernel.Ui.Base
         /// <param name="e"></param>
         private void WindowClosing(object sender, CancelEventArgs e)
         {
-            OperationState state = HistoryHandler.Instance.openPage(new NavigationToken(FunctionalitiesCode.FILE, ViewType.LOGOUT));
+            OperationState state = HistoryHandler.Instance.openPage(new NavigationToken(FunctionalitiesCode.PROJECT, ViewType.LOGOUT));
             e.Cancel = OperationState.STOP == state;
             if(state != OperationState.STOP)
             Kernel.Util.ClipbordUtil.ClearClipboard();
@@ -331,7 +331,7 @@ namespace Misp.Kernel.Ui.Base
             {
                 page.SideBar.SelectStatus(page.ModuleName);
             }
-            if (page.FunctionalityCode == FunctionalitiesCode.FILE)
+            if (page.FunctionalityCode == FunctionalitiesCode.PROJECT)
             {
                 ((File.FileController)page).RefreshDashboard();
                 dockingManager.Visibility = Visibility.Collapsed;

@@ -45,6 +45,9 @@ namespace Misp.Kernel.Application
             get
             {
                 List<Functionality> functionalities = new List<Functionality>(0);
+                functionalities.Add(new ProjectFunctionality());
+                functionalities.Add(new HelpFunctionality());
+
                 foreach (Plugin.IPlugin plugin in this.ApplicationManager.Plugins)
                 {
                     List<Functionality> funcs = plugin.Functionalities;

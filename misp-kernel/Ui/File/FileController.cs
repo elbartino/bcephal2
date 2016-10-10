@@ -21,7 +21,7 @@ namespace Misp.Kernel.Ui.File
 
         public FileController()
         {
-            FunctionalityCode = FunctionalitiesCode.FILE;
+            FunctionalityCode = FunctionalitiesCode.PROJECT;
         }
 
 

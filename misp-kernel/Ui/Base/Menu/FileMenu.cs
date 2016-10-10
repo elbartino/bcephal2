@@ -65,8 +65,8 @@ namespace Misp.Kernel.Ui.Base.Menu
         {
             this.Code = ApplicationMenu.FILE_MENU_CODE;
             this.Header = "File";
-            newFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "New Project", NavigationToken.GetCreateViewToken(FunctionalitiesCode.FILE));
-            openFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Open Project", NavigationToken.GetSearchViewToken(FunctionalitiesCode.FILE));
+            newFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "New Project", NavigationToken.GetCreateViewToken(FunctionalitiesCode.PROJECT));
+            openFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Open Project", NavigationToken.GetSearchViewToken(FunctionalitiesCode.PROJECT));
             recentFiles = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Open Recent Project", null);
             BuildRecentOpenedFiles();
             BuildSaveAsMenu();
@@ -82,7 +82,7 @@ namespace Misp.Kernel.Ui.Base.Menu
             backupAutomaticMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE,FunctionalitiesLabel.BACKUP_AUTOMATIC_LABEL, NavigationToken.GetCreateViewToken(FunctionalitiesCode.BACKUP_AUTOMATIC_FUNCTIONALITY));          
        
 
-            quitApplication = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Close B-Cephal", new NavigationToken(FunctionalitiesCode.FILE, ViewType.LOGOUT));
+            quitApplication = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Close B-Cephal", new NavigationToken(FunctionalitiesCode.PROJECT, ViewType.LOGOUT));
         
         }
         public string lastFilePath { get; set; }
@@ -148,7 +148,7 @@ namespace Misp.Kernel.Ui.Base.Menu
         /// <returns></returns>
         protected ApplicationMenu BuildRecentFileMenuItem(string filePath)
         {
-            NavigationToken token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.FILE, filePath);
+            NavigationToken token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.PROJECT, filePath);
             int n = filePath.LastIndexOf(System.IO.Path.DirectorySeparatorChar);
             string header = filePath.Substring(n + 1);
             ApplicationMenu menu = BuildMenu(this.RecentFiles.Code, header, token);

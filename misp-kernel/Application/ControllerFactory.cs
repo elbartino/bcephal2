@@ -51,7 +51,7 @@ namespace Misp.Kernel.Application
                 homeController.Service = ServiceFactory.GetFileService();
                 return homeController;
             }
-            if (fonctionality == FunctionalitiesCode.FILE)
+            if (fonctionality == FunctionalitiesCode.PROJECT)
             {
                 FileController fileController = new FileController();
                 fileController.ApplicationManager = this.ApplicationManager;
