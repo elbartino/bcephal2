@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:src="clr-namespace:Misp.Kernel.Administration.Profil"
+             xmlns:functionnality="clr-namespace:Misp.Kernel.Administration.FunctionnalityViews"
              mc:Ignorable="d" Background="White">
 
     <Border Grid.Row="0"  Height="Auto" Width="Auto">
@@ -31,8 +32,8 @@
             </Grid>
 
             <Label x:Name="Rights" Content="Rights" Grid.Row="2" VerticalAlignment="Center"/>
-            <src:FunctionnalityGrid  x:Name="functionnalityGrid" Grid.Row="3" x:FieldModifier="public" MinHeight="250" MinWidth="300" />
-
+            <src:FunctionnalityGrid  x:Name="functionnalityGrid" Grid.Row="3" x:FieldModifier="public" MinHeight="250" MinWidth="300"  Visibility="Collapsed"/>
+            <functionnality:FunctionnalityView x:Name="functionnalityView" Grid.Row="3" x:FieldModifier="public" MinHeight="250" MinWidth="300" />
             <TextBlock x:Name="Console" Grid.Row="4" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
 
         </Grid>

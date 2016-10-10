@@ -6,6 +6,6 @@
              mc:Ignorable="d" 
              Orientation="Horizontal"
              Height="auto" Width="auto">
-    <CheckBox  x:FieldModifier="public" x:Name="CheckBox"  VerticalAlignment="Center" Margin="0,0,5 0"/>
-    <TextBlock x:FieldModifier="public" x:Name="TextBlock" VerticalAlignment="Center" Margin="0,4,0,3" Width="auto"/>
+    <CheckBox x:FieldModifier="public" x:Name="CheckBox" VerticalAlignment="Center" Margin="0,4,0,3" Width="auto"/>
+    <!--TextBlock  x:FieldModifier="public" x:Name="TextBlock" VerticalAlignment="Center" Margin="5,0,5 0"/-->
 </StackPanel>
