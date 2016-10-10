@@ -125,6 +125,12 @@
     <Compile Include="Administration\Base\AdministrationResourcePath.cs" />
     <Compile Include="Administration\Base\AdministrationControllerFactory.cs" />
     <Compile Include="Administration\Base\AdministrationServiceFactory.cs" />
+    <Compile Include="Administration\FunctionnalityViews\FunctionnalityField.xaml.cs">
+      <DependentUpon>FunctionnalityField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\FunctionnalityViews\FunctionnalityGroupField.xaml.cs">
+      <DependentUpon>FunctionnalityGroupField.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Administration\Profil\ProfilPropertyPanel.xaml.cs">
       <DependentUpon>ProfilPropertyPanel.xaml</DependentUpon>
     </Compile>
@@ -710,6 +716,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Administration\FunctionnalityViews\FunctionnalityField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administration\FunctionnalityViews\FunctionnalityGroupField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Administration\Profil\ProfilPropertyPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -1,0 +1,22 @@
+﻿<Border x:Class="Misp.Kernel.Administration.FunctionnalityViews.FunctionnalityGroupField"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             HorizontalAlignment="Center" VerticalAlignment="Center"
+             Style="{DynamicResource DashboradBlockStyle}"
+             d:DesignHeight="400" d:DesignWidth="400" >
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label          x:FieldModifier="public" x:Name="TitleLabel"              Content="Title"     Grid.Row="0" FontWeight="Bold" FontSize="14"/>
+        <ScrollViewer   x:FieldModifier="public" x:Name="ScrollView"              Grid.Row="3" Margin="40,0,5,5">
+            <StackPanel x:FieldModifier="public" x:Name="FieldPanel"                       />
+        </ScrollViewer>
+    </Grid>
+</Border>
