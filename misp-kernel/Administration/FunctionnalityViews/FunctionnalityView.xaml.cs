@@ -169,8 +169,7 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
                 this.AutomaticPostingGridGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_POSTING_GRID_LABEL);
                 this.ReconciliationFilterGroupField = buildGroupField(FunctionalitiesLabel.RECONCILIATION_FILTER_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_RECONCILIATION_FILTER_LABEL);
             }
-
-
+            
             this.DisplayedGroupField.Add(this.AutomaticUploadGroupField);
             this.DisplayedGroupField.Add(this.TreeGroupField);
             this.DisplayedGroupField.Add(this.AutomaticTargetGroupField);
