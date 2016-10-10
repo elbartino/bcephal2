@@ -40,7 +40,7 @@ namespace Misp.Kernel.Ui.Base
             {
                 int n = filePath.LastIndexOf(System.IO.Path.DirectorySeparatorChar);
                 string header = filePath.Substring(n + 1);
-                NavigationToken token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY, filePath);
+                NavigationToken token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.FILE, filePath);
                 this.ItemsPanel.Children.Add(BuildRecentFileControl(filePath, header, token));
             }
         }
@@ -53,7 +53,7 @@ namespace Misp.Kernel.Ui.Base
             this.ItemsPanel.Children.Clear();
             foreach (string project in projects)
             {
-                NavigationToken token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY, project);
+                NavigationToken token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.FILE, project);
                 this.ItemsPanel.Children.Add(BuildRecentFileControl(project, project, token));
             }
         }
@@ -61,7 +61,7 @@ namespace Misp.Kernel.Ui.Base
 
         protected void BuildNewFileControl()
         {
-            NavigationToken newToken = NavigationToken.GetCreateViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY);
+            NavigationToken newToken = NavigationToken.GetCreateViewToken(FunctionalitiesCode.FILE);
             Run run1 = new Run("New Project");
             Hyperlink hyperLink = new Hyperlink(run1)
             {

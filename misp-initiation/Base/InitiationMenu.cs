@@ -44,10 +44,10 @@ namespace Misp.Initiation.Base
         /// </summary>
         protected override void initChildren()
         {
-            this.Code = ApplicationMenu.INITIATION_MENU_CODE;
+            this.Code = InitiationFunctionalitiesCode.INITIATION;
             this.Header = FunctionalitiesLabel.INITIATION_LABEL;
-            model = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, FunctionalitiesLabel.INITIATION_EDIT_MODEL_LABEL, NavigationToken.GetSearchViewToken(InitiationFunctionalitiesCode.INITIATION_FUNCTIONALITY));
-            period = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, FunctionalitiesLabel.INITIATION_EDIT_PERIOD_LABEL, NavigationToken.GetSearchViewToken(InitiationFunctionalitiesCode.PERIOD_FUNCTIONALITY));
+            model = BuildMenu(InitiationFunctionalitiesCode.INITIATION, FunctionalitiesLabel.INITIATION_EDIT_MODEL_LABEL, NavigationToken.GetSearchViewToken(InitiationFunctionalitiesCode.INITIATION));
+            period = BuildMenu(InitiationFunctionalitiesCode.INITIATION, FunctionalitiesLabel.INITIATION_EDIT_PERIOD_LABEL, NavigationToken.GetSearchViewToken(InitiationFunctionalitiesCode.INITIATION_PERIOD));
         }
 
     }

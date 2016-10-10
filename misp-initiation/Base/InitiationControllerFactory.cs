@@ -30,7 +30,7 @@ namespace Misp.Initiation.Base
         /// <returns></returns>
         public override Controllable GetController(string fonctionality)
         {
-            if (fonctionality == InitiationFunctionalitiesCode.INITIATION_FUNCTIONALITY)
+            if (fonctionality == InitiationFunctionalitiesCode.INITIATION)
             {
                 InitiationController initiationController = new InitiationController();
                 initiationController.ApplicationManager = this.ApplicationManager;
@@ -38,7 +38,7 @@ namespace Misp.Initiation.Base
                 return initiationController;
             }
 
-            if (fonctionality == InitiationFunctionalitiesCode.PERIOD_FUNCTIONALITY)
+            if (fonctionality == InitiationFunctionalitiesCode.INITIATION_PERIOD)
             {
                 PeriodNameController periodNameController = new PeriodNameController();
                 periodNameController.ApplicationManager = this.ApplicationManager;

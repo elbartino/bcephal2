@@ -27,7 +27,7 @@ namespace Misp.Initiation.Base
         /// </summary>
         public InitiationController()
         {
-            FunctionalityCode = InitiationFunctionalitiesCode.INITIATION_FUNCTIONALITY;
+            FunctionalityCode = InitiationFunctionalitiesCode.INITIATION;
             ModuleName = PlugIn.MODULE_NAME;
         }
 

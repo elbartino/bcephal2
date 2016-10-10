@@ -14,9 +14,13 @@ namespace Misp.Kernel.Domain
         public bool ShowInDashboard { get; set; }
         public List<Functionality> Children { get; set; }
 
-        public Functionality(string code, string name)
+        public Functionality()
         {
             this.Children = new List<Functionality>(0);
+        }
+
+        public Functionality(string code, string name) : this()
+        {
             this.Code = code;
             this.Name = name;
         }

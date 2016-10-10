@@ -188,7 +188,7 @@ namespace Misp.Kernel.Application
         {
             if (!string.IsNullOrWhiteSpace(FilePath))
             {
-                NavigationToken token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY, FilePath);
+                NavigationToken token = NavigationToken.GetModifyViewToken(FunctionalitiesCode.FILE, FilePath);
                 HistoryHandler.openPage(token);
             }
         }

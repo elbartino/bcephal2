@@ -44,14 +44,14 @@ namespace Misp.Kernel.Application
         /// <returns></returns>
         public virtual Controller.Controllable GetController(string fonctionality)
         {
-            if (fonctionality == FunctionalitiesCode.HOME_PAGE_FUNCTIONALITY)
+            if (fonctionality == FunctionalitiesCode.HOME_PAGE)
             {
                 HomePageController homeController = new HomePageController();
                 homeController.ApplicationManager = this.ApplicationManager;
                 homeController.Service = ServiceFactory.GetFileService();
                 return homeController;
             }
-            if (fonctionality == FunctionalitiesCode.FILE_FUNCTIONALITY)
+            if (fonctionality == FunctionalitiesCode.FILE)
             {
                 FileController fileController = new FileController();
                 fileController.ApplicationManager = this.ApplicationManager;

@@ -138,6 +138,7 @@
     <Compile Include="AutomaticTargetViews\AutomaticTargetEditorItem.cs" />
     <Compile Include="AutomaticTargetViews\AutomaticTargetForm.cs" />
     <Compile Include="AutomaticTargetViews\AutomaticTargetSideBar.cs" />
+    <Compile Include="Base\SourcingFunctionality.cs" />
     <Compile Include="Base\SourcingPeriodicity.xaml.cs">
       <DependentUpon>SourcingPeriodicity.xaml</DependentUpon>
     </Compile>

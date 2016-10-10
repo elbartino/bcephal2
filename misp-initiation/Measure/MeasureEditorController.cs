@@ -24,7 +24,7 @@ namespace Misp.Initiation.Measure
         public MeasureEditorController(InitiationController InitiationController)
         {
             this.InitiationController = InitiationController;
-            this.FunctionalityCode = InitiationFunctionalitiesCode.MEASURE_FUNCTIONALITY;
+            this.FunctionalityCode = InitiationFunctionalitiesCode.INITIATION_MEASURE;
         }
 
         /// <summary>

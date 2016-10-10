@@ -170,17 +170,16 @@ namespace Misp.Kernel.Application
             try
             {
                 string functionality = token.Functionality;
-                if (functionality == FunctionalitiesCode.ABOUT_FUNCTIONALITY) { OpenAboutDialog(); return; }
+                if (functionality == FunctionalitiesCode.HELP_ABOUT) { OpenAboutDialog(); return; }
                 if (functionality == FunctionalitiesCode.RUN_ALL_ALLOCATION_FUNCTIONALITY) { StartRunAllAllocation(); return; }
-                if (functionality == FunctionalitiesCode.CLEAR_ALL_ALLOCATION_FUNCTIONALITY) { StartClearAllAllocation(); return; }
-                if (functionality == FunctionalitiesCode.ALLOCATION_LOG_FUNCTIONALITY) { StartAllocationLog(); return; }
-                if (functionality == FunctionalitiesCode.EXPORT_BUDGET) { ExportBudget(); return; }
+                if (functionality == FunctionalitiesCode.ALLOCATION_CLEAR_ALL) { StartClearAllAllocation(); return; }
+                if (functionality == FunctionalitiesCode.ALLOCATION_LOG) { StartAllocationLog(); return; }
                 if (functionality == FunctionalitiesCode.UPLOAD_MULTIPLE_FILES) { UploadMultipleFiles(); return; }
                 if (functionality == FunctionalitiesCode.PROPERTIES_FUNCTIONALITY) { createProperties(); return; }
                 if (functionality == FunctionalitiesCode.LOAD_TRANSFORMATION_TREES_FUNCTIONALITY) { LoadTransformationTrees(false); return; }
                 if (functionality == FunctionalitiesCode.CLEAR_TRANSFORMATION_TREES_FUNCTIONALITY) { LoadTransformationTrees(true); return; }
-                if (functionality == FunctionalitiesCode.FILE_SAVE_FUNCTIONALITY) token.currentActiveFunctionality = ActivePage.FunctionalityCode;
-                if (functionality == FunctionalitiesCode.FILE_SAVE_AS_FUNCTIONALITY) { SaveFileAs(token); return; }
+                if (functionality == FunctionalitiesCode.FILE_SAVE) token.currentActiveFunctionality = ActivePage.FunctionalityCode;
+                if (functionality == FunctionalitiesCode.FILE_SAVE_AS) { SaveFileAs(token); return; }
                 if (functionality == FunctionalitiesCode.BACKUP_SIMPLE_FUNCTIONALITY || functionality == FunctionalitiesCode.BACKUP_AUTOMATIC_FUNCTIONALITY) 
                 {
                     bool isSimpleBackup = functionality == FunctionalitiesCode.BACKUP_SIMPLE_FUNCTIONALITY;
@@ -257,7 +256,7 @@ namespace Misp.Kernel.Application
         {
             try
             {
-                string functionality = FunctionalitiesCode.ALLOCATION_LOG_FUNCTIONALITY;
+                string functionality = FunctionalitiesCode.ALLOCATION_LOG;
                 Controllable page = ApplicationManager.ControllerFactory.GetController(functionality);
                 if (page != null) return page.Create();
                 return OperationState.CONTINUE;
@@ -285,20 +284,6 @@ namespace Misp.Kernel.Application
             }
         }
 
-        public OperationState ExportBudget()
-        {
-            try
-            {
-                string functionality = FunctionalitiesCode.EXPORT_BUDGET;
-                Controllable page = ApplicationManager.ControllerFactory.GetController(functionality);
-                if (page != null) return page.Create();
-                return OperationState.CONTINUE;
-            }
-            catch (Exception)
-            {
-                return OperationState.STOP;
-            }
-        }
 /// <summary>
 /// 
 /// </summary>
@@ -394,10 +379,10 @@ namespace Misp.Kernel.Application
             for (int i = OpenedPages.Count - 1; i >= 0; i--)
             {
                 page = OpenedPages[i];
-                if(page.FunctionalityCode != FunctionalitiesCode.FILE_FUNCTIONALITY)
+                if(page.FunctionalityCode != FunctionalitiesCode.FILE)
                 closePage(page);
             }
-            page = searchInOpenedPages(FunctionalitiesCode.FILE_FUNCTIONALITY);
+            page = searchInOpenedPages(FunctionalitiesCode.FILE);
             if (page.SaveAs() == OperationState.STOP) return OperationState.STOP;
             return openPage(page);
 
@@ -462,7 +447,7 @@ namespace Misp.Kernel.Application
         {
             try
             {
-                string functionality = FunctionalitiesCode.CLEAR_ALL_ALLOCATION_FUNCTIONALITY;
+                string functionality = FunctionalitiesCode.ALLOCATION_CLEAR_ALL;
                 Controllable page = ApplicationManager.ControllerFactory.GetController(functionality);
                 if (page != null) return page.Create();
                 return OperationState.CONTINUE;
@@ -501,7 +486,7 @@ namespace Misp.Kernel.Application
             {
                 String functionality = token.Functionality;
 
-                if (functionality == FunctionalitiesCode.FILE_SAVE_FUNCTIONALITY)
+                if (functionality == FunctionalitiesCode.FILE_SAVE)
                     return saveFile(token);
 
                 page = searchInOpenedPages(functionality);
@@ -588,10 +573,10 @@ namespace Misp.Kernel.Application
         /// </summary>
         public OperationState openHomePage()
         {
-            Controllable homePage = searchInOpenedPages(FunctionalitiesCode.HOME_PAGE_FUNCTIONALITY);
+            Controllable homePage = searchInOpenedPages(FunctionalitiesCode.HOME_PAGE);
             if (homePage == null)
             {
-                homePage = ApplicationManager.ControllerFactory.GetController(FunctionalitiesCode.HOME_PAGE_FUNCTIONALITY);
+                homePage = ApplicationManager.ControllerFactory.GetController(FunctionalitiesCode.HOME_PAGE);
                 homePage.Initialize();
             }
             return openPage(homePage);

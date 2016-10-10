@@ -37,7 +37,7 @@ namespace Misp.Sourcing.Base
         /// <returns></returns>
         public override Controllable GetController(string fonctionality)
         {
-            if (fonctionality == SourcingFunctionalitiesCode.NEW_INPUT_TABLE_FUNCTIONALITY)
+            if (fonctionality == SourcingFunctionalitiesCode.INPUT_TABLE_EDIT)
             {
                 InputTableEditorController tableController = new InputTableEditorController();
                 tableController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -46,7 +46,7 @@ namespace Misp.Sourcing.Base
                 tableController.Service = ((SourcingServiceFactory)ServiceFactory).GetInputTableService();
                 return tableController;
             }
-            if (fonctionality == SourcingFunctionalitiesCode.LIST_INPUT_TABLE_FUNCTIONALITY)
+            if (fonctionality == SourcingFunctionalitiesCode.INPUT_TABLE_LIST)
             {
                 InputTableBrowserController tableController = new InputTableBrowserController();
                 tableController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -56,7 +56,7 @@ namespace Misp.Sourcing.Base
                 return tableController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.NEW_TARGET_FUNCTIONALITY)
+            if (fonctionality == SourcingFunctionalitiesCode.TARGET_EDIT)
             {
                 TargetEditorController targetController = new TargetEditorController();
                 targetController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -65,7 +65,7 @@ namespace Misp.Sourcing.Base
                 targetController.Service = ((SourcingServiceFactory)ServiceFactory).GetTargetService();
                 return targetController;
             }
-            if (fonctionality == SourcingFunctionalitiesCode.LIST_TARGET_FUNCTIONALITY)
+            if (fonctionality == SourcingFunctionalitiesCode.TARGET_LIST)
             {
                 TargetBrowserController targetController = new TargetBrowserController();
                 targetController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -75,7 +75,7 @@ namespace Misp.Sourcing.Base
                 return targetController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.NEW_DESIGN_FUNCTIONALITY)
+            if (fonctionality == SourcingFunctionalitiesCode.DESIGN_EDIT)
             {
                 DesignerEditorController designerController = new DesignerEditorController();
                 designerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -84,7 +84,7 @@ namespace Misp.Sourcing.Base
                 designerController.Service = ((SourcingServiceFactory)ServiceFactory).GetDesignService();
                 return designerController;
             }
-            if (fonctionality == SourcingFunctionalitiesCode.LIST_DESIGN_FUNCTIONALITY)
+            if (fonctionality == SourcingFunctionalitiesCode.DESIGN_LIST)
             {
                 DesignerBrowserController designerController = new DesignerBrowserController();
                 designerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -105,7 +105,7 @@ namespace Misp.Sourcing.Base
                 return automaticSourcingController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.LIST_AUTOMATIC_SOURCING)
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_LIST)
                 {
                 AutomaticSourcingBrowserController automaticSourcingController = new AutomaticSourcingBrowserController();
                 automaticSourcingController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -156,7 +156,7 @@ namespace Misp.Sourcing.Base
                 return automaticSourcingGridBrowerController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.NEW_AUTOMATIC_TARGET_FUNCTIONALITY)
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_TARGET_EDIT)
             {
                 AutomaticTargetEditorController automaticTargetController = new AutomaticTargetEditorController();
                 automaticTargetController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -166,7 +166,7 @@ namespace Misp.Sourcing.Base
                 return automaticTargetController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.LIST_AUTOMATIC_TARGET)
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_TARGET_LIST)
             {
                 AutomaticTargetBrowserController automaticTargetBrowserController = new AutomaticTargetBrowserController();
                 automaticTargetBrowserController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;

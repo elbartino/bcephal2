@@ -96,6 +96,7 @@
     <Compile Include="Base\InitiationEditorView.xaml.cs">
       <DependentUpon>InitiationEditorView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Base\InitiationFunctionality.cs" />
     <Compile Include="Base\InitiationToolBar.cs" />
     <Compile Include="Base\InitiationToolBarHandlerBuilder.cs" />
     <Compile Include="Base\InitiationControllerFactory.cs" />

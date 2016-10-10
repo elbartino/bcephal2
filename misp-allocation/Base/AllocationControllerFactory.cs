@@ -31,7 +31,7 @@ namespace Misp.Allocation.Base
         /// <returns></returns>
         public override Controllable GetController(string fonctionality)
         {
-            if (fonctionality == FunctionalitiesCode.CLEAR_ALL_ALLOCATION_FUNCTIONALITY)
+            if (fonctionality == FunctionalitiesCode.ALLOCATION_CLEAR_ALL)
             {
                 ClearAllocationController controller = new ClearAllocationController();
                 controller.ModuleName = Misp.Allocation.PlugIn.MODULE_NAME;
@@ -49,7 +49,7 @@ namespace Misp.Allocation.Base
                 controller.Service = ((AllocationServiceFactory)ServiceFactory).GetAllocationService();
                 return controller;
             }
-            if (fonctionality == FunctionalitiesCode.ALLOCATION_LOG_FUNCTIONALITY)
+            if (fonctionality == FunctionalitiesCode.ALLOCATION_LOG)
             {
                 AllocationLogController controller = new AllocationLogController();
                 controller.ModuleName = Misp.Allocation.PlugIn.MODULE_NAME;

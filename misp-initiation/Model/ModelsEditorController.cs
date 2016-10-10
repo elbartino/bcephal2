@@ -29,7 +29,7 @@ namespace Misp.Initiation.Model
         public ModelsEditorController(InitiationController InitiationController)
         {
             this.InitiationController = InitiationController;
-            this.FunctionalityCode = InitiationFunctionalitiesCode.MODEL_FUNCTIONALITY;
+            this.FunctionalityCode = InitiationFunctionalitiesCode.INITIATION_MODEL;
         }
 
         /// <summary>

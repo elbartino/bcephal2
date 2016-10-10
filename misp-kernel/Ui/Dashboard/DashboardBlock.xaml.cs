@@ -380,12 +380,12 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public Boolean isTable()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_INPUT_TABLE_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.INPUT_TABLE_EDIT);
         }
 
         public Boolean isModel()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.INITIATION_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.INITIATION);
         }
 
         public Boolean isReport()
@@ -395,7 +395,7 @@ namespace Misp.Kernel.Ui.Dashboard
         
         public Boolean isDesign()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_DESIGN_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.DESIGN_EDIT);
         }
 
         public Boolean isStructuredReport()
@@ -405,7 +405,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public Boolean isTarget()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_TARGET_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.TARGET_EDIT);
         }
 
         public Boolean isTransformationTree()
@@ -455,7 +455,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public Boolean isAutomaticTarget() 
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_TARGET_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.AUTOMATIC_TARGET_EDIT);
         }
 
         public Boolean isReconciliationFilterUpload()

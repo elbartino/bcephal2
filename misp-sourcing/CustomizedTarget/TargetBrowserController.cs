@@ -21,7 +21,7 @@ namespace Misp.Sourcing.CustomizedTarget
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.NEW_TARGET_FUNCTIONALITY; }
+        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.TARGET_EDIT; }
         
         /// <summary>
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
