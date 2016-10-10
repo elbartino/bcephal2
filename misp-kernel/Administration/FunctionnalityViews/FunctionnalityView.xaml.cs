@@ -206,29 +206,5 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
             data.Children.AddRange(list);
             return data;
         }
-
-        //private FunctionnalityGroupField findGroupField(string name)
-        //{
-        //    if (string.IsNullOrWhiteSpace(name)) return null;
-        //    if (name.Equals(this.ModelBlock.TitleLabel.Content)) return this.ModelBlock;
-        //    if (name.Equals(this.TableBlock.TitleLabel.Content)) return this.TableBlock;
-        //    if (name.Equals(this.ReportBlock.TitleLabel.Content)) return this.ReportBlock;
-        //    if (name.Equals(this.StructuredReportBlock.TitleLabel.Content)) return this.StructuredReportBlock;
-        //    if (name.Equals(this.TreeBlock.TitleLabel.Content)) return this.TreeBlock;
-        //    if (name.Equals(this.CombinedTreeBlock.TitleLabel.Content)) return this.CombinedTreeBlock;
-        //    if (name.Equals(this.TargetBlock.TitleLabel.Content)) return this.TargetBlock;
-        //    if (name.Equals(this.DesignBlock.TitleLabel.Content)) return this.DesignBlock;
-        //    if (name.Equals(this.CalculatedMeasureBlock.TitleLabel.Content)) return this.CalculatedMeasureBlock;
-        //    if (name.Equals(this.AutomaticUploadBlock.TitleLabel.Content)) return this.AutomaticUploadBlock;
-        //    if (name.Equals(this.InputGridBlock.TitleLabel.Content)) return this.InputGridBlock;
-        //    if (name.Equals(this.ReportGridBlock.TitleLabel.Content)) return this.ReportGridBlock;
-        //    if (name.Equals(this.AutomaticGridBlock.TitleLabel.Content)) return this.AutomaticGridBlock;
-        //    if (this.ReconciliationFilterBlock != null && name.Equals(this.ReconciliationFilterBlock.TitleLabel.Content)) return this.ReconciliationFilterBlock;
-        //    if (name.Equals(this.AutomaticTargetBlock.TitleLabel.Content)) return this.AutomaticTargetBlock;
-        //    if (name.Equals(this.AutomaticPostingGridBlock.TitleLabel.Content)) return this.AutomaticPostingGridBlock;
-        //    if (name.Equals(this.PostingGridBlock.TitleLabel.Content)) return this.PostingGridBlock;
-        //    return null;
-        //}
-
     }
 }
