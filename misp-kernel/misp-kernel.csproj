@@ -134,9 +134,6 @@
     <Compile Include="Administration\FunctionnalityViews\FunctionnalityView.xaml.cs">
       <DependentUpon>FunctionnalityView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Administration\Profil\ProfilPropertyPanel.xaml.cs">
-      <DependentUpon>ProfilPropertyPanel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Administration\Profil\ProfilBrowser.cs" />
     <Compile Include="Administration\Profil\ProfilBrowserController.cs" />
     <Compile Include="Administration\Profil\ProfilEditor.cs" />
@@ -144,7 +141,6 @@
     <Compile Include="Administration\Profil\ProfilEditorItem.cs" />
     <Compile Include="Administration\Profil\ProfilForm.cs" />
     <Compile Include="Administration\Profil\ProfilGroup.cs" />
-    <Compile Include="Administration\Profil\ProfilPropertyBar.cs" />
     <Compile Include="Administration\Profil\ProfilSideBar.cs" />
     <Compile Include="Administration\Profil\ProfilToolBar.cs" />
     <Compile Include="Administration\Profil\RightField.cs" />
@@ -426,9 +422,6 @@
       <DependentUpon>MaskDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Task\Worker.cs" />
-    <Compile Include="Administration\Profil\FunctionnalityGrid.xaml.cs">
-      <DependentUpon>FunctionnalityGrid.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Administration\Profil\ProfileMainPanel.xaml.cs">
       <DependentUpon>ProfileMainPanel.xaml</DependentUpon>
     </Compile>
@@ -742,10 +735,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Administration\Profil\ProfilPropertyPanel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Administration\Profil\RightGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -815,10 +804,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Task\MaskDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Administration\Profil\FunctionnalityGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

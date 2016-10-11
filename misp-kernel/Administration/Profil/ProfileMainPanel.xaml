@@ -7,34 +7,31 @@
              xmlns:right="clr-namespace:Misp.Kernel.Administration.Profil"
              mc:Ignorable="d" Background="White">
 
-    <Border Grid.Row="0"  Height="Auto" Width="Auto">
-        <Grid  HorizontalAlignment="Center" Margin="10" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Margin="0,5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*" MaxWidth="300"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Label x:Name="NameLabel" Content="Name" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="nameTextBox" Grid.Column="1"  />
-                <CheckBox x:Name="activeBox" Grid.Column="2" Content="Active" IsChecked="True" Margin="20 5 0 0"  />
-                
-            </Grid>
+    <Grid Grid.Row="0" Margin="0,5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MaxWidth="300"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="NameLabel" Content="Name" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="nameTextBox" Grid.Column="1"  />
+        <CheckBox x:Name="activeBox" Grid.Column="2" Content="Active" IsChecked="True" Margin="20 5 0 0"  />
 
-            <Label x:Name="RightsLabel" Content="Rights" Grid.Row="2" VerticalAlignment="Center"/>
-            <right:RightsPabel x:Name="RightsPanel" Grid.Row="3" x:FieldModifier="public" MinHeight="250" MinWidth="300" />
-            <TextBlock x:Name="Console" Grid.Row="4" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
+    </Grid>
 
-        </Grid>
-    </Border>
+    <Label x:Name="RightsLabel" Content="Rights" Grid.Row="2" VerticalAlignment="Center"/>
+    <right:RightsPabel x:Name="RightsPanel" Grid.Row="3" x:FieldModifier="public" MinHeight="250" MinWidth="300" />
+    <TextBlock x:Name="Console" Grid.Row="4" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
+
+
 </Grid>
 
