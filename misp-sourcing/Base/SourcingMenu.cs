@@ -55,50 +55,20 @@ namespace Misp.Sourcing.Base
         /// <returns></returns>
         protected override List<Control> getControls()
         {
-            List<Control> menus = new List<Control>(0);
-
-            PostingMenu.Items.Add(NewPostingGridMenu);
-            PostingMenu.Items.Add(ListPostingGridMenu);
-            PostingMenu.Items.Add(new Separator());
-            PostingMenu.Items.Add(NewAutomaticPostingGridMenu);
-            PostingMenu.Items.Add(ListAutomaticPostingGridMenu);
+            List<Control> menus = new List<Control>(0);            
             if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
             {
                 menus.Add(PostingMenu);
                 menus.Add(new Separator());
-            }
-
-            InputTableMenu.Items.Add(NewInputTableMenu);
-            InputTableMenu.Items.Add(ListInputTableMenu);
-            InputTableMenu.Items.Add(new Separator());
-            InputTableMenu.Items.Add(AutomaticSourcingMenu);
-            InputTableMenu.Items.Add(ListAutomaticSourcingMenu);
+            }            
             menus.Add(InputTableMenu);
             menus.Add(new Separator());
-
-            GridMenu.Items.Add(NewInputGridMenu);
-            GridMenu.Items.Add(ListInputGridMenu);
-            GridMenu.Items.Add(new Separator());
-            GridMenu.Items.Add(NewAutomaticGridMenu);
-            GridMenu.Items.Add(ListAutomaticGridMenu);
             menus.Add(GridMenu);
             menus.Add(new Separator());
-
-
-            TargetMenu.Items.Add(NewTargetMenu);
-            TargetMenu.Items.Add(ListTargetMenu);
-            TargetMenu.Items.Add(new Separator());
-            TargetMenu.Items.Add(AutomaticTargetMenu);
-            TargetMenu.Items.Add(ListAutomaticTargetMenu);
             menus.Add(TargetMenu);
             menus.Add(new Separator());
-
-            DesignMenu.Items.Add(NewDesignMenu);
-            DesignMenu.Items.Add(ListDesignMenu);
             menus.Add(DesignMenu);
             menus.Add(new Separator());
-
-            AccessoriesMenu.Items.Add(UploadMultipleFileSourcingMenu);
             menus.Add(AccessoriesMenu);
             return menus;
         }
@@ -117,9 +87,24 @@ namespace Misp.Sourcing.Base
             NewAutomaticPostingGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_AUTOMATIC_POSTING_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY));
             ListAutomaticPostingGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_AUTOMATIC_POSTING_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.LIST_AUTOMATIC_POSTING_GRID_FUNCTIONALITY));
 
+            PostingMenu.Items.Add(NewPostingGridMenu);
+            PostingMenu.Items.Add(ListPostingGridMenu);
+            PostingMenu.Items.Add(new Separator());
+            PostingMenu.Items.Add(NewAutomaticPostingGridMenu);
+            PostingMenu.Items.Add(ListAutomaticPostingGridMenu);
+
             InputTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.INPUT_TABLE_LABEL, null);
             NewInputTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_INPUT_TABLE_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.INPUT_TABLE_EDIT));
             ListInputTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_INPUT_TABLE_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.INPUT_TABLE_LIST));
+
+            AutomaticSourcingMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_AUTOMATIC_SOURCING_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.UPLOAD_STRUCTURED_FILE_FUNCTIONALITY));
+            ListAutomaticSourcingMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_AUTOMATIC_SOURCING_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_LIST));
+
+            InputTableMenu.Items.Add(NewInputTableMenu);
+            InputTableMenu.Items.Add(ListInputTableMenu);
+            InputTableMenu.Items.Add(new Separator());
+            InputTableMenu.Items.Add(AutomaticSourcingMenu);
+            InputTableMenu.Items.Add(ListAutomaticSourcingMenu);
 
             GridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.GRID_LABEL, null);
 
@@ -129,6 +114,12 @@ namespace Misp.Sourcing.Base
             NewAutomaticGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_AUTOMATIC_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY));
             ListAutomaticGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_AUTOMATIC_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.LIST_AUTOMATIC_GRID_FUNCTIONALITY));
 
+            GridMenu.Items.Add(NewInputGridMenu);
+            GridMenu.Items.Add(ListInputGridMenu);
+            GridMenu.Items.Add(new Separator());
+            GridMenu.Items.Add(NewAutomaticGridMenu);
+            GridMenu.Items.Add(ListAutomaticGridMenu);
+
             TargetMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.TARGET_LABEL, null);
             NewTargetMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_TARGET_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.TARGET_EDIT));
             ListTargetMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_TARGET_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.TARGET_LIST));
@@ -136,22 +127,26 @@ namespace Misp.Sourcing.Base
             AutomaticTargetMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_AUTOMATIC_TARGET_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.AUTOMATIC_TARGET_EDIT));
             ListAutomaticTargetMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_AUTOMATIC_TARGET_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_TARGET_LIST));
 
+            TargetMenu.Items.Add(NewTargetMenu);
+            TargetMenu.Items.Add(ListTargetMenu);
+            TargetMenu.Items.Add(new Separator());
+            TargetMenu.Items.Add(AutomaticTargetMenu);
+            TargetMenu.Items.Add(ListAutomaticTargetMenu);
+
             DesignMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.DESIGN_LABEL, null);
             NewDesignMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_DESIGN_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.DESIGN_EDIT));
             ListDesignMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_DESIGN_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.DESIGN_LIST));
 
-            AutomaticSourcingMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_AUTOMATIC_SOURCING_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.UPLOAD_STRUCTURED_FILE_FUNCTIONALITY));
-            ListAutomaticSourcingMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_AUTOMATIC_SOURCING_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_LIST));
+            DesignMenu.Items.Add(NewDesignMenu);
+            DesignMenu.Items.Add(ListDesignMenu);
 
+            
             AccessoriesMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE,FunctionalitiesLabel.ACCESSORIES_LABEL, null);
             UploadMultipleFileSourcingMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.UPLOAD_MULTIPLE_FILES, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.UPLOAD_MULTIPLE_FILES));
-        }
 
-        public override ApplicationMenu customize(PrivilegeObserver observer)
-        {
-            return base.customize(observer);
+            AccessoriesMenu.Items.Add(UploadMultipleFileSourcingMenu);
         }
-
+        
 
     }
 }

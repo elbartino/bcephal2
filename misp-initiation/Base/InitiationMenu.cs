@@ -49,16 +49,7 @@ namespace Misp.Initiation.Base
             model = BuildMenu(InitiationFunctionalitiesCode.INITIATION, FunctionalitiesLabel.INITIATION_EDIT_MODEL_LABEL, NavigationToken.GetSearchViewToken(InitiationFunctionalitiesCode.INITIATION));
             period = BuildMenu(InitiationFunctionalitiesCode.INITIATION, FunctionalitiesLabel.INITIATION_EDIT_PERIOD_LABEL, NavigationToken.GetSearchViewToken(InitiationFunctionalitiesCode.INITIATION_PERIOD));
         }
-
-        public override ApplicationMenu customize(PrivilegeObserver observer)
-        {
-            ApplicationMenu menu = base.customize(observer);
-            if (menu != null)
-            {
-
-            }
-            return menu;
-        }
+                
 
     }
 }
