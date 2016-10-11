@@ -21,14 +21,14 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
     /// </summary>
     public partial class FunctionnalityField : StackPanel
     {
-
         #region Events
-        public delegate void OnCheckMainFunctionality(Functionality name);
-        public event OnCheckMainFunctionality CheckMainFunctionality;
 
-        public delegate void OnCheckSubFunctionality(Functionality name);
-        public event OnCheckSubFunctionality CheckSubFunctionality;
-       
+            public event OnSelecteMainFunctionality SelectMainFunctionality;
+            public delegate void OnSelecteMainFunctionality(Functionality data, bool isRemove, bool disableSubFunc);
+
+            public event OnSelecteSubMainFunctionality SelectSubMainFunctionality;
+            public delegate void OnSelecteSubMainFunctionality(Functionality data, bool isRemove);
+
         #endregion
 
         private Domain.Functionality data;
@@ -58,24 +58,43 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
             };
             //this.TextBlock.Inlines.Add(hyperLink);
             //this.TextBlock.ToolTip = data.name;
-            hyperLink.RequestNavigate += OnRequestNavigate;
+           // hyperLink.RequestNavigate += OnRequestNavigate;
             this.CheckBox.Content = data.Name;
             this.CheckBox.ToolTip = data.Name;
             this.CheckBox.Tag = data;
             this.CheckBox.Checked += OnSelectFunctionnality;
+            this.CheckBox.Unchecked += OnDeselectFunctionnality;
             
         }
 
         private void OnSelectFunctionnality(object sender, RoutedEventArgs e)
         {
             Functionality data = this.CheckBox.Tag as Functionality;
-            if (CheckMainFunctionality != null) CheckMainFunctionality(data);
-            if (CheckSubFunctionality != null) CheckSubFunctionality(data);
+            if (SelectMainFunctionality != null)
+            {
+                SelectMainFunctionality(data, false,false);
+                e.Handled = true;
+            }
+            if (SelectSubMainFunctionality != null)
+            {
+                SelectSubMainFunctionality(data, false);
+                e.Handled = true;
+            }
         }
 
-        private void OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+        private void OnDeselectFunctionnality(object sender, RoutedEventArgs e)
         {
-            
+            Functionality data = this.CheckBox.Tag as Functionality;
+            if (SelectMainFunctionality != null)
+            {
+                SelectMainFunctionality(data, true,true);
+                e.Handled = true;
+            }
+            if (SelectSubMainFunctionality != null)
+            {
+                SelectSubMainFunctionality(data, true);
+                e.Handled = true;
+            }
         }
     }
 }

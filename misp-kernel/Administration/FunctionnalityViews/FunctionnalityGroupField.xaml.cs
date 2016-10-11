@@ -21,6 +21,17 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
     /// </summary>
     public partial class FunctionnalityGroupField : Border
     {
+
+        #region Events
+
+        public event OnAddFunctionality AddFunctionality;
+        public delegate void OnAddFunctionality(Functionality data);
+
+        public event OnRemoveFunctionality RemoveFunctionality;
+        public delegate void OnRemoveFunctionality(Functionality data);
+
+        #endregion
+
         public string newFunctionCode;
 
         public FunctionnalityView FunctionnalityView;
@@ -30,23 +41,11 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
         public FunctionnalityGroupField()
         {
             InitializeComponent();
-            InitializeHandlers();
-        }
-
-        public void InitializeHandlers() 
-        {
-            this.MainFunctionality.CheckMainFunctionality += OnCheckMainFunctionality;
-        }
-
-        private void OnCheckMainFunctionality(Functionality data)
-        {
-            
         }
 
         public FunctionnalityGroupField(string newFunctionCde) : this()
         {
             this.newFunctionCode = newFunctionCde;
-            
         }
 
         public FunctionnalityGroupField(Functionality data) 
@@ -65,10 +64,23 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
         {
             this.MainFunctionality.Children.Clear();
             FunctionnalityField item = new FunctionnalityField(data);
-            item.CheckMainFunctionality += OnCheckMainFunctionality;
+            item.SelectMainFunctionality += OnCheckMainFunctionality;
             this.MainFunctionality.Children.Add(item);
         }
 
+        private void OnCheckMainFunctionality(Functionality data, bool isRemove,bool enableSub)
+        {
+            if (AddFunctionality != null && !isRemove)
+            {
+                AddFunctionality(data);
+                EnableSubFunctionalities(enableSub);
+            }
+            if (RemoveFunctionality != null && isRemove)
+            {
+                RemoveFunctionality(data);
+                EnableSubFunctionalities(enableSub);
+            }
+        }
                    
         private void setSubFunctionalities(List<Domain.Functionality> datas) 
         {
@@ -76,17 +88,27 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
             foreach (Domain.Functionality data in datas)
             {
                 FunctionnalityField item = new FunctionnalityField(data);
-                item.CheckSubFunctionality += OnCheckSubFunctionality;
+                item.SelectSubMainFunctionality += OnCheckSubFunctionality;
                 item.GroupField = this;
                 this.FieldPanel.Children.Add(item);
             }
         }
 
-
-        private void OnCheckSubFunctionality(Functionality data)
+        private void EnableSubFunctionalities(bool disable)
         {
-            
+            foreach (UIElement panel in this.FieldPanel.Children)
+            {
+                if (panel is FunctionnalityField)
+                {
+                    ((FunctionnalityField)panel).CheckBox.IsEnabled = disable;
+                }
+            }
         }
-               
+
+        private void OnCheckSubFunctionality(Functionality data, bool isRemove)
+        {
+            if (AddFunctionality != null && !isRemove) AddFunctionality(data);
+            if (RemoveFunctionality != null && isRemove) RemoveFunctionality(data);
+        }      
     }
 }

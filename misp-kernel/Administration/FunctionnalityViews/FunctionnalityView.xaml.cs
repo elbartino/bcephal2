@@ -27,6 +27,16 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
         public List<FunctionnalityGroupField> DisplayedGroupField { get; set; }
         //public DashBoardService DashBoardService { get; set; }
 
+        public Dictionary<string, string> dicoFunctionalities { get; set; }
+
+        public List<String> grantedFunctionalityCode
+        {
+            get
+            {
+                return dicoFunctionalities != null ? dicoFunctionalities.Keys.ToList() : new List<String>(0);
+            }
+        }
+
         public FunctionnalityGroupField ModelGroupField { get; set; }
         public FunctionnalityGroupField TableGroupField { get; set; }
         public FunctionnalityGroupField ReportGroupField { get; set; }
@@ -148,62 +158,72 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
                 
         private void InitializeGroupFields()
         {
-            this.ModelGroupField = buildGroupField(FunctionalitiesLabel.INITIATION_MODEL_LABEL, FunctionalitiesLabel.INITIATION_NEW_MODEL_LABEL);
+            this.ModelGroupField = buildGroupField(FunctionalitiesCode.INITIATION);
 
-            this.TableGroupField = buildGroupField(FunctionalitiesLabel.INPUT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_INPUT_TABLE_LABEL);
-            this.ReportGroupField = buildGroupField(FunctionalitiesLabel.REPORT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_REPORT_LABEL);
-            this.StructuredReportGroupField = buildGroupField(FunctionalitiesLabel.STRUCTURED_REPORT_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_STRUCTURED_REPORT_LABEL);
-            this.TreeGroupField = buildGroupField(FunctionalitiesLabel.TRANSFORMATION_TREE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_TRANSFORMATION_TREE_LABEL);
-            this.CombinedTreeGroupField = buildGroupField(FunctionalitiesLabel.COMBINED_TRANSFORMATION_TREE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_COMBINED_TRANSFORMATION_TREES_LABEL);
-            this.TargetGroupField = buildGroupField(FunctionalitiesLabel.TARGET_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_TARGET_LABEL);
-            this.DesignGroupField = buildGroupField(FunctionalitiesLabel.DESIGN_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_DESIGN_LABEL);
-            this.CalculatedMeasureGroupField = buildGroupField(FunctionalitiesLabel.CALCULATED_MEASURE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_CALCULATED_MEASURE_LABEL);
-            this.AutomaticUploadGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_SOURCING_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_SOURCING_LABEL);
-            this.InputGridGroupField = buildGroupField(FunctionalitiesLabel.INPUT_GRID_LABEL, FunctionalitiesLabel.NEW_INPUT_GRID_LABEL);
-            this.ReportGridGroupField = buildGroupField(FunctionalitiesLabel.REPORT_GRID_LABEL, FunctionalitiesLabel.NEW_REPORT_GRID_LABEL);
-            this.AutomaticGridGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_GRID_LABEL);
-            this.AutomaticTargetGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_TARGET_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_TARGET_LABEL);
+            this.TableGroupField = buildGroupField(FunctionalitiesCode.SOURCING);
+            this.ReportGroupField = buildGroupField(FunctionalitiesLabel.REPORT_TABLE_DASHBOARD_LABEL);
+            this.StructuredReportGroupField = buildGroupField(FunctionalitiesLabel.STRUCTURED_REPORT_DASHBOARD_LABEL);
+            this.TreeGroupField = buildGroupField(FunctionalitiesLabel.TRANSFORMATION_TREE_DASHBOARD_LABEL);
+            this.CombinedTreeGroupField = buildGroupField(FunctionalitiesLabel.COMBINED_TRANSFORMATION_TREE_DASHBOARD_LABEL);
+            this.TargetGroupField = buildGroupField(FunctionalitiesLabel.TARGET_DASHBOARD_LABEL);
+            this.DesignGroupField = buildGroupField(FunctionalitiesLabel.DESIGN_DASHBOARD_LABEL);
+            this.CalculatedMeasureGroupField = buildGroupField(FunctionalitiesLabel.CALCULATED_MEASURE_DASHBOARD_LABEL);
+            this.AutomaticUploadGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_SOURCING_DASHBOARD_LABEL);
+            this.InputGridGroupField = buildGroupField(FunctionalitiesLabel.INPUT_GRID_LABEL);
+            this.ReportGridGroupField = buildGroupField(FunctionalitiesLabel.REPORT_GRID_LABEL);
+            this.AutomaticGridGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_GRID_DASHBOARD_LABEL);
+            this.AutomaticTargetGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_TARGET_DASHBOARD_LABEL);
             if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
             {
-                this.PostingGridGroupField = buildGroupField(FunctionalitiesLabel.POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_POSTING_GRID_LABEL);
-                this.AutomaticPostingGridGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_POSTING_GRID_LABEL);
-                this.ReconciliationFilterGroupField = buildGroupField(FunctionalitiesLabel.RECONCILIATION_FILTER_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_RECONCILIATION_FILTER_LABEL);
+                this.PostingGridGroupField = buildGroupField(FunctionalitiesLabel.POSTING_GRID_DASHBOARD_LABEL);
+                this.AutomaticPostingGridGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL);
+                this.ReconciliationFilterGroupField = buildGroupField(FunctionalitiesLabel.RECONCILIATION_FILTER_DASHBOARD_LABEL);
             }
-            
-            this.DisplayedGroupField.Add(this.AutomaticUploadGroupField);
+            this.DisplayedGroupField.Add(this.ModelGroupField);
+            this.DisplayedGroupField.Add(this.TableGroupField);
+            this.DisplayedGroupField.Add(this.ReportGroupField);
             this.DisplayedGroupField.Add(this.TreeGroupField);
+
+            this.DisplayedGroupField.Add(this.AutomaticUploadGroupField);
             this.DisplayedGroupField.Add(this.AutomaticTargetGroupField);
             this.DisplayedGroupField.Add(this.ReportGridGroupField);
             this.DisplayedGroupField.Add(this.InputGridGroupField);
             this.DisplayedGroupField.Add(this.TargetGroupField);
             this.DisplayedGroupField.Add(this.StructuredReportGroupField);
-            this.DisplayedGroupField.Add(this.ReportGroupField);
-            this.DisplayedGroupField.Add(this.ModelGroupField);
-            this.DisplayedGroupField.Add(this.TableGroupField);
-            this.DisplayedGroupField.Add(this.DesignGroupField);
+             this.DisplayedGroupField.Add(this.DesignGroupField);
             this.DisplayedGroupField.Add(this.CombinedTreeGroupField);
             this.DisplayedGroupField.Add(this.CalculatedMeasureGroupField);
         }
 
-        private FunctionnalityGroupField buildGroupField(string title,string newFunctionCode)
+        private FunctionnalityGroupField buildGroupField(string newFunctionCode)
         {
             FunctionnalityGroupField groupField = new FunctionnalityGroupField(newFunctionCode);
+            groupField.AddFunctionality += OnAddFunctionality;
+            groupField.RemoveFunctionality += OnRemoveFunctionality;
             groupField.FunctionnalityView = this;
-            groupField.functionality = getGroupFunctionality(newFunctionCode,title);
+            groupField.functionality = ApplicationManager.Instance.FunctionalityFactory.Get(newFunctionCode);
             return groupField;
         }
 
-        public Domain.Functionality getGroupFunctionality(String functionCode,String name) 
+        private void OnAddFunctionality(Functionality data)
         {
-            Functionality data = new Functionality(functionCode, name);
-            List<Functionality> list = new List<Functionality>(0);
-            for (int i = 0; i < 10; i++)
+            if (dicoFunctionalities == null) dicoFunctionalities = new Dictionary<string, string>(0);
+            string name = "";
+            if (!dicoFunctionalities.TryGetValue(data.Code, out name))
             {
-                Functionality f = new Functionality("Code_" + i, "name " + i + "");
-                list.Add(f);
+                dicoFunctionalities.Add(data.Code, data.Name);
             }
-            data.Children.AddRange(list);
-            return data;
         }
+
+        private void OnRemoveFunctionality(Functionality data)
+        {
+            if (dicoFunctionalities == null) dicoFunctionalities = new Dictionary<string, string>(0);
+            string name = "";
+            if (dicoFunctionalities.TryGetValue(data.Code, out name))
+            {
+                dicoFunctionalities.Remove(data.Code);
+            }
+        }
+
     }
 }
