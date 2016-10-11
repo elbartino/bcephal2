@@ -119,6 +119,7 @@ namespace Misp.Kernel.Administration.Profil
             foreach (RightField child in this.ChildrenFields)
             {
                 child.CheckBox.IsEnabled = enable;
+                child.enableChildren(enable);
             }
         }
 
