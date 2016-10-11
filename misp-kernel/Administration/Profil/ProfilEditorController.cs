@@ -275,6 +275,12 @@ namespace Misp.Kernel.Administration.Profil
 
             editorPage.getProfilForm().profileMainPanel.nameTextBox.KeyUp += onNameTextChange;
             editorPage.getProfilForm().profileMainPanel.nameTextBox.LostFocus += onNameTextLostFocus;
+            editorPage.getProfilForm().profileMainPanel.RightsPanel.Changed += OnRightsChanged;
+        }
+
+        private void OnRightsChanged()
+        {
+            OnChange();
         }
 
         

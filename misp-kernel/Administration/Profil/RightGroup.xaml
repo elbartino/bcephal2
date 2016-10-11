@@ -1,0 +1,19 @@
+﻿<Border x:Class="Misp.Kernel.Administration.Profil.RightGroup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:right="clr-namespace:Misp.Kernel.Administration.Profil"
+             mc:Ignorable="d" 
+             HorizontalAlignment="Center" VerticalAlignment="Center"
+             Style="{DynamicResource FunctionnalityGroupFieldStyle}"
+             d:DesignHeight="400" d:DesignWidth="400" >
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <ScrollViewer x:FieldModifier="public" x:Name="ScrollView" Margin="5,5,5,5">
+            <right:RightField x:FieldModifier="public" x:Name="RightField"/>
+        </ScrollViewer>
+    </Grid>
+</Border>

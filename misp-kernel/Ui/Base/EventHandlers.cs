@@ -45,4 +45,6 @@ namespace Misp.Kernel.Ui.Base
     public delegate void PowerpointLoadInfoEventHandler(PowerpointLoadInfo info);
 
     public delegate bool ActionEventHandler(object item);
+
+    public delegate void RightEventHandler(string functionality, bool selected);
 }

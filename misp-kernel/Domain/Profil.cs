@@ -27,6 +27,31 @@ namespace Misp.Kernel.Domain
         }
 
         #region Build Rights
+
+        public void AddRight(string functionality)
+        {
+            Right right = GetRight(functionality);
+            if (right == null)
+            {
+                rightsListChangeHandler.AddNew(new Right(functionality));
+            }
+        }
+
+        public void RemoveRight(string functionality)
+        {
+            Right right = GetRight(functionality);
+            if (right != null) rightsListChangeHandler.AddDeleted(right);
+        }
+
+        public Right GetRight(string functionality)
+        {
+            foreach (Right right in rightsListChangeHandler.Items)
+            {
+                if (right.functionnality.Equals(functionality)) return right;
+            }
+            return null;
+        }
+
         /// <summary>
         /// build all right;
         /// </summary>
@@ -219,5 +244,7 @@ namespace Misp.Kernel.Domain
             if (obj == null || !(obj is Profil)) return 1;
             return this.name.CompareTo(((Profil)obj).name);
         }
+
+        
     }
 }

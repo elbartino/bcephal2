@@ -10,10 +10,10 @@ namespace Misp.Kernel.Domain
     {
         public String functionnality { get; set; }        
 
-        //[ScriptIgnore]
+        [ScriptIgnore]
         public Profil profil { get; set;}
 
-        //[ScriptIgnore]
+        [ScriptIgnore]
         public User user { get; set;}
 
         public Right()

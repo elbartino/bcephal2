@@ -24,15 +24,19 @@ namespace Misp.Sourcing.Base
             table.Children.Add(new Functionality(this, FunctionalitiesCode.INPUT_TABLE_LIST, "Input Table List", true));
             table.Children.Add(new Functionality(this, FunctionalitiesCode.INPUT_TABLE_VIEW, "Input Table View", true));
             table.Children.Add(new Functionality(this, FunctionalitiesCode.INPUT_TABLE_EDIT, "Input Table Edit", true));
+            this.Children.Add(table);
+
+            Functionality target = new Functionality(this, FunctionalitiesCode.TARGET, "Target", true);
+            target.Children.Add(new Functionality(this, FunctionalitiesCode.TARGET_LIST, "Target List", true));
+            target.Children.Add(new Functionality(this, FunctionalitiesCode.TARGET_VIEW, "Target View", true));
+            target.Children.Add(new Functionality(this, FunctionalitiesCode.TARGET_EDIT, "Target Edit", true));
+            this.Children.Add(target);
 
             //Functionality table = new Functionality(this, FunctionalitiesCode.INPUT_TABLE, "Input Table", true);
             //table.Children.Add(new Functionality(this, FunctionalitiesCode.INPUT_TABLE_LIST, "Input Table List", true));
             //table.Children.Add(new Functionality(this, FunctionalitiesCode.INPUT_TABLE_VIEW, "Input Table View", true));
             //table.Children.Add(new Functionality(this, FunctionalitiesCode.INPUT_TABLE_EDIT, "Input Table Edit", true));
 
-            this.Children.Add(table);
-            this.Children.Add(new Functionality(this, FunctionalitiesCode.INITIATION_MEASURE, "Model", true));
-            this.Children.Add(new Functionality(this, FunctionalitiesCode.INITIATION_PERIOD, "Model", true));
         }
 
 

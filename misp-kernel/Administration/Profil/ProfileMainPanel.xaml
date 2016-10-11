@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:src="clr-namespace:Misp.Kernel.Administration.Profil"
-             xmlns:functionnality="clr-namespace:Misp.Kernel.Administration.FunctionnalityViews"
+             xmlns:right="clr-namespace:Misp.Kernel.Administration.Profil"
              mc:Ignorable="d" Background="White">
 
     <Border Grid.Row="0"  Height="Auto" Width="Auto">
@@ -27,13 +27,11 @@
                 <Label x:Name="NameLabel" Content="Name" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="nameTextBox" Grid.Column="1"  />
                 <CheckBox x:Name="activeBox" Grid.Column="2" Content="Active" IsChecked="True" Margin="20 5 0 0"  />
-                <TextBlock x:Name="selectAllTextBlock" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="40 5 0 0" FontSize="12"/>
-                <TextBlock x:Name="deselectAllTextBlock" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="30 5 0 0" FontSize="12"/>
+                
             </Grid>
 
-            <Label x:Name="Rights" Content="Rights" Grid.Row="2" VerticalAlignment="Center"/>
-            <src:FunctionnalityGrid  x:Name="functionnalityGrid" Grid.Row="3" x:FieldModifier="public" MinHeight="250" MinWidth="300"  Visibility="Collapsed"/>
-            <functionnality:FunctionnalityView x:Name="functionnalityView" Grid.Row="3" x:FieldModifier="public" MinHeight="250" MinWidth="300" />
+            <Label x:Name="RightsLabel" Content="Rights" Grid.Row="2" VerticalAlignment="Center"/>
+            <right:RightsPabel x:Name="RightsPanel" Grid.Row="3" x:FieldModifier="public" MinHeight="250" MinWidth="300" />
             <TextBlock x:Name="Console" Grid.Row="4" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
 
         </Grid>
