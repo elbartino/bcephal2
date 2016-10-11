@@ -252,14 +252,14 @@ namespace Misp.Kernel.Ui.Dashboard
             this.DesignBlock = buildBlock(FunctionalitiesLabel.DESIGN_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_DESIGN_LABEL, FunctionalitiesLabel.RECENT_TARGET_LABEL, FunctionalitiesCode.DESIGN_EDIT);
             this.CalculatedMeasureBlock = buildBlock(FunctionalitiesLabel.CALCULATED_MEASURE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_CALCULATED_MEASURE_LABEL, FunctionalitiesLabel.RECENT_CALCULATED_MEASURE_LABEL, FunctionalitiesCode.CALCULATED_MEASURE_EDIT);
             this.AutomaticUploadBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_SOURCING_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_SOURCING_LABEL,FunctionalitiesLabel.RECENT_AUTOMATIC_SOURCING_LABEL , FunctionalitiesCode.AUTOMATIC_SOURCING_EDIT);
-            this.InputGridBlock = buildBlock(FunctionalitiesLabel.INPUT_GRID_LABEL, FunctionalitiesLabel.NEW_INPUT_GRID_LABEL,FunctionalitiesLabel.RECENT_INPUT_GRID_LABEL, FunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY);
+            this.InputGridBlock = buildBlock(FunctionalitiesLabel.INPUT_GRID_LABEL, FunctionalitiesLabel.NEW_INPUT_GRID_LABEL,FunctionalitiesLabel.RECENT_INPUT_GRID_LABEL, FunctionalitiesCode.INPUT_TABLE_GRID_EDIT);
             this.ReportGridBlock = buildBlock(FunctionalitiesLabel.REPORT_GRID_LABEL, FunctionalitiesLabel.NEW_REPORT_GRID_LABEL, FunctionalitiesLabel.RECENT_REPORT_GRID_LABEL, FunctionalitiesCode.REPORT_GRID_EDIT);
-            this.AutomaticGridBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_GRID_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_GRID_LABEL, FunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY);
+            this.AutomaticGridBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_GRID_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_GRID_LABEL, FunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_EDIT);
             this.AutomaticTargetBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_TARGET_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_TARGET_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_TARGET_LABEL, FunctionalitiesCode.AUTOMATIC_TARGET_EDIT);
             if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
             {
-                this.PostingGridBlock = buildBlock(FunctionalitiesLabel.POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_POSTING_GRID_LABEL, FunctionalitiesLabel.RECENT_POSTING_GRID_LABEL, FunctionalitiesCode.NEW_POSTING_GRID_FUNCTIONALITY);
-                this.AutomaticPostingGridBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_POSTING_GRID_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_POSTING_GRID_LABEL, FunctionalitiesCode.NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY);
+                this.PostingGridBlock = buildBlock(FunctionalitiesLabel.POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_POSTING_GRID_LABEL, FunctionalitiesLabel.RECENT_POSTING_GRID_LABEL, FunctionalitiesCode.POSTING_GRID_EDIT);
+                this.AutomaticPostingGridBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_POSTING_GRID_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_POSTING_GRID_LABEL, FunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT);
 
                 this.ReconciliationFilterBlock = buildBlock(FunctionalitiesLabel.RECONCILIATION_FILTER_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_RECONCILIATION_FILTER_LABEL, FunctionalitiesLabel.RECENT_RECONCILIATION_LABEL, FunctionalitiesCode.NEW_RECONCILIATION_FILTER_FUNCTIONALITY);
             }
@@ -382,8 +382,8 @@ namespace Misp.Kernel.Ui.Dashboard
                 block.contextMenu.Items.Add(block.ConfigurationMenuItem);
             }
             else if (newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_SOURCING_EDIT)
-                || newFunctionCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY)
-                || newFunctionCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY)
+                || newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_EDIT)
+                || newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_TARGET_EDIT))
             {
                 block.contextMenu.Items.Add(block.NewMenuItem);
@@ -400,8 +400,8 @@ namespace Misp.Kernel.Ui.Dashboard
             else if (newFunctionCode.Equals(FunctionalitiesCode.CALCULATED_MEASURE_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.DESIGN_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.TARGET_EDIT)
-                || newFunctionCode.Equals(FunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY)
-                || newFunctionCode.Equals(FunctionalitiesCode.NEW_POSTING_GRID_FUNCTIONALITY)
+                || newFunctionCode.Equals(FunctionalitiesCode.INPUT_TABLE_GRID_EDIT)
+                || newFunctionCode.Equals(FunctionalitiesCode.POSTING_GRID_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.REPORT_GRID_EDIT))
             {
                 block.contextMenu.Items.Add(block.NewMenuItem);

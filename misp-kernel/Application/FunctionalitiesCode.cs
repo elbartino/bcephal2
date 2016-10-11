@@ -38,7 +38,7 @@ namespace Misp.Kernel.Application
 
         
 
-        public static string UPLOAD_MULTIPLE_FILES = "UPLOAD_MULTIPLE_FILES";
+        
         public static string PROPERTIES_FUNCTIONALITY = "PROPERTIES_FUNCTIONALITY";
         public static string NEW_GROUP_FUNCTIONALITY = "NEW_GROUP_FUNCTIONALITY";
         public static string LIST_GROUP_FUNCTIONALITY = "LIST_GROUP_FUNCTIONALITY";
@@ -66,12 +66,30 @@ namespace Misp.Kernel.Application
         public static string ALLOCATION_CLEAR_ALL   = "functionality.allocation.clear.all";
 
         //SOURCING
-        public static string SOURCING           = "functionality.sourcing";
+        public static string SOURCING = "functionality.sourcing";
+
+        public static string POSTING_GRID       = "functionality.posting.grid";
+        public static string POSTING_GRID_EDIT  = "functionality.posting.grid.edit";
+        public static string POSTING_GRID_VIEW  = "functionality.posting.grid.view";
+        public static string POSTING_GRID_LIST  = "functionality.posting.grid.list";
+
+        public static string AUTOMATIC_POSTING_GRID_EDIT = "functionality.automatic.posting.grid.edit";
+        public static string AUTOMATIC_POSTING_GRID_VIEW = "functionality.automatic.posting.grid.view";
+        public static string AUTOMATIC_POSTING_GRID_LIST = "functionality.automatic.posting.grid.list";
 
         public static string INPUT_TABLE        = "functionality.input.table";
         public static string INPUT_TABLE_EDIT   = "functionality.input.table.edit";
         public static string INPUT_TABLE_VIEW   = "functionality.input.table.view";
         public static string INPUT_TABLE_LIST   = "functionality.input.table.list";
+
+        public static string INPUT_TABLE_GRID       = "functionality.input.table.grid";
+        public static string INPUT_TABLE_GRID_EDIT  = "functionality.input.table.grid.edit";
+        public static string INPUT_TABLE_GRID_VIEW  = "functionality.input.table.grid.view";
+        public static string INPUT_TABLE_GRID_LIST  = "functionality.input.table.grid.list";
+
+        public static string AUTOMATIC_INPUT_TABLE_GRID_EDIT = "functionality.automatic.input.table.grid.edit";
+        public static string AUTOMATIC_INPUT_TABLE_GRID_VIEW = "functionality.automatic.input.table.grid.view";
+        public static string AUTOMATIC_INPUT_TABLE_GRID_LIST = "functionality.automatic.input.table.grid.list";
 
         public static string TARGET         = "functionality.target";
         public static string TARGET_EDIT    = "functionality.target.edit";
@@ -92,7 +110,9 @@ namespace Misp.Kernel.Application
         public static string AUTOMATIC_SOURCING_EDIT = "functionality.automatic.sourcing.edit";
         public static string AUTOMATIC_SOURCING_VIEW = "functionality.automatic.sourcing.view";
         public static string AUTOMATIC_SOURCING_LIST = "functionality.automatic.sourcing.list";
-        
+
+        public static string MULTIPLE_FILES_UPLOAD = "functionality.multiple.files.upload";
+
         public static string UPLOAD_STRUCTURED_FILE_FUNCTIONALITY = "UPLOAD_STRUCTURED_FILE_FUNCTIONALITY";
        
 
@@ -128,12 +148,9 @@ namespace Misp.Kernel.Application
         public static string NEW_SLIDE_FUNCTIONALITY = "NEW_SLIDE_FUNCTIONALITY";
 
         //GRID
-        public static string GRID_FUNCTIONALITY = "GRID_FUNCTIONALITY";
-        public static string NEW_AUTOMATIC_GRID_FUNCTIONALITY = "NEW_AUTOMATIC_GRID_FUNCTIONALITY";
-        public static string LIST_AUTOMATIC_GRID_FUNCTIONALITY = "LIST_AUTOMATIC_GRID_FUNCTIONALITY";
+        
 		
-		public static string NEW_INPUT_GRID_FUNCTIONALITY = "NEW_INPUT_GRID_FUNCTIONALITY";
-        public static string LIST_INPUT_GRID_FUNCTIONALITY = "LIST_INPUT_GRID_FUNCTIONALITY";
+		
 
         
 
@@ -152,11 +169,7 @@ namespace Misp.Kernel.Application
         public static string RECONCILIATION_RUN_CONFIRM = "RECONCILIATION_RUN_CONFIRM";
         public static string RECONCILIATION_CONTEXT_FUNCTIONALITY = "RECONCILIATION_CONTEXT_FUNCTIONALITY";
         
-        public static string NEW_POSTING_GRID_FUNCTIONALITY = "NEW_POSTING_GRID_FUNCTIONALITY";
-        public static string LIST_POSTING_GRID_FUNCTIONALITY = "LIST_POSTING_GRID_FUNCTIONALITY";
 
-        public static string NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY = "NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY";
-        public static string LIST_AUTOMATIC_POSTING_GRID_FUNCTIONALITY = "LIST_AUTOMATIC_POSTING_GRID_FUNCTIONALITY";
 
         //ADMINISTRATION
         public static string ADMINISTRATION = "functionality.administration";

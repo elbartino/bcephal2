@@ -174,7 +174,7 @@ namespace Misp.Kernel.Application
                 if (functionality == FunctionalitiesCode.ALLOCATION_RUN_ALL) { StartRunAllAllocation(); return; }
                 if (functionality == FunctionalitiesCode.ALLOCATION_CLEAR_ALL) { StartClearAllAllocation(); return; }
                 if (functionality == FunctionalitiesCode.ALLOCATION_LOG) { StartAllocationLog(); return; }
-                if (functionality == FunctionalitiesCode.UPLOAD_MULTIPLE_FILES) { UploadMultipleFiles(); return; }
+                if (functionality == FunctionalitiesCode.MULTIPLE_FILES_UPLOAD) { UploadMultipleFiles(); return; }
                 if (functionality == FunctionalitiesCode.PROPERTIES_FUNCTIONALITY) { createProperties(); return; }
                 if (functionality == FunctionalitiesCode.LOAD_TRANSFORMATION_TREES_FUNCTIONALITY) { LoadTransformationTrees(false); return; }
                 if (functionality == FunctionalitiesCode.CLEAR_TRANSFORMATION_TREES_FUNCTIONALITY) { LoadTransformationTrees(true); return; }
@@ -292,7 +292,7 @@ namespace Misp.Kernel.Application
         {
             try
             {
-                string functionality = FunctionalitiesCode.UPLOAD_MULTIPLE_FILES;
+                string functionality = FunctionalitiesCode.MULTIPLE_FILES_UPLOAD;
                 Controllable page = ApplicationManager.ControllerFactory.GetController(functionality);
                 if (page != null) return page.Create();
                 return OperationState.CONTINUE;

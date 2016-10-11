@@ -25,7 +25,7 @@ namespace Misp.Sourcing.Posting
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.NEW_POSTING_GRID_FUNCTIONALITY; }
+        public override string GetEditorFuntionality() { return Misp.Sourcing.Base.SourcingFunctionalitiesCode.POSTING_GRID_EDIT; }
 
     }
 }

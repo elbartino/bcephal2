@@ -20,6 +20,16 @@ namespace Misp.Sourcing.Base
 
         private void buildChildren()
         {
+            Functionality posting = new Functionality(this, FunctionalitiesCode.POSTING_GRID, "Posting", true);
+            posting.Children.Add(new Functionality(this, FunctionalitiesCode.POSTING_GRID_LIST, "Posting Grid List", true));
+            posting.Children.Add(new Functionality(this, FunctionalitiesCode.POSTING_GRID_VIEW, "Posting Grid View", true));
+            posting.Children.Add(new Functionality(this, FunctionalitiesCode.POSTING_GRID_EDIT, "Posting Grid Edit", true));
+
+            posting.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_POSTING_GRID_LIST, "Automatic Posting Grid List", true));
+            posting.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_POSTING_GRID_VIEW, "Automatic Posting Grid View", true));
+            posting.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT, "Automatic Posting Grid Edit", true));
+            this.Children.Add(posting);
+
             Functionality table = new Functionality(this, FunctionalitiesCode.INPUT_TABLE, "Input Table", true);
             table.Children.Add(new Functionality(this, FunctionalitiesCode.INPUT_TABLE_LIST, "Input Table List", true));
             table.Children.Add(new Functionality(this, FunctionalitiesCode.INPUT_TABLE_VIEW, "Input Table View", true));

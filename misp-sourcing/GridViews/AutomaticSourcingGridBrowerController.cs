@@ -15,7 +15,7 @@ namespace Misp.Sourcing.GridViews
         /// </summary>
         public override string GetEditorFuntionality()
         {
-            return Misp.Sourcing.Base.SourcingFunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY;
+            return Misp.Sourcing.Base.SourcingFunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_EDIT;
         }
 
         /// <summary>

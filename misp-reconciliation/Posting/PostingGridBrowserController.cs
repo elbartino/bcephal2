@@ -26,7 +26,7 @@ namespace Misp.Reconciliation.Posting
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return ReconciliationFunctionalitiesCode.NEW_POSTING_GRID_FUNCTIONALITY; }
+        public override string GetEditorFuntionality() { return ReconciliationFunctionalitiesCode.POSTING_GRID_EDIT; }
 
     }
 }

@@ -15,7 +15,7 @@ namespace Misp.Sourcing.Posting
         /// </summary>
         public override string GetEditorFuntionality()
         {
-            return Misp.Sourcing.Base.SourcingFunctionalitiesCode.NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY;
+            return Misp.Sourcing.Base.SourcingFunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT;
         }
         
         public override Misp.Kernel.Domain.SubjectType SubjectTypeFound()

@@ -430,7 +430,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public Boolean isInputGrid()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.INPUT_TABLE_GRID_EDIT);
         }
 
         public Boolean isReportGrid()
@@ -440,17 +440,17 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public Boolean isAutomaticGrid()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_EDIT);
         }
 
         public Boolean isPostingGrid()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_POSTING_GRID_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.POSTING_GRID_EDIT);
         }
 
         public Boolean isAutomaticPostingGrid()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT);
         }
 
         public Boolean isAutomaticTarget() 

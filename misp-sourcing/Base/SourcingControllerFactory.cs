@@ -115,7 +115,7 @@ namespace Misp.Sourcing.Base
                 return automaticSourcingController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.LIST_INPUT_GRID_FUNCTIONALITY)
+            if (fonctionality == SourcingFunctionalitiesCode.INPUT_TABLE_GRID_LIST)
             {
                 InputGridBrowserController controller = new InputGridBrowserController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -125,7 +125,7 @@ namespace Misp.Sourcing.Base
                 return controller;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.NEW_INPUT_GRID_FUNCTIONALITY)
+            if (fonctionality == SourcingFunctionalitiesCode.INPUT_TABLE_GRID_EDIT)
             {
                 InputGridEditorController controller = new InputGridEditorController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -135,7 +135,7 @@ namespace Misp.Sourcing.Base
                 return controller;
             }
             
-            if (fonctionality == SourcingFunctionalitiesCode.NEW_AUTOMATIC_GRID_FUNCTIONALITY)
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_EDIT)
             {
                 AutomaticSourcingGridEditorController automaticSourcingGridController = new AutomaticSourcingGridEditorController();
                 automaticSourcingGridController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -146,7 +146,7 @@ namespace Misp.Sourcing.Base
                 return automaticSourcingGridController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.LIST_AUTOMATIC_GRID_FUNCTIONALITY)
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_LIST)
             {
                 AutomaticSourcingGridBrowerController automaticSourcingGridBrowerController = new AutomaticSourcingGridBrowerController();
                 automaticSourcingGridBrowerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -176,7 +176,7 @@ namespace Misp.Sourcing.Base
                 return automaticTargetBrowserController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.UPLOAD_MULTIPLE_FILES)
+            if (fonctionality == SourcingFunctionalitiesCode.MULTIPLE_FILES_UPLOAD)
             {
                 UploadMultipleFilesController uploadMultipleFilesController = new UploadMultipleFilesController();
                 uploadMultipleFilesController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;

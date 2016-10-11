@@ -75,7 +75,7 @@ namespace Misp.Reconciliation.Base
                 return controller;
             }
 
-            if (fonctionality == ReconciliationFunctionalitiesCode.LIST_POSTING_GRID_FUNCTIONALITY)
+            if (fonctionality == ReconciliationFunctionalitiesCode.POSTING_GRID_LIST)
             {
                 PostingGridBrowserController controller = new PostingGridBrowserController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -84,7 +84,7 @@ namespace Misp.Reconciliation.Base
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingGridService();
                 return controller;
             }
-            if (fonctionality == ReconciliationFunctionalitiesCode.NEW_POSTING_GRID_FUNCTIONALITY)
+            if (fonctionality == ReconciliationFunctionalitiesCode.POSTING_GRID_EDIT)
             {
                 PostingGridEditorController controller = new PostingGridEditorController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -93,7 +93,7 @@ namespace Misp.Reconciliation.Base
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingGridService();
                 return controller;
             }
-            if (fonctionality == ReconciliationFunctionalitiesCode.NEW_AUTOMATIC_POSTING_GRID_FUNCTIONALITY)
+            if (fonctionality == ReconciliationFunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT)
             {
                 AutomaticPostingGridEditorController automaticSourcingGridController = new AutomaticPostingGridEditorController();
                 automaticSourcingGridController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -103,7 +103,7 @@ namespace Misp.Reconciliation.Base
                 //automaticSourcingGridController.InputTableService = ((ReconciliationServiceFactory)ServiceFactory).GetInputTableService();
                 return automaticSourcingGridController;
             }
-            if (fonctionality == ReconciliationFunctionalitiesCode.LIST_AUTOMATIC_POSTING_GRID_FUNCTIONALITY)
+            if (fonctionality == ReconciliationFunctionalitiesCode.AUTOMATIC_POSTING_GRID_LIST)
             {
                 AutomaticPostingGridBrowerController automaticSourcingGridBrowerController = new AutomaticPostingGridBrowerController();
                 automaticSourcingGridBrowerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
