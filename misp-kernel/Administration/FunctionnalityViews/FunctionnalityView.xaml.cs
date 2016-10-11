@@ -25,7 +25,6 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
         protected static int MAX_BLOCK = 30;
 
         public List<FunctionnalityGroupField> DisplayedGroupField { get; set; }
-        //public DashBoardService DashBoardService { get; set; }
 
         public Dictionary<string, string> dicoFunctionalities { get; set; }
 

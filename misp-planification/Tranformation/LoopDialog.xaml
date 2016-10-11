@@ -122,6 +122,38 @@
                             </StackPanel>
                         </Grid>
                     </TabItem>
+                    <TabItem Header="User Dialog" x:Name="TabUserDialog">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="100"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition />
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="100"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Edit Message (max 250 characters)" Grid.Row="0" Grid.ColumnSpan="2"/>
+                            <TextBox AcceptsReturn="True" TextWrapping="Wrap" Grid.Row="1" Grid.ColumnSpan="2" />
+                            <StackPanel Grid.Row="2" Margin="5 5 5 5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                                <TextBlock Text="Only One Possible Choice" Margin="5 5 5 5"/>
+                                <CheckBox x:Name="OnePossibleChoiceCheckbox"  Margin="5 5 0 5"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                                <TextBlock Text="Active" Margin="5 5 5 5"/>
+                                <CheckBox x:Name="ActiveCheckbox"  Margin="5 5 0 5"/>
+                            </StackPanel>
+                            <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+                                <StackPanel x:Name="LoopConditionsPanel1" >
+                                </StackPanel>
+                            </ScrollViewer>
+                            <TextBlock Text="Edit Help Text (max 500 characters)" Grid.Row="4" Grid.ColumnSpan="2"/>
+                            <TextBox AcceptsReturn="True" TextWrapping="Wrap" Grid.Row="5" Grid.ColumnSpan="2"/>
+                        </Grid>
+                    </TabItem>
                 </TabControl>
             </Grid>
             <StackPanel Grid.Row="2" Margin="0 0 10 10" Orientation="Horizontal" HorizontalAlignment="Right">

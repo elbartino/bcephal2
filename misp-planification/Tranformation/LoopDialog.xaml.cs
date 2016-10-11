@@ -105,6 +105,10 @@ namespace Misp.Planification.Tranformation
                 }
                 this.ActiveLoopConditionItemPanel.setValue(value);
             }
+            else if (TabUserDialog.IsSelected)
+            {
+
+            }
         }
 
         private String GetLoopType(object value)
