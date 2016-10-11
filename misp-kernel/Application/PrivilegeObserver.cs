@@ -49,7 +49,7 @@ namespace Misp.Kernel.Application
         {
             if (user.IsAdmin()) return true;
             if (String.IsNullOrWhiteSpace(code)) return false;
-            Functionality functionality = FunctionalityFactory.Instance.Get(code);
+            Functionality functionality = ApplicationManager.Instance.FunctionalityFactory.Get(code);
             return hasPrivilege(functionality);
         }
 

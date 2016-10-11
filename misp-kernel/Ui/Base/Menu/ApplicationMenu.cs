@@ -136,7 +136,29 @@ namespace Misp.Kernel.Ui.Base.Menu
             if (observer.user == null || !observer.user.active.Value) return null;
             if (observer.user.IsAdmin()) return this;
             if (observer.user.profil == null || !observer.user.profil.active) return null;
+            String code = this.GetFunctionalityCode();
+            if (observer.hasPrivilege(code)) return this;
+            int added = 0;
+            List<Object> controls = new List<Object>(0);            
+            foreach (Control control in Items)
+            {
+                if (control is ApplicationMenu)
+                {
+                    ApplicationMenu menu = (ApplicationMenu)control;
+                    ApplicationMenu other = menu.customize(observer);
+                    if (other != null) added++;
+                    else controls.Add(menu);
+                }
+            }
+            foreach (Control control in controls) Items.Remove(control);
+            if (added <= 0) return null;
             return this;
+        }
+
+
+        public String GetFunctionalityCode()
+        {
+            return NavigationToken != null ? NavigationToken.Functionality : null;
         }
 
     }
