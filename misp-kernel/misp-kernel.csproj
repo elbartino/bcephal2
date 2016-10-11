@@ -225,6 +225,7 @@
     <Compile Include="Domain\Browser\RoleBrowserData.cs" />
     <Compile Include="Domain\Browser\ProfilBrowserData.cs" />
     <Compile Include="Domain\Browser\UserBrowserData.cs" />
+    <Compile Include="Domain\LoopUserDialogTemplate.cs" />
     <Compile Include="Domain\Functionality.cs" />
     <Compile Include="Domain\FunctionalityRights.cs" />
     <Compile Include="Domain\Grille.cs" />
