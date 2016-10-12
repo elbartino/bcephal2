@@ -26,7 +26,9 @@ namespace Misp.Kernel.Application
         public static string LOGOUT = "functionality.logout";
 
 
+        public static string TRANSACTION_FILE_TYPES_FUNCTIONALITY = "TRANSACTION_FILE_TYPES_FUNCTIONALITY";
 
+        public static string UPLOAD_STRUCTURED_FILE_FUNCTIONALITY = "UPLOAD_STRUCTURED_FILE_FUNCTIONALITY";
         
         
         
@@ -105,7 +107,6 @@ namespace Misp.Kernel.Application
         public static string ACCESSORIES = "functionality.accessories";
         public static string MULTIPLE_FILES_UPLOAD = "functionality.multiple.files.upload";
 
-        public static string UPLOAD_STRUCTURED_FILE_FUNCTIONALITY = "UPLOAD_STRUCTURED_FILE_FUNCTIONALITY";
 
 
         //TRANSFORMATION DATA
@@ -159,18 +160,27 @@ namespace Misp.Kernel.Application
         public static string REPORT_GRID_VIEW   = "functionality.report.grid.view";
         public static string REPORT_GRID_LIST   = "functionality.report.grid.list";
 
-        public static string NEW_PIVOT_TABLE_FUNCTIONALITY = "NEW_PIVOT_TABLE_FUNCTIONALITY";
-        public static string LIST_PIVOT_TABLE_FUNCTIONALITY = "LIST_PIVOT_TABLE_FUNCTIONALITY";
+        public static string PIVOT_TABLE = "functionality.pivot.table";
+        public static string PIVOT_TABLE_EDIT = "functionality.pivot.table.edit";
+        public static string PIVOT_TABLE_VIEW = "functionality.pivot.table.edit";
+        public static string PIVOT_TABLE_LIST = "functionality.pivot.table.list";
 
         
 
         //RECONCILIATION
-        public static string NEW_RECONCILIATION_FILTER_FUNCTIONALITY = "RECONCILIATION_FILTER_FUNCTIONALITY";
-        public static string LIST_RECONCILIATION_FILTERS_FUNCTIONALITY = "LIST_RECONCILIATION_FILTERS_FUNCTIONALITY";
-        public static string RECONCILIATION_POSTING_FUNCTIONALITY = "RECONCILIATION_POSTING_FUNCTIONALITY";
-        public static string TRANSACTION_FILE_TYPES_FUNCTIONALITY = "TRANSACTION_FILE_TYPES_FUNCTIONALITY";
-        public static string RECONCILIATION_RUN_CONFIRM = "RECONCILIATION_RUN_CONFIRM";
-        public static string RECONCILIATION_CONTEXT_FUNCTIONALITY = "RECONCILIATION_CONTEXT_FUNCTIONALITY";
+        public static string RECONCILIATION = "functionality.reconciliation";
+
+        public static string RECONCILIATION_FILTER = "functionality.reconciliation.filter";
+        public static string RECONCILIATION_FILTER_EDIT = "functionality.reconciliation.filter.edit";
+        public static string RECONCILIATION_FILTER_VIEW = "functionality.reconciliation.filter.view";
+        public static string RECONCILIATION_FILTER_LIST = "functionality.reconciliation.filter.list";
+
+        public static string RECONCILIATION_POSTINGS = "functionality.reconciliation.postings";
+        public static string RECONCILIATION_CONFIGURATION = "functionality.reconciliation.configuration";
+
+        public static string RECONCILIATION_RUN = "functionality.reconciliation.run";
+        public static string RECONCILIATION_CLEAR = "functionality.reconciliation.clear";
+
         
 
 

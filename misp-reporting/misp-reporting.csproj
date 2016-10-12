@@ -72,6 +72,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\ReportingFunctionality.cs" />
     <Compile Include="Calculated Measure\CalculatedMeasureBrowser.cs" />
     <Compile Include="Calculated Measure\CalculatedMeasureBrowserController.cs" />
     <Compile Include="Calculated Measure\CalculatedMeasureEditor.cs" />

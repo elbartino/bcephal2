@@ -47,7 +47,7 @@ namespace Misp.Reconciliation
         protected override List<Functionality> GetPluinFunctionalities()
         {
             List<Functionality> functionalities = new List<Functionality>(0);
-            //functionalities.Add();
+            functionalities.Add(new ReconciliationFunctionality());
             return functionalities;
         }
 

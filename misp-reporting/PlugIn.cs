@@ -49,7 +49,7 @@ namespace Misp.Reporting
         protected override List<Functionality> GetPluinFunctionalities()
         {
             List<Functionality> functionalities = new List<Functionality>(0);
-            //functionalities.Add();
+            functionalities.Add(new ReportingFunctionality());
             return functionalities;
         }
 

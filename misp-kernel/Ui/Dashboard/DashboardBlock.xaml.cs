@@ -460,12 +460,12 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public Boolean isReconciliationFilterUpload()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_RECONCILIATION_FILTER_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.RECONCILIATION_FILTER_EDIT);
         }
 
         public Boolean isReconciliationPostingUpload()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.RECONCILIATION_POSTING_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.RECONCILIATION_POSTINGS);
         }
 
         public Boolean isTransactionFileTypeUpload()

@@ -38,7 +38,7 @@ namespace Misp.Reconciliation.Base
         public override Controllable GetController(string fonctionality)
         {
 
-            if (fonctionality == ReconciliationFunctionalitiesCode.NEW_RECONCILIATION_FILTER_FUNCTIONALITY)
+            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_EDIT)
             {
                 ReconciliationFilterEditorController recoEditorController = new ReconciliationFilterEditorController();
                 recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
@@ -48,7 +48,7 @@ namespace Misp.Reconciliation.Base
                 return recoEditorController;
             }
 
-            if (fonctionality == ReconciliationFunctionalitiesCode.LIST_RECONCILIATION_FILTERS_FUNCTIONALITY)
+            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_LIST)
             {
                 ReconciliationFilterBrowserController recoBrowserController = new ReconciliationFilterBrowserController();
                 recoBrowserController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
@@ -58,7 +58,7 @@ namespace Misp.Reconciliation.Base
                 return recoBrowserController;
             }
 
-            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_POSTING_FUNCTIONALITY)
+            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_POSTINGS)
             {
                 //PostingBrowserController controller = new PostingBrowserController();
                 //controller.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
@@ -113,7 +113,7 @@ namespace Misp.Reconciliation.Base
                 return automaticSourcingGridBrowerController;
             }
 
-            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_CONTEXT_FUNCTIONALITY)
+            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_CONFIGURATION)
             {
 
                 ReconciliationContextEditorController controller = new ReconciliationContextEditorController();
