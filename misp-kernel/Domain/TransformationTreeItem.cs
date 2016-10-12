@@ -24,6 +24,8 @@ namespace Misp.Kernel.Domain
 
         public Measure ranking { get; set; }
 
+        public LoopUserDialogTemplate onePossibleChoice { get; set; }
+
         public bool increase { get; set; }
 
         public string conditions { get; set; }
