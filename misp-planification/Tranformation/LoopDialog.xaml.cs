@@ -1,5 +1,6 @@
 ﻿using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
+using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Util;
 using Misp.Planification.Tranformation.InstructionControls;
 using Misp.Planification.Tranformation.LoopCondition;
@@ -36,6 +37,8 @@ namespace Misp.Planification.Tranformation
 
         public TransformationTreeService TransformationTreeService { get; set; }
 
+        public ChangeItemEventHandler SaveEndedEventHandler { get; set; }
+        
         public LoopConditionItemPanel ActiveLoopConditionItemPanel { get; set; }
 
         public bool trow = false;
@@ -105,10 +108,6 @@ namespace Misp.Planification.Tranformation
                 }
                 this.ActiveLoopConditionItemPanel.setValue(value);
             }
-            else if (TabUserDialog.IsSelected)
-            {
-
-            }
         }
 
         private String GetLoopType(object value)
@@ -144,9 +143,9 @@ namespace Misp.Planification.Tranformation
             this.LoopComboBox.SelectedIndex = 0;
             TransformationTreeItem item = GetLoopByOid(this.Loop.refreshLoopOid);
             if (item != null) this.LoopComboBox.SelectedItem = item;
-
-           // DisplayCondition();
+            FillTabs(TabLoop);
             DisplayLoopCondition();
+            
             this.ranking = Loop.ranking;
             this.TypeTextBox.Text = Loop.type != null ? Loop.type : "";
             this.NameTextBox.Text = Loop.name;
@@ -162,12 +161,7 @@ namespace Misp.Planification.Tranformation
         private TransformationTreeItem GetLoopByOid(int? oid)
         {
             if (!oid.HasValue) return null;
-            //foreach (TransformationTreeItem loop in this.ReportPanel.loops)
-            //{
-            //    if (!loop.oid.HasValue) continue;
-            //    if (loop.oid.Value == oid.Value) return loop;
-            //}
-            return null;
+            return   this.Loop.getLoopByOid(oid.Value);
         }
 
         protected void DisplayCondition()
@@ -200,10 +194,28 @@ namespace Misp.Planification.Tranformation
         protected void DisplayLoopCondition()
         {
             this.LoopConditionsPanel.Children.Clear();
-            if (this.Loop.Instruction == null && String.IsNullOrWhiteSpace(this.Loop.conditions))
+            if (this.Loop.loopConditionsChangeHandler.Items.Count == 0)
             {
                 OnAddConditionItem(null);
                 return;
+            }
+            else 
+            {
+                foreach (Kernel.Domain.LoopCondition condition in this.Loop.loopConditionsChangeHandler.Items) 
+                {
+                    if (!string.IsNullOrEmpty(condition.conditions))
+                    {
+                       condition.instructions = TransformationTreeService.getInstructionObject(condition.conditions);
+                    }
+                    LoopConditionItemPanel panel = GetNewConditionItemPanel(condition);
+                    if (condition.position == 0)
+                    {
+                        panel.OperatorComboBox.IsEnabled = false;
+                        panel.OperatorComboBox.SelectedItem = Operator.AND.ToString();
+                    }
+
+                    this.LoopConditionsPanel.Children.Add(panel);
+                }
             }
         }
 
@@ -230,9 +242,12 @@ namespace Misp.Planification.Tranformation
             Loop.type = this.TypeTextBox.Text;
             this.ValueField.Fill();
 
-            Loop.Instruction = FillCondition();
-            if (Loop.Instruction == null) Loop.conditions = null;
-            else Loop.conditions = TransformationTreeService.getInstructionString(Loop.Instruction);
+            //Loop.Instruction = FillCondition();
+            //if (Loop.Instruction == null) Loop.conditions = null;
+            //else Loop.conditions = TransformationTreeService.getInstructionString(Loop.Instruction);
+            FillLoopCondition();
+            //Loop.loopConditionsChangeHandler.AddNew(FillLoopCondition());
+
 
             Loop.refreshLoopOid = null;
             Object item = this.LoopComboBox.SelectedItem;
@@ -281,11 +296,21 @@ namespace Misp.Planification.Tranformation
             return instruction;
         }
 
+        protected void FillLoopCondition()
+        {
+            foreach (UIElement panel in this.LoopConditionsPanel.Children)
+            {
+                if (!(panel is LoopConditionItemPanel)) continue;
+                if (((LoopConditionItemPanel)panel).LoopCondition == null) continue;
+                Kernel.Domain.LoopCondition loopCondition = ((LoopConditionItemPanel)panel).FillConditions(this.TransformationTreeService);
+                if (!loopCondition.isConditionsEmpty()) this.Loop.SynchronizeLoopCondition(loopCondition);
+            }
+        }
+
         public bool SaveLoop()
         {
+            if (this.SaveEndedEventHandler != null) SaveEndedEventHandler(this.Loop);
             return true;
-            
-            //return this.ReportPanel.SaveReport();
         }
 
         #endregion
@@ -306,12 +331,34 @@ namespace Misp.Planification.Tranformation
             this.IncreaseButton.Click += onChange;
             this.DecreaseButton.Click += onChange;
             this.ValueField.ChangeEventHandler += OnChange;
-            this.LoopUserDialogTemplate.Changed += OnChange;
             //this.ReportPanel.ChangeEventHandler += OnChange;
-
+            this.TabLoop.SelectionChanged += OnTabSelectionChanged;
             this.LoopComboBox.SelectionChanged += OnSelectedLoopChange;
         }
-        
+
+        private void OnTabSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is TabControl) 
+            {
+                FillTabs(sender);
+            }
+        }
+
+        private void FillTabs(object sender) 
+        {
+            TabControl mainTabLoop = (TabControl)sender;
+            if (mainTabLoop.SelectedItem == TabConditions)
+            {
+                List<TransformationTreeItem> loops = this.Loop.GetAscendentsLoopTree(true).ToList();
+                this.SideBar.TreeLoopGroup.Visibility = System.Windows.Visibility.Visible;
+                this.SideBar.TreeLoopGroup.TransformationTreeLoopTreeview.fillTree(new ObservableCollection<TransformationTreeItem>(loops));
+            }
+            else if (mainTabLoop.SelectedItem == TabValues)
+            {
+                this.SideBar.TreeLoopGroup.Visibility = System.Windows.Visibility.Collapsed;
+            }
+        }
+
         private void OnSelectedLoopChange(object sender, SelectionChangedEventArgs e)
         {
             if (trow) OnChange();
@@ -347,7 +394,18 @@ namespace Misp.Planification.Tranformation
             loopConditionItemPanel.Added += OnAddConditionItem;
             loopConditionItemPanel.Deleted += OnDeleteConditionItem;
             loopConditionItemPanel.ChangeEventHandler += OnChange;
+            loopConditionItemPanel.Updated += OnUpdateConditionLoop;
             loopConditionItemPanel.Activated += OnActivate;
+        }
+
+        private void OnUpdateConditionLoop(object item)
+        {
+            if (item is Kernel.Domain.LoopCondition)
+            {
+                Kernel.Domain.LoopCondition loopcondition = ((Kernel.Domain.LoopCondition)item);
+                loopcondition = this.Loop.SynchronizeLoopCondition(loopcondition);
+                this.ActiveLoopConditionItemPanel.LoopCondition = loopcondition;
+            }
         }
 
         private void OnActivate(object item)
@@ -367,34 +425,45 @@ namespace Misp.Planification.Tranformation
         {
             if (item is UIElement)
             {
-                this.LoopConditionsPanel.Children.Remove((UIElement)item);
-                if (this.LoopConditionsPanel.Children.Count == 0) OnAddConditionItem(null);
-                else
+                if (item is LoopConditionItemPanel)
                 {
-                    LoopConditionItemPanel panel = (LoopConditionItemPanel)this.LoopConditionsPanel.Children[0];
-                    panel.OperatorComboBox.IsEnabled = false;
-                    panel.OperatorComboBox.SelectedItem = "";
+                    LoopConditionItemPanel panel = (LoopConditionItemPanel)item;
+                    if (panel.LoopCondition != null)
+                    {
+                        this.Loop.SynchronizeDeleteLoopCondition(panel.LoopCondition);
+                    }
                 }
+                this.LoopConditionsPanel.Children.Remove((UIElement)item);
+                
+                if (this.LoopConditionsPanel.Children.Count == 0) OnAddConditionItem(null);
+               
                 int index = 1;
                 foreach (object pan in this.LoopConditionsPanel.Children)
                 {
                     ((LoopConditionItemPanel)pan).Index = index++;
                 }
+                ((LoopConditionItemPanel)this.LoopConditionsPanel.Children[0]).OperatorComboBox.IsEnabled = false;
             }
         }
 
+
         private void OnAddConditionItem(object item)
         {
-            LoopConditionItemPanel panel = GetNewConditionItemPanel(null);
+            LoopConditionItemPanel panel = GetNewConditionItemPanel(item);
             
             int countContainerChildren = this.LoopConditionsPanel.Children.Count + 1;
             panel.Index = countContainerChildren;
+
+            if (panel.LoopCondition != null && item != null)
+            {
+                this.Loop.SynchronizeLoopCondition(panel.LoopCondition);
+            }
 
             this.LoopConditionsPanel.Children.Add(panel);
             if (countContainerChildren == 1)
             {
                 panel.OperatorComboBox.IsEnabled = false;
-                panel.OperatorComboBox.SelectedItem = "";
+                //panel.OperatorComboBox.SelectedItem = "";
             }
         }
 
@@ -405,7 +474,7 @@ namespace Misp.Planification.Tranformation
             ExpressionPanel panel = new ExpressionPanel();
             panel.Margin = new Thickness(50, 0, 0, 10);
             panel.Background = new SolidColorBrush();
-            panel.Display(item);
+            panel.DisplayFromLoop(item);
             panel.Height = 30;
             initHandlers(panel);
             return panel;
@@ -453,11 +522,11 @@ namespace Misp.Planification.Tranformation
 
         protected void initializeSideBarData()
         {
-            SideBar.EntityGroup.ModelService = TransformationTreeService.ModelService;
-            SideBar.EntityGroup.InitializeTreeViewDatas();
-                        
-            SideBar.MeasureGroup.MeasureService = TransformationTreeService.MeasureService;
-            SideBar.MeasureGroup.InitializeTreeViewDatas(true);
+            List<Model> models = TransformationTreeService.ModelService.getAll();
+            SideBar.EntityGroup.EntityTreeview.DisplayModels(models);
+
+            Measure rootMeasure = TransformationTreeService.MeasureService.getRootMeasure();
+            SideBar.MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
 
             List<Kernel.Domain.CalculatedMeasure> CalculatedMeasures = TransformationTreeService.CalculatedMeasureService.getAllCalculatedMeasure();
             if (CalculatedMeasures != null)
@@ -485,14 +554,25 @@ namespace Misp.Planification.Tranformation
         {            
             SideBar.MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
             SideBar.CalculateMeasureGroup.CalculatedMeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
-            SideBar.EntityGroup.EntityTreeview.setDisplacherInterval(new TimeSpan(0, 0, 0, 1));
             SideBar.EntityGroup.EntityTreeview.SelectionChanged += onSelectTargetFromSidebar;
             SideBar.EntityGroup.EntityTreeview.SelectionDoubleClick += onDoubleClickSelectTargetFromSidebar;
             SideBar.CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
-            SideBar.TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
-            SideBar.PeriodNameGroup.PeriodNameTreeview.setDisplacherInterval(new TimeSpan(0, 0, 0, 1));
+            SideBar.TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;    
             SideBar.PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
-            SideBar.PeriodNameGroup.PeriodNameTreeview.SelectionDoubleClick += onDoubleClickSelectPeriodNameFromSidebar;
+            SideBar.TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += OnSelecteLoopFromSidebar;
+        }
+
+        private void OnSelecteLoopFromSidebar(object item)
+        {
+            if (item is TransformationTreeItem) 
+            {
+                TransformationTreeItem value = new TransformationTreeItem();
+                value.oid = ((TransformationTreeItem)item).oid;
+                value.name = ((TransformationTreeItem)item).name;
+                value.loop = ((TransformationTreeItem)item).loop;
+                value.type = ((TransformationTreeItem)item).type;
+                SetValue(value);
+            }
         }
 
         /// <summary>
@@ -509,7 +589,22 @@ namespace Misp.Planification.Tranformation
                 SetValue(measure);
             }
         }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        protected void onSelectTagFromSidebar(object sender)
+        {
+            if (sender != null)
+            {
+                object tag = null;
+                tag = (sender is CollectionViewGroup) && (sender as CollectionViewGroup).ItemCount > 0 ? (sender as CollectionViewGroup).Items : null;
+                if (tag == null) return;
+                SetValue(tag);
+            }
+        }
+
         /// <summary>
         /// Cette méthode est exécutée lorsqu'on sélectionne une target sur la sidebar.
         /// Cette opération a pour but de rajouté la target sélectionnée au filtre de la table en édition,
@@ -522,8 +617,14 @@ namespace Misp.Planification.Tranformation
             {
                 object value = null;
                 if (sender is Entity) value = sender;
-                else if (sender is Kernel.Domain.Attribute) value = sender;
-                else if (sender is AttributeValue) value = sender;
+                if (sender is AttributeValue) value = sender;
+                if (sender is Kernel.Domain.Attribute)
+                {
+                    Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
+                    if (attribute.valueListChangeHandler.Items.Count <= 0) return;
+                    value = attribute.valueListChangeHandler.Items;
+                }
+                else value = sender;
                 SetValue(value);
             }
         }
@@ -532,21 +633,14 @@ namespace Misp.Planification.Tranformation
         {
             if (sender != null && sender is Target)
             {
-                object value = null;
-                if (sender is Entity) value = sender;
-                else if (sender is Kernel.Domain.Attribute)
+                if (!(sender is AttributeValue))
                 {
-                    Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute) sender;
-                    if (attribute.valueListChangeHandler.Items.Count <= 0) value = attribute;
-                    else value = TransformationTreeService.ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
+                    onSelectTargetFromSidebar(sender);
+                    return;
                 }
-                else if (sender is AttributeValue)
-                {
-                    AttributeValue attributeValue = (AttributeValue)sender;
-                    if (attributeValue.childrenListChangeHandler.Items.Count <= 0) value = attributeValue;
-                    else value = attributeValue.childrenListChangeHandler.Items;
-                }
-                SetValue(value);
+                AttributeValue value = (AttributeValue)sender;
+                if (value.childrenListChangeHandler.Items.Count <= 0) return;
+                SetValue(value.childrenListChangeHandler.Items);
             }
         }
 
@@ -555,39 +649,18 @@ namespace Misp.Planification.Tranformation
         {
             if (sender != null)
             {
-                if (sender is PeriodName) SetValue(sender);
-                else if (sender is PeriodInterval) SetValue(sender);
-                //if (sender is PeriodName)
-                //{
-                //    PeriodName periodName = (PeriodName)sender;
-                //    if (periodName.intervalListChangeHandler.Items.Count <= 0) return;
-                //    object value = periodName.Leafs;                    
-                //    SetValue(value);
-                //}
-                //else if (sender is PeriodInterval)
-                //{
-                //    PeriodInterval periodInterval = (PeriodInterval)sender;
-                //    if (periodInterval.IsLeaf) SetValue(periodInterval);
-                //    else SetValue(periodInterval.Leafs);
-                //}
-            }
-        }
-
-        protected void onDoubleClickSelectPeriodNameFromSidebar(object sender)
-        {
-            if (sender != null)
-            {
                 if (sender is PeriodName)
                 {
                     PeriodName periodName = (PeriodName)sender;
-                    if (periodName.intervalListChangeHandler.Items.Count <= 0) SetValue(sender);
-                    else SetValue(periodName.intervalListChangeHandler.Items);                    
+                    if (periodName.intervalListChangeHandler.Items.Count <= 0) return;
+                    object value = periodName.Leafs;                    
+                    SetValue(value);
                 }
                 else if (sender is PeriodInterval)
                 {
                     PeriodInterval periodInterval = (PeriodInterval)sender;
-                    if (periodInterval.IsLeaf) SetValue(sender);
-                    else SetValue(periodInterval.childrenListChangeHandler.Items);
+                    if (periodInterval.IsLeaf) SetValue(periodInterval);
+                    else SetValue(periodInterval.Leafs);
                 }
             }
         }

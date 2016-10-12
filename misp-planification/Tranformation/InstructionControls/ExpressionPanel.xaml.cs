@@ -79,7 +79,7 @@ namespace Misp.Planification.Tranformation.InstructionControls
                 Reset();
                 return;
             }
-
+            
             this.OperatorComboBox.SelectedItem = condition.operatorSign != null ? condition.operatorSign : "";
             this.SignComboBox.SelectedItem = condition.sign != null ? condition.sign : "";
             this.OpenBracketComboBox.SelectedItem = condition.openBracket != null ? condition.openBracket : "";
@@ -89,6 +89,18 @@ namespace Misp.Planification.Tranformation.InstructionControls
             this.CommentTextBlock.Text = String.IsNullOrWhiteSpace(condition.comment) ? "" : condition.comment.Trim();
             refreshCommentIcon();
             trow = true;
+        }
+
+        public void DisplayFromLoop(ConditionItem condition) 
+        {
+            String result = "Result";
+            if (condition != null && (!string.IsNullOrEmpty(condition.arg1) && !condition.arg1.Equals(result,StringComparison.OrdinalIgnoreCase)) && string.IsNullOrEmpty(condition.arg2))
+            {
+                
+                condition.arg2 = condition.arg1;
+                condition.arg1 = result;
+            }
+            Display(condition);
         }
 
         public void Reset()

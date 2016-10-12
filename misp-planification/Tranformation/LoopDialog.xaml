@@ -5,7 +5,6 @@
         xmlns:Animation="clr-namespace:Misp.Kernel.Util;assembly=bcephal"
         xmlns:Condition="clr-namespace:Misp.Planification.Tranformation.InstructionControls"
         xmlns:LoopCondition="clr-namespace:Misp.Planification.Tranformation.LoopCondition"
-        xmlns:Local="clr-namespace:Misp.Planification.Tranformation"
         Icon="/bcephal;Component/Resources/Images/Logo/bcephal.ico"
         Title="Loop Parametrisation"  WindowStartupLocation="CenterScreen" Width="700" Height="550"
         ShowInTaskbar="False">
@@ -40,7 +39,7 @@
                 </Grid.ColumnDefinitions>
                 <src:LoopDialogSideBar Grid.Column="0" x:FieldModifier="public" x:Name="SideBar"/>
                 <GridSplitter Width="5" ResizeDirection="Columns" Background="#FFFBF8F8" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
-                <TabControl Grid.Row="1" Grid.Column="2" TabStripPlacement="Bottom" BorderThickness="0" Background="White">
+                <TabControl Grid.Row="1" Grid.Column="2" TabStripPlacement="Bottom" BorderThickness="0" Background="White" x:Name="TabLoop">
                     <TabItem Header="Values" x:Name="TabValues">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -122,9 +121,6 @@
                                 <ComboBox x:Name="LoopComboBox" Width="222" HorizontalAlignment="Left" Margin="50 0 0 10"/>
                             </StackPanel>
                         </Grid>
-                    </TabItem>
-                    <TabItem Header="User Dialog" x:Name="TabUserDialog">
-                        <Local:LoopUserDialogTemplatePanel x:Name="LoopUserDialogTemplate" />
                     </TabItem>
                 </TabControl>
             </Grid>

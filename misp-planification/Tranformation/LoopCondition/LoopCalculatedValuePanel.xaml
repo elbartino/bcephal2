@@ -31,8 +31,11 @@
     </StackPanel>
     <GridSplitter Width="5" ResizeDirection="Columns" Background="#FFFBF8F8"  Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
     <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
-        <StackPanel  Background="#FFFAC090" x:Name="ConditionPanel"  >
+        <StackPanel Background="#FFFAC090">
+            <Label Content="The system will select values of the loop that meet the condition below" Background="#FFFAC090"/>
+            <StackPanel  Background="#FFFAC090" x:Name="ConditionPanel" />
         </StackPanel>
+        
     </ScrollViewer>
 </Grid>
 

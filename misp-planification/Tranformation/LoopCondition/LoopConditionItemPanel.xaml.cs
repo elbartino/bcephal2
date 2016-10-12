@@ -1,5 +1,6 @@
 ﻿using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Sourcing.Table;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,13 +26,16 @@ namespace Misp.Planification.Tranformation.LoopCondition
         public ChangeEventHandler ChangeEventHandler;
         public Kernel.Ui.Base.ChangeItemEventHandler Deleted;
         public Kernel.Ui.Base.ChangeItemEventHandler Added;
+        public Kernel.Ui.Base.ChangeItemEventHandler Updated;
         public ActivateEventHandler Activated;
 
         public LoopCalculatedValuePanel ActiveLoopCalucatedValue;
 
-        private Target scope;
+        public Kernel.Domain.LoopCondition LoopCondition { get; set; }
 
         public bool trow = false;
+
+        private bool isViewDetailsHided { get; set; }
 
         public int Index
         {
@@ -54,7 +58,10 @@ namespace Misp.Planification.Tranformation.LoopCondition
             this.OperatorComboBox.SelectedItem = "AND";
             HideDetailsView();
             initHandlers();
-            scope = null;
+            this.LoopCalutedValue.filterScopePanel.DisplayScope(null);
+            this.LoopCalutedValue.periodPanel.DisplayPeriod(null, true);
+            this.LoopCalutedValue.periodPanel.CustomizeForAutomaticSourcing();
+          
         }
 
          /// <summary>
@@ -70,7 +77,13 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         public void Display(object item)
         {
-            if (item == null)
+            if(item != null && item is Kernel.Domain.LoopCondition)
+            {
+                this.LoopCondition = (Kernel.Domain.LoopCondition)item;
+                DisplayLoopCondition(this.LoopCondition);
+
+            }
+            else
             {
                 Reset();
                 return;
@@ -87,10 +100,6 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
             this.CommentTextBlock.Text = "";
             refreshCommentIcon();
-            //LoopCalutedValue.filterScopePanel.DisplayScope(null,false);
-            
-            //LoopCalutedValue.periodPanel.DisplayPeriod(null);
-
             trow = true;
         }
 
@@ -128,64 +137,148 @@ namespace Misp.Planification.Tranformation.LoopCondition
             this.OperatorComboBox.MouseDown += OnMouseDown;
             this.CommentTextBlock.MouseDown += OnMouseDown;
             this.ShowDetailsButton.MouseDown += OnMouseDown;
-
+      
             this.LoopCalutedValue.Activated += OnActivate;
+            this.LoopCalutedValue.ChangeEventHandler += onChange;
             this.LoopCalutedValue.filterScopePanel.ItemChanged += OnFilterScopeChanged;
-            this.LoopCalutedValue.periodPanel.ItemChanged += OnPeriodItemChanged;
+            this.LoopCalutedValue.periodPanel.ItemChanged += OnPeriodChanged;
+            this.LoopCalutedValue.periodPanel.ItemDeleted += OnPeriodDeleted;
             this.LoopCalutedValue.filterScopePanel.ItemDeleted += OnFilterScopeDeleted;
-            this.LoopCalutedValue.periodPanel.ItemDeleted += OnPeriodItemDeleted;
+            this.LoopCalutedValue.CellMeasurePanel.Added += OnCellMeasureChanged;
+            this.LoopCalutedValue.CellMeasurePanel.Updated += OnCellMeasureChanged;
+            
+            
         }
 
-        private void OnPeriodItemDeleted(object item)
+        private void OnCellMeasureChanged(object item)
         {
-            if (item == null || !(item is PeriodItem))
-            {
-                return;
+            if(item is CellMeasurePanel){
+                FillLoopProperties(((CellMeasurePanel)item).CellMeasure);
+                if (isViewDetailsHided) HideDetailsView(false);
             }
+        }
 
-            PeriodItem perioditem = (PeriodItem)item;
-            Period period = this.LoopCalutedValue.periodPanel.Period;
-            if (period == null) period = new Period();
-            period.SynchronizeDeletePeriodItem(perioditem);
-            this.LoopCalutedValue.periodPanel.DisplayPeriod(period);
+        public Kernel.Domain.LoopCondition FillConditions(Kernel.Service.TransformationTreeService TransformaionTreeService)
+        {
+            this.LoopCondition.openBracket = getBrackets()[0];
+            this.LoopCondition.closeBracket = getBrackets()[1];
+            this.LoopCondition.operatorType = this.OperatorComboBox.SelectedItem != null ? this.OperatorComboBox.SelectedItem.ToString() : Operator.AND.name;
+            this.LoopCondition.comment = this.CommentTextBlock.Text.Trim();
+            this.LoopCondition.conditions = TransformaionTreeService.getInstructionString(this.LoopCalutedValue.FillCondition());
+            return LoopCondition;
         }
 
         private void OnFilterScopeDeleted(object item)
         {
-            if (item == null || !(item is TargetItem))
-            {
-                return;
-            }
-
+            if (item == null || !(item is TargetItem)) return;
             TargetItem targetItem = (TargetItem)item;
-            Target scope = this.LoopCalutedValue.filterScopePanel.Scope;
-            if (scope == null) scope = GetNewScope();
-            scope.SynchronizeDeleteTargetItem(targetItem);
-            this.LoopCalutedValue.filterScopePanel.DisplayScope(scope);
+
+            Target cellScope = this.LoopCalutedValue.filterScopePanel.Scope;
+            if (cellScope == null) cellScope = new Target(Target.Type.OBJECT_VC, Target.TargetType.COMBINED);
+            cellScope.SynchronizeDeleteTargetItem(targetItem);
+            FillLoopProperties(cellScope);
+            this.LoopCalutedValue.filterScopePanel.DisplayScope(cellScope);
+            if (isViewDetailsHided) HideDetailsView(false);
         }
 
-        private void OnPeriodItemChanged(object item)
+        private void OnPeriodDeleted(object item)
         {
-            if(item == null || !(item is PeriodItem))
-            {
-                return;
-            }
+            if (item == null || !(item is PeriodItem)) return;
+            PeriodItem periodItem = (PeriodItem)item;
 
-            PeriodItem perioditem = (PeriodItem)item;
             Period period = this.LoopCalutedValue.periodPanel.Period;
             if (period == null) period = new Period();
-            period.SynchronizePeriodItems(perioditem);
+            period.SynchronizeDeletePeriodItem(periodItem);
+            FillLoopProperties(period);
             this.LoopCalutedValue.periodPanel.DisplayPeriod(period);
+            if (isViewDetailsHided) HideDetailsView(false);
+        }
+
+        private void DisplayLoopCondition(Kernel.Domain.LoopCondition loopCondition)
+        {
+            trow = false;
+            this.CommentTextBlock.Text = loopCondition.comment;
+            this.OperatorComboBox.SelectedItem = loopCondition.operatorType;
+            this.OpenBracketComboBox.SelectedItem = loopCondition.openBracket;
+            this.CloseBracketComboBox.SelectedItem = loopCondition.closeBracket;
+            this.Index = loopCondition.position +1;
+            CellProperty cell = loopCondition.cellProperty;
+            if (cell == null) cell = new CellProperty();
+            this.LoopCalutedValue.periodPanel.DisplayPeriod(cell.period);
+            this.LoopCalutedValue.filterScopePanel.DisplayScope(cell.cellScope);
+            this.LoopCalutedValue.CellMeasurePanel.Display(cell.cellMeasure);
+            if (!string.IsNullOrEmpty(loopCondition.conditions)) 
+            {
+                this.LoopCalutedValue.DisplayInstructions(loopCondition.instructions);
+            }
+            trow = true;
+        }
+
+
+        private void FillLoopProperties(object item) 
+        {
+            //setCurrentLoopCondition();
+
+            if (this.LoopCondition == null)
+            {
+                this.LoopCondition = new Kernel.Domain.LoopCondition();
+                this.LoopCondition.position = -1;
+                this.LoopCondition.operatorType = this.OperatorComboBox.SelectedItem.ToString();
+            }
+
+            if (this.LoopCondition.cellProperty == null) 
+            {
+                this.LoopCondition.cellProperty = new CellProperty();
+            }
+            if (item is Period) 
+            {
+                this.LoopCondition.cellProperty.period = (Period)item;
+            }
+            else if (item is Target) 
+            {
+                this.LoopCondition.cellProperty.cellScope = (Target)item;
+            }
+            else if (item is CellMeasure)
+            {
+                this.LoopCondition.cellProperty.cellMeasure = (CellMeasure)item;
+            }
+            else if (item is Operator) 
+            {
+                this.LoopCondition.operatorType = ((Operator)item).name;
+            }
+            else if (item is String[])
+            {
+                String[] brackets = (String[])item;
+                this.LoopCondition.openBracket = brackets[0];
+                this.LoopCondition.closeBracket = brackets[1];
+            }
+            if (Updated != null) Updated(this.LoopCondition);
+        }
+
+        private void OnPeriodChanged(object item)
+        {
+            if (item == null || !(item is PeriodItem)) return;
+            PeriodItem periodItem = (PeriodItem)item;
+
+            Period period = this.LoopCalutedValue.periodPanel.Period;
+            if (period == null) period = new Period();
+            PeriodItem itemUpdated = period.SynchronizePeriodItems(periodItem);
+            FillLoopProperties(period);
+            this.LoopCalutedValue.periodPanel.DisplayPeriod(period);
+            if (isViewDetailsHided) HideDetailsView(false);
         }
 
         private void OnFilterScopeChanged(object item)
         {
             if (item == null || !(item is TargetItem)) return;
             TargetItem targetItem = (TargetItem)item;
-            Target scope = this.LoopCalutedValue.filterScopePanel.Scope;
-            if (scope == null) scope = GetNewScope();
-            scope.SynchronizeTargetItems(targetItem);
-            this.LoopCalutedValue.filterScopePanel.DisplayScope(scope);
+            
+            Target cellScope = this.LoopCalutedValue.filterScopePanel.Scope;
+            if (cellScope == null) cellScope = new Target(Target.Type.OBJECT_VC, Target.TargetType.COMBINED);
+            cellScope.SynchronizeTargetItems(targetItem);
+            FillLoopProperties(cellScope);
+            this.LoopCalutedValue.filterScopePanel.DisplayScope(cellScope);
+            if (isViewDetailsHided) HideDetailsView(false);
         }
 
         private void OnActivate(object item)
@@ -225,7 +318,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         private void OnHideDetails(object sender, RoutedEventArgs e)
         {
-            HideDetailsView(true);
+            HideDetailsView();
         }
 
         private void OnShowDetails(object sender, RoutedEventArgs e)
@@ -235,6 +328,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         private void HideDetailsView(bool hideDetails= true) 
         {
+            isViewDetailsHided = hideDetails;
             LoopCalutedValue.Visibility = hideDetails ? Visibility.Collapsed : System.Windows.Visibility.Visible;
             this.HideDetailsButton.Visibility = hideDetails ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;            
             this.ShowDetailsButton.Visibility = hideDetails ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
@@ -254,7 +348,24 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         public void onChange()
         {
-            if (trow && ChangeEventHandler != null) ChangeEventHandler();
+            if (trow && ChangeEventHandler != null)
+            {
+                if (!isDeleted)
+                {
+                    FillLoopProperties(null);
+                }
+                ChangeEventHandler();
+            }
+        }
+
+        public void setCurrentLoopCondition() 
+        {
+            if (this.LoopCondition == null)
+            {
+                this.LoopCondition = new Kernel.Domain.LoopCondition();
+                this.LoopCondition.position = -1;
+                this.LoopCondition.operatorType = this.OperatorComboBox.SelectedItem.ToString();
+            }
         }
 
         private void OnComment(object sender, RoutedEventArgs e)
@@ -264,14 +375,22 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         private void OnCommentChange(object sender, TextChangedEventArgs e)
         {
-            onChange();
-            refreshCommentIcon();
+            if (trow)
+            {
+                onChange();
+                refreshCommentIcon();
+            }
         }
-
+        private bool isDeleted = false;
         private void OnDeleteButtonClick(object sender, RoutedEventArgs e)
         {
-            if (trow && Deleted != null) Deleted(this);
+            if (trow && Deleted != null)
+            {
+                isDeleted = true;
+                Deleted(this);
+            }
             onChange();
+            isDeleted = false;
         }
 
         private void OnAddButtonClick(object sender, RoutedEventArgs e)
@@ -286,7 +405,18 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         private void onChange(object sender, SelectionChangedEventArgs e)
         {
-            onChange();
+            if (trow)
+            {
+                FillLoopProperties(getBrackets());
+                onChange();
+            }
+        }
+
+        private String[] getBrackets() 
+        {
+            string openBracket = this.OpenBracketComboBox.SelectedItem != null ? this.OpenBracketComboBox.SelectedItem.ToString() : "";
+            string closeBracket = this.CloseBracketComboBox.SelectedItem != null ? this.CloseBracketComboBox.SelectedItem.ToString() : "";
+            return new String[] {openBracket,closeBracket};
         }
 
         public void setValue(object item) 
@@ -299,10 +429,39 @@ namespace Misp.Planification.Tranformation.LoopCondition
             }
             if (item is AttributeValue)
             {
-
-                TargetItem targetitem = new TargetItem((AttributeValue)item, ((AttributeValue)item).attribut, "");
-                this.LoopCalutedValue.filterScopePanel.SetTargetValue((AttributeValue)item);
+                this.LoopCalutedValue.filterScopePanel.SetTargetValue((Kernel.Domain.AttributeValue)item);
             }
+            else if (item is TransformationTreeItem) 
+            {
+                TransformationTreeItem loop = (TransformationTreeItem)item;
+                if (loop.IsLoop)
+                {
+                    if (loop.IsScope)
+                    {
+                        this.LoopCalutedValue.filterScopePanel.SetLoopValue(loop);
+                    }
+                    else if (loop.IsPeriod)
+                    {
+                        this.LoopCalutedValue.periodPanel.SetLoopValue(loop);
+                    }
+                }
+            }
+            else if (item is PeriodInterval) 
+            {
+                this.LoopCalutedValue.periodPanel.SetPeriodInterval((PeriodInterval)item);
+            }
+            else if (item is List<PeriodInterval>)
+            {
+                List<PeriodInterval> listInterval = ((List<PeriodInterval>)item);
+                if (listInterval.Count == 0)  return;
+                String periodName = listInterval[0].periodName.name;
+                this.LoopCalutedValue.periodPanel.SetPeriodItemName(periodName);
+            }
+            else if (item is PeriodName) 
+            {
+                this.LoopCalutedValue.periodPanel.SetPeriodItemName(((PeriodName)item).name);
+            }
+          
         }
 
         /// <summary>
