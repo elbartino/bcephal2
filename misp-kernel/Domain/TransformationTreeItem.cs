@@ -15,7 +15,7 @@ namespace Misp.Kernel.Domain
     public class TransformationTreeItem : Persistent
     {
         public string name { get; set; }
-        
+
         public int position { get; set; }
 
         public bool loop { get; set; }
@@ -24,25 +24,23 @@ namespace Misp.Kernel.Domain
 
         public Measure ranking { get; set; }
 
-        public LoopUserDialogTemplate onePossibleChoice { get; set; }
-
         public bool increase { get; set; }
 
         public string conditions { get; set; }
 
         [ScriptIgnore]
         public Instruction Instruction { get; set; }
-        
+
         [ScriptIgnore]
         public TreeActionCondition TreeActionCondition { get; set; }
-        
+
         [ScriptIgnore]
-        public  Dictionary<string, double> conditionsParams { get; set; }
+        public Dictionary<string, double> conditionsParams { get; set; }
 
         public int? reportOid { get; set; }
 
         public int? refreshLoopOid { get; set; }
-        
+
         [ScriptIgnore]
         public TransformationTree tree { get; set; }
 
@@ -59,10 +57,16 @@ namespace Misp.Kernel.Domain
 
         public PersistentListChangeHandler<TransformationTreeLoopValue> valueListChangeHandler { get; set; }
 
+        public PersistentListChangeHandler<LoopCondition> loopConditionsChangeHandler { get; set; }
+
         [ScriptIgnore]
-        public bool IsScope { get { 
-            return type != null && type.Equals(Kernel.Application.ParameterType.SCOPE.ToString());
-        } }
+        public bool IsScope
+        {
+            get
+            {
+                return type != null && type.Equals(Kernel.Application.ParameterType.SCOPE.ToString());
+            }
+        }
 
         [ScriptIgnore]
         public bool IsPeriod
@@ -82,17 +86,19 @@ namespace Misp.Kernel.Domain
             }
         }
 
-      
+
 
 
         public TransformationTreeItem()
         {
             increase = true;
             this.valueListChangeHandler = new PersistentListChangeHandler<TransformationTreeLoopValue>();
-            this.childrenListChangeHandler = new PersistentListChangeHandler<TransformationTreeItem>();            
+            this.childrenListChangeHandler = new PersistentListChangeHandler<TransformationTreeItem>();
+            this.loopConditionsChangeHandler = new PersistentListChangeHandler<LoopCondition>();
         }
 
-        public TransformationTreeItem(bool isLoop) : this()
+        public TransformationTreeItem(bool isLoop)
+            : this()
         {
             IsLoop = isLoop;
         }
@@ -220,6 +226,16 @@ namespace Misp.Kernel.Domain
             return entities;
         }
 
+        public TransformationTreeItem getLoopByOid(int oid)
+        {
+            TransformationTree parent = this.tree;
+            foreach (TransformationTreeItem treeItem in parent.GetAllLoops())
+            {
+                if (treeItem.oid == oid) return treeItem;
+            }
+            return null;
+        }
+
         public List<TransformationTreeItem> GetDescendentsTree()
         {
             List<TransformationTreeItem> entities = new List<TransformationTreeItem>(0);
@@ -242,7 +258,7 @@ namespace Misp.Kernel.Domain
             return loops;
         }
 
-        
+
         public override String ToString()
         {
             return name;
@@ -283,7 +299,7 @@ namespace Misp.Kernel.Domain
         public TransformationTreeItem GetCopy(bool isCutMode = false)
         {
             TransformationTreeItem item = new TransformationTreeItem();
-            item.name = isCutMode ? this.name : "Copy Of " + this.name ;
+            item.name = isCutMode ? this.name : "Copy Of " + this.name;
             item.position = -1;
             item.parent = null;
             item.tree = this.tree;
@@ -294,7 +310,7 @@ namespace Misp.Kernel.Domain
             item.reportOid = this.reportOid;
             item.loop = this.loop;
             item.valueListChangeHandler = new PersistentListChangeHandler<TransformationTreeLoopValue>();
-            foreach (TransformationTreeLoopValue loopValue in this.valueListChangeHandler.Items) 
+            foreach (TransformationTreeLoopValue loopValue in this.valueListChangeHandler.Items)
             {
                 TransformationTreeLoopValue value = loopValue.GetCopy();
                 value.loop = item;
@@ -302,15 +318,15 @@ namespace Misp.Kernel.Domain
             }
             return item;
         }
-   
 
-        public TransformationTreeItem setCopyReport(TransformationTreeItem copy, Service<InputTable, InputTableBrowserData> service) 
+
+        public TransformationTreeItem setCopyReport(TransformationTreeItem copy, Service<InputTable, InputTableBrowserData> service)
         {
             if (!this.loop && this.reportOid.HasValue)
             {
                 copy.reportOid = service.SaveAsCopy(this.reportOid.Value);
             }
-            return copy; 
+            return copy;
         }
 
         public bool hasUnsavedLoop()
@@ -331,6 +347,94 @@ namespace Misp.Kernel.Domain
                 if (item.hasUnsavedItem()) return true;
             }
             return false;
+        }
+
+        public LoopCondition SynchronizeLoopCondition(LoopCondition loopCondition)
+        {
+            LoopCondition foundcondition = this.GetLoopCondition(loopCondition.position);
+            if (foundcondition == null)
+            {
+                foundcondition = new LoopCondition();
+                foundcondition.cellProperty = loopCondition.cellProperty;
+                foundcondition.comment = loopCondition.comment;
+                foundcondition.conditions = loopCondition.conditions;
+                foundcondition.openBracket = loopCondition.openBracket;
+                foundcondition.closeBracket = loopCondition.closeBracket;
+                if (foundcondition.position != 0) foundcondition.operatorType = loopCondition.operatorType;
+                AddLoopCondition(foundcondition);
+            }
+            else
+            {
+                foundcondition.cellProperty = loopCondition.cellProperty;
+                foundcondition.comment = loopCondition.comment;
+                foundcondition.conditions = loopCondition.conditions;
+                foundcondition.openBracket = loopCondition.openBracket;
+                foundcondition.closeBracket = loopCondition.closeBracket;
+                if (foundcondition.position != 0) foundcondition.operatorType = loopCondition.operatorType;
+                UpdateLoopCondition(foundcondition);
+            }
+            this.isModified = true;
+            return foundcondition;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        public void AddLoopCondition(LoopCondition item, bool sort = true)
+        {
+            item.isModified = true;
+            item.position = loopConditionsChangeHandler.Items.Count;
+            loopConditionsChangeHandler.AddNew(item, sort);
+            OnPropertyChanged("loopConditionsChangeHandler.Items");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        public void UpdateLoopCondition(LoopCondition item, bool sort = true)
+        {
+            item.isModified = true;
+            loopConditionsChangeHandler.AddUpdated(item, sort);
+            OnPropertyChanged("loopConditionsChangeHandler.Items");
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        public void RemoveLoopCondition(LoopCondition item, bool sort = true)
+        {
+            item.isModified = true;
+            loopConditionsChangeHandler.AddDeleted(item, sort);
+            foreach (LoopCondition child in loopConditionsChangeHandler.Items)
+            {
+                if (child.position > item.position) child.position = child.position - 1;
+            }
+        }
+
+        /// <summary>
+        /// Retourne l'item à la position spécifiée.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public LoopCondition GetLoopCondition(int position)
+        {
+            foreach (LoopCondition item in loopConditionsChangeHandler.Items)
+            {
+                if (item.position == position) return item;
+            }
+            return null;
+        }
+
+        public void SynchronizeDeleteLoopCondition(LoopCondition loopCondition)
+        {
+            LoopCondition foundItem = this.GetLoopCondition(loopCondition.position);
+            if (foundItem == null) return;
+            RemoveLoopCondition(foundItem);
+            this.isModified = true;
         }
 
     }
