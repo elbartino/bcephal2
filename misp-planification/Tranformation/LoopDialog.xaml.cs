@@ -306,6 +306,7 @@ namespace Misp.Planification.Tranformation
             this.IncreaseButton.Click += onChange;
             this.DecreaseButton.Click += onChange;
             this.ValueField.ChangeEventHandler += OnChange;
+            this.LoopUserDialogTemplate.Changed += OnChange;
             //this.ReportPanel.ChangeEventHandler += OnChange;
 
             this.LoopComboBox.SelectionChanged += OnSelectedLoopChange;
