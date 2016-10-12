@@ -75,6 +75,7 @@
     <Compile Include="Base\AllocationControllerFactory.cs" />
     <Compile Include="Base\AllocationFunctionalitiesCode.cs" />
     <Compile Include="Audit\AllocationLogController.cs" />
+    <Compile Include="Base\AllocationFunctionality.cs" />
     <Compile Include="Base\AllocationMenu.cs" />
     <Compile Include="Base\AllocationResourcePath.cs" />
     <Compile Include="Base\AllocationServiceFactory.cs" />

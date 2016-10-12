@@ -410,12 +410,12 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public Boolean isTransformationTree()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_TRANSFORMATION_TREE_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.TRANSFORMATION_TREE_EDIT);
         }
 
         public Boolean isCombinedTransformationTree()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.NEW_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.COMBINED_TRANSFORMATION_TREES_EDIT);
         }
 
         public Boolean isCalculatedMeasure()

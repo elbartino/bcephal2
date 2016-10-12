@@ -57,7 +57,7 @@ namespace Misp.Planification.Tranformation
 
         public void InitializeTransformationSlide()
         {
-            this.PresentationEditorController = (PresentationEditorController)ApplicationManager.Instance.ControllerFactory.GetController(PlanificationFunctionalitiesCode.NEW_SLIDE_FUNCTIONALITY);
+            this.PresentationEditorController = (PresentationEditorController)ApplicationManager.Instance.ControllerFactory.GetController(PlanificationFunctionalitiesCode.SLIDE);
             this.PresentationEditorController.slideDialog = this;
             this.PresentationEditorController.Initialize();
             this.PresentationEditorController.RemoveMenuCommands();

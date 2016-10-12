@@ -87,6 +87,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\PlanificationFunctionality.cs" />
     <Compile Include="Base\PlanificationControllerFactory.cs" />
     <Compile Include="Base\PlanificationFunctionalitiesCode.cs" />
     <Compile Include="Base\PlanificationMenu.cs" />

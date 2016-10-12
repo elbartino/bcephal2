@@ -14,8 +14,6 @@ namespace Misp.Planification.Base
 
         public ApplicationMenu NewTransformationTreeMenu { get; private set; }
         public ApplicationMenu ListTransformationTreeMenu { get; private set; }
-        public ApplicationMenu LoadTransformationTreesMenu { get; private set; }
-        public ApplicationMenu ClearTransformationTreesMenu { get; private set; }
         public ApplicationMenu CreateCombinedTransformationTreesMenu { get; private set; }
         public ApplicationMenu ListCombinedTransformationTreesMenu { get; private set; }
         
@@ -31,10 +29,6 @@ namespace Misp.Planification.Base
             menus.Add(new Separator());
             menus.Add(CreateCombinedTransformationTreesMenu);
             menus.Add(ListCombinedTransformationTreesMenu);
-            //menus.Add(new Separator());
-           // menus.Add(LoadTransformationTreesMenu);
-           // menus.Add(ClearTransformationTreesMenu);
-
             return menus;
         }
 
@@ -43,14 +37,12 @@ namespace Misp.Planification.Base
         /// </summary>
         protected override void initChildren()
         {
-            this.Code = ApplicationMenu.SOURCING_MENU_CODE;
+            this.Code = FunctionalitiesCode.TRANSFORMATION_DATA;
             this.Header = FunctionalitiesLabel.TRANSFORMATION_LABEL;
-            NewTransformationTreeMenu = BuildMenu(ApplicationMenu.PLANIFICATION_MENU_CODE,FunctionalitiesLabel.NEW_TRANSFORMATION_TREE_LABEL, NavigationToken.GetCreateViewToken(PlanificationFunctionalitiesCode.NEW_TRANSFORMATION_TREE_FUNCTIONALITY));
-            ListTransformationTreeMenu = BuildMenu(ApplicationMenu.PLANIFICATION_MENU_CODE, FunctionalitiesLabel.LIST_TRANSFORMATION_TREE_LABEL, NavigationToken.GetSearchViewToken(PlanificationFunctionalitiesCode.LIST_TRANSFORMATION_TREE_FUNCTIONALITY));
-            LoadTransformationTreesMenu = BuildMenu(ApplicationMenu.PLANIFICATION_MENU_CODE, FunctionalitiesLabel.LOAD_TRANSFORMATION_TREES_LABEL, NavigationToken.GetCreateViewToken(PlanificationFunctionalitiesCode.LOAD_TRANSFORMATION_TREES_FUNCTIONALITY));
-            ClearTransformationTreesMenu = BuildMenu(ApplicationMenu.PLANIFICATION_MENU_CODE, FunctionalitiesLabel.CLEAR_TRANSFORMATION_TREES_LABEL, NavigationToken.GetCreateViewToken(PlanificationFunctionalitiesCode.CLEAR_TRANSFORMATION_TREES_FUNCTIONALITY));
-            CreateCombinedTransformationTreesMenu = BuildMenu(ApplicationMenu.PLANIFICATION_MENU_CODE,FunctionalitiesLabel.NEW_COMBINED_TRANSFORMATION_TREES_LABEL, NavigationToken.GetCreateViewToken(PlanificationFunctionalitiesCode.NEW_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY));
-            ListCombinedTransformationTreesMenu = BuildMenu(ApplicationMenu.PLANIFICATION_MENU_CODE, FunctionalitiesLabel.LIST_COMBINED_TRANSFORMATION_TREES_LABEL, NavigationToken.GetSearchViewToken(PlanificationFunctionalitiesCode.LIST_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY));
+            NewTransformationTreeMenu = BuildMenu(FunctionalitiesCode.TRANSFORMATION_DATA, FunctionalitiesLabel.NEW_TRANSFORMATION_TREE_LABEL, NavigationToken.GetCreateViewToken(PlanificationFunctionalitiesCode.TRANSFORMATION_TREE_EDIT));
+            ListTransformationTreeMenu = BuildMenu(FunctionalitiesCode.TRANSFORMATION_DATA, FunctionalitiesLabel.LIST_TRANSFORMATION_TREE_LABEL, NavigationToken.GetSearchViewToken(PlanificationFunctionalitiesCode.TRANSFORMATION_TREE_LIST));
+            CreateCombinedTransformationTreesMenu = BuildMenu(FunctionalitiesCode.TRANSFORMATION_DATA, FunctionalitiesLabel.NEW_COMBINED_TRANSFORMATION_TREES_LABEL, NavigationToken.GetCreateViewToken(PlanificationFunctionalitiesCode.COMBINED_TRANSFORMATION_TREES_EDIT));
+            ListCombinedTransformationTreesMenu = BuildMenu(FunctionalitiesCode.TRANSFORMATION_DATA, FunctionalitiesLabel.LIST_COMBINED_TRANSFORMATION_TREES_LABEL, NavigationToken.GetSearchViewToken(PlanificationFunctionalitiesCode.COMBINED_TRANSFORMATION_TREES_LIST));
         }
 
     }

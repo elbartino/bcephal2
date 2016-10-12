@@ -171,13 +171,13 @@ namespace Misp.Kernel.Application
             {
                 string functionality = token.Functionality;
                 if (functionality == FunctionalitiesCode.HELP_ABOUT) { OpenAboutDialog(); return; }
-                if (functionality == FunctionalitiesCode.ALLOCATION_RUN_ALL) { StartRunAllAllocation(); return; }
-                if (functionality == FunctionalitiesCode.ALLOCATION_CLEAR_ALL) { StartClearAllAllocation(); return; }
-                if (functionality == FunctionalitiesCode.ALLOCATION_LOG) { StartAllocationLog(); return; }
+                if (functionality == FunctionalitiesCode.LOAD_TABLES_AND_GRIDS) { StartRunAllAllocation(); return; }
+                if (functionality == FunctionalitiesCode.LOAD_CLEAR_TABLES_AND_GRIDS) { StartClearAllAllocation(); return; }
+                if (functionality == FunctionalitiesCode.LOAD_LOG) { StartAllocationLog(); return; }
                 if (functionality == FunctionalitiesCode.MULTIPLE_FILES_UPLOAD) { UploadMultipleFiles(); return; }
                 if (functionality == FunctionalitiesCode.PROPERTIES_FUNCTIONALITY) { createProperties(); return; }
-                if (functionality == FunctionalitiesCode.LOAD_TRANSFORMATION_TREES_FUNCTIONALITY) { LoadTransformationTrees(false); return; }
-                if (functionality == FunctionalitiesCode.CLEAR_TRANSFORMATION_TREES_FUNCTIONALITY) { LoadTransformationTrees(true); return; }
+                if (functionality == FunctionalitiesCode.TRANSFORMATION_TREE_LOAD) { LoadTransformationTrees(false); return; }
+                if (functionality == FunctionalitiesCode.TRANSFORMATION_TREE_CLEAR) { LoadTransformationTrees(true); return; }
                 if (functionality == FunctionalitiesCode.FILE_SAVE) token.currentActiveFunctionality = ActivePage.FunctionalityCode;
                 if (functionality == FunctionalitiesCode.FILE_SAVE_AS) { SaveFileAs(token); return; }
                 if (functionality == FunctionalitiesCode.BACKUP_SIMPLE_FUNCTIONALITY || functionality == FunctionalitiesCode.BACKUP_AUTOMATIC_FUNCTIONALITY) 
@@ -256,7 +256,7 @@ namespace Misp.Kernel.Application
         {
             try
             {
-                string functionality = FunctionalitiesCode.ALLOCATION_LOG;
+                string functionality = FunctionalitiesCode.LOAD_LOG;
                 Controllable page = ApplicationManager.ControllerFactory.GetController(functionality);
                 if (page != null) return page.Create();
                 return OperationState.CONTINUE;
@@ -348,7 +348,7 @@ namespace Misp.Kernel.Application
         {
             try
             {
-                string functionality = FunctionalitiesCode.ALLOCATION_RUN_ALL;
+                string functionality = FunctionalitiesCode.LOAD_TABLES_AND_GRIDS;
                 Controllable page = ApplicationManager.ControllerFactory.GetController(functionality);
                 if (page != null) return page.Create();
                 return OperationState.CONTINUE;
@@ -362,7 +362,7 @@ namespace Misp.Kernel.Application
         {
             try
             {
-                string functionality = FunctionalitiesCode.LOAD_TRANSFORMATION_TREES_FUNCTIONALITY;
+                string functionality = FunctionalitiesCode.TRANSFORMATION_TREE_LOAD;
                 Controllable page = ApplicationManager.ControllerFactory.GetController(functionality);
                 if (page != null) return page.Create();
                 return OperationState.CONTINUE;
@@ -431,8 +431,8 @@ namespace Misp.Kernel.Application
         {
             try
             {
-                string functionality = forClear ? FunctionalitiesCode.CLEAR_TRANSFORMATION_TREES_FUNCTIONALITY :
-                    FunctionalitiesCode.LOAD_TRANSFORMATION_TREES_FUNCTIONALITY;
+                string functionality = forClear ? FunctionalitiesCode.TRANSFORMATION_TREE_CLEAR :
+                    FunctionalitiesCode.TRANSFORMATION_TREE_LOAD;
                 Controllable page = ApplicationManager.ControllerFactory.GetController(functionality);
                 if (page != null) return page.Create();
                 return OperationState.CONTINUE;
@@ -447,7 +447,7 @@ namespace Misp.Kernel.Application
         {
             try
             {
-                string functionality = FunctionalitiesCode.ALLOCATION_CLEAR_ALL;
+                string functionality = FunctionalitiesCode.LOAD_CLEAR_TABLES_AND_GRIDS;
                 Controllable page = ApplicationManager.ControllerFactory.GetController(functionality);
                 if (page != null) return page.Create();
                 return OperationState.CONTINUE;

@@ -31,7 +31,7 @@ namespace Misp.Allocation.Base
         /// <returns></returns>
         public override Controllable GetController(string fonctionality)
         {
-            if (fonctionality == FunctionalitiesCode.ALLOCATION_CLEAR_ALL)
+            if (fonctionality == FunctionalitiesCode.LOAD_CLEAR_TABLES_AND_GRIDS)
             {
                 ClearAllocationController controller = new ClearAllocationController();
                 controller.ModuleName = Misp.Allocation.PlugIn.MODULE_NAME;
@@ -40,7 +40,7 @@ namespace Misp.Allocation.Base
                 controller.Service = ((AllocationServiceFactory)ServiceFactory).GetClearAllocationService();
                 return controller;
             }
-            if (fonctionality == FunctionalitiesCode.ALLOCATION_RUN_ALL)
+            if (fonctionality == FunctionalitiesCode.LOAD_TABLES_AND_GRIDS)
             {
                 RunAllAllocationsController controller = new RunAllAllocationsController();
                 controller.ModuleName = Misp.Allocation.PlugIn.MODULE_NAME;
@@ -49,7 +49,7 @@ namespace Misp.Allocation.Base
                 controller.Service = ((AllocationServiceFactory)ServiceFactory).GetAllocationService();
                 return controller;
             }
-            if (fonctionality == FunctionalitiesCode.ALLOCATION_LOG)
+            if (fonctionality == FunctionalitiesCode.LOAD_LOG)
             {
                 AllocationLogController controller = new AllocationLogController();
                 controller.ModuleName = Misp.Allocation.PlugIn.MODULE_NAME;

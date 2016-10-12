@@ -23,7 +23,7 @@ namespace Misp.Planification.CombinedTransformationTree
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return Kernel.Application.FunctionalitiesCode.NEW_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY; }
+        public override string GetEditorFuntionality() { return Kernel.Application.FunctionalitiesCode.COMBINED_TRANSFORMATION_TREES_EDIT; }
 
 
         /// <summary>

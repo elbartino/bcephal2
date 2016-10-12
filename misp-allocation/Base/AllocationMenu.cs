@@ -13,19 +13,9 @@ namespace Misp.Allocation.Base
     public class AllocationMenu : ApplicationMenu
     {
 
-        private ApplicationMenu newAllocationRunMenu;
-        private ApplicationMenu listAllocationRunMenu;
-        private ApplicationMenu runAllAllocationMenu;
-        private ApplicationMenu clearAllAllocationMenu;
-        private ApplicationMenu auditAllMenu;
-        private ApplicationMenu allocationLogMenu;
-
-        public ApplicationMenu NewAllocationRunMenu { get { return newAllocationRunMenu; } }
-        public ApplicationMenu ListAllocationRunMenu { get { return listAllocationRunMenu; } }
-        public ApplicationMenu RunAllAllocationMenu { get { return runAllAllocationMenu; } }
-        public ApplicationMenu ClearAllAllocationMenu { get { return clearAllAllocationMenu; } }
-        public ApplicationMenu AuditAllMenu { get { return auditAllMenu; } }
-        public ApplicationMenu AllocationLogMenu { get { return allocationLogMenu; } }
+        public ApplicationMenu LoadTablesAndGridsMenu { get; set; }
+        public ApplicationMenu ClearTablesAndGridsMenu { get; set; }
+        public ApplicationMenu LoadLogMenu { get; set; }
 
         /// <summary>
         /// Liste des sous menus
@@ -34,12 +24,9 @@ namespace Misp.Allocation.Base
         protected override List<Control> getControls()
         {
             List<Control> menus = new List<Control>(0);
-            //menus.Add(NewAllocationRunMenu);
-            //menus.Add(ListAllocationRunMenu);
-            menus.Add(RunAllAllocationMenu);
-            menus.Add(ClearAllAllocationMenu);
-            //menus.Add(AuditAllMenu);
-            menus.Add(AllocationLogMenu);
+            menus.Add(LoadTablesAndGridsMenu);
+            menus.Add(ClearTablesAndGridsMenu);
+            menus.Add(LoadLogMenu);
             return menus;
         }
 
@@ -48,13 +35,11 @@ namespace Misp.Allocation.Base
         /// </summary>
         protected override void initChildren()
         {
-            this.Code = ApplicationMenu.SOURCING_MENU_CODE;
+            this.Code = FunctionalitiesCode.LOAD;
             this.Header = FunctionalitiesLabel.ALLOCATION_LABEL;
-            newAllocationRunMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_RUN_LIST_LABEL, NavigationToken.GetCreateViewToken(AllocationFunctionalitiesCode.NEW_ALLOCATION_RUN_FUNCTIONALITY));
-            listAllocationRunMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_NEW_LABEL, NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.LIST_ALLOCATION_RUN_FUNCTIONALITY));
-            runAllAllocationMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_RUN_TABLES_LABEL, NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.ALLOCATION_RUN_ALL));
-            clearAllAllocationMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_CLEAR_TABLES_LABEL, NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.ALLOCATION_CLEAR_ALL));
-            allocationLogMenu = BuildMenu(ApplicationMenu.ALLOCATION_MENU_CODE, FunctionalitiesLabel.ALLOCATION_LOG_LABEL, NavigationToken.GetSearchViewToken(AllocationFunctionalitiesCode.ALLOCATION_LOG));
+            LoadTablesAndGridsMenu = BuildMenu(FunctionalitiesCode.LOAD, FunctionalitiesLabel.ALLOCATION_RUN_TABLES_LABEL, NavigationToken.GetSearchViewToken(FunctionalitiesCode.LOAD_TABLES_AND_GRIDS));
+            ClearTablesAndGridsMenu = BuildMenu(FunctionalitiesCode.LOAD, FunctionalitiesLabel.ALLOCATION_CLEAR_TABLES_LABEL, NavigationToken.GetSearchViewToken(FunctionalitiesCode.LOAD_CLEAR_TABLES_AND_GRIDS));
+            LoadLogMenu = BuildMenu(FunctionalitiesCode.LOAD, FunctionalitiesLabel.ALLOCATION_LOG_LABEL, NavigationToken.GetSearchViewToken(FunctionalitiesCode.LOAD_LOG));
         }
 
     }

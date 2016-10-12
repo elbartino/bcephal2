@@ -43,11 +43,7 @@ namespace Misp.Kernel.Application
         public static string NEW_GROUP_FUNCTIONALITY = "NEW_GROUP_FUNCTIONALITY";
         public static string LIST_GROUP_FUNCTIONALITY = "LIST_GROUP_FUNCTIONALITY";
 
-        public static string LOAD_TRANSFORMATION_TREES_FUNCTIONALITY = "LOAD_TRANSFORMATION_TREES_FUNCTIONALITY";
-        public static string CLEAR_TRANSFORMATION_TREES_FUNCTIONALITY = "CLEAR_TRANSFORMATION_TREES_FUNCTIONALITY";
-
-        public static string NEW_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY = "NEW_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY";
-        public static string LIST_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY = "LIST_COMBINED_TRANSFORMATION_TREES_FUNCTIONALITY";
+        
 
         public static string BACKUP_FUNCTIONALITY = "BACKUP_FUNCTIONALITY";
         public static string BACKUP_SIMPLE_FUNCTIONALITY = "BACKUP_SIMPLE_FUNCTIONALITY";
@@ -59,11 +55,6 @@ namespace Misp.Kernel.Application
         public static string INITIATION_MODEL   = "functionality.initiation.model";
         public static string INITIATION_PERIOD  = "functionality.initiation.period";
         public static string INITIATION_MEASURE = "functionality.initiation.measure";
-
-        //ALLOCATION
-        public static string ALLOCATION_LOG         = "functionality.allocation.log";
-        public static string ALLOCATION_RUN_ALL     = "functionality.allocation.run.all";
-        public static string ALLOCATION_CLEAR_ALL   = "functionality.allocation.clear.all";
 
         //SOURCING
         public static string SOURCING = "functionality.sourcing";
@@ -111,10 +102,39 @@ namespace Misp.Kernel.Application
         public static string AUTOMATIC_SOURCING_VIEW = "functionality.automatic.sourcing.view";
         public static string AUTOMATIC_SOURCING_LIST = "functionality.automatic.sourcing.list";
 
+        public static string ACCESSORIES = "functionality.accessories";
         public static string MULTIPLE_FILES_UPLOAD = "functionality.multiple.files.upload";
 
         public static string UPLOAD_STRUCTURED_FILE_FUNCTIONALITY = "UPLOAD_STRUCTURED_FILE_FUNCTIONALITY";
-       
+
+
+        //TRANSFORMATION DATA
+        public static string TRANSFORMATION_DATA = "functionality.transformation.data";
+
+        public static string TRANSFORMATION_TREE = "functionality.transformation.tree";
+        public static string TRANSFORMATION_TREE_EDIT = "functionality.transformation.tree.edit";
+        public static string TRANSFORMATION_TREE_VIEW = "functionality.transformation.tree.view";
+        public static string TRANSFORMATION_TREE_LIST = "functionality.transformation.tree.list";
+
+        public static string TRANSFORMATION_TREE_LOAD = "functionality.transformation.tree.load";
+        public static string TRANSFORMATION_TREE_CLEAR = "functionality.transformation.tree.clear";
+
+        public static string COMBINED_TRANSFORMATION_TREES = "functionality.combined.transformation.tree";
+        public static string COMBINED_TRANSFORMATION_TREES_EDIT = "functionality.combined.transformation.tree.edit";
+        public static string COMBINED_TRANSFORMATION_TREES_VIEW = "functionality.combined.transformation.tree.view";
+        public static string COMBINED_TRANSFORMATION_TREES_LIST = "functionality.combined.transformation.tree.list";
+
+        public static string TRANSFORMATION_TABLE = "functionality.transformation.table";
+        public static string SLIDE = "functionality.slide";
+
+
+        //LOAD
+        public static string LOAD = "functionality.load";
+        public static string LOAD_LOG = "functionality.load.log";
+        public static string LOAD_TABLES_AND_GRIDS = "functionality.load.tables.and.grids";
+        public static string LOAD_CLEAR_TABLES_AND_GRIDS = "functionality.load.clear.tables.and.grids";
+
+
 
         //REPORTING
         public static string REPORTING = "functionality.reporting";
@@ -139,23 +159,6 @@ namespace Misp.Kernel.Application
         public static string REPORT_GRID_VIEW   = "functionality.report.grid.view";
         public static string REPORT_GRID_LIST   = "functionality.report.grid.list";
 
-
-        //PLANIFICATION
-        public static string NEW_TRANSFORMATION_TREE_FUNCTIONALITY = "NEW_TRANSFORMATION_TREE_FUNCTIONALITY";
-        public static string LIST_TRANSFORMATION_TREE_FUNCTIONALITY = "LIST_TRANSFORMATION_TREE_FUNCTIONALITY";
-
-        public static string NEW_TRANSFORMATION_TABLE_FUNCTIONALITY = "NEW_TRANSFORMATION_TABLE_FUNCTIONALITY";
-        public static string NEW_SLIDE_FUNCTIONALITY = "NEW_SLIDE_FUNCTIONALITY";
-
-        //GRID
-        
-		
-		
-
-        
-
-
-        //PIVOT_TABLE
         public static string NEW_PIVOT_TABLE_FUNCTIONALITY = "NEW_PIVOT_TABLE_FUNCTIONALITY";
         public static string LIST_PIVOT_TABLE_FUNCTIONALITY = "LIST_PIVOT_TABLE_FUNCTIONALITY";
 

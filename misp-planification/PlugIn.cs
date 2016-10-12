@@ -47,7 +47,7 @@ namespace Misp.Planification
         protected override List<Functionality> GetPluinFunctionalities()
         {
             List<Functionality> functionalities = new List<Functionality>(0);
-            //functionalities.Add();
+            functionalities.Add(new PlanificationFunctionality());
             return functionalities;
         }
 

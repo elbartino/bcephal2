@@ -27,7 +27,7 @@ namespace Misp.Planification.Tranformation
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return PlanificationFunctionalitiesCode.NEW_TRANSFORMATION_TREE_FUNCTIONALITY; }
+        public override string GetEditorFuntionality() { return PlanificationFunctionalitiesCode.TRANSFORMATION_TREE_EDIT; }
         
         /// <summary>
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.

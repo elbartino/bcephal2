@@ -96,7 +96,7 @@ namespace Misp.Planification.Tranformation.TransformationTable
 
         public void InitializeTransformationTable() 
         {
-            this.TransformationTableController = (TransformationTableController)ApplicationManager.Instance.ControllerFactory.GetController(PlanificationFunctionalitiesCode.NEW_TRANSFORMATION_TABLE_FUNCTIONALITY);
+            this.TransformationTableController = (TransformationTableController)ApplicationManager.Instance.ControllerFactory.GetController(PlanificationFunctionalitiesCode.TRANSFORMATION_TABLE);
             this.TransformationTableController.Initialize();
             displayPage(this.TransformationTableController);
             this.TransformationTableController.getStructuredReportEditor().NewPageSelected -= this.TransformationTableController.NewPageSelectedHandler;
