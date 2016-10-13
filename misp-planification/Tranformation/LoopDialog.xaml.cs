@@ -273,7 +273,8 @@ namespace Misp.Planification.Tranformation
 
         protected void FillUserDialog()
         {
-            this.UserTemplatePanel.Fill(); ;
+            this.UserTemplatePanel.Fill();
+            this.Loop.userDialogTemplate = this.UserTemplatePanel.LoopUserTemplate;
         }
 
         protected Instruction FillCondition()
