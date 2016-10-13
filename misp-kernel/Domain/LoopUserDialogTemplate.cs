@@ -20,6 +20,7 @@ namespace Misp.Kernel.Domain
 
         public bool onePossibleChoice { get; set; }
 
+        [ScriptIgnore]
         public PersistentListChangeHandler<LoopCondition> loopConditionsChangeHandler { get; set; }
 
         [ScriptIgnore]

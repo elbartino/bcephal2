@@ -88,15 +88,15 @@ namespace Misp.Planification.Tranformation
 
         public void Display() 
         {
-            if (this.Loop != null)
+            if (this.LoopUserTemplate != null)
             {
-                this.ActiveCheckbox.IsChecked = this.Loop.userDialogTemplate.active;
-                this.OnePossibleChoiceCheckbox.IsChecked = this.Loop.userDialogTemplate.onePossibleChoice;
-                this.EditMessageTextBox.Text = this.Loop.userDialogTemplate.message;
-                this.HelpMessageTextBox.Text = this.Loop.userDialogTemplate.help;
+                this.ActiveCheckbox.IsChecked = this.LoopUserTemplate.active;
+                this.OnePossibleChoiceCheckbox.IsChecked = this.LoopUserTemplate.onePossibleChoice;
+                this.EditMessageTextBox.Text = this.LoopUserTemplate.message;
+                this.HelpMessageTextBox.Text = this.LoopUserTemplate.help;
 
-                this.LoopConditionsPanel.Instruction = this.Loop.userDialogTemplate.Instruction;
-                this.LoopConditionsPanel.conditions = this.Loop.userDialogTemplate.conditions;
+                this.LoopConditionsPanel.Instruction = this.LoopUserTemplate.Instruction;
+                this.LoopConditionsPanel.conditions = this.LoopUserTemplate.conditions;
             }
             this.LoopConditionsPanel.TransformationTreeService = this.TransformationTreeService;
             this.LoopConditionsPanel.DisplayLoopCondition();
