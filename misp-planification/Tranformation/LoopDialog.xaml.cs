@@ -108,6 +108,10 @@ namespace Misp.Planification.Tranformation
                 }
                 this.ActiveLoopConditionItemPanel.setValue(value);
             }
+            else if (TabUserTemplate.IsSelected)
+            {
+                this.UserTemplatePanel.setValue(value);
+            }
         }
 
         private String GetLoopType(object value)
@@ -144,7 +148,9 @@ namespace Misp.Planification.Tranformation
             TransformationTreeItem item = GetLoopByOid(this.Loop.refreshLoopOid);
             if (item != null) this.LoopComboBox.SelectedItem = item;
             FillTabs(TabLoop);
+
             DisplayLoopCondition();
+            DisplayUserDialogTemplate();
             
             this.ranking = Loop.ranking;
             this.TypeTextBox.Text = Loop.type != null ? Loop.type : "";
@@ -194,6 +200,7 @@ namespace Misp.Planification.Tranformation
         protected void DisplayLoopCondition()
         {
             this.LoopConditionsPanel.Children.Clear();
+            if (this.Loop.loopConditionsChangeHandler == null) this.Loop.loopConditionsChangeHandler = new PersistentListChangeHandler<Kernel.Domain.LoopCondition>();
             if (this.Loop.loopConditionsChangeHandler.Items.Count == 0)
             {
                 OnAddConditionItem(null);
@@ -218,6 +225,13 @@ namespace Misp.Planification.Tranformation
                 }
             }
         }
+
+        protected void DisplayUserDialogTemplate()
+        {
+            this.UserTemplatePanel.TransformationTreeService = TransformationTreeService;
+            this.UserTemplatePanel.Display();
+        }
+
 
         public void Reset()
         {
@@ -246,12 +260,20 @@ namespace Misp.Planification.Tranformation
             //if (Loop.Instruction == null) Loop.conditions = null;
             //else Loop.conditions = TransformationTreeService.getInstructionString(Loop.Instruction);
             FillLoopCondition();
+
+            FillUserDialog();
+
             //Loop.loopConditionsChangeHandler.AddNew(FillLoopCondition());
 
 
             Loop.refreshLoopOid = null;
             Object item = this.LoopComboBox.SelectedItem;
             if(item != null && item is TransformationTreeItem) Loop.refreshLoopOid = ((TransformationTreeItem)item).oid;
+        }
+
+        protected void FillUserDialog()
+        {
+            this.UserTemplatePanel.Fill(); ;
         }
 
         protected Instruction FillCondition()
@@ -334,6 +356,7 @@ namespace Misp.Planification.Tranformation
             //this.ReportPanel.ChangeEventHandler += OnChange;
             this.TabLoop.SelectionChanged += OnTabSelectionChanged;
             this.LoopComboBox.SelectionChanged += OnSelectedLoopChange;
+            this.UserTemplatePanel.Changed += OnChange;
         }
 
         private void OnTabSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -347,7 +370,7 @@ namespace Misp.Planification.Tranformation
         private void FillTabs(object sender) 
         {
             TabControl mainTabLoop = (TabControl)sender;
-            if (mainTabLoop.SelectedItem == TabConditions)
+            if (mainTabLoop.SelectedItem == TabConditions || mainTabLoop.SelectedItem == TabUserTemplate)
             {
                 List<TransformationTreeItem> loops = this.Loop.GetAscendentsLoopTree(true).ToList();
                 this.SideBar.TreeLoopGroup.Visibility = System.Windows.Visibility.Visible;
@@ -522,8 +545,10 @@ namespace Misp.Planification.Tranformation
 
         protected void initializeSideBarData()
         {
-            List<Model> models = TransformationTreeService.ModelService.getAll();
-            SideBar.EntityGroup.EntityTreeview.DisplayModels(models);
+
+            SideBar.EntityGroup.ModelService = TransformationTreeService.ModelService;
+            SideBar.EntityGroup.InitializeTreeViewDatas();
+
 
             Measure rootMeasure = TransformationTreeService.MeasureService.getRootMeasure();
             SideBar.MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
@@ -545,6 +570,7 @@ namespace Misp.Planification.Tranformation
 
             List<Target> CustomizedTargets = TransformationTreeService.TargetService.getAll();
             SideBar.CustomizedTargetGroup.TargetTreeview.fillTree(new ObservableCollection<Target>(CustomizedTargets));
+
         }
 
         /// <summary>

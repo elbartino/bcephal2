@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
             xmlns:local="clr-namespace:Misp.Planification.Tranformation.LoopCondition"
       d:Height="Auto"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-    <StackPanel x:Name="panel" Background="White">
+    <StackPanel x:Name="LoopConditionsPanel" Background="White">
         <local:LoopConditionItemPanel/>
         <local:LoopConditionItemPanel/>
     </StackPanel>

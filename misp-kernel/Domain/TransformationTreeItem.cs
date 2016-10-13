@@ -28,6 +28,8 @@ namespace Misp.Kernel.Domain
 
         public string conditions { get; set; }
 
+        public LoopUserDialogTemplate userDialogTemplate;
+
         [ScriptIgnore]
         public Instruction Instruction { get; set; }
 

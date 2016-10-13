@@ -122,6 +122,9 @@
                             </StackPanel>
                         </Grid>
                     </TabItem>
+                    <TabItem Header="User Template " x:Name="TabUserTemplate" >
+                        <src:LoopUserDialogTemplatePanel x:Name="UserTemplatePanel" />
+                    </TabItem>
                 </TabControl>
             </Grid>
             <StackPanel Grid.Row="2" Margin="0 0 10 10" Orientation="Horizontal" HorizontalAlignment="Right">

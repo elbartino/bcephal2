@@ -2,6 +2,7 @@
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,23 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         public LoopConditionItemPanel ActiveLoopConditionItemPanel { get; set; }
 
+        public TransformationTreeItem Loop { get; set; }
+
+        public LoopUserDialogTemplate LoopUserTemplate { get; set; }
+
+        public Kernel.Service.TransformationTreeService TransformationTreeService { get; set; }
+
         public  ChangeEventHandler Changed;
+
+        public ObservableCollection<Kernel.Domain.LoopCondition> liste 
+        {
+            get 
+            {
+                if(Loop != null) return Loop.loopConditionsChangeHandler.Items;
+                if(LoopUserTemplate != null) return LoopUserTemplate.loopConditionsChangeHandler.Items;
+                return new ObservableCollection<Kernel.Domain.LoopCondition>();
+            }
+        }
 
         public LoopConditionPanel()
         {
@@ -37,11 +54,33 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         public void DisplayLoopCondition()
         {
-            this.panel.Children.Clear();
-            if (this.Instruction == null && String.IsNullOrWhiteSpace(this.conditions))
+            if (TransformationTreeService == null) return;
+
+            this.LoopConditionsPanel.Children.Clear();
+            
+            if (liste == null) this.Loop.loopConditionsChangeHandler = new PersistentListChangeHandler<Kernel.Domain.LoopCondition>();
+            if (liste.Count == 0)
             {
                 OnAddConditionItem(null);
                 return;
+            }
+            else
+            {
+                foreach (Kernel.Domain.LoopCondition condition in liste)
+                {
+                    if (!string.IsNullOrEmpty(condition.conditions))
+                    {
+                        condition.instructions = TransformationTreeService.getInstructionObject(condition.conditions);
+                    }
+                    LoopConditionItemPanel panel = GetNewConditionItemPanel(condition);
+                    if (condition.position == 0)
+                    {
+                        panel.OperatorComboBox.IsEnabled = false;
+                        panel.OperatorComboBox.SelectedItem = Operator.AND.ToString();
+                    }
+
+                    this.LoopConditionsPanel.Children.Add(panel);
+                }
             }
         }
              
@@ -88,10 +127,10 @@ namespace Misp.Planification.Tranformation.LoopCondition
         {
             LoopConditionItemPanel panel = GetNewConditionItemPanel(null);
 
-            int countContainerChildren = this.panel.Children.Count + 1;
+            int countContainerChildren = this.LoopConditionsPanel.Children.Count + 1;
             panel.Index = countContainerChildren;
 
-            this.panel.Children.Add(panel);
+            this.LoopConditionsPanel.Children.Add(panel);
             if (countContainerChildren == 1)
             {
                 panel.OperatorComboBox.IsEnabled = false;
@@ -103,22 +142,45 @@ namespace Misp.Planification.Tranformation.LoopCondition
         {
             if (item is UIElement)
             {
-                this.panel.Children.Remove((UIElement)item);
-                if (this.panel.Children.Count == 0) OnAddConditionItem(null);
+                this.LoopConditionsPanel.Children.Remove((UIElement)item);
+                if (this.LoopConditionsPanel.Children.Count == 0) OnAddConditionItem(null);
                 else
                 {
-                    LoopConditionItemPanel panel = (LoopConditionItemPanel)this.panel.Children[0];
+                    LoopConditionItemPanel panel = (LoopConditionItemPanel)this.LoopConditionsPanel.Children[0];
                     panel.OperatorComboBox.IsEnabled = false;
                     panel.OperatorComboBox.SelectedItem = "";
                 }
                 int index = 1;
-                foreach (object pan in this.panel.Children)
+                foreach (object pan in this.LoopConditionsPanel.Children)
                 {
                     ((LoopConditionItemPanel)pan).Index = index++;
                 }
             }
         }
 
-        
+        public void FillLoopCondition()
+        {
+            foreach (UIElement panel in this.LoopConditionsPanel.Children)
+            {
+                if (!(panel is LoopConditionItemPanel)) continue;
+                if (((LoopConditionItemPanel)panel).LoopCondition == null) continue;
+                Kernel.Domain.LoopCondition loopCondition = ((LoopConditionItemPanel)panel).FillConditions(this.TransformationTreeService);
+                if (!loopCondition.isConditionsEmpty())
+                {
+                  if(this.Loop != null)   this.Loop.SynchronizeLoopCondition(loopCondition);
+                  if (this.LoopUserTemplate != null) this.LoopUserTemplate.SynchronizeLoopCondition(loopCondition);
+                }
+            }
+        }
+
+
+        public void setValue(object value)
+        {
+            if (this.ActiveLoopConditionItemPanel == null)
+            {
+                this.ActiveLoopConditionItemPanel = (LoopConditionItemPanel)this.LoopConditionsPanel.Children[0];
+            }
+            this.ActiveLoopConditionItemPanel.setValue(value);
+        }
     }
 }

@@ -28,15 +28,20 @@ namespace Misp.Planification.Tranformation
 
         public ChangeEventHandler Changed;
 
-        public bool trow;
+        public TransformationTreeItem Loop { get; set; }
 
-        public bool trowHelpMessage;
+        public Kernel.Service.TransformationTreeService TransformationTreeService { get; set; }
+
+        public LoopUserDialogTemplate LoopUserTemplate { get; set; }
+        
+        public bool trow;
+               
 
         public LoopUserDialogTemplatePanel()
         {
             InitializeComponent();
-            InitializeHandlers(); 
-            Display();
+            InitializeHandlers();           
+            trow = false;
         }
 
         private void InitializeHandlers() 
@@ -55,30 +60,22 @@ namespace Misp.Planification.Tranformation
 
         private void OnHelpMessageChanged(object sender, TextChangedEventArgs e)
         {
-            if (!trow) trow = true;
-            else return;
-            if (trow && Changed != null) Changed();
+            OnChange();
         }
 
         private void OnEditMessageChanged(object sender, TextChangedEventArgs e)
         {
-            if (!trow) trow = true;
-            else return;
-            if (trow && Changed != null) Changed();
+            OnChange();
         }
 
         private void OnActiveChecked(object sender, RoutedEventArgs e)
         {
-            if (!trow) trow = true;
-            else return;
-            if (trow && Changed != null) Changed();
+            OnChange();
         }
 
         private void OnePossibleChoiceChecked(object sender, RoutedEventArgs e)
         {
-            if (!trow) trow = true;
-            else return;
-            if (trow && Changed != null) Changed();
+            OnChange();
         }
 
         private void OnChange()
@@ -91,11 +88,39 @@ namespace Misp.Planification.Tranformation
 
         public void Display() 
         {
-            this.LoopConditionsPanel.Instruction = this.Instruction;
-            this.LoopConditionsPanel.conditions =  this.conditions;
+            if (this.Loop != null)
+            {
+                this.ActiveCheckbox.IsChecked = this.Loop.userDialogTemplate.active;
+                this.OnePossibleChoiceCheckbox.IsChecked = this.Loop.userDialogTemplate.onePossibleChoice;
+                this.EditMessageTextBox.Text = this.Loop.userDialogTemplate.message;
+                this.HelpMessageTextBox.Text = this.Loop.userDialogTemplate.help;
+
+                this.LoopConditionsPanel.Instruction = this.Loop.userDialogTemplate.Instruction;
+                this.LoopConditionsPanel.conditions = this.Loop.userDialogTemplate.conditions;
+            }
+            this.LoopConditionsPanel.TransformationTreeService = this.TransformationTreeService;
             this.LoopConditionsPanel.DisplayLoopCondition();
+            trow = false;
         }
 
-      
+
+
+        public void Fill()
+        {
+            if (this.LoopUserTemplate == null) this.LoopUserTemplate = new LoopUserDialogTemplate();
+            this.LoopUserTemplate.active = this.ActiveCheckbox.IsChecked.Value;
+            this.LoopUserTemplate.onePossibleChoice = this.OnePossibleChoiceCheckbox.IsChecked.Value;
+            this.LoopUserTemplate.message = this.EditMessageTextBox.Text;
+            this.LoopUserTemplate.help = this.HelpMessageTextBox.Text;
+
+            this.LoopConditionsPanel.FillLoopCondition();
+            this.LoopConditionsPanel.conditions = this.LoopUserTemplate.conditions;
+            trow = false;
+        }
+
+        public void setValue(object value)
+        {
+            this.LoopConditionsPanel.setValue(value);
+        }
     }
 }
