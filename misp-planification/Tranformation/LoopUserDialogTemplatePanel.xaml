@@ -29,7 +29,19 @@
         <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
             <LoopCondition:LoopConditionPanel x:Name="LoopConditionsPanel" />
         </ScrollViewer>
-    
-    <TextBlock Text="Edit Help Text (max 500 characters)" Grid.Row="4" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="HelpMessageTextBox" AcceptsReturn="True" TextWrapping="Wrap" Grid.Row="5" Grid.ColumnSpan="2"/>
+    <Grid Grid.Row="4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+    <TextBlock Text="Edit Help Text (max 500 characters)"  Grid.Column="0"/>
+        <ToggleButton x:Name="CommentButton" x:FieldModifier="public" ToolTip="{Binding Text, ElementName=CommentTextBlock}" Margin="0 0 5 0" Width="15" Grid.Column="1">
+            <ToggleButton.Template>
+                <ControlTemplate>
+                    <Image Source="/bcephal;Component/Resources/Images/Icons/NoCommentButton.png"/>
+                </ControlTemplate>
+            </ToggleButton.Template>
+        </ToggleButton >
+    </Grid>
+    <TextBox x:Name="HelpMessageTextBox" AcceptsReturn="True" TextWrapping="Wrap" Grid.Row="5" Grid.ColumnSpan="2"/>
     </Grid>
