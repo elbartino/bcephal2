@@ -231,6 +231,8 @@ namespace Misp.Planification.Tranformation
             this.UserTemplatePanel.LoopUserTemplate = this.Loop.userDialogTemplate;
             this.UserTemplatePanel.TransformationTreeService = TransformationTreeService;
             this.UserTemplatePanel.Display();
+            ProcessPopup pp = new ProcessPopup();
+            pp.ShowDialog();
         }
 
 

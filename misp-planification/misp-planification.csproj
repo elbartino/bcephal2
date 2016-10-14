@@ -177,6 +177,9 @@
     <Compile Include="Tranformation\LoopUserDialogTemplatePanel.xaml.cs">
       <DependentUpon>LoopUserDialogTemplatePanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tranformation\ProcessPopup.xaml.cs">
+      <DependentUpon>ProcessPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tranformation\ReportPanel.xaml.cs">
       <DependentUpon>ReportPanel.xaml</DependentUpon>
     </Compile>
@@ -327,6 +330,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Tranformation\LoopUserDialogTemplatePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tranformation\ProcessPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
