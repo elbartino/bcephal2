@@ -94,7 +94,7 @@ namespace Misp.Planification.Tranformation
                 this.OnePossibleChoiceCheckbox.IsChecked = this.LoopUserTemplate.onePossibleChoice;
                 this.EditMessageTextBox.Text = this.LoopUserTemplate.message;
                 this.HelpMessageTextBox.Text = this.LoopUserTemplate.help;
-
+                this.LoopConditionsPanel.LoopUserTemplate = this.LoopUserTemplate;
                 this.LoopConditionsPanel.Instruction = this.LoopUserTemplate.Instruction;
                 this.LoopConditionsPanel.conditions = this.LoopUserTemplate.conditions;
             }
@@ -112,7 +112,7 @@ namespace Misp.Planification.Tranformation
             this.LoopUserTemplate.onePossibleChoice = this.OnePossibleChoiceCheckbox.IsChecked.Value;
             this.LoopUserTemplate.message = this.EditMessageTextBox.Text;
             this.LoopUserTemplate.help = this.HelpMessageTextBox.Text;
-
+            this.LoopConditionsPanel.LoopUserTemplate = this.LoopUserTemplate;
             this.LoopConditionsPanel.FillLoopCondition();
             this.LoopConditionsPanel.conditions = this.LoopUserTemplate.conditions;
             trow = false;

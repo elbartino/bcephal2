@@ -42,7 +42,7 @@ namespace Misp.Kernel.Domain
         public bool isConditionsEmpty()
         {
             string emptyCondition = "BLOCK IF COND START AND Result ENDSTART END END THEN CONTINUE END ENDTHEN ELSE STOP END ENDELSE END";
-            return conditions == null || !string.IsNullOrWhiteSpace(conditions) || conditions.Equals(emptyCondition);
+            return (conditions == null && cellProperty == null) || !string.IsNullOrWhiteSpace(conditions) || conditions.Equals(emptyCondition);
         }
     }
 }

@@ -168,9 +168,9 @@ namespace Misp.Planification.Tranformation.LoopCondition
                 if (!loopCondition.isConditionsEmpty())
                 {
                   if(this.Loop != null)   this.Loop.SynchronizeLoopCondition(loopCondition);
-                  if (this.LoopUserTemplate != null) this.LoopUserTemplate.SynchronizeLoopCondition(loopCondition);
                 }
-            }
+                  if (this.LoopUserTemplate != null) this.LoopUserTemplate.SynchronizeLoopCondition(loopCondition);
+             }
         }
 
 
