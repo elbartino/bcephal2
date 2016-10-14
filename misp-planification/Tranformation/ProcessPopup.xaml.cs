@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Ui.Base;
+﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace Misp.Planification.Tranformation
     public partial class ProcessPopup : Window
     {
 
+        public LoopUserDialogTemplate LoopUserTemplate { get; set; }
+
         /// <summary>
         /// ExcelFilesGrid
         /// </summary>
@@ -29,9 +32,21 @@ namespace Misp.Planification.Tranformation
         public ProcessPopup()
         {
             InitializeComponent();
+            InitializeHandlers();
             ItemsGrid = new BrowserGrid();
             GridPanel.Content = ItemsGrid;
         }
+
+        public void InitializeHandlers() 
+        {
+            this.helpButton.Click += OnShowHelp;
+        }
+
+        private void OnShowHelp(object sender, RoutedEventArgs e)
+        {
+            HelpPopup.IsOpen = true;
+        }
+
 
         public void setTitle(String title) 
         {
@@ -41,6 +56,13 @@ namespace Misp.Planification.Tranformation
         public void setTextLable(String text) 
         {
             this.TextLabel.Content = text;
+        }
+
+        public void Display() 
+        {
+            if (this.LoopUserTemplate == null) return ;
+            this.TextLabel.Content = this.LoopUserTemplate.message;
+            this.HelpTextBlock.Text = this.LoopUserTemplate.help;
         }
 
 
