@@ -57,7 +57,7 @@ namespace Misp.Kernel.Ui.Base
             }
         }
 
-        protected virtual void OnFilter(DataGridFilterLibrary.Support.FilterData data)
+        public virtual void OnFilter(DataGridFilterLibrary.Support.FilterData data)
         {
             if (FilterChanged != null) FilterChanged();
         }

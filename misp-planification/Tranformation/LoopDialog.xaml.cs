@@ -149,7 +149,9 @@ namespace Misp.Planification.Tranformation
             if (item != null) this.LoopComboBox.SelectedItem = item;
             FillTabs(TabLoop);
 
-            DisplayLoopCondition();            
+            DisplayLoopCondition();
+
+            DisplayLoopUserDialog();
             
             this.ranking = Loop.ranking;
             this.TypeTextBox.Text = Loop.type != null ? Loop.type : "";
@@ -161,6 +163,13 @@ namespace Misp.Planification.Tranformation
             this.SaveButton.IsEnabled = false;
 
             trow = true;
+        }
+
+        private void DisplayLoopUserDialog()
+        {
+            this.UserTemplatePanel.TransformationTreeService = this.TransformationTreeService;
+            this.UserTemplatePanel.LoopUserTemplate = this.Loop.userDialogTemplate;
+            this.UserTemplatePanel.Display();
         }
 
         private TransformationTreeItem GetLoopByOid(int? oid)
@@ -577,9 +586,16 @@ namespace Misp.Planification.Tranformation
             SideBar.MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
             SideBar.CalculateMeasureGroup.CalculatedMeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
             SideBar.EntityGroup.EntityTreeview.SelectionChanged += onSelectTargetFromSidebar;
+
+            SideBar.EntityGroup.EntityTreeview.setDisplacherInterval(new TimeSpan(0, 0, 0, 1));
             SideBar.EntityGroup.EntityTreeview.SelectionDoubleClick += onDoubleClickSelectTargetFromSidebar;
+
             SideBar.CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
-            SideBar.TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;    
+            SideBar.TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
+
+            SideBar.PeriodNameGroup.PeriodNameTreeview.setDisplacherInterval(new TimeSpan(0, 0, 0, 1));
+            SideBar.PeriodNameGroup.PeriodNameTreeview.SelectionDoubleClick += onDoubleClickSelectPeriodNameFromSidebar;
+
             SideBar.PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
             SideBar.TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += OnSelecteLoopFromSidebar;
         }
@@ -637,17 +653,11 @@ namespace Misp.Planification.Tranformation
         {
             if (sender != null && sender is Target)
             {
-                object value = null;
-                if (sender is Entity) value = sender;
-                if (sender is AttributeValue) value = sender;
-                if (sender is Kernel.Domain.Attribute)
-                {
-                    Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
-                    if (attribute.valueListChangeHandler.Items.Count <= 0) return;
-                    value = attribute.valueListChangeHandler.Items;
-                }
-                else value = sender;
-                SetValue(value);
+               object value = null;
+               if (sender is Entity) value = sender;
+               else if (sender is Kernel.Domain.Attribute) value = sender;
+               else if (sender is AttributeValue) value = sender;
+               SetValue(value);
             }
         }
 
@@ -655,14 +665,21 @@ namespace Misp.Planification.Tranformation
         {
             if (sender != null && sender is Target)
             {
-                if (!(sender is AttributeValue))
+                object value = null;
+                if (sender is Entity) value = sender;
+                else if (sender is Kernel.Domain.Attribute)
                 {
-                    onSelectTargetFromSidebar(sender);
-                    return;
+                    Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
+                    if (attribute.valueListChangeHandler.Items.Count <= 0) value = attribute;
+                    else value = TransformationTreeService.ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
                 }
-                AttributeValue value = (AttributeValue)sender;
-                if (value.childrenListChangeHandler.Items.Count <= 0) return;
-                SetValue(value.childrenListChangeHandler.Items);
+                else if (sender is AttributeValue)
+                {
+                    AttributeValue attributeValue = (AttributeValue)sender;
+                    if (attributeValue.childrenListChangeHandler.Items.Count <= 0) value = attributeValue;
+                    else value = attributeValue.childrenListChangeHandler.Items;
+                }
+                SetValue(value);
             }
         }
 
@@ -671,21 +688,30 @@ namespace Misp.Planification.Tranformation
         {
             if (sender != null)
             {
-                if (sender is PeriodName)
-                {
-                    PeriodName periodName = (PeriodName)sender;
-                    if (periodName.intervalListChangeHandler.Items.Count <= 0) return;
-                    object value = periodName.Leafs;                    
-                    SetValue(value);
-                }
-                else if (sender is PeriodInterval)
-                {
-                    PeriodInterval periodInterval = (PeriodInterval)sender;
-                    if (periodInterval.IsLeaf) SetValue(periodInterval);
-                    else SetValue(periodInterval.Leafs);
-                }
+              if (sender is PeriodName) SetValue(sender);
+              else if (sender is PeriodInterval) SetValue(sender);               
             }
         }
+        
+
+         protected void onDoubleClickSelectPeriodNameFromSidebar(object sender)
+        {
+            if (sender != null)
+            {
+                 if (sender is PeriodName)
+                 {
+                     PeriodName periodName = (PeriodName)sender;
+                     if (periodName.intervalListChangeHandler.Items.Count <= 0) SetValue(sender);
+                     else SetValue(periodName.intervalListChangeHandler.Items);  
+                 }
+                 else if (sender is PeriodInterval)
+                 {
+                     PeriodInterval periodInterval = (PeriodInterval)sender;
+                    if (periodInterval.IsLeaf) SetValue(sender);
+                    else SetValue(periodInterval.childrenListChangeHandler.Items);
+                 }
+             }
+         }
 
 
         private void onChange(object sender, RoutedEventArgs e)

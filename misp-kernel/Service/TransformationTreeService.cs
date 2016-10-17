@@ -161,9 +161,9 @@ namespace Misp.Kernel.Service
                     System.Windows.Application.Current.Dispatcher.Invoke(() =>
                     {
                         ProcessPopup dialog = new ProcessPopup();
-                        dialog.Display(this, LoopTemplate);
+                        dialog.Display(LoopTemplate);
                         dialog.ShowDialog();
-                        //issue = dialog.tableSaveIssue;
+                        LoopTemplate = dialog.LoopUserTemplateData;
                         string json = serializer.Serialize(LoopTemplate);
                         socket.Send(json);
                     });
@@ -203,9 +203,9 @@ namespace Misp.Kernel.Service
             {
                 System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 Serializer.MaxJsonLength = int.MaxValue;
-                LoopUserDialogTemplateData issue = Serializer.Deserialize<LoopUserDialogTemplateData>(json);
-                if (issue == null) return null;
-                return issue;
+                LoopUserDialogTemplateData template = Serializer.Deserialize<LoopUserDialogTemplateData>(json);
+                if (template == null || template.values.Count == 0) return null;
+                return template;
             }
             catch (Exception e)
             {
