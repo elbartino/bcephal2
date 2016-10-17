@@ -630,6 +630,21 @@ namespace Misp.Kernel.Ui.Dashboard
                     return;
                 }
 
+                LoopUserDialogTemplateData LoopTemplate = deserializeLoopTemplateData(e.Data);
+                if (LoopTemplate != null)
+                {
+                    System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        ProcessPopup dialog = new ProcessPopup();
+                        dialog.Display(LoopTemplate);
+                        dialog.ShowDialog();
+                        LoopTemplate = dialog.LoopUserTemplateData;
+                        string json = serializer.Serialize(LoopTemplate);
+                        socket.Send(json);
+                    });
+                    return;
+                }
+
                 TransformationTreeRunInfo runInfo = deserializeTreeRunInfo(e.Data);
                 if (runInfo != null)
                 {
@@ -789,6 +804,23 @@ namespace Misp.Kernel.Ui.Dashboard
                 return runInfo;
             }
             catch (Exception )
+            {
+                
+            }
+            return null;
+        }
+
+        public LoopUserDialogTemplateData deserializeLoopTemplateData(String json)
+        {
+            try
+            {
+                System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                LoopUserDialogTemplateData template = Serializer.Deserialize<LoopUserDialogTemplateData>(json);
+                if (template == null || string.IsNullOrEmpty(template.message) || template.values.Count == 0) return null;
+                return template;
+            }
+            catch (Exception e)
             {
                 
             }
