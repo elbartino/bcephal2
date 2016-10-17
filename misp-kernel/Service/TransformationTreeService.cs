@@ -204,7 +204,7 @@ namespace Misp.Kernel.Service
                 System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 Serializer.MaxJsonLength = int.MaxValue;
                 LoopUserDialogTemplateData template = Serializer.Deserialize<LoopUserDialogTemplateData>(json);
-                if (template == null || string.IsNullOrEmpty(template.message) || template.values.Count == 0) return null;
+                if (template == null || template.values.Count == 0) return null;
                 return template;
             }
             catch (Exception e)
