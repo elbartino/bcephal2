@@ -149,8 +149,7 @@ namespace Misp.Planification.Tranformation
             if (item != null) this.LoopComboBox.SelectedItem = item;
             FillTabs(TabLoop);
 
-            DisplayLoopCondition();
-            DisplayUserDialogTemplate();
+            DisplayLoopCondition();            
             
             this.ranking = Loop.ranking;
             this.TypeTextBox.Text = Loop.type != null ? Loop.type : "";
@@ -226,14 +225,7 @@ namespace Misp.Planification.Tranformation
             }
         }
 
-        protected void DisplayUserDialogTemplate()
-        {
-            this.UserTemplatePanel.LoopUserTemplate = this.Loop.userDialogTemplate;
-            this.UserTemplatePanel.TransformationTreeService = TransformationTreeService;
-            this.UserTemplatePanel.Display();
-            ProcessPopup pp = new ProcessPopup();
-            pp.ShowDialog();
-        }
+     
 
 
         public void Reset()

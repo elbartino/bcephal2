@@ -63,6 +63,7 @@ namespace Misp.Planification.Tranformation
             if (this.LoopUserTemplateData == null) return;
             this.TextLabel.Content = this.LoopUserTemplateData.message;
             this.HelpTextBlock.Text = this.LoopUserTemplateData.help;
+            this.ItemsGrid.ItemsSource = this.LoopUserTemplateData.values;
         }
 
 
