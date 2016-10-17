@@ -2,6 +2,7 @@
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Util;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -26,7 +27,6 @@ namespace Misp.Kernel.Ui.Base
 
         public LoopUserDialogTemplateData LoopUserTemplateData { get; set; }
         private bool IsOneChoice;
-        private Dictionary<int?,Value> selectedValuesDico { get; set; }
 
         /// <summary>
         /// ExcelFilesGrid
@@ -36,11 +36,11 @@ namespace Misp.Kernel.Ui.Base
         public ProcessPopup()
         {
             InitializeComponent();
-            selectedValuesDico = new Dictionary<int?, Value>(0);
             setTitle("Parametize Loop");
             InitializeValuesGrid();
             InitializeHandlers();
             GridPanel.Content = ValuesGrid;
+            nextButton.IsEnabled = false;
         }
 
         public void InitializeHandlers() 
@@ -54,6 +54,7 @@ namespace Misp.Kernel.Ui.Base
         private void InitializeValuesGrid()
         {
             ValuesGrid = new BrowserGrid();
+            ValuesGrid.FilterHandler.Handler -= ValuesGrid.OnFilter;
             ValuesGrid.hideContextMenu();
             var gridFactory = new FrameworkElementFactory(typeof(Grid));
             var checkboxFactory = new FrameworkElementFactory(typeof(CheckBox));
@@ -73,46 +74,39 @@ namespace Misp.Kernel.Ui.Base
             column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
             column.Binding = new System.Windows.Data.Binding("name");
             ValuesGrid.Columns.Add(column);
-            ValuesGrid.SelectionChanged += onValuesGridSelectionChanged;
+            ValuesGrid.SelectionChanged += onSelectionChanged;
         }
 
-        private void onValuesGridSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void onSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(IsOneChoice && selectedValuesDico.Count == 1)
-            {
-               MessageDisplayer.DisplayInfo("Loop User Template ","You are not allowed to select more than one value");
-               return;
-            }
-            if (e.AddedItems.Count > 0) 
-            {
-                if (e.AddedItems[0] is Value)
-                {
-                    Value value = (Value)e.AddedItems[0];
-                    selectedValuesDico.Add(value.oid, value);
-                }
-                
-            }
-            if (e.RemovedItems.Count > 0) 
-            {
-                if (e.RemovedItems[0] is Value)
-                {
-                    var value = e.RemovedItems[0] as Value;
-                    selectedValuesDico.Remove(value.oid);
-                }
-            }
+            IList items = ValuesGrid.SelectedItems;
+            nextButton.IsEnabled = items.Count > 0;
         }
-            
+                    
         private void OnStopProcess(object sender, RoutedEventArgs e)
         {
-            LoopUserTemplateData = new LoopUserDialogTemplateData();
-            LoopUserTemplateData.stop = true;
-            this.Close();
+            MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Stop tree execution", "You are about to stop the tree execution.\nDo You want to stop?");
+            if (response == MessageBoxResult.Yes)
+            {
+                LoopUserTemplateData = new LoopUserDialogTemplateData();
+                LoopUserTemplateData.stop = true;
+                this.Close();
+            }
         }
 
         private void OnNextClick(object sender, RoutedEventArgs e)
         {
-            LoopUserTemplateData.values = new List<Value>(0);
-            LoopUserTemplateData.values.AddRange(selectedValuesDico.Values);
+            LoopUserTemplateData = new LoopUserDialogTemplateData();
+            IList items = ValuesGrid.SelectedItems;
+            if (IsOneChoice && items.Count > 1)
+            {
+                MessageDisplayer.DisplayWarning("Wrong selection", "You are not allowed to select more than one element!");
+                return;
+            }
+            foreach (Object obj in items)
+            {
+                if (obj is Value) LoopUserTemplateData.values.Add((Value)obj);
+            }
             this.Close();
         }
 
