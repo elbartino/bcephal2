@@ -21,7 +21,7 @@ namespace Misp.Kernel.Administration.Profil
     /// <summary>
     /// Interaction logic for ProfileMainPanel.xaml
     /// </summary>
-    public partial class ProfileMainPanel : Grid
+    public partial class ProfileMainPanel : ScrollViewer
     {  
         
         public ProfileMainPanel()
