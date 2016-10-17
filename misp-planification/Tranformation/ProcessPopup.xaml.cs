@@ -22,7 +22,7 @@ namespace Misp.Planification.Tranformation
     public partial class ProcessPopup : Window
     {
 
-        public LoopUserDialogTemplate LoopUserTemplate { get; set; }
+        public LoopUserDialogTemplateData LoopUserTemplateData { get; set; }
 
         /// <summary>
         /// ExcelFilesGrid
@@ -60,9 +60,9 @@ namespace Misp.Planification.Tranformation
 
         public void Display() 
         {
-            if (this.LoopUserTemplate == null) return ;
-            this.TextLabel.Content = this.LoopUserTemplate.message;
-            this.HelpTextBlock.Text = this.LoopUserTemplate.help;
+            if (this.LoopUserTemplateData == null) return;
+            this.TextLabel.Content = this.LoopUserTemplateData.message;
+            this.HelpTextBlock.Text = this.LoopUserTemplateData.help;
         }
 
 

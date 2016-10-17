@@ -11,12 +11,15 @@ namespace Misp.Kernel.Domain
         public String message { get; set; }
         public String help { get; set; }
         public List<Value> values { get; set; }
+        public bool stop { get; set; }
+        public bool onePossibleChoice { get; set; }
 
         /// <summary>
         /// Default constructor
         /// </summary>
         public LoopUserDialogTemplateData() {
 		    values = new List<Value>(0);
+            stop = false;
 	    }
 
     }
