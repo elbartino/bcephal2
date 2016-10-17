@@ -161,9 +161,9 @@ namespace Misp.Kernel.Service
                     System.Windows.Application.Current.Dispatcher.Invoke(() =>
                     {
                         ProcessPopup dialog = new ProcessPopup();
-                        dialog.Display(this, LoopTemplate);
+                        dialog.Display(LoopTemplate);
                         dialog.ShowDialog();
-                        //issue = dialog.tableSaveIssue;
+                        LoopTemplate = dialog.LoopUserTemplateData;
                         string json = serializer.Serialize(LoopTemplate);
                         socket.Send(json);
                     });

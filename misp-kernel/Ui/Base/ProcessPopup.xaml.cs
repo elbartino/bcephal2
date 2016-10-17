@@ -23,6 +23,7 @@ namespace Misp.Kernel.Ui.Base
     {
 
         public LoopUserDialogTemplateData LoopUserTemplateData { get; set; }
+        private bool IsOneChoice;
 
         /// <summary>
         /// ExcelFilesGrid
@@ -33,6 +34,7 @@ namespace Misp.Kernel.Ui.Base
         {
             InitializeComponent();
             InitializeHandlers();
+            setTitle("Parametize Loop");
             ItemsGrid = new BrowserGrid();
             GridPanel.Content = ItemsGrid;
         }
@@ -40,6 +42,22 @@ namespace Misp.Kernel.Ui.Base
         public void InitializeHandlers() 
         {
             this.helpButton.Click += OnShowHelp;
+            this.nextButton.Click += OnNextClick;
+            this.stopButton.Click += OnStopProcess;
+        }
+
+        private void OnStopProcess(object sender, RoutedEventArgs e)
+        {
+            LoopUserTemplateData = new LoopUserDialogTemplateData();
+            LoopUserTemplateData.stop = true;
+            this.Close();
+        }
+
+        private void OnNextClick(object sender, RoutedEventArgs e)
+        {
+            LoopUserTemplateData = new LoopUserDialogTemplateData();
+            LoopUserTemplateData.values = (List<Value>)this.ItemsGrid.SelectedItems;
+            this.Close();
         }
 
         private void OnShowHelp(object sender, RoutedEventArgs e)
@@ -57,20 +75,14 @@ namespace Misp.Kernel.Ui.Base
         {
             this.TextLabel.Content = text;
         }
-
-        public void Display() 
+        
+        public void Display(LoopUserDialogTemplateData LoopTemplate)
         {
-            if (this.LoopUserTemplateData == null) return;
-            this.TextLabel.Content = this.LoopUserTemplateData.message;
-            this.HelpTextBlock.Text = this.LoopUserTemplateData.help;
-            this.ItemsGrid.ItemsSource = this.LoopUserTemplateData.values;
-        }
-
-
-
-        public void Display(Service.TransformationTreeService transformationTreeService, LoopUserDialogTemplateData LoopTemplate)
-        {
-            
+            if (LoopTemplate == null) return;
+            this.ItemsGrid.ItemsSource = LoopTemplate.values;
+            this.TextLabel.Content = LoopTemplate.message;
+            this.HelpTextBlock.Text = LoopTemplate.help;
+            this.IsOneChoice = LoopTemplate.onePossibleChoice;
         }
     }
 }
