@@ -149,7 +149,9 @@ namespace Misp.Planification.Tranformation
             if (item != null) this.LoopComboBox.SelectedItem = item;
             FillTabs(TabLoop);
 
-            DisplayLoopCondition();            
+            DisplayLoopCondition();
+
+            DisplayLoopUserDialog();
             
             this.ranking = Loop.ranking;
             this.TypeTextBox.Text = Loop.type != null ? Loop.type : "";
@@ -161,6 +163,13 @@ namespace Misp.Planification.Tranformation
             this.SaveButton.IsEnabled = false;
 
             trow = true;
+        }
+
+        private void DisplayLoopUserDialog()
+        {
+            this.UserTemplatePanel.TransformationTreeService = this.TransformationTreeService;
+            this.UserTemplatePanel.LoopUserTemplate = this.Loop.userDialogTemplate;
+            this.UserTemplatePanel.Display();
         }
 
         private TransformationTreeItem GetLoopByOid(int? oid)

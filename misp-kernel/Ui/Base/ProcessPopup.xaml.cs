@@ -56,6 +56,7 @@ namespace Misp.Kernel.Ui.Base
         private void OnNextClick(object sender, RoutedEventArgs e)
         {
             LoopUserTemplateData = new LoopUserDialogTemplateData();
+            if(this.ItemsGrid.SelectedItems.Count != 0)
             LoopUserTemplateData.values = (List<Value>)this.ItemsGrid.SelectedItems;
             this.Close();
         }
