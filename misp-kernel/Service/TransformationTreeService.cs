@@ -154,6 +154,22 @@ namespace Misp.Kernel.Service
                     return;
                 }
 
+
+                LoopUserDialogTemplate LoopTemplate = deserializeLoopTemplate(e.Data);
+                if (LoopTemplate != null)
+                {
+                    System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        //ProcessPopup dialog = new ProcessPopup();
+                        //dialog.Display(this, issue);
+                        //dialog.ShowDialog();
+                        ////issue = dialog.tableSaveIssue;
+                        //string json = serializer.Serialize(LoopTemplate);
+                        //socket.Send(json);
+                    });
+                    return;
+                }
+
                 TransformationTreeRunInfo runInfo = deserializeRunInfo(e.Data);
                 if (runInfo != null)
                 {
@@ -179,6 +195,23 @@ namespace Misp.Kernel.Service
             runSocket = socket;
             string text = serializer.Serialize(stringOids);
             socket.Send(text);
+        }
+
+        public LoopUserDialogTemplate deserializeLoopTemplate(String json)
+        {
+            try
+            {
+                System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                LoopUserDialogTemplate issue = Serializer.Deserialize<LoopUserDialogTemplate>(json);
+                if (issue == null) return null;
+                return issue;
+            }
+            catch (Exception e)
+            {
+                logger.Debug("Fail to deserialize issue!", e);
+            }
+            return null;
         }
 
         public void StopRun()
@@ -237,6 +270,7 @@ namespace Misp.Kernel.Service
             socket.Send(text);
             return item;
         }*/
+
 
         public SaveInfo deserializeSaveInfo(String json)
         {
