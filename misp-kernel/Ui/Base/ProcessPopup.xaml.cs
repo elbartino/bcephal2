@@ -130,10 +130,12 @@ namespace Misp.Kernel.Ui.Base
         {
             if (LoopTemplate == null) return;
             this.LoopUserTemplateData = LoopTemplate;
+            this.IsOneChoice = LoopTemplate.onePossibleChoice;
+            ValuesGrid.SelectionMode = this.IsOneChoice ? DataGridSelectionMode.Single : DataGridSelectionMode.Extended;
             ValuesGrid.ItemsSource = new ObservableCollection<Value>(LoopTemplate.values);
             this.TextLabel.Content = LoopTemplate.message;
             this.HelpTextBlock.Text = LoopTemplate.help;
-            this.IsOneChoice = LoopTemplate.onePossibleChoice;
+            
         }
     }
 }
