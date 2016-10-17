@@ -48,6 +48,12 @@ namespace Misp.Kernel.Ui.Base
             this.helpButton.Click += OnShowHelp;
             this.nextButton.Click += OnNextClick;
             this.stopButton.Click += OnStopProcess;
+            this.Closing += OnClosing;
+        }
+
+        private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            stopProcess();
         }
 
 
@@ -85,12 +91,17 @@ namespace Misp.Kernel.Ui.Base
                     
         private void OnStopProcess(object sender, RoutedEventArgs e)
         {
+            stopProcess();
+            this.Close();
+        }
+
+        private void stopProcess() 
+        {
             MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Stop tree execution", "You are about to stop the tree execution.\nDo You want to stop?");
             if (response == MessageBoxResult.Yes)
             {
                 LoopUserTemplateData = new LoopUserDialogTemplateData();
-                LoopUserTemplateData.stop = true;
-                this.Close();
+                LoopUserTemplateData.stop = true;                
             }
         }
 
@@ -107,7 +118,9 @@ namespace Misp.Kernel.Ui.Base
             {
                 if (obj is Value) LoopUserTemplateData.values.Add((Value)obj);
             }
+            this.Closing -= OnClosing;
             this.Close();
+            this.Closing += OnClosing;
         }
 
         private void OnShowHelp(object sender, RoutedEventArgs e)
