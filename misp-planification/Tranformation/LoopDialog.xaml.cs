@@ -586,12 +586,16 @@ namespace Misp.Planification.Tranformation
             SideBar.MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
             SideBar.CalculateMeasureGroup.CalculatedMeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
             SideBar.EntityGroup.EntityTreeview.SelectionChanged += onSelectTargetFromSidebar;
+
             SideBar.EntityGroup.EntityTreeview.setDisplacherInterval(new TimeSpan(0, 0, 0, 1));
             SideBar.EntityGroup.EntityTreeview.SelectionDoubleClick += onDoubleClickSelectTargetFromSidebar;
+
             SideBar.CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
             SideBar.TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
+
             SideBar.PeriodNameGroup.PeriodNameTreeview.setDisplacherInterval(new TimeSpan(0, 0, 0, 1));
             SideBar.PeriodNameGroup.PeriodNameTreeview.SelectionDoubleClick += onDoubleClickSelectPeriodNameFromSidebar;
+
             SideBar.PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
             SideBar.TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += OnSelecteLoopFromSidebar;
         }
@@ -649,11 +653,23 @@ namespace Misp.Planification.Tranformation
         {
             if (sender != null && sender is Target)
             {
+               object value = null;
+               if (sender is Entity) value = sender;
+               else if (sender is Kernel.Domain.Attribute) value = sender;
+               else if (sender is AttributeValue) value = sender;
+               SetValue(value);
+            }
+        }
+
+        protected void onDoubleClickSelectTargetFromSidebar(object sender)
+        {
+            if (sender != null && sender is Target)
+            {
                 object value = null;
                 if (sender is Entity) value = sender;
                 else if (sender is Kernel.Domain.Attribute)
                 {
-                    Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute) sender;
+                    Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
                     if (attribute.valueListChangeHandler.Items.Count <= 0) value = attribute;
                     else value = TransformationTreeService.ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
                 }
@@ -667,40 +683,16 @@ namespace Misp.Planification.Tranformation
             }
         }
 
-        protected void onDoubleClickSelectTargetFromSidebar(object sender)
-        {
-            if (sender != null && sender is Target)
-            {
-                if (!(sender is AttributeValue))
-                {
-                    onSelectTargetFromSidebar(sender);
-                    return;
-                }
-                AttributeValue value = (AttributeValue)sender;
-                if (value.childrenListChangeHandler.Items.Count <= 0) return;
-                SetValue(value.childrenListChangeHandler.Items);
-            }
-        }
-
 
         protected void onSelectPeriodNameFromSidebar(object sender)
         {
-            if (sender is PeriodName) SetValue(sender);
-            else if (sender is PeriodInterval) SetValue(sender);
-            if (sender is PeriodName)
+            if (sender != null)
             {
-                PeriodName periodName = (PeriodName)sender;
-                if (periodName.intervalListChangeHandler.Items.Count <= 0) return;
-                object value = periodName.Leafs;                    
-                SetValue(value);
-            }
-            else if (sender is PeriodInterval)
-            {
-                PeriodInterval periodInterval = (PeriodInterval)sender;
-                if (periodInterval.IsLeaf) SetValue(periodInterval);
-                else SetValue(periodInterval.Leafs);
+              if (sender is PeriodName) SetValue(sender);
+              else if (sender is PeriodInterval) SetValue(sender);               
             }
         }
+        
 
          protected void onDoubleClickSelectPeriodNameFromSidebar(object sender)
         {
