@@ -234,6 +234,7 @@
     <Compile Include="Domain\GrilleEditedElement.cs" />
     <Compile Include="Domain\GrilleFilter.cs" />
     <Compile Include="Domain\GrillePage.cs" />
+    <Compile Include="Domain\LoopUserDialogTemplateData.cs" />
     <Compile Include="Domain\ReconciliationContext.cs" />
     <Compile Include="Domain\ReconciliationFilter.cs" />
     <Compile Include="Domain\UserAction.cs" />
@@ -285,6 +286,7 @@
     <Compile Include="Domain\TableSaveIssue.cs" />
     <Compile Include="Domain\TransformationTree.cs" />
     <Compile Include="Domain\User.cs" />
+    <Compile Include="Domain\Value.cs" />
     <Compile Include="Service\AutomaticSourcingGridService.cs" />
     <Compile Include="Service\AutomaticTargetService.cs" />
     <Compile Include="Service\CombineTransformationTreeService.cs" />
