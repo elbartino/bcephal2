@@ -155,17 +155,17 @@ namespace Misp.Kernel.Service
                 }
 
 
-                LoopUserDialogTemplate LoopTemplate = deserializeLoopTemplate(e.Data);
+                LoopUserDialogTemplateData LoopTemplate = deserializeLoopTemplateData(e.Data);
                 if (LoopTemplate != null)
                 {
                     System.Windows.Application.Current.Dispatcher.Invoke(() =>
                     {
-                        //ProcessPopup dialog = new ProcessPopup();
-                        //dialog.Display(this, issue);
-                        //dialog.ShowDialog();
-                        ////issue = dialog.tableSaveIssue;
-                        //string json = serializer.Serialize(LoopTemplate);
-                        //socket.Send(json);
+                        ProcessPopup dialog = new ProcessPopup();
+                        dialog.Display(this, LoopTemplate);
+                        dialog.ShowDialog();
+                        //issue = dialog.tableSaveIssue;
+                        string json = serializer.Serialize(LoopTemplate);
+                        socket.Send(json);
                     });
                     return;
                 }
@@ -197,13 +197,13 @@ namespace Misp.Kernel.Service
             socket.Send(text);
         }
 
-        public LoopUserDialogTemplate deserializeLoopTemplate(String json)
+        public LoopUserDialogTemplateData deserializeLoopTemplateData(String json)
         {
             try
             {
                 System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 Serializer.MaxJsonLength = int.MaxValue;
-                LoopUserDialogTemplate issue = Serializer.Deserialize<LoopUserDialogTemplate>(json);
+                LoopUserDialogTemplateData issue = Serializer.Deserialize<LoopUserDialogTemplateData>(json);
                 if (issue == null) return null;
                 return issue;
             }

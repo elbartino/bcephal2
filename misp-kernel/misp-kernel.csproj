@@ -444,6 +444,9 @@
     <Compile Include="Ui\Base\PaginationPanel.xaml.cs">
       <DependentUpon>PaginationPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\Base\ProcessPopup.xaml.cs">
+      <DependentUpon>ProcessPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\File\FileNameDialog.xaml.cs">
       <DependentUpon>FileNameDialog.xaml</DependentUpon>
     </Compile>
@@ -834,6 +837,10 @@
     <Page Include="Ui\Base\PaginationPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\ProcessPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Ui\File\FileNameDialog.xaml">
       <SubType>Designer</SubType>
