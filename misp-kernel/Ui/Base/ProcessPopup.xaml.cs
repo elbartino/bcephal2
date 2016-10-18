@@ -27,6 +27,7 @@ namespace Misp.Kernel.Ui.Base
 
         public LoopUserDialogTemplateData LoopUserTemplateData { get; set; }
         private bool IsOneChoice;
+        private bool isCloseAction;
 
         /// <summary>
         /// ExcelFilesGrid
@@ -53,7 +54,11 @@ namespace Misp.Kernel.Ui.Base
 
         private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            stopProcess();
+            isCloseAction = true;
+            if (isCloseAction) 
+            {
+                stopProcess();
+            }
         }
 
 
@@ -91,8 +96,8 @@ namespace Misp.Kernel.Ui.Base
                     
         private void OnStopProcess(object sender, RoutedEventArgs e)
         {
+            isCloseAction = false;
             stopProcess();
-            this.Close();
         }
 
         private void stopProcess() 
@@ -118,9 +123,8 @@ namespace Misp.Kernel.Ui.Base
             {
                 if (obj is Value) LoopUserTemplateData.values.Add((Value)obj);
             }
-            this.Closing -= OnClosing;
-            this.Close();
-            this.Closing += OnClosing;
+            isCloseAction = false;
+            this.Close();            
         }
 
         private void OnShowHelp(object sender, RoutedEventArgs e)

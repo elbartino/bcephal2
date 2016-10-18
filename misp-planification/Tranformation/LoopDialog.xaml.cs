@@ -455,11 +455,7 @@ namespace Misp.Planification.Tranformation
             {
                 if (item is LoopConditionItemPanel)
                 {
-                    LoopConditionItemPanel panel = (LoopConditionItemPanel)item;
-                    if (panel.LoopCondition != null)
-                    {
-                        this.Loop.SynchronizeDeleteLoopCondition(panel.LoopCondition);
-                    }
+                    LoopConditionItemPanel panel = (LoopConditionItemPanel)item;                  
                 }
                 this.LoopConditionsPanel.Children.Remove((UIElement)item);
                 
@@ -471,6 +467,13 @@ namespace Misp.Planification.Tranformation
                     ((LoopConditionItemPanel)pan).Index = index++;
                 }
                 ((LoopConditionItemPanel)this.LoopConditionsPanel.Children[0]).OperatorComboBox.IsEnabled = false;
+            }
+
+            if (item is Kernel.Domain.LoopCondition)
+            {
+                Kernel.Domain.LoopCondition loopcondition = ((Kernel.Domain.LoopCondition)item);
+                this.Loop.SynchronizeDeleteLoopCondition(loopcondition);
+                this.ActiveLoopConditionItemPanel.LoopCondition = loopcondition;
             }
         }
 
