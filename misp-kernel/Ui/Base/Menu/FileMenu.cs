@@ -65,9 +65,9 @@ namespace Misp.Kernel.Ui.Base.Menu
         {
             this.Code = ApplicationMenu.FILE_MENU_CODE;
             this.Header = "File";
-            newFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "New Project", NavigationToken.GetCreateViewToken(FunctionalitiesCode.PROJECT));
-            openFile = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Open Project", NavigationToken.GetSearchViewToken(FunctionalitiesCode.PROJECT));
-            recentFiles = BuildMenu(ApplicationMenu.FILE_MENU_CODE, "Open Recent Project", null);
+            newFile = BuildMenu(FunctionalitiesCode.PROJECT, "New Project", NavigationToken.GetCreateViewToken(FunctionalitiesCode.PROJECT_EDIT));
+            openFile = BuildMenu(FunctionalitiesCode.PROJECT, "Open Project", NavigationToken.GetSearchViewToken(FunctionalitiesCode.PROJECT_OPEN));
+            recentFiles = BuildMenu(FunctionalitiesCode.PROJECT, "Open Recent Project", FunctionalitiesCode.PROJECT_RECENTS);
             BuildRecentOpenedFiles();
             BuildSaveAsMenu();
             NavigationToken token =  NavigationToken.GetCreateViewToken(FunctionalitiesCode.FILE_SAVE);
@@ -76,7 +76,7 @@ namespace Misp.Kernel.Ui.Base.Menu
             saveFile.IsEnabled = false;
             saveAsFile.IsEnabled = false;
 
-            backupMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, FunctionalitiesLabel.BACKUP_LABEL, null);
+            backupMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, FunctionalitiesLabel.BACKUP_LABEL, FunctionalitiesCode.BACKUP_FUNCTIONALITY);
             //backupMenu.IsEnabled = false;
             backupSimpleMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE, FunctionalitiesLabel.BACKUP_SIMPLE_LABEL, NavigationToken.GetCreateViewToken(FunctionalitiesCode.BACKUP_SIMPLE_FUNCTIONALITY));
             backupAutomaticMenu = BuildMenu(ApplicationMenu.INITIATION_MENU_CODE,FunctionalitiesLabel.BACKUP_AUTOMATIC_LABEL, NavigationToken.GetCreateViewToken(FunctionalitiesCode.BACKUP_AUTOMATIC_FUNCTIONALITY));          

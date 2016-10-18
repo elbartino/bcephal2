@@ -39,7 +39,7 @@ namespace Misp.Kernel.Ui.Base.Menu
         {
             this.Code = FunctionalitiesCode.HELP;
             this.Header = "Help";
-            help = BuildMenu(FunctionalitiesCode.HELP, "Help...", null);
+            help = BuildMenu(FunctionalitiesCode.HELP, "Help...", FunctionalitiesCode.HELP);
             help.IsEnabled = false;
             aboutBcephal = BuildMenu(FunctionalitiesCode.HELP, "About B-Cephal...", NavigationToken.GetCreateViewToken(FunctionalitiesCode.HELP_ABOUT));
         }
