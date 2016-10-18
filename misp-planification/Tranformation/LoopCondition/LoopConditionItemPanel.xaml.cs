@@ -140,7 +140,9 @@ namespace Misp.Planification.Tranformation.LoopCondition
       
             this.LoopCalutedValue.Activated += OnActivate;
             this.LoopCalutedValue.ChangeEventHandler += onChange;
+            this.LoopCalutedValue.filterScopePanel.Changed += onChange;
             this.LoopCalutedValue.filterScopePanel.ItemChanged += OnFilterScopeChanged;
+            this.LoopCalutedValue.periodPanel.Changed += onChange;
             this.LoopCalutedValue.periodPanel.ItemChanged += OnPeriodChanged;
             this.LoopCalutedValue.periodPanel.ItemDeleted += OnPeriodDeleted;
             this.LoopCalutedValue.filterScopePanel.ItemDeleted += OnFilterScopeDeleted;
@@ -204,6 +206,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
             this.Index = loopCondition.position +1;
             CellProperty cell = loopCondition.cellProperty;
             if (cell == null) cell = new CellProperty();
+            this.LoopCalutedValue.ChangeEventHandler += onChange;
             this.LoopCalutedValue.periodPanel.DisplayPeriod(cell.period);
             this.LoopCalutedValue.filterScopePanel.DisplayScope(cell.cellScope);
             this.LoopCalutedValue.CellMeasurePanel.Display(cell.cellMeasure);
@@ -461,6 +464,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
             {
                 this.LoopCalutedValue.periodPanel.SetPeriodItemName(((PeriodName)item).name);
             }
+            onChange();
           
         }
 
