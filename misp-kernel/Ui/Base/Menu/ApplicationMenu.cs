@@ -145,11 +145,20 @@ namespace Misp.Kernel.Ui.Base.Menu
 
         public virtual ApplicationMenu customize(PrivilegeObserver observer)
         {
+            
             if (observer.user == null || !observer.user.active.Value) return null;
             if (observer.user.IsAdmin()) return this;
             if (observer.user.profil == null || !observer.user.profil.active) return null;
             String code = this.GetFunctionalityCode();
             if (observer.hasPrivilege(code)) return this;
+
+            List<String> list = new List<String>(0);
+            list.Add(FunctionalitiesCode.FILE_QUIT);
+            list.Add(FunctionalitiesCode.FILE_SAVE);
+            list.Add(FunctionalitiesCode.FILE_SAVE_AS);
+            list.Add(FunctionalitiesCode.HELP);
+            if (list.Contains(code)) return this;
+
             int added = 0;
             List<Object> controls = new List<Object>(0);            
             foreach (Control control in Items)

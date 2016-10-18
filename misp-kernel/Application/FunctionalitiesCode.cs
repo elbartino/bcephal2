@@ -22,6 +22,7 @@ namespace Misp.Kernel.Application
         public static string PROJECT_RECENTS = "functionality.project.recents";
         public static string FILE_SAVE      = "FILE_SAVE_FONCTIONALITY";
         public static string FILE_SAVE_AS   = "FILE_SAVE_AS_FONCTIONALITY";
+        public static string FILE_QUIT      = "FILE_QUIT";
 
 
         public static string HOME_PAGE = "functionality.home.page";

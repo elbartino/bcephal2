@@ -20,7 +20,10 @@ namespace Misp.Kernel.Application
     /// </summary>
     public class ApplicationMenusBuilder
     {
-                
+
+        FileMenu fileMenu;
+        SettingsMenu settingsMenu;
+
         /// <summary>
         /// Construit une nouvelle instance de la classe ApplicationMenusBuilder
         /// </summary>
@@ -41,8 +44,8 @@ namespace Misp.Kernel.Application
         {
             MenuBar menuBar = new MenuBar();
 
-            FileMenu fileMenu = new FileMenu();
-            SettingsMenu settingsMenu = new SettingsMenu();
+            fileMenu = new FileMenu();
+            settingsMenu = new SettingsMenu();
             HelpMenu helpMenu = new HelpMenu();
 
             if (ApplicationManager.ApplcationConfiguration.IsMultiuser())
@@ -86,6 +89,8 @@ namespace Misp.Kernel.Application
         protected void buildPluginsMenus(MenuBar menuBar)
         {
             PrivilegeObserver observer = new PrivilegeObserver();
+            fileMenu.customize(observer);
+            settingsMenu.customize(observer);
             foreach(IPlugin plugin in ApplicationManager.Plugins){
                 foreach (ApplicationMenu menu in plugin.Menus)
                 {
