@@ -45,6 +45,7 @@ namespace Misp.Kernel.Ui.File
             this.ApplicationManager.MainWindow.DashboardView.Visibility = ApplicationManager.Instance.File != null ? Visibility.Visible : Visibility.Collapsed;
             if (ApplicationManager.Instance.File != null)
             {
+                this.ApplicationManager.MainWindow.DashboardView.InitializeBlocks();
                 this.ApplicationManager.MainWindow.DashboardView.Refresh();
             }
         }

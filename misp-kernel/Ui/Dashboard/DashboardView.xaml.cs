@@ -66,7 +66,7 @@ namespace Misp.Kernel.Ui.Dashboard
             this.DisplayedBlocks = new List<DashboardBlock>(0);
             InitializeComponent();
             BuildGuidedTourControl();
-            InitializeBlocks();
+            //InitializeBlocks();
         }
 
         public void AddBlock(DashboardBlock block)
@@ -116,17 +116,17 @@ namespace Misp.Kernel.Ui.Dashboard
                 {
                     if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
                     {
-                        configurations.Add(new DashBoardConfiguration(this.ModelBlock.TitleLabel.Content.ToString(), 1,userOid));
-                        configurations.Add(new DashBoardConfiguration(this.AutomaticUploadBlock.TitleLabel.Content.ToString(), 2,userOid));
-                        configurations.Add(new DashBoardConfiguration(this.ReconciliationFilterBlock.TitleLabel.Content.ToString(), 3,userOid));
-                        configurations.Add(new DashBoardConfiguration(this.ReportBlock.TitleLabel.Content.ToString(), 4,userOid));
+                        configurations.Add(new DashBoardConfiguration(FunctionalitiesLabel.INITIATION_MODEL_LABEL, 1, userOid));
+                        configurations.Add(new DashBoardConfiguration(FunctionalitiesLabel.AUTOMATIC_SOURCING_DASHBOARD_LABEL, 2, userOid));
+                        configurations.Add(new DashBoardConfiguration(FunctionalitiesLabel.RECONCILIATION_FILTER_DASHBOARD_LABEL, 3,userOid));
+                        configurations.Add(new DashBoardConfiguration(FunctionalitiesLabel.REPORT_LABEL, 4,userOid));
                     }
                     else
                     {
-                        configurations.Add(new DashBoardConfiguration(this.ModelBlock.TitleLabel.Content.ToString(), 1,userOid));
-                        configurations.Add(new DashBoardConfiguration(this.TreeBlock.TitleLabel.Content.ToString(), 2,userOid));
-                        configurations.Add(new DashBoardConfiguration(this.TableBlock.TitleLabel.Content.ToString(), 3,userOid));
-                        configurations.Add(new DashBoardConfiguration(this.ReportBlock.TitleLabel.Content.ToString(), 4,userOid));
+                        configurations.Add(new DashBoardConfiguration(FunctionalitiesLabel.INITIATION_MODEL_LABEL, 1,userOid));
+                        configurations.Add(new DashBoardConfiguration(FunctionalitiesLabel.TRANSFORMATION_LABEL, 2,userOid));
+                        configurations.Add(new DashBoardConfiguration(FunctionalitiesLabel.INPUT_TABLE_LABEL, 3, userOid));
+                        configurations.Add(new DashBoardConfiguration(FunctionalitiesLabel.REPORT_LABEL, 4,userOid));
                     }
                     configurations = DashBoardService.saveListDashboardConfiguration(configurations,userOid);
                     if (configurations == null) configurations = new List<DashBoardConfiguration>(0);
@@ -227,7 +227,7 @@ namespace Misp.Kernel.Ui.Dashboard
             for (int i = 1; i <= row; i++)
             {
                 RowDefinition def = new RowDefinition();
-                def.Height = new GridLength(ModelBlock.Height + 20);//new GridLength(1, GridUnitType.Star);
+                def.Height = new GridLength(new DashboardBlock().Height + 20);//new GridLength(1, GridUnitType.Star);
                 this.BlockGrid.RowDefinitions.Add(def);
             }
 
@@ -239,8 +239,11 @@ namespace Misp.Kernel.Ui.Dashboard
             }
         }
 
-        private void InitializeBlocks()
+        PrivilegeObserver observer;
+        public void InitializeBlocks()
         {
+            observer = new PrivilegeObserver();
+
             this.ModelBlock = buildBlock(FunctionalitiesLabel.INITIATION_MODEL_LABEL, FunctionalitiesLabel.INITIATION_NEW_MODEL_LABEL, FunctionalitiesLabel.INITIATION_RECENT_MODEL_LABEL, FunctionalitiesCode.INITIATION);
 
             this.TableBlock = buildBlock(FunctionalitiesLabel.INPUT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_INPUT_TABLE_LABEL, FunctionalitiesLabel.RECENT_INPUT_TABLE_LABEL, FunctionalitiesCode.INPUT_TABLE_EDIT);
@@ -265,26 +268,24 @@ namespace Misp.Kernel.Ui.Dashboard
             }
 
             Dictionary<string, object> dico = new Dictionary<string, object>(0);
-            dico.Add(this.AutomaticUploadBlock.TitleLabel.Content.ToString(), this.AutomaticUploadBlock);
-            dico.Add(this.CalculatedMeasureBlock.TitleLabel.Content.ToString(), this.CalculatedMeasureBlock);
-            dico.Add(this.CombinedTreeBlock.TitleLabel.Content.ToString(), this.CombinedTreeBlock);
-            dico.Add(this.DesignBlock.TitleLabel.Content.ToString(), this.DesignBlock);
-            dico.Add(this.TableBlock.TitleLabel.Content.ToString(), this.TableBlock);
-            dico.Add(this.ModelBlock.TitleLabel.Content.ToString(), this.ModelBlock);
-            dico.Add(this.ReportBlock.TitleLabel.Content.ToString(), this.ReportBlock);
-            dico.Add(this.StructuredReportBlock.TitleLabel.Content.ToString(), this.StructuredReportBlock);
-            dico.Add(this.TargetBlock.TitleLabel.Content.ToString(), this.TargetBlock);
-            dico.Add(this.TreeBlock.TitleLabel.Content.ToString(), this.TreeBlock);
-            dico.Add(this.AutomaticGridBlock.TitleLabel.Content.ToString(), this.AutomaticGridBlock);
-            dico.Add(this.InputGridBlock.TitleLabel.Content.ToString(), this.InputGridBlock);
-            dico.Add(this.ReportGridBlock.TitleLabel.Content.ToString(), this.ReportGridBlock);
-            dico.Add(this.AutomaticTargetBlock.TitleLabel.Content.ToString(), this.AutomaticTargetBlock);
-            if (this.ReconciliationFilterBlock != null)
-            {
-                dico.Add(this.PostingGridBlock.TitleLabel.Content.ToString(), this.TreeBlock);
-                dico.Add(this.AutomaticPostingGridBlock.TitleLabel.Content.ToString(), this.TreeBlock);
-                dico.Add(this.ReconciliationFilterBlock.TitleLabel.Content.ToString(), this.TreeBlock);
-            }
+
+            if (this.AutomaticUploadBlock != null) dico.Add(this.AutomaticUploadBlock.TitleLabel.Content.ToString(), this.AutomaticUploadBlock);
+            if (this.CalculatedMeasureBlock != null) dico.Add(this.CalculatedMeasureBlock.TitleLabel.Content.ToString(), this.CalculatedMeasureBlock);
+            if (this.CombinedTreeBlock != null) dico.Add(this.CombinedTreeBlock.TitleLabel.Content.ToString(), this.CombinedTreeBlock);
+            if (this.DesignBlock != null) dico.Add(this.DesignBlock.TitleLabel.Content.ToString(), this.DesignBlock);
+            if (this.TableBlock != null) dico.Add(this.TableBlock.TitleLabel.Content.ToString(), this.TableBlock);
+            if (this.ModelBlock != null) dico.Add(this.ModelBlock.TitleLabel.Content.ToString(), this.ModelBlock);
+            if (this.ReportBlock != null) dico.Add(this.ReportBlock.TitleLabel.Content.ToString(), this.ReportBlock);
+            if (this.StructuredReportBlock != null) dico.Add(this.StructuredReportBlock.TitleLabel.Content.ToString(), this.StructuredReportBlock);
+            if (this.TargetBlock != null) dico.Add(this.TargetBlock.TitleLabel.Content.ToString(), this.TargetBlock);
+            if (this.TreeBlock != null) dico.Add(this.TreeBlock.TitleLabel.Content.ToString(), this.TreeBlock);
+            if (this.AutomaticGridBlock != null) dico.Add(this.AutomaticGridBlock.TitleLabel.Content.ToString(), this.AutomaticGridBlock);
+            if (this.InputGridBlock != null) dico.Add(this.InputGridBlock.TitleLabel.Content.ToString(), this.InputGridBlock);
+            if (this.ReportGridBlock != null) dico.Add(this.ReportGridBlock.TitleLabel.Content.ToString(), this.ReportGridBlock);
+            if (this.AutomaticTargetBlock != null) dico.Add(this.AutomaticTargetBlock.TitleLabel.Content.ToString(), this.AutomaticTargetBlock);
+            if (this.PostingGridBlock != null) dico.Add(this.PostingGridBlock.TitleLabel.Content.ToString(), this.TreeBlock);
+            if (this.AutomaticPostingGridBlock != null) dico.Add(this.AutomaticPostingGridBlock.TitleLabel.Content.ToString(), this.TreeBlock);
+            if (this.ReconciliationFilterBlock != null) dico.Add(this.ReconciliationFilterBlock.TitleLabel.Content.ToString(), this.TreeBlock);
             
             this.MultiSelectorCombobox.ItemsSource = dico;
             this.MultiSelectorCombobox.checkBoxHandler += OnSelectionChanged;
@@ -311,6 +312,11 @@ namespace Misp.Kernel.Ui.Dashboard
 
         private DashboardBlock buildBlock(string title, string newLabel, string recentItemsLabel, string newFunctionCode)
         {
+            if (observer != null)
+            {
+                if (!observer.hasPrivilege(newFunctionCode)) return null;
+            }
+
             DashboardBlock block = new DashboardBlock(newFunctionCode);
             block.DashboardView = this;
             block.TitleLabel.Content = title;
@@ -434,23 +440,23 @@ namespace Misp.Kernel.Ui.Dashboard
         private DashboardBlock GetBlockByConfiguration(DashBoardConfiguration configuration)
         {
             if (configuration == null || string.IsNullOrWhiteSpace(configuration.name)) return null;
-            if (this.ModelBlock.TitleLabel.Content.Equals(configuration.name)) return this.ModelBlock;
-            if (this.TableBlock.TitleLabel.Content.Equals(configuration.name)) return this.TableBlock;
-            if (this.ReportBlock.TitleLabel.Content.Equals(configuration.name)) return this.ReportBlock;
-            if (this.StructuredReportBlock.TitleLabel.Content.Equals(configuration.name)) return this.StructuredReportBlock;
-            if (this.TreeBlock.TitleLabel.Content.Equals(configuration.name)) return this.TreeBlock;
-            if (this.CombinedTreeBlock.TitleLabel.Content.Equals(configuration.name)) return this.CombinedTreeBlock;
-            if (this.TargetBlock.TitleLabel.Content.Equals(configuration.name)) return this.TargetBlock;
-            if (this.DesignBlock.TitleLabel.Content.Equals(configuration.name)) return this.DesignBlock;
-            if (this.AutomaticUploadBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticUploadBlock;
-            if (this.CalculatedMeasureBlock.TitleLabel.Content.Equals(configuration.name)) return this.CalculatedMeasureBlock;
-            if (this.ReconciliationFilterBlock != null && this.ReconciliationFilterBlock.TitleLabel.Content.Equals(configuration.name)) return this.ReconciliationFilterBlock;
-            if (this.InputGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.InputGridBlock;
-            if (this.ReportGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.ReportGridBlock;
-            if (this.AutomaticGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticGridBlock;
-            if (this.AutomaticTargetBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticTargetBlock;
-            if (this.AutomaticPostingGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticPostingGridBlock;
-            if (this.PostingGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.PostingGridBlock;
+            if (this.ModelBlock != null && this.ModelBlock.TitleLabel.Content.Equals(configuration.name)) return this.ModelBlock;
+            if (this.TableBlock != null && this.TableBlock.TitleLabel.Content.Equals(configuration.name)) return this.TableBlock;
+            if (this.ReportBlock != null && this.ReportBlock.TitleLabel.Content.Equals(configuration.name)) return this.ReportBlock;
+            if (this.StructuredReportBlock != null && this.StructuredReportBlock.TitleLabel.Content.Equals(configuration.name)) return this.StructuredReportBlock;
+            if (this.TreeBlock != null && this.TreeBlock.TitleLabel.Content.Equals(configuration.name)) return this.TreeBlock;
+            if (this.CombinedTreeBlock != null && this.CombinedTreeBlock.TitleLabel.Content.Equals(configuration.name)) return this.CombinedTreeBlock;
+            if (this.TargetBlock != null && this.TargetBlock.TitleLabel.Content.Equals(configuration.name)) return this.TargetBlock;
+            if (this.DesignBlock != null && this.DesignBlock.TitleLabel.Content.Equals(configuration.name)) return this.DesignBlock;
+            if (this.AutomaticUploadBlock != null && this.AutomaticUploadBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticUploadBlock;
+            if (this.CalculatedMeasureBlock != null && this.CalculatedMeasureBlock.TitleLabel.Content.Equals(configuration.name)) return this.CalculatedMeasureBlock;
+            if (this.ReconciliationFilterBlock != null && this.ReconciliationFilterBlock != null && this.ReconciliationFilterBlock.TitleLabel.Content.Equals(configuration.name)) return this.ReconciliationFilterBlock;
+            if (this.InputGridBlock != null && this.InputGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.InputGridBlock;
+            if (this.ReportGridBlock != null && this.ReportGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.ReportGridBlock;
+            if (this.AutomaticGridBlock != null && this.AutomaticGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticGridBlock;
+            if (this.AutomaticTargetBlock != null && this.AutomaticTargetBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticTargetBlock;
+            if (this.AutomaticPostingGridBlock != null && this.AutomaticPostingGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticPostingGridBlock;
+            if (this.PostingGridBlock != null && this.PostingGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.PostingGridBlock;
             return null;
         }
 
@@ -505,23 +511,23 @@ namespace Misp.Kernel.Ui.Dashboard
         private DashboardBlock findBlock(string name)
         {
             if (string.IsNullOrWhiteSpace(name)) return null;
-            if (name.Equals(this.ModelBlock.TitleLabel.Content)) return this.ModelBlock;
-            if (name.Equals(this.TableBlock.TitleLabel.Content)) return this.TableBlock;
-            if (name.Equals(this.ReportBlock.TitleLabel.Content)) return this.ReportBlock;
-            if (name.Equals(this.StructuredReportBlock.TitleLabel.Content)) return this.StructuredReportBlock;
-            if (name.Equals(this.TreeBlock.TitleLabel.Content)) return this.TreeBlock;
-            if (name.Equals(this.CombinedTreeBlock.TitleLabel.Content)) return this.CombinedTreeBlock;
-            if (name.Equals(this.TargetBlock.TitleLabel.Content)) return this.TargetBlock;
-            if (name.Equals(this.DesignBlock.TitleLabel.Content)) return this.DesignBlock;
-            if (name.Equals(this.CalculatedMeasureBlock.TitleLabel.Content)) return this.CalculatedMeasureBlock;
-            if (name.Equals(this.AutomaticUploadBlock.TitleLabel.Content)) return this.AutomaticUploadBlock;
-            if (name.Equals(this.InputGridBlock.TitleLabel.Content)) return this.InputGridBlock;
-            if (name.Equals(this.ReportGridBlock.TitleLabel.Content)) return this.ReportGridBlock;
-            if (name.Equals(this.AutomaticGridBlock.TitleLabel.Content)) return this.AutomaticGridBlock;
+            if (this.ModelBlock != null && name.Equals(this.ModelBlock.TitleLabel.Content)) return this.ModelBlock;
+            if (this.TableBlock != null && name.Equals(this.TableBlock.TitleLabel.Content)) return this.TableBlock;
+            if (this.ReportBlock != null && name.Equals(this.ReportBlock.TitleLabel.Content)) return this.ReportBlock;
+            if (this.StructuredReportBlock != null && name.Equals(this.StructuredReportBlock.TitleLabel.Content)) return this.StructuredReportBlock;
+            if (this.TreeBlock != null && name.Equals(this.TreeBlock.TitleLabel.Content)) return this.TreeBlock;
+            if (this.CombinedTreeBlock != null && name.Equals(this.CombinedTreeBlock.TitleLabel.Content)) return this.CombinedTreeBlock;
+            if (this.TargetBlock != null && name.Equals(this.TargetBlock.TitleLabel.Content)) return this.TargetBlock;
+            if (this.DesignBlock != null && name.Equals(this.DesignBlock.TitleLabel.Content)) return this.DesignBlock;
+            if (this.CalculatedMeasureBlock != null && name.Equals(this.CalculatedMeasureBlock.TitleLabel.Content)) return this.CalculatedMeasureBlock;
+            if (this.AutomaticUploadBlock != null && name.Equals(this.AutomaticUploadBlock.TitleLabel.Content)) return this.AutomaticUploadBlock;
+            if (this.InputGridBlock != null && name.Equals(this.InputGridBlock.TitleLabel.Content)) return this.InputGridBlock;
+            if (this.ReportGridBlock != null && name.Equals(this.ReportGridBlock.TitleLabel.Content)) return this.ReportGridBlock;
+            if (this.AutomaticGridBlock != null && name.Equals(this.AutomaticGridBlock.TitleLabel.Content)) return this.AutomaticGridBlock;
             if (this.ReconciliationFilterBlock != null && name.Equals(this.ReconciliationFilterBlock.TitleLabel.Content)) return this.ReconciliationFilterBlock;
-            if (name.Equals(this.AutomaticTargetBlock.TitleLabel.Content)) return this.AutomaticTargetBlock;
-            if (name.Equals(this.AutomaticPostingGridBlock.TitleLabel.Content)) return this.AutomaticPostingGridBlock;
-            if (name.Equals(this.PostingGridBlock.TitleLabel.Content)) return this.PostingGridBlock;
+            if (this.AutomaticTargetBlock != null && name.Equals(this.AutomaticTargetBlock.TitleLabel.Content)) return this.AutomaticTargetBlock;
+            if (this.AutomaticPostingGridBlock != null && name.Equals(this.AutomaticPostingGridBlock.TitleLabel.Content)) return this.AutomaticPostingGridBlock;
+            if (this.PostingGridBlock != null && name.Equals(this.PostingGridBlock.TitleLabel.Content)) return this.PostingGridBlock;
             return null;
         }
 
