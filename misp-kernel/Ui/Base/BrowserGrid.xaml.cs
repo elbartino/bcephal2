@@ -52,7 +52,7 @@ namespace Misp.Kernel.Ui.Base
             if (dataGrid.ItemsSource != null)
             {
                 int itemsCount = dataGrid.Items.Count;
-                if (dataGrid.SelectedItems.Count < itemsCount) dataGrid.SelectAll();
+                if (dataGrid.SelectedItems.Count < itemsCount && dataGrid.SelectionMode != DataGridSelectionMode.Single) dataGrid.SelectAll();
                 else dataGrid.UnselectAll();
             }
         }
