@@ -56,7 +56,7 @@ namespace Misp.Kernel.Ui.Base
         {
             if (!isNotCloseAction) 
             {
-                stopProcess();
+                if (!stopProcess()) e.Cancel = true;
             }
         }
 
@@ -96,18 +96,20 @@ namespace Misp.Kernel.Ui.Base
         private void OnStopProcess(object sender, RoutedEventArgs e)
         {
             isNotCloseAction = true;
-            stopProcess();
-            this.Close();      
+            if(stopProcess()) this.Close();      
         }
 
-        private void stopProcess() 
+        private bool stopProcess() 
         {
             MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Stop tree execution", "You are about to stop the tree execution.\nDo You want to stop?");
             if (response == MessageBoxResult.Yes)
             {
                 LoopUserTemplateData = new LoopUserDialogTemplateData();
-                LoopUserTemplateData.stop = true;                
+                LoopUserTemplateData.stop = true;
+                return true;
             }
+            isNotCloseAction = false;
+            return false;
         }
 
         private void OnNextClick(object sender, RoutedEventArgs e)
@@ -117,6 +119,7 @@ namespace Misp.Kernel.Ui.Base
             if (IsOneChoice && items.Count > 1)
             {
                 MessageDisplayer.DisplayWarning("Wrong selection", "You are not allowed to select more than one element!");
+                isNotCloseAction = false;
                 return;
             }
             foreach (Object obj in items)
