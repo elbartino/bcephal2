@@ -40,8 +40,8 @@ namespace Misp.Kernel.Ui.Base.Menu
         {
             this.Code = ApplicationMenu.SETTINGS_MENU_CODE; 
             this.Header = "Settings";
-            groups = BuildMenu(ApplicationMenu.SETTINGS_MENU_CODE, "Groups", NavigationToken.GetSearchViewToken(FunctionalitiesCode.LIST_GROUP_FUNCTIONALITY));
-            properties = BuildMenu(ApplicationMenu.SETTINGS_MENU_CODE, "Properties", NavigationToken.GetCreateViewToken(FunctionalitiesCode.PROPERTIES_FUNCTIONALITY));
+            groups = BuildMenu(FunctionalitiesCode.PROJECT, "Groups", NavigationToken.GetSearchViewToken(FunctionalitiesCode.LIST_GROUP_FUNCTIONALITY));
+            properties = BuildMenu(FunctionalitiesCode.PROJECT, "Properties", NavigationToken.GetCreateViewToken(FunctionalitiesCode.PROPERTIES_FUNCTIONALITY));
         }
 
     }

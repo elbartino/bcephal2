@@ -18,7 +18,13 @@ namespace Misp.Kernel.Application
 
         private void buildChildren()
         {
-            this.Children.Add(new Functionality(this, FunctionalitiesCode.PROJECT_EDIT, "Project creation and edition", true));            
+            this.Children.Add(new Functionality(this, FunctionalitiesCode.PROJECT_EDIT, "Project creation and edition", true));
+            this.Children.Add(new Functionality(this, FunctionalitiesCode.LIST_GROUP_FUNCTIONALITY, "Group edition", true));
+
+            Functionality backup = new Functionality(this, FunctionalitiesCode.BACKUP_FUNCTIONALITY, "Backup", true);
+            backup.Children.Add(new Functionality(backup, FunctionalitiesCode.BACKUP_SIMPLE_FUNCTIONALITY, "Simple backup", true));
+            backup.Children.Add(new Functionality(backup, FunctionalitiesCode.BACKUP_AUTOMATIC_FUNCTIONALITY, "Automatic backup", true));
+            this.Children.Add(backup); 
         }
 
 
