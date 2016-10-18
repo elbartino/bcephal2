@@ -102,6 +102,17 @@ namespace Misp.Planification.Tranformation.LoopCondition
             loopConditionItemPanel.Deleted += OnDeleteConditionItem;
             loopConditionItemPanel.ChangeEventHandler += OnChange;
             loopConditionItemPanel.Activated += OnActivate;
+            loopConditionItemPanel.Updated += OnUpdateConditionLoop;
+        }
+
+        private void OnUpdateConditionLoop(object item)
+        {
+            if (item is Kernel.Domain.LoopCondition)
+            {
+                Kernel.Domain.LoopCondition loopcondition = ((Kernel.Domain.LoopCondition)item);
+                loopcondition = this.LoopUserTemplate.SynchronizeLoopCondition(loopcondition);
+                this.ActiveLoopConditionItemPanel.LoopCondition = loopcondition;
+            }
         }
 
         public void OnChange()
@@ -149,12 +160,20 @@ namespace Misp.Planification.Tranformation.LoopCondition
                     LoopConditionItemPanel panel = (LoopConditionItemPanel)this.LoopConditionsPanel.Children[0];
                     panel.OperatorComboBox.IsEnabled = false;
                     panel.OperatorComboBox.SelectedItem = "";
+                    if (this.LoopUserTemplate != null) this.LoopUserTemplate.SynchronizeDeleteLoopCondition(panel.LoopCondition);
                 }
                 int index = 1;
                 foreach (object pan in this.LoopConditionsPanel.Children)
                 {
                     ((LoopConditionItemPanel)pan).Index = index++;
                 }
+            }
+
+            if (item is Kernel.Domain.LoopCondition)
+            {
+                Kernel.Domain.LoopCondition loopcondition = ((Kernel.Domain.LoopCondition)item);
+                this.LoopUserTemplate.SynchronizeDeleteLoopCondition(loopcondition);
+                this.ActiveLoopConditionItemPanel.LoopCondition = loopcondition;
             }
         }
 
@@ -165,11 +184,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
                 if (!(panel is LoopConditionItemPanel)) continue;
                 if (((LoopConditionItemPanel)panel).LoopCondition == null) continue;
                 Kernel.Domain.LoopCondition loopCondition = ((LoopConditionItemPanel)panel).FillConditions(this.TransformationTreeService);
-                if (!loopCondition.isConditionsEmpty())
-                {
-                  if(this.Loop != null)   this.Loop.SynchronizeLoopCondition(loopCondition);
-                }
-                  if (this.LoopUserTemplate != null) this.LoopUserTemplate.SynchronizeLoopCondition(loopCondition);
+                if (!loopCondition.isConditionsEmpty()) this.Loop.SynchronizeLoopCondition(loopCondition);
              }
         }
 

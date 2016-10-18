@@ -36,6 +36,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
         public bool trow = false;
 
         private bool isViewDetailsHided { get; set; }
+               
 
         public int Index
         {
@@ -178,9 +179,11 @@ namespace Misp.Planification.Tranformation.LoopCondition
             Target cellScope = this.LoopCalutedValue.filterScopePanel.Scope;
             if (cellScope == null) cellScope = new Target(Target.Type.OBJECT_VC, Target.TargetType.COMBINED);
             cellScope.SynchronizeDeleteTargetItem(targetItem);
+            isDeleted = true;
             FillLoopProperties(cellScope);
             this.LoopCalutedValue.filterScopePanel.DisplayScope(cellScope);
             if (isViewDetailsHided) HideDetailsView(false);
+            isDeleted = false;
         }
 
         private void OnPeriodDeleted(object item)
@@ -255,7 +258,8 @@ namespace Misp.Planification.Tranformation.LoopCondition
                 this.LoopCondition.openBracket = brackets[0];
                 this.LoopCondition.closeBracket = brackets[1];
             }
-            if (Updated != null) Updated(this.LoopCondition);
+            if (Updated != null && !isDeleted) Updated(this.LoopCondition);
+            if (Deleted != null && isDeleted) Deleted(this.LoopCondition);
         }
 
         private void OnPeriodChanged(object item)
