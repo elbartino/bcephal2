@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
             xmlns:local="clr-namespace:Misp.Planification.Tranformation.LoopCondition"
-      d:Height="Auto"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+      d:Height="Auto">
     <StackPanel x:Name="LoopConditionsPanel" Background="White">
         <local:LoopConditionItemPanel/>
         <local:LoopConditionItemPanel/>

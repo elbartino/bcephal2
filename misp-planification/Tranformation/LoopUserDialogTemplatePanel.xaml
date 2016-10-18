@@ -3,38 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" Background="White"
-              xmlns:LoopCondition="clr-namespace:Misp.Planification.Tranformation.LoopCondition">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition />
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="100"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="Edit Message (max 250 characters)" Margin="0 5 0 0" Grid.Row="0" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="EditMessageTextBox" AcceptsReturn="True" TextWrapping="Wrap" Grid.Row="1" Grid.ColumnSpan="2" />
-        <StackPanel Grid.Row="2" Margin="5 5 5 5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <TextBlock Text="Only One Possible Choice" Margin="5 5 5 5"/>
-            <CheckBox x:Name="OnePossibleChoiceCheckbox"  Margin="5 5 0 5"/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <TextBlock Text="Active" Margin="5 5 5 5"/>
-            <CheckBox x:Name="ActiveCheckbox"  Margin="5 5 0 5" IsChecked="True"/>
-        </StackPanel>
-        <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
-            <LoopCondition:LoopConditionPanel x:Name="LoopConditionsPanel" />
-        </ScrollViewer>
+             xmlns:LoopCondition="clr-namespace:Misp.Planification.Tranformation.LoopCondition">
+    
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="100"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="100"/>
+    </Grid.RowDefinitions>
+    
+    <Label Content="Edit Message (max 250 characters)" Margin="0 5 0 0" Grid.Row="0"/>
+    <TextBox x:Name="EditMessageTextBox" AcceptsReturn="True" TextWrapping="Wrap" Grid.Row="1" />
+    
+    <StackPanel Grid.Row="2" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal">
+        <CheckBox x:Name="OnePossibleChoiceCheckbox" Content="Only One Possible Choice" FlowDirection="RightToLeft" Margin="0 0"/>
+        <CheckBox x:Name="ActiveCheckbox"  Content="Active" FlowDirection="RightToLeft" Margin="20 0" IsChecked="True"/>
+    </StackPanel>
+
+    <LoopCondition:LoopConditionPanel x:Name="LoopConditionsPanel" Grid.Row="3" Margin="0 5"/>
+    <!--<ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <LoopCondition:LoopConditionPanel x:Name="LoopConditionsPanel" />
+    </ScrollViewer>-->
+    
     <Grid Grid.Row="4">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-    <TextBlock Text="Edit Help Text (max 500 characters)"  Grid.Column="0"/>
+        <Label Content="Edit Help Text (max 500 characters)"  Grid.Column="0"/>
         <ToggleButton x:Name="CommentButton" x:FieldModifier="public" ToolTip="{Binding Text, ElementName=CommentTextBlock}" Margin="0 0 5 0" Width="15" Grid.Column="1">
             <ToggleButton.Template>
                 <ControlTemplate>
@@ -43,5 +41,5 @@
             </ToggleButton.Template>
         </ToggleButton >
     </Grid>
-    <TextBox x:Name="HelpMessageTextBox" AcceptsReturn="True" TextWrapping="Wrap" Grid.Row="5" Grid.ColumnSpan="2"/>
+    <TextBox x:Name="HelpMessageTextBox" AcceptsReturn="True" TextWrapping="Wrap" Grid.Row="5"/>
     </Grid>
