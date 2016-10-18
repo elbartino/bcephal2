@@ -15,8 +15,11 @@ namespace Misp.Kernel.Application
         public static string HELP_CONTENT   = "functionality.help.content";
 
         //PROJECT
+        public static string FILE           = "functionality.file";
         public static string PROJECT        = "functionality.project";
         public static string PROJECT_EDIT   = "functionality.project.edit";
+        public static string PROJECT_OPEN   = "functionality.project.open";
+        public static string PROJECT_RECENTS = "functionality.project.recents";
         public static string FILE_SAVE      = "FILE_SAVE_FONCTIONALITY";
         public static string FILE_SAVE_AS   = "FILE_SAVE_AS_FONCTIONALITY";
 

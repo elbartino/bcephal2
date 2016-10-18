@@ -115,6 +115,18 @@ namespace Misp.Kernel.Ui.Base.Menu
             menu.Click += new RoutedEventHandler (this.onMenuClick);
             return menu;
         }
+
+        /// <summary>
+        /// Construit un element de menu
+        /// </summary>
+        /// <param name="header"></param>
+        /// <returns></returns>
+        public ApplicationMenu BuildMenu(string parentCode, string header, String code)
+        {
+            ApplicationMenu menu = BuildMenu(parentCode, header, (NavigationToken)null);
+            menu.Code = code;
+            return menu;
+        }
         
         private void onMenuClick(object sender, RoutedEventArgs e)
         {
@@ -158,7 +170,7 @@ namespace Misp.Kernel.Ui.Base.Menu
 
         public String GetFunctionalityCode()
         {
-            return NavigationToken != null ? NavigationToken.Functionality : null;
+            return NavigationToken != null ? NavigationToken.Functionality : this.Code;
         }
 
     }

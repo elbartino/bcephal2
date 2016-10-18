@@ -45,6 +45,11 @@ namespace Misp.Kernel.Application
             SettingsMenu settingsMenu = new SettingsMenu();
             HelpMenu helpMenu = new HelpMenu();
 
+            if (ApplicationManager.ApplcationConfiguration.IsMultiuser())
+            {
+                fileMenu.Items.Remove(fileMenu.OpenFile);
+            }
+
             menuBar.ApplicationMenus.Add(fileMenu);
             menuBar.ApplicationMenus.Add(settingsMenu);
             menuBar.ApplicationMenus.Add(helpMenu);

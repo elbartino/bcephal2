@@ -38,7 +38,7 @@ namespace Misp.Sourcing.GridViews
 
         private List<string> columnNames = new List<string>(0);
 
-        public BrowserGrid grid;
+        public DataGrid grid;
 
         public bool RebuildGrid = true;
         
@@ -72,7 +72,7 @@ namespace Misp.Sourcing.GridViews
         {
             if (grid != null)
             {
-                grid.FilterChanged -= OnFilterChanged;
+                //grid.FilterChanged -= OnFilterChanged;
                 grid.CellEditEnding -= OnCellEditEnding;
                 grid.Sorting -= OnSort;
                 grid.SelectionChanged -= onSelectionchange;
@@ -87,7 +87,7 @@ namespace Misp.Sourcing.GridViews
             }
             this.Children.Clear();
 
-            grid = new BrowserGrid();
+            grid = new DataGrid();
             initializeContextMenu();
             grid.SelectionChanged += onSelectionchange;
 
@@ -121,7 +121,7 @@ namespace Misp.Sourcing.GridViews
 
             grid.CellEditEnding += OnCellEditEnding;
             grid.Sorting += OnSort;
-            grid.FilterChanged += OnFilterChanged;
+            //grid.FilterChanged += OnFilterChanged;
         }
 
         private void onSelectionchange(object sender, SelectionChangedEventArgs e)
@@ -183,15 +183,15 @@ namespace Misp.Sourcing.GridViews
 
         protected void OnFilterChanged()
         {
-            foreach (FilterData data in grid.FilterData.Datas)
-            {
-                String name = data.Column;
-                GrilleColumn column = this.Grille.GetColumn(name);
-                if (column == null) continue;
-                if (data.IsEmpty()) column.filterValue = null;
-                else column.filterValue = data.QueryString;
-            }
-            if (FilterEventHandler != null) FilterEventHandler();
+            //foreach (FilterData data in grid.FilterData.Datas)
+            //{
+            //    String name = data.Column;
+            //    GrilleColumn column = this.Grille.GetColumn(name);
+            //    if (column == null) continue;
+            //    if (data.IsEmpty()) column.filterValue = null;
+            //    else column.filterValue = data.QueryString;
+            //}
+            //if (FilterEventHandler != null) FilterEventHandler();
         }
 
         private void OnSort(object sender, DataGridSortingEventArgs e)
@@ -329,6 +329,7 @@ namespace Misp.Sourcing.GridViews
             DataGridColumn column = getColumn(grilleColumn);
             column.Header = name;
             column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+            column.MinWidth = 5;
             column.IsReadOnly = this.Grille.IsReadOnly();
             grid.Columns.Add(column);
             columnNames.Add(name);
