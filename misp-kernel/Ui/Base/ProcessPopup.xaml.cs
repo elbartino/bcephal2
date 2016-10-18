@@ -148,7 +148,7 @@ namespace Misp.Kernel.Ui.Base
             ValuesGrid.ItemsSource = new ObservableCollection<Value>(LoopTemplate.values);
             this.TextLabel.Content = LoopTemplate.message;
             this.HelpTextBlock.Text = LoopTemplate.help;
-            
+            this.OnChoiceCheckbox.IsChecked = this.IsOneChoice;
         }
     }
 }
