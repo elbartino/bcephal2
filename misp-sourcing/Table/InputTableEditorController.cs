@@ -1212,6 +1212,7 @@ namespace Misp.Sourcing.Table
         {
             if (page == null) return;
             InputTableForm form = ((InputTableEditorItem)page).getInputTableForm();
+            ((InputTablePropertyBar)this.PropertyBar).AllocationLayoutAnchorable.Content = form.AllocationForm;
             ((InputTablePropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.TablePropertiesPanel;
             ((InputTablePropertyBar)this.PropertyBar).ParameterLayoutAnchorable.Content = form.TableCellParameterPanel;
             ((InputTablePropertyBar)this.PropertyBar).MappingLayoutAnchorable.Content = form.TableCellParameterPanel.TableCellMappingPanel;

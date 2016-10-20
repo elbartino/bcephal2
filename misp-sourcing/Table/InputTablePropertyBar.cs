@@ -15,6 +15,8 @@ namespace Misp.Sourcing.Table
 
         public LayoutAnchorable TableLayoutAnchorable { get; set; }
         public LayoutAnchorable CellLayoutAnchorable { get; set; }
+        public LayoutAnchorable AllocationLayoutAnchorable { get; set; }
+
 
         public LayoutAnchorable ParameterLayoutAnchorable { get; set; }
         public LayoutAnchorable MappingLayoutAnchorable { get; set; }
@@ -25,11 +27,14 @@ namespace Misp.Sourcing.Table
         {
             this.TableLayoutAnchorable = new LayoutAnchorable();
             this.CellLayoutAnchorable = new LayoutAnchorable();
+            this.AllocationLayoutAnchorable = new LayoutAnchorable();
+
             this.ParameterLayoutAnchorable = new LayoutAnchorable();
             this.MappingLayoutAnchorable = new LayoutAnchorable();
 
             this.TableLayoutAnchorable.Title = "Table Properties";
             this.CellLayoutAnchorable.Title = "Cell Properties";
+            this.AllocationLayoutAnchorable.Title = "Allocation Properties";
             this.ParameterLayoutAnchorable.Title = "Cell Properties"; //"Parameter";
             this.MappingLayoutAnchorable.Title = "Mapping";
 
@@ -40,7 +45,10 @@ namespace Misp.Sourcing.Table
 
             this.CellLayoutAnchorable.CanClose = false;
             this.CellLayoutAnchorable.CanFloat = false;
-            
+            this.AllocationLayoutAnchorable.CanAutoHide = false;
+            this.AllocationLayoutAnchorable.CanClose = false;
+            this.AllocationLayoutAnchorable.CanFloat = false;
+            this.AllocationLayoutAnchorable.CanHide = false;
 
             this.ParameterLayoutAnchorable.CanClose = false;
             this.ParameterLayoutAnchorable.CanFloat = false;
@@ -70,6 +78,7 @@ namespace Misp.Sourcing.Table
             
             Pane.Children.Add(TableLayoutAnchorable);
             Pane.Children.Add(ParameterLayoutAnchorable);
+            Pane.Children.Add(AllocationLayoutAnchorable);
             this.Panes.Add(Pane);
 
         }

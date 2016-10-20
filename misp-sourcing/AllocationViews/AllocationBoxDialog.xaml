@@ -1,0 +1,147 @@
+﻿<Window x:Class="Misp.Sourcing.AllocationViews.AllocationBoxDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:Misp.Sourcing.AllocationViews"
+        xmlns:Animation="clr-namespace:Misp.Kernel.Util;assembly=bcephal"
+        Icon="/bcephal;Component/Resources/Images/Logo/bcephal.ico"
+        Title="Allocation Value Parametrisation"  WindowStartupLocation="CenterScreen" Width="700" Height="550"
+        ShowInTaskbar="False">
+    <!-- WindowStyle="None"-->
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="0 10, 0, 2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="82"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Allocation Item name " Grid.Column="0" Margin="5 0 0 0"/>
+                <TextBox Grid.Column="1" Width="200" HorizontalAlignment="Left" x:FieldModifier="public" x:Name="NameTextBox"/>
+                <Label Content="Loop Type " Grid.Column="2" Margin="15 0 0 0"/>
+                <TextBox Grid.Column="3" Width="200" x:FieldModifier="public" x:Name="TypeTextBox" IsEnabled="False"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <src:AllocationBoxSideBar Grid.Column="0" x:FieldModifier="public" x:Name="SideBar"/>
+                <GridSplitter Width="5" ResizeDirection="Columns" Background="#FFFBF8F8" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                <TabControl Grid.Row="1" Grid.Column="2" TabStripPlacement="Bottom" BorderThickness="0" Background="White" x:Name="TabLoop">
+                    <TabItem Header="Values" x:Name="TabValues">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0" Margin="5,0,5,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="77"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="Loop value "  Grid.Column="0"/>
+                                    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                                        <src:AllocationValueField x:FieldModifier="public" x:Name="ValueField"/>
+                                    </ScrollViewer>
+                                    <Button x:FieldModifier="public" x:Name="DeleteAllValuesButton" ToolTip="Remove all values"  VerticalAlignment="Top" Grid.Column="2" Height="20" Width="20" Margin="2 5 2 2">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
+
+                                <Grid Grid.Row="1" Margin="5,0,5,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="77"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="Ranking "  Grid.Column="0"/>
+                                    <TextBox Grid.Column="1" x:FieldModifier="public" x:Name="RankingTextBox" Width="200" IsEnabled="False"/>
+
+                                    <RadioButton x:FieldModifier="public" x:Name="IncreaseButton" ToolTip="Increase" GroupName="orderGroup" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="2" Height="20" Width="20"  IsChecked="True">
+                                        <Image Source="/bcephal;Component/Resources/Images/Icons/sort_incr.png" Stretch="Uniform"/>
+                                    </RadioButton>
+                                    <RadioButton x:FieldModifier="public" x:Name="DecreaseButton" ToolTip="Decrease" GroupName="orderGroup" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="3" Height="20" Width="20" Margin="2">
+                                        <Image Source="/bcephal;Component/Resources/Images/Icons/sort_decrease.png" Stretch="Uniform"/>
+                                    </RadioButton>
+                                    <Button x:FieldModifier="public" x:Name="DeleteButton" ToolTip="Remove ranking" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="4" Height="20" Width="20" Margin="2">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Conditions" x:Name="TabConditions">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                                <StackPanel x:Name="LoopConditionsPanel" >
+                                </StackPanel>
+                            </ScrollViewer>
+                            <GridSplitter Height="5" ResizeDirection="Rows" Background="#FFFBF8F8" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                            <ScrollViewer Grid.Row="2" x:Name="scrollCondition" VerticalScrollBarVisibility="Auto" Background="#FFFAC090">
+                                <StackPanel x:Name="ConditionPanel" Background="#FFFAC090">
+                                    <Label x:Name="ConditionLabel" Content="Select loop items where: "/>
+                                </StackPanel>
+                            </ScrollViewer>
+                            <StackPanel Grid.Row="3" Background="#9BBB59">
+                                <Label Content="Refresh loop value when following loop is actived"/>
+                                <ComboBox x:Name="LoopComboBox" Width="222" HorizontalAlignment="Left" Margin="50 0 0 10"/>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="User Template " x:Name="TabUserTemplate" >
+                        <!--src:LoopUserDialogTemplatePanel x:Name="UserTemplatePanel" /-->
+                    </TabItem>
+                </TabControl>
+            </Grid>
+            <StackPanel Grid.Row="2" Margin="0 0 10 10" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Save" x:FieldModifier="public" x:Name="SaveButton" Height="25" Width="80" Margin="0,0,10,0"/>
+                <Button Content="Close" x:FieldModifier="public" x:Name="CancelButton" Height="25" Width="80" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Loading Panel -->
+        <Border Panel.ZIndex="1" Background="#0F000000" Name="BusyBorder" Opacity="1" Visibility="Hidden" x:FieldModifier="public">
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <ProgressBar Height="25" Width="300" Name="LoadingProgressBar" x:FieldModifier="public"/>
+                    <Label Content="step" HorizontalAlignment="Center" FontFamily="Calibri" FontSize="11" Name="LoadingLabel" x:FieldModifier="public"/>
+                </Grid>
+                <Animation:AnimatedGIFControl x:FieldModifier="public" x:Name="LoadingImage" ></Animation:AnimatedGIFControl>
+            </Grid>
+        </Border>
+        <!-- End Loading Panel-->
+    </Grid>
+    
+</Window>

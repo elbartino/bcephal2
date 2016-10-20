@@ -21,6 +21,7 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Collections.ObjectModel;
 using Misp.Kernel.Util;
+using Misp.Sourcing.AllocationViews;
 namespace Misp.Sourcing.Table
 {
     /// <summary>
@@ -101,6 +102,7 @@ namespace Misp.Sourcing.Table
 
             this.TablePropertiesPanel = new TablePropertiesPanel();
             this.TableCellParameterPanel = new TableCellParameterPanel();
+            this.AllocationForm = new AllocationForm();
             this.CellPropertyGrid = new CellPropertyGrid();
             this.CellPropertyGrid.hideContextMenu();
             try
@@ -240,6 +242,8 @@ namespace Misp.Sourcing.Table
 
         public TableCellParameterPanel TableCellParameterPanel { get; private set; }
 
+        public AllocationForm AllocationForm {get;set;}
+       
         public EdrawOffice SpreadSheet { get;  set; }
 
         public CellPropertyGrid CellPropertyGrid { get; private set; }
