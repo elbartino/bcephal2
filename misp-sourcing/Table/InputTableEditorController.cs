@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Application;
+﻿using DiagramDesigner;
+using Misp.Kernel.Application;
 using Misp.Kernel.Controller;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Domain.Browser;
@@ -1040,7 +1041,6 @@ namespace Misp.Sourcing.Table
             editorPage.getInputTableForm().TableCellParameterPanel.allocationPanel.Change += OnAllocationDataChange;
             editorPage.getInputTableForm().TableCellParameterPanel.ForAllocationChange += OnForallocationChange;
             editorPage.getInputTableForm().TableCellParameterPanel.ResetButton.Click += OnResetCells;
-            
             editorPage.getInputTableForm().TableCellParameterPanel.CellMeasurePanel.ValidateFormula += OnValidateMeasureFormula;
 
             editorPage.Closed += editorPage_Closed;
@@ -1060,7 +1060,7 @@ namespace Misp.Sourcing.Table
                 editorPage.getInputTableForm().SpreadSheet.createDesign += SpreadSheet_CreateDesign;
             }
         }
-
+              
 
         private void OnCellPropertiesPanelLoaded(object sender, RoutedEventArgs e)
         {
@@ -1212,7 +1212,9 @@ namespace Misp.Sourcing.Table
         {
             if (page == null) return;
             InputTableForm form = ((InputTableEditorItem)page).getInputTableForm();
-            ((InputTablePropertyBar)this.PropertyBar).AllocationLayoutAnchorable.Content = form.AllocationForm;
+            form.AllocationViewsPanel.AllocationForm.TransformationTreeService = GetInputTableService().TransformationTreeService;
+            //form.AllocationForm.InitializeComponents();
+            ((InputTablePropertyBar)this.PropertyBar).AllocationLayoutAnchorable.Content = form.AllocationViewsPanel;
             ((InputTablePropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.TablePropertiesPanel;
             ((InputTablePropertyBar)this.PropertyBar).ParameterLayoutAnchorable.Content = form.TableCellParameterPanel;
             ((InputTablePropertyBar)this.PropertyBar).MappingLayoutAnchorable.Content = form.TableCellParameterPanel.TableCellMappingPanel;
@@ -2992,5 +2994,7 @@ namespace Misp.Sourcing.Table
 
         #endregion
 
+
+        
     }
 }

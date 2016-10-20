@@ -43,7 +43,7 @@ namespace Misp.Kernel.Application
         private ReconciliationFilterService reconciliationFilterService;
 
         private FileTransferService fileTransferService;
-
+        private TransformationTreeService transformationTreeService;
         /// <summary>
         /// Build a new instance of ServiceFactory.
         /// </summary>
@@ -91,6 +91,7 @@ namespace Misp.Kernel.Application
             }
             return inputGridService;
         }
+             
 
         /// <summary>
         /// Gets PostingGridService
@@ -518,6 +519,25 @@ namespace Misp.Kernel.Application
 
 
 
-       
+
+
+        public TransformationTreeService GetTransformationTreeService()
+        {
+            if (transformationTreeService == null)
+            {
+                transformationTreeService = new TransformationTreeService();
+                transformationTreeService.ResourcePath = ResourcePath.TRANSFORMATION_TREE_RESOURCE_PATH;
+                transformationTreeService.SocketResourcePath = ResourcePath.SOCKET_TRANSFORMATION_TREE_RESOURCE_PATH;
+                transformationTreeService.FileService = GetFileService();
+                transformationTreeService.ModelService = GetModelService();
+                transformationTreeService.MeasureService = GetMeasureService();
+                transformationTreeService.CalculatedMeasureService = GetCalculatedMeasureService2();
+                transformationTreeService.TargetService = GetTargetService();
+                transformationTreeService.PeriodicityService = GetPeriodicityService();
+                transformationTreeService.PeriodNameService = GetPeriodNameService();
+                configureService(transformationTreeService);
+            }
+            return transformationTreeService;
+        }
     }
 }

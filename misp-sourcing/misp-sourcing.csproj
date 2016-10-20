@@ -109,6 +109,9 @@
       <DependentUpon>AllocationValueItemField.xaml</DependentUpon>
     </Compile>
     <Compile Include="AllocationViews\AllocationBoxSideBar.cs" />
+    <Compile Include="AllocationViews\AllocationViewsPanel.xaml.cs">
+      <DependentUpon>AllocationViewsPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AutomaticSourcingViews\AutomaticSourcingBrowser.cs" />
     <Compile Include="AutomaticSourcingViews\AutomaticSourcingBrowserController.cs" />
     <Compile Include="AutomaticSourcingViews\AutomaticSourcingColumnPanel.xaml.cs">
@@ -362,6 +365,10 @@
     <Page Include="AllocationViews\AllocationValueItemField.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AllocationViews\AllocationViewsPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AutomaticSourcingViews\AutomaticSourcingColumnPanel.xaml">
       <SubType>Designer</SubType>

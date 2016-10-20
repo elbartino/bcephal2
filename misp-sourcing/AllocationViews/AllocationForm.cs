@@ -56,6 +56,7 @@ namespace Misp.Sourcing.AllocationViews
             AllocationDiagramView.designerCanvas.DeleteBlock += onDeleteBlock;
             AllocationDiagramView.designerCanvas.ModifyBlock += onModifyBlock;
             AllocationDiagramView.designerCanvas.AddLink += onAddLink;
+            AllocationDiagramView.designerCanvas.Editing += OnEditAllocationBloc;
         }
 
         /// <summary>
@@ -96,6 +97,32 @@ namespace Misp.Sourcing.AllocationViews
                 {
                     //DisplayEntity((Kernel.Domain.Entity)tag);
                 }
+            }
+        }
+
+
+        protected void OnEditAllocationBloc(DesignerItem item)
+        {
+            if (item.Tag != null)
+            {
+                if (!(item.Tag is TransformationTreeItem))
+                {
+                    System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                    Serializer.MaxJsonLength = 99999999;
+                    item.Tag = Serializer.Deserialize<TransformationTreeItem>(item.Tag.ToString());
+                }
+
+                TransformationTreeItem treeItem = (TransformationTreeItem)item.Tag;
+                if (this.IsModify)
+                {
+                    //Save(page);
+                    DesignerItem block = this.AllocationDiagramView.designerCanvas.GetBlockByName(treeItem.name);
+                    if (block == null) return;
+                    item = block;
+                    treeItem = (TransformationTreeItem)item.Tag;
+                }
+                this.EditedDesignerItem = item;
+                this.Edit(treeItem);
             }
         }
 
@@ -166,6 +193,7 @@ namespace Misp.Sourcing.AllocationViews
         }
 
         BusyAction action;
+        
         /// <summary>
         /// 
         /// </summary>

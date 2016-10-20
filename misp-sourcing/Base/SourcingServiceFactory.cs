@@ -46,6 +46,7 @@ namespace Misp.Sourcing.Base
                 inputTableService.AuditService = GetAuditAllocationService();
                 inputTableService.TargetService = GetTargetService();
                 inputTableService.PeriodNameService = GetPeriodNameService();
+                inputTableService.TransformationTreeService = GetTransformationTreeService();
                 configureService(inputTableService);
             }
             return inputTableService;

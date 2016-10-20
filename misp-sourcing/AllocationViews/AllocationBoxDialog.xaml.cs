@@ -553,7 +553,7 @@ namespace Misp.Sourcing.AllocationViews
 
         protected void initializeSideBarData()
         {
-
+            if (TransformationTreeService == null) return;
             SideBar.EntityGroup.ModelService = TransformationTreeService.ModelService;
             SideBar.EntityGroup.InitializeTreeViewDatas();
 
