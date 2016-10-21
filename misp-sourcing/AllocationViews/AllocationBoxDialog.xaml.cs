@@ -156,9 +156,15 @@ namespace Misp.Sourcing.AllocationViews
             this.ranking = Loop.ranking;
             this.TypeTextBox.Text = Loop.type != null ? Loop.type : "";
             this.NameTextBox.Text = Loop.name;
+            this.RankingTextBox.Visibility = System.Windows.Visibility.Collapsed;
             this.RankingTextBox.Text = ranking != null ? ranking.name : "";
+
             this.IncreaseButton.IsChecked = Loop.increase;
             this.DecreaseButton.IsChecked = !Loop.increase;
+
+            this.IncreaseButton.Visibility = System.Windows.Visibility.Collapsed;
+            this.DecreaseButton.Visibility = System.Windows.Visibility.Collapsed;
+
             this.ValueField.Display(Loop);
             this.SaveButton.IsEnabled = false;
 
@@ -261,64 +267,6 @@ namespace Misp.Sourcing.AllocationViews
             this.ValueField.Fill();
         }
 
-        //protected void FillUserDialog()
-        //{
-        //    this.UserTemplatePanel.Fill();
-        //    this.Loop.userDialogTemplate = this.UserTemplatePanel.LoopUserTemplate;
-        //}
-
-        //protected Instruction FillCondition()
-        //{
-        //    Instruction instruction = new Instruction(Instruction.BLOCK, Instruction.END);
-
-        //    Instruction ifInstruction = new Instruction(Instruction.IF, Instruction.END);
-        //    ifInstruction.position = 0;
-        //    Instruction condition = new Instruction(Instruction.COND, Instruction.END);
-        //    condition.position = 0;
-        //    condition.args = "";
-        //    ifInstruction.subInstructions.Add(condition);
-        //    foreach (UIElement panel in this.ConditionPanel.Children)
-        //    {
-        //        if (!(panel is ExpressionPanel)) continue;
-        //        condition.args += " " + ((ExpressionPanel)panel).FillAsString();
-        //        ConditionItem item = ((ExpressionPanel)panel).Fill();
-        //        if (!item.isArgsEmpty()) condition.conditionItems.Add(item);
-        //    }
-
-        //    if (condition.conditionItems.Count <= 0) return null;
-
-        //    condition.args = condition.args.Trim();
-        //    instruction.subInstructions.Add(ifInstruction);
-
-        //    Instruction thenInstruction = new Instruction(Instruction.THEN, Instruction.ENDTHEN);
-        //    thenInstruction.position = 1;
-        //    Instruction action = new Instruction(Instruction.CONTINUE, Instruction.END);
-        //    action.position = 0;
-        //    action.args = "";
-        //    thenInstruction.subInstructions.Add(action);
-        //    instruction.subInstructions.Add(thenInstruction);
-
-        //    Instruction elseInstruction = new Instruction(Instruction.ELSE, Instruction.ENDELSE);
-        //    elseInstruction.position = 2;
-        //    action = new Instruction(Instruction.STOP, Instruction.END);
-        //    action.position = 0;
-        //    action.args = "";
-        //    elseInstruction.subInstructions.Add(action);
-        //    instruction.subInstructions.Add(elseInstruction);
-
-        //    return instruction;
-        //}
-
-        //protected void FillLoopCondition()
-        //{
-        //    foreach (UIElement panel in this.LoopConditionsPanel.Children)
-        //    {
-        //        if (!(panel is LoopConditionItemPanel)) continue;
-        //        if (((LoopConditionItemPanel)panel).LoopCondition == null) continue;
-        //        Kernel.Domain.LoopCondition loopCondition = ((LoopConditionItemPanel)panel).FillConditions(this.TransformationTreeService);
-        //        if (!loopCondition.isConditionsEmpty()) this.Loop.SynchronizeLoopCondition(loopCondition);
-        //    }
-        //}
 
         public bool SaveLoop()
         {
@@ -344,10 +292,8 @@ namespace Misp.Sourcing.AllocationViews
             this.IncreaseButton.Click += onChange;
             this.DecreaseButton.Click += onChange;
             this.ValueField.ChangeEventHandler += OnChange;
-            //this.ReportPanel.ChangeEventHandler += OnChange;
             this.TabLoop.SelectionChanged += OnTabSelectionChanged;
             this.LoopComboBox.SelectionChanged += OnSelectedLoopChange;
-           // this.UserTemplatePanel.Changed += OnChange;
         }
 
         private void OnTabSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -377,153 +323,9 @@ namespace Misp.Sourcing.AllocationViews
         {
             if (trow) OnChange();
         }
-
-        //protected void initHandlers(LoopConditionItemPanel panel) 
-        //{
-        //    panel.ChangeEventHandler += OnChange;
-        //}
-
-        //protected void initHandlers(ExpressionPanel panel)
-        //{
-        //    panel.Added += OnAddCondition;
-        //    panel.Deleted += OnDeleteCondition;
-        //    panel.ChangeEventHandler += OnChange;
-        //}
-
-        //#region LoopConditionItemPanel
-
-        //public LoopConditionItemPanel GetNewConditionItemPanel(object item)
-        //{
-        //    LoopConditionItemPanel panel = new LoopConditionItemPanel();
-        //    panel.Margin = new Thickness(0, 0, 0, 10);
-        //    panel.Background = new SolidColorBrush();
-        //    panel.Display(item);
-        //    //panel.Height = 250;
-        //    initLoopConditionHandlers(panel);
-        //    return panel;
-        //}
-
-        //protected void initLoopConditionHandlers(LoopConditionItemPanel loopConditionItemPanel)
-        //{
-        //    loopConditionItemPanel.Added += OnAddConditionItem;
-        //    loopConditionItemPanel.Deleted += OnDeleteConditionItem;
-        //    loopConditionItemPanel.ChangeEventHandler += OnChange;
-        //    loopConditionItemPanel.Updated += OnUpdateConditionLoop;
-        //    loopConditionItemPanel.Activated += OnActivate;
-        //}
-
-        //private void OnUpdateConditionLoop(object item)
-        //{
-        //    if (item is Kernel.Domain.LoopCondition)
-        //    {
-        //        Kernel.Domain.LoopCondition loopcondition = ((Kernel.Domain.LoopCondition)item);
-        //        loopcondition = this.Loop.SynchronizeLoopCondition(loopcondition);
-        //        this.ActiveLoopConditionItemPanel.LoopCondition = loopcondition;
-        //    }
-        //}
-
-        //private void OnActivate(object item)
-        //{
-        //    if (item == null) 
-        //    {
-        //        return;
-        //    }
-
-        //    if (item is LoopConditionItemPanel)
-        //    {
-        //        this.ActiveLoopConditionItemPanel = (LoopConditionItemPanel)item;
-        //    }
-        //}
-
-        //private void OnDeleteConditionItem(object item)
-        //{
-        //    if (item is UIElement)
-        //    {
-        //        if (item is LoopConditionItemPanel)
-        //        {
-        //            LoopConditionItemPanel panel = (LoopConditionItemPanel)item;                  
-        //        }
-        //        this.LoopConditionsPanel.Children.Remove((UIElement)item);
-                
-        //        if (this.LoopConditionsPanel.Children.Count == 0) OnAddConditionItem(null);
-               
-        //        int index = 1;
-        //        foreach (object pan in this.LoopConditionsPanel.Children)
-        //        {
-        //            ((LoopConditionItemPanel)pan).Index = index++;
-        //        }
-        //        ((LoopConditionItemPanel)this.LoopConditionsPanel.Children[0]).OperatorComboBox.IsEnabled = false;
-        //    }
-
-        //    if (item is Kernel.Domain.LoopCondition)
-        //    {
-        //        Kernel.Domain.LoopCondition loopcondition = ((Kernel.Domain.LoopCondition)item);
-        //        this.Loop.SynchronizeDeleteLoopCondition(loopcondition);
-        //        this.ActiveLoopConditionItemPanel.LoopCondition = loopcondition;
-        //    }
-        //}
-
-
-        //private void OnAddConditionItem(object item)
-        //{
-        //    LoopConditionItemPanel panel = GetNewConditionItemPanel(item);
-            
-        //    int countContainerChildren = this.LoopConditionsPanel.Children.Count + 1;
-        //    panel.Index = countContainerChildren;
-
-        //    if (panel.LoopCondition != null && item != null)
-        //    {
-        //        this.Loop.SynchronizeLoopCondition(panel.LoopCondition);
-        //    }
-
-        //    this.LoopConditionsPanel.Children.Add(panel);
-        //    if (countContainerChildren == 1)
-        //    {
-        //        panel.OperatorComboBox.IsEnabled = false;
-        //        //panel.OperatorComboBox.SelectedItem = "";
-        //    }
-        //}
-
+           
         #endregion
-
-        //public ExpressionPanel GetNewExpressionPanel(ConditionItem item)
-        //{
-        //    ExpressionPanel panel = new ExpressionPanel();
-        //    panel.Margin = new Thickness(50, 0, 0, 10);
-        //    panel.Background = new SolidColorBrush();
-        //    panel.DisplayFromLoop(item);
-        //    panel.Height = 30;
-        //    initHandlers(panel);
-        //    return panel;
-        //}
-
-        //private void OnAddCondition(object item)
-        //{
-        //    ExpressionPanel panel = GetNewExpressionPanel(null);
-        //    this.ConditionPanel.Children.Add(panel);
-        //    if (this.ConditionPanel.Children.Count == 2)
-        //    {
-        //        panel.OperatorComboBox.IsEnabled = false;
-        //        panel.OperatorComboBox.SelectedItem = "";
-        //    }
-        //}
-
-        //private void OnDeleteCondition(object item)
-        //{
-        //    if (item is UIElement)
-        //    {
-        //        this.ConditionPanel.Children.Remove((UIElement)item);
-        //        if (this.ConditionPanel.Children.Count == 1) OnAddCondition(null);
-        //        else
-        //        {
-        //            ExpressionPanel panel = (ExpressionPanel)this.ConditionPanel.Children[1];
-        //            panel.OperatorComboBox.IsEnabled = false;
-        //            panel.OperatorComboBox.SelectedItem = "";
-        //        }
-        //    }
-        //}
-        
-        
+                
         private void OnDeleteAllValuesButtonClick(object sender, RoutedEventArgs e)
         {
             this.ValueField.RemoveAll();
@@ -705,7 +507,6 @@ namespace Misp.Sourcing.AllocationViews
             SaveButton.IsEnabled = true;
         }
 
-        //#endregion
 
     }
 }

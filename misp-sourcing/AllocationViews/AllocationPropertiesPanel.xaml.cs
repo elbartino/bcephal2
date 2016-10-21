@@ -24,6 +24,8 @@ namespace Misp.Sourcing.AllocationViews
         public Kernel.Ui.Base.ChangeEventHandler NoAllocationChange;
         public bool thrawChange = true;
 
+        public Kernel.Ui.Base.ChangeEventHandler Change;
+
         public Kernel.Domain.CellProperty CellProperty { get; set; }
 
         public Kernel.Domain.CellPropertyAllocationData CellAllocationData { get; set; }
@@ -66,6 +68,8 @@ namespace Misp.Sourcing.AllocationViews
         {
             this.ForAllocationCheckBox.Checked += OnForAllocationChange;
             this.ForAllocationCheckBox.Unchecked += OnForAllocationChange;
+            this.AllocationPanel.Change += OnChange;
+            this.AllocationForm.Change += OnChange;
         }
 
         /// <summary>
@@ -88,6 +92,16 @@ namespace Misp.Sourcing.AllocationViews
             {
                 ForAllocationChange();
             }
-        }        
+        }
+
+
+        private void OnChange()
+        {
+            if (Change != null && thrawChange)
+            {
+                FillAllocationData();
+                Change();
+            }
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace Misp.Sourcing.AllocationViews
         public bool IsModify { get; set; }
 
         public ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
-
+        public Kernel.Ui.Base.ChangeEventHandler Change;
 
           #region Constructor
 
@@ -274,7 +274,7 @@ namespace Misp.Sourcing.AllocationViews
             //else this.EditedObject.UpdateItem(this.LoopDialog.Loop);
             if (this.EditedDesignerItem != null) this.EditedDesignerItem.Renderer.Text = this.AllocationBoxDialog.Loop.name;
             this.AllocationDiagramView.designerCanvas.OnChange();
-            //if (SaveEventHandler != null) SaveEventHandler(this.EditedDesignerItem);
+            if (Change != null) Change();            
         }
 
         protected bool ValidateEdition(DiagramDesigner.DesignerItem item, string name)
@@ -315,5 +315,6 @@ namespace Misp.Sourcing.AllocationViews
         {
             this.ChangeEventHandler = ChangeEventHandler;
         }
+
     }
 }
