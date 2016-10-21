@@ -34,6 +34,7 @@ namespace Misp.Kernel.Domain
             data.type = this.type;
             data.active = this.active;
             data.measureRef = this.measureRef;
+            data.allocationTree = this.allocationTree;
             return data;
         }
 

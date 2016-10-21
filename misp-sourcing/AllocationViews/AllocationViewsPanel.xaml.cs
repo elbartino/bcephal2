@@ -32,6 +32,21 @@ namespace Misp.Sourcing.AllocationViews
             IntializeHandlers();
         }
 
+
+        public void Display(Kernel.Domain.CellProperty cellProperty)
+        {
+            thrawChange = false;
+            bool isNoAllocation = cellProperty.cellAllocationData != null &&
+            cellProperty.cellAllocationData.type == Kernel.Domain.CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
+
+            this.CellProperty = cellProperty;
+
+            this.CellTextBox.Text = cellProperty != null ? cellProperty.name : "";
+            this.ForAllocationCheckBox.IsChecked = cellProperty != null ? cellProperty.IsForAllocation : false;
+            this.AllocationPanel.DisplayAllocationData(cellProperty != null ? cellProperty.cellAllocationData : null);
+            thrawChange = true;
+        }
+
         private void IntializeHandlers()
         {
             this.ForAllocationCheckBox.Checked += OnForAllocationChange;
@@ -44,22 +59,6 @@ namespace Misp.Sourcing.AllocationViews
             {
                 ForAllocationChange();
             }
-        }
-
-        public void Display(Kernel.Domain.CellProperty cellProperty)
-        {
-            thrawChange = false;
-            bool isNoAllocation = cellProperty.cellAllocationData != null &&
-            cellProperty.cellAllocationData.type == Kernel.Domain.CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
-
-            this.CellProperty = cellProperty;
-
-            this.CellTextBox.Text = cellProperty != null ? cellProperty.name : "";
-            this.ForAllocationCheckBox.IsChecked = cellProperty != null ? cellProperty.IsForAllocation : false;
-            this.AllocationPanel.SequenceGrid.Visibility = System.Windows.Visibility.Collapsed;
-            this.AllocationPanel.DisplayAllocationData(cellProperty != null ? cellProperty.cellAllocationData : null);
-            thrawChange = true;
-        }
-
+        }        
     }
 }

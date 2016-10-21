@@ -141,7 +141,7 @@ namespace Misp.Sourcing.Table
                 MeasureGrid.Visibility = System.Windows.Visibility.Collapsed;
                 RefMeasureGrid.Visibility = System.Windows.Visibility.Collapsed;
                 TemplateGrid.Visibility = System.Windows.Visibility.Collapsed;
-                SequenceGrid.Visibility = System.Windows.Visibility.Visible;
+                
             }
             else if (CellPropertyAllocationData.AllocationType.Scope2Scope.ToString() == selectType)
             {
@@ -171,7 +171,7 @@ namespace Misp.Sourcing.Table
                 TemplateGrid.Visibility = System.Windows.Visibility.Collapsed;
                 SequenceGrid.Visibility = System.Windows.Visibility.Collapsed;
             }
-
+            SequenceGrid.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         /// <summary>

@@ -229,7 +229,7 @@ namespace Misp.Sourcing.AllocationViews
 
         private void OnAllocationBoxDialogCancel(object sender, System.Windows.RoutedEventArgs e)
         {
-            
+            this.AllocationBoxDialog.Hide();
         }
 
         private void OnAllocationBoxDialogSave(object sender, System.Windows.RoutedEventArgs e)
