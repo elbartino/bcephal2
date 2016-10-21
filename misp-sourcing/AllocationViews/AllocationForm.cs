@@ -63,7 +63,7 @@ namespace Misp.Sourcing.AllocationViews
         {
             if (this.EditedObject == null) this.EditedObject = getNewObject();
             if (!string.IsNullOrEmpty(this.EditedObject.diagramXml)) this.AllocationDiagramView.designerCanvas.Display(this.EditedObject.diagramXml);
-            else this.AllocationDiagramView.designerCanvas.Clear();
+            else this.AllocationDiagramView.designerCanvas.Children.Clear();
             foreach (TransformationTreeItem item in this.EditedObject.itemListChangeHandler.Items)
             {
                 refreshItem(item);

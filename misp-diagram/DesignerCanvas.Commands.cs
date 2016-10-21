@@ -1030,13 +1030,7 @@ namespace DiagramDesigner
                 item.Edit();
             }
         }
-
-        protected virtual void RemoveAll() 
-        {
-            selectionService.SelectAll();
-            DeleteCurrentSelection();
-        }
-
+        
         protected virtual void DeleteCurrentSelection()
         {
             
