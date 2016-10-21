@@ -20,6 +20,8 @@ namespace Misp.Kernel.Domain
 
         public bool show { get; set; }
 
+        public String specialColumnName { get; set; }
+
         public int? valueOid { get; set; }
 
         public string filterValue { get; set; }

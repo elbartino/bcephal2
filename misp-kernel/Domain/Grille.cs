@@ -26,6 +26,8 @@ namespace Misp.Kernel.Domain
 
         public bool reconciliation { get; set; }
 
+        public bool allocation { get; set; }
+
         public bool loaded { get; set; }
 		
         public bool? visibleInShortcut {get;set;}
