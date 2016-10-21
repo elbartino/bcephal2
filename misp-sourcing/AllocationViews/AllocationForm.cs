@@ -223,7 +223,8 @@ namespace Misp.Sourcing.AllocationViews
 
         private void OnAllocationBoxDialogClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            
+            this.AllocationBoxDialog.Hide();
+            e.Cancel = true;
         }
 
         private void OnAllocationBoxDialogCancel(object sender, System.Windows.RoutedEventArgs e)

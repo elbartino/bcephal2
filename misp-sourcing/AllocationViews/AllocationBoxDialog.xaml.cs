@@ -557,17 +557,6 @@ namespace Misp.Sourcing.AllocationViews
             SideBar.EntityGroup.ModelService = TransformationTreeService.ModelService;
             SideBar.EntityGroup.InitializeTreeViewDatas();
 
-
-            Measure rootMeasure = TransformationTreeService.MeasureService.getRootMeasure();
-            SideBar.MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
-
-            List<Kernel.Domain.CalculatedMeasure> CalculatedMeasures = TransformationTreeService.CalculatedMeasureService.getAllCalculatedMeasure();
-            if (CalculatedMeasures != null)
-                SideBar.CalculateMeasureGroup.CalculatedMeasureTreeview.fillTree(new ObservableCollection<CalculatedMeasure>(CalculatedMeasures));
-
-            //Periodicity periodicity = TransformationTreeService.PeriodicityService.getPeriodicity();
-            //SideBar.PeriodicityGroup.PeriodicityTreeview.DisplayPeriodicity(periodicity);
-
             PeriodName RootPeriodName = TransformationTreeService.PeriodNameService.getRootPeriodName();
             SideBar.PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(RootPeriodName);
             
@@ -586,8 +575,6 @@ namespace Misp.Sourcing.AllocationViews
         /// </summary>
         protected void initializeSideBarHandlers()
         {            
-            SideBar.MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
-            SideBar.CalculateMeasureGroup.CalculatedMeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
             SideBar.EntityGroup.EntityTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
             SideBar.EntityGroup.EntityTreeview.setDisplacherInterval(new TimeSpan(0, 0, 0, 1));

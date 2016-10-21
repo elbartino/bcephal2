@@ -12,6 +12,18 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
+    <Grid Margin="10,5,5,5" Height="23" Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="60"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="cellLabel" Grid.Column="0" Content="Cell" />
+        <TextBox x:Name="CellTextBox" x:FieldModifier="public" IsEnabled="False" Grid.Column="1" TextWrapping="NoWrap"/>
+        <CheckBox x:Name="ForAllocationCheckBox" x:FieldModifier="public" Content="For Allocation" Margin="5,0,0,0" Grid.Column="2" VerticalAlignment="Center"/>
+        <Button x:Name="ResetButton" x:FieldModifier="public" Grid.Column="3" Content="Reset" ToolTip="Reset selected cell(s)"  Margin="5,0,0,0"/>
+    </Grid>
     <GroupBox x:Name="AllocationGroupBox" Header="Allocation"  Grid.Row="1">
         <src:AllocationPanel x:Name="AllocationPanel" />
     </GroupBox>

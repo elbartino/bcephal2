@@ -131,7 +131,7 @@ namespace Misp.Sourcing.AllocationDiagrams
         public override void AddNewObject()
         {
             TransformationTreeItem loop = new TransformationTreeItem(true);
-            loop.name = getNewName("Allocation Block ");
+            loop.name = getNewName("Block");
             AddNewBlock(new AllocationBoxItem(), loop);
         }
 
