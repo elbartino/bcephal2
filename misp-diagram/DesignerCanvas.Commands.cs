@@ -936,6 +936,7 @@ namespace DiagramDesigner
 
         private  DesignerItem DeserializeDesignerItem(XElement itemXML, Guid id, double OffsetX, double OffsetY)
         {
+            JavaScriptSerializer serial = new JavaScriptSerializer();
             DesignerItem item = GetNewDesignerItem(id); //new DesignerItem(id);            
             item.Width = Double.Parse(itemXML.Element("Width").Value, CultureInfo.InvariantCulture);
             item.Height = Double.Parse(itemXML.Element("Height").Value, CultureInfo.InvariantCulture);
@@ -948,7 +949,10 @@ namespace DiagramDesigner
             item.SetContent(content);
             try
             {
-                if(item.Tag != null) item.Tag =  itemXML.Attribute("Tag").Value;
+                if (itemXML.Attribute("Tag") != null) 
+                {
+                    item.Tag = itemXML.Attribute("Tag").Value;
+                }
             }
             catch (Exception) { }
             return item;

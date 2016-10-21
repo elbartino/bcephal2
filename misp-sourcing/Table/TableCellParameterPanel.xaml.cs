@@ -73,7 +73,7 @@ namespace Misp.Sourcing.Table
             if (reportPeriodPanel != null) this.reportPeriodPanel.DisplayPeriod(cellProperty != null ? cellProperty.period : null);
             else this.periodPanel.DisplayPeriod(cellProperty != null ? cellProperty.period : null);
             this.filterScopePanel.DisplayScope((cellProperty != null ? cellProperty.cellScope : null),isNoAllocation);
-            this.allocationPanel.DisplayAllocationData(cellProperty != null ? cellProperty.cellAllocationData : null);
+           // this.allocationPanel.DisplayAllocationData(cellProperty != null ? cellProperty.cellAllocationData : null);
             thrawChange = true;
         }
 
