@@ -274,6 +274,8 @@ namespace Misp.Sourcing.AllocationViews
         {
             if (!ValidateEdition(this.EditedDesignerItem, this.AllocationBoxDialog.NameTextBox.Text.Trim())) return;
             this.AllocationBoxDialog.FillItem();
+            this.AllocationBoxDialog.SaveButton.IsEnabled = false;
+            
             //if (this.LoopDialog.Loop.parent != null) this.LoopDialog.Loop.parent.UpdateChild(this.LoopDialog.Loop);
             //else this.EditedObject.UpdateItem(this.LoopDialog.Loop);
             if (this.EditedDesignerItem != null) this.EditedDesignerItem.Renderer.Text = this.AllocationBoxDialog.Loop.name;

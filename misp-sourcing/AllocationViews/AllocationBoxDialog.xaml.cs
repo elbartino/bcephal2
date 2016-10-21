@@ -270,7 +270,8 @@ namespace Misp.Sourcing.AllocationViews
 
         public bool SaveLoop()
         {
-            if (this.SaveEndedEventHandler != null) SaveEndedEventHandler(this.Loop);
+            //if (this.SaveEndedEventHandler != null) SaveEndedEventHandler(this.Loop);
+            this.SaveButton.IsEnabled = false;
             return true;
         }
 
