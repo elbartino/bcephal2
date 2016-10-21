@@ -69,8 +69,15 @@ namespace Misp.Sourcing.AllocationViews
         {
             this.ForAllocationCheckBox.Checked += OnForAllocationChange;
             this.ForAllocationCheckBox.Unchecked += OnForAllocationChange;
+            this.ActivateAllocationCheckBox.Checked += OnActivateAllocationChange;
+            this.ActivateAllocationCheckBox.Unchecked += OnActivateAllocationChange;
             this.AllocationPanel.Change += OnChange;
             this.AllocationForm.Change += OnChange;
+        }
+
+        private void OnActivateAllocationChange(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         /// <summary>
