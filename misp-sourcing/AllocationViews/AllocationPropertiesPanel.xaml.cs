@@ -68,6 +68,20 @@ namespace Misp.Sourcing.AllocationViews
             this.ForAllocationCheckBox.Unchecked += OnForAllocationChange;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>La liste des controls éditables</returns>
+        public List<System.Windows.UIElement> getEditableControls()
+        {
+            List<UIElement> controls = new List<UIElement>(0);
+            //controls.Add(this.ForAllocationCheckBox);
+            controls.AddRange(this.AllocationPanel.getEditableControls());
+            controls.AddRange(this.AllocationForm.getEditableControls());
+            return controls;
+        }
+               
+
         private void OnForAllocationChange(object sender, RoutedEventArgs e)
         {
             if (ForAllocationChange != null && thrawChange)

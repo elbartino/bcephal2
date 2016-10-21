@@ -282,6 +282,13 @@ namespace Misp.Sourcing.Table
             }
         }
 
+        public List<System.Windows.UIElement> getEditableControls()
+        {
+            List<System.Windows.UIElement> controls = new List<System.Windows.UIElement>(0);
+            //controls.Add(this.re);
+            return controls;
+        }
+
         private void OnChange()
         {
             if (Change != null && thrawChange)

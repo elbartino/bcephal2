@@ -297,6 +297,13 @@ namespace Misp.Sourcing.AllocationViews
             return true;
         }
 
+        public List<System.Windows.UIElement> getEditableControls()
+        {
+            List<System.Windows.UIElement> controls = new List<System.Windows.UIElement>(0);
+            controls.Add(AllocationDiagramView.designerCanvas);            
+            return controls;
+        }
+
 
         public void Dispose()
         {
@@ -304,5 +311,9 @@ namespace Misp.Sourcing.AllocationViews
             this.AllocationBoxDialog = null;            
         }
 
+        public void SetChangeEventHandler(ChangeEventHandlerBuilder ChangeEventHandler)
+        {
+            this.ChangeEventHandler = ChangeEventHandler;
+        }
     }
 }

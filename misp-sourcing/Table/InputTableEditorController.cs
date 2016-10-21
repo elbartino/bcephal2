@@ -2453,7 +2453,7 @@ namespace Misp.Sourcing.Table
             bool isNoAllocation = false;
             if (!isReport())
             {
-                page.getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
+                page.getInputTableForm().AllocationPropertiesPanel.FillAllocationData();
                 cellProperty.cellAllocationData = page.getInputTableForm().AllocationPropertiesPanel.CellAllocationData;
                 isNoAllocation = cellProperty.cellAllocationData.type == CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
             }

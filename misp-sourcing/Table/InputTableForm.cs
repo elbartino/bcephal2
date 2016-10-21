@@ -340,6 +340,7 @@ namespace Misp.Sourcing.Table
             List<object> controls = new List<object>(0);
             controls.AddRange(TablePropertiesPanel.getEditableControls());
             controls.AddRange(TableCellParameterPanel.getEditableControls());
+            controls.AddRange(AllocationPropertiesPanel.getEditableControls());
             if (this.SpreadSheet != null) controls.Add(this.SpreadSheet);
             return controls;
         }
