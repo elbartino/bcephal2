@@ -90,9 +90,9 @@ namespace Misp.Sourcing.Table
                 sequence = long.Parse(SequenceTextBox.Text);
             }catch(Exception){}
             this.AllocationData.type = string.IsNullOrEmpty(selectType) ? null : selectType;
-            this.AllocationData.outputMeasure = this.OutputMeasure;
+            //this.AllocationData.outputMeasure = this.OutputMeasure;
             this.AllocationData.measureRef = this.RefMeasure;
-            this.AllocationData.sequence = sequence;
+           // this.AllocationData.sequence = sequence;
         }
         
         /// <summary>
@@ -106,10 +106,10 @@ namespace Misp.Sourcing.Table
             if (allocationData != null)
             {
                 this.TypeComboBox.SelectedItem = allocationData.type;
-                this.OutputMeasure = allocationData.outputMeasure;
+                //this.OutputMeasure = allocationData.outputMeasure;
                 this.RefMeasure = allocationData.measureRef;
-                this.OutputMeasure = allocationData.outputMeasure;
-                this.SequenceTextBox.Text = allocationData.sequence.ToString();
+                //this.OutputMeasure = allocationData.outputMeasure;
+                //this.SequenceTextBox.Text = allocationData.sequence.ToString();
             }
             else
             {

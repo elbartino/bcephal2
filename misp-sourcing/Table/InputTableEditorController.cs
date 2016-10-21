@@ -1755,7 +1755,7 @@ namespace Misp.Sourcing.Table
             int row = activeCell.Row;
             int col = activeCell.Column;
             CellProperty cellProperty = page.getInputTableForm().TableCellParameterPanel.CellProperty;
-            if (data != null && data.outputMeasure == null && cellProperty.cellMeasure != null && cellProperty.cellMeasure.measure != null) data.outputMeasure = cellProperty.cellMeasure.measure;
+            //if (data != null  && cellProperty.cellMeasure != null && cellProperty.cellMeasure.measure != null) data.outputMeasure = cellProperty.cellMeasure.measure;
             if (page.groupProperty == null)
             {
                 page.groupProperty = new GroupProperty(cellProperty, range);
@@ -2128,7 +2128,7 @@ namespace Misp.Sourcing.Table
                 if(cellProperty.cellMeasure == null) cellProperty.cellMeasure = new CellMeasure();
                 cellProperty.cellMeasure.measure = measure;
                 cellProperty.cellMeasure.formula = "";
-                if (page.groupProperty.cellProperty.cellAllocationData != null) page.groupProperty.cellProperty.cellAllocationData.outputMeasure = measure;
+                //if (page.groupProperty.cellProperty.cellAllocationData != null) page.groupProperty.cellProperty.cellAllocationData.outputMeasure = measure;
                 page.getInputTableForm().TableCellParameterPanel.Display(cellProperty);
                 OnChange();
             }

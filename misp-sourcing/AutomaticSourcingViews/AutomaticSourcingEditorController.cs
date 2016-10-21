@@ -643,9 +643,8 @@ namespace Misp.Sourcing.Base
             AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
             CellPropertyAllocationData data = page.getAutomaticSourcingForm().AutomaticSourcingPanel.GetAllocationData();
             AutomaticSourcingColumn columnActivate = page.getAutomaticSourcingForm().GetSelectedColumn();
-            if (data.outputMeasure == null && columnActivate.measure != null)
+            if (columnActivate.measure != null)
             {
-                data.outputMeasure = columnActivate.measure;
                 columnActivate.allocationData = data;
                 setColumnParams(data);
             }
