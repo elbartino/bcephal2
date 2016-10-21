@@ -9,7 +9,7 @@ namespace Misp.Kernel.Domain
     public class CellPropertyAllocationData : Persistent
     {
 
-        public enum AllocationType { Scope2Scope, Linear, Template, NoAllocation }
+        public enum AllocationType { Scope2Scope, Linear, Template, NoAllocation, Reference }
 
 
          /// <summary>
@@ -20,22 +20,20 @@ namespace Misp.Kernel.Domain
         }
 
         public string type { get; set; }
-
-        public long sequence { get; set; }
-
-        //public AllocationTemplate allocationTemplate { get; set; }
-
+        
         public Measure measureRef { get; set; }
 
-        public Measure outputMeasure { get; set; }
+        public bool active { get; set; }
+
+        public TransformationTree allocationTree { get; set; }
 
 
         public CellPropertyAllocationData GetCopy()
         {
             CellPropertyAllocationData data = new CellPropertyAllocationData();
             data.type = this.type;
-            data.sequence = this.sequence;
-            data.measureRef = this.outputMeasure;
+            data.active = this.active;
+            data.measureRef = this.measureRef;
             return data;
         }
 
