@@ -135,6 +135,11 @@ namespace Misp.Sourcing.AllocationDiagrams
             AddNewBlock(new AllocationBoxItem(), loop);
         }
 
+        public void Clear() 
+        {
+            RemoveAll();
+        }
+
         public override void AddNewValueChain()
         {
             //TransformationTreeItem action = new TransformationTreeItem(false);

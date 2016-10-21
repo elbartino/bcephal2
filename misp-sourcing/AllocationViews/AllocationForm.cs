@@ -63,6 +63,7 @@ namespace Misp.Sourcing.AllocationViews
         {
             if (this.EditedObject == null) this.EditedObject = getNewObject();
             if (!string.IsNullOrEmpty(this.EditedObject.diagramXml)) this.AllocationDiagramView.designerCanvas.Display(this.EditedObject.diagramXml);
+            else this.AllocationDiagramView.designerCanvas.Clear();
             foreach (TransformationTreeItem item in this.EditedObject.itemListChangeHandler.Items)
             {
                 refreshItem(item);
@@ -189,6 +190,7 @@ namespace Misp.Sourcing.AllocationViews
                 this.EditedObject.AddItem(transformationTreeItem);
                 this.IsModify = true;
                 if (ChangeEventHandler != null) ChangeEventHandler.change();
+                if (Change != null) Change();
             }
         }
 
@@ -224,6 +226,7 @@ namespace Misp.Sourcing.AllocationViews
                 if (entity.parent != null) entity.parent.UpdateChild(entity);
                 else this.EditedObject.UpdateItem(entity);
                 this.IsModify = true;
+                if (Change != null) Change();
             }
         }
 
