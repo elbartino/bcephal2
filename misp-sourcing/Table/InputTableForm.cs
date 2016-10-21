@@ -103,7 +103,7 @@ namespace Misp.Sourcing.Table
             this.TablePropertiesPanel = new TablePropertiesPanel();
             this.TableCellParameterPanel = new TableCellParameterPanel();
             this.AllocationForm = new AllocationForm();
-            this.AllocationViewsPanel = new AllocationViewsPanel();
+            this.AllocationPropertiesPanel = new AllocationPropertiesPanel();
             //this.AllocationForm.TransformationTreeService = InputTableService.TransformationTreeService;
             this.CellPropertyGrid = new CellPropertyGrid();
             this.CellPropertyGrid.hideContextMenu();
@@ -246,7 +246,7 @@ namespace Misp.Sourcing.Table
 
         public AllocationForm AllocationForm {get;set;}
 
-        public AllocationViewsPanel AllocationViewsPanel { get; set; }
+        public AllocationPropertiesPanel AllocationPropertiesPanel { get; set; }
 
         public EdrawOffice SpreadSheet { get;  set; }
 

@@ -101,16 +101,13 @@
       <DependentUpon>AllocationBoxDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="AllocationViews\AllocationForm.cs" />
-    <Compile Include="AllocationViews\AllocationPropertiesPanel.xaml.cs">
-      <DependentUpon>AllocationPropertiesPanel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="AllocationViews\AllocationValueField.cs" />
     <Compile Include="AllocationViews\AllocationValueItemField.xaml.cs">
       <DependentUpon>AllocationValueItemField.xaml</DependentUpon>
     </Compile>
     <Compile Include="AllocationViews\AllocationBoxSideBar.cs" />
-    <Compile Include="AllocationViews\AllocationViewsPanel.xaml.cs">
-      <DependentUpon>AllocationViewsPanel.xaml</DependentUpon>
+    <Compile Include="AllocationViews\AllocationPropertiesPanel.xaml.cs">
+      <DependentUpon>AllocationPropertiesPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="AutomaticSourcingViews\AutomaticSourcingBrowser.cs" />
     <Compile Include="AutomaticSourcingViews\AutomaticSourcingBrowserController.cs" />
@@ -358,15 +355,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AllocationViews\AllocationPropertiesPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="AllocationViews\AllocationValueItemField.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AllocationViews\AllocationViewsPanel.xaml">
+    <Page Include="AllocationViews\AllocationPropertiesPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

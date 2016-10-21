@@ -18,7 +18,7 @@ namespace Misp.Sourcing.AllocationViews
     /// <summary>
     /// Interaction logic for AllocationViewsPanel.xaml
     /// </summary>
-    public partial class AllocationViewsPanel : Grid
+    public partial class AllocationPropertiesPanel : Grid
     {
         public Kernel.Ui.Base.ChangeEventHandler ForAllocationChange;
         public Kernel.Ui.Base.ChangeEventHandler NoAllocationChange;
@@ -26,7 +26,7 @@ namespace Misp.Sourcing.AllocationViews
 
         public Kernel.Domain.CellProperty CellProperty { get; set; }
 
-        public AllocationViewsPanel()
+        public AllocationPropertiesPanel()
         {
             InitializeComponent();
             IntializeHandlers();

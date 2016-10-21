@@ -1212,9 +1212,8 @@ namespace Misp.Sourcing.Table
         {
             if (page == null) return;
             InputTableForm form = ((InputTableEditorItem)page).getInputTableForm();
-            form.AllocationViewsPanel.AllocationForm.TransformationTreeService = GetInputTableService().TransformationTreeService;
-            //form.AllocationForm.InitializeComponents();
-            ((InputTablePropertyBar)this.PropertyBar).AllocationLayoutAnchorable.Content = form.AllocationViewsPanel;
+            form.AllocationPropertiesPanel.AllocationForm.TransformationTreeService = GetInputTableService().TransformationTreeService;
+            ((InputTablePropertyBar)this.PropertyBar).AllocationLayoutAnchorable.Content = form.AllocationPropertiesPanel;
             ((InputTablePropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.TablePropertiesPanel;
             ((InputTablePropertyBar)this.PropertyBar).ParameterLayoutAnchorable.Content = form.TableCellParameterPanel;
             ((InputTablePropertyBar)this.PropertyBar).MappingLayoutAnchorable.Content = form.TableCellParameterPanel.TableCellMappingPanel;
