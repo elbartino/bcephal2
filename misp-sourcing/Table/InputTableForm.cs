@@ -21,6 +21,7 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Collections.ObjectModel;
 using Misp.Kernel.Util;
+using Misp.Sourcing.AllocationViews;
 namespace Misp.Sourcing.Table
 {
     /// <summary>
@@ -101,6 +102,9 @@ namespace Misp.Sourcing.Table
 
             this.TablePropertiesPanel = new TablePropertiesPanel();
             this.TableCellParameterPanel = new TableCellParameterPanel();
+            this.AllocationForm = new AllocationForm();
+            this.AllocationViewsPanel = new AllocationViewsPanel();
+            //this.AllocationForm.TransformationTreeService = InputTableService.TransformationTreeService;
             this.CellPropertyGrid = new CellPropertyGrid();
             this.CellPropertyGrid.hideContextMenu();
             try
@@ -239,6 +243,10 @@ namespace Misp.Sourcing.Table
         public TablePropertiesPanel TablePropertiesPanel { get; private set; }
 
         public TableCellParameterPanel TableCellParameterPanel { get; private set; }
+
+        public AllocationForm AllocationForm {get;set;}
+
+        public AllocationViewsPanel AllocationViewsPanel { get; set; }
 
         public EdrawOffice SpreadSheet { get;  set; }
 

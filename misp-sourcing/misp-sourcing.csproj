@@ -89,6 +89,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllocationDiagrams\DiagramCanvas.cs" />
+    <Compile Include="AllocationDiagrams\AllocationBoxItem.xaml.cs">
+      <DependentUpon>AllocationBoxItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AllocationDiagrams\TDesignerItem.cs" />
+    <Compile Include="AllocationDiagrams\AllocationDiagram.xaml.cs">
+      <DependentUpon>AllocationDiagram.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AllocationViews\AllocationBoxDialog.xaml.cs">
+      <DependentUpon>AllocationBoxDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AllocationViews\AllocationForm.cs" />
+    <Compile Include="AllocationViews\AllocationPropertiesPanel.xaml.cs">
+      <DependentUpon>AllocationPropertiesPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AllocationViews\AllocationValueField.cs" />
+    <Compile Include="AllocationViews\AllocationValueItemField.xaml.cs">
+      <DependentUpon>AllocationValueItemField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AllocationViews\AllocationBoxSideBar.cs" />
+    <Compile Include="AllocationViews\AllocationViewsPanel.xaml.cs">
+      <DependentUpon>AllocationViewsPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AutomaticSourcingViews\AutomaticSourcingBrowser.cs" />
     <Compile Include="AutomaticSourcingViews\AutomaticSourcingBrowserController.cs" />
     <Compile Include="AutomaticSourcingViews\AutomaticSourcingColumnPanel.xaml.cs">
@@ -323,6 +346,30 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AllocationDiagrams\AllocationBoxItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AllocationDiagrams\AllocationDiagram.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AllocationViews\AllocationBoxDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AllocationViews\AllocationPropertiesPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AllocationViews\AllocationValueItemField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AllocationViews\AllocationViewsPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AutomaticSourcingViews\AutomaticSourcingColumnPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -436,6 +483,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MultipleFilesUpload\UploadFilesDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Stencils\MispStencils.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Stencils\MispStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -563,7 +618,12 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\Action.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Loop.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

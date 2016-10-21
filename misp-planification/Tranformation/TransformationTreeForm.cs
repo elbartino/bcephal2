@@ -76,18 +76,15 @@ namespace Misp.Planification.Tranformation
         protected void InitializeHandlers()
         {
             //TransformationTreeDiagramView.designerCanvas.Editing += OnEditingItem;
-
             TransformationTreeDiagramView.designerCanvas.SelectionService.SelectionChanged += onSelectBlok;
             TransformationTreeDiagramView.designerCanvas.SelectionService.Clear += onClearSelection;
-
             TransformationTreeDiagramView.designerCanvas.AddBlock += onAddBlock;
             TransformationTreeDiagramView.designerCanvas.DeleteBlock += onDeleteBlock;
             TransformationTreeDiagramView.designerCanvas.ModifyBlock += onModifyBlock;
             TransformationTreeDiagramView.designerCanvas.AddLink += onAddLink;
             TransformationTreeDiagramView.designerCanvas.DeleteLink += onDeleteLink;
             TransformationTreeDiagramView.designerCanvas.MoveLinkSource += onMoveLinkSource;
-            TransformationTreeDiagramView.designerCanvas.MoveLinkTarget += onMoveLinkTarget;
-            
+            TransformationTreeDiagramView.designerCanvas.MoveLinkTarget += onMoveLinkTarget;            
         }
 
         

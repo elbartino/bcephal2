@@ -41,6 +41,11 @@ namespace DiagramDesigner
             SelectAllMenuItem.Visibility = System.Windows.Visibility.Visible;
         }
 
+        public void CustomizeForAllocation() 
+        {
+            ValueChainMenuItem.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
         public void CustomizeForItem()
         {
             ObjectMenuItem.Visibility = System.Windows.Visibility.Visible;

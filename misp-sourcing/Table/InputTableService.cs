@@ -50,6 +50,11 @@ namespace Misp.Sourcing.Table
         /// </summary>
         public TargetService TargetService { get; set; }
 
+        /// <summary>
+        /// Le TransformationTreeService
+        /// </summary>
+        public TransformationTreeService TransformationTreeService { get; set; }
+
 
         /// <summary>
         /// Save the given item.
