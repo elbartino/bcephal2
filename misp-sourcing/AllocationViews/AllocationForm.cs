@@ -68,6 +68,14 @@ namespace Misp.Sourcing.AllocationViews
             }
         }
 
+        public void fillObject()
+        {
+            if (this.EditedObject == null) this.EditedObject = getNewObject();            
+            this.EditedObject.diagramXml = this.AllocationDiagramView.designerCanvas.AsString();
+        }
+
+        public TransformationTree getNewObject() { return new TransformationTree(); }
+
 
         /// <summary>
         /// 

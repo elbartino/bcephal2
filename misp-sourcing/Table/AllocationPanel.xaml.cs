@@ -93,7 +93,7 @@ namespace Misp.Sourcing.Table
             }catch(Exception){}
             this.AllocationData.type = string.IsNullOrEmpty(selectType) ? null : selectType;
             this.AllocationData.measureRef = this.RefMeasure;
-            this.AllocationData.allocationTree = this.allocationTree;
+           // this.AllocationData.allocationTree = this.allocationTree;
         }
         
         /// <summary>
@@ -107,8 +107,7 @@ namespace Misp.Sourcing.Table
             if (allocationData != null)
             {
                 this.TypeComboBox.SelectedItem = allocationData.type;
-                this.RefMeasure = allocationData.measureRef;
-                this.AllocationTree = allocationData.allocationTree;
+                this.RefMeasure = allocationData.measureRef;              
             }
             else
             {

@@ -2454,7 +2454,7 @@ namespace Misp.Sourcing.Table
             if (!isReport())
             {
                 page.getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
-                cellProperty.cellAllocationData = page.getInputTableForm().AllocationPropertiesPanel.AllocationForm.AllocationData;
+                cellProperty.cellAllocationData = page.getInputTableForm().AllocationPropertiesPanel.CellAllocationData;
                 isNoAllocation = cellProperty.cellAllocationData.type == CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
             }
 

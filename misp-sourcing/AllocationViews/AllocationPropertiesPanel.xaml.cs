@@ -27,17 +27,7 @@ namespace Misp.Sourcing.AllocationViews
         public Kernel.Domain.CellProperty CellProperty { get; set; }
 
         public Kernel.Domain.CellPropertyAllocationData CellAllocationData { get; set; }
-
-        private TransformationTree allocationTree;
-        public TransformationTree AllocationTree
-        {
-            get { return this.allocationTree; }
-            set
-            {
-                this.allocationTree = value;
-
-            }
-        }
+      
 
         public AllocationPropertiesPanel()
         {
@@ -58,14 +48,18 @@ namespace Misp.Sourcing.AllocationViews
             this.ForAllocationCheckBox.IsChecked = cellProperty != null ? cellProperty.IsForAllocation : false;
             this.CellAllocationData = cellProperty != null ? cellProperty.cellAllocationData : null;
             this.AllocationPanel.DisplayAllocationData(this.CellAllocationData);
-            this.AllocationForm.Dispose
+            this.AllocationForm.EditedObject = this.CellAllocationData != null ? this.CellAllocationData.allocationTree : null;
+            this.AllocationForm.displayObject();
             thrawChange = true;
         }
 
         public Kernel.Domain.CellPropertyAllocationData FillAllocationData() 
         {
-            this.CellAllocationData = cel
-            return null;
+            this.AllocationPanel.FillAllocationData();
+            this.AllocationForm.fillObject();
+            this.CellAllocationData = this.AllocationPanel.AllocationData;
+            this.CellAllocationData.allocationTree = this.AllocationForm.EditedObject;
+            return CellAllocationData;
         }
 
         private void IntializeHandlers()
