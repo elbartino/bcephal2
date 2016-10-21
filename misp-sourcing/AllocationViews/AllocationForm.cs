@@ -59,6 +59,32 @@ namespace Misp.Sourcing.AllocationViews
             AllocationDiagramView.designerCanvas.Editing += OnEditAllocationBloc;
         }
 
+        public void displayObject()
+        {
+            if (!string.IsNullOrEmpty(this.EditedObject.diagramXml)) this.AllocationDiagramView.designerCanvas.Display(this.EditedObject.diagramXml);
+            foreach (TransformationTreeItem item in this.EditedObject.itemListChangeHandler.Items)
+            {
+                refreshItem(item);
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        public void refreshItem(TransformationTreeItem item)
+        {
+            item.tree = this.EditedObject;
+            //item.RefreshAttributeEntity();
+            this.AllocationDiagramView.designerCanvas.RefreshEntity(item);
+            foreach (TransformationTreeItem child in item.childrenListChangeHandler.Items)
+            {
+                child.parent = item;
+                refreshItem(child);
+            }
+        }
+
         /// <summary>
         /// Cette methode est appelée lorsau'on a ajouté un lien entre deaux blocks
         /// </summary>
@@ -234,9 +260,41 @@ namespace Misp.Sourcing.AllocationViews
 
         private void OnAllocationBoxDialogSave(object sender, System.Windows.RoutedEventArgs e)
         {
-         
+            if (!ValidateEdition(this.EditedDesignerItem, this.AllocationBoxDialog.NameTextBox.Text.Trim())) return;
+            this.AllocationBoxDialog.FillItem();
+            //if (this.LoopDialog.Loop.parent != null) this.LoopDialog.Loop.parent.UpdateChild(this.LoopDialog.Loop);
+            //else this.EditedObject.UpdateItem(this.LoopDialog.Loop);
+            if (this.EditedDesignerItem != null) this.EditedDesignerItem.Renderer.Text = this.AllocationBoxDialog.Loop.name;
+            this.AllocationDiagramView.designerCanvas.OnChange();
+            //if (SaveEventHandler != null) SaveEventHandler(this.EditedDesignerItem);
         }
 
+        protected bool ValidateEdition(DiagramDesigner.DesignerItem item, string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                Kernel.Util.MessageDisplayer.DisplayError("Empty name", "The name can't be empty!");
+                return false;
+            }
+            if (item != null && item.Tag != null && item.Tag is TransformationTreeItem)
+            {
+                DiagramDesigner.DesignerItem block = this.AllocationDiagramView.designerCanvas.GetBlockByName(name);
+                TransformationTreeItem entity = (TransformationTreeItem)item.Tag;
+                if (block != null && !block.Equals(item))
+                {
+                    Kernel.Util.MessageDisplayer.DisplayError("Duplicate name", "There is another block named: " + name + ".");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        public void Dispose()
+        {
+            if (this.AllocationBoxDialog != null) this.AllocationBoxDialog.Dispose();
+            this.AllocationBoxDialog = null;            
+        }
 
     }
 }

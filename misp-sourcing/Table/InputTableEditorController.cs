@@ -1236,6 +1236,7 @@ namespace Misp.Sourcing.Table
             {
                 ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.RemoveInputTable(removedPage.EditedObject);
             }
+            removedPage.getInputTableForm().AllocationPropertiesPanel.AllocationForm.Dispose();
             removedPage.getInputTableForm().SpreadSheet.Close();
             Action action = () =>
             {
@@ -2453,7 +2454,7 @@ namespace Misp.Sourcing.Table
             if (!isReport())
             {
                 page.getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
-                cellProperty.cellAllocationData = page.getInputTableForm().TableCellParameterPanel.allocationPanel.AllocationData;
+                cellProperty.cellAllocationData = page.getInputTableForm().AllocationPropertiesPanel.AllocationForm.AllocationData;
                 isNoAllocation = cellProperty.cellAllocationData.type == CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
             }
 
@@ -2541,6 +2542,7 @@ namespace Misp.Sourcing.Table
                         
             page.getInputTableForm().TableCellParameterPanel.Display(cellProperty);
             page.getInputTableForm().TablePropertiesPanel.displayTable(page.EditedObject,isNoAllocation);
+            page.getInputTableForm().AllocationPropertiesPanel.Display(cellProperty);
             UpdateStatusBar(null);
             
         }

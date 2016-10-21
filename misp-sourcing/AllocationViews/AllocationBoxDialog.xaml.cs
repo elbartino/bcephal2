@@ -259,20 +259,6 @@ namespace Misp.Sourcing.AllocationViews
             Loop.ranking = ranking;
             Loop.type = this.TypeTextBox.Text;
             this.ValueField.Fill();
-
-            //Loop.Instruction = FillCondition();
-            //if (Loop.Instruction == null) Loop.conditions = null;
-            //else Loop.conditions = TransformationTreeService.getInstructionString(Loop.Instruction);
-            //FillLoopCondition();
-
-           // FillUserDialog();
-
-            //Loop.loopConditionsChangeHandler.AddNew(FillLoopCondition());
-
-
-            Loop.refreshLoopOid = null;
-            Object item = this.LoopComboBox.SelectedItem;
-            if(item != null && item is TransformationTreeItem) Loop.refreshLoopOid = ((TransformationTreeItem)item).oid;
         }
 
         //protected void FillUserDialog()
