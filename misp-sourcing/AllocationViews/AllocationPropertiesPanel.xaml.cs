@@ -60,7 +60,7 @@ namespace Misp.Sourcing.AllocationViews
             this.AllocationPanel.FillAllocationData();
             this.AllocationForm.fillObject();
             this.CellAllocationData = this.AllocationPanel.AllocationData;
-            this.CellAllocationData.active = this.ActivateAllocationCheckBox.IsChecked;
+            this.CellAllocationData.active = this.ActivateAllocationCheckBox.IsChecked.Value;
             this.AllocationForm.fillObject();
             this.CellAllocationData.allocationTree = this.AllocationForm.EditedObject;
             return CellAllocationData;
