@@ -451,13 +451,16 @@ namespace Misp.Planification.Tranformation
 
         private void OnDeleteConditionItem(object item)
         {
+            Kernel.Domain.LoopCondition loopcondition = null;
+            LoopConditionItemPanel panel = null;
             if (item is UIElement)
             {
                 if (item is LoopConditionItemPanel)
                 {
-                    LoopConditionItemPanel panel = (LoopConditionItemPanel)item;                  
+                    panel  = (LoopConditionItemPanel)item;
+                    loopcondition = panel.LoopCondition;
                 }
-                this.LoopConditionsPanel.Children.Remove((UIElement)item);
+                this.LoopConditionsPanel.Children.Remove((UIElement)panel);
                 
                 if (this.LoopConditionsPanel.Children.Count == 0) OnAddConditionItem(null);
                
@@ -466,15 +469,14 @@ namespace Misp.Planification.Tranformation
                 {
                     ((LoopConditionItemPanel)pan).Index = index++;
                 }
-                ((LoopConditionItemPanel)this.LoopConditionsPanel.Children[0]).OperatorComboBox.IsEnabled = false;
+                ((LoopConditionItemPanel)this.LoopConditionsPanel.Children[0]).OperatorComboBox.IsEnabled = false;                 
             }
 
             if (item is Kernel.Domain.LoopCondition)
             {
-                Kernel.Domain.LoopCondition loopcondition = ((Kernel.Domain.LoopCondition)item);
-                this.Loop.SynchronizeDeleteLoopCondition(loopcondition);
-                this.ActiveLoopConditionItemPanel.LoopCondition = loopcondition;
+                loopcondition = ((Kernel.Domain.LoopCondition)item);                
             }
+            this.Loop.SynchronizeDeleteLoopCondition(loopcondition);
         }
 
 
