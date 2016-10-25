@@ -1041,6 +1041,7 @@ namespace Misp.Sourcing.Table
             //editorPage.getInputTableForm().TableCellParameterPanel.allocationPanel.Change += OnAllocationDataChange;
             editorPage.getInputTableForm().TableCellParameterPanel.ForAllocationChange += OnForallocationChange;
             editorPage.getInputTableForm().TableCellParameterPanel.ResetButton.Click += OnResetCells;
+            editorPage.getInputTableForm().AllocationPropertiesPanel.ResetButton.Click += OnResetCells;
             editorPage.getInputTableForm().TableCellParameterPanel.CellMeasurePanel.ValidateFormula += OnValidateMeasureFormula;
             editorPage.getInputTableForm().AllocationPropertiesPanel.Change += OnAllocationDataChange;
             editorPage.Closed += editorPage_Closed;

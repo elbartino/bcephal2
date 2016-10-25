@@ -156,14 +156,8 @@ namespace Misp.Sourcing.AllocationViews
             this.ranking = Loop.ranking;
             this.TypeTextBox.Text = Loop.type != null ? Loop.type : "";
             this.NameTextBox.Text = Loop.name;
-            this.RankingTextBox.Visibility = System.Windows.Visibility.Collapsed;
-            this.RankingTextBox.Text = ranking != null ? ranking.name : "";
 
-            this.IncreaseButton.IsChecked = Loop.increase;
-            this.DecreaseButton.IsChecked = !Loop.increase;
-
-            this.IncreaseButton.Visibility = System.Windows.Visibility.Collapsed;
-            this.DecreaseButton.Visibility = System.Windows.Visibility.Collapsed;
+            this.GridRanking.Visibility = System.Windows.Visibility.Collapsed;
 
             this.ValueField.Display(Loop);
             this.SaveButton.IsEnabled = false;

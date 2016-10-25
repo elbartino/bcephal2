@@ -78,7 +78,7 @@ namespace Misp.Sourcing.AllocationViews
 
         private void OnActivateAllocationChange(object sender, RoutedEventArgs e)
         {
-            
+            OnChange();
         }
 
         /// <summary>
