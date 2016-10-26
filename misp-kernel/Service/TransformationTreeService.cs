@@ -505,5 +505,24 @@ namespace Misp.Kernel.Service
                 throw new ServiceExecption("Unable to retrieve action.", e);
             }
         }
+
+        public TransformationTreeItem getItemByOid(int? oid)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/item/" + oid, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                TransformationTreeItem value = Serializer.Deserialize<TransformationTreeItem>(queryResult.Content);
+                return value;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve object from server.", e);
+                throw new ServiceExecption("Unable to retrieve object from server.", e);
+            }   
+        }
     }
 }
