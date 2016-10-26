@@ -332,7 +332,7 @@ namespace Misp.Planification.Tranformation
         public void Edit(TransformationTreeItem item)
         {
             if (item == null) return;
-            item = this.TransformationTreeService.getItemByOid(item.oid);
+            item = item.oid != null ? this.TransformationTreeService.getItemByOid(item.oid) : item ;
             if (item.IsLoop)
             {
                 if (this.LoopDialog == null)
