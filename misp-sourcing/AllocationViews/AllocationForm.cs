@@ -275,10 +275,14 @@ namespace Misp.Sourcing.AllocationViews
             if (!ValidateEdition(this.EditedDesignerItem, this.AllocationBoxDialog.NameTextBox.Text.Trim())) return;
             this.AllocationBoxDialog.FillItem();
             this.AllocationBoxDialog.SaveButton.IsEnabled = false;
-            
-            //if (this.LoopDialog.Loop.parent != null) this.LoopDialog.Loop.parent.UpdateChild(this.LoopDialog.Loop);
-            //else this.EditedObject.UpdateItem(this.LoopDialog.Loop);
-            if (this.EditedDesignerItem != null) this.EditedDesignerItem.Renderer.Text = this.AllocationBoxDialog.Loop.name;
+
+            if (this.AllocationBoxDialog.Loop.parent != null) this.AllocationBoxDialog.Loop.parent.UpdateChild(this.AllocationBoxDialog.Loop);
+            else this.EditedObject.UpdateItem(this.AllocationBoxDialog.Loop);
+            if (this.EditedDesignerItem != null)
+            {
+               // refreshItem(this.AllocationBoxDialog.Loop);
+                this.EditedDesignerItem.Renderer.Text = this.AllocationBoxDialog.Loop.name;
+            }
             this.AllocationDiagramView.designerCanvas.OnChange();
             if (Change != null) Change();            
         }

@@ -116,7 +116,8 @@ namespace Misp.Sourcing.AllocationViews
             ValueListChangeHandler = new PersistentListChangeHandler<TransformationTreeLoopValue>();
             if (item == null) return;
 
-            ValueListChangeHandler.originalList = new List<TransformationTreeLoopValue>(item.valueListChangeHandler.Items);
+            IList<TransformationTreeLoopValue> listeItem = item.valueListChangeHandler.getItems().Count > item.valueListChangeHandler.Items.Count ? item.valueListChangeHandler.getItems() : item.valueListChangeHandler.Items;
+            ValueListChangeHandler.originalList = new List<TransformationTreeLoopValue>(listeItem);
                      
             int index = 1;
             foreach (TransformationTreeLoopValue loopValue in ValueListChangeHandler.Items)
@@ -140,6 +141,8 @@ namespace Misp.Sourcing.AllocationViews
                 this.Line.AddValue(loopValue);
             }
         }
+
+
 
         public void SetValue(object value)
         {

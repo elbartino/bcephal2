@@ -58,7 +58,6 @@ namespace Misp.Sourcing.AllocationViews
         public Kernel.Domain.CellPropertyAllocationData FillAllocationData() 
         {
             this.AllocationPanel.FillAllocationData();
-            this.AllocationForm.fillObject();
             this.CellAllocationData = this.AllocationPanel.AllocationData;
             this.CellAllocationData.active = this.ActivateAllocationCheckBox.IsChecked.Value;
             this.AllocationForm.fillObject();

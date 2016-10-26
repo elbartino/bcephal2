@@ -314,6 +314,34 @@ namespace Misp.Sourcing.AllocationDiagrams
         }
 
 
+        public override DiagramDesigner.DesignerItem GetBlockByName(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return null;
+
+            foreach (UIElement item in this.Children)
+            {
+                if (item is DiagramDesigner.DesignerItem)
+                {
+                    object tag = ((DiagramDesigner.DesignerItem)item).Tag;
+                    
+                    if(tag == null) return null;
+                    TransformationTreeItem treeItem = null;
+                    if(tag is string)
+                    {
+                        JavaScriptSerializer serial = new JavaScriptSerializer();
+                        treeItem = serial.Deserialize<TransformationTreeItem>((string)tag);    
+                    }
+                    if(tag is TransformationTreeItem)
+                    {
+                        treeItem = (TransformationTreeItem)tag;    
+                    }
+
+                    if (treeItem.ToString().ToUpper().Equals(name.ToUpper())) return (DiagramDesigner.DesignerItem)item;
+                }
+            }
+            return null;
+        }
+
         protected override bool IsBlockNameValid(string name)
         {
             if (string.IsNullOrEmpty(name)) return false;
