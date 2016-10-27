@@ -2102,13 +2102,20 @@ namespace Misp.Sourcing.Table
         {
             if (sender != null && sender is Measure)
             {
-                Measure measure = (Measure)sender;
                 InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
                 if (page == null) return;
+                Measure measure = (Measure)sender;
+                InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
+                if (propertyBar.Pane.SelectedContent == propertyBar.AllocationLayoutAnchorable)
+                {
+                    page.getInputTableForm().AllocationPropertiesPanel.AllocationPanel.setReferenceMeasure(measure);
+                    return;
+                }                
+                
                 Kernel.Ui.Office.Range range = page.getInputTableForm().SpreadSheet.GetSelectedRange();
                 if (range == null) return;
                 string sheetName = range.Sheet.Name;
-                InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
+                propertyBar = (InputTablePropertyBar)this.PropertyBar;
                 propertyBar.ParameterLayoutAnchorable.IsActive = true;
                 Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreadSheet.getActiveCell();
                 int  row = activeCell.Row;

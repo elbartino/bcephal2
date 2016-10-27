@@ -27,6 +27,7 @@ namespace Misp.Sourcing.Table
     public partial class AllocationPanel : ScrollViewer
     {
         public Kernel.Ui.Base.ChangeEventHandler Change;
+        public Kernel.Ui.Base.ChangeItemEventHandler AllocationTypeChanged;
         public bool thrawChange = true;
 
         public CellPropertyAllocationData AllocationData { get; set; }
@@ -72,7 +73,7 @@ namespace Misp.Sourcing.Table
             this.TypeComboBox.ItemsSource = new string[] { 
                 CellPropertyAllocationData.AllocationType.NoAllocation.ToString(),
                 CellPropertyAllocationData.AllocationType.Linear.ToString(), 
-                CellPropertyAllocationData.AllocationType.Scope2Scope.ToString() 
+                CellPropertyAllocationData.AllocationType.Reference.ToString() 
                 //CellPropertyAllocationData.AllocationType.Template.ToString() 
             };
             this.TypeComboBox.SelectedItem = CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
@@ -93,7 +94,6 @@ namespace Misp.Sourcing.Table
             }catch(Exception){}
             this.AllocationData.type = string.IsNullOrEmpty(selectType) ? null : selectType;
             this.AllocationData.measureRef = this.RefMeasure;
-           // this.AllocationData.allocationTree = this.allocationTree;
         }
         
         /// <summary>
@@ -128,13 +128,13 @@ namespace Misp.Sourcing.Table
         {
             string selectType = (string)TypeComboBox.SelectedItem;
             if (string.IsNullOrEmpty(selectType)) return;
-
+            this.RefMeasure = null;
             if (CellPropertyAllocationData.AllocationType.Linear.ToString() == selectType)
             {
                 MeasureRow.Height = new GridLength(0, GridUnitType.Star);
                 RefMeasureRow.Height = new GridLength(0, GridUnitType.Star);
                 TemplateRow.Height = new GridLength(0, GridUnitType.Star);
-                SequenceRow.Height = new GridLength(27);
+                SequenceRow.Height = new GridLength(0, GridUnitType.Star); ;
 
                 MeasureGrid.Visibility = System.Windows.Visibility.Collapsed;
                 RefMeasureGrid.Visibility = System.Windows.Visibility.Collapsed;
@@ -153,9 +153,15 @@ namespace Misp.Sourcing.Table
                 TemplateGrid.Visibility = System.Windows.Visibility.Collapsed;
                 SequenceGrid.Visibility = System.Windows.Visibility.Visible;
             }
+            else if (CellPropertyAllocationData.AllocationType.Reference.ToString() == selectType) 
+            {
+                RefMeasureRow.Height = new GridLength(27);
+                RefMeasureGrid.Visibility = System.Windows.Visibility.Visible;
+                this.RefMeasureButton.Visibility = System.Windows.Visibility.Collapsed;
+            }
             else if (CellPropertyAllocationData.AllocationType.Template.ToString() == selectType)
             {
-                
+
             }
             else
             {
@@ -170,6 +176,7 @@ namespace Misp.Sourcing.Table
                 SequenceGrid.Visibility = System.Windows.Visibility.Collapsed;
             }
             SequenceGrid.Visibility = System.Windows.Visibility.Collapsed;
+            this.OutputMeasureButton.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         /// <summary>
@@ -202,6 +209,7 @@ namespace Misp.Sourcing.Table
         private void OnAllocationTypeChanged(object sender, SelectionChangedEventArgs e)
         {            
             updateButtons();
+            if (AllocationTypeChanged != null) AllocationTypeChanged(this.TypeComboBox.SelectedItem);
             OnChange();
         }
 
@@ -299,5 +307,14 @@ namespace Misp.Sourcing.Table
         }
 
 
+
+        public void setReferenceMeasure(Kernel.Domain.Measure measure)
+        {
+            if (this.TypeComboBox.SelectedItem.ToString().Equals(CellPropertyAllocationData.AllocationType.Reference.ToString()))
+            {
+                this.RefMeasure = measure;
+                OnChange();
+            }
+        }
     }
 }

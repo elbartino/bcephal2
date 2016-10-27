@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,7 @@ namespace Misp.Sourcing.AllocationViews
         public AllocationPropertiesPanel()
         {
             InitializeComponent();
+            this.AllocationForm.Visibility = System.Windows.Visibility.Collapsed;
             IntializeHandlers();
         }
 
@@ -67,12 +69,25 @@ namespace Misp.Sourcing.AllocationViews
 
         private void IntializeHandlers()
         {
+            this.AllocationPanel.AllocationTypeChanged += OnAllocationTypeChange;
             this.ForAllocationCheckBox.Checked += OnForAllocationChange;
             this.ForAllocationCheckBox.Unchecked += OnForAllocationChange;
             this.ActivateAllocationCheckBox.Checked += OnActivateAllocationChange;
             this.ActivateAllocationCheckBox.Unchecked += OnActivateAllocationChange;
             this.AllocationPanel.Change += OnChange;
             this.AllocationForm.Change += OnChange;
+        }
+
+        private void OnAllocationTypeChange(object item)
+        {
+            if (item is string) 
+            {
+                bool visible = false;
+                if (item.ToString() == CellPropertyAllocationData.AllocationType.Linear.ToString()) visible = false;
+                else if (item.ToString() == CellPropertyAllocationData.AllocationType.Reference.ToString()) visible = true;
+                else if (item.ToString() == CellPropertyAllocationData.AllocationType.NoAllocation.ToString()) visible = false;
+                this.AllocationForm.Visibility = visible ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            }
         }
 
         private void OnActivateAllocationChange(object sender, RoutedEventArgs e)
