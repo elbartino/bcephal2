@@ -72,7 +72,9 @@ namespace Misp.Sourcing.AllocationViews
 
         public void fillObject()
         {
-            if (this.EditedObject == null) this.EditedObject = getNewObject();            
+            if (this.EditedObject == null) this.EditedObject = getNewObject();
+            this.EditedObject.itemListChangeHandler.newItems.Clear();
+            this.EditedObject.itemListChangeHandler.AddNew(this.EditedObject.itemListChangeHandler.updatedItems);
             this.EditedObject.diagramXml = this.AllocationDiagramView.designerCanvas.AsString();
         }
 
@@ -141,10 +143,11 @@ namespace Misp.Sourcing.AllocationViews
         {
             if (item.Tag != null)
             {
+                System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                Serializer.MaxJsonLength = 99999999;
+
                 if (!(item.Tag is TransformationTreeItem))
                 {
-                    System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                    Serializer.MaxJsonLength = 99999999;
                     item.Tag = Serializer.Deserialize<TransformationTreeItem>(item.Tag.ToString());
                 }
 
@@ -155,7 +158,7 @@ namespace Misp.Sourcing.AllocationViews
                     DesignerItem block = this.AllocationDiagramView.designerCanvas.GetBlockByName(treeItem.name);
                     if (block == null) return;
                     item = block;
-                    treeItem = (TransformationTreeItem)item.Tag;
+                    treeItem =  item.Tag is string ? Serializer.Deserialize<TransformationTreeItem>(item.Tag.ToString()) : (TransformationTreeItem)item.Tag;
                 }
                 this.EditedDesignerItem = item;
                 this.Edit(treeItem);
@@ -280,7 +283,7 @@ namespace Misp.Sourcing.AllocationViews
             else this.EditedObject.UpdateItem(this.AllocationBoxDialog.Loop);
             if (this.EditedDesignerItem != null)
             {
-               // refreshItem(this.AllocationBoxDialog.Loop);
+                refreshItem(this.AllocationBoxDialog.Loop);
                 this.EditedDesignerItem.Renderer.Text = this.AllocationBoxDialog.Loop.name;
             }
             this.AllocationDiagramView.designerCanvas.OnChange();
