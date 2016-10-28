@@ -1985,7 +1985,7 @@ namespace Misp.Sourcing.Table
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.fillTree(new ObservableCollection<InputTableBrowserData>(datas));
                         
             ((InputTableSideBar)SideBar).MeasureGroup.MeasureService = GetInputTableService().MeasureService;
-            ((InputTableSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(isReport());
+            //((InputTableSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(isReport());
             
             ((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameService = GetInputTableService().PeriodNameService;
             ((InputTableSideBar)SideBar).PeriodNameGroup.InitializeTreeViewDatas();
