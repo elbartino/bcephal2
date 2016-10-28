@@ -206,13 +206,20 @@ namespace Misp.Sourcing.AllocationViews
         {
             if (this.EditedObject != null && sender.Tag != null)
             {
-                TransformationTreeItem entity = (TransformationTreeItem)sender.Tag;
-                if (entity.parent != null)
-                {
-                    entity.parent.RemoveChild(entity);
-                }
-                else this.EditedObject.DeleteItem(entity);
+                //JavaScriptSerializer serial = new JavaScriptSerializer();
+
+                //TransformationTreeItem transformationTreeItem = null;
+                //if (sender.Tag is TransformationTreeItem) transformationTreeItem = (TransformationTreeItem)sender.Tag;
+                //else if (sender.Tag is string) transformationTreeItem = serial.Deserialize<TransformationTreeItem>((string)sender.Tag);
+                //else return;
+                //if (transformationTreeItem.parent != null)
+                //{
+                //    transformationTreeItem.parent.RemoveChild(transformationTreeItem);
+                //}
+                //else this.EditedObject.ForgetItem(transformationTreeItem);
                 this.IsModify = true;
+                if (ChangeEventHandler != null) ChangeEventHandler.change();
+                if (Change != null) Change();
             }
         }
 
