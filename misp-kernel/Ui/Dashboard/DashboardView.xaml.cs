@@ -196,6 +196,7 @@ namespace Misp.Kernel.Ui.Dashboard
             Grid.SetColumn(block, col);
             Grid.SetRowSpan(block, rowSpan);
             Grid.SetColumnSpan(block, colSpan);
+            this.BlockGrid.Children.Remove(block);
             this.BlockGrid.Children.Add(block);
         }
 
