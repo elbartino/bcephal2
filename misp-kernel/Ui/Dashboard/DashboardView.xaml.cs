@@ -289,6 +289,7 @@ namespace Misp.Kernel.Ui.Dashboard
             if (this.ReconciliationFilterBlock != null) dico.Add(this.ReconciliationFilterBlock.TitleLabel.Content.ToString(), this.TreeBlock);
             
             this.MultiSelectorCombobox.ItemsSource = dico;
+            this.MultiSelectorCombobox.checkBoxHandler -= OnSelectionChanged;
             this.MultiSelectorCombobox.checkBoxHandler += OnSelectionChanged;
 
         }
