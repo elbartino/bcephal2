@@ -27,12 +27,13 @@ namespace Misp.Sourcing.AllocationDiagrams
             {
                 Source = new BitmapImage(new Uri("Images/Loop.png", UriKind.Relative))
             };
+
+            ((DesignerContextMenu)this.ContextMenu).ValueChainMenuItem.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         protected override void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            CustomizeContextMenu();
-            ((DesignerContextMenu)this.ContextMenu).CustomizeForDiagram();
+            base.OnContextMenuOpening(sender, e);            
             ((DesignerContextMenu)this.ContextMenu).CustomizeForAllocation();
         }
 
