@@ -87,13 +87,9 @@ namespace Misp.Sourcing.Table
         {
             if (this.AllocationData == null) this.AllocationData = new CellPropertyAllocationData();
             string selectType = (string)TypeComboBox.SelectedItem;
-            long sequence = 1;
-            try
-            {
-                sequence = long.Parse(SequenceTextBox.Text);
-            }catch(Exception){}
             this.AllocationData.type = string.IsNullOrEmpty(selectType) ? null : selectType;
-            this.AllocationData.measureRef = this.RefMeasure;
+            bool addRefMeasuref = selectType.Equals(CellPropertyAllocationData.AllocationType.Reference.ToString());
+            this.AllocationData.measureRef = addRefMeasuref ? this.RefMeasure : null;
         }
         
         /// <summary>
@@ -107,7 +103,7 @@ namespace Misp.Sourcing.Table
             if (allocationData != null)
             {
                 this.TypeComboBox.SelectedItem = allocationData.type;
-                this.RefMeasure = allocationData.measureRef;              
+                this.RefMeasure = allocationData.measureRef;                
             }
             else
             {

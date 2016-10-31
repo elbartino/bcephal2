@@ -51,6 +51,7 @@ namespace Misp.Sourcing.AllocationViews
             this.CellTextBox.Text = cellProperty != null ? cellProperty.name : "";
             this.ForAllocationCheckBox.IsChecked = cellProperty != null ? cellProperty.IsForAllocation : false;
             this.CellAllocationData = cellProperty != null ? cellProperty.cellAllocationData : null;
+            this.ActivateAllocationCheckBox.IsChecked = CellAllocationData != null ? CellAllocationData.active : false;
             this.AllocationPanel.DisplayAllocationData(this.CellAllocationData);
             this.AllocationForm.EditedObject = this.CellAllocationData != null ? this.CellAllocationData.allocationTree : null;
             this.AllocationForm.displayObject();
