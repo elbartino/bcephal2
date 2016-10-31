@@ -83,9 +83,13 @@ namespace Misp.Sourcing.AllocationViews
             if (item is string) 
             {
                 bool visible = false;
-                if (item.ToString() == CellPropertyAllocationData.AllocationType.Linear.ToString()) visible = false;
+                if (item.ToString() == CellPropertyAllocationData.AllocationType.Linear.ToString()){ 
+                    visible = true;
+                    this.AllocationPanel.RefMeasureGrid.Visibility = System.Windows.Visibility.Collapsed;
+                }
                 else if (item.ToString() == CellPropertyAllocationData.AllocationType.Reference.ToString()) visible = true;
                 else if (item.ToString() == CellPropertyAllocationData.AllocationType.NoAllocation.ToString()) visible = false;
+                
                 this.AllocationForm.Visibility = visible ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             }
         }
