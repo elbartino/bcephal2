@@ -165,47 +165,7 @@ namespace Misp.Sourcing.AllocationDiagrams
 
         protected override bool CanAddLinkBetween(DiagramDesigner.DesignerItem source, DiagramDesigner.DesignerItem cible)
         {
-            string sourceName = source.Renderer.Text;
-            string cibleName = cible.Renderer.Text;
-            string title = "Unable to add link between blocks";
-            string message = "Unable to add link between block : " + sourceName + " and block : " + cibleName + ".";
-            if (source.Tag == null || cible.Tag == null)
-            {
-                message = message + "\n" + "Source or Target Entity is null!";
-                Kernel.Util.MessageDisplayer.DisplayError(title, message);
-                return false;
-            }
-            TransformationTreeItem sourceTag = (TransformationTreeItem)source.Tag;
-            TransformationTreeItem cibleTag = (TransformationTreeItem)cible.Tag;
-
-            if (sourceTag.childrenListChangeHandler.Items.Count > 0)
-            {
-                message = message + "\n" + sourceName + " already has a child.";
-                Kernel.Util.MessageDisplayer.DisplayError(title, message);
-                return false;
-            }
-            if (cibleTag.parent != null)
-            {
-                message = message + "\n" + cibleName + " already has a parent.";
-                Kernel.Util.MessageDisplayer.DisplayError(title, message);
-                return false;
-            }
-            if ((sourceTag.parent != null && sourceTag.parent == cibleTag) ||
-                (cibleTag.childrenListChangeHandler.Items.Contains(sourceTag)))
-            {
-                message = message + "\n" + "There is already a link between " + sourceName + " and " + cibleName + ".";
-                Kernel.Util.MessageDisplayer.DisplayError(title, message);
-                return false;
-            }
-
-            if (sourceTag.parent != null && cibleTag.childrenListChangeHandler.Items.Count>0) 
-            {
-                message = message + "\n" + "Unable to build cyclic model.";
-                Kernel.Util.MessageDisplayer.DisplayError(title, message);
-                return false;
-            }
-          
-            return true;
+            return false;
         }
 
         public override bool CanMoveLinkSource(DesignerItem source, DesignerItem target, DesignerItem newSource)
