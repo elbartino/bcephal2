@@ -148,7 +148,15 @@ namespace Misp.Sourcing.AllocationViews
 
                 if (!(item.Tag is TransformationTreeItem))
                 {
-                    item.Tag = Serializer.Deserialize<TransformationTreeItem>(item.Tag.ToString());
+                    string itemToSerialize = item.Tag.ToString().Replace("\\", "");
+                    try
+                    {
+                        item.Tag = Serializer.Deserialize<TransformationTreeItem>(itemToSerialize);
+                    }
+                    catch (Exception ex)
+                    {
+                        item.Tag = Serializer.Deserialize<TransformationTreeItem>((string)item.Tag);
+                    }
                 }
 
                 TransformationTreeItem treeItem = (TransformationTreeItem)item.Tag;
@@ -290,7 +298,7 @@ namespace Misp.Sourcing.AllocationViews
             else this.EditedObject.UpdateItem(this.AllocationBoxDialog.Loop);
             if (this.EditedDesignerItem != null)
             {
-                refreshItem(this.AllocationBoxDialog.Loop);
+                //refreshItem(this.AllocationBoxDialog.Loop);
                 this.EditedDesignerItem.Renderer.Text = this.AllocationBoxDialog.Loop.name;
             }
             this.AllocationDiagramView.designerCanvas.OnChange();
