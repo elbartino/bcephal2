@@ -41,7 +41,7 @@ namespace Misp.Sourcing.GridViews
         private void IntializeHandlers()
         {
             this.resetButton.Click += OnReset;
-            //this.targetFilter.Changed += OnChange;
+            this.targetFilter.Changed += OnChange;
             //this.periodFilter.Changed += OnChange;
 
             this.creditCheckBox.Checked += OnChange;
