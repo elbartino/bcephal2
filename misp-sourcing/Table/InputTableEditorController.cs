@@ -1213,8 +1213,16 @@ namespace Misp.Sourcing.Table
         {
             if (page == null) return;
             InputTableForm form = ((InputTableEditorItem)page).getInputTableForm();
-            form.AllocationPropertiesPanel.AllocationForm.TransformationTreeService = GetInputTableService().TransformationTreeService;
-            ((InputTablePropertyBar)this.PropertyBar).AllocationLayoutAnchorable.Content = form.AllocationPropertiesPanel;
+            if (!isReport())
+            {
+                form.AllocationPropertiesPanel.AllocationForm.TransformationTreeService = GetInputTableService().TransformationTreeService;
+                 ((InputTablePropertyBar)this.PropertyBar).AllocationLayoutAnchorable.Content = form.AllocationPropertiesPanel;
+            }
+            else
+            {
+                ((InputTablePropertyBar)this.PropertyBar).Pane.Children.Remove(((InputTablePropertyBar)this.PropertyBar).AllocationLayoutAnchorable);
+            }
+
             ((InputTablePropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.TablePropertiesPanel;
             ((InputTablePropertyBar)this.PropertyBar).ParameterLayoutAnchorable.Content = form.TableCellParameterPanel;
             ((InputTablePropertyBar)this.PropertyBar).MappingLayoutAnchorable.Content = form.TableCellParameterPanel.TableCellMappingPanel;
