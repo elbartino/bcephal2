@@ -2522,6 +2522,17 @@ namespace Misp.Sourcing.Table
                 }
             }
 
+            if (cellProperty.cellAllocationData != null && cellProperty.cellAllocationData.allocationTree != null)
+            {
+                cellProperty.cellAllocationData.allocationTree.itemListChangeHandler.Items = cellProperty.cellAllocationData.allocationTree.itemListChangeHandler.getItems();
+                cellProperty.cellAllocationData.allocationTree.itemListChangeHandler.resetOriginalList();
+                foreach (TransformationTreeItem item in cellProperty.cellAllocationData.allocationTree.itemListChangeHandler.Items)
+                {
+                    item.valueListChangeHandler.Items = item.valueListChangeHandler.getItems();
+                    item.valueListChangeHandler.resetOriginalList();
+                }
+            }
+
 
             if (page.EditedObject.filter != null)
             {
@@ -2556,7 +2567,8 @@ namespace Misp.Sourcing.Table
                     }
                 }
             }
-                        
+
+                                    
             page.getInputTableForm().TableCellParameterPanel.Display(cellProperty);
             page.getInputTableForm().TablePropertiesPanel.displayTable(page.EditedObject,isNoAllocation);
             page.getInputTableForm().AllocationPropertiesPanel.Display(cellProperty);

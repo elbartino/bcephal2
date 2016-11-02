@@ -892,7 +892,7 @@ namespace DiagramDesigner
             return null;
         }
 
-        private XElement SerializeDesignerItems(IEnumerable<DesignerItem> designerItems)
+        protected virtual XElement SerializeDesignerItems(IEnumerable<DesignerItem> designerItems)
         {
             JavaScriptSerializer serial = new JavaScriptSerializer();
             serial.MaxJsonLength = int.MaxValue;
@@ -908,8 +908,8 @@ namespace DiagramDesigner
                                                   new XElement("zIndex", Canvas.GetZIndex(item)),
                                                   new XElement("IsGroup", item.IsGroup),
                                                   new XElement("ParentID", item.ParentID),
-                                                  new XElement("Content", contentXaml),
-                                                  new XAttribute("Tag",serial.Serialize(item.Tag))
+                                                  new XElement("Content", contentXaml)//,
+                                                 // new XAttribute("Tag",serial.Serialize(item.Tag))
                                               )
                                    );
 
