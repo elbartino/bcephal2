@@ -29,7 +29,7 @@
 
             <Grid x:Name="MeasureGrid" Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="62" />
+                    <ColumnDefinition Width="75" />
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="25" />
                 </Grid.ColumnDefinitions>
@@ -40,11 +40,11 @@
 
             <Grid x:Name="RefMeasureGrid" Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="62" />
+                    <ColumnDefinition Width="75" />
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="25" />
                 </Grid.ColumnDefinitions>
-                <Label x:Name="ref" Grid.Column="0" Content="Ref S2S"  HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <Label x:Name="ref" Grid.Column="0" Content="Ref Measure"  HorizontalAlignment="Left" VerticalAlignment="Center" />
                 <TextBox x:Name="RefMeasureTextBox" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="23" />
                 <Button x:Name="RefMeasureButton" Content="..." ToolTip="Select reference measure" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="22" Height="23"/>
             </Grid>
