@@ -109,8 +109,8 @@ namespace Misp.Kernel.Service
                 string namewithNoext = Path.GetFileNameWithoutExtension(name);
                 string copy = path + namewithNoext + "-copy" + ext;
                 if (!Directory.Exists(path)) return false;
-                path += namewithNoext; // name;
-                if (!File.Exists(path)) return false;
+                path += name;
+                //if (!File.Exists(path)) return false;
                 File.Copy(path, copy);
                 byte[] dataToSend = File.ReadAllBytes(copy);
                 File.Delete(copy);
