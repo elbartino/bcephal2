@@ -487,7 +487,7 @@ namespace Misp.Sourcing.Table
             String oldFilePath = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
             if (String.IsNullOrEmpty(page.EditedObject.excelFileName)) page.EditedObject.excelFileName = page.EditedObject.name + EdrawOffice.EXCEL_EXT;
             String tempFolder = GetInputTableService().FileService.GetFileDirs().TempTableFolder;
-            String pathexcel = tempFolder + excelfileName;
+            String pathexcel = tempFolder + page.EditedObject.name + EdrawOffice.EXCEL_EXT; //excelfileName;
 
             if (currentPage.getInputTableForm().SpreadSheet.SaveAs(pathexcel, true) != OperationState.CONTINUE)
             {

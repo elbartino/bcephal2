@@ -153,8 +153,11 @@ namespace Misp.Sourcing.GridViews
 
         public void displayPage(GrillePage page)
         {
-            this.gridBrowser.displayPage(page);
-            this.toolBar.displayPage(page);
+            if (page != null)
+            {
+                this.gridBrowser.displayPage(page);
+                this.toolBar.displayPage(page);
+            }
         }
 
         /// <summary>

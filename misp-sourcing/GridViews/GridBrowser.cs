@@ -298,7 +298,7 @@ namespace Misp.Sourcing.GridViews
                 
         public void displayPage(GrillePage page)
         {
-            displayRows(page.rows);
+            if(page !=null) displayRows(page.rows);
         }
 
        
