@@ -88,13 +88,13 @@ namespace Misp.Sourcing.Table
         public List<System.Windows.UIElement> getEditableControls()
         {
             List<UIElement> controls = new List<UIElement>(0);
-            controls.Add(this.nameTextBox);
-            controls.Add(this.activeCheckBox);
-            controls.Add(this.templateCheckBox);
-            controls.Add(this.visibleInShortcutCheckBox);
-            controls.Add(this.groupField);
-            controls.Add(this.filterScopePanel);
-            controls.Add(this.periodPanel);
+            //controls.Add(this.nameTextBox);
+           // controls.Add(this.activeCheckBox);
+            //controls.Add(this.templateCheckBox);
+            //controls.Add(this.visibleInShortcutCheckBox);
+            //controls.Add(this.groupField);
+            //controls.Add(this.filterScopePanel);
+            //controls.Add(this.periodPanel);
             return controls;
         }
 
