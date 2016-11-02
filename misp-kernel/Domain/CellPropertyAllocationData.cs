@@ -17,6 +17,7 @@ namespace Misp.Kernel.Domain
         /// </summary>
         public CellPropertyAllocationData() {
             type = AllocationType.NoAllocation.ToString();
+            active = true;
         }
 
         public string type { get; set; }
