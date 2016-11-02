@@ -107,7 +107,6 @@ namespace Misp.Sourcing.AllocationViews
         public List<System.Windows.UIElement> getEditableControls()
         {
             List<UIElement> controls = new List<UIElement>(0);
-            //controls.Add(this.ForAllocationCheckBox);
             controls.AddRange(this.AllocationPanel.getEditableControls());
             controls.AddRange(this.AllocationForm.getEditableControls());
             return controls;

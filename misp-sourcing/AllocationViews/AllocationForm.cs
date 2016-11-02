@@ -11,12 +11,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Misp.Sourcing.AllocationViews
 {
     public class AllocationForm : ScrollViewer
     {
+
+        #region Properties
+
         public AllocationDiagram AllocationDiagramView { get; set; }
         public AllocationBoxDialog AllocationBoxDialog { get; set; }
         public DesignerItem EditedDesignerItem { get; set; }
@@ -27,7 +31,10 @@ namespace Misp.Sourcing.AllocationViews
         public ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
         public Kernel.Ui.Base.ChangeEventHandler Change;
 
-          #region Constructor
+        #endregion
+
+
+        #region Constructor
 
         public AllocationForm()
         {
@@ -44,74 +51,22 @@ namespace Misp.Sourcing.AllocationViews
 
         #endregion
 
+
+        #region Handlers
+
         /// <summary>
         /// Initialisation des handlers
         /// </summary>
         protected void InitializeHandlers()
         {
+            AllocationDiagramView.designerCanvas.Editing += OnEditingItem;
             AllocationDiagramView.designerCanvas.SelectionService.SelectionChanged += onSelectBlok;
             AllocationDiagramView.designerCanvas.SelectionService.Clear += onClearSelection;
-
             AllocationDiagramView.designerCanvas.AddBlock += onAddBlock;
             AllocationDiagramView.designerCanvas.DeleteBlock += onDeleteBlock;
-            AllocationDiagramView.designerCanvas.ModifyBlock += onModifyBlock;
-            AllocationDiagramView.designerCanvas.AddLink += onAddLink;
-            AllocationDiagramView.designerCanvas.Editing += OnEditAllocationBloc;
+            AllocationDiagramView.designerCanvas.ModifyBlock += onModifyBlock;          
         }
-
-        public void displayObject()
-        {
-            if (this.EditedObject == null) this.EditedObject = getNewObject();
-            if (!string.IsNullOrEmpty(this.EditedObject.diagramXml)) this.AllocationDiagramView.designerCanvas.Display(this.EditedObject.diagramXml);
-            else this.AllocationDiagramView.designerCanvas.Children.Clear();
-            foreach (TransformationTreeItem item in this.EditedObject.itemListChangeHandler.Items)
-            {
-                refreshItem(item);
-            }
-        }
-
-        public void fillObject()
-        {
-            if (this.EditedObject == null) this.EditedObject = getNewObject();
-            this.EditedObject.itemListChangeHandler.newItems.Clear();
-            this.EditedObject.itemListChangeHandler.AddNew(this.EditedObject.itemListChangeHandler.updatedItems);
-            this.EditedObject.diagramXml = this.AllocationDiagramView.designerCanvas.AsString();
-        }
-
-        public TransformationTree getNewObject() { return new TransformationTree(); }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="item"></param>
-        public void refreshItem(TransformationTreeItem item)
-        {
-            item.tree = this.EditedObject;
-            //item.RefreshAttributeEntity();
-            this.AllocationDiagramView.designerCanvas.RefreshEntity(item);
-            foreach (TransformationTreeItem child in item.childrenListChangeHandler.Items)
-            {
-                child.parent = item;
-                refreshItem(child);
-            }
-        }
-
-        /// <summary>
-        /// Cette methode est appelée lorsau'on a ajouté un lien entre deaux blocks
-        /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="child"></param>
-        protected void onAddLink(DesignerItem parent, DesignerItem child)
-        {
-            if (parent.Tag == null || child.Tag == null) return;
-            TransformationTreeItem parentTag = (TransformationTreeItem)parent.Tag;
-            TransformationTreeItem childTag = (TransformationTreeItem)child.Tag;
-            this.EditedObject.ForgetItem(childTag);
-            parentTag.AddChild(childTag);
-            this.IsModify = true;
-        }
-
+                
         protected void OnEditingItem(DesignerItem item)
         {
             if (item.Tag != null && item.Tag is TransformationTreeItem)
@@ -120,7 +75,7 @@ namespace Misp.Sourcing.AllocationViews
                 Edit((TransformationTreeItem)item.Tag);
             }
         }
-
+        
         /// <summary>
         /// Cette méthode est exécuté lorqu'un objet ou une Vc est sélectionné dans le diagram.
         /// </summary>
@@ -135,41 +90,6 @@ namespace Misp.Sourcing.AllocationViews
                 {
                     //DisplayEntity((Kernel.Domain.Entity)tag);
                 }
-            }
-        }
-
-
-        protected void OnEditAllocationBloc(DesignerItem item)
-        {
-            if (item.Tag != null)
-            {
-                System.Web.Script.Serialization.JavaScriptSerializer Serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                Serializer.MaxJsonLength = 99999999;
-
-                if (!(item.Tag is TransformationTreeItem))
-                {
-                    string itemToSerialize = item.Tag.ToString().Replace("\\", "");
-                    try
-                    {
-                        item.Tag = Serializer.Deserialize<TransformationTreeItem>(itemToSerialize);
-                    }
-                    catch (Exception ex)
-                    {
-                        item.Tag = Serializer.Deserialize<TransformationTreeItem>((string)item.Tag);
-                    }
-                }
-
-                TransformationTreeItem treeItem = (TransformationTreeItem)item.Tag;
-                if (this.IsModify)
-                {
-                    //Save(page);
-                    DesignerItem block = this.AllocationDiagramView.designerCanvas.GetBlockByName(treeItem.name);
-                    if (block == null) return;
-                    item = block;
-                    treeItem =  item.Tag is string ? Serializer.Deserialize<TransformationTreeItem>(item.Tag.ToString()) : (TransformationTreeItem)item.Tag;
-                }
-                this.EditedDesignerItem = item;
-                this.Edit(treeItem);
             }
         }
 
@@ -192,16 +112,16 @@ namespace Misp.Sourcing.AllocationViews
             if (this.EditedObject != null && sender.Tag != null)
             {
                 JavaScriptSerializer serial = new JavaScriptSerializer();
-
+ 
                 TransformationTreeItem transformationTreeItem = null;
                 if (sender.Tag is TransformationTreeItem) transformationTreeItem = (TransformationTreeItem)sender.Tag;
                 else if (sender.Tag is string) transformationTreeItem = serial.Deserialize<TransformationTreeItem>((string)sender.Tag);
                 else return;
 
-                this.EditedObject.AddItem(transformationTreeItem);
+                this.EditedObject.itemListChangeHandler.AddNew(transformationTreeItem);                
                 this.IsModify = true;
-                if (ChangeEventHandler != null) ChangeEventHandler.change();
                 if (Change != null) Change();
+                if (ChangeEventHandler != null) ChangeEventHandler.change();
             }
         }
 
@@ -214,21 +134,20 @@ namespace Misp.Sourcing.AllocationViews
         {
             if (this.EditedObject != null && sender.Tag != null)
             {
-                //JavaScriptSerializer serial = new JavaScriptSerializer();
-
-                //TransformationTreeItem transformationTreeItem = null;
-                //if (sender.Tag is TransformationTreeItem) transformationTreeItem = (TransformationTreeItem)sender.Tag;
-                //else if (sender.Tag is string) transformationTreeItem = serial.Deserialize<TransformationTreeItem>((string)sender.Tag);
-                //else return;
-                //if (transformationTreeItem.parent != null)
-                //{
-                //    transformationTreeItem.parent.RemoveChild(transformationTreeItem);
-                //}
-                //else this.EditedObject.ForgetItem(transformationTreeItem);
-                this.IsModify = true;
-                if (ChangeEventHandler != null) ChangeEventHandler.change();
-                if (Change != null) Change();
+                TransformationTreeItem entity = (TransformationTreeItem)sender.Tag;
+                foreach(TransformationTreeItem item in this.EditedObject.itemListChangeHandler.Items){
+                    if (item.name.Equals(entity.name))
+                    {
+                        this.EditedObject.itemListChangeHandler.newItems.Remove(item);
+                        this.EditedObject.itemListChangeHandler.deletedItems.Remove(item);
+                        this.EditedObject.itemListChangeHandler.updatedItems.Remove(item);
+                        this.EditedObject.itemListChangeHandler.Items.Remove(item);
+                        break;
+                    }
+                }
             }
+            this.IsModify = true;
+            if (Change != null) Change();
         }
 
         /// <summary>
@@ -241,69 +160,40 @@ namespace Misp.Sourcing.AllocationViews
             if (this.EditedObject != null && sender.Tag != null)
             {
                 TransformationTreeItem entity = (TransformationTreeItem)sender.Tag;
-                if (entity.parent != null) entity.parent.UpdateChild(entity);
-                else this.EditedObject.UpdateItem(entity);
+                //this.EditedObject.UpdateItem(entity);
                 this.IsModify = true;
                 if (Change != null) Change();
             }
         }
 
-        BusyAction action;
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void Edit(TransformationTreeItem item)
-        {
-            if (item == null) return;
-            if (item.IsLoop)
-            {
-                if (this.AllocationBoxDialog == null)
-                {
-                    this.AllocationBoxDialog = new AllocationBoxDialog();
-                    this.AllocationBoxDialog.TransformationTreeService = this.TransformationTreeService;
-                    this.AllocationBoxDialog.initializeSideBar();
-                    this.AllocationBoxDialog.SaveButton.Click += OnAllocationBoxDialogSave;
-                    this.AllocationBoxDialog.CancelButton.Click += OnAllocationBoxDialogCancel;
-                    this.AllocationBoxDialog.Closing += OnAllocationBoxDialogClosing;
-                    this.AllocationBoxDialog.Owner = ApplicationManager.Instance.MainWindow;
-                }
 
-                this.AllocationBoxDialog.Loop = item;
-                this.AllocationBoxDialog.DisplayItem();
-                if (!this.AllocationBoxDialog.IsVisible) this.AllocationBoxDialog.ShowDialog();
-            }
-        }
-
-        private void OnAllocationBoxDialogClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void OnLoopDialogCancel(object sender, RoutedEventArgs e)
         {
             this.AllocationBoxDialog.Hide();
+            this.EditedDesignerItem = null;
+        }
+
+        private void OnLoopDialogClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
             e.Cancel = true;
-        }
-
-        private void OnAllocationBoxDialogCancel(object sender, System.Windows.RoutedEventArgs e)
-        {
             this.AllocationBoxDialog.Hide();
+            this.EditedDesignerItem = null;
         }
 
-        private void OnAllocationBoxDialogSave(object sender, System.Windows.RoutedEventArgs e)
+        private void OnLoopDialogSave(object sender, RoutedEventArgs e)
         {
             if (!ValidateEdition(this.EditedDesignerItem, this.AllocationBoxDialog.NameTextBox.Text.Trim())) return;
             this.AllocationBoxDialog.FillItem();
-            this.AllocationBoxDialog.SaveButton.IsEnabled = false;
-
-            if (this.AllocationBoxDialog.Loop.parent != null) this.AllocationBoxDialog.Loop.parent.UpdateChild(this.AllocationBoxDialog.Loop);
-            else this.EditedObject.UpdateItem(this.AllocationBoxDialog.Loop);
             if (this.EditedDesignerItem != null)
             {
-                //refreshItem(this.AllocationBoxDialog.Loop);
                 this.EditedDesignerItem.Renderer.Text = this.AllocationBoxDialog.Loop.name;
+                this.EditedDesignerItem.Tag = this.AllocationBoxDialog.ValueField.Line;
             }
-            this.AllocationDiagramView.designerCanvas.OnChange();
-            if (Change != null) Change();            
+            this.AllocationBoxDialog.SaveButton.IsEnabled = false;
+            this.AllocationBoxDialog.ValueField.ValueListChangeHandler = new PersistentListChangeHandler<TransformationTreeLoopValue>();
+            if (Change != null) Change();
         }
+
 
         protected bool ValidateEdition(DiagramDesigner.DesignerItem item, string name)
         {
@@ -316,27 +206,124 @@ namespace Misp.Sourcing.AllocationViews
             {
                 DiagramDesigner.DesignerItem block = this.AllocationDiagramView.designerCanvas.GetBlockByName(name);
                 TransformationTreeItem entity = (TransformationTreeItem)item.Tag;
+                
                 if (block != null && !block.Equals(item))
                 {
-                    Kernel.Util.MessageDisplayer.DisplayError("Duplicate name", "There is another block named: " + name + ".");
-                    return false;
+                    TransformationTreeItem tag = (TransformationTreeItem)block.Tag;
+                    if (tag != null && !tag.name.Equals(entity.name))
+                    {
+                        Kernel.Util.MessageDisplayer.DisplayError("Duplicate name", "There is another block named: " + name + ".");
+                        return false;
+                    }
                 }
             }
             return true;
         }
 
-        public List<System.Windows.UIElement> getEditableControls()
+        #endregion
+
+        
+        #region Operations
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void Edit(TransformationTreeItem item)
         {
-            List<System.Windows.UIElement> controls = new List<System.Windows.UIElement>(0);
-            controls.Add(AllocationDiagramView.designerCanvas);            
-            return controls;
+            if (item == null) return;
+            item = item.oid != null ? this.TransformationTreeService.getItemByOid(item.oid) : item ;
+            if (this.AllocationBoxDialog == null)
+            {
+                this.AllocationBoxDialog = new AllocationBoxDialog();
+                this.AllocationBoxDialog.TransformationTreeService = this.TransformationTreeService;
+                this.AllocationBoxDialog.initializeSideBar();
+                this.AllocationBoxDialog.SaveButton.Click += OnLoopDialogSave;
+                this.AllocationBoxDialog.CancelButton.Click += OnLoopDialogCancel;
+                this.AllocationBoxDialog.Closing += OnLoopDialogClosing;
+                this.AllocationBoxDialog.Owner = ApplicationManager.Instance.MainWindow;
+            }
+                
+            this.AllocationBoxDialog.Loop = item;
+            this.AllocationBoxDialog.DisplayItem();
+            if (!this.AllocationBoxDialog.IsVisible) this.AllocationBoxDialog.ShowDialog();
+        }
+
+               
+        public void RedisplayItem(TransformationTreeItem item)
+        {
+            if (item == null) return;
+            if (this.AllocationBoxDialog == null)
+            {
+                Edit(item);
+                return;
+            }
+            this.AllocationBoxDialog.Loop = item;
+            this.AllocationBoxDialog.SaveButton.IsEnabled = false;
+            if (!this.AllocationBoxDialog.IsVisible) this.AllocationBoxDialog.ShowDialog();
         }
 
 
         public void Dispose()
         {
             if (this.AllocationBoxDialog != null) this.AllocationBoxDialog.Dispose();
-            this.AllocationBoxDialog = null;            
+            this.AllocationBoxDialog = null;
+        }
+
+        public void SetValue(object value)
+        {
+            if (this.AllocationBoxDialog != null)
+            {
+                this.AllocationBoxDialog.SetValue(value);
+                return;
+            }
+        }
+
+        public TransformationTree getNewObject() { return new TransformationTree(); }
+
+        public bool validateEdition() { return true; }
+
+        public void fillObject()
+        {
+            if (this.EditedObject == null) this.EditedObject = getNewObject();
+            this.EditedObject.diagramXml = this.AllocationDiagramView.designerCanvas.AsString();
+        }
+
+        public void displayObject()
+        {            
+            if (this.EditedObject == null)
+            {
+                //this.AllocationDiagramView.designerCanvas.clDisplay("");
+                return;
+            }
+            if (!string.IsNullOrEmpty(this.EditedObject.diagramXml)) this.AllocationDiagramView.designerCanvas.Display(this.EditedObject.diagramXml);
+            foreach (TransformationTreeItem item in this.EditedObject.itemListChangeHandler.Items)
+            {
+                refreshItem(item);
+            }            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        public void refreshItem(TransformationTreeItem item)
+        {
+            item.tree = this.EditedObject;
+            this.AllocationDiagramView.designerCanvas.RefreshEntity(item);
+            foreach (TransformationTreeItem child in item.childrenListChangeHandler.Items)
+            {
+                child.parent = item;
+                refreshItem(child);
+            }
+        }
+
+        public List<UIElement> getEditableControls()
+        {
+            List<UIElement> controls = new List<UIElement>(0);
+            controls.Add(AllocationDiagramView.designerCanvas);
+            return controls;
         }
 
         public void SetChangeEventHandler(ChangeEventHandlerBuilder ChangeEventHandler)
@@ -344,5 +331,8 @@ namespace Misp.Sourcing.AllocationViews
             this.ChangeEventHandler = ChangeEventHandler;
         }
 
+        #endregion
+
     }
+
 }
