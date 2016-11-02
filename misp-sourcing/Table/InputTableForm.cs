@@ -324,10 +324,10 @@ namespace Misp.Sourcing.Table
         /// </summary>
         public void displayObject()
         {
-            this.TableCellParameterPanel.allocationPanel.FillAllocationData();
-            bool isNoAllocation = !isReport() && this.TableCellParameterPanel.allocationPanel.AllocationData.type ==
-                CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
-            this.TablePropertiesPanel.displayTable(this.EditedObject,isNoAllocation);
+            //this.TableCellParameterPanel.allocationPanel.FillAllocationData();
+            //bool isNoAllocation = !isReport() && this.TableCellParameterPanel.allocationPanel.AllocationData.type ==
+            //    CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
+            //this.TablePropertiesPanel.displayTable(this.EditedObject,isNoAllocation);
             this.CellPropertyGrid.ItemsSource = this.EditedObject.cellPropertyListChangeHandler.Items;
         }
 

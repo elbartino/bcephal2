@@ -242,12 +242,12 @@ namespace Misp.Sourcing.Table
                 GetInputTableService().parametrizeTable(parameter);
             }
             bool isNoAllocation = false;
-            if (!isReport())
-            {
-                ((InputTableEditorItem)page).getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
-                CellPropertyAllocationData data = ((InputTableEditorItem)page).getInputTableForm().TableCellParameterPanel.allocationPanel.AllocationData;
-                isNoAllocation = data.type == CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
-            }
+            //if (!isReport())
+            //{
+            //    ((InputTableEditorItem)page).getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
+            //    CellPropertyAllocationData data = ((InputTableEditorItem)page).getInputTableForm().TableCellParameterPanel.allocationPanel.AllocationData;
+            //    isNoAllocation = data.type == CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
+            //}
             ((InputTableEditorItem)page).getInputTableForm().TablePropertiesPanel.displayTable(table, isNoAllocation);
             setActivationTableAction(table);
             setIsTemplateTableAction(table);
@@ -1039,8 +1039,9 @@ namespace Misp.Sourcing.Table
             editorPage.getInputTableForm().TableCellParameterPanel.filterScopePanel.ItemChanged += OnCellScopeChange;
             editorPage.getInputTableForm().TableCellParameterPanel.filterScopePanel.ItemDeleted += OnCellScopeDelete;
             //editorPage.getInputTableForm().TableCellParameterPanel.allocationPanel.Change += OnAllocationDataChange;
-            editorPage.getInputTableForm().TableCellParameterPanel.ForAllocationChange += OnForallocationChange;
+            //editorPage.getInputTableForm().TableCellParameterPanel.ForAllocationChange += OnForallocationChange;
             editorPage.getInputTableForm().TableCellParameterPanel.ResetButton.Click += OnResetCells;
+            editorPage.getInputTableForm().AllocationPropertiesPanel.ForAllocationChange += OnForallocationChange;
             editorPage.getInputTableForm().AllocationPropertiesPanel.ResetButton.Click += OnResetCells;
             editorPage.getInputTableForm().TableCellParameterPanel.CellMeasurePanel.ValidateFormula += OnValidateMeasureFormula;
             editorPage.getInputTableForm().AllocationPropertiesPanel.Change += OnAllocationDataChange;
@@ -1340,12 +1341,12 @@ namespace Misp.Sourcing.Table
                 if (table.filter != null) table.filter = table.correctFilter();
             }
             bool isNoAllocation = false;
-            if (!isReport())
-            {
-                page.getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
-                CellPropertyAllocationData data = page.getInputTableForm().TableCellParameterPanel.allocationPanel.AllocationData;
-                isNoAllocation = data.type == CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
-            }
+            //if (!isReport())
+            //{
+            //    page.getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
+            //    CellPropertyAllocationData data = page.getInputTableForm().TableCellParameterPanel.allocationPanel.AllocationData;
+            //    isNoAllocation = data.type == CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
+            //}
             page.getInputTableForm().TablePropertiesPanel.displayTable(table,isNoAllocation);
             page.EditedObject = table;
             page.EditedObject.isModified = true;
@@ -1591,7 +1592,7 @@ namespace Misp.Sourcing.Table
             page.groupProperty.cellProperty.row = row;
             page.groupProperty.cellProperty.name = activeCell.Name;
             page.groupProperty.isReset = true;
-            page.getInputTableForm().TableCellParameterPanel.Display(page.groupProperty.cellProperty);
+            page.getInputTableForm().AllocationPropertiesPanel.Display(page.groupProperty.cellProperty);
             OnChange();
         }
 
@@ -1607,7 +1608,7 @@ namespace Misp.Sourcing.Table
             Kernel.Ui.Office.Range range = page.getInputTableForm().SpreadSheet.GetSelectedRange();
             if (range == null) return;
             string sheetName = range.Sheet.Name;
-            bool? forAllocation = page.getInputTableForm().TableCellParameterPanel.ForAllocationCheckBox.IsChecked;
+            bool? forAllocation = page.getInputTableForm().AllocationPropertiesPanel.ForAllocationCheckBox.IsChecked;
             Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreadSheet.getActiveCell();
             int row = activeCell.Row;
             int col = activeCell.Column;
@@ -1840,11 +1841,11 @@ namespace Misp.Sourcing.Table
             if (isReport()) cellProperty.cellAllocationData = null;
             else
             {
-                if (cellProperty.cellAllocationData == null)
-                {
-                    page.getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
-                    cellProperty.cellAllocationData = page.getInputTableForm().TableCellParameterPanel.allocationPanel.AllocationData;
-                }
+                //if (cellProperty.cellAllocationData == null)
+                //{
+                //    page.getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
+                //    cellProperty.cellAllocationData = page.getInputTableForm().TableCellParameterPanel.allocationPanel.AllocationData;
+                //}
             }
              
             if (page.groupProperty == null)

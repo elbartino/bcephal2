@@ -39,8 +39,8 @@ namespace Misp.Sourcing.Table
 
         private void IntializeHandlers()
         {
-            this.ForAllocationCheckBox.Checked += OnForAllocationChange;
-            this.ForAllocationCheckBox.Unchecked += OnForAllocationChange;
+            //this.ForAllocationCheckBox.Checked += OnForAllocationChange;
+            //this.ForAllocationCheckBox.Unchecked += OnForAllocationChange;
         }
                 
         public TableCellMappingPanel TableCellMappingPanel { get; private set; }
@@ -67,7 +67,7 @@ namespace Misp.Sourcing.Table
             this.CellProperty = cellProperty;
 
             this.CellTextBox.Text = cellProperty != null ? cellProperty.name : "";
-            this.ForAllocationCheckBox.IsChecked = cellProperty != null ? cellProperty.IsForAllocation : false;
+          //  this.ForAllocationCheckBox.IsChecked = cellProperty != null ? cellProperty.IsForAllocation : false;
             this.CellMeasurePanel.Display(cellProperty != null ? cellProperty.cellMeasure : null);
 
             if (reportPeriodPanel != null) this.reportPeriodPanel.DisplayPeriod(cellProperty != null ? cellProperty.period : null);
@@ -89,8 +89,8 @@ namespace Misp.Sourcing.Table
 
         public void CustomizeForReport()
         {
-            ForAllocationCheckBox.Content = "For run";
-            AllocationGroupBox.Visibility = System.Windows.Visibility.Collapsed;
+            //ForAllocationCheckBox.Content = "For run";
+            //AllocationGroupBox.Visibility = System.Windows.Visibility.Collapsed;
             if (reportPeriodPanel == null) reportPeriodPanel = new RPeriodPanel();
             periodGroupBox.Content = reportPeriodPanel;
         }
