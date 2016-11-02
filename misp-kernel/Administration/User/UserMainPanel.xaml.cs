@@ -147,6 +147,36 @@ namespace Misp.Kernel.Administration.User
                     focusSetted = true;
                 }
             }
+            else 
+            {
+                if (userService != null && userService.getByName(nameTextBox.Text) != null)
+                {
+                    errors += line + "Duplicate name.";
+                    line = "\n";
+                }
+            }
+
+           
+
+            if (String.IsNullOrWhiteSpace(loginTextBox.Text))
+            {
+                errors += line + "Login can't be empty.";
+                line = "\n";
+                if (!focusSetted)
+                {
+                    loginTextBox.Focus();
+                    loginTextBox.SelectAll();
+                    focusSetted = true;
+                }
+            }
+            else
+            {
+                if (userService != null && userService.getUserByLogin(loginTextBox.Text) != null)
+                {
+                    errors += line + "Duplicate login.";
+                    line = "\n";
+                }
+            }
 
             if (String.IsNullOrWhiteSpace(emailTextBox.Text))
             {
@@ -165,20 +195,8 @@ namespace Misp.Kernel.Administration.User
                 line = "\n";
                 if (!focusSetted)
                 {
-                   emailTextBox.Focus();
-                   emailTextBox.SelectAll();
-                   focusSetted = true;
-                }
-            }
-
-            if (String.IsNullOrWhiteSpace(loginTextBox.Text))
-            {
-                errors += line + "Login can't be empty.";
-                line = "\n";
-                if (!focusSetted)
-                {
-                    loginTextBox.Focus();
-                    loginTextBox.SelectAll();
+                    emailTextBox.Focus();
+                    emailTextBox.SelectAll();
                     focusSetted = true;
                 }
             }

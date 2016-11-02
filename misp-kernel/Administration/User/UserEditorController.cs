@@ -414,7 +414,7 @@ namespace Misp.Kernel.Administration.User
         /// <param name="args"></param>
         protected void onNameTextLostFocus(object sender, RoutedEventArgs args)
         {
-            ValidateEditedNewName();
+           // ValidateEditedNewName();
         }
 
         /// <summary>
@@ -457,7 +457,7 @@ namespace Misp.Kernel.Administration.User
         /// <param name="args"></param>
         protected void onLoginTextLostFocus(object sender, RoutedEventArgs args)
         {
-            ValidateEditedLoginName();
+            //ValidateEditedLoginName();
         }
 
         /// <summary>
@@ -468,19 +468,19 @@ namespace Misp.Kernel.Administration.User
         /// <param name="args"></param>
         protected void onLoginTextChange(object sender, KeyEventArgs args)
         {
-            UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
-            if (args.Key == Key.Escape)
-            {
-                page.getUserForm().userMainPanel.loginTextBox.Text = "";
-            }
-            else if (args.Key == Key.Tab)
-            {
-                page.getUserForm().userMainPanel.loginTextBox.Text = page.getUserForm().userMainPanel.loginTextBox.Text.ToString().Trim();
-            }
-            else if (args.Key == Key.Enter)
-            {
-                ValidateEditedNewName();
-            }
+            //UserEditorItem page = (UserEditorItem)getUserEditor().getActivePage();
+            //if (args.Key == Key.Escape)
+            //{
+            //    page.getUserForm().userMainPanel.loginTextBox.Text = "";
+            //}
+            //else if (args.Key == Key.Tab)
+            //{
+            //    page.getUserForm().userMainPanel.loginTextBox.Text = page.getUserForm().userMainPanel.loginTextBox.Text.ToString().Trim();
+            //}
+            //else if (args.Key == Key.Enter)
+            //{
+            //    ValidateEditedNewName();
+            //}
         }
 
         /// <summary>
@@ -563,8 +563,8 @@ namespace Misp.Kernel.Administration.User
                 {
                     DisplayError("Duplicate Name", "There is another user named: " + newName);
                     page.getUserForm().userMainPanel.nameTextBox.Text = page.Title;
-                    page.getUserForm().userMainPanel.nameTextBox.SelectAll();
-                    page.getUserForm().userMainPanel.nameTextBox.Focus();
+                 //   page.getUserForm().userMainPanel.nameTextBox.SelectAll();
+                 //   page.getUserForm().userMainPanel.nameTextBox.Focus();
                     return OperationState.STOP;
                 }
             }
