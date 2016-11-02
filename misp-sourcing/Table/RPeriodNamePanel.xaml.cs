@@ -97,7 +97,7 @@ namespace Misp.Sourcing.Table
             this.ItemPanel2.Label.Visibility = System.Windows.Visibility.Hidden;
 
             this.ItemPanel1.SignComboBox.ItemsSource = new String[] { 
-                DateOperator.EQUALS.sign, DateOperator.AFTER.sign, DateOperator.AFTER_OR_EQUALS.sign};
+                DateOperator.EQUALS.sign, DateOperator.AFTER.sign, DateOperator.AFTER_OR_EQUALS.sign,DateOperator.BEFORE.sign, DateOperator.BEFORE_OR_EQUALS.sign};
             this.ItemPanel1.SignComboBox.SelectedItem = DateOperator.AFTER_OR_EQUALS.sign;
 
             this.ItemPanel2.SignComboBox.ItemsSource = new String[] { DateOperator.BEFORE.sign, DateOperator.BEFORE_OR_EQUALS.sign};
@@ -185,7 +185,7 @@ namespace Misp.Sourcing.Table
         private void OnSign1Changed(object sender, SelectionChangedEventArgs e)
         {
             String sign = this.ItemPanel1.SignComboBox.SelectedItem.ToString();
-            if (sign != null && DateOperator.EQUALS.sign.Equals(sign))
+            if (sign != null && (DateOperator.EQUALS.sign.Equals(sign) || DateOperator.BEFORE.sign.Equals(sign) || DateOperator.BEFORE_OR_EQUALS.sign.Equals(sign)))
             {
                 this.ItemPanel2.Visibility = System.Windows.Visibility.Collapsed;
                 this.ItemPanel1.Button.Visibility = System.Windows.Visibility.Visible;

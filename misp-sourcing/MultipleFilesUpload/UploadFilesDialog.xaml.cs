@@ -299,7 +299,10 @@ namespace Misp.Sourcing.MultipleFilesUpload
                     ProgressBar2.Value = info.currentStepInfo.stepRuned;
                     ProgressBarTextBlock2.Text = "" + rate + " %" + "( " + info.currentStepInfo.stepRuned + " / " + info.currentStepInfo.stepCount + ")";
                     if (!System.IO.File.Exists(info.currentStepInfo.item))
-                        StatusBarLabel2.Content = info.currentStepInfo.item;
+                    {
+                        StatusBarLabel2.Content = info.currentStepInfo.item;                       
+                    }
+                    InputTableService.FileService.FileTransferService.downloadTable(System.IO.Path.GetFileName(info.item)); 
                 }
                 if (rate == 100 && !this.CloseButton.IsVisible)
                 {
