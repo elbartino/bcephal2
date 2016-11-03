@@ -230,6 +230,12 @@ namespace Misp.Sourcing.MultipleFilesUpload
             foreach (Object item in this.Step1.ExcelFilesGrid.SelectedItems)
             {
                 string name = ((FileInfo)item).FullName;
+                if (ApplicationManager.Instance.ApplcationConfiguration.IsMultiuser())
+                {
+                    string path = System.IO.Path.GetDirectoryName(name) + System.IO.Path.DirectorySeparatorChar;
+                    name = System.IO.Path.GetFileName(name);
+                    this.InputTableService.FileService.FileTransferService.MultipleUploadTable(name, path);                    
+                }
                 selectedFiles.Add(name);
             }
           
@@ -301,16 +307,13 @@ namespace Misp.Sourcing.MultipleFilesUpload
                     if (!System.IO.File.Exists(info.currentStepInfo.item))
                     {
                         StatusBarLabel2.Content = info.currentStepInfo.item;                       
-                    }
-                    InputTableService.FileService.FileTransferService.downloadTable(System.IO.Path.GetFileName(info.item)); 
+                    } 
                 }
                 if (rate == 100 && !this.CloseButton.IsVisible)
                 {
                     ProgressBarTextBlock2.Text = "Table created";
                 }
-                if(info.currentStepInfo.stepCount <= 75) this.Step4.UpdateGrid(info);
-              
-                
+                if(info.currentStepInfo.stepCount <= 75) this.Step4.UpdateGrid(info);        
             }
                 
         }    
@@ -339,6 +342,11 @@ namespace Misp.Sourcing.MultipleFilesUpload
             {
                 Object item = this.Step4.Grid.SelectedItems[count - 1];
                 if (((SaveInfo)item).errorMessage == null) ids.Add(((SaveInfo)item).oid);
+                else 
+                {
+                    MessageDisplayer.DisplayInfo("Multiple Upload", "Unable to open the table");
+                    return;
+                }
                 HistoryHandler.Instance.openPage(NavigationToken.GetModifyViewToken(Misp.Sourcing.Base.SourcingFunctionalitiesCode.INPUT_TABLE_EDIT, ids));
                 Close();
             }
