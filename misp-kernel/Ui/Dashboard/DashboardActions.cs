@@ -92,9 +92,10 @@ namespace Misp.Kernel.Ui.Dashboard
             Delete(ResourcePath.INPUT_TABLE_RESOURCE_PATH, oids, block);
         }
 
-        public event RunInfoEventHandler RunTablesHandler;  
-        public void RunTables(List<int> oids)
+        public event RunInfoEventHandler RunTablesHandler;
+        public void RunTables(List<int> oids, DashboardBlock blockToUpdate)
         {
+            this.BlockToUpdate = blockToUpdate;
             TableActionData data = new TableActionData(oids);
             Mask(true, "Tables loading...");
             RunTablesHandler += updateRunTablesProgress;
@@ -177,6 +178,7 @@ namespace Misp.Kernel.Ui.Dashboard
                 //ApplicationManager.Instance.AllocationCount = this.Service.FileService.GetAllocationCount();
                 RunTablesHandler -= updateRunTablesProgress;
                 Kernel.Util.MessageDisplayer.DisplayInfo("Load Tables", "Load Tables ended!");
+                if (this.BlockToUpdate != null) this.BlockToUpdate.RefreshData();
                 Mask(false);
                 ApplicationManager.Instance.MainWindow.treeDetails.Visibility = Visibility.Hidden;
                 ApplicationManager.Instance.MainWindow.ProgressBarTreeContent.Maximum = 0;

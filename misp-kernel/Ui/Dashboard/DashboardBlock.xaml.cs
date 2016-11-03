@@ -286,7 +286,12 @@ namespace Misp.Kernel.Ui.Dashboard
             if (string.IsNullOrWhiteSpace(this.FunctionalityCode)) return;
             List<int> oids = GetSelectedIds();
             if (oids.Count == 0) return;
-            if (isTable()) new DashboardActions().RunTables(oids);
+            if (isTable())
+            {
+                DashboardBlock gridBlock = null;
+                if (this.DashboardView.DisplayedBlocks.Contains(this.DashboardView.InputGridBlock)) gridBlock = this.DashboardView.InputGridBlock;
+                new DashboardActions().RunTables(oids, gridBlock);
+            }
             else if (isReport()) new DashboardActions().RunReports(oids);
             else if (isTransformationTree())
             {
@@ -304,16 +309,16 @@ namespace Misp.Kernel.Ui.Dashboard
                 }
                 DashboardBlock tableBlock = null;
                 if (this.DashboardView.DisplayedBlocks.Contains(this.DashboardView.TableBlock)) tableBlock = this.DashboardView.TableBlock;
-                Dictionary<int,List<int>> cTreeWithTreeOid = new DashboardActions().getTreeOid(oids);
+                Dictionary<int, List<int>> cTreeWithTreeOid = new DashboardActions().getTreeOid(oids);
                 if (cTreeWithTreeOid == null || cTreeWithTreeOid.Count == 0) return;
-                foreach (int s in cTreeWithTreeOid.Keys) 
+                foreach (int s in cTreeWithTreeOid.Keys)
                 {
                     try
                     {
                         cTreeWithTreeOid.TryGetValue(s, out oids);
                         if (oids == null || oids.Count <= 0) continue;
                     }
-                    catch (Exception ex) 
+                    catch (Exception ex)
                     {
                         continue;
                     }
