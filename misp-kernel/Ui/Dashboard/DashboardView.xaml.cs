@@ -533,6 +533,16 @@ namespace Misp.Kernel.Ui.Dashboard
             return null;
         }
 
+        public DashboardBlock getDisplayedBlock(String code)
+        {
+            if (code == null) return null;
+            foreach (DashboardBlock item in DisplayedBlocks)
+            {
+                if (item.FunctionalityCode.Equals(code)) return item;
+            }
+            return null;
+        }
+
 
     }
 }

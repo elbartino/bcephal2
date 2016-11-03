@@ -254,9 +254,8 @@ namespace Misp.Kernel.Ui.Dashboard
             if (isTable()) new DashboardActions().ClearTables(oids);
             else if (isTransformationTree())
             {
-                DashboardBlock tableBlock = null;
-                if (this.DashboardView.DisplayedBlocks.Contains(this.DashboardView.TableBlock)) tableBlock = this.DashboardView.TableBlock;
-                new DashboardActions().ClearTrees(oids, tableBlock);
+                DashboardBlock block = this.DashboardView.getDisplayedBlock(this.DashboardView.TableBlock.FunctionalityCode);
+                new DashboardActions().ClearTrees(oids, block);
             }
             else if (isCombinedTransformationTree()) new DashboardActions().ClearCombinedTrees(oids);
         }
@@ -288,17 +287,14 @@ namespace Misp.Kernel.Ui.Dashboard
             if (oids.Count == 0) return;
             if (isTable())
             {
-                DashboardBlock gridBlock = null;
-                if (this.DashboardView.DisplayedBlocks.Contains(this.DashboardView.InputGridBlock)) gridBlock = this.DashboardView.InputGridBlock;
-                new DashboardActions().RunTables(oids, gridBlock);
+                DashboardBlock block = this.DashboardView.getDisplayedBlock(this.DashboardView.InputGridBlock.FunctionalityCode);
+                new DashboardActions().RunTables(oids, block);
             }
             else if (isReport()) new DashboardActions().RunReports(oids);
             else if (isTransformationTree())
             {
-                DashboardBlock tableBlock = null;
-                if (this.DashboardView.DisplayedBlocks.Contains(this.DashboardView.TableBlock)) tableBlock = this.DashboardView.TableBlock;
-
-                new DashboardActions().RunTrees(oids, tableBlock);
+                DashboardBlock block = this.DashboardView.getDisplayedBlock(this.DashboardView.TableBlock.FunctionalityCode);
+                new DashboardActions().RunTrees(oids, block);
             }
             else if (isCombinedTransformationTree())
             {
@@ -307,8 +303,7 @@ namespace Misp.Kernel.Ui.Dashboard
                     MessageDisplayer.DisplayWarning("Combined Tranformation Tree", "You're not allowed to run more than one combined tree at time.\nSelect one combined tree.");
                     return;
                 }
-                DashboardBlock tableBlock = null;
-                if (this.DashboardView.DisplayedBlocks.Contains(this.DashboardView.TableBlock)) tableBlock = this.DashboardView.TableBlock;
+                DashboardBlock block = this.DashboardView.getDisplayedBlock(this.DashboardView.TableBlock.FunctionalityCode);                
                 Dictionary<int, List<int>> cTreeWithTreeOid = new DashboardActions().getTreeOid(oids);
                 if (cTreeWithTreeOid == null || cTreeWithTreeOid.Count == 0) return;
                 foreach (int s in cTreeWithTreeOid.Keys)
@@ -322,7 +317,7 @@ namespace Misp.Kernel.Ui.Dashboard
                     {
                         continue;
                     }
-                    new DashboardActions().RunCombinedTrees(oids, tableBlock);
+                    new DashboardActions().RunCombinedTrees(oids, block);
                 }
             }
             else if (isStructuredReport())
@@ -502,7 +497,6 @@ namespace Misp.Kernel.Ui.Dashboard
 
             return null;
         }
-
-
+        
     }
 }
