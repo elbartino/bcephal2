@@ -294,7 +294,7 @@ namespace Misp.Sourcing.AllocationViews
         {            
             if (this.EditedObject == null)
             {
-                //this.AllocationDiagramView.designerCanvas.clDisplay("");
+                this.AllocationDiagramView.designerCanvas.Children.Clear();
                 return;
             }
             if (!string.IsNullOrEmpty(this.EditedObject.diagramXml)) this.AllocationDiagramView.designerCanvas.Display(this.EditedObject.diagramXml);

@@ -2437,7 +2437,7 @@ namespace Misp.Sourcing.Table
         protected void OnSpreadSheetSelectionChanged(Kernel.Ui.Office.ExcelEventArg args)
         {
             InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
-            if (propertyBar.Pane.SelectedContent != propertyBar.ParameterLayoutAnchorable)
+            if (propertyBar.Pane.SelectedContent == propertyBar.TableLayoutAnchorable)
                 propertyBar.ParameterLayoutAnchorable.IsActive = true;
             OnDisplayActiveCellData();
         }
