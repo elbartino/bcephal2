@@ -258,7 +258,16 @@ namespace Misp.Sourcing.AllocationViews
             Loop.increase = this.IncreaseButton.IsChecked.Value;
             Loop.ranking = ranking;
             Loop.type = this.TypeTextBox.Text;
-            this.ValueField.Fill();
+            //this.ValueField.Fill();
+            foreach (TransformationTreeLoopValue loopValue in this.ValueField.ValueListChangeHandler.deletedItems)
+            {
+                this.Loop.ForgetValue(loopValue);
+                this.Loop.valueListChangeHandler.originalList.Remove(loopValue);
+            }
+            foreach (TransformationTreeLoopValue loopValue in this.ValueField.ValueListChangeHandler.newItems)
+            {
+                this.Loop.AddValue(loopValue);
+            }
         }
 
 
