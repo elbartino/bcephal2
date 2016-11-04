@@ -97,7 +97,9 @@ namespace Misp.Sourcing.AllocationViews
 
         private void OnActivateAllocationChange(object sender, RoutedEventArgs e)
         {
+            thrawChange = true;
             OnChange();
+            thrawChange = false;
         }
 
         /// <summary>
