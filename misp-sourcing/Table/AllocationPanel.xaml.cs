@@ -124,7 +124,6 @@ namespace Misp.Sourcing.Table
         {
             string selectType = (string)TypeComboBox.SelectedItem;
             if (string.IsNullOrEmpty(selectType)) return;
-            this.RefMeasure = null;
             if (CellPropertyAllocationData.AllocationType.Linear.ToString() == selectType)
             {
                 MeasureRow.Height = new GridLength(0, GridUnitType.Star);
