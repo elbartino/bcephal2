@@ -107,7 +107,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public void Refresh()
         {
-            if (DisplayedBlocks == null) DisplayedBlocks = new List<DashboardBlock>(0);
+            DisplayedBlocks = new List<DashboardBlock>(0);
             if (DisplayedBlocks.Count == 0)
             {
                 Dictionary<string, object> dico = new Dictionary<string, object>(0);
