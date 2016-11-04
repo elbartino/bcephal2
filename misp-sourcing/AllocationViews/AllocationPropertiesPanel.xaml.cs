@@ -92,14 +92,13 @@ namespace Misp.Sourcing.AllocationViews
                 else if (item.ToString() == CellPropertyAllocationData.AllocationType.NoAllocation.ToString()) visible = false;
                 
                 this.AllocationForm.Visibility = visible ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+                OnChange();
             }
         }
 
         private void OnActivateAllocationChange(object sender, RoutedEventArgs e)
         {
-            thrawChange = true;
             OnChange();
-            thrawChange = false;
         }
 
         /// <summary>

@@ -116,13 +116,12 @@ namespace Misp.Sourcing.AllocationViews
                 TransformationTreeItem transformationTreeItem = null;
                 if (sender.Tag is TransformationTreeItem) transformationTreeItem = (TransformationTreeItem)sender.Tag;
                 else if (sender.Tag is string) transformationTreeItem = serial.Deserialize<TransformationTreeItem>((string)sender.Tag);
-                else return;
-
-                this.EditedObject.itemListChangeHandler.AddNew(transformationTreeItem);                
-                this.IsModify = true;
-                if (Change != null) Change();
-                if (ChangeEventHandler != null) ChangeEventHandler.change();
+                
+                this.EditedObject.itemListChangeHandler.AddNew(transformationTreeItem);  
             }
+            this.IsModify = true;
+            if (Change != null) Change();
+            if (ChangeEventHandler != null) ChangeEventHandler.change();
         }
 
         /// <summary>
@@ -160,10 +159,9 @@ namespace Misp.Sourcing.AllocationViews
             if (this.EditedObject != null && sender.Tag != null)
             {
                 TransformationTreeItem entity = (TransformationTreeItem)sender.Tag;
-                //this.EditedObject.UpdateItem(entity);
-                this.IsModify = true;
-                if (Change != null) Change();
             }
+            this.IsModify = true;
+            if (Change != null) Change();
         }
 
 
