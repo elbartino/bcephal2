@@ -34,6 +34,10 @@ namespace Misp.Kernel.Domain
 	
         public BGroup group { get; set; }
 
+        public int? tableOid { get; set; }
+
+        public int? cellOid { get; set; }
+
         public PersistentListChangeHandler<GrilleColumn> columnListChangeHandler { get; set; }
 
         [ScriptIgnore]
