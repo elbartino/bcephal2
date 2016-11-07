@@ -120,8 +120,9 @@ namespace Misp.Kernel.Ui.Dashboard
         }
 
         public event ClearInfoEventHandler ClearTablesHandler;
-        public void ClearTables(List<int> oids) 
+        public void ClearTables(List<int> oids, DashboardBlock blockToUpdate)
         {
+            this.BlockToUpdate = blockToUpdate;
             TableActionData data = new TableActionData(oids);
             Mask(true, "Clearing tables...");
             ClearTablesHandler += updateClearTablesProgress;
@@ -158,6 +159,7 @@ namespace Misp.Kernel.Ui.Dashboard
                 ClearTablesHandler -= updateClearTablesProgress;
                 //this.ApplicationManager.AllocationCount = this.Service.FileService.GetAllocationCount();
                 Kernel.Util.MessageDisplayer.DisplayInfo("Clear Tables", "Clear tables ended!");
+                if (this.BlockToUpdate != null) this.BlockToUpdate.RefreshData();
                 Mask(false);
             }
             else

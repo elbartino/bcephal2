@@ -251,7 +251,11 @@ namespace Misp.Kernel.Ui.Dashboard
             if (string.IsNullOrWhiteSpace(this.FunctionalityCode)) return;
             List<int> oids = GetSelectedIds();
             if (oids.Count == 0) return;
-            if (isTable()) new DashboardActions().ClearTables(oids);
+            if (isTable())
+            {
+                DashboardBlock block = this.DashboardView.getDisplayedBlock(this.DashboardView.InputGridBlock.FunctionalityCode);
+                new DashboardActions().ClearTables(oids, block);
+            }
             else if (isTransformationTree())
             {
                 DashboardBlock block = this.DashboardView.getDisplayedBlock(this.DashboardView.TableBlock.FunctionalityCode);
