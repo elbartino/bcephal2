@@ -36,6 +36,7 @@ namespace Misp.Sourcing.AllocationViews
         {
             InitializeComponent();
             this.AllocationForm.Visibility = System.Windows.Visibility.Collapsed;
+            this.ForAllocationCheckBox.Visibility = System.Windows.Visibility.Collapsed;
             IntializeHandlers();
         }
 
