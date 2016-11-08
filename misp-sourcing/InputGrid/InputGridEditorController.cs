@@ -878,6 +878,7 @@ namespace Misp.Sourcing.InputGrid
             InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
             if (page == null) return;
             page.SetTarget((Target)target);
+            OnChange();
           
         }
 
@@ -902,6 +903,7 @@ namespace Misp.Sourcing.InputGrid
             else if (args.Key == Key.Enter)
             {
                 ValidateEditedNewName();
+                OnChange();
             }
         }
 
@@ -913,6 +915,7 @@ namespace Misp.Sourcing.InputGrid
         protected void onNameTextLostFocus(object sender, RoutedEventArgs args)
         {
             ValidateEditedNewName();
+            
         }
 
         protected void onGroupFieldChange()
