@@ -878,6 +878,7 @@ namespace Misp.Sourcing.InputGrid
             InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
             if (page == null) return;
             page.SetTarget((Target)target);
+            OnChange();
           
         }
 
