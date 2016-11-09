@@ -203,12 +203,15 @@ namespace Misp.Planification.Tranformation
         protected void onDeleteLink(DesignerItem parent, DesignerItem child)
         {
             if (parent.Tag == null || child.Tag == null) return;
-            TransformationTreeItem parentTag = (TransformationTreeItem)parent.Tag;
+            TransformationTreeItem parentTag = parent.Tag is TransformationTreeItem ? (TransformationTreeItem)parent.Tag : null;
             TransformationTreeItem childTag = (TransformationTreeItem)child.Tag;
-            parentTag.ForgetChild(childTag);
-            childTag.parent = null;
-            this.EditedObject.AddItem(childTag);
-            this.IsModify = true;
+            if(parentTag != null)
+            { 
+                parentTag.ForgetChild(childTag);
+                childTag.parent = null;
+                this.EditedObject.AddItem(childTag);
+                this.IsModify = true;
+            }
         }
 
         private void onMoveLinkSource(DesignerItem oldParent, DesignerItem child, DesignerItem newParent)
@@ -336,7 +339,9 @@ namespace Misp.Planification.Tranformation
         public void Edit(TransformationTreeItem item)
         {
             if (item == null) return;
+            TransformationTreeItem parent = item.parent;
             item = item.oid != null ? this.TransformationTreeService.getItemByOid(item.oid) : item ;
+            item.parent = parent;
             if (item.IsLoop)
             {
                 if (this.LoopDialog == null)
