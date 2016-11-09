@@ -27,7 +27,7 @@
         <TextBox x:Name="CellTextBox" Grid.Row="0" x:FieldModifier="public" IsEnabled="False" Grid.Column="1" TextWrapping="NoWrap"/>
         <CheckBox x:Name="ForAllocationCheckBox" Grid.Row="0" x:FieldModifier="public" Content="For Allocation" Margin="5,0,0,0" Grid.Column="2" VerticalAlignment="Center"/>
         <Button x:Name="ResetButton" x:FieldModifier="public" Grid.Row="0" Grid.Column="3" Content="Reset" ToolTip="Reset selected cell(s)"  Margin="5,0,0,0"/>
-        <CheckBox Content="Active" x:Name="ActivateAllocationCheckBox"  Grid.Column="2" Grid.Row="1" Margin="5 5 5 0"/>
+        <CheckBox Content="Active" x:Name="ActivateAllocationCheckBox"  Grid.Column="2" Grid.Row="0" Margin="5 5 5 0"/>
     </Grid>
     <GroupBox x:Name="AllocationGroupBox" Header="Allocation"  Grid.Row="1">
         <src:AllocationPanel x:Name="AllocationPanel" />
