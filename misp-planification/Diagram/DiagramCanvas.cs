@@ -194,12 +194,12 @@ namespace Misp.Planification.Diagram
                 return false;
             }
 
-            if (sourceTag.parent != null && cibleTag.childrenListChangeHandler.Items.Count>0) 
-            {
-                message = message + "\n" + "Unable to build cyclic model.";
-                Kernel.Util.MessageDisplayer.DisplayError(title, message);
-                return false;
-            }
+            //if (sourceTag.parent != null && cibleTag.childrenListChangeHandler.Items.Count>0) 
+            //{
+            //    message = message + "\n" + "Unable to build cyclic model.";
+            //    Kernel.Util.MessageDisplayer.DisplayError(title, message);
+            //    return false;
+            //}
           
             return true;
         }
