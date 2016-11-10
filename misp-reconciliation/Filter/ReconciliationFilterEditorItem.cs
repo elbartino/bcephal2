@@ -154,7 +154,7 @@ namespace Misp.Reconciliation.Filter
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
             getReconciliationFilterForm().rigthPostingToolBar.displayBalance(getReconciliationFilterForm().rigthGrilleBrowserForm.gridBrowser.grid.SelectedItems, context, this.EditedObject);
             if (item is GridItem) AddToRecoGrid((GridItem)item);
-            else if (item is Object[]) AddToRecoGrid((Object[])item);
+            else if (item is Object[]) AddToRecoGrid((Object[])item); 
         }
 
         private void OnRigthGridDeselectionchange(object item)
@@ -162,7 +162,7 @@ namespace Misp.Reconciliation.Filter
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
             getReconciliationFilterForm().rigthPostingToolBar.displayBalance(getReconciliationFilterForm().rigthGrilleBrowserForm.gridBrowser.grid.SelectedItems, context, this.EditedObject);
             if (item is GridItem) RemoveFormRecoGrid((GridItem)item);
-            else if (item is Object[]) RemoveFormRecoGrid((Object[])item);
+            else if (item is Object[]) RemoveFormRecoGrid((Object[])item); 
         }
 
         protected override void OnGridSelectionchange()
