@@ -7,6 +7,7 @@ using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using RestSharp;
 using Misp.Kernel.Domain.Browser;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Service
 {
@@ -60,6 +61,78 @@ namespace Misp.Kernel.Service
                 throw new BcephalException("Unable to Return models.", e);
             }
         }
+
+
+        public List<Kernel.Domain.Attribute> getRootAttributesByEntity(int entityOid)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/root-attributes/" + entityOid, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                List<Kernel.Domain.Attribute> attributes = RestSharp.SimpleJson.DeserializeObject<List<Kernel.Domain.Attribute>>(queryResult.Content);
+                return attributes;
+            }
+            catch (Exception e)
+            {
+                throw new BcephalException("Unable to Return attributes.", e);
+            }
+        }
+
+        public List<Kernel.Domain.Attribute> getAttributeChildren(int parentOid)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/attribute-children/" + parentOid, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                List<Kernel.Domain.Attribute> attributes = RestSharp.SimpleJson.DeserializeObject<List<Kernel.Domain.Attribute>>(queryResult.Content);
+                return attributes;
+            }
+            catch (Exception e)
+            {
+                throw new BcephalException("Unable to Return attributes.", e);
+            }
+        }
+
+        public BrowserDataPage<Kernel.Domain.AttributeValue> getRootAttributeValuesByAttribute(BrowserDataFilter filter)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/root-attribute-values", Method.POST);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                request.RequestFormat = DataFormat.Json;
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = serializer.Serialize(filter);
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                BrowserDataPage<Kernel.Domain.AttributeValue> values = RestSharp.SimpleJson.DeserializeObject<BrowserDataPage<Kernel.Domain.AttributeValue>>(queryResult.Content);
+                return values;
+            }
+            catch (Exception e)
+            {
+                throw new BcephalException("Unable to Return attributes.", e);
+            }
+        }
+
+        public BrowserDataPage<Kernel.Domain.AttributeValue> getAttributeValueChildren(BrowserDataFilter filter)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/attribute-value-children", Method.POST);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                request.RequestFormat = DataFormat.Json;
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = serializer.Serialize(filter);
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                BrowserDataPage<Kernel.Domain.AttributeValue> values = RestSharp.SimpleJson.DeserializeObject<BrowserDataPage<Kernel.Domain.AttributeValue>>(queryResult.Content);
+                return values;
+            }
+            catch (Exception e)
+            {
+                throw new BcephalException("Unable to Return attributes.", e);
+            }
+        }
+
 
         public List<Kernel.Domain.AttributeValue> getAttributeValuesByAttribute(int attributeOid) 
         {

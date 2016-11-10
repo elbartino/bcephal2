@@ -14,13 +14,6 @@ namespace Misp.Kernel.Domain
     public class Attribute : Target, IHierarchyObject
     {
         
-        private bool _isDefault;
-        [NonSerialized]
-        private System.Windows.Media.Brush foreground;
-
-        [NonSerialized]
-        private System.Windows.Controls.HeaderedItemsControl header;
-
         public Attribute()
         {
             this.childrenListChangeHandler = new PersistentListChangeHandler<Attribute>();
@@ -29,6 +22,8 @@ namespace Misp.Kernel.Domain
             LoadValues = false;
             setAttributeToAttributeValue();
             IsDefault = false;
+            IsAddNewItem = false;
+            IsShowMoreItem = false;
         }
 
         [ScriptIgnore]
@@ -55,58 +50,28 @@ namespace Misp.Kernel.Domain
         [ScriptIgnore]
         public Entity entity { get; set; }
 
-        [ScriptIgnore]
-        public System.Windows.Media.Brush Foreground
-        {
-            set
-            {
-                foreground = value;
-            }
-            get
-            {
-                return foreground;
-            }
-        }
-
-        [ScriptIgnore]
-        public System.Windows.Controls.HeaderedItemsControl Header 
-        {
-            set 
-            {
-                header = value;
-            }
-            get 
-            {
-                return header;
-            }
-        }
-       
-        [ScriptIgnore]
-        public double FontSize { get; set; }
-
-
+        protected bool isDefault;
         [ScriptIgnore]
         public bool IsDefault
         {
-            set
-            {
-                _isDefault = value;
-                Foreground = value ? System.Windows.Media.Brushes.Red : System.Windows.Media.Brushes.Black;
-            }
-            get
-            {
-                return _isDefault;
-            }
+            set { this.isDefault = value; }
+            get { return IsShowMoreItem || IsAddNewItem; }
         }
 
         [ScriptIgnore]
-        public bool Edition 
+        public bool IsShowMoreItem
         {
-            set 
-            {
-            
-            }
+            set;
+            get;
         }
+
+        [ScriptIgnore]
+        public bool IsAddNewItem
+        {
+            set;
+            get;
+        }
+
 
         [ScriptIgnore]
         public bool LoadValues { get; set; }
@@ -227,6 +192,7 @@ namespace Misp.Kernel.Domain
             UpdateParents();
             OnPropertyChanged("childrenListChangeHandler.Items");
         }
+
 
         /// <summary>
         /// 

@@ -25,10 +25,9 @@ namespace Misp.Kernel.Domain
             this.childrenListChangeHandler = new PersistentListChangeHandler<BGroup>();
         }
 
-        public BGroup(string name, string description) : this()
+        public BGroup(string name) : this()
         {
             this.name = name;
-            this.description = description;
         }
 
         public string name
@@ -60,8 +59,6 @@ namespace Misp.Kernel.Domain
                 this.OnPropertyChanged("position");
             }
         }
-
-        public string description { get; set; }
 
         [ScriptIgnore]
         public BGroup parent { get; set; }

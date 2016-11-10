@@ -16,6 +16,7 @@ using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Measure;
 using System.Collections.ObjectModel;
 using System.Collections;
+using Misp.Kernel.Ui.EditableTree;
 
 namespace Misp.Initiation.Measure
 {
@@ -75,7 +76,6 @@ namespace Misp.Initiation.Measure
         /// <returns>true si les données sont valides</returns>
         public bool validateEdition() 
         {
-
             return true; 
         }
         
@@ -86,10 +86,7 @@ namespace Misp.Initiation.Measure
         /// </summary>
         public void fillObject() 
         {
-            if (EditedObject != null)
-            {
-                EditedObject.ForgetChild(MeasureTree.defaultValue);
-            }
+            
         }
         
         /// <summary>
@@ -108,14 +105,13 @@ namespace Misp.Initiation.Measure
         public List<object> getEditableControls() 
         {
             List<object> controls = new List<object>(0);
-            controls.Add(measureTree);
+            controls.Add(measureEditableTree);
             return controls;
         }
-        
-        public MeasureTreeView MeasureTree { get {
-  
-            return measureTree; 
-        } 
+
+        public MeasureEditableTree MeasureTree
+        {
+            get { return measureEditableTree; } 
         }
         
     }

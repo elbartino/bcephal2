@@ -235,6 +235,7 @@
     <Compile Include="Domain\GrilleFilter.cs" />
     <Compile Include="Domain\GrillePage.cs" />
     <Compile Include="Domain\LoopUserDialogTemplateData.cs" />
+    <Compile Include="Domain\NotifyPropertyChanged.cs" />
     <Compile Include="Domain\ReconciliationContext.cs" />
     <Compile Include="Domain\ReconciliationFilter.cs" />
     <Compile Include="Domain\UserAction.cs" />
@@ -446,6 +447,15 @@
     </Compile>
     <Compile Include="Ui\Base\ProcessPopup.xaml.cs">
       <DependentUpon>ProcessPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\EditableTree\AttributeEditableTree.xaml.cs">
+      <DependentUpon>AttributeEditableTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\EditableTree\AttributeValueEditableTree.xaml.cs">
+      <DependentUpon>AttributeValueEditableTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\EditableTree\MeasureEditableTree.xaml.cs">
+      <DependentUpon>MeasureEditableTree.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\File\FileNameDialog.xaml.cs">
       <DependentUpon>FileNameDialog.xaml</DependentUpon>
@@ -841,6 +851,18 @@
     <Page Include="Ui\Base\ProcessPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\EditableTree\AttributeEditableTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\EditableTree\AttributeValueEditableTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\EditableTree\MeasureEditableTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\File\FileNameDialog.xaml">
       <SubType>Designer</SubType>

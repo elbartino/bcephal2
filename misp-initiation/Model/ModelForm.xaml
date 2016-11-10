@@ -7,6 +7,7 @@
              xmlns:dg="clr-namespace:Misp.Initiation.Diagram"
              xmlns:Model="clr-namespace:Misp.Initiation.Model"
              xmlns:Tree="clr-namespace:Misp.Kernel.Ui.Attribute;assembly=bcephal"
+             xmlns:EditableTree="clr-namespace:Misp.Kernel.Ui.EditableTree;assembly=bcephal"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="600" Background="White">
 
@@ -47,18 +48,15 @@
             </Grid>
             
         </StackPanel>
-        
-        
 
-        <GroupBox x:Name="attributesGroupBox" Header="Attributes" Margin="5,5,5,10" Grid.Row="1">
-            <!--<Model:AttributeTree x:Name="attributeTree" />-->
-            <Tree:AttributeTreeView x:Name="attributeTree" />
+
+        <GroupBox x:Name="attributesEditableGroupBox" Header="Attributes" Margin="5,5,5,10" Grid.Row="1">
+            <EditableTree:AttributeEditableTree x:Name="attributeEditableTree" />
         </GroupBox>
         <GridSplitter Height="5" ResizeDirection="Rows" Background="#FFFBF8F8"
-                      VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>
-        <GroupBox x:Name="attributeValuesGroupBox" Header="Values" Margin="5,0,5,10" Grid.Row="2">
-            <!--<Model:AttributeValueTree x:Name="attributeValueTree" />-->
-            <Tree:AttributeValueTreeView x:Name="attributeValueTree" />
+                      VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>        
+        <GroupBox x:Name="attributeValuesEditableGroupBox" Header="Values" Margin="5,0,5,10" Grid.Row="2">
+            <EditableTree:AttributeValueEditableTree x:Name="attributeValueEditableTree" />
         </GroupBox>        
     </Grid>
 

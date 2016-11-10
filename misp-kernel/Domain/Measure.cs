@@ -19,7 +19,6 @@ namespace Misp.Kernel.Domain
         private bool    _isSelected;
         private bool    _isExpanded;
         private bool    _isInEditMode;
-        private bool _isDefault;
         private bool _isFocused;
 
         [NonSerialized]
@@ -56,19 +55,27 @@ namespace Misp.Kernel.Domain
                 return childrenListChangeHandler.Items.Count == 0;
             }
         }
-       
+
+        protected bool isDefault;
         [ScriptIgnore]
-        public bool IsDefault 
-        { 
-            set 
-            {
-                _isDefault = value;
-                Foreground = value ? System.Windows.Media.Brushes.Red : System.Windows.Media.Brushes.Black;
-            }
-            get 
-            {
-                return _isDefault;
-            }
+        public bool IsDefault
+        {
+            set { this.isDefault = value; }
+            get { return IsShowMoreItem || IsAddNewItem; }
+        }
+
+        [ScriptIgnore]
+        public bool IsShowMoreItem
+        {
+            set;
+            get;
+        }
+
+        [ScriptIgnore]
+        public bool IsAddNewItem
+        {
+            set;
+            get;
         }
 
         [ScriptIgnore]

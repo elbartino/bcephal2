@@ -12,10 +12,7 @@ namespace Misp.Kernel.Domain
     [Serializable]
     public class AttributeValue : Target, IHierarchyObject
     {
-        private bool _isDefault;
-        [NonSerialized]
-        private System.Windows.Media.Brush foreground;
-
+        
         public AttributeValue()
         {
             this.childrenListChangeHandler = new PersistentListChangeHandler<AttributeValue>();
@@ -55,35 +52,26 @@ namespace Misp.Kernel.Domain
 
         public bool usedToGenerateUniverse { get; set; }
 
-        [ScriptIgnore]
-        public System.Windows.Media.Brush Foreground
-        {
-            set
-            {
-                foreground = value;
-            }
-            get
-            {
-                return foreground;
-            }
-        }
-
-        [ScriptIgnore]
-        public double FontSize { get; set; }
-
-
+        protected bool isDefault;
         [ScriptIgnore]
         public bool IsDefault
         {
-            set
-            {
-                _isDefault = value;
-                Foreground = value ? System.Windows.Media.Brushes.Red : System.Windows.Media.Brushes.Black;
-            }
-            get 
-            {
-                return _isDefault;
-            }
+            set { this.isDefault = value; }
+            get { return IsShowMoreItem || IsAddNewItem; }
+        }
+
+        [ScriptIgnore]
+        public bool IsShowMoreItem
+        {
+            set;
+            get;
+        }
+
+        [ScriptIgnore]
+        public bool IsAddNewItem
+        {
+            set;
+            get;
         }
         
         public PersistentListChangeHandler<AttributeValue> childrenListChangeHandler { get; set; }

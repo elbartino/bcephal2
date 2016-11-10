@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.ComponentModel;
+using Misp.Kernel.Domain.Browser;
 
 namespace Misp.Kernel.Domain
 {
@@ -12,7 +13,7 @@ namespace Misp.Kernel.Domain
     /// Cette classe encapsule les propriétés communes des objets persistants.
     /// </summary>
     [Serializable]
-    public class Persistent : INotifyPropertyChanged, IComparable
+    public class Persistent : NotifyPropertyChanged, INotifyPropertyChanged, IComparable
     {
 
         public Persistent()
@@ -73,6 +74,14 @@ namespace Misp.Kernel.Domain
             if (obj == null || !(obj is Persistent)) return 1;
             if (this == obj) return 0;
             return this.oid.Value.CompareTo(((Persistent)obj).oid.Value);
+        }
+
+        [ScriptIgnore]
+        public BrowserDataFilter Filter { get; set; }
+
+        public bool HasMoreElements()
+        {
+            return !this.isCompleted || (this.Filter != null && this.Filter.totalPages > 0 && this.Filter.totalPages > this.Filter.page); 
         }
 
     }

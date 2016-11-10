@@ -56,9 +56,7 @@ namespace Misp.Initiation.Measure
         /// <returns></returns>
         public override OperationState Search()
         {
-
             Kernel.Domain.Measure root = GetMeasureService().getRootMeasure();
-            Kernel.Domain.Measure newRoot = GetMeasureService().getRootMeasure();
             getMeasureEditor().EditedObject = root;
             getMeasureEditor().ListChangeHandler = root.childrenListChangeHandler;
             getMeasureEditor().displayObject();

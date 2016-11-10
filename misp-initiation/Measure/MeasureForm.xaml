@@ -4,14 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Misp.Initiation.Measure"
+             xmlns:EditableTree="clr-namespace:Misp.Kernel.Ui.EditableTree;assembly=bcephal"
              xmlns:base="clr-namespace:Misp.Kernel.Ui.Measure;assembly=bcephal"
              mc:Ignorable="d" Background="White"
              >
     <Grid.RowDefinitions>
         <RowDefinition Height="1*"/>
     </Grid.RowDefinitions>
-    <base:MeasureTreeView x:Name="measureTree"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-    <!--<local:MeasureTree x:Name="measureTree"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />-->
+    <!--<base:MeasureTreeView x:Name="measureTree"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed"/>-->
+    <EditableTree:MeasureEditableTree x:Name="measureEditableTree"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 </Grid>
 
     

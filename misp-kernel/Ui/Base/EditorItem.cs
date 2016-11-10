@@ -222,6 +222,10 @@ namespace Misp.Kernel.Ui.Base
                     else if (control is Group.GroupField) ((Group.GroupField)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
                     else if (control is Office.ISpreadsheet) ((Office.ISpreadsheet)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
                     else if (control is IChangeable) ((IChangeable)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
+
+                    else if (control is EditableTree.AttributeEditableTree) ((EditableTree.AttributeEditableTree)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
+                    else if (control is EditableTree.AttributeValueEditableTree) ((EditableTree.AttributeValueEditableTree)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
+                    else if (control is EditableTree.MeasureEditableTree) ((EditableTree.MeasureEditableTree)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
                 }
             }
         }

@@ -40,13 +40,8 @@ namespace Misp.Initiation.Measure
 
         public override void displayObject()
         {
-            RemoveChangeHandlers();            
-            //getMeasureForm().MeasureTree.DisplayItems(ListChangeHandler.getItems());
-         /*   int index = this.EditedObject.childrenListChangeHandler.Items.Count;
-            if (index > 0)
-                this.EditedObject.childrenListChangeHandler.Items.RemoveAt(index - 1);
-            */
-            getMeasureForm().MeasureTree.DisplayRoot(this.EditedObject);
+            RemoveChangeHandlers(); 
+            getMeasureForm().MeasureTree.DisplayMeasure(this.EditedObject);
             AddChangeHandlers();
         }
 

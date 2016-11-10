@@ -89,8 +89,6 @@ namespace Misp.Kernel.Domain
         }
 
         public BGroup group { get; set; }
-        
-        public string technicalName { get; set; }
 
         public string targetType { get; set; }
 

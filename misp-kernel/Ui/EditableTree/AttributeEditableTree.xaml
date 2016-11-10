@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="Misp.Kernel.Ui.EditableTree.AttributeEditableTree"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Misp.Kernel.Ui.EditableTree"
+             xmlns:domain="clr-namespace:Misp.Kernel.Domain"
+             x:Name="Tree" MouseLeftButtonDown="mouseLeftButtonDown">
+
+    <TreeView x:Name="treeView" x:FieldModifier="public" ItemsSource="{Binding}" KeyDown="treeViewKeyDown" 
+              SelectedItemChanged="treeViewSelectedItemChanged" ContextMenuOpening="contextMenuOpening">
+        
+        <TreeView.Resources>
+            <HierarchicalDataTemplate DataType="{x:Type domain:Attribute}" ItemsSource="{Binding childrenListChangeHandler.Items}">
+                <Grid>
+                    <!-- Normal state of the header -->
+                    <TextBlock x:Name="textBlockHeader" Text="{Binding name}" Margin="3,0" MouseLeftButtonDown="textBlockHeaderMouseLeftButtonDown"
+                               MouseRightButtonDown="textBlockHeaderMouseRightButtonDown" VerticalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsShowMoreItem}" Value="True">
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsAddNewItem}" Value="True">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsDefault}" Value="False">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>                                    
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    
+                    <!-- This state is active in the edit mode -->
+                    <TextBox x:Name="editableTextBoxHeader" Visibility="Hidden" MinWidth="100"
+                             Text="{Binding name, UpdateSourceTrigger=LostFocus}"
+                             LostFocus="editableTextBoxHeaderLostFocus"
+                             IsVisibleChanged="editableTextBoxHeaderIsVisibleChanged"
+                             KeyDown="editableTextBoxHeaderKeyDown"/>
+                </Grid>
+                <!-- With triggers we switch between the three states of the header depending on its focused property and the control-level property "IsInEditMode" -->
+                <HierarchicalDataTemplate.Triggers>
+                    <MultiDataTrigger>
+                        <!-- Selected, editing is generally active - the text box is displayed -->
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TreeViewItem}}}" Value="True"/>
+                            <Condition Binding="{Binding IsInEditMode, ElementName=Tree}" Value="True"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="editableTextBoxHeader" Property="Visibility" Value="Visible" />
+                    </MultiDataTrigger>
+                </HierarchicalDataTemplate.Triggers>
+            </HierarchicalDataTemplate>
+        </TreeView.Resources>
+
+        <TreeView.ItemContainerStyle>
+            <Style TargetType="{x:Type TreeViewItem}">
+                <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                <Setter Property="IsExpanded" Value="{Binding Mode=TwoWay, Path=IsExpanded}"/>
+            </Style>
+        </TreeView.ItemContainerStyle>
+        
+        <TreeView.ContextMenu>
+            <ContextMenu x:Name="contextMenu">
+                <MenuItem x:Name="newMenuItem" Header="New" Click="OnNewClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/New.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="copyMenuItem" Header="Copy"  Click="OnCopyClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/Copy.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="cutMenuItem" Header="Cut" Click="OnCutClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/Cut.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="pasteMenuItem" Header="Paste" Click="OnPasteClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/Paste.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="deleteMenuItem" Header="Delete" Click="OnDeleteClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/Delete.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem x:Name="moveUpMenuItem" Header="Move up" Click="OnMoveupClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/Moveup.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="moveDownMenuItem" Header="Move down" Click="OnMovedownClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/Movedown.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="indentMenuItem" Header="Indent" Click="OnIndentClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/Indent.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="outdentMenuItem" Header="Outdent" Click="OnOutdentClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/Outdent.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </ContextMenu>
+        </TreeView.ContextMenu>
+    
+    </TreeView>
+
+</UserControl>

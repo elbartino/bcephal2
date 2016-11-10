@@ -59,52 +59,11 @@ namespace Misp.Initiation.Model
         /// <returns></returns>
         public override OperationState Search()
         {
-            //action = new BusyAction(true)
-            //{
-            //    DoWork = () =>
-            //    {
-            //        try
-            //        {
-            //            String message = "Models loading...";
-            //            action.ReportProgress(0, message);
-
-            //            models = GetModelService().getAll();
-                        
-            //            action.ReportProgress(100, message);
-            //        }
-            //        catch (BcephalException e)
-            //        {
-            //            MessageDisplayer.DisplayError("Error", e.Message);
-            //            action = null;
-            //            models = null;
-            //            return OperationState.STOP;
-            //        }
-            //        return OperationState.CONTINUE;
-            //    },
-
-
-            //    EndWork = () =>
-            //    {
-            //        foreach (Kernel.Domain.Model model in models)
-            //        {
-            //            getModelEditor().addOrSelectPage(model);
-            //        }
-            //        action = null;
-            //        models = null;
-            //        return OperationState.CONTINUE;
-            //    }
-
-            //};
-
-            //action.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(ApplicationManager.MainWindow.OnBusyPropertyChanged);
-            //action.Run();
-            //return OperationState.CONTINUE;
-
-
             List<Kernel.Domain.Model> models = GetModelService().getAll();
             foreach (Kernel.Domain.Model model in models)
             {
-                getModelEditor().addOrSelectPage(model);
+                EditorItem<Kernel.Domain.Model> page = getModelEditor().addOrSelectPage(model);
+                ((ModelEditorItem)page).GetModelForm().ModelService = GetModelService();
             }
             return OperationState.CONTINUE;
         }

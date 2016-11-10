@@ -740,7 +740,7 @@ namespace Misp.Sourcing.Table
                     name = value.name,
                     oid = value.oid,
                     visibleInShortcut = value.visibleInShortcut,
-                    group = new BGroup(value.group, "")
+                    group = new BGroup(value.group)
                 };
             }
             catch (Exception)

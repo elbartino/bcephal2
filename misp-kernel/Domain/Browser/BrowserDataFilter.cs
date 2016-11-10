@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Domain.Browser
 {
@@ -18,6 +19,9 @@ namespace Misp.Kernel.Domain.Browser
         public int? groupOid { get; set; }
 
         public List<BrowserDataFilterItem> items { get; set; }
+
+        [ScriptIgnore]
+        public int totalPages { get; set; }
 
         public BrowserDataFilter()
         {

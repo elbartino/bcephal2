@@ -16,6 +16,8 @@ using Misp.Kernel.Ui.Base;
 using DiagramDesigner;
 using System.Collections.ObjectModel;
 using System.Web.Script.Serialization;
+using Misp.Kernel.Domain.Browser;
+using Misp.Kernel.Util;
 
 namespace Misp.Initiation.Model
 {
@@ -37,6 +39,9 @@ namespace Misp.Initiation.Model
         public ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
         public Kernel.Domain.Attribute defaultValue { get; set; }
         public Kernel.Domain.AttributeValue defaultAttributValue { get; set; }
+
+        public Kernel.Service.ModelService ModelService { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -63,14 +68,15 @@ namespace Misp.Initiation.Model
             diagramEditor.designerCanvas.AddLink += new DiagramDesigner.AddLinkEventHandler(onAddLink);
             diagramEditor.designerCanvas.DeleteLink += new DiagramDesigner.DeleteLinkEventHandler(onDeleteLink);
 
-            attributeTree.Changed += onAttributeChange;
-            attributeValueTree.Changed += onAttributeValueChange;
+            attributeEditableTree.Changed += onAttributeChange;
+            attributeEditableTree.treeView.SelectedItemChanged += OnSelectedAttributeChange;
+            attributeValueEditableTree.Changed += onAttributeValueChange;
+            attributeValueEditableTree.Expanded += onAttributeValueExpend;
+            attributeValueEditableTree.ShowMore += onAttributeValueShowMore;
 
             nameKeyEventHandler = new KeyEventHandler(onNameTextChange);
             nameTextBox.KeyUp += nameKeyEventHandler;
             nameTextBox.LostFocus += onNameTextBoxLostFocus;
-            
-            attributeTree.tree.SelectedItemChanged += new RoutedPropertyChangedEventHandler<object>(OnSelectedAttributeChange);
         }
 
         /// <summary>
@@ -87,7 +93,7 @@ namespace Misp.Initiation.Model
         /// </summary>
         protected void onAttributeValueChange()
         {
-            Kernel.Domain.Attribute attribute = attributeTree.GetSelectedAttribute();
+            Kernel.Domain.Attribute attribute = attributeEditableTree.GetSelectedValue();
             if (ActiveEntity != null && attribute != null)
             {
                 attribute.UpdateParents();
@@ -97,14 +103,83 @@ namespace Misp.Initiation.Model
         }
 
         protected void OnSelectedAttributeChange(object sender, RoutedPropertyChangedEventArgs<object> arg)
-        {            
-           // Kernel.Domain.Attribute attribute = attributeTree.GetSelectedAttribute() != null ? attributeTree.GetSelectedMultiAttribute():attributeTree.GetSelectedAttribute();       
-            if(attributeTree.selectedAttributes.Keys.Count ==1)
+        {     
+            Kernel.Domain.Attribute selection = attributeEditableTree.GetSelectedValue(); ;
+            if (selection != null && !selection.isCompleted && selection.oid.HasValue)
             {
-                Kernel.Domain.Attribute attribute = attributeTree.selectedAttributes.Keys.Last();
-                attributeValueTree.DisplayAttribute(attribute);
+                BrowserDataFilter filter = new BrowserDataFilter();
+                filter.groupOid = selection.oid.Value;
+                filter.page = 1;
+                filter.pageSize = 10;
+                BrowserDataPage<Kernel.Domain.AttributeValue> page = ModelService.getRootAttributeValuesByAttribute(filter);
+                selection.valueListChangeHandler.originalList = page.rows;
+                selection.isCompleted = true;
+                filter.page = page.currentPage;
+                filter.totalPages = page.pageCount;
+                selection.Filter = filter;
+            }
+            attributeValueEditableTree.DisplayAttribute(selection);
+        }
+
+        private void onAttributeValueExpend(object item)
+        {
+            if (item != null && item is Kernel.Domain.AttributeValue)
+            {
+                Kernel.Domain.AttributeValue selection = (Kernel.Domain.AttributeValue)item;
+                if (selection != null && !selection.isCompleted && selection.oid.HasValue)
+                {
+                    if (selection.Filter == null)
+                    {
+                        selection.Filter = new BrowserDataFilter();
+                        selection.Filter.groupOid = selection.oid.Value;
+                        selection.Filter.page = 0;
+                        selection.Filter.pageSize = 10;
+                    }
+
+                    selection.Filter.page++;
+                    BrowserDataPage<Kernel.Domain.AttributeValue> page = ModelService.getAttributeValueChildren(selection.Filter);
+                    if (!selection.isCompleted)
+                    {
+                        foreach (Kernel.Domain.AttributeValue value in selection.childrenListChangeHandler.originalList.ToArray())
+                        {
+                            selection.childrenListChangeHandler.forget(value);
+                        }
+                    }
+                    foreach(Kernel.Domain.AttributeValue value in page.rows){
+                        value.parent = selection;
+                        selection.childrenListChangeHandler.Items.Add(value);
+                    }
+                    selection.childrenListChangeHandler.Items.BubbleSort();
+                    selection.isCompleted = true;
+                    selection.Filter.page = page.currentPage;
+                    selection.Filter.totalPages = page.pageCount;
+                }
             }
         }
+
+        private void onAttributeValueShowMore(object item)
+        {
+            if (item != null && item is Kernel.Domain.AttributeValue)
+            {
+                Kernel.Domain.AttributeValue selection = (Kernel.Domain.AttributeValue)item;
+                Kernel.Domain.AttributeValue parent = selection.parent;
+                
+                parent.Filter.page++;
+                BrowserDataPage<Kernel.Domain.AttributeValue> page = parent.parent != null
+                    ? ModelService.getAttributeValueChildren(parent.Filter)
+                    : ModelService.getRootAttributeValuesByAttribute(parent.Filter);                
+                foreach(Kernel.Domain.AttributeValue value in page.rows){
+                    value.parent = parent;
+                    parent.childrenListChangeHandler.Items.Add(value);
+                }
+                parent.childrenListChangeHandler.Items.BubbleSort();
+                parent.isCompleted = true;
+                parent.Filter.page = page.currentPage;
+                parent.Filter.totalPages = page.pageCount;
+            }
+        }
+
+        
 
         /// <summary>
         /// Cette méthode est exécuté lorqu'un objet ou une Vc est sélectionné dans le diagram.
@@ -118,7 +193,13 @@ namespace Misp.Initiation.Model
                 object tag = ((DesignerItem)sender).Tag;
                 if (tag != null && tag is Kernel.Domain.Entity)
                 {
-                    DisplayEntity((Kernel.Domain.Entity)tag);
+                    Kernel.Domain.Entity entity = (Kernel.Domain.Entity)tag;
+                    if(!entity.isCompleted && entity.oid.HasValue) {
+
+                        entity.attributeListChangeHandler.originalList = ModelService.getRootAttributesByEntity(entity.oid.Value);
+                        entity.isCompleted = true;
+                    }
+                    DisplayEntity(entity);
                 }
             }
         }
@@ -129,7 +210,6 @@ namespace Misp.Initiation.Model
         protected void onClearSelection()
         {
             DisplayEntity(null);
-            attributeTree.selectedAttributes.Clear();
         }
 
         /// <summary>
@@ -197,9 +277,7 @@ namespace Misp.Initiation.Model
         {
             if (parent.Tag == null || child.Tag == null) return;
             Kernel.Domain.Entity parentTag = (Kernel.Domain.Entity)parent.Tag;
-            parentTag.attributeListChangeHandler.forget(attributeTree.defaultValue);
             Kernel.Domain.Entity childTag = (Kernel.Domain.Entity)child.Tag;
-            childTag.attributeListChangeHandler.forget(attributeTree.defaultValue);
             if (parentTag.isValueChain || childTag.isValueChain) return;
 
             this.EditedObject.ForgetEntity(childTag);
@@ -290,49 +368,11 @@ namespace Misp.Initiation.Model
         {
             if (this.EditedObject != null)
             {
-                //this.diagramEditor.designerCanvas.Save_Executed(null, null);
-
-                RemoveDefaultInModel(this.EditedObject);
                 this.EditedObject.diagramXml = this.diagramEditor.designerCanvas.AsString();
                 this.EditedObject.visibleInShortcut = visibleInShortcutCheckBox.IsChecked.Value;
             }
         }
-        /// <summary>
-        /// Retire les valeurs par défaut présent dans le modèle
-        /// </summary>
-        /// <param name="model"></param>
-        public void RemoveDefaultInModel(Kernel.Domain.Model model)
-        {
-            foreach (Misp.Kernel.Domain.Entity entity in model.entityListChangeHandler.Items)
-            {
-                RemoveDefaultAttribute(entity);
-            }
-        }
-        /// <summary>
-        /// Retire l'attribut par défaut
-        /// </summary>
-        /// <param name="Entite"></param>
-        public void RemoveDefaultAttribute(Misp.Kernel.Domain.Entity Entite) 
-        {
-
-            Entite.attributeListChangeHandler.forget(attributeTree.defaultValue);
-            foreach (Misp.Kernel.Domain.Attribute attribute in Entite.attributeListChangeHandler.Items)
-            {
-                RemoveDefaultAttributeValue(attribute);
-            }
-            foreach (Misp.Kernel.Domain.Entity entity in Entite.childrenListChangeHandler.Items)
-            {
-                RemoveDefaultAttribute(entity);
-            }
-        }
-        /// <summary>
-        /// Retire l'attribut value par défaut
-        /// </summary>
-        /// <param name="attribute"></param>
-        public void RemoveDefaultAttributeValue(Kernel.Domain.Attribute attribute)
-        {
-            attribute.valueListChangeHandler.forget(attributeValueTree.defaultValue);
-        }
+        
         /// <summary>
         /// Cette méthode permet d'afficher les données de l'objet à éditer 
         /// pour les afficher dans la vue.
@@ -342,7 +382,10 @@ namespace Misp.Initiation.Model
             if (this.EditedObject == null) return;
             this.diagramEditor.designerCanvas.Model = this.EditedObject;
             this.visibleInShortcutCheckBox.IsChecked = this.EditedObject.visibleInShortcut;
-            if (!string.IsNullOrEmpty(this.EditedObject.diagramXml)) this.diagramEditor.designerCanvas.Display(this.EditedObject.diagramXml);
+            if (this.EditedObject.diagramXml != null && this.EditedObject.diagramXml.Length > 0)
+            {
+                this.diagramEditor.designerCanvas.Display(this.EditedObject.diagramXml);
+            }
             foreach (Kernel.Domain.Entity entity in this.EditedObject.entityListChangeHandler.Items)
             {
                 refreshEntity(entity);                
@@ -376,8 +419,8 @@ namespace Misp.Initiation.Model
             List<object> controls = new List<object>(0);
             controls.Add(diagramEditor.designerCanvas);
             controls.Add(this.visibleInShortcutCheckBox);
-            controls.Add(attributeTree);
-            controls.Add(attributeValueTree);
+            controls.Add(attributeEditableTree);
+            controls.Add(attributeValueEditableTree);
             return controls;
         }
 
@@ -389,16 +432,15 @@ namespace Misp.Initiation.Model
             ActiveEntity = entity;
             nameTextBox.Clear();
             TypeTextBox.Clear();
-            attributeTree.DisplayEntity(null);
-            attributeValueTree.DisplayAttribute(null);
+            //attributeValueTree.DisplayAttribute(null);
             nameTextBox.IsEnabled = false;
             if (entity != null)
             {
                 nameTextBox.IsEnabled = true;
                 nameTextBox.Text = entity.name;
                 TypeTextBox.Text = entity.isObject ? "Object" : "ValueChain";                
-                attributeTree.DisplayEntity(entity);
             }
+            attributeEditableTree.DisplayEntity(entity);
             nameTextBox.KeyUp += nameKeyEventHandler;
         }
 
