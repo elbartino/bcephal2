@@ -244,7 +244,14 @@ namespace Misp.Kernel.Ui.EditableTree
                             AddDefaultMeasures(this.Root);
                             SetSelectedValue(newValue);
                         }
-                        else value.parent.UpdateChild(value);
+                        else
+                        {
+                            value.name = name;
+                            ForgetDefaultMeasures(value.parent);
+                            value.parent.UpdateChild(value);
+                            AddDefaultMeasures(value.parent);
+                            SetSelectedValue(value);                            
+                        }
                         if (Changed != null) Changed();
                     }
                     else textBox.Text = oldText;
@@ -352,10 +359,10 @@ namespace Misp.Kernel.Ui.EditableTree
             if (parent != null)
             {
                 ForgetDefaultMeasures(parent);
-                parent.AddChild(value);                
+                parent.AddChild(value);
+                AddDefaultMeasures(parent);              
                 SetSelectedValue(value);
                 if (Changed != null) Changed();
-                AddDefaultMeasures(parent);
             }
             
         }
