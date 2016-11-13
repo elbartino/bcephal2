@@ -13,6 +13,7 @@ using Misp.Kernel.Task;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Util;
 using Misp.Kernel.Domain.Browser;
+using Misp.Kernel.Ui.Sidebar;
 
 
 namespace Misp.Kernel.Controller

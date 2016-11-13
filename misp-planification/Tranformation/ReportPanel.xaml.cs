@@ -22,6 +22,7 @@ using Misp.Kernel.Application;
 using Xceed.Wpf.AvalonDock.Layout;
 using System.Collections.ObjectModel;
 using Misp.Kernel.Ui.Office;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Planification.Tranformation
 {

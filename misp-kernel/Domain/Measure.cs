@@ -16,8 +16,7 @@ namespace Misp.Kernel.Domain
 
         private string  _name;
         private int     _position;
-        private bool    _isSelected;
-        private bool    _isExpanded;
+        
         private bool    _isInEditMode;
         private bool _isFocused;
 
@@ -55,29 +54,7 @@ namespace Misp.Kernel.Domain
                 return childrenListChangeHandler.Items.Count == 0;
             }
         }
-
-        protected bool isDefault;
-        [ScriptIgnore]
-        public bool IsDefault
-        {
-            set { this.isDefault = value; }
-            get { return IsShowMoreItem || IsAddNewItem; }
-        }
-
-        [ScriptIgnore]
-        public bool IsShowMoreItem
-        {
-            set;
-            get;
-        }
-
-        [ScriptIgnore]
-        public bool IsAddNewItem
-        {
-            set;
-            get;
-        }
-
+                
         [ScriptIgnore]
         public bool IsInEditMode
         {
@@ -130,36 +107,6 @@ namespace Misp.Kernel.Domain
         public Measure parent { get; set; }
 
         public PersistentListChangeHandler<Measure> childrenListChangeHandler { get; set; }
-
-        [ScriptIgnore]
-        public bool IsExpanded
-        {
-            get { return _isExpanded; }
-
-            set
-            {
-                _isExpanded = value;
-                this.OnPropertyChanged("IsExpanded");
-            }
-        }
-
-      
-        [ScriptIgnore]
-        public bool IsSelected
-        {
-            get {
-                 
-                return _isSelected;
-            }
-             
-            set
-            {
-                _isSelected = value;
-                
-                this.OnPropertyChanged("IsSelected");
-            }
-        }
-        
 
         /// <summary>
         /// Rajoute un fils

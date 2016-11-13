@@ -8,10 +8,11 @@ using Misp.Kernel.Ui.TreeView;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Util;
 using System.Collections;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Kernel.Ui.Base
 {
-    public class EntityGroup : SideBarExpander
+    public class EntityGroup : SidebarGroup
     {
 
         #region Events

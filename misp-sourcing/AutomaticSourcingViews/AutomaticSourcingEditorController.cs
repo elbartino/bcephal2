@@ -6,6 +6,7 @@ using Misp.Kernel.Task;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Office;
 using Misp.Kernel.Ui.Office.EDraw;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Util;
 using Misp.Sourcing.AutomaticSourcingViews;
 using Misp.Sourcing.Table;
@@ -93,7 +94,7 @@ namespace Misp.Sourcing.Base
         /// <returns>Une nouvelle instance de ToolBarHandlerBuilder</returns>
         protected override ToolBarHandlerBuilder getNewToolBarHandlerBuilder() { return new ToolBarHandlerBuilder(this); }
 
-        protected override Kernel.Ui.Base.SideBar getNewSideBar()
+        protected override SideBar getNewSideBar()
         {
             return new AutomaticSourcingSideBar();
         }

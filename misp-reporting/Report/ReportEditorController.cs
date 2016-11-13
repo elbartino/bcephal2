@@ -18,6 +18,7 @@ using Misp.Kernel.Service;
 using Misp.Kernel.Util;
 using Xceed.Wpf.AvalonDock;
 using System.Windows.Input;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Reporting.Report
 {

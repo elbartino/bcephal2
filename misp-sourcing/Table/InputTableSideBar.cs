@@ -7,6 +7,7 @@ using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
 using Misp.Sourcing.Designer;
 using Misp.Sourcing.CustomizedTarget;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Sourcing.Table
 {

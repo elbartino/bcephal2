@@ -12,6 +12,7 @@ using Misp.Kernel.Ui.Base.Menu;
 using Misp.Kernel.Plugin;
 using Misp.Kernel.Ui.File;
 using Misp.Kernel.Administration.Base;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Kernel.Application
 {
@@ -64,7 +65,7 @@ namespace Misp.Kernel.Application
             menuBar.Items.Add(helpMenu);
 
             ApplicationManager.MainWindow.displayMenuBar(menuBar);
-            SideBar.StatusNames = buildPluginNames();
+            StatusSidebarGroup.StatusNames = buildPluginNames();
 
             menuBar.customizeForFileClosed();
         }

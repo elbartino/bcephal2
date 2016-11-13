@@ -3,6 +3,7 @@ using Misp.Kernel.Controller;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

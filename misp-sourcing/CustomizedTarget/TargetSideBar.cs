@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Misp.Sourcing.CustomizedTarget
         #region Properties
 
         public CustomizedTargetGroup TargetGroup { get; set; }
-        public EntityGroup EntityGroup { get; set; }
+        public ModelSidebarGroup EntityGroup { get; set; }
         public TargetGroup StandardTargetGroup { get; set; }
 
         #endregion
@@ -29,7 +30,7 @@ namespace Misp.Sourcing.CustomizedTarget
         {
             base.InitializeGroups();
             this.StandardTargetGroup = new TargetGroup("Standards Target", true);
-            this.EntityGroup = new EntityGroup("Entities", true);
+            this.EntityGroup = new ModelSidebarGroup("Entities", true);
             this.TargetGroup = new CustomizedTargetGroup("Targets", true);
 
             this.StandardTargetGroup.Background = System.Windows.Media.Brushes.LightBlue;

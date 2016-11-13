@@ -12,6 +12,7 @@ using Misp.Kernel.Application;
 using Misp.Kernel.Util;
 using log4net;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Kernel.Controller
 {

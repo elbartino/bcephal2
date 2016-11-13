@@ -13,27 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Misp.Kernel.Ui.Base
+namespace Misp.Kernel.Ui.Sidebar.Tree
 {
     /// <summary>
-    /// Interaction logic for SideBarGroup.xaml
+    /// Interaction logic for PersistentTree.xaml
     /// </summary>
-    public partial class SideBarGroup : Expander
+    public partial class PersistentTree : UserControl
     {
-        public SideBarGroup()
+        public PersistentTree()
         {
             InitializeComponent();
-        }
-
-        public SideBarGroup(string header) : this()
-        {
-            this.Header = header;
-        }
-
-        public SideBarGroup(string header, bool expanded)
-            : this(header)
-        {
-            this.IsExpanded = expanded;
         }
     }
 }

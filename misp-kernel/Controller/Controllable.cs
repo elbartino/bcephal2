@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Misp.Kernel.Application;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Kernel.Controller
 {

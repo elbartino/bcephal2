@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Misp.Kernel.Ui.TreeView;
 using System.Windows.Controls;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Kernel.Ui.Base
 {
-    public class GroupCatagoryGroup : SideBarExpander
+    public class GroupCatagoryGroup : SidebarGroup
     {
 
         #region Properties

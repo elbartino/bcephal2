@@ -1,6 +1,7 @@
 ﻿using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Planification.Base;
 using Misp.Planification.PresentationView;
 using Misp.Reporting.Report;

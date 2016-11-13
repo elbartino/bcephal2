@@ -40,6 +40,33 @@ namespace Misp.Kernel.Service
         }
 
         /// <summary>
+        /// Retoune la liste de mesures du fichier ouvert.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>La liste de mesures du fichier ouvert</returns>
+        public Kernel.Domain.Measure getRootMeasureForSideBar(bool showPostingMeasure = true)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/root-for-sidebar/" + showPostingMeasure, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                try
+                {
+                    Kernel.Domain.Measure root = RestSharp.SimpleJson.DeserializeObject<Kernel.Domain.Measure>(queryResult.Content);
+                    return root;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new BcephalException("Unable to Return Measures.", e);
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="periodicity"></param>

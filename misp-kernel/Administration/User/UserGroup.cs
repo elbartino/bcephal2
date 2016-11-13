@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Ui.TreeView;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Administration.User
 {
-    public class UserGroup : SideBarExpander
+    public class UserGroup : SidebarGroup
     {
         public UserTreeview UserTreeview { get; set; }
 

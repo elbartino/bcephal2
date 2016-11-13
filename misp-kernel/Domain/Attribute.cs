@@ -7,6 +7,7 @@ using System.ComponentModel;
 using EO.Wpf;
 using System.Windows.Forms;
 using System.Web.Script.Serialization;
+using System.Collections.ObjectModel;
 
 namespace Misp.Kernel.Domain
 {
@@ -24,6 +25,7 @@ namespace Misp.Kernel.Domain
             IsDefault = false;
             IsAddNewItem = false;
             IsShowMoreItem = false;
+            this.Items = new ObservableCollection<Target>();
         }
 
         [ScriptIgnore]
@@ -49,30 +51,7 @@ namespace Misp.Kernel.Domain
    
         [ScriptIgnore]
         public Entity entity { get; set; }
-
-        protected bool isDefault;
-        [ScriptIgnore]
-        public bool IsDefault
-        {
-            set { this.isDefault = value; }
-            get { return IsShowMoreItem || IsAddNewItem; }
-        }
-
-        [ScriptIgnore]
-        public bool IsShowMoreItem
-        {
-            set;
-            get;
-        }
-
-        [ScriptIgnore]
-        public bool IsAddNewItem
-        {
-            set;
-            get;
-        }
-
-
+        
         [ScriptIgnore]
         public bool LoadValues { get; set; }
 
@@ -358,6 +337,29 @@ namespace Misp.Kernel.Domain
             }
             return this;
         }
-         
+
+
+        [ScriptIgnore]
+        public ObservableCollection<Target> Items { get; set; }
+
+        public void LoadItems()
+        {
+            foreach (Attribute attribute in this.childrenListChangeHandler.Items)
+            {
+                this.Items.Add(attribute);
+            }
+            foreach (AttributeValue value in this.valueListChangeHandler.Items)
+            {
+                this.Items.Add(value);
+            }
+        }
+
+        public void ClearValuesInItems()
+        {
+            foreach (AttributeValue value in this.valueListChangeHandler.Items)
+            {
+                this.Items.Remove(value);
+            }
+        }
     }
 }

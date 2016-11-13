@@ -1,4 +1,5 @@
-﻿using Misp.Sourcing.AutomaticSourcingViews;
+﻿using Misp.Kernel.Ui.Sidebar;
+using Misp.Sourcing.AutomaticSourcingViews;
 using Misp.Sourcing.GridViews;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace Misp.Reconciliation.Posting
             return toolBar;
         }
 
-        protected override Kernel.Ui.Base.SideBar getNewSideBar()
+        protected override SideBar getNewSideBar()
         {
             AutomaticSourcingSideBar sideBar = new AutomaticSourcingSideBar();
             sideBar.AutomaticSourcingGroup.Header = "Automatic Posting Grids";

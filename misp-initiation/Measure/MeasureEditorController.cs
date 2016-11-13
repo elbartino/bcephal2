@@ -10,6 +10,7 @@ using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Service;
 using Misp.Kernel.Application;
 using Misp.Initiation.Base;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Initiation.Measure
 {

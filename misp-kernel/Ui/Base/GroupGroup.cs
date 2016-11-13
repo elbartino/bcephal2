@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Misp.Kernel.Ui.TreeView;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Kernel.Ui.Base
 {
-    public class GroupGroup : SideBarExpander
+    public class GroupGroup : SidebarGroup
     {
 
         #region Properties

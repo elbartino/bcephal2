@@ -15,8 +15,6 @@ namespace Misp.Kernel.Domain
 
         private string _name;
         private int _position;
-        private bool _isSelected;
-        private bool _isExpanded;
 
         public Target()
         {
@@ -97,30 +95,6 @@ namespace Misp.Kernel.Domain
         public bool visibleInShortcut { get; set; }
 
         public PersistentListChangeHandler<TargetItem> targetItemListChangeHandler { get; set; }
-
-        [ScriptIgnore]
-        public bool IsExpanded
-        {
-            get { return _isExpanded; }
-
-            set
-            {
-                _isExpanded = value;
-                this.OnPropertyChanged("IsExpanded");
-            }
-        }
-
-        [ScriptIgnore]
-        public bool IsSelected
-        {
-            get { return _isSelected; }
-
-            set
-            {
-                _isSelected = value;
-                this.OnPropertyChanged("IsSelected");
-            }
-        }
 
         [ScriptIgnore]
         public long cardinality { get; set; }

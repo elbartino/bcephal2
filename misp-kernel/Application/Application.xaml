@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="../Resources/Styles/TabControl.xaml"/>
                 <ResourceDictionary Source="../Resources/Styles/EditableTreeView.xaml"/>
                 <ResourceDictionary Source="../Resources/Styles/Spinner.xaml"/>
+                
 
                 <ResourceDictionary Source="/Xceed.Wpf.AvalonDock.Themes.Metro;Component/Theme.xaml"/>
 

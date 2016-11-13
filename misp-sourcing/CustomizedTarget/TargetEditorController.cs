@@ -3,6 +3,7 @@ using Misp.Kernel.Controller;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -286,15 +287,9 @@ namespace Misp.Sourcing.CustomizedTarget
         protected override void initializeSideBarData()
         {
             List<Target> targets = Service.getAll();
-            ((TargetSideBar)SideBar).EntityGroup.ModelService = GetTargetService().ModelService;
             ((TargetSideBar)SideBar).TargetGroup.TargetTreeview.fillTree(new ObservableCollection<Target>(targets));
 
-
-            ((TargetSideBar)SideBar).EntityGroup.ModelService = GetTargetService().ModelService;
-            ((TargetSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
-
-            List<Model> models = GetTargetService().ModelService.getModelsForSideBar();
-            ((TargetSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
+            ((TargetSideBar)SideBar).EntityGroup.InitializeData();
 
             BGroup group = GetTargetService().GroupService.getDefaultGroup();
         }
@@ -305,28 +300,10 @@ namespace Misp.Sourcing.CustomizedTarget
         protected override void initializeSideBarHandlers()
         {
             ((TargetSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;            
-            ((TargetSideBar)SideBar).EntityGroup.EntityTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
-            ((TargetSideBar)SideBar).EntityGroup.EntityTreeview.ExpandAttribute += OnExpandAttribute;
+            ((TargetSideBar)SideBar).EntityGroup.Tree.Click += onSelectStandardTargetFromSidebar;
             ((TargetSideBar)SideBar).StandardTargetGroup.TargetTreeview.SelectionChanged += onSelectStandardTargetFromSidebar;
         }
 
-        private void OnExpandAttribute(object sender)
-        {
-            if (sender != null && sender is Kernel.Domain.Attribute)
-            {
-                Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
-                if (!attribute.LoadValues)
-                {
-                    List<Kernel.Domain.AttributeValue> values = GetTargetService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
-                    attribute.valueListChangeHandler.Items.Clear();
-                    foreach (Kernel.Domain.AttributeValue value in values)
-                    {
-                        attribute.valueListChangeHandler.Items.Add(value);
-                    }
-                    attribute.LoadValues = true;
-                }
-            }
-        }
 
         /// <summary>
         /// Cette méthode est exécutée lorsqu'on sélectionne une Input Table sur la sidebar.

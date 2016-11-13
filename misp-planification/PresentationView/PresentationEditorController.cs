@@ -6,6 +6,7 @@ using Misp.Kernel.Service;
 using Misp.Kernel.Task;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Office.EDraw;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Util;
 using Misp.Planification.Tranformation;
 using Misp.Planification.Tranformation.InstructionControls;
@@ -217,7 +218,7 @@ namespace Misp.Planification.PresentationView
             return new PresentationToolBarHandlerBuilder(this);
         }
 
-        protected override Kernel.Ui.Base.SideBar getNewSideBar()
+        protected override SideBar getNewSideBar()
         {
             return new PresentationSideBar();
         }

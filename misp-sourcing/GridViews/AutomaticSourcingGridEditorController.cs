@@ -1,6 +1,7 @@
 ﻿using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Util;
 using Misp.Sourcing.AutomaticSourcingViews;
 using Misp.Sourcing.Base;
@@ -110,7 +111,7 @@ namespace Misp.Sourcing.GridViews
             return toolBar;
         }
 
-        protected override Kernel.Ui.Base.SideBar getNewSideBar()
+        protected override SideBar getNewSideBar()
         {
             AutomaticSourcingSideBar sideBar = new AutomaticSourcingSideBar();
             sideBar.AutomaticSourcingGroup.Header = "Automatic Grid";

@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Ui.TreeView;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Administration.Profil
 {
-    public class ProfilGroup : SideBarExpander
+    public class ProfilGroup : SidebarGroup
     {
         public ProfilTreeview profilTreeview { get; set; }
 

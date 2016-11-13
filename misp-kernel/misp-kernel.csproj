@@ -288,6 +288,9 @@
     <Compile Include="Domain\TransformationTree.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\Value.cs" />
+    <Compile Include="Resources\Styles\SidebarTreeStyle.xaml.cs">
+      <DependentUpon>SidebarTreeStyle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Service\AutomaticSourcingGridService.cs" />
     <Compile Include="Service\AutomaticTargetService.cs" />
     <Compile Include="Service\CombineTransformationTreeService.cs" />
@@ -554,9 +557,6 @@
     <Compile Include="Ui\Base\BrowserToolBar.cs" />
     <Compile Include="Ui\Base\BrowserToolBarHandlerBuilder.cs" />
     <Compile Include="Ui\Base\PropertyBar.cs" />
-    <Compile Include="Ui\Base\SideBarGroup.xaml.cs">
-      <DependentUpon>SideBarGroup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Ui\Base\StatusItem.xaml.cs">
       <DependentUpon>StatusItem.xaml</DependentUpon>
     </Compile>
@@ -574,8 +574,6 @@
     <Compile Include="Ui\Base\EditorItem.cs" />
     <Compile Include="Ui\Base\MenuBar.cs" />
     <Compile Include="Ui\Base\Menu\SettingsMenu.cs" />
-    <Compile Include="Ui\Base\SideBar.cs" />
-    <Compile Include="Ui\Base\SideBarExpander.cs" />
     <Compile Include="Ui\Base\TestBrowser.cs" />
     <Compile Include="Ui\Base\ToolBarContainer.cs" />
     <Compile Include="Ui\Base\IView.cs" />
@@ -629,6 +627,28 @@
     <Compile Include="Ui\Popup\EntityPopup.xaml.cs">
       <DependentUpon>EntityPopup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\Sidebar\GroupSidebarGroup.cs" />
+    <Compile Include="Ui\Sidebar\MeasureSidebarGroup.cs" />
+    <Compile Include="Ui\Sidebar\ModelSidebarGroup.cs" />
+    <Compile Include="Ui\Sidebar\SideBar.cs" />
+    <Compile Include="Ui\Sidebar\SidebarGroup.cs" />
+    <Compile Include="Ui\Sidebar\StatusSidebarGroup.cs" />
+    <Compile Include="Ui\Sidebar\StatusSidebarGroupItem.xaml.cs">
+      <DependentUpon>StatusSidebarGroupItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Sidebar\Tree\MeasureTree.xaml.cs">
+      <DependentUpon>MeasureTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Sidebar\Tree\ModelTree.xaml.cs">
+      <DependentUpon>ModelTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Sidebar\Tree\PersistentTree.xaml.cs">
+      <DependentUpon>PersistentTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Sidebar\Tree\SBTree.xaml.cs">
+      <DependentUpon>SBTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Sidebar\Tree\SidebarTree.cs" />
     <Compile Include="Ui\TreeView\AutomaticSourcingTreeview.xaml.cs">
       <DependentUpon>AutomaticSourcingTreeview.xaml</DependentUpon>
     </Compile>
@@ -804,6 +824,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\Styles\SidebarTree.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Styles\EditableTreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -960,10 +984,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Ui\Base\SideBarGroup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Ui\Base\StatusItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -989,6 +1009,30 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\Popup\EntityPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Sidebar\StatusSidebarGroupItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\SidebarTreeStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\Sidebar\Tree\MeasureTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Sidebar\Tree\ModelTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Sidebar\Tree\PersistentTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Sidebar\Tree\SBTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

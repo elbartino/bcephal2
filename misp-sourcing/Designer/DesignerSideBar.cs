@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Sourcing.CustomizedTarget;
 using System;
 using System.Collections.Generic;

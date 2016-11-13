@@ -44,7 +44,7 @@ namespace Misp.Kernel.Service
         {
             try
             {
-                var request = new RestRequest(ResourcePath + "/listforsidebar", Method.GET);
+                var request = new RestRequest(ResourcePath + "/models-for-sidebar", Method.GET);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
                 try
                 {

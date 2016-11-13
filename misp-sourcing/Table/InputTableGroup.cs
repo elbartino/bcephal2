@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.TreeView;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Sourcing.Table
 {
-    public class InputTableGroup : SideBarExpander
+    public class InputTableGroup : SidebarGroup
     {
 
         #region Properties

@@ -15,6 +15,7 @@ using Xceed.Wpf.AvalonDock.Controls;
 using System.Windows.Input;
 using Misp.Kernel.Task;
 using Misp.Kernel.Util;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Initiation.Model
 {

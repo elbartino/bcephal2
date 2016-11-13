@@ -4,6 +4,7 @@ using Misp.Kernel.Service;
 using Misp.Kernel.Task;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Office;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Planification.Tranformation.InstructionControls;
 using Misp.Reporting.Base;
 using Misp.Reporting.Report;

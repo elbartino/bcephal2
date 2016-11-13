@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace Misp.Reporting.StructuredReport
 {
-    public class SpecialGroup : SideBarExpander
+    public class SpecialGroup : SidebarGroup
     {
 
         #region Properties

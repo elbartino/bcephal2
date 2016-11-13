@@ -125,9 +125,7 @@ namespace Misp.Kernel.Ui.EditableTree
         }
 
         protected void AddDefaultAttributeValues(Domain.AttributeValue parent)
-        {
-            
-
+        {            
             Domain.AttributeValue addNewAttribute = new Kernel.Domain.AttributeValue();
             addNewAttribute.IsAddNewItem = true;
             addNewAttribute.name = "Add new Value...";

@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Sidebar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Windows.Controls;
 
 namespace Misp.Kernel.Ui.Base
 {
-    public class PeridGranularityGroup : SideBarExpander
+    public class PeridGranularityGroup : SidebarGroup
     {
         
         #region Properties

@@ -20,6 +20,7 @@ using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Controls;
 using Misp.Kernel.Task;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Sidebar;
 
 
 namespace Misp.Kernel.Ui.Base

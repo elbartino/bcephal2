@@ -49,14 +49,14 @@ namespace Misp.Kernel.Ui.TreeView
         public ObservableCollection<Misp.Kernel.Domain.AttributeValue> listeAttribValue = new ObservableCollection<Domain.AttributeValue>();
         private DispatcherTimer myClickWaitTimer;
         private bool isDoubleClick = false;
-        private CollectionViewSource cvs = new CollectionViewSource();
-        public CollectionViewSource CVS
-        {
-            get
-            {
-                return this.cvs;
-            }
-        }
+        //private CollectionViewSource cvs = new CollectionViewSource();
+        //public CollectionViewSource CVS
+        //{
+        //    get
+        //    {
+        //        return this.cvs;
+        //    }
+        //}
         public EntityTreeview()
         {
             InitializeComponent();

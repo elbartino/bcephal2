@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Ui.TreeView;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Ui.Base
 {
-    public class PeriodNameGroup : SideBarExpander
+    public class PeriodNameGroup : SidebarGroup
     {
 
         #region Events

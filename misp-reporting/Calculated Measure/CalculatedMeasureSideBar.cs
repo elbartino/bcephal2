@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Misp.Reporting.Calculated_Measure
 
         #region Properties
 
-        public MeasureGroup MeasureGroup { get; set; }
+        public MeasureSidebarGroup MeasureGroup { get; set; }
         public CalculatedMeasureGroup CalculatedMeasureGroup { get; set; }
 
         #endregion
@@ -25,13 +26,10 @@ namespace Misp.Reporting.Calculated_Measure
         public override void InitializeGroups()
         {
             base.InitializeGroups();
-            this.MeasureGroup = new MeasureGroup("Measure", true);
+            this.MeasureGroup = new MeasureSidebarGroup("Measure", true);
             this.CalculatedMeasureGroup = new CalculatedMeasureGroup("Calculated Measure",true);
 
-            this.MeasureGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.CalculatedMeasureGroup.Background = System.Windows.Media.Brushes.LightBlue;
-
-            this.MeasureGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.CalculatedMeasureGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
 
             this.AddGroup(this.CalculatedMeasureGroup);

@@ -4,6 +4,7 @@ using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Office;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Util;
 using Misp.Planification.Tranformation.Run_all;
 using System;

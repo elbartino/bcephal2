@@ -25,6 +25,7 @@ using System.Windows.Data;
 using System.Collections;
 using Misp.Kernel.Domain.Browser;
 using Misp.Sourcing.Table;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Sourcing.Designer
 {

@@ -11,6 +11,7 @@ using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Util;
 using Misp.Initiation.Service;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Initiation.Base
 {

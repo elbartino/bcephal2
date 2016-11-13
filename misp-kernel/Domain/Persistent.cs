@@ -23,6 +23,43 @@ namespace Misp.Kernel.Domain
             isModified = true;
         }
 
+        protected bool isDefault;
+        [ScriptIgnore]
+        public bool IsDefault
+        {
+            set { this.isDefault = value; }
+            get { return IsShowMoreItem || IsAddNewItem; }
+        }
+
+        [ScriptIgnore]
+        public bool IsShowMoreItem
+        {
+            set;
+            get;
+        }
+
+        [ScriptIgnore]
+        public bool IsAddNewItem
+        {
+            set;
+            get;
+        }
+
+        [ScriptIgnore]
+        public bool IsExpanded
+        {
+            set;
+            get;
+        }
+
+
+        [ScriptIgnore]
+        public bool IsSelected
+        {
+            set;
+            get;
+        }
+
         public string typeName { get; set; }
 
         public int? oid { get; set; }
@@ -79,7 +116,7 @@ namespace Misp.Kernel.Domain
         [ScriptIgnore]
         public BrowserDataFilter Filter { get; set; }
 
-        public bool HasMoreElements()
+        public virtual bool HasMoreElements()
         {
             return !this.isCompleted || (this.Filter != null && this.Filter.totalPages > 0 && this.Filter.totalPages > this.Filter.page); 
         }

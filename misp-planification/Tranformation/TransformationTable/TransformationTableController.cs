@@ -1,5 +1,6 @@
 ﻿using Misp.Kernel.Application;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Reporting.StructuredReport;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Ui.TreeView;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Misp.Reporting.Calculated_Measure
 {
-    public class OperationsGroup : SideBarExpander
+    public class OperationsGroup : SidebarGroup
     {
         private System.Collections.ObjectModel.ObservableCollection<string> operationItems = new System.Collections.ObjectModel.ObservableCollection<string>();
        #region Properties

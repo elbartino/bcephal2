@@ -13,6 +13,7 @@ using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Group;
 using Misp.Kernel.Ui.File;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Application;
 using System.Windows.Controls;
 using System.Threading;

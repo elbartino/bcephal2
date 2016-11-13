@@ -52,28 +52,6 @@ namespace Misp.Kernel.Domain
 
         public bool usedToGenerateUniverse { get; set; }
 
-        protected bool isDefault;
-        [ScriptIgnore]
-        public bool IsDefault
-        {
-            set { this.isDefault = value; }
-            get { return IsShowMoreItem || IsAddNewItem; }
-        }
-
-        [ScriptIgnore]
-        public bool IsShowMoreItem
-        {
-            set;
-            get;
-        }
-
-        [ScriptIgnore]
-        public bool IsAddNewItem
-        {
-            set;
-            get;
-        }
-        
         public PersistentListChangeHandler<AttributeValue> childrenListChangeHandler { get; set; }
 
         /// <summary>

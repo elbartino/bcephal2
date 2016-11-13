@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Ui.TreeView;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Misp.Sourcing.GridViews
 {
-    public class GrilleGroup : SideBarExpander
+    public class GrilleGroup : SidebarGroup
     {
 
         #region Properties

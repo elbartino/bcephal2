@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Ui.TreeView;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace Misp.Kernel.Ui.Base
 {
-    public class CalculatedMeasureGroup : SideBarExpander
+    public class CalculatedMeasureGroup : SidebarGroup
     {
          #region Properties
 

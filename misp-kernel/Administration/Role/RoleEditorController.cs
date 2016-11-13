@@ -1,6 +1,7 @@
 ﻿using Misp.Kernel.Application;
 using Misp.Kernel.Controller;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,7 +105,7 @@ namespace Misp.Kernel.Administration.Role
             return new ToolBarHandlerBuilder(this);
         }
 
-        protected override Ui.Base.SideBar getNewSideBar()
+        protected override SideBar getNewSideBar()
         {
             return new RoleSideBar();
         }

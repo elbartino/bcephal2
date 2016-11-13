@@ -2,6 +2,7 @@
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Sourcing.AutomaticSourcingViews;
 using Misp.Sourcing.Base;
 using System;

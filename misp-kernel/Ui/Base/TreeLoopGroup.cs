@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Ui.TreeView;
+﻿using Misp.Kernel.Ui.Sidebar;
+using Misp.Kernel.Ui.TreeView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Ui.Base
 {
-    public class TreeLoopGroup : SideBarExpander
+    public class TreeLoopGroup : SidebarGroup
     {
         #region Contructors
 

@@ -12,34 +12,38 @@
         
         <TreeView.Resources>
             <HierarchicalDataTemplate DataType="{x:Type domain:Attribute}" ItemsSource="{Binding childrenListChangeHandler.Items}">
-                <Grid>
-                    <!-- Normal state of the header -->
-                    <TextBlock x:Name="textBlockHeader" Text="{Binding name}" Margin="3,0" MouseLeftButtonDown="textBlockHeaderMouseLeftButtonDown"
+                <StackPanel Orientation="Horizontal">
+                    <!--<Image Source="/Resources/Images/Icons/model.png" Width="16" Height="16" SnapsToDevicePixels="True"/>-->
+                    <Grid>
+                        <!-- Normal state of the header -->
+                        <TextBlock x:Name="textBlockHeader" Text="{Binding name}" Margin="3,0" MouseLeftButtonDown="textBlockHeaderMouseLeftButtonDown"
                                MouseRightButtonDown="textBlockHeaderMouseRightButtonDown" VerticalAlignment="Center">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsShowMoreItem}" Value="True">
-                                        <Setter Property="Foreground" Value="Green"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsAddNewItem}" Value="True">
-                                        <Setter Property="Foreground" Value="Red"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsDefault}" Value="False">
-                                        <Setter Property="Foreground" Value="Black"/>
-                                    </DataTrigger>                                    
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    
-                    <!-- This state is active in the edit mode -->
-                    <TextBox x:Name="editableTextBoxHeader" Visibility="Hidden" MinWidth="100"
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsShowMoreItem}" Value="True">
+                                            <Setter Property="Foreground" Value="Green"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsAddNewItem}" Value="True">
+                                            <Setter Property="Foreground" Value="Red"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsDefault}" Value="False">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                        <!-- This state is active in the edit mode -->
+                        <TextBox x:Name="editableTextBoxHeader" Visibility="Hidden" MinWidth="100"
                              Text="{Binding name, UpdateSourceTrigger=LostFocus}"
                              LostFocus="editableTextBoxHeaderLostFocus"
                              IsVisibleChanged="editableTextBoxHeaderIsVisibleChanged"
                              KeyDown="editableTextBoxHeaderKeyDown"/>
-                </Grid>
+                    </Grid>
+                </StackPanel>
+                
                 <!-- With triggers we switch between the three states of the header depending on its focused property and the control-level property "IsInEditMode" -->
                 <HierarchicalDataTemplate.Triggers>
                     <MultiDataTrigger>

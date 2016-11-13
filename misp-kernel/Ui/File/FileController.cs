@@ -11,6 +11,7 @@ using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Util;
 using Misp.Kernel.Task;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Kernel.Ui.File
 {

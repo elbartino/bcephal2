@@ -4,6 +4,7 @@ using Misp.Kernel.Domain;
 using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Util;
 using Misp.Sourcing.AutomaticSourcingViews;
 using Misp.Sourcing.Base;

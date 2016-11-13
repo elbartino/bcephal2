@@ -21,6 +21,7 @@ using Misp.Planification.CombinedTransformationTree;
 using Misp.Kernel.Ui.Office;
 using Misp.Planification.Tranformation.InstructionControls;
 using System.Windows.Controls;
+using Misp.Kernel.Ui.Sidebar;
 
 
 namespace Misp.Planification.Tranformation

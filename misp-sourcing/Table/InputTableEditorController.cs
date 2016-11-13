@@ -10,6 +10,7 @@ using Misp.Kernel.Ui.File;
 using Misp.Kernel.Ui.Group;
 using Misp.Kernel.Ui.Office;
 using Misp.Kernel.Ui.Office.EDraw;
+using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Util;
 using Misp.Sourcing.Base;
 using Misp.Sourcing.Designer;

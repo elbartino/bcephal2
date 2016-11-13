@@ -8,6 +8,7 @@ using Misp.Kernel.Ui.Base;
 using Misp.Sourcing.Designer;
 using Misp.Sourcing.CustomizedTarget;
 using Misp.Kernel.Ui.TreeView;
+using Misp.Kernel.Ui.Sidebar;
 
 namespace Misp.Sourcing.AllocationViews
 {

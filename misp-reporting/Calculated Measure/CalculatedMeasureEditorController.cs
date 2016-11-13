@@ -3,6 +3,7 @@ using Misp.Kernel.Controller;
 using Misp.Kernel.Service;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -260,7 +261,7 @@ namespace Misp.Reporting.Calculated_Measure
 
                 currentPage = (CalculatedMeasureEditorItem)page;
                 if (base.Save(page) == OperationState.STOP) return OperationState.STOP;
-               ((CalculatedMeasureSideBar)SideBar).MeasureGroup.MeasureTreeview.AddOrUpdateCalculateMeasure(page.EditedObject);
+               //((CalculatedMeasureSideBar)SideBar).MeasureGroup.MeasureTreeview.AddOrUpdateCalculateMeasure(page.EditedObject);
                 
             }
             catch (Exception)
@@ -289,26 +290,6 @@ namespace Misp.Reporting.Calculated_Measure
 
         public bool isSaveAs = false;
 
-        //public override OperationState SaveAs(string name)
-        //{
-        //    isSaveAs = true;
-        //    CalculatedMeasureEditorItem page = (CalculatedMeasureEditorItem)getCalculatedMeasureEditor().getActivePage();
-        //    CalculatedMeasure design = page.EditedObject;
-        //    if (design.oid.HasValue)
-        //    {
-        //        return SaveAs(name);
-        //    }
-        //    else
-        //    {
-        //        isSaveAs = false;
-        //        Rename(name);
-        //        if (Save(page) != OperationState.CONTINUE)
-        //            return OperationState.STOP;
-        //        ((CalculatedMeasureSideBar)SideBar).CalculatedMeasureGroup.CalculatedMeasureTreeview.updateCalculatedMeasure(name, design.name, false);
-        //        ((CalculatedMeasureSideBar)SideBar).MeasureGroup.MeasureTreeview.updateCalculatedMeasure(name, design.name, false);
-        //    }
-        //    return OperationState.CONTINUE;
-        //}
         
         private CalculatedMeasure GetCalculatedMeasure(string name)
         {
@@ -490,8 +471,7 @@ namespace Misp.Reporting.Calculated_Measure
            if(CalculatedMeasures!=null)
            ((CalculatedMeasureSideBar)SideBar).CalculatedMeasureGroup.CalculatedMeasureTreeview.fillTree(new ObservableCollection<CalculatedMeasure>(CalculatedMeasures));
 
-           ((CalculatedMeasureSideBar)SideBar).MeasureGroup.MeasureService = GetCalculatedMeasureService().MeasureService;
-           ((CalculatedMeasureSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(true, CalculatedMeasures);
+           ((CalculatedMeasureSideBar)SideBar).MeasureGroup.InitializeData();
 
            BGroup group = GetCalculatedMeasureService().GroupService.getDefaultGroup();
         }
@@ -502,7 +482,7 @@ namespace Misp.Reporting.Calculated_Measure
         protected override void initializeSideBarHandlers()
         {
             ((CalculatedMeasureSideBar)SideBar).CalculatedMeasureGroup.CalculatedMeasureTreeview.SelectionChanged += onSelectCalculatedMeasureFromSidebar;
-            ((CalculatedMeasureSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += onSelectOperationItemFromSidebar;
+            ((CalculatedMeasureSideBar)SideBar).MeasureGroup.Tree.Click += onSelectOperationItemFromSidebar;
         }
 
         /// <summary>
@@ -709,7 +689,7 @@ namespace Misp.Reporting.Calculated_Measure
                 if (calculatedMeasure.name.ToUpper().Equals(newName.ToUpper())) return OperationState.CONTINUE;
 
             ((CalculatedMeasureSideBar)SideBar).CalculatedMeasureGroup.CalculatedMeasureTreeview.updateCalculatedMeasure(newName, calculatedMeasure.name, false);
-            ((CalculatedMeasureSideBar)SideBar).MeasureGroup.MeasureTreeview.updateCalculatedMeasure(newName, page.EditedObject.name, false);
+            //((CalculatedMeasureSideBar)SideBar).MeasureGroup.MeasureTreeview.updateCalculatedMeasure(newName, page.EditedObject.name, false);
             
             calculatedMeasure.name = newName;
             page.Title = newName;
