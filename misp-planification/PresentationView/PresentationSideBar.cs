@@ -24,7 +24,7 @@ namespace Misp.Planification.PresentationView
 
         public PresentationGroup PresentationGroup { get; set; }
         public SpecialGroup SpecialGroup { get; set; }
-        public MeasureGroup MeasureGroup { get; set; }
+        public MeasureSidebarGroup MeasureGroup { get; set; }
         public PeriodNameGroup PeriodNameGroup { get; set; }
         public DesignerGroup DesignerGroup { get; set; }
         public CustomizedTargetGroup CustomizedTargetGroup { get; set; }
@@ -74,20 +74,18 @@ namespace Misp.Planification.PresentationView
             base.InitializeGroups();
 
             this.PresentationGroup = new PresentationGroup("Presentations", true);
-            this.SpecialGroup = new SpecialGroup("Specials", true); 
-            this.MeasureGroup = new MeasureGroup("Measure", true);
+            this.SpecialGroup = new SpecialGroup("Specials", true);
+            this.MeasureGroup = new MeasureSidebarGroup();
             this.PeriodNameGroup = new PeriodNameGroup("Period", true);
             this.DesignerGroup = new DesignerGroup("Designs", true);
             
             this.TreeLoopGroup = new TreeLoopGroup("Loops", true);
             this.PresentationGroup.Background = System.Windows.Media.Brushes.LightBlue;
-            this.MeasureGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.PeriodNameGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.DesignerGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.TreeLoopGroup.Background = System.Windows.Media.Brushes.LightBlue;
 
             this.PresentationGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
-            this.MeasureGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.PeriodNameGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.DesignerGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.TreeLoopGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;

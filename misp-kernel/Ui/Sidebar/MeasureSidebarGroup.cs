@@ -47,7 +47,7 @@ namespace Misp.Kernel.Ui.Sidebar
         /// <summary>
         /// Initialize data
         /// </summary>
-        public override void InitializeData(bool showPostingMeasure = true)
+        public virtual void InitializeMeasure(bool showPostingMeasure = true)
         {
             this.Tree.InitializeData(showPostingMeasure);
         }

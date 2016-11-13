@@ -20,9 +20,9 @@ namespace Misp.Reporting.StructuredReport
         #region Properties
 
         public StructuredReportGroup StructuredReportGroup { get; set; }
-        public EntityGroup EntityGroup { get; set; }
+        public ModelSidebarGroup EntityGroup { get; set; }
         public TargetGroup TargetGroup { get; set; }
-        public MeasureGroup MeasureGroup { get; set; }
+        public MeasureSidebarGroup MeasureGroup { get; set; }
         public PeriodNameGroup PeriodNameGroup { get; set; }
 
         public SpecialGroup SpecialGroup { get; set; }
@@ -40,9 +40,9 @@ namespace Misp.Reporting.StructuredReport
         {
             base.InitializeGroups();
             this.StructuredReportGroup = new StructuredReportGroup("Structured Reports", true);
-            this.EntityGroup = new EntityGroup("Entities", true);
+            this.EntityGroup = new ModelSidebarGroup();
             this.TargetGroup = new TargetGroup("Targets", true);
-            this.MeasureGroup = new MeasureGroup("Measure", true);
+            this.MeasureGroup = new MeasureSidebarGroup();
             this.PeriodNameGroup = new PeriodNameGroup("Period", true);
 
             this.StructuredReportGroup.Background = System.Windows.Media.Brushes.LightBlue;

@@ -20,8 +20,8 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         #region Properties
 
         public AutomaticSourcingGroup AutomaticSourcingGroup { get; set; }
-        public EntityGroup EntityGroup { get; set; }
-        public MeasureGroup MeasureGroup { get; set; }
+        public ModelSidebarGroup EntityGroup { get; set; }
+        public MeasureSidebarGroup MeasureGroup { get; set; }
         public CalculatedMeasureGroup CaculatedMeasureGroup { get; set; }
         public PeriodNameGroup PeriodNameGroup { get; set; }
         
@@ -37,20 +37,16 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         {
             base.InitializeGroups();
             this.AutomaticSourcingGroup = new AutomaticSourcingGroup("Automatic Sourcing", true);
-            this.EntityGroup = new EntityGroup("Entities", true);
-            this.MeasureGroup = new MeasureGroup("Measure", true);
+            this.EntityGroup = new ModelSidebarGroup();
+            this.MeasureGroup = new MeasureSidebarGroup();
             this.CaculatedMeasureGroup = new CalculatedMeasureGroup("Calculate Measure", true);
             this.PeriodNameGroup = new PeriodNameGroup("Period Names", true);
 
             this.AutomaticSourcingGroup.Background = System.Windows.Media.Brushes.LightBlue;
-            this.EntityGroup.Background = System.Windows.Media.Brushes.LightBlue;
-            this.MeasureGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.CaculatedMeasureGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.PeriodNameGroup.Background = System.Windows.Media.Brushes.LightBlue;
 
             this.AutomaticSourcingGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
-            this.EntityGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
-            this.MeasureGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.CaculatedMeasureGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.PeriodNameGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
 

@@ -1988,15 +1988,13 @@ namespace Misp.Sourcing.Table
         protected override void initializeSideBarData()
         {
 
-            ((InputTableSideBar)SideBar).EntityGroup.ModelService = GetInputTableService().ModelService;
-            ((InputTableSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
+            ((InputTableSideBar)SideBar).EntityGroup.InitializeData();
+            ((InputTableSideBar)SideBar).MeasureGroup.InitializeMeasure(isReport());
 
              List<InputTableBrowserData> datas = this.Service.getBrowserDatas();
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.fillTree(new ObservableCollection<InputTableBrowserData>(datas));
-                        
-            ((InputTableSideBar)SideBar).MeasureGroup.MeasureService = GetInputTableService().MeasureService;
-            ((InputTableSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(isReport());
-            
+
+
             ((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameService = GetInputTableService().PeriodNameService;
             ((InputTableSideBar)SideBar).PeriodNameGroup.InitializeTreeViewDatas();
             rootPeriodName = ((InputTableSideBar)SideBar).PeriodNameGroup.rootPeriodName;
@@ -2029,11 +2027,9 @@ namespace Misp.Sourcing.Table
         protected override void initializeSideBarHandlers()
         {
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.SelectionChanged += onSelectInputTableFromSidebar;
-            ((InputTableSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
-            ((InputTableSideBar)SideBar).EntityGroup.OnSelectTarget += OnSelectTarget;
-            //((InputTableSideBar)SideBar).EntityGroup.EntityTreeview.ExpandAttribute += OnExpandAttribute;
-            //((InputTableSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
-            //((InputTableSideBar)SideBar).EntityGroup.EntityTreeview.OnRightClick += onRightClickFromSidebar;
+            ((InputTableSideBar)SideBar).MeasureGroup.Tree.Click += onSelectMeasureFromSidebar;
+            ((InputTableSideBar)SideBar).EntityGroup.Tree.Click += OnSelectTarget;
+
             ((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
             ((InputTableSideBar)SideBar).PeriodNameGroup.OnSelectPeriodInterval += onSelectPeriodNameFromSidebar;
             ((InputTableSideBar)SideBar).PeriodNameGroup.OnSelectPeriodName += onSelectPeriodNameFromSidebar;
@@ -2043,7 +2039,7 @@ namespace Misp.Sourcing.Table
             ((InputTableSideBar)SideBar).TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += onSelectLoopFromSidebar;
         }
 
-        private void OnSelectTarget(Target target)
+        private void OnSelectTarget(object target)
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
             if (page == null) return;
@@ -2053,11 +2049,11 @@ namespace Misp.Sourcing.Table
             {
                 Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
                 if (currentRange == null) return;
-                page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetTargetValue(target);
+                page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetTargetValue((Target)target);
             }
             else
             {
-                page.getInputTableForm().TablePropertiesPanel.filterScopePanel.SetTargetValue(target);
+                page.getInputTableForm().TablePropertiesPanel.filterScopePanel.SetTargetValue((Target)target);
             }
         }
 

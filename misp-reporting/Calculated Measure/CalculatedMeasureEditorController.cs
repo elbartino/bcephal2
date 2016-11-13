@@ -471,7 +471,7 @@ namespace Misp.Reporting.Calculated_Measure
            if(CalculatedMeasures!=null)
            ((CalculatedMeasureSideBar)SideBar).CalculatedMeasureGroup.CalculatedMeasureTreeview.fillTree(new ObservableCollection<CalculatedMeasure>(CalculatedMeasures));
 
-           ((CalculatedMeasureSideBar)SideBar).MeasureGroup.InitializeData();
+           ((CalculatedMeasureSideBar)SideBar).MeasureGroup.InitializeMeasure();
 
            BGroup group = GetCalculatedMeasureService().GroupService.getDefaultGroup();
         }

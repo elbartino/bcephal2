@@ -555,21 +555,13 @@ namespace Misp.Planification.Tranformation
 
         protected void initializeSideBarData()
         {
-
-            SideBar.EntityGroup.ModelService = TransformationTreeService.ModelService;
-            SideBar.EntityGroup.InitializeTreeViewDatas();
-
-
-            Measure rootMeasure = TransformationTreeService.MeasureService.getRootMeasure();
-            SideBar.MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
+            SideBar.EntityGroup.InitializeData();
+            SideBar.MeasureGroup.InitializeMeasure(false);
 
             List<Kernel.Domain.CalculatedMeasure> CalculatedMeasures = TransformationTreeService.CalculatedMeasureService.getAllCalculatedMeasure();
             if (CalculatedMeasures != null)
                 SideBar.CalculateMeasureGroup.CalculatedMeasureTreeview.fillTree(new ObservableCollection<CalculatedMeasure>(CalculatedMeasures));
-
-            //Periodicity periodicity = TransformationTreeService.PeriodicityService.getPeriodicity();
-            //SideBar.PeriodicityGroup.PeriodicityTreeview.DisplayPeriodicity(periodicity);
-
+            
             PeriodName RootPeriodName = TransformationTreeService.PeriodNameService.getRootPeriodName();
             SideBar.PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(RootPeriodName);
             
@@ -588,12 +580,10 @@ namespace Misp.Planification.Tranformation
         /// </summary>
         protected void initializeSideBarHandlers()
         {            
-            SideBar.MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
+            SideBar.MeasureGroup.Tree.Click += onSelectMeasureFromSidebar;
             SideBar.CalculateMeasureGroup.CalculatedMeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
-            SideBar.EntityGroup.EntityTreeview.SelectionChanged += onSelectTargetFromSidebar;
-
-            SideBar.EntityGroup.EntityTreeview.setDisplacherInterval(new TimeSpan(0, 0, 0, 1));
-            SideBar.EntityGroup.EntityTreeview.SelectionDoubleClick += onDoubleClickSelectTargetFromSidebar;
+            SideBar.EntityGroup.Tree.Click += onSelectTargetFromSidebar;
+            SideBar.EntityGroup.Tree.DoubleClick += onDoubleClickSelectTargetFromSidebar;
 
             SideBar.CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
             SideBar.TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;

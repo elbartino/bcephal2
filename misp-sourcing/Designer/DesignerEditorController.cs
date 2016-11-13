@@ -390,26 +390,13 @@ namespace Misp.Sourcing.Designer
             List<BrowserData> designs = Service.getBrowserDatas();
             ((DesignerSideBar)SideBar).DesignerGroup.DesignerTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
             
-            List<Model> models = GetDesignService().ModelService.getModelsForSideBar();
-            ((DesignerSideBar)SideBar).EntityGroup.EntityTreeview.setDisplacherInterval(new TimeSpan(0, 0,0,1));
-            ((DesignerSideBar)SideBar).EntityGroup.ModelService = GetDesignService().ModelService;
-            ((DesignerSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
-
-            ((DesignerSideBar)SideBar).MeasureGroup.MeasureTreeview.setDisplacherInterval(new TimeSpan(0, 0,1));
-            ((DesignerSideBar)SideBar).MeasureGroup.MeasureService = GetDesignService().MeasureService;
-            ((DesignerSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(false);
-
+            ((DesignerSideBar)SideBar).EntityGroup.InitializeData();
+            ((DesignerSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
             
             List<Kernel.Domain.CalculatedMeasure> CalculatedMeasures = GetDesignService().CalculatedMeasureService.getAllCalculatedMeasure();
             if (CalculatedMeasures != null)
                 ((DesignerSideBar)SideBar).CalculateMeasureGroup.CalculatedMeasureTreeview.fillTree(new ObservableCollection<CalculatedMeasure>(CalculatedMeasures));
       
-            //Periodicity periodicity = GetDesignService().PeriodicityService.getPeriodicity();
-            //((DesignerSideBar)SideBar).PeriodicityGroup.PeriodicityTreeview.DisplayPeriodicity(periodicity);
-
-            /*List<PeriodName> periodNames = GetDesignService().PeriodNameService.getAll();
-            ((DesignerSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(periodNames);*/
-
             PeriodName rootPeriodName = GetDesignService().PeriodNameService.getRootPeriodName();
             ((DesignerSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
             
@@ -432,13 +419,13 @@ namespace Misp.Sourcing.Designer
         {
             ((DesignerSideBar)SideBar).DesignerGroup.DesignerTreeview.SelectionChanged += onSelectDesignFromSidebar;
 
-            ((DesignerSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
-            ((DesignerSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionDoubleClick +=onDoubleClickSelectMeasureFromSidebar;
+            ((DesignerSideBar)SideBar).MeasureGroup.Tree.Click += onSelectMeasureFromSidebar;
+            ((DesignerSideBar)SideBar).MeasureGroup.Tree.DoubleClick += onDoubleClickSelectMeasureFromSidebar;
 
             ((DesignerSideBar)SideBar).CalculateMeasureGroup.CalculatedMeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
-            ((DesignerSideBar)SideBar).EntityGroup.EntityTreeview.SelectionChanged += onSelectTargetFromSidebar;
-            ((DesignerSideBar)SideBar).EntityGroup.EntityTreeview.SelectionDoubleClick += onDoubleClickSelectTargetFromSidebar;
-            ((DesignerSideBar)SideBar).EntityGroup.EntityTreeview.ExpandAttribute += onExpandAttribute;
+            
+            ((DesignerSideBar)SideBar).EntityGroup.Tree.Click += onSelectTargetFromSidebar;
+            ((DesignerSideBar)SideBar).EntityGroup.Tree.DoubleClick += onDoubleClickSelectTargetFromSidebar;
            
             ((DesignerSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
@@ -447,25 +434,7 @@ namespace Misp.Sourcing.Designer
 
             ((DesignerSideBar)SideBar).CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
         }
-
-        private void onExpandAttribute(object sender)
-        {
-            if (sender != null && sender is Kernel.Domain.Attribute)
-            {
-                Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
-                if (!attribute.LoadValues)
-                {
-                    List<Kernel.Domain.AttributeValue> values = GetDesignService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
-                    attribute.valueListChangeHandler.Items.Clear();
-                    foreach (Kernel.Domain.AttributeValue value in values)
-                    {
-                        attribute.valueListChangeHandler.Items.Add(value);
-                    }
-                    attribute.LoadValues = true;
-                }
-            }
-        }
-        
+                
         private void onDoubleClickPeriodFromSidebar(object sender)
         {
             if (sender != null && sender is PeriodInterval)

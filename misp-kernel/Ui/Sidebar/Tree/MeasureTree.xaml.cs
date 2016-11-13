@@ -247,6 +247,11 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
             }
         }
 
+        private void OnCollapsed(object sender, RoutedEventArgs e)
+        {
+            this.Timer.Stop();
+        }
+        
         #endregion
 
 

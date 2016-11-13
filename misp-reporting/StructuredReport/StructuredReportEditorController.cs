@@ -503,18 +503,9 @@ namespace Misp.Reporting.StructuredReport
             List<BrowserData> designs = Service.getBrowserDatas();
             ((StructuredReportSideBar)SideBar).StructuredReportGroup.StructuredReportTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
 
-            ((StructuredReportSideBar)SideBar).EntityGroup.ModelService = GetStructuredReportService().ModelService;
-            ((StructuredReportSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
-
-            List<Model> models = GetStructuredReportService().ModelService.getAll();
-            ((StructuredReportSideBar)SideBar).EntityGroup.EntityTreeview.DisplayModels(models);
-
-            Measure rootMeasure = GetStructuredReportService().MeasureService.getRootMeasure();
-
-            List<CalculatedMeasure> CalculatedMeasures = GetStructuredReportService().CalculatedMeasureService.getAllCalculatedMeasure();
+            ((StructuredReportSideBar)SideBar).EntityGroup.InitializeData();
             
-            ((StructuredReportSideBar)SideBar).MeasureGroup.MeasureService = GetStructuredReportService().MeasureService;
-            ((StructuredReportSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(true, CalculatedMeasures);
+            ((StructuredReportSideBar)SideBar).MeasureGroup.InitializeMeasure(true);
 
             PeriodName rootPeriodName = GetStructuredReportService().PeriodNameService.getRootPeriodName();
             ((StructuredReportSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
@@ -534,9 +525,9 @@ namespace Misp.Reporting.StructuredReport
         {
             ((StructuredReportSideBar)SideBar).StructuredReportGroup.StructuredReportTreeview.SelectionChanged += onSelectStructuredReportFromSidebar;
 
-            ((StructuredReportSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
-            ((StructuredReportSideBar)SideBar).EntityGroup.EntityTreeview.SelectionChanged += onSelectTargetFromSidebar;
-            ((StructuredReportSideBar)SideBar).EntityGroup.EntityTreeview.SelectionDoubleClick += onDoubleClickSelectTargetFromSidebar;
+            ((StructuredReportSideBar)SideBar).MeasureGroup.Tree.Click += onSelectMeasureFromSidebar;
+            ((StructuredReportSideBar)SideBar).EntityGroup.Tree.Click += onSelectTargetFromSidebar;
+            ((StructuredReportSideBar)SideBar).EntityGroup.Tree.DoubleClick += onDoubleClickSelectTargetFromSidebar;
             ((StructuredReportSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
             ((StructuredReportSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodFromSidebar;

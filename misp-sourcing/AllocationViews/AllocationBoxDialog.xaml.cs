@@ -346,8 +346,7 @@ namespace Misp.Sourcing.AllocationViews
         protected void initializeSideBarData()
         {
             if (TransformationTreeService == null) return;
-            SideBar.EntityGroup.ModelService = TransformationTreeService.ModelService;
-            SideBar.EntityGroup.InitializeTreeViewDatas();
+            SideBar.EntityGroup.InitializeData();
 
             PeriodName RootPeriodName = TransformationTreeService.PeriodNameService.getRootPeriodName();
             SideBar.PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(RootPeriodName);
@@ -367,10 +366,8 @@ namespace Misp.Sourcing.AllocationViews
         /// </summary>
         protected void initializeSideBarHandlers()
         {            
-            SideBar.EntityGroup.EntityTreeview.SelectionChanged += onSelectTargetFromSidebar;
-
-            SideBar.EntityGroup.EntityTreeview.setDisplacherInterval(new TimeSpan(0, 0, 0, 1));
-            SideBar.EntityGroup.EntityTreeview.SelectionDoubleClick += onDoubleClickSelectTargetFromSidebar;
+            SideBar.EntityGroup.Tree.Click += onSelectTargetFromSidebar;
+            SideBar.EntityGroup.Tree.DoubleClick += onDoubleClickSelectTargetFromSidebar;
 
             SideBar.CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
             SideBar.TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;

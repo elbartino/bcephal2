@@ -413,15 +413,11 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
                     if (Expanded != null) Expanded(value);
                 }
             }
-            
-            
-            //Domain.AttributeValue value = (Domain.AttributeValue)((TreeViewItem)e.OriginalSource).Header;
-            //if (value != this.Root && Expanded != null)
-            //{
-            //    ForgetDefaultAttributeValues(value);
-            //    Expanded(value);
-            //    AddDefaultAttributeValues(value);
-            //}
+        }
+
+        private void OnCollapsed(object sender, RoutedEventArgs e)
+        {
+            this.Timer.Stop();
         }
 
         #endregion

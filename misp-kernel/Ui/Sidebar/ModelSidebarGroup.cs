@@ -62,6 +62,8 @@ namespace Misp.Kernel.Ui.Sidebar
         /// </summary>
         protected override void UserInitializations()
         {
+            this.Background = System.Windows.Media.Brushes.LightBlue;
+            this.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.Tree = new ModelTree();            
             this.ContentPanel.Children.Add(this.Tree);
         }

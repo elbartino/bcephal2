@@ -17,7 +17,7 @@ namespace Misp.Planification.CombinedTransformationTree
         public CombinedTransformationTreeGroup CombineTransformationTreeGroup { get; set; }
 
         public Planification.Tranformation.TransformationTreeGroup TransformationTreeGroup { get; set; }
-        public EntityGroup EntityGroup { get; set; }
+        public ModelSidebarGroup EntityGroup { get; set; }
         public TargetGroup StandardTargetGroup { get; set; }
 
         #endregion

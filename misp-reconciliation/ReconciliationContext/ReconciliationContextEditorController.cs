@@ -266,14 +266,8 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// </summary>
         protected override void initializeSideBarData()
         {
-            ((ReconciliationContextSideBar)SideBar).EntityGroup.ModelService = GetReconciliationContextService().ModelService;
-            ((ReconciliationContextSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
-
-            Measure rootMeasure = GetReconciliationContextService().MeasureService.getRootMeasure();
-            ((ReconciliationContextSideBar)SideBar).MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
-
-            ((ReconciliationContextSideBar)SideBar).MeasureGroup.MeasureService = GetReconciliationContextService().MeasureService;
-            ((ReconciliationContextSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(true);
+            ((ReconciliationContextSideBar)SideBar).EntityGroup.InitializeData();
+            ((ReconciliationContextSideBar)SideBar).MeasureGroup.InitializeMeasure(true);
         }
 
         /// <summary>
@@ -281,17 +275,25 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// </summary>
         protected override void initializeSideBarHandlers()
         {
-            ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectAttributeValue += onSelectStandardTargetFromSidebar;
-            ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectAttributeValue += onSelectStandardAttributeValueFromSidebar;
-            ((ReconciliationContextSideBar)SideBar).EntityGroup.OnSelectTarget += onSelectStandardTargetFromSidebar;
-            ((ReconciliationContextSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
+            ((ReconciliationContextSideBar)SideBar).EntityGroup.Tree.Click += onSelectTargetFromSidebar;
+            ((ReconciliationContextSideBar)SideBar).MeasureGroup.Tree.Click += onSelectMeasureFromSidebar;
         }
 
-        private void onSelectStandardAttributeValueFromSidebar(AttributeValue value)
+        /// <summary>
+        /// </summary>
+        /// <param name="sender">La target sélectionné</param>
+        protected void onSelectTargetFromSidebar(object sender)
         {
             ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().getActivePage();
             if (page == null) return;
-            page.getReconciliationContextForm().setValue(value);
+            if (sender is Kernel.Domain.Attribute)
+            {
+                page.getReconciliationContextForm().setAttribute((Kernel.Domain.Attribute)sender);
+            }
+            else if (sender is Kernel.Domain.AttributeValue)
+            {
+                page.getReconciliationContextForm().setValue((Kernel.Domain.AttributeValue)sender);
+            }
         }
 
         private void onSelectMeasureFromSidebar(object sender)
@@ -313,43 +315,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         }
         
 
-        /// <summary>
-        /// Cette méthode est exécutée lorsqu'on sélectionne une target sur la sidebar.
-        /// Cette opération a pour but de rajouté la target sélectionnée au filtre de la table en édition,
-        /// ou au scope des cellProperties correspondants à la sélection Excel.
-        /// </summary>
-        /// <param name="sender">La target sélectionné</param>
-        protected void onSelectStandardTargetFromSidebar(object sender)
-        {
-            ReconciliationContextEditorItem page = (ReconciliationContextEditorItem)getReconciliationContextEditor().getActivePage();
-            if (page == null) return;
-            if (sender is Kernel.Domain.Attribute)
-            {
-                page.getReconciliationContextForm().setAttribute((Kernel.Domain.Attribute)sender);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        private void OnExpandAttribute(object sender)
-        {
-            if (sender != null && sender is Kernel.Domain.Attribute)
-            {
-                Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
-                if (!attribute.LoadValues)
-                {
-                    List<Kernel.Domain.AttributeValue> values = GetReconciliationContextService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
-                    attribute.valueListChangeHandler.Items.Clear();
-                    foreach (Kernel.Domain.AttributeValue value in values)
-                    {
-                        attribute.valueListChangeHandler.Items.Add(value);
-                    }
-                    attribute.LoadValues = true;
-                }
-            }
-        }
+        
 
        
 

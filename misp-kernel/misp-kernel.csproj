@@ -552,7 +552,6 @@
       <DependentUpon>GroupPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Base\IEditableView.cs" />
-    <Compile Include="Ui\Base\MeasureGroup.cs" />
     <Compile Include="Ui\Base\Menu\ApplicationMenu.cs" />
     <Compile Include="Ui\Base\BrowserToolBar.cs" />
     <Compile Include="Ui\Base\BrowserToolBarHandlerBuilder.cs" />
@@ -676,7 +675,6 @@
     <Compile Include="Ui\TreeView\EntityTreeview.xaml.cs">
       <DependentUpon>EntityTreeview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Base\EntityGroup.cs" />
     <Compile Include="Ui\TreeView\GroupTreeview.xaml.cs">
       <DependentUpon>GroupTreeview.xaml</DependentUpon>
     </Compile>

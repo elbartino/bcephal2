@@ -24,7 +24,7 @@ namespace Misp.Sourcing.AllocationViews
 
         #region Properties
 
-        public EntityGroup EntityGroup { get; set; }
+        public ModelSidebarGroup EntityGroup { get; set; }
         public TargetGroup TargetGroup { get; set; }
         public PeriodNameGroup PeriodNameGroup { get; set; }
         public CustomizedTargetGroup CustomizedTargetGroup { get; set; }
@@ -41,7 +41,7 @@ namespace Misp.Sourcing.AllocationViews
         public override void InitializeGroups()
         {
             this.TreeLoopGroup = new TreeLoopGroup("Loops", true);
-            this.EntityGroup = new EntityGroup("Entities", true);
+            this.EntityGroup = new ModelSidebarGroup();
             this.TargetGroup = new TargetGroup("Targets", true);
             this.PeriodNameGroup = new PeriodNameGroup("Period", true);
             this.CustomizedTargetGroup = new CustomizedTargetGroup("Customized Target", true);
@@ -49,12 +49,10 @@ namespace Misp.Sourcing.AllocationViews
             this.CustomizedTargetGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
 
             this.TreeLoopGroup.Background = System.Windows.Media.Brushes.LightBlue;
-            this.EntityGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.TargetGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.PeriodNameGroup.Background = System.Windows.Media.Brushes.LightBlue;
 
             this.TreeLoopGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
-            this.EntityGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.TargetGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.PeriodNameGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.AddGroup(this.TreeLoopGroup);

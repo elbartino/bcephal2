@@ -426,23 +426,17 @@ namespace Misp.Sourcing.Base
             List<Kernel.Domain.Browser.BrowserData> datas = this.Service.getBrowserDatas();
             ((AutomaticSourcingSideBar)SideBar).AutomaticSourcingGroup.AutomaticSourcingTreeview.fillTree(new ObservableCollection<Kernel.Domain.Browser.BrowserData>(datas));
 
-            ((AutomaticSourcingSideBar)SideBar).EntityGroup.ModelService = GetAutomaticSourcingService().ModelService;
-
-            ((AutomaticSourcingSideBar)SideBar).EntityGroup.ModelService = GetAutomaticSourcingService().ModelService;
-            ((AutomaticSourcingSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
+            ((AutomaticSourcingSideBar)SideBar).EntityGroup.InitializeData();
 
             if (!isAutomaticTarget())
             {
-                ((AutomaticSourcingSideBar)SideBar).MeasureGroup.MeasureService = GetAutomaticSourcingService().MeasureService;
-                ((AutomaticSourcingSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(false);
+                ((AutomaticSourcingSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
 
                 List<CalculatedMeasure> ListCalculatedMeasure = GetAutomaticSourcingService().CalculatedMeasureService.getAllCalculatedMeasure();
                 ((AutomaticSourcingSideBar)SideBar).CaculatedMeasureGroup.CalculatedMeasureTreeview.fillTree(new ObservableCollection<CalculatedMeasure>(ListCalculatedMeasure));
 
                 PeriodName rootPeriodName = GetAutomaticSourcingService().PeriodNameService.getRootPeriodName();
-                ((AutomaticSourcingSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
-
-               
+                ((AutomaticSourcingSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);               
             }
             BGroup group = GetAutomaticSourcingService().GroupService.getDefaultGroup();
         }
@@ -471,11 +465,9 @@ namespace Misp.Sourcing.Base
         protected override void initializeSideBarHandlers()
         {
             ((AutomaticSourcingSideBar)SideBar).AutomaticSourcingGroup.AutomaticSourcingTreeview.SelectionChanged += SidebarAutomaticSourcingSelected;
-            ((AutomaticSourcingSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += SidebarMeasureSelected;
-            ((AutomaticSourcingSideBar)SideBar).EntityGroup.EntityTreeview.SelectionChanged += SidebarTargetSelected;
-            ((AutomaticSourcingSideBar)SideBar).EntityGroup.EntityTreeview.ExpandAttribute += OnExpandAttribute;
-//            ((AutomaticSourcingSideBar)SideBar).EntityGroup.EntityTreeview.ShowMoreValues += OnShowMoreVAlues;
-            ((AutomaticSourcingSideBar)SideBar).EntityGroup.EntityTreeview.OnRightClick += onRightClickFromSidebar;
+            ((AutomaticSourcingSideBar)SideBar).MeasureGroup.Tree.Click += SidebarMeasureSelected;
+            ((AutomaticSourcingSideBar)SideBar).EntityGroup.Tree.Click += SidebarTargetSelected;
+            //((AutomaticSourcingSideBar)SideBar).EntityGroup.Tree.OnRightClick += onRightClickFromSidebar;
             ((AutomaticSourcingSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += SidebarPeriodNameSelected;
         }
 
@@ -552,27 +544,7 @@ namespace Misp.Sourcing.Base
         }
 
         private Kernel.Domain.Attribute currentAttribute;
-
-        private void OnExpandAttribute(object sender)
-        {
-            if (sender != null && sender is Kernel.Domain.Attribute)
-            {
-                Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)sender;
-                if (!attribute.LoadValues)
-                {
-                    List<Kernel.Domain.AttributeValue> values = GetAutomaticSourcingService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
-                    attribute.valueListChangeHandler.Items.Clear();
-                   foreach (Kernel.Domain.AttributeValue value in values) 
-                   {
-                        attribute.valueListChangeHandler.Items.Add(value);
-                    }
-                    //updatingAttribute(attribute);
-                    attribute.LoadValues = true;
-                }
-
-            }
-        }
-               
+                       
        
 
         private void SidebarPeriodNameSelected(object sender)
@@ -657,12 +629,7 @@ namespace Misp.Sourcing.Base
 
         private void refreshMeasureInSideBar(Measure measure)
         {
-            ObservableCollection<Measure> measureList = (ObservableCollection<Measure>)((AutomaticSourcingSideBar)SideBar).MeasureGroup.MeasureTreeview.measureTreeview.ItemsSource;
-            if (measure != null && !measureList.Contains(measure))
-            {
-                Measure rootMeasure = GetAutomaticSourcingService().MeasureService.getRootMeasure();
-                ((AutomaticSourcingSideBar)SideBar).MeasureGroup.MeasureTreeview.DisplayRoot(rootMeasure);
-            }
+            ((AutomaticSourcingSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
         }
 
         protected virtual void onGroupFieldChange()

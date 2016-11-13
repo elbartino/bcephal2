@@ -683,13 +683,8 @@ namespace Misp.Sourcing.InputGrid
             List<BrowserData> designs = Service.getBrowserDatas();
             ((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
 
-            ((InputGridSideBar)SideBar).EntityGroup.ModelService = GetInputGridService().ModelService;
-            ((InputGridSideBar)SideBar).EntityGroup.InitializeTreeViewDatas();
-            
-            List<CalculatedMeasure> CalculatedMeasures = GetInputGridService().CalculatedMeasureService.getAllCalculatedMeasure();            
-            ((InputGridSideBar)SideBar).MeasureGroup.MeasureService = GetInputGridService().MeasureService;
-            ((InputGridSideBar)SideBar).MeasureGroup.InitializeTreeViewDatas(false, CalculatedMeasures);
-
+            ((InputGridSideBar)SideBar).EntityGroup.InitializeData();            
+            ((InputGridSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
 
             PeriodName rootPeriodName = GetInputGridService().PeriodNameService.getRootPeriodName();
             ((InputGridSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
@@ -709,9 +704,9 @@ namespace Misp.Sourcing.InputGrid
         {
             ((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.SelectionChanged += onSelectGridFromSidebar;
 
-            ((InputGridSideBar)SideBar).MeasureGroup.MeasureTreeview.SelectionChanged += onSelectMeasureFromSidebar;
-            ((InputGridSideBar)SideBar).EntityGroup.OnSelectTarget += onSelectTargetFromSidebar;
-            ((InputGridSideBar)SideBar).EntityGroup.EntityTreeview.SelectionDoubleClick += onDoubleClickSelectTargetFromSidebar;
+            ((InputGridSideBar)SideBar).MeasureGroup.Tree.Click += onSelectMeasureFromSidebar;
+            ((InputGridSideBar)SideBar).EntityGroup.Tree.Click += onSelectTargetFromSidebar;
+            ((InputGridSideBar)SideBar).EntityGroup.Tree.DoubleClick += onDoubleClickSelectTargetFromSidebar;
             ((InputGridSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
             ((InputGridSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodFromSidebar;
