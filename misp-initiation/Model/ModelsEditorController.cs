@@ -64,7 +64,7 @@ namespace Misp.Initiation.Model
             foreach (Kernel.Domain.Model model in models)
             {
                 EditorItem<Kernel.Domain.Model> page = getModelEditor().addOrSelectPage(model);
-                ((ModelEditorItem)page).GetModelForm().ModelService = GetModelService();
+                //((ModelEditorItem)page).GetModelForm().ModelService = GetModelService();
             }
             return OperationState.CONTINUE;
         }

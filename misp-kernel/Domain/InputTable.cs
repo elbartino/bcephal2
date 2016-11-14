@@ -49,6 +49,7 @@ namespace Misp.Kernel.Domain
 
         public int? tranformationTreeOid { get; set; }
 
+        [ScriptIgnore]
         public PersistentListChangeHandler<CellProperty> cellPropertyListChangeHandler  {get;set;}
 
         /// <summary>

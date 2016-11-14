@@ -18,6 +18,7 @@ using System.Collections.ObjectModel;
 using System.Web.Script.Serialization;
 using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Util;
+using Misp.Kernel.Application;
 
 namespace Misp.Initiation.Model
 {
@@ -40,7 +41,8 @@ namespace Misp.Initiation.Model
         public Kernel.Domain.Attribute defaultValue { get; set; }
         public Kernel.Domain.AttributeValue defaultAttributValue { get; set; }
 
-        public Kernel.Service.ModelService ModelService { get; set; }
+        public Kernel.Service.ModelService ModelService { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetModelService(); } }
+
 
         /// <summary>
         /// 
