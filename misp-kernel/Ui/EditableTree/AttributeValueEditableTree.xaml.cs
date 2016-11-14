@@ -96,6 +96,12 @@ namespace Misp.Kernel.Ui.EditableTree
             this.Attribute = attribute;
             if (attribute != null)
             {
+                if (attribute.IsDefault)
+                {
+                    this.Attribute = null;
+                    this.DisplayRoot(null);
+                    return;
+                }
                 Domain.AttributeValue root = new Kernel.Domain.AttributeValue();
                 root.childrenListChangeHandler = attribute.valueListChangeHandler;
                 root.Filter = this.Attribute.Filter;
@@ -344,16 +350,24 @@ namespace Misp.Kernel.Ui.EditableTree
                 this.contextMenu.Visibility = Visibility.Visible;
                 bool isContiguousSelection = true;// isContiguousList();
                 int slectionCount = 1;
+
+                Domain.AttributeValue parent = selectedItem != null ? selectedItem.parent : null;
+                int index = parent != null ? parent.childrenListChangeHandler.Items.IndexOf(selectedItem) : -1;
+                int count = parent != null ? parent.childrenListChangeHandler.Items.Count : -1;
+                bool canMoveUp = index > 0;
+                bool canMoveDown = count - 1 > index && !parent.childrenListChangeHandler.Items[index + 1].IsDefault;
+                bool canIndent = index > 0;
+                bool canOutdent = parent != null && !parent.Equals(Root);
                 
                 this.newMenuItem.IsEnabled = (selectedItem == null || !selectedItem.IsDefault) && slectionCount <= 1;
                 this.cutMenuItem.IsEnabled = selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null && isContiguousSelection;
                 this.copyMenuItem.IsEnabled = selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null && isContiguousSelection;
                 this.pasteMenuItem.IsEnabled = !Kernel.Util.ClipbordUtil.IsClipBoardEmptyValues() && (selectedItem == null || !selectedItem.IsDefault) && slectionCount <= 1;
                 this.deleteMenuItem.IsEnabled =     selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null && isContiguousSelection;
-                this.moveUpMenuItem.IsEnabled =     selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null ;//&& CanMoveUp;
-                this.moveDownMenuItem.IsEnabled = selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null;//&& CanMoveDown;
-                this.indentMenuItem.IsEnabled = selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null;//&& CanIndent;
-                this.outdentMenuItem.IsEnabled = selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null;//&& CanOutdent;
+                this.moveUpMenuItem.IsEnabled = canMoveUp;
+                this.moveDownMenuItem.IsEnabled = canMoveDown;
+                this.indentMenuItem.IsEnabled = canIndent;
+                this.outdentMenuItem.IsEnabled = canOutdent;
             }
             else this.contextMenu.Visibility = Visibility.Collapsed;
         }
@@ -393,17 +407,17 @@ namespace Misp.Kernel.Ui.EditableTree
 
         private void OnDeleteClick(object sender, RoutedEventArgs e)
         {
-            Domain.AttributeValue attribute = GetSelectedValue();
-            if (attribute == null) return;
-            if (IsUsedToGenerateUniverse(attribute)) return;            
-            Domain.AttributeValue parent = attribute.parent;
+            Domain.AttributeValue value = GetSelectedValue();
+            if (value == null) return;
+            if (IsUsedToGenerateUniverse(value)) return;
+            Domain.AttributeValue parent = value.parent;
             if (parent == null) parent = this.Root;
-            MessageBoxResult result = Kernel.Util.MessageDisplayer.DisplayYesNoQuestion("Delete Attribute", "Do you want to delete Attribute: '" + attribute + "' ?");
+            MessageBoxResult result = Kernel.Util.MessageDisplayer.DisplayYesNoQuestion("Delete Value", "Do you want to delete Value: '" + value + "' ?");
             if (result == MessageBoxResult.Yes)
             {
                 ForgetDefaultAttributeValues(parent);
-                if(attribute.oid.HasValue) parent.RemoveChild(attribute);
-                else parent.ForgetChild(attribute);
+                if (value.oid.HasValue) parent.RemoveChild(value);
+                else parent.ForgetChild(value);
                 AddDefaultAttributeValues(parent);
                 if (Changed != null) Changed();
             }

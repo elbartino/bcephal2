@@ -94,6 +94,15 @@ namespace Misp.Initiation.Diagram
             {
                 DiagramDesigner.DesignerItem block = GetBlockByName(name);
                 Entity entity = (Entity)item.Tag;
+
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    Kernel.Util.MessageDisplayer.DisplayError("Empty name", "The name can't be empty!");
+                    item.Renderer.Text = entity.name;
+                    EditCurrentSelection();
+                    return;
+                }
+
                 if (block != null && !block.Equals(item))
                 {
                     Kernel.Util.MessageDisplayer.DisplayError("Duplicate name", "There is another block named: " + name + ".");

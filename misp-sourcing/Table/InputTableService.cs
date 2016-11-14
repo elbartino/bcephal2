@@ -12,6 +12,7 @@ using Misp.Kernel.Domain.Browser;
 using System.Threading;
 using Misp.Kernel.Ui.Base;
 using WebSocketSharp;
+using System.Diagnostics;
 
 namespace Misp.Sourcing.Table
 {
@@ -428,6 +429,7 @@ namespace Misp.Sourcing.Table
             }
             catch (Exception e)
             {
+                Trace.WriteLine(e);
                 throw new BcephalException("Unable to parametrize cell ", e);
             }
         }

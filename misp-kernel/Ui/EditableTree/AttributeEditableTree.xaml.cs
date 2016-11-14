@@ -310,16 +310,24 @@ namespace Misp.Kernel.Ui.EditableTree
                 this.contextMenu.Visibility = Visibility.Visible;
                 bool isContiguousSelection = true;// isContiguousList();
                 int slectionCount = 1;
+
+                Domain.Attribute parent = selectedItem != null ? selectedItem.parent : null;
+                int index = parent != null ? parent.childrenListChangeHandler.Items.IndexOf(selectedItem) : -1;
+                int count = parent != null ? parent.childrenListChangeHandler.Items.Count : -1;
+                bool canMoveUp = index > 0;
+                bool canMoveDown = count - 1 > index && !parent.childrenListChangeHandler.Items[index + 1].IsDefault;
+                bool canIndent = index > 0;
+                bool canOutdent = parent != null && !parent.Equals(Root);
                 
                 this.newMenuItem.IsEnabled = (selectedItem == null || !selectedItem.IsDefault) && slectionCount <= 1;
                 this.cutMenuItem.IsEnabled = selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null && isContiguousSelection;
                 this.copyMenuItem.IsEnabled = selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null && isContiguousSelection;
                 this.pasteMenuItem.IsEnabled = !Kernel.Util.ClipbordUtil.IsClipBoardEmptyValues() && (selectedItem == null || !selectedItem.IsDefault) && slectionCount <= 1;
                 this.deleteMenuItem.IsEnabled =     selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null && isContiguousSelection;
-                this.moveUpMenuItem.IsEnabled =     selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null ;//&& CanMoveUp;
-                this.moveDownMenuItem.IsEnabled = selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null;//&& CanMoveDown;
-                this.indentMenuItem.IsEnabled = selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null;//&& CanIndent;
-                this.outdentMenuItem.IsEnabled = selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null;//&& CanOutdent;
+                this.moveUpMenuItem.IsEnabled =   canMoveUp;
+                this.moveDownMenuItem.IsEnabled = canMoveDown;
+                this.indentMenuItem.IsEnabled = canIndent;
+                this.outdentMenuItem.IsEnabled = canOutdent;
             }
             else this.contextMenu.Visibility = Visibility.Collapsed;
         }
