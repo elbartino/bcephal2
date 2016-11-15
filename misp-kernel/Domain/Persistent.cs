@@ -114,11 +114,11 @@ namespace Misp.Kernel.Domain
         }
 
         [ScriptIgnore]
-        public BrowserDataFilter Filter { get; set; }
+        public BrowserDataFilter DataFilter { get; set; }
 
         public virtual bool HasMoreElements()
         {
-            return !this.isCompleted || (this.Filter != null && this.Filter.totalPages > 0 && this.Filter.totalPages > this.Filter.page); 
+            return !this.isCompleted || (this.DataFilter != null && this.DataFilter.totalPages > 0 && this.DataFilter.totalPages > this.DataFilter.page); 
         }
 
     }

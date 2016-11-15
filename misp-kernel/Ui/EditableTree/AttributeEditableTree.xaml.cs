@@ -305,7 +305,8 @@ namespace Misp.Kernel.Ui.EditableTree
         private void contextMenuOpening(object sender, ContextMenuEventArgs e)
         {
             Domain.Attribute selectedItem = GetSelectedValue();
-            if (Root != null)
+            if (selectedItem == null || selectedItem.IsDefault) this.contextMenu.Visibility = Visibility.Collapsed;
+            else if (Root != null)
             {
                 this.contextMenu.Visibility = Visibility.Visible;
                 bool isContiguousSelection = true;// isContiguousList();
@@ -459,6 +460,7 @@ namespace Misp.Kernel.Ui.EditableTree
         }
         
         #endregion
+
 
         #region Utils
 

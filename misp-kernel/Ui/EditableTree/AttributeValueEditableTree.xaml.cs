@@ -104,7 +104,7 @@ namespace Misp.Kernel.Ui.EditableTree
                 }
                 Domain.AttributeValue root = new Kernel.Domain.AttributeValue();
                 root.childrenListChangeHandler = attribute.valueListChangeHandler;
-                root.Filter = this.Attribute.Filter;
+                root.DataFilter = this.Attribute.DataFilter;
                 this.DisplayRoot(root);
             }
             else
@@ -345,7 +345,8 @@ namespace Misp.Kernel.Ui.EditableTree
         private void contextMenuOpening(object sender, ContextMenuEventArgs e)
         {
             Domain.AttributeValue selectedItem = GetSelectedValue();
-            if (Root != null)
+            if (selectedItem == null || selectedItem.IsDefault) this.contextMenu.Visibility = Visibility.Collapsed;
+            else if (Root != null)
             {
                 this.contextMenu.Visibility = Visibility.Visible;
                 bool isContiguousSelection = true;// isContiguousList();
@@ -499,6 +500,7 @@ namespace Misp.Kernel.Ui.EditableTree
         }
         
         #endregion
+
 
         #region Utils
 

@@ -109,20 +109,20 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
             if (parent == null || parent.IsDefault) return;
             if (!parent.isCompleted && parent.oid.HasValue)
             {
-                if (parent.Filter == null)
+                if (parent.DataFilter == null)
                 {
-                    parent.Filter = new BrowserDataFilter();
-                    parent.Filter.groupOid = parent.oid.Value;
-                    parent.Filter.page = 0;
-                    parent.Filter.pageSize = PAGE_SIZE;
+                    parent.DataFilter = new BrowserDataFilter();
+                    parent.DataFilter.groupOid = parent.oid.Value;
+                    parent.DataFilter.page = 0;
+                    parent.DataFilter.pageSize = PAGE_SIZE;
                 }
 
                 if (parent is Domain.Attribute)
                 {
                     Domain.Attribute attribute = (Domain.Attribute)parent;
                     ForgetDefaultItems(attribute);
-                    attribute.Filter.page++;
-                    BrowserDataPage<AttributeValue> page = this.Service.getRootAttributeValuesByAttribute(attribute.Filter);
+                    attribute.DataFilter.page++;
+                    BrowserDataPage<AttributeValue> page = this.Service.getRootAttributeValuesByAttribute(attribute.DataFilter);
                     attribute.ClearValuesInItems();
                     foreach (AttributeValue value in page.rows)
                     {
@@ -130,16 +130,16 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
                         attribute.Items.Add(value);
                     }
                     attribute.isCompleted = true;
-                    attribute.Filter.page = page.currentPage;
-                    attribute.Filter.totalPages = page.pageCount;
+                    attribute.DataFilter.page = page.currentPage;
+                    attribute.DataFilter.totalPages = page.pageCount;
                     AddDefaultItems(attribute);
                 }
                 else if (parent is AttributeValue)
                 {
                     AttributeValue value = (AttributeValue)parent;
                     ForgetDefaultItems(value);
-                    value.Filter.page++;
-                    BrowserDataPage<AttributeValue> page = this.Service.getAttributeValueChildren(value.Filter);
+                    value.DataFilter.page++;
+                    BrowserDataPage<AttributeValue> page = this.Service.getAttributeValueChildren(value.DataFilter);
                     value.childrenListChangeHandler.Items.Clear();
                     foreach (AttributeValue child in page.rows)
                     {
@@ -147,8 +147,8 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
                         value.childrenListChangeHandler.Items.Add(child);
                     }
                     value.isCompleted = true;
-                    value.Filter.page = page.currentPage;
-                    value.Filter.totalPages = page.pageCount;
+                    value.DataFilter.page = page.currentPage;
+                    value.DataFilter.totalPages = page.pageCount;
                     AddDefaultItems(value);
                 }
                 parent.isCompleted = true;
@@ -173,31 +173,31 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
                 if (parent != null)
                 {
                     ForgetDefaultItems(parent);
-                    parent.Filter.page++;
-                    page = this.Service.getAttributeValueChildren(parent.Filter);
+                    parent.DataFilter.page++;
+                    page = this.Service.getAttributeValueChildren(parent.DataFilter);
                     foreach (AttributeValue value in page.rows)
                     {
                         value.parent = parent;
                         parent.childrenListChangeHandler.Items.Add(value);
                     }
                     parent.isCompleted = true;
-                    parent.Filter.page = page.currentPage;
-                    parent.Filter.totalPages = page.pageCount;
+                    parent.DataFilter.page = page.currentPage;
+                    parent.DataFilter.totalPages = page.pageCount;
                     AddDefaultItems(parent);
                 }
                 else if (attribute != null)
                 {
                     ForgetDefaultItems(attribute);
-                    attribute.Filter.page++;
-                    page = this.Service.getRootAttributeValuesByAttribute(attribute.Filter);
+                    attribute.DataFilter.page++;
+                    page = this.Service.getRootAttributeValuesByAttribute(attribute.DataFilter);
                     foreach (AttributeValue value in page.rows)
                     {
                         value.attribut = attribute;
                         attribute.Items.Add(value);
                     }
                     attribute.isCompleted = true;
-                    attribute.Filter.page = page.currentPage;
-                    attribute.Filter.totalPages = page.pageCount;
+                    attribute.DataFilter.page = page.currentPage;
+                    attribute.DataFilter.totalPages = page.pageCount;
                     AddDefaultItems(attribute);
                 }
             }

@@ -118,7 +118,7 @@ namespace Misp.Initiation.Model
                 selection.isCompleted = true;
                 filter.page = page.currentPage;
                 filter.totalPages = page.pageCount;
-                selection.Filter = filter;
+                selection.DataFilter = filter;
             }
             attributeValueEditableTree.DisplayAttribute(selection);
         }
@@ -130,16 +130,16 @@ namespace Misp.Initiation.Model
                 Kernel.Domain.AttributeValue selection = (Kernel.Domain.AttributeValue)item;
                 if (selection != null && !selection.isCompleted && selection.oid.HasValue)
                 {
-                    if (selection.Filter == null)
+                    if (selection.DataFilter == null)
                     {
-                        selection.Filter = new BrowserDataFilter();
-                        selection.Filter.groupOid = selection.oid.Value;
-                        selection.Filter.page = 0;
-                        selection.Filter.pageSize = 10;
+                        selection.DataFilter = new BrowserDataFilter();
+                        selection.DataFilter.groupOid = selection.oid.Value;
+                        selection.DataFilter.page = 0;
+                        selection.DataFilter.pageSize = 10;
                     }
 
-                    selection.Filter.page++;
-                    BrowserDataPage<Kernel.Domain.AttributeValue> page = ModelService.getAttributeValueChildren(selection.Filter);
+                    selection.DataFilter.page++;
+                    BrowserDataPage<Kernel.Domain.AttributeValue> page = ModelService.getAttributeValueChildren(selection.DataFilter);
                     if (!selection.isCompleted)
                     {
                         foreach (Kernel.Domain.AttributeValue value in selection.childrenListChangeHandler.originalList.ToArray())
@@ -153,8 +153,8 @@ namespace Misp.Initiation.Model
                     }
                     selection.childrenListChangeHandler.Items.BubbleSort();
                     selection.isCompleted = true;
-                    selection.Filter.page = page.currentPage;
-                    selection.Filter.totalPages = page.pageCount;
+                    selection.DataFilter.page = page.currentPage;
+                    selection.DataFilter.totalPages = page.pageCount;
                 }
             }
         }
@@ -166,18 +166,18 @@ namespace Misp.Initiation.Model
                 Kernel.Domain.AttributeValue selection = (Kernel.Domain.AttributeValue)item;
                 Kernel.Domain.AttributeValue parent = selection.parent;
                 
-                parent.Filter.page++;
+                parent.DataFilter.page++;
                 BrowserDataPage<Kernel.Domain.AttributeValue> page = parent.parent != null
-                    ? ModelService.getAttributeValueChildren(parent.Filter)
-                    : ModelService.getRootAttributeValuesByAttribute(parent.Filter);                
+                    ? ModelService.getAttributeValueChildren(parent.DataFilter)
+                    : ModelService.getRootAttributeValuesByAttribute(parent.DataFilter);                
                 foreach(Kernel.Domain.AttributeValue value in page.rows){
                     value.parent = parent;
                     parent.childrenListChangeHandler.Items.Add(value);
                 }
                 parent.childrenListChangeHandler.Items.BubbleSort();
                 parent.isCompleted = true;
-                parent.Filter.page = page.currentPage;
-                parent.Filter.totalPages = page.pageCount;
+                parent.DataFilter.page = page.currentPage;
+                parent.DataFilter.totalPages = page.pageCount;
             }
         }
 
