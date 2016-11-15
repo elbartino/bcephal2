@@ -375,9 +375,11 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
         {
             this.Timer.Stop();
             Persistent value = GetSelectedItem();
-            if (value != null)
+            if (value != null && sender != null && sender is TreeViewItem)
             {
-                if (value.IsDefault) PerformDefaultAction(value);
+                TreeViewItem item = (TreeViewItem)sender;
+                if (!item.IsSelected) { e.Handled = true; return; }
+                else if (value.IsDefault) PerformDefaultAction(value);
                 else if (DoubleClick != null) DoubleClick(value);
             }
             e.Handled = true;
