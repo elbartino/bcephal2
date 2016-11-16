@@ -23,9 +23,7 @@ namespace Misp.Kernel.Domain
     /// </summary>
     public class PeriodInterval : Persistent,IHierarchyObject
     {
-
-        private bool _isExpanded;
-
+        
         [ScriptIgnore]
         public bool isStandardPeriod { 
             get 
@@ -174,17 +172,6 @@ namespace Misp.Kernel.Domain
             return this.name;
         }
 
-        [ScriptIgnore]
-        public bool IsExpanded
-        {
-            get { return _isExpanded; }
-
-            set
-            {
-                _isExpanded = value;
-                this.OnPropertyChanged("IsExpanded");
-            }
-        }
 
         [ScriptIgnore]
         public List<PeriodInterval> Leafs

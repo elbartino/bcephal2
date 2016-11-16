@@ -461,7 +461,6 @@ namespace Misp.Sourcing.Table
                         }
                     }
                     if (currentPage.groupProperty != null) OnDisplayActiveCellData();
-                    if(rootPeriodName != null) GetInputTableService().PeriodNameService.Save(rootPeriodName);
                     GetInputTableService().SaveTableHandler += UpdateSaveInfo;
                     GetInputTableService().Save(table);
                     //if(closeEditorAfterSave) return OperationState.STOP;
@@ -630,7 +629,6 @@ namespace Misp.Sourcing.Table
                     }
                 }
                 if (currentPage.groupProperty != null) OnDisplayActiveCellData();
-                if (rootPeriodName != null) GetInputTableService().PeriodNameService.Save(rootPeriodName);
                 GetInputTableService().SaveTableHandler += UpdateSaveAsInfo;
                 GetInputTableService().SaveAs(page.EditedObject.name, name);
             }
@@ -1592,8 +1590,9 @@ namespace Misp.Sourcing.Table
             page.groupProperty.cellProperty.row = row;
             page.groupProperty.cellProperty.name = activeCell.Name;
             page.groupProperty.isReset = true;
-            page.getInputTableForm().AllocationPropertiesPanel.Display(page.groupProperty.cellProperty);
+            //page.getInputTableForm().AllocationPropertiesPanel.Display(page.groupProperty.cellProperty);
             OnChange();
+            OnDisplayActiveCellData();            
         }
 
         /// <summary>
@@ -1956,14 +1955,13 @@ namespace Misp.Sourcing.Table
                 PeriodName tagName = new PeriodName(name);
                 List<PeriodName> tagNames = GetInputTableService().PeriodNameService.getAll();
                 if (tagNames == null) tagNames = new List<PeriodName>(0);
-                if (rootPeriodName.hasPeriodName(name)) 
-                {
-                    Kernel.Util.MessageDisplayer.DisplayInfo("Duplicate Period name", "Item named: " + name + " already exist!");
-                    return;
-                }
-                rootPeriodName.AddChild((PeriodName)tagName);
-                rootPeriodName = GetInputTableService().PeriodNameService.Save(rootPeriodName);
-                ((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
+                //if (rootPeriodName.hasPeriodName(name)) 
+                //{
+                //    Kernel.Util.MessageDisplayer.DisplayInfo("Duplicate Period name", "Item named: " + name + " already exist!");
+                //    return;
+                //}
+                //rootPeriodName.AddChild((PeriodName)tagName);
+                //rootPeriodName = GetInputTableService().PeriodNameService.Save(rootPeriodName);
 
                 InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
                 if (propertyBar.Pane.SelectedContent == propertyBar.ParameterLayoutAnchorable){
@@ -1990,16 +1988,12 @@ namespace Misp.Sourcing.Table
 
             ((InputTableSideBar)SideBar).EntityGroup.InitializeData();
             ((InputTableSideBar)SideBar).MeasureGroup.InitializeMeasure(isReport());
+            ((InputTableSideBar)SideBar).PeriodGroup.InitializeData();
+
+            defaultPeriodName = GetInputTableService().PeriodNameService.getDefaultPeriodName();
 
              List<InputTableBrowserData> datas = this.Service.getBrowserDatas();
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.fillTree(new ObservableCollection<InputTableBrowserData>(datas));
-
-
-            ((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameService = GetInputTableService().PeriodNameService;
-            ((InputTableSideBar)SideBar).PeriodNameGroup.InitializeTreeViewDatas();
-            rootPeriodName = ((InputTableSideBar)SideBar).PeriodNameGroup.rootPeriodName;
-            defaultPeriodName = rootPeriodName.getDefaultPeriodName();
-            
 
             List<BrowserData> designs = GetInputTableService().DesignService.getBrowserDatas();
             ((InputTableSideBar)SideBar).DesignerGroup.DesignerTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
@@ -2029,11 +2023,8 @@ namespace Misp.Sourcing.Table
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.SelectionChanged += onSelectInputTableFromSidebar;
             ((InputTableSideBar)SideBar).MeasureGroup.Tree.Click += onSelectMeasureFromSidebar;
             ((InputTableSideBar)SideBar).EntityGroup.Tree.Click += OnSelectTarget;
-
-            //((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
-            ((InputTableSideBar)SideBar).PeriodNameGroup.OnSelectPeriodInterval += onSelectPeriodNameFromSidebar;
-            ((InputTableSideBar)SideBar).PeriodNameGroup.OnSelectPeriodName += onSelectPeriodNameFromSidebar;
-
+            ((InputTableSideBar)SideBar).PeriodGroup.Tree.Click += onSelectPeriodNameFromSidebar;
+            
             ((InputTableSideBar)SideBar).DesignerGroup.DesignerTreeview.SelectionChanged += onSelectDesignFromSidebar;
             ((InputTableSideBar)SideBar).CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
             ((InputTableSideBar)SideBar).TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += onSelectLoopFromSidebar;
@@ -2572,7 +2563,7 @@ namespace Misp.Sourcing.Table
             UpdateStatusBar(null);
             
         }
-        PeriodName rootPeriodName { get; set; }
+        //PeriodName rootPeriodName { get; set; }
         PeriodName defaultPeriodName { get; set; }
       
         /// <summary>

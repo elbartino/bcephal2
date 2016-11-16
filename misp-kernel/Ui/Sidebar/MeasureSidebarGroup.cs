@@ -24,7 +24,7 @@ namespace Misp.Kernel.Ui.Sidebar
         /// <summary>
         /// Default constructor
         /// </summary>
-        public MeasureSidebarGroup() : this("Entities") { }
+        public MeasureSidebarGroup() : this("Measures") { }
 
         /// <summary>
         /// Create a new instance of StatusSidebarGroup with title.

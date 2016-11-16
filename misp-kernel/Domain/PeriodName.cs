@@ -14,17 +14,8 @@ namespace Misp.Kernel.Domain
     public class PeriodName : Persistent, IHierarchyObject, INotifyPropertyChanged
     {
 
-        private bool _isDefault;
-        private bool _isSelected;
-        private bool _isExpanded;
         private string _name;
-
-        [NonSerialized]
-        private System.Windows.Media.Brush foreground;
-
-        [NonSerialized]
-        private System.Windows.Controls.HeaderedItemsControl header;
-
+        
         public PeriodName()
         {
             intervalListChangeHandler = new PersistentListChangeHandler<PeriodInterval>();
@@ -125,78 +116,7 @@ namespace Misp.Kernel.Domain
         {
             return this.name;
         }
-
-
-        [ScriptIgnore]
-        public System.Windows.Media.Brush Foreground
-        {
-            set
-            {
-                foreground = value;
-            }
-            get
-            {
-                return foreground;
-            }
-        }
-
-        [ScriptIgnore]
-        public System.Windows.Controls.HeaderedItemsControl Header
-        {
-            set
-            {
-                header = value;
-            }
-            get
-            {
-                return header;
-            }
-        }
-
-        [ScriptIgnore]
-        public double FontSize { get; set; }
-
-
-        [ScriptIgnore]
-        public bool IsDefault
-        {
-            set
-            {
-                _isDefault = value;
-                Foreground = value ? System.Windows.Media.Brushes.Red : System.Windows.Media.Brushes.Black;
-            }
-            get
-            {
-                return _isDefault;
-            }
-        }
-
-        [ScriptIgnore]
-        public bool IsExpanded
-        {
-            get { return _isExpanded; }
-
-            set
-            {
-                _isExpanded = value;
-                this.OnPropertyChanged("IsExpanded");
-            }
-        }
-
-        [ScriptIgnore]
-        public bool IsSelected
-        {
-            get { return _isSelected; }
-
-            set
-            {
-                _isSelected = value;
-                this.OnPropertyChanged("IsSelected");
-            }
-        }
-
-
-
+        
         [ScriptIgnore]
         public PersistentListChangeHandler<Kernel.Domain.PeriodName> listePeriodNames 
         {
@@ -617,6 +537,15 @@ namespace Misp.Kernel.Domain
                 if (this.intervalListChangeHandler == null) this.intervalListChangeHandler = new PersistentListChangeHandler<PeriodInterval>();
                 RefreshPeriodName();
                 return this.intervalListChangeHandler.getItems().ToList();
+            }
+        }
+
+        [ScriptIgnore]
+        public ObservableCollection<Kernel.Domain.PeriodInterval> Items
+        {
+            get
+            {
+                return this.intervalListChangeHandler.Items;
             }
         }
 

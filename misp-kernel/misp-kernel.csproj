@@ -629,6 +629,7 @@
     <Compile Include="Ui\Sidebar\GroupSidebarGroup.cs" />
     <Compile Include="Ui\Sidebar\MeasureSidebarGroup.cs" />
     <Compile Include="Ui\Sidebar\ModelSidebarGroup.cs" />
+    <Compile Include="Ui\Sidebar\PeriodSidebarGroup.cs" />
     <Compile Include="Ui\Sidebar\SideBar.cs" />
     <Compile Include="Ui\Sidebar\SidebarGroup.cs" />
     <Compile Include="Ui\Sidebar\StatusSidebarGroup.cs" />
@@ -640,6 +641,9 @@
     </Compile>
     <Compile Include="Ui\Sidebar\Tree\ModelTree.xaml.cs">
       <DependentUpon>ModelTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Sidebar\Tree\PeriodTree.xaml.cs">
+      <DependentUpon>PeriodTree.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Sidebar\Tree\PersistentTree.xaml.cs">
       <DependentUpon>PersistentTree.xaml</DependentUpon>
@@ -1023,6 +1027,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\Sidebar\Tree\ModelTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Sidebar\Tree\PeriodTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
