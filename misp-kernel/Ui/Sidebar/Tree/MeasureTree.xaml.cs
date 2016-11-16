@@ -207,10 +207,11 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
         {
             this.Timer.Stop();
             Domain.Measure value = GetSelectedItem();
-            if (value != null)
+            if (value != null && sender != null && sender is TreeViewItem)
             {
-                if (value.IsDefault) { }
-                else if (DoubleClick != null) DoubleClick(value);
+                TreeViewItem item = (TreeViewItem)sender;
+                if (!item.IsSelected) { e.Handled = true; return; }
+                else if (!value.IsDefault && DoubleClick != null) DoubleClick(value);
             }
             e.Handled = true;
         }
