@@ -180,6 +180,7 @@ namespace Misp.Sourcing.InputGrid
             {
                 InputGridEditorItem currentPage = (InputGridEditorItem)page;
                 if (base.Save(page) == OperationState.STOP) return OperationState.STOP;
+                UpdateGridForm();
             }
             catch (Exception)
             {
@@ -299,7 +300,7 @@ namespace Misp.Sourcing.InputGrid
             if (page == null) return;
             InputGridForm form = ((InputGridEditorItem)page).getInputGridForm();
             //((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = form.InputGridSheetForm.InputGridPropertiesPanel;
-            OnSelectedTabChange(null, null);
+            PerformSelectionChange();
         }
         
         /// <summary>
@@ -445,6 +446,12 @@ namespace Misp.Sourcing.InputGrid
             if (sender == null) return;
             if (e == null) return;
             if (!(e.Source is InputGridForm)) return;
+            PerformSelectionChange();
+            e.Handled = true;
+        }
+
+        protected virtual void PerformSelectionChange()
+        {
             InputGridEditorItem page = (InputGridEditorItem)getEditor().getActivePage();
             if (page.getInputGridForm().SelectedIndex == 1)
             {
@@ -457,7 +464,6 @@ namespace Misp.Sourcing.InputGrid
                 //ApplicationManager.MainWindow.displayPropertyBar(null);
                 if (page.getInputGridForm().GridForm.gridBrowser.RebuildGrid) UpdateGridForm();
             }
-            e.Handled = true;
         }
 
         protected virtual void UpdateGridForm()
@@ -709,7 +715,7 @@ namespace Misp.Sourcing.InputGrid
             ((InputGridSideBar)SideBar).EntityGroup.Tree.DoubleClick += onDoubleClickSelectTargetFromSidebar;
             ((InputGridSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
-            ((InputGridSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodFromSidebar;
+            //((InputGridSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodFromSidebar;
             ((InputGridSideBar)SideBar).PeriodNameGroup.OnSelectPeriodName += onSelectPeriodFromSidebar;
             ((InputGridSideBar)SideBar).PeriodNameGroup.OnSelectPeriodInterval += onSelectPeriodFromSidebar;
         }

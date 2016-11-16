@@ -265,9 +265,7 @@ namespace Misp.Sourcing.Table
         {
             ((InputTableToolBar)this.ToolBar).RunButton.IsEnabled = table.active;
             RunMenuItem.IsEnabled = table.active;
-                //RemoveMenuCommands();
-                //initializeCommands();
-          
+            OnChange();
         }
 
         /// <summary>
@@ -1455,6 +1453,7 @@ namespace Misp.Sourcing.Table
             }
             if (table == null) table = page.EditedObject;
             page.getInputTableForm().TablePropertiesPanel.visibleInShortcutCheckBox.IsChecked = table.visibleInShortcut;
+            OnChange();
         }
 
         
@@ -1938,6 +1937,7 @@ namespace Misp.Sourcing.Table
            page.getInputTableForm().TablePropertiesPanel.displayTable(table);
            page.EditedObject.group = table.group;
            page.EditedObject.isModified = true;
+           OnChange();
         }
         
         private void OnNewPeriodName(object sender, RequestNavigateEventArgs e)
@@ -2030,7 +2030,7 @@ namespace Misp.Sourcing.Table
             ((InputTableSideBar)SideBar).MeasureGroup.Tree.Click += onSelectMeasureFromSidebar;
             ((InputTableSideBar)SideBar).EntityGroup.Tree.Click += OnSelectTarget;
 
-            ((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
+            //((InputTableSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
             ((InputTableSideBar)SideBar).PeriodNameGroup.OnSelectPeriodInterval += onSelectPeriodNameFromSidebar;
             ((InputTableSideBar)SideBar).PeriodNameGroup.OnSelectPeriodName += onSelectPeriodNameFromSidebar;
 
