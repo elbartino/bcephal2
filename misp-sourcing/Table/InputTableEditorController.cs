@@ -1451,7 +1451,7 @@ namespace Misp.Sourcing.Table
             }
             if (table == null) table = page.EditedObject;
             page.getInputTableForm().TablePropertiesPanel.visibleInShortcutCheckBox.IsChecked = table.visibleInShortcut;
-            OnChange();
+            //OnChange();
         }
 
         
