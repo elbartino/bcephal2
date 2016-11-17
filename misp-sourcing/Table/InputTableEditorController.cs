@@ -265,7 +265,7 @@ namespace Misp.Sourcing.Table
         {
             ((InputTableToolBar)this.ToolBar).RunButton.IsEnabled = table.active;
             RunMenuItem.IsEnabled = table.active;
-            OnChange();
+            //OnChange();
         }
 
         /// <summary>
@@ -1936,7 +1936,7 @@ namespace Misp.Sourcing.Table
            page.getInputTableForm().TablePropertiesPanel.displayTable(table);
            page.EditedObject.group = table.group;
            page.EditedObject.isModified = true;
-           OnChange();
+           //OnChange();
         }
         
         private void OnNewPeriodName(object sender, RequestNavigateEventArgs e)

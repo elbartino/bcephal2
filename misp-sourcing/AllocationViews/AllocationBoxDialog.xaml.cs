@@ -50,9 +50,9 @@ namespace Misp.Sourcing.AllocationViews
         {
             InitializeComponent();
             InitializeHandlers();
-            scrollCondition.Visibility = System.Windows.Visibility.Collapsed;
-            this.TabConditions.Visibility = System.Windows.Visibility.Collapsed;
-            this.TabUserTemplate.Visibility = System.Windows.Visibility.Collapsed;
+            //scrollCondition.Visibility = System.Windows.Visibility.Collapsed;
+            //this.TabConditions.Visibility = System.Windows.Visibility.Collapsed;
+            //this.TabUserTemplate.Visibility = System.Windows.Visibility.Collapsed;
         }
         
         #endregion
@@ -347,9 +347,7 @@ namespace Misp.Sourcing.AllocationViews
         {
             if (TransformationTreeService == null) return;
             SideBar.EntityGroup.InitializeData();
-
-            PeriodName RootPeriodName = TransformationTreeService.PeriodNameService.getRootPeriodName();
-            SideBar.PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(RootPeriodName);
+            SideBar.PeriodGroup.InitializeData();
             
             Target targetAll = TransformationTreeService.ModelService.getTargetAll();
             List<Target> targets = new List<Target>(0);
@@ -372,10 +370,9 @@ namespace Misp.Sourcing.AllocationViews
             SideBar.CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
             SideBar.TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
-            SideBar.PeriodNameGroup.PeriodNameTreeview.setDisplacherInterval(new TimeSpan(0, 0, 0, 1));
-            SideBar.PeriodNameGroup.PeriodNameTreeview.SelectionDoubleClick += onDoubleClickSelectPeriodNameFromSidebar;
+            SideBar.PeriodGroup.Tree.Click += onSelectPeriodFromSidebar;
+            SideBar.PeriodGroup.Tree.DoubleClick += onDoubleClickSelectPeriodFromSidebar;
 
-            SideBar.PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
             SideBar.TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += OnSelecteLoopFromSidebar;
         }
 
@@ -463,17 +460,16 @@ namespace Misp.Sourcing.AllocationViews
         }
 
 
-        protected void onSelectPeriodNameFromSidebar(object sender)
+        protected void onSelectPeriodFromSidebar(object sender)
         {
-            if (sender != null)
+            if (sender != null && (sender is PeriodName || sender is PeriodInterval))
             {
-              if (sender is PeriodName) SetValue(sender);
-              else if (sender is PeriodInterval) SetValue(sender);               
+                SetValue(sender);               
             }
         }
-        
 
-         protected void onDoubleClickSelectPeriodNameFromSidebar(object sender)
+
+        protected void onDoubleClickSelectPeriodFromSidebar(object sender)
         {
             if (sender != null)
             {
@@ -486,8 +482,8 @@ namespace Misp.Sourcing.AllocationViews
                  else if (sender is PeriodInterval)
                  {
                      PeriodInterval periodInterval = (PeriodInterval)sender;
-                    if (periodInterval.IsLeaf) SetValue(sender);
-                    else SetValue(periodInterval.childrenListChangeHandler.Items);
+                     if (periodInterval.IsLeaf) SetValue(sender);
+                     else SetValue(periodInterval.childrenListChangeHandler.Items);
                  }
              }
          }

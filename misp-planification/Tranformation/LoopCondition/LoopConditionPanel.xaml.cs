@@ -110,6 +110,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
             if (item is Kernel.Domain.LoopCondition)
             {
                 Kernel.Domain.LoopCondition loopcondition = ((Kernel.Domain.LoopCondition)item);
+                if (this.LoopUserTemplate == null) this.LoopUserTemplate = new LoopUserDialogTemplate();
                 loopcondition = this.LoopUserTemplate.SynchronizeLoopCondition(loopcondition);
                 this.ActiveLoopConditionItemPanel.LoopCondition = loopcondition;
             }

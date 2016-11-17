@@ -27,9 +27,7 @@ namespace Misp.Kernel.Domain.Browser
 
         [ScriptIgnore]
         public string groupName { get { return group; } }
-
-
-
+        
         [ScriptIgnore]
         public DateTime creationDateTime
         {

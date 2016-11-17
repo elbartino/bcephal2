@@ -294,9 +294,15 @@ namespace Misp.Planification.Tranformation
         {
             if (!ValidateEdition(this.EditedDesignerItem, this.ActionDialog.NameTextBox.Text.Trim())) return;
             this.ActionDialog.FillItem();
-            if (this.ActionDialog.Action.parent != null) this.ActionDialog.Action.parent.UpdateChild(this.ActionDialog.Action);
-            else this.EditedObject.UpdateItem(this.ActionDialog.Action);
-            if (this.EditedDesignerItem != null) this.EditedDesignerItem.Renderer.Text = this.ActionDialog.Action.name;
+            if (this.EditedDesignerItem != null)
+            {
+                this.EditedDesignerItem.Renderer.Text = this.ActionDialog.Action.name;
+                this.EditedDesignerItem.Tag = this.ActionDialog.Action;
+            }
+
+            //if (this.ActionDialog.Action.parent != null) this.ActionDialog.Action.parent.UpdateChild(this.ActionDialog.Action);
+            //else this.EditedObject.UpdateItem(this.ActionDialog.Action);
+            //if (this.EditedDesignerItem != null) this.EditedDesignerItem.Renderer.Text = this.ActionDialog.Action.name;
             this.TransformationTreeDiagramView.designerCanvas.OnChange();
             this.ActionDialog.SaveAction();
             //this.ActionDialog.CloseReportWithSave();

@@ -8,6 +8,7 @@ using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -344,26 +345,105 @@ namespace Misp.Sourcing.GridViews
         {
             
             if(!this.Grille.report && grilleColumn.type.Equals(ParameterType.SCOPE.ToString())){
+                //DataGridComboBoxColumn column = new DataGridComboBoxColumn();
+                //try
+                //{
+                //    grilleColumn.values = Service.ModelService.getLeafAttributeValues(grilleColumn.valueOid.Value);
+                //}catch(Exception){}                
+                //Binding binding = new Binding();
+                //binding.Source = grilleColumn;
+                //binding.Path = new PropertyPath("Items");
+                //BindingOperations.SetBinding(column, ComboBox.ItemsSourceProperty, binding);
+                //column.SelectedValueBinding = new Binding(getBindingName(grilleColumn));
+                //return column;
+
+
                 DataGridComboBoxColumn column = new DataGridComboBoxColumn();
                 try
                 {
                     grilleColumn.values = Service.ModelService.getLeafAttributeValues(grilleColumn.valueOid.Value);
-                }catch(Exception){}
-                
-                //column.ItemsSource = grilleColumn.getValueNames();
+                }
+                catch (Exception) { }
                 Binding binding = new Binding();
                 binding.Source = grilleColumn;
                 binding.Path = new PropertyPath("Items");
                 BindingOperations.SetBinding(column, ComboBox.ItemsSourceProperty, binding);
+                column.SelectedValueBinding = new Binding(getBindingName(grilleColumn));
+                column.EditingElementStyle = new Style(typeof(ComboBox));
+                column.EditingElementStyle.Setters.Add(new Setter(ComboBox.IsEditableProperty, true));
+                column.EditingElementStyle.Setters.Add(new Setter(ComboBox.IsSynchronizedWithCurrentItemProperty, true));
+                column.EditingElementStyle.Setters.Add(new EventSetter(ComboBox.PreviewKeyDownEvent, new KeyEventHandler(comboboxBoxKeyDown)));
 
                 column.SelectedValueBinding = new Binding(getBindingName(grilleColumn));
-
                 return column;
+
+
+                //try
+                //{
+                //    grilleColumn.values = Service.ModelService.getLeafAttributeValues(grilleColumn.valueOid.Value);
+                //}
+                //catch (Exception) { }
+                //DataGridTemplateColumn column = new DataGridTemplateColumn();
+                //FrameworkElementFactory factory = new FrameworkElementFactory(typeof(ComboBox));
+                //Binding textBinding = new Binding("Text");
+                //textBinding.Mode = BindingMode.TwoWay;
+                //Binding sourceBinding = new Binding("values");
+                //sourceBinding.Source = grilleColumn;
+                //factory.SetValue(ComboBox.TextProperty, textBinding);
+                //factory.SetValue(ComboBox.IsEditableProperty, true);
+                //factory.SetValue(ComboBox.ItemsSourceProperty, sourceBinding);
+                
+                ////factory.AddHandler(ComboBox.CheckedEvent, new RoutedEventHandler(chkSelect_Checked));
+                //DataTemplate cellTemplate = new DataTemplate();
+                //cellTemplate.VisualTree = factory;
+                //column.CellEditingTemplate = cellTemplate;
+
+                //FrameworkElementFactory factory2 = new FrameworkElementFactory(typeof(Label));
+                //Binding labelBinding = new Binding(getBindingName(grilleColumn));
+                ////labelBinding.Mode = BindingMode.TwoWay;
+                //factory2.SetValue(Label.ContentProperty, labelBinding);
+                //column.CellTemplate = new DataTemplate();
+                //column.CellTemplate.VisualTree = factory2;
+                //return column;
             }
 
             DataGridTextColumn col = new DataGridTextColumn();
             col.Binding = new Binding(getBindingName(grilleColumn));
             return col;
+        }
+
+        private void comboboxBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            var combobox = sender as ComboBox;
+            var edit = (TextBox)combobox.Template.FindName("PART_EditableTextBox", combobox);
+            String old = combobox.Text.TrimStart();
+            String text = edit.Text;
+            String selection = edit.SelectedText;
+            String key = "" + e.Key;
+            if (key.Length > 1) key = "";
+            //String typed = text.Remove(text.LastIndexOf(selection)) + key;
+            //Trace.WriteLine(text);
+            //Trace.WriteLine(key);
+            //Trace.WriteLine(selection);
+            //Trace.WriteLine(typed);
+
+            //DataGridColumn col = grid.seColumn;
+            //GrilleColumn column = this.Grille.GetColumn(col.Header.ToString());
+
+            //try
+            //{
+            //    grilleColumn.values = Service.ModelService.getLeafAttributeValues(grilleColumn.valueOid.Value);
+            //}
+            //catch (Exception) { }
+
+            if (e.Key == Key.Enter)
+            {                
+                
+            }
+            if (e.Key == Key.Escape)
+            {
+                
+            }
         }
         
 
