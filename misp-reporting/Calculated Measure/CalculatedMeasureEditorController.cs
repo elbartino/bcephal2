@@ -649,7 +649,7 @@ namespace Misp.Reporting.Calculated_Measure
         /// <returns></returns>
         protected virtual OperationState ValidateEditedNewName(string newName = "")
         {
-           CalculatedMeasureEditorItem page = (CalculatedMeasureEditorItem)getCalculatedMeasureEditor().getActivePage();
+            CalculatedMeasureEditorItem page = (CalculatedMeasureEditorItem)getCalculatedMeasureEditor().getActivePage();
             CalculatedMeasure calculatedMeasure = page.EditedObject;
             if (string.IsNullOrEmpty(newName))
                 newName = page.getCalculatedMeasureForm().CalculatedMeasurePropertiesPanel.nameTextBox.Text.Trim();
@@ -662,7 +662,8 @@ namespace Misp.Reporting.Calculated_Measure
             }
 
             bool found = false;
-            if (GetCalculatedMeasureService().getByName(newName) != null) found = true;
+            Measure measure = GetCalculatedMeasureService().getByName(newName);
+            if (measure != null && measure.oid != calculatedMeasure.oid) found = true;
 
             foreach (CalculatedMeasureEditorItem calculatedMeasurePage in getCalculatedMeasureEditor().getPages())
             {
@@ -675,7 +676,8 @@ namespace Misp.Reporting.Calculated_Measure
                     return OperationState.STOP;
                 }
                 Kernel.Domain.Measure root = GetCalculatedMeasureService().MeasureService.getRootMeasure();
-                if (calculatedMeasurePage == getCalculatedMeasureEditor().getActivePage() && root.GetChildByName(newName) != null)
+                measure = (Measure)root.GetChildByName(newName);
+                if (calculatedMeasurePage == getCalculatedMeasureEditor().getActivePage() && measure != null && measure.oid != calculatedMeasure.oid)
                 {
                     DisplayError("Duplicate Name", "There is another Measure named: " + newName);
                     page.getCalculatedMeasureForm().CalculatedMeasurePropertiesPanel.nameTextBox.Text = page.Title;
