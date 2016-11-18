@@ -36,7 +36,7 @@ namespace Misp.Kernel.Ui.EditableTree
         #region Properties
 
         public event PropertyChangedEventHandler PropertyChanged;
-
+        
         /// <summary>
         /// This flag indicates whether the tree view items shall (if possible) open in edit mode
         /// </summary>
@@ -129,9 +129,9 @@ namespace Misp.Kernel.Ui.EditableTree
                 this.treeView.ItemsSource = this.Root.childrenListChangeHandler.Items;
             }
         }
-
+        
         protected void AddDefaultAttributeValues(Domain.AttributeValue parent)
-        {            
+        {
             Domain.AttributeValue addNewAttribute = new Kernel.Domain.AttributeValue();
             addNewAttribute.IsAddNewItem = true;
             addNewAttribute.name = "Add new Value...";
@@ -266,7 +266,13 @@ namespace Misp.Kernel.Ui.EditableTree
                             AddDefaultAttributeValues(this.Root);
                             SetSelectedValue(newValue);
                         }
-                        else value.parent.UpdateChild(value);
+                        else
+                        {
+                            ForgetDefaultAttributeValues(value.parent);
+                            value.parent.UpdateChild(value);
+                            AddDefaultAttributeValues(value.parent);
+                            SetSelectedValue(value);
+                        }  
                         if (Changed != null) Changed();
                     }
                     else textBox.Text = oldText;

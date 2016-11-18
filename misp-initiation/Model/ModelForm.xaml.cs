@@ -98,8 +98,10 @@ namespace Misp.Initiation.Model
             Kernel.Domain.Attribute attribute = attributeEditableTree.GetSelectedValue();
             if (ActiveEntity != null && attribute != null)
             {
+                attributeEditableTree.ForgetDefaultAttributes(attribute);
                 attribute.UpdateParents();
-                ActiveEntity.UpdateParents();                
+                ActiveEntity.UpdateParents();
+                attributeEditableTree.AddDefaultAttributes(attribute);
             }
             this.IsModify = true;
         }

@@ -3,6 +3,7 @@ using Misp.Kernel.Domain;
 using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Popup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
         /// Event to handle when single click on item.
         /// </summary>
         public event SelectedItemChangedEventHandler Click;
-
+        
         /// <summary>
         /// Event to handle when single double click on item.
         /// </summary>
@@ -421,6 +422,54 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
         {
             this.Timer.Stop();
         }
+
+
+        private void OnRightClick(object sender, MouseEventArgs e)
+        {
+            this.Timer.Stop();
+
+            if (sender != null && sender is TreeViewItem)
+            {
+                TreeViewItem item = (TreeViewItem)sender;
+                Persistent value = (Persistent)item.Header;
+                if (value != null && value.IsDefault) { e.Handled = true; return; }
+
+                EntityPopup popup = new EntityPopup();
+                popup.Tag = value;
+
+                //popup.OnValidate += OnValidate;
+                Domain.Attribute attribute = null;
+
+                if (popup.Tag is Kernel.Domain.Attribute)
+                {
+                    attribute = (Kernel.Domain.Attribute)popup.Tag;
+                    popup.selectedItem.Clear();
+                    popup.selectedNames.Clear();
+
+
+                    popup.ItemSource.Clear();
+                    List<Kernel.Domain.AttributeValue> values = this.Service.getAttributeValuesByAttribute(attribute.oid.Value);
+                    //values.BubbleSortByName();
+                    popup.ItemSource.AddRange(values);
+                    popup.selectedItem.AddRange(attribute.FilterAttributeValues);
+                    popup.FillSelectedNames();
+                    popup.Tag = attribute;
+                }
+                //else if (popup.Tag is Kernel.Domain.AttributeValue) 
+                //{
+                //    popup.IsChildren = true;
+                //    Kernel.Domain.AttributeValue value = (Kernel.Domain.AttributeValue)popup.Tag;
+                //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
+                //    popup.Tag = value;
+                //}
+                popup.IsOpen = true;
+                popup.Display();
+
+
+            }
+            e.Handled = true;
+        }
+
 
         #endregion
 

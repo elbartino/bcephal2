@@ -68,17 +68,17 @@
                         <Image Source="/Resources/Images/Icons/New.png" Width="16"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="copyMenuItem" Header="Copy"  Click="OnCopyClick">
+                <MenuItem x:Name="copyMenuItem" Header="Copy"  Click="OnCopyClick" Visibility="Collapsed">
                     <MenuItem.Icon>
                         <Image Source="/Resources/Images/Icons/Copy.png" Width="16"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="cutMenuItem" Header="Cut" Click="OnCutClick">
+                <MenuItem x:Name="cutMenuItem" Header="Cut" Click="OnCutClick" Visibility="Collapsed">
                     <MenuItem.Icon>
                         <Image Source="/Resources/Images/Icons/Cut.png" Width="16"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="pasteMenuItem" Header="Paste" Click="OnPasteClick">
+                <MenuItem x:Name="pasteMenuItem" Header="Paste" Click="OnPasteClick" Visibility="Collapsed">
                     <MenuItem.Icon>
                         <Image Source="/Resources/Images/Icons/Paste.png" Width="16"/>
                     </MenuItem.Icon>

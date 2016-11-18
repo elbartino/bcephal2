@@ -119,7 +119,7 @@ namespace Misp.Kernel.Ui.EditableTree
             }
         }
 
-        protected void AddDefaultAttributes(Domain.Attribute parent)
+        public void AddDefaultAttributes(Domain.Attribute parent)
         {
             Kernel.Domain.Attribute addNewAttribute = new Kernel.Domain.Attribute();
             addNewAttribute.IsAddNewItem = true;
@@ -145,7 +145,7 @@ namespace Misp.Kernel.Ui.EditableTree
         /// <summary>
         /// Remove default nodes from root attribute
         /// </summary>
-        protected void ForgetDefaultAttributes(Domain.Attribute parent)
+        public void ForgetDefaultAttributes(Domain.Attribute parent)
         {
             foreach (Kernel.Domain.Attribute attribute in parent.childrenListChangeHandler.Items.ToArray())
             {
@@ -201,6 +201,7 @@ namespace Misp.Kernel.Ui.EditableTree
             {
                 Kernel.Domain.Attribute selection = GetSelectedValue();
                 if (selection != null) selection.IsSelected = false;
+                this.treeView.Focus();
             }
         }
 
@@ -245,7 +246,13 @@ namespace Misp.Kernel.Ui.EditableTree
                             AddDefaultAttributes(this.Root);
                             SetSelectedAttribute(newattribute);
                         }
-                        else attribute.parent.UpdateChild(attribute);
+                        else
+                        {
+                            ForgetDefaultAttributes(attribute.parent);
+                            attribute.parent.UpdateChild(attribute);
+                            AddDefaultAttributes(attribute.parent);
+                            SetSelectedAttribute(attribute);
+                        }
                         if (Changed != null) Changed();
                     }
                     else textBox.Text = oldText;

@@ -645,9 +645,6 @@
     <Compile Include="Ui\Sidebar\Tree\PeriodTree.xaml.cs">
       <DependentUpon>PeriodTree.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Sidebar\Tree\PersistentTree.xaml.cs">
-      <DependentUpon>PersistentTree.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Ui\Sidebar\Tree\SBTree.xaml.cs">
       <DependentUpon>SBTree.xaml</DependentUpon>
     </Compile>
@@ -1031,10 +1028,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\Sidebar\Tree\PeriodTree.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Ui\Sidebar\Tree\PersistentTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
