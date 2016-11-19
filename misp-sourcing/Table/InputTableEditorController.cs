@@ -217,18 +217,18 @@ namespace Misp.Sourcing.Table
         public override OperationState Open(InputTable table)
         {
             string excelDir = getExcelFolder();
-            string filePath = excelDir + table.name + EdrawOffice.EXCEL_EXT;
-            string tempPath = GetInputTableService().FileService.FileTransferService.downloadTable(table.name + EdrawOffice.EXCEL_EXT);
+            string filePath = excelDir + table.name + SheetConst.EXCEL_EXT;
+            string tempPath = GetInputTableService().FileService.FileTransferService.downloadTable(table.name + SheetConst.EXCEL_EXT);
             if (string.IsNullOrWhiteSpace(filePath))
             {
 
             }
-           
-            filePath = tempPath + table.name + EdrawOffice.EXCEL_EXT;
+
+            filePath = tempPath + table.name + SheetConst.EXCEL_EXT;
 
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.AddInputTableIfNatExist(table);
-            EditorItem<InputTable> page = getEditor().addOrSelectPage(table);   
-            ((InputTableEditorItem)page).getInputTableForm().SpreadSheet.Open(filePath, EdrawOffice.EXCEL_ID);
+            EditorItem<InputTable> page = getEditor().addOrSelectPage(table);
+            ((InputTableEditorItem)page).getInputTableForm().SpreadSheet.Open(filePath);
             ((InputTableEditorItem)page).getInputTableForm().InputTableService = (InputTableService)this.Service;
             UpdateStatusBar(null);
             CustomizeSpreedSheet((InputTableEditorItem)page);
@@ -236,19 +236,18 @@ namespace Misp.Sourcing.Table
             getEditor().ListChangeHandler.AddNew(table);
             GetInputTableService().createTable(table);
             Parameter parameter = new Parameter(table.name);
-            
+
             if (table.tranformationTreeOid == null && this.treeOid != null)
             {
                 parameter.setTransformationTree(this.treeOid.Value);
                 GetInputTableService().parametrizeTable(parameter);
             }
             bool isNoAllocation = false;
-            //if (!isReport())
-            //{
-            //    ((InputTableEditorItem)page).getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
-            //    CellPropertyAllocationData data = ((InputTableEditorItem)page).getInputTableForm().TableCellParameterPanel.allocationPanel.AllocationData;
-            //    isNoAllocation = data.type == CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
-            //}
+            if (!isReport())
+            {
+                //((InputTableEditorItem)page).getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
+                //isNoAllocation = data.type == CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
+            }
             ((InputTableEditorItem)page).getInputTableForm().TablePropertiesPanel.displayTable(table, isNoAllocation);
             setActivationTableAction(table);
             setIsTemplateTableAction(table);
@@ -309,7 +308,7 @@ namespace Misp.Sourcing.Table
 
             InputTableEditorItem page = (InputTableEditorItem)editorItem;
             if (page.getInputTableForm().SpreadSheet.Import() != OperationState.CONTINUE) return OperationState.STOP;
-            page.getInputTableForm().SpreadSheet.RemoveTempFiles();
+            //page.getInputTableForm().SpreadSheet.RemoveTempFiles();
 
             string nameAfterImport;
             nameAfterImport = page.getInputTableForm().SpreadSheet.DocumentName;
@@ -387,7 +386,7 @@ namespace Misp.Sourcing.Table
             if (page.getInputTableForm().SpreadSheet != null)
             {
                 if (page.getInputTableForm().SpreadSheet.Export(openSaveDialog()) != OperationState.CONTINUE) return OperationState.STOP;
-                page.getInputTableForm().SpreadSheet.RemoveTempFiles();
+                //page.getInputTableForm().SpreadSheet.RemoveTempFiles();
                 Save(page);
             }
             return OperationState.CONTINUE;
@@ -1043,7 +1042,7 @@ namespace Misp.Sourcing.Table
             editorPage.getInputTableForm().TableCellParameterPanel.CellMeasurePanel.ValidateFormula += OnValidateMeasureFormula;
             editorPage.getInputTableForm().AllocationPropertiesPanel.Change += OnAllocationDataChange;
             editorPage.Closed += editorPage_Closed;
-            editorPage.getInputTableForm().SpreadSheet.DisableAddingSheet += SpreadSheet_DisableAddingSheet;
+           // editorPage.getInputTableForm().SpreadSheet.DisableAddingSheet += SpreadSheet_DisableAddingSheet;
             
             if (editorPage.getInputTableForm().SpreadSheet != null)
             {
@@ -1053,7 +1052,7 @@ namespace Misp.Sourcing.Table
                 editorPage.getInputTableForm().SpreadSheet.CopyBcephal += SpreadSheet_CopyBcephal;
                 editorPage.getInputTableForm().SpreadSheet.PasteBcephal += SpreadSheet_PasteBcephal;
                 editorPage.getInputTableForm().SpreadSheet.PartialPasteBcephal += SpreadSheet_PartialPasteBcephal;
-                editorPage.getInputTableForm().SpreadSheet.OnBeforeRightClick +=SpreadSheet_OnBeforeRightClick;
+               // editorPage.getInputTableForm().SpreadSheet.OnBeforeRightClick +=SpreadSheet_OnBeforeRightClick;
                 
                 editorPage.getInputTableForm().SpreadSheet.AuditCell += SpreadSheet_AuditCell;
                 editorPage.getInputTableForm().SpreadSheet.createDesign += SpreadSheet_CreateDesign;
@@ -2441,9 +2440,9 @@ namespace Misp.Sourcing.Table
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
             if (page == null) return;        
             Kernel.Ui.Office.Range activeCell = page.getInputTableForm().SpreadSheet.getActiveCellAsRange();
-            Kernel.Ui.Office.Range activeRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
+           // Kernel.Ui.Office.Range activeRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
             if (activeCell == null) return;
-            if (activeRange == null) return;
+            //if (activeRange == null) return;
             int row = activeCell.Items[0].Row1;
             int col = activeCell.Items[0].Column1;
             String sheetname = activeCell.Sheet.Name;
@@ -2918,13 +2917,13 @@ namespace Misp.Sourcing.Table
             page.getInputTableForm().SpreadSheet.DisableTitleBar(true);
             page.getInputTableForm().SpreadSheet.DisableFormualaBar(false);
             page.getInputTableForm().SpreadSheet.DisableToolBar(false);
-            page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
+            //page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
             //page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.PARTIAL_PASTE_BCEPHAL_LABEL);
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.PASTE_BCEPHAL_LABEL);
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.COPY_BCEPHAL_LABEL);
-            page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.CREATE_DESIGN_LABEL);
-            page.getInputTableForm().SpreadSheet.AddExcelMenu(EdrawOffice.AUDIT_CELL_LABEL);
+            page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.PASTE_BCEPHAL_LABEL);
+            page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.COPY_BCEPHAL_LABEL);
+            //page.getInputTableForm().SpreadSheet.AddSeparatorMenu();
+            page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.CREATE_DESIGN_LABEL);
+            page.getInputTableForm().SpreadSheet.AddExcelMenu(SheetConst.AUDIT_CELL_LABEL);
         }
 
         /// <summary>
