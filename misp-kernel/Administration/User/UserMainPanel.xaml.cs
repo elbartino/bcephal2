@@ -149,7 +149,8 @@ namespace Misp.Kernel.Administration.User
             }
             else 
             {
-                if (userService != null && userService.getByName(nameTextBox.Text) != null)
+                Domain.User user = userService.getByName(nameTextBox.Text);
+                if (user != null && user.oid != currentUser.oid)
                 {
                     errors += line + "Duplicate name.";
                     line = "\n";
@@ -171,7 +172,8 @@ namespace Misp.Kernel.Administration.User
             }
             else
             {
-                if (userService != null && userService.getUserByLogin(loginTextBox.Text) != null)
+                Domain.User user = userService.getUserByLogin(loginTextBox.Text);
+                if (user != null && user.oid != currentUser.oid)
                 {
                     errors += line + "Duplicate login.";
                     line = "\n";
