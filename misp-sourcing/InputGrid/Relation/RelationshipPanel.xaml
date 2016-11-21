@@ -1,0 +1,14 @@
+﻿<ScrollViewer x:Class="Misp.Sourcing.InputGrid.Relation.RelationshipPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:src="clr-namespace:Misp.Sourcing.InputGrid.Relation" 
+             mc:Ignorable="d"
+             d:Height="Auto" d:DesignWidth="300" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+    <StackPanel x:Name="panel" Background="White">
+        <src:RelationshipItemPanel />
+        <src:RelationshipItemPanel/>
+    </StackPanel>
+</ScrollViewer>

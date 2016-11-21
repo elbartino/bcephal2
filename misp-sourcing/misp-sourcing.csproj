@@ -232,6 +232,9 @@
     <Compile Include="InputGrid\Relation\RelationshipItemPanel.xaml.cs">
       <DependentUpon>RelationshipItemPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InputGrid\Relation\RelationshipPanel.xaml.cs">
+      <DependentUpon>RelationshipPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MultipleFilesUpload\Step1.xaml.cs" />
     <Compile Include="MultipleFilesUpload\Step2.xaml.cs" />
     <Compile Include="MultipleFilesUpload\Step3.xaml.cs" />
@@ -459,6 +462,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="InputGrid\Relation\RelationshipItemPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InputGrid\Relation\RelationshipPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
