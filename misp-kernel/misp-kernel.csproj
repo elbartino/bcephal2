@@ -61,43 +61,35 @@
     </Reference>
     <Reference Include="DevExpress.Data.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\DevExpress 16.1\Components\Bin\Framework\DevExpress.Data.v16.1.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\misp-build\libs\dotnet\DevExpress.Data.v16.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Mvvm.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\DevExpress 16.1\Components\Bin\Framework\DevExpress.Mvvm.v16.1.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\misp-build\libs\dotnet\DevExpress.Mvvm.v16.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Office.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\DevExpress 16.1\Components\Bin\Framework\DevExpress.Office.v16.1.Core.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\misp-build\libs\dotnet\DevExpress.Office.v16.1.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\DevExpress 16.1\Components\Bin\Framework\DevExpress.Printing.v16.1.Core.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\misp-build\libs\dotnet\DevExpress.Printing.v16.1.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Spreadsheet.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\DevExpress 16.1\Components\Bin\Framework\DevExpress.Spreadsheet.v16.1.Core.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\misp-build\libs\dotnet\DevExpress.Spreadsheet.v16.1.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Xpf.Core.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\DevExpress 16.1\Components\Bin\Framework\DevExpress.Xpf.Core.v16.1.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Core.v16.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Xpf.Ribbon.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\DevExpress 16.1\Components\Bin\Framework\DevExpress.Xpf.Ribbon.v16.1.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Ribbon.v16.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Xpf.Spreadsheet.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\DevExpress 16.1\Components\Bin\Framework\DevExpress.Xpf.Spreadsheet.v16.1.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Spreadsheet.v16.1.dll</HintPath>
     </Reference>
     <Reference Include="EO.Wpf, Version=3.0.21.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

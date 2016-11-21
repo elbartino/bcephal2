@@ -12,7 +12,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
 
-        <dxb:BarManager x:Name="barManager1" ToolbarGlyphSize="Small">
+        <dxb:BarManager x:Name="barManager1" ToolbarGlyphSize="Small" >
             <dxb:BarManager.Resources>
                 <dxsps:SpreadsheetUICommand x:Key="commands"/>
                 <dxsps:SpreadsheetStringIdConverter x:Key="stringIdConverter"/>
@@ -1584,7 +1584,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <dxsps:SpreadsheetFormulaBarControl x:Name="formulaBar" SpreadsheetControl="{Binding ElementName=spreadsheetControl}"/>
-                    <dxsps:SpreadsheetControl x:Name="spreadsheetControl" BarManager="{Binding ElementName=barManager1, Mode=OneTime}" Ribbon="{Binding ElementName=ribbonControl1, Mode=OneTime}" Grid.Row="1"/>
+                    <dxsps:SpreadsheetControl x:Name="spreadsheetControl"  BarManager="{Binding ElementName=barManager1, Mode=OneTime}" Ribbon="{Binding ElementName=ribbonControl1, Mode=OneTime}" Grid.Row="1"/>
                 </Grid>
             </DockPanel>
         </dxb:BarManager>
