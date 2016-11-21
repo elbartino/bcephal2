@@ -519,7 +519,7 @@ namespace Misp.Sourcing.Table
         protected void Mask(bool mask, string content = "Saving...")
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
-            if (page != null) page.getInputTableForm().Mask(mask);
+            //if (page != null) page.getInputTableForm().Mask(mask);
             ApplicationManager.MainWindow.BusyBorder.Visibility = mask ? Visibility.Visible : Visibility.Hidden;
             if (mask)
             {
@@ -536,7 +536,7 @@ namespace Misp.Sourcing.Table
         private void MaskDesign(bool mask, string content = "Applying design...")
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
-            if (page != null) page.getInputTableForm().Mask(mask);
+            //if (page != null) page.getInputTableForm().Mask(mask);
             ApplicationManager.MainWindow.BusyBorder.Visibility = mask ? Visibility.Visible : Visibility.Hidden;
             if (mask)
             {

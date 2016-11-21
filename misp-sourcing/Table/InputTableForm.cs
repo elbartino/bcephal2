@@ -132,14 +132,14 @@ namespace Misp.Sourcing.Table
             if (mask)
             {
                 if (isMasked) return;
-                image.Source = GetScreenInt();
-                image.Visibility = System.Windows.Visibility.Visible;
-                windowsFormsHost.Visibility = System.Windows.Visibility.Hidden;
+                //image.Source = GetScreenInt();
+               // image.Visibility = System.Windows.Visibility.Visible;
+                //windowsFormsHost.Visibility = System.Windows.Visibility.Hidden;
             }
             else
             {
-                image.Visibility = System.Windows.Visibility.Hidden;
-                windowsFormsHost.Visibility = System.Windows.Visibility.Visible;
+                //image.Visibility = System.Windows.Visibility.Hidden;
+                //windowsFormsHost.Visibility = System.Windows.Visibility.Visible;
             }
             isMasked = mask;
         }
