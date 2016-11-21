@@ -107,7 +107,7 @@ namespace Misp.Sourcing.InputGrid.Relation
         {
             PrimaryRelationItemPanel panel = (PrimaryRelationItemPanel)item;
             this.ActiveItemPanel = panel;
-            this.RelationshipPanel.Display(panel.Relationship);
+            this.RelationshipPanel.Display(Grid, panel.Relationship);
         }
 
         private void OnAdded(object item)
