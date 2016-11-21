@@ -229,6 +229,9 @@
     <Compile Include="InputGrid\InputGridSheetForm.cs" />
     <Compile Include="InputGrid\InputGridSideBar.cs" />
     <Compile Include="InputGrid\InputGridToolBar.cs" />
+    <Compile Include="InputGrid\Relation\RelationshipItemPanel.xaml.cs">
+      <DependentUpon>RelationshipItemPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MultipleFilesUpload\Step1.xaml.cs" />
     <Compile Include="MultipleFilesUpload\Step2.xaml.cs" />
     <Compile Include="MultipleFilesUpload\Step3.xaml.cs" />
@@ -455,6 +458,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="InputGrid\Relation\RelationshipItemPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MultipleFilesUpload\Step1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -616,6 +623,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Loop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Relationship\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
