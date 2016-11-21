@@ -330,6 +330,7 @@
     <Compile Include="Service\AutomaticTargetService.cs" />
     <Compile Include="Service\CombineTransformationTreeService.cs" />
     <Compile Include="Service\AutomaticPostingGridService.cs" />
+    <Compile Include="Service\RelationShipService.cs" />
     <Compile Include="Service\RightService.cs" />
     <Compile Include="Service\FileTransferService.cs" />
     <Compile Include="Service\PostingGridService.cs" />

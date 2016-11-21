@@ -1,5 +1,5 @@
-﻿using Misp.Kernel.Ui.Base;
-using Misp.Kernel.Domain;
+﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +18,9 @@ using System.Windows.Shapes;
 namespace Misp.Sourcing.InputGrid.Relation
 {
     /// <summary>
-    /// Interaction logic for RelationshipItemPanel.xaml
+    /// Interaction logic for PrimaryRelationItemPanel.xaml
     /// </summary>
-    public partial class RelationshipItemPanel : Grid
+    public partial class PrimaryRelationItemPanel : Grid
     {
         
         #region Events
@@ -55,9 +55,11 @@ namespace Misp.Sourcing.InputGrid.Relation
 
         #region Properties
 
-        public GrilleRelationshipItem RelationshipItem { get; set; }
+        public GrilleRelationship Relationship { get; set; }
 
         public int Index { get; set; }
+
+        public Grille Grid { get; set; }
 
         protected bool throwEvents;
 
@@ -69,7 +71,7 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// <summary>
         /// Build a new instance of RelationshipItemPanel
         /// </summary>
-        public RelationshipItemPanel()
+        public PrimaryRelationItemPanel()
         {
             InitializeComponent();            
             InitializeHandlers();
@@ -80,11 +82,12 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// Build a new instance of RelationshipItemPanel
         /// </summary>
         /// <param name="index">Panel index</param>
-        public RelationshipItemPanel(Grille grid)
+        public PrimaryRelationItemPanel(Grille grid)
             : this()
         {
+            this.Grid = grid;
             throwEvents = false;
-            this.comboBox.ItemsSource = grid.columnListChangeHandler.Items;
+            this.comboBox.ItemsSource = this.Grid.columnListChangeHandler.Items;
             throwEvents = true;
         }
         
@@ -92,7 +95,7 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// Build a new instance of RelationshipItemPanel
         /// </summary>
         /// <param name="index">Panel index</param>
-        public RelationshipItemPanel(Grille grid, int index)
+        public PrimaryRelationItemPanel(Grille grid, int index)
             : this(grid)
         {
             this.Index = index;
@@ -102,7 +105,7 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// Build a new instance of RelationshipItemPanel
         /// </summary>
         /// <param name="item">RelationshipItem to display in this panel</param>
-        public RelationshipItemPanel(Grille grid, GrilleRelationshipItem item)
+        public PrimaryRelationItemPanel(Grille grid, GrilleRelationship item)
             : this(grid)
         {
             Display(item); 
@@ -113,13 +116,12 @@ namespace Misp.Sourcing.InputGrid.Relation
 
         #region Operations
 
-        public void Display(GrilleRelationshipItem item)
+        public void Display(GrilleRelationship item)
         {
             throwEvents = false;
-            this.RelationshipItem = item;
+            this.Relationship = item;
             if (item != null) this.Index = item.position + 1;
-            this.comboBox.SelectedItem = item != null && item.column != null ? item.column.name : "";
-            this.checkBox.IsChecked = item != null ? item.isExclusive : false;
+            this.comboBox.SelectedItem = item != null && item.primaryColumn != null ? item.primaryColumn.name : "";
             throwEvents = true;
         }
 
@@ -158,9 +160,10 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// </summary>
         protected void InitializeHandlers()
         {
-            this.deleteButton.Click += OnButtonClick;
+            this.addButton.Click += OnAddButtonClick;
+            this.deleteButton.Click += OnDeleteButtonClick;
             this.GotFocus += OnGotFocus;
-            this.checkBox.GotFocus += OnGotFocus;
+            this.addButton.GotFocus += OnGotFocus;
             this.deleteButton.GotFocus += OnGotFocus;
             this.comboBox.GotFocus += OnGotFocus;
             this.comboBox.SelectionChanged += OnComboBoxSelectionChanged;
@@ -176,7 +179,7 @@ namespace Misp.Sourcing.InputGrid.Relation
         {
             if (Updated != null && throwEvents)
             {
-                if (this.RelationshipItem != null)
+                if (this.Relationship != null)
                 {
                     //this.RelationshipItem.column = this.comboBox.SelectedItem.ToString();
                     Updated(this);
@@ -189,14 +192,17 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnButtonClick(object sender, RoutedEventArgs e)
+        private void OnDeleteButtonClick(object sender, RoutedEventArgs e)
         {
             if (Deleted != null) Deleted(this);
         }
 
+        private void OnAddButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (Added != null) Added(this);
+        }
         
         #endregion
-
 
     }
 }
