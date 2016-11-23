@@ -5,6 +5,7 @@ using Misp.Kernel.Service;
 using Misp.Kernel.Task;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Office;
+using Misp.Kernel.Ui.Office.DevExpressSheet;
 using Misp.Kernel.Ui.Office.EDraw;
 using Misp.Kernel.Ui.Sidebar;
 using Misp.Kernel.Util;
@@ -221,9 +222,10 @@ namespace Misp.Sourcing.Base
             {
                 editorPage.getAutomaticSourcingForm().SpreadSheet.SelectionChanged += OnSpreadSheetSelectionChanged;
                 editorPage.getAutomaticSourcingForm().SpreadSheet.SheetActivated += OnSheetActivated;
-                editorPage.getAutomaticSourcingForm().SpreadSheet.OnAddColumn += SpreadSheet_OnAddColumn;
-                editorPage.getAutomaticSourcingForm().SpreadSheet.OnRemoveColumn += SpreadSheet_OnRemoveColumn;
-                editorPage.getAutomaticSourcingForm().SpreadSheet.OnBeforeRightClick += SpreadSheet_OnBeforeRightClick;
+            //    editorPage.getAutomaticSourcingForm().SpreadSheet.OnAddColumn += SpreadSheet_OnAddColumn;
+            //    editorPage.getAutomaticSourcingForm().SpreadSheet.OnRemoveColumn += SpreadSheet_OnRemoveColumn;
+            //    editorPage.getAutomaticSourcingForm().SpreadSheet.OnBeforeRightClick += SpreadSheet_OnBeforeRightClick;
+            //
             }
         }
 
@@ -1054,7 +1056,7 @@ namespace Misp.Sourcing.Base
                     initializePageHandlers(page);
                     page.Title = automaticSourcing.name;
                     getAutomaticSourcingEditor().ListChangeHandler.AddNew(automaticSourcing);
-                    ((AutomaticSourcingEditorItem)page).getAutomaticSourcingForm().SpreadSheet.Open(filePath, EdrawOffice.EXCEL_ID);
+                    ((AutomaticSourcingEditorItem)page).getAutomaticSourcingForm().SpreadSheet.Open(filePath);
                 }
 
             }
@@ -1289,7 +1291,10 @@ namespace Misp.Sourcing.Base
 
             InitializeExcelFile(page.EditedObject.excelFile);
             OnSheetActivated();
-            if (page.EditedObject.ActiveSheet.listColumnToDisplay.Count > 0) page.getAutomaticSourcingForm().SetSelectedIndex(0);
+            if (page.EditedObject.ActiveSheet != null)
+            {
+                if (page.EditedObject.ActiveSheet.listColumnToDisplay.Count > 0) page.getAutomaticSourcingForm().SetSelectedIndex(0);
+            }
             OnChange();
             return OperationState.CONTINUE;
 
@@ -1614,32 +1619,32 @@ namespace Misp.Sourcing.Base
             string rangeName = UsableRange != null ? UsableRange.Name : "";
             Range selectedRange = UsableRange;
 
-            SheetPanel sheetPanel = page.getAutomaticSourcingForm().SpreadSheet;
-            int index = sheetPanel.getActiveCell().Column;
-            int sheetIndex = sheetPanel.getActiveSheetIndex();
+            //SheetPanel sheetPanel = page.getAutomaticSourcingForm().SpreadSheet;
+            //int index = sheetPanel.getActiveCell().Column;
+            //int sheetIndex = sheetPanel.getActiveSheetIndex();
 
-            bool isPresent;
+            //bool isPresent;
 
-            if (page.EditedObject.ActiveSheet.oid.HasValue)
-                isPresent = page.EditedObject.ActiveSheet.getAutomaticSourcingColumn(index) != null ? true :
-                   page.EditedObject.ActiveSheet.oid.HasValue && page.EditedObject.ActiveSheet.findInDeleted(index) != null ? true : false;
-            else
-                isPresent = sheetPanel.IsColumnPresentInList(index);
+            //if (page.EditedObject.ActiveSheet.oid.HasValue)
+            //    isPresent = page.EditedObject.ActiveSheet.getAutomaticSourcingColumn(index) != null ? true :
+            //       page.EditedObject.ActiveSheet.oid.HasValue && page.EditedObject.ActiveSheet.findInDeleted(index) != null ? true : false;
+            //else
+            //    isPresent = sheetPanel.IsColumnPresentInList(index);
 
-            if (isPresent)
-            {
-                bool isInListBox = page.EditedObject.ActiveSheet.getColumnInListToDisplay(index) != null ? true : false;
-                sheetPanel.SetInVisibleExcelMenu(EdrawOffice.ADD_AUTOMATICCOLUMN_LABEL, false);
-                sheetPanel.SetInVisibleExcelMenu(EdrawOffice.REMOVE_AUTOMATICCOLUMN_LABEL, false);
+            //if (isPresent)
+            //{
+            //    bool isInListBox = page.EditedObject.ActiveSheet.getColumnInListToDisplay(index) != null ? true : false;
+            //    sheetPanel.SetInVisibleExcelMenu(EdrawOffice.ADD_AUTOMATICCOLUMN_LABEL, false);
+            //    sheetPanel.SetInVisibleExcelMenu(EdrawOffice.REMOVE_AUTOMATICCOLUMN_LABEL, false);
 
-                sheetPanel.ActivateExcelContextMenuItem(!isInListBox, EdrawOffice.ADD_AUTOMATICCOLUMN_LABEL);
-                sheetPanel.ActivateExcelContextMenuItem(isInListBox, EdrawOffice.REMOVE_AUTOMATICCOLUMN_LABEL);
-            }
-            else
-            {
-                sheetPanel.SetInVisibleExcelMenu(EdrawOffice.ADD_AUTOMATICCOLUMN_LABEL);
-                sheetPanel.SetInVisibleExcelMenu(EdrawOffice.REMOVE_AUTOMATICCOLUMN_LABEL);
-            }
+            //    sheetPanel.ActivateExcelContextMenuItem(!isInListBox, EdrawOffice.ADD_AUTOMATICCOLUMN_LABEL);
+            //    sheetPanel.ActivateExcelContextMenuItem(isInListBox, EdrawOffice.REMOVE_AUTOMATICCOLUMN_LABEL);
+            //}
+            //else
+            //{
+            //    sheetPanel.SetInVisibleExcelMenu(EdrawOffice.ADD_AUTOMATICCOLUMN_LABEL);
+            //    sheetPanel.SetInVisibleExcelMenu(EdrawOffice.REMOVE_AUTOMATICCOLUMN_LABEL);
+            //}
         }
 
         private void SpreadSheet_OnAddColumn(int index)
@@ -1651,7 +1656,7 @@ namespace Misp.Sourcing.Base
                 AutomaticSourcingSheet currentSheet = page.getAutomaticSourcingForm().AutomaticSourcingPanel.GetSelectedSheet();
                 if (currentSheet == null) return;
                 selectedRange = currentSheet.rangeSelected;
-                bool isPresent = page.getAutomaticSourcingForm().SpreadSheet.IsColumnPresentInList(index, selectedRange);
+                bool isPresent = true; //page.getAutomaticSourcingForm().SpreadSheet.IsColumnPresentInList(index, selectedRange);
                 if (isPresent)
                 {
                     AutomaticSourcingColumn columnToAdd = currentSheet.getAutomaticSourcingColumn(index);
@@ -1679,13 +1684,13 @@ namespace Misp.Sourcing.Base
             page.EditedObject.ActiveSheet.listColumnToDisplay = new List<AutomaticSourcingColumn>(0);
             if (!page.EditedObject.ActiveSheet.oid.HasValue)
             {
-                List<int> listeIndexColumn = page.getAutomaticSourcingForm().SpreadSheet.getColumnsIndexes(page.EditedObject.ActiveSheet.rangeSelected);
+               List<int> listeIndexColumn = page.getAutomaticSourcingForm().SpreadSheet.getColumnsIndexes(page.EditedObject.ActiveSheet.rangeSelected);
 
-                foreach (int column in listeIndexColumn)
+               foreach (int column in listeIndexColumn)
                 {
-                    AutomaticSourcingColumn addedColumn = new AutomaticSourcingColumn(column, getColumName(column));
+                   AutomaticSourcingColumn addedColumn = new AutomaticSourcingColumn(column, getColumName(column));
                     page.EditedObject.ActiveSheet.AddColumn(addedColumn);
-                    page.EditedObject.ActiveSheet.listColumnToDisplay.Add(addedColumn);
+                   page.EditedObject.ActiveSheet.listColumnToDisplay.Add(addedColumn);
                 }
             }
             else
@@ -1725,29 +1730,29 @@ namespace Misp.Sourcing.Base
 
         private void InitializeColumnOnRangeChange()
         {
-            AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
-            Range rangeSelected = page.EditedObject.ActiveSheet.rangeSelected != null
-                            && page.EditedObject.ActiveSheet.SetSelectedRange ? page.EditedObject.ActiveSheet.rangeSelected : null;
+            //AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
+            //Range rangeSelected = page.EditedObject.ActiveSheet.rangeSelected != null
+            //                && page.EditedObject.ActiveSheet.SetSelectedRange ? page.EditedObject.ActiveSheet.rangeSelected : null;
 
-            if (rangeSelected == null) return;
-            page.EditedObject.ActiveSheet.listColumnToDisplay = new List<AutomaticSourcingColumn>(0);
-            List<int> listeIndexColumn = page.getAutomaticSourcingForm().SpreadSheet.getColumnsIndexes(rangeSelected);
-            foreach (int colPosition in listeIndexColumn)
-            {
-                AutomaticSourcingColumn colSourcing = page.EditedObject.ActiveSheet.getAutomaticSourcingColumn(colPosition);
-                if (colSourcing == null)
-                {
-                    colSourcing = new AutomaticSourcingColumn(colPosition, "");
-                    page.EditedObject.ActiveSheet.AddColumn(colSourcing);
-                }
-                colSourcing.Name = getColumName(colPosition);
-                if (colSourcing.oid.HasValue)
-                {
-                    colSourcing.setToUpdate();
-                    page.EditedObject.ActiveSheet.updateColumnParam(colSourcing, null);
-                }
-                page.EditedObject.ActiveSheet.listColumnToDisplay.Add(colSourcing);
-            }
+            //if (rangeSelected == null) return;
+            //page.EditedObject.ActiveSheet.listColumnToDisplay = new List<AutomaticSourcingColumn>(0);
+            //List<int> listeIndexColumn = page.getAutomaticSourcingForm().SpreadSheet.getColumnsIndexes(rangeSelected);
+            //foreach (int colPosition in listeIndexColumn)
+            //{
+            //    AutomaticSourcingColumn colSourcing = page.EditedObject.ActiveSheet.getAutomaticSourcingColumn(colPosition);
+            //    if (colSourcing == null)
+            //    {
+            //        colSourcing = new AutomaticSourcingColumn(colPosition, "");
+            //        page.EditedObject.ActiveSheet.AddColumn(colSourcing);
+            //    }
+            //    colSourcing.Name = getColumName(colPosition);
+            //    if (colSourcing.oid.HasValue)
+            //    {
+            //        colSourcing.setToUpdate();
+            //        page.EditedObject.ActiveSheet.updateColumnParam(colSourcing, null);
+            //    }
+            //    page.EditedObject.ActiveSheet.listColumnToDisplay.Add(colSourcing);
+            //}
         }
 
         private void OnSpreadSheetSelectionChanged(Kernel.Ui.Office.ExcelEventArg arg)
@@ -1795,12 +1800,12 @@ namespace Misp.Sourcing.Base
         /// Customize Spreedsheet
         /// </summary>
         /// <param name="page"></param>
-        private void CustomizeSpreedSheet(SheetPanel sheetPanel, string fileToOpen)
+        private void CustomizeSpreedSheet(DESheetPanel sheetPanel, string fileToOpen)
         {
-            if(!string.IsNullOrWhiteSpace(fileToOpen))sheetPanel.Open(fileToOpen, EdrawOffice.EXCEL_ID);
+            if(!string.IsNullOrWhiteSpace(fileToOpen))sheetPanel.Open(fileToOpen);
             //sheetPanel.BuildSheetPanelMethod(1);
-            sheetPanel.AddExcelMenu(EdrawOffice.REMOVE_AUTOMATICCOLUMN_LABEL);
-            sheetPanel.AddExcelMenu(EdrawOffice.ADD_AUTOMATICCOLUMN_LABEL);
+            sheetPanel.AddExcelMenu(SheetConst.REMOVE_AUTOMATICCOLUMN_LABEL);
+            sheetPanel.AddExcelMenu(SheetConst.ADD_AUTOMATICCOLUMN_LABEL);
         }
 
         #endregion

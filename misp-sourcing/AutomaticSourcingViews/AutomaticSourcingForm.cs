@@ -21,6 +21,7 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using Misp.Sourcing.Base;
+using Misp.Kernel.Ui.Office.DevExpressSheet;
 namespace Misp.Sourcing.AutomaticSourcingViews
 {
     public class AutomaticSourcingForm : UserControl, IEditableView<Misp.Kernel.Domain.AutomaticSourcing>
@@ -98,13 +99,13 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
             try
             {
-                this.SpreadSheet = new SheetPanel();
-                this.SpreadSheet.Office.CreateNew(EdrawOffice.EXCEL_ID);
-                this.SpreadSheet.BuildSheetPanelMethod();
-                image = new System.Windows.Controls.Image();
-                host = new WindowsFormsHost();
-                host.Child = SpreadSheet;
-                this.Content = host;
+                this.SpreadSheet = new DESheetPanel();
+                //this.SpreadSheet.Office.CreateNew(EdrawOffice.EXCEL_ID);
+                //this.SpreadSheet.BuildSheetPanelMethod();
+                //image = new System.Windows.Controls.Image();
+                //host = new WindowsFormsHost();
+                //host.Child = SpreadSheet;
+                this.Content = this.SpreadSheet;
             }
             catch (Exception) { }
         }
@@ -121,7 +122,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
         public BGroup tableGroup;
 
-        public SheetPanel SpreadSheet { get; private set; }
+        public DESheetPanel SpreadSheet { get; private set; }
 
         /// <summary>
         /// Indique si la vue a été modifiée.
@@ -297,7 +298,8 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
         public Range GetUsableRange(Range range,bool selectedRange,bool firstRow) 
         {
-           return this.SpreadSheet.getUsableRange(range,selectedRange,firstRow);
+          // return this.SpreadSheet.getUsableRange(range,selectedRange,firstRow);
+            return null;
         }
 
         public int GetActiveColumnIndex() 
@@ -367,15 +369,16 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
         public BitmapSource GetScreenInt()
         {
-            Bitmap bm = new Bitmap(SpreadSheet.ClientRectangle.Width, SpreadSheet.ClientRectangle.Height);
-            Graphics g = Graphics.FromImage(bm);
-            PrintWindow(SpreadSheet.Handle, g.GetHdc(), 0);
-            g.ReleaseHdc(); g.Flush();
-            BitmapSource src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bm.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
-            src.Freeze();
-            bm.Dispose();
-            bm = null;
-            return src;
+            //Bitmap bm = new Bitmap(SpreadSheet.ClientRectangle.Width, SpreadSheet.ClientRectangle.Height);
+            //Graphics g = Graphics.FromImage(bm);
+            //PrintWindow(SpreadSheet.Handle, g.GetHdc(), 0);
+            //g.ReleaseHdc(); g.Flush();
+            //BitmapSource src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bm.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+            //src.Freeze();
+            //bm.Dispose();
+            //bm = null;
+            //return src;
+            return null;
         }
 
         [DllImport("user32.dll", SetLastError = true)]

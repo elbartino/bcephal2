@@ -275,6 +275,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
                 DevExpress.Spreadsheet.Range selection = this.spreadsheetControl.Selection;
                 if (selection == null) return null;
                 DevExpress.Spreadsheet.Worksheet worksheet = this.spreadsheetControl.ActiveWorksheet;
+                
                 if (worksheet == null) return null;
 
                 Sheet sheet = new Sheet(worksheet.Index+1, worksheet.Name);
@@ -497,6 +498,16 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             if (range == null) return;
             if (range.CellCount > 1) arg.Range = range;
             else arg.Range = previousRange;
+            if (arg.Range == null)
+            {
+                arg.Range = range;                
+            }
+
+            if (arg.Sheet == null)
+            {
+                arg.Sheet = arg.Range.Sheet;
+            }
+
             if (ThrowEvent && Edited != null)
             {
                 Edited(arg);

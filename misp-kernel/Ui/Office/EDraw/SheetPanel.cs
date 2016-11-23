@@ -25,7 +25,6 @@ namespace Misp.Kernel.Ui.Office.EDraw
         #region SheetPanel Constructor
         public SheetPanel() 
         {
-
             this.Office.WorkbookNewSheet +=Office_WorkbookNewSheet;
             this.Office.SheetChange += Office_SheetChange;
             
@@ -36,12 +35,9 @@ namespace Misp.Kernel.Ui.Office.EDraw
                 
                Excel.Worksheet workSheet = xlApp.ActiveWorkbook.ActiveSheet as Excel.Worksheet;
                Excel.Workbook workBook = xlApp.ActiveWorkbook as Excel.Workbook;
-               
-            }
-            
+            }            
         }
-
-     
+             
 
         private void xlApp_SheetBeforeRightClick(object Sh, Excel.Range Target, ref bool Cancel)
         {
