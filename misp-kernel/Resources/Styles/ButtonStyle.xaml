@@ -40,7 +40,7 @@
     </Style>
 
     <!--Wine Button Style-->
-    <Style x:Key="WineButtonStyle">
+    <Style x:Key="WineButtonStyle" >
         <Setter Property="Control.Width" Value="35"/>
         <Setter Property="Control.Height" Value="30"/>
         <Setter Property="Control.Margin" Value="15,5,5,5"/>

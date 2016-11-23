@@ -23,6 +23,7 @@ using System.Collections.ObjectModel;
 using Misp.Kernel.Util;
 using Misp.Sourcing.AllocationViews;
 using Misp.Kernel.Ui.Office.DevExpressSheet;
+using DevExpress.Xpf.Core;
 namespace Misp.Sourcing.Table
 {
     /// <summary>
@@ -49,9 +50,9 @@ namespace Misp.Sourcing.Table
         /// </summary>
         public InputTableForm()
         {
+            ThemeManager.SetThemeName(this, "None");
             InitializeComponents();
             InitializeExcelMenu();
-      
         }
 
         private void InitializeExcelMenu()
