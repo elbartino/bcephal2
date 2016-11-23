@@ -22,6 +22,8 @@ using System.Drawing;
 using System.Collections.ObjectModel;
 using Misp.Kernel.Util;
 using Misp.Sourcing.AllocationViews;
+using Misp.Kernel.Ui.Office.DevExpressSheet;
+using DevExpress.Xpf.Core;
 namespace Misp.Sourcing.Table
 {
     /// <summary>
@@ -48,9 +50,9 @@ namespace Misp.Sourcing.Table
         /// </summary>
         public InputTableForm()
         {
+            ThemeManager.SetThemeName(this, "None");
             InitializeComponents();
             InitializeExcelMenu();
-      
         }
 
         private void InitializeExcelMenu()
@@ -109,18 +111,9 @@ namespace Misp.Sourcing.Table
             this.CellPropertyGrid.hideContextMenu();
             try
             {
-                windowsFormsHost = new WindowsFormsHost();
-                this.SpreadSheet = new EdrawOffice();
-                windowsFormsHost.Child = SpreadSheet;
 
-                image = new System.Windows.Controls.Image();
-                Grid grid = new Grid();
-                grid.Children.Add(windowsFormsHost);
-                grid.Children.Add(image);
-
-                image.Visibility = System.Windows.Visibility.Hidden;
-
-                designTabItem.Content = grid;
+                this.SpreadSheet = new DESpreadsheet();
+                designTabItem.Content = this.SpreadSheet;
             }
             catch (Exception e) {
                 Console.Out.WriteLine(e);
@@ -140,29 +133,30 @@ namespace Misp.Sourcing.Table
             if (mask)
             {
                 if (isMasked) return;
-                image.Source = GetScreenInt();
-                image.Visibility = System.Windows.Visibility.Visible;
-                windowsFormsHost.Visibility = System.Windows.Visibility.Hidden;
+                //image.Source = GetScreenInt();
+               // image.Visibility = System.Windows.Visibility.Visible;
+                //windowsFormsHost.Visibility = System.Windows.Visibility.Hidden;
             }
             else
             {
-                image.Visibility = System.Windows.Visibility.Hidden;
-                windowsFormsHost.Visibility = System.Windows.Visibility.Visible;
+                //image.Visibility = System.Windows.Visibility.Hidden;
+                //windowsFormsHost.Visibility = System.Windows.Visibility.Visible;
             }
             isMasked = mask;
         }
 
         public BitmapSource GetScreenInt()
         {
-            Bitmap bm = new Bitmap(SpreadSheet.ClientRectangle.Width, SpreadSheet.ClientRectangle.Height);
-            Graphics g = Graphics.FromImage(bm);
-            PrintWindow(SpreadSheet.Handle, g.GetHdc(), 0);
-            g.ReleaseHdc(); g.Flush();
-            BitmapSource src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bm.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
-            src.Freeze();
-            bm.Dispose();
-            bm = null;
-            return src;
+            //Bitmap bm = new Bitmap(SpreadSheet.ClientRectangle.Width, SpreadSheet.ClientRectangle.Height);
+            //Graphics g = Graphics.FromImage(bm);
+            //PrintWindow(SpreadSheet.Handle, g.GetHdc(), 0);
+            //g.ReleaseHdc(); g.Flush();
+            //BitmapSource src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bm.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+            //src.Freeze();
+            //bm.Dispose();
+            //bm = null;
+            //return src;
+            return null;
         }
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -248,7 +242,7 @@ namespace Misp.Sourcing.Table
 
         public AllocationPropertiesPanel AllocationPropertiesPanel { get; set; }
 
-        public EdrawOffice SpreadSheet { get;  set; }
+        public DESpreadsheet SpreadSheet { get; set; }
 
         public CellPropertyGrid CellPropertyGrid { get; private set; }
 

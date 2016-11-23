@@ -75,12 +75,25 @@ namespace Misp.Sourcing.InputGrid.Relation
             InitializeHandlers();
             throwEvents = true;
         }
+
+        /// <summary>
+        /// Build a new instance of RelationshipItemPanel
+        /// </summary>
+        /// <param name="index">Panel index</param>
+        public RelationshipItemPanel(Grille grid)
+            : this()
+        {
+            throwEvents = false;
+            this.comboBox.ItemsSource = grid.columnListChangeHandler.Items;
+            throwEvents = true;
+        }
         
         /// <summary>
         /// Build a new instance of RelationshipItemPanel
         /// </summary>
         /// <param name="index">Panel index</param>
-        public RelationshipItemPanel(int index) : this()
+        public RelationshipItemPanel(Grille grid, int index)
+            : this(grid)
         {
             this.Index = index;
         }
@@ -89,7 +102,8 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// Build a new instance of RelationshipItemPanel
         /// </summary>
         /// <param name="item">RelationshipItem to display in this panel</param>
-        public RelationshipItemPanel(GrilleRelationshipItem item) : this()
+        public RelationshipItemPanel(Grille grid, GrilleRelationshipItem item)
+            : this(grid)
         {
             Display(item); 
         }

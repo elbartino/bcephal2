@@ -1,10 +1,12 @@
-﻿using System;
+﻿using DevExpress.Xpf.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Misp.Kernel.Ui.Base
@@ -121,6 +123,8 @@ namespace Misp.Kernel.Ui.Base
         /// </summary>
         protected virtual void InitializeComponent()
         {
+            ThemeManager.SetThemeName(this, "None");
+
             automaticButton = ToolBar.BuildButton(null, "Auto", "Automatic", "WineButtonStyle", new Thickness(5,0,0,0));
 
             importButton = ToolBar.BuildButton("indent-down-white.png", "Auto", "Import", "SalmonButtonStyle", new Thickness(30, 0, 0, 0));
@@ -134,7 +138,7 @@ namespace Misp.Kernel.Ui.Base
             deleteButton   = ToolBar.BuildButton("delete-white.png", "Auto", "Delete", "BlueButtonStyle", new Thickness(15,0,0,0));
             
             closeButton = ToolBar.BuildButton("quit-outline-white.png", "Auto", "Close", "WineButtonStyle", new Thickness(30,0,0,0));
-            
+
         }
 
 
@@ -156,6 +160,7 @@ namespace Misp.Kernel.Ui.Base
             }else button.Content = text;            
             button.ToolTip = toolTip;
             if (margin != null) button.Margin = margin;
+            
             if (styleKey != null) button.Style = System.Windows.Application.Current.FindResource(styleKey) as Style;
             return button;
         }

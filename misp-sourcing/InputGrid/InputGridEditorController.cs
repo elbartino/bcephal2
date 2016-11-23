@@ -456,11 +456,13 @@ namespace Misp.Sourcing.InputGrid
             if (page.getInputGridForm().SelectedIndex == 1)
             {
                 ((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel;
+                ((InputGridPropertyBar)this.PropertyBar).RelationshipLayoutAnchorable.Content = page.getInputGridForm().InputGridSheetForm.InputGridRelationshipPanel;
                 //ApplicationManager.MainWindow.displayPropertyBar(this.PropertyBar);
             }
             else
             {
                 ((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getInputGridForm().GridForm.filterForm;
+                ((InputGridPropertyBar)this.PropertyBar).RelationshipLayoutAnchorable.Content = page.getInputGridForm().InputGridSheetForm.InputGridRelationshipPanel;
                 //ApplicationManager.MainWindow.displayPropertyBar(null);
                 if (page.getInputGridForm().GridForm.gridBrowser.RebuildGrid) UpdateGridForm();
             }

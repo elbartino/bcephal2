@@ -43,6 +43,8 @@ namespace Misp.Sourcing.InputGrid.Relation
 
         public RelationshipItemPanel ActiveItemPanel { get; set; }
 
+        public Grille Grid { get; set; }
+
         #endregion
 
 
@@ -62,24 +64,25 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// 
         /// </summary>
         /// <param name="relationship"></param>
-        public void Display(GrilleRelationship relationship)
+        public void Display(Grille grid, GrilleRelationship relationship)
         {
+            this.Grid = grid;
             this.Relationship = relationship;
             this.panel.Children.Clear();
             int index = 1;
             if (relationship == null) 
             {
-                this.ActiveItemPanel = new RelationshipItemPanel(index);
+                this.ActiveItemPanel = new RelationshipItemPanel(grid, index);
                 AddItemPanel(this.ActiveItemPanel);
                 return; 
             }
             foreach (GrilleRelationshipItem item in relationship.itemListChangeHandler.Items)
             {
-                RelationshipItemPanel itemPanel = new RelationshipItemPanel(item);
+                RelationshipItemPanel itemPanel = new RelationshipItemPanel(grid, item);
                 AddItemPanel(itemPanel);
                 index++;
             }
-            this.ActiveItemPanel = new RelationshipItemPanel(index);
+            this.ActiveItemPanel = new RelationshipItemPanel(grid, index);
             AddItemPanel(this.ActiveItemPanel);
         }
 
@@ -146,7 +149,7 @@ namespace Misp.Sourcing.InputGrid.Relation
             if (this.panel.Children.Count <= this.Relationship.itemListChangeHandler.Items.Count)
             {
                 int countItems = this.Relationship.itemListChangeHandler.Items.Count + 1;
-                this.ActiveItemPanel = new RelationshipItemPanel(countItems);
+                this.ActiveItemPanel = new RelationshipItemPanel(this.Grid, countItems);
                 AddItemPanel(this.ActiveItemPanel);
             }
             if (Changed != null) Changed();
