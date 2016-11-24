@@ -1,5 +1,6 @@
 ﻿using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,48 +99,59 @@ namespace Misp.Sourcing.InputGrid.Relation
 
         protected void AddItemPanel(RelationshipItemPanel itemPanel)
         {
-            //itemPanel.Changed += OnChanged;
-            itemPanel.Added += OnAdded;
-            itemPanel.Updated += OnUpdated;
+            itemPanel.Changed += OnItemChanged;
             itemPanel.Deleted += OnDeleted;
-            itemPanel.Activated += OnActivated;
             this.panel.Children.Add(itemPanel);
         }
-
+        
         #endregion
 
 
         #region Handlers
 
-        private void OnActivated(object item)
-        {
-            RelationshipItemPanel panel = (RelationshipItemPanel)item;
-            this.ActiveItemPanel = panel;
-        }
 
-        private void OnAdded(object item)
+        private bool OnItemChanged(object item)
         {
-            RelationshipItemPanel panel = (RelationshipItemPanel)item;
+            RelationshipItemPanel panel = (RelationshipItemPanel)item;            
             if (this.Relationship == null) this.Relationship = GetNewRelationship();
-            //this.Relationship.AddTargetItem(panel.RelationshipItem);
-            OnChanged(panel.RelationshipItem);
+            if (ValidateSelection(panel))
+            {
+                bool isNew = panel.RelationshipItem == null;
+                panel.Fill();
+                if (isNew) this.Relationship.AddItem(panel.RelationshipItem);
+                else this.Relationship.UpdateItem(panel.RelationshipItem);
+                OnChanged(panel.RelationshipItem);
+                return true;
+            }
+            return false;
         }
 
-        private void OnUpdated(object item)
+        private bool ValidateSelection(RelationshipItemPanel panel)
         {
-            RelationshipItemPanel panel = (RelationshipItemPanel)item;
-            if (this.Relationship == null) this.Relationship = GetNewRelationship();
-            //this.Relationship.UpdateTargetItem(panel.RelationshipItem);
-            OnChanged(panel.RelationshipItem);
+            GrilleColumn column = panel.SelectedColumn();
+            GrilleRelationshipItem item = this.Relationship.GetItemByColumn(column);
+            if (item == null || item == panel.RelationshipItem) return true;
+            if (item != null)
+            {
+                String title = "";
+                String message = "";
+                if (panel.RelationshipItem == null)
+                {
+                    if (item.primary) title = "Wrong selection";
+                }
+                MessageDisplayer.DisplayWarning(title, message);
+                return false;
+            }
+            return true;
         }
-
+        
         private void OnDeleted(object item)
         {
             RelationshipItemPanel panel = (RelationshipItemPanel)item;
             if (panel.RelationshipItem != null)
             {
                 if (this.Relationship == null) this.Relationship = GetNewRelationship();
-                //panel.RelationshipItem.parent = this.Relationship;
+                this.Relationship.RemoveItem(panel.RelationshipItem);
                 this.panel.Children.Remove(panel);
                 if (this.ActiveItemPanel != null && this.ActiveItemPanel == panel)
                     this.ActiveItemPanel = (RelationshipItemPanel)this.panel.Children[this.panel.Children.Count - 1];

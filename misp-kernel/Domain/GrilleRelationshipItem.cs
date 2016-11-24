@@ -14,5 +14,11 @@ namespace Misp.Kernel.Domain
         public bool exclusive { get; set; }
         public bool primary { get; set; }
 
+
+        public override int CompareTo(object obj)
+        {
+            if (obj == null || !(obj is GrilleRelationshipItem)) return 1;
+            return this.position.CompareTo(((GrilleRelationshipItem)obj).position);
+        }
     }
 }

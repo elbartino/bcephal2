@@ -28,7 +28,7 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// <summary>
         /// Evenement déclenché lorsqu'il y a un changement, notament lorsqu'on set la valeur du TargetItem.
         /// </summary>
-        public event ChangeEventHandler Changed;
+        public event ActionEventHandler Changed;
 
         /// <summary>
         /// 
@@ -44,12 +44,7 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// Evenement déclenché lorsqu'on clique sur le boutton pour supprimer le TargetItem.
         /// </summary>
         public event DeleteEventHandler Deleted;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public event ActivateEventHandler Activated;
-
+        
         #endregion
 
 
@@ -71,13 +66,20 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// <summary>
         /// Build a new instance of RelationshipItemPanel
         /// </summary>
-        public RelationshipItemPanel(bool isPrimary = false)
+        public RelationshipItemPanel()
         {
-            IsPrimary = isPrimary;
             InitializeComponent();
-            CustomizeComponents();
             InitializeHandlers();
             throwEvents = true;
+        }
+
+        /// <summary>
+        /// Build a new instance of RelationshipItemPanel
+        /// </summary>
+        public RelationshipItemPanel(bool isPrimary) : this()
+        {
+            IsPrimary = isPrimary;
+            CustomizeComponents();
         }
 
         /// <summary>
@@ -124,34 +126,25 @@ namespace Misp.Sourcing.InputGrid.Relation
             if (item != null) this.Index = item.position + 1;
             this.comboBox.SelectedItem = item != null && item.column != null ? item.column.name : "";
             this.checkBox.IsChecked = item != null ? item.exclusive : false;
+            this.checkBox.IsEnabled = this.comboBox.SelectedItem != null;
             throwEvents = true;
         }
-
-        /// <summary>
-        /// Définit la valeur du TargetItem en cour d'édition
-        /// et affiche cette valeur dans le TextBox
-        /// </summary>
-        /// <param name="value">La valeur du TargetItem en cour d'édition</param>
-        public void SetValue(Target value)
+        
+        public GrilleRelationshipItem Fill()
         {
-            //bool added = false;
-            //if (this.TargetItem == null) 
-            //{ 
-            //    this.TargetItem = new TargetItem(Index - 1);
-            //    added = true; 
-            //}
-
-            //this.TargetItem.value = value;
-            //this.TargetItem.operatorType = this.ComboBox.SelectedItem.ToString();
-            //this.TextBox.Text = value != null ? value.name : "";
-            //if (Added != null && added) Added(this);
-
-            //if (Updated != null && !added) Updated(this);
-
-            //if (Changed != null) Changed();
+            GrilleColumn column = (GrilleColumn) this.comboBox.SelectedItem;
+            if (this.RelationshipItem == null) this.RelationshipItem = new GrilleRelationshipItem();
+            this.RelationshipItem.position = Index;
+            this.RelationshipItem.primary = IsPrimary;
+            this.RelationshipItem.exclusive = this.checkBox.IsChecked.Value;
+            this.RelationshipItem.column = column;
+            return this.RelationshipItem;
         }
 
-
+        public GrilleColumn SelectedColumn()
+        {
+            return (GrilleColumn) this.comboBox.SelectedItem;
+        }
 
         private void CustomizeComponents()
         {
@@ -170,27 +163,37 @@ namespace Misp.Sourcing.InputGrid.Relation
         protected void InitializeHandlers()
         {
             this.deleteButton.Click += OnButtonClick;
-            this.GotFocus += OnGotFocus;
-            this.checkBox.GotFocus += OnGotFocus;
-            this.deleteButton.GotFocus += OnGotFocus;
-            this.comboBox.GotFocus += OnGotFocus;
             this.comboBox.SelectionChanged += OnComboBoxSelectionChanged;
+            this.checkBox.Checked += OnCheckboxChecked;
+            this.checkBox.Unchecked += OnCheckboxChecked;
         }
-        
-        private void OnGotFocus(object sender, RoutedEventArgs e)
-        {
-            if (Activated != null) Activated(this);
-        }
-
+           
 
         private void OnComboBoxSelectionChanged(object sender, RoutedEventArgs e)
         {
-            if (Updated != null && throwEvents)
+            if (Changed != null && throwEvents)
             {
-                if (this.RelationshipItem != null)
+                if (!Changed(this))
                 {
-                    //this.RelationshipItem.column = this.comboBox.SelectedItem.ToString();
-                    Updated(this);
+                    throwEvents = false;
+                    this.comboBox.SelectedItem = this.RelationshipItem != null ? this.RelationshipItem.column : null;
+                    throwEvents = true;
+                }
+            }
+            throwEvents = false;
+            this.checkBox.IsEnabled = this.comboBox.SelectedItem != null;
+            throwEvents = true;
+        }
+        
+        private void OnCheckboxChecked(object sender, RoutedEventArgs e)
+        {
+            if (Changed != null && throwEvents)
+            {
+                if (!Changed(this))
+                {
+                    throwEvents = false;
+                    this.checkBox.IsChecked = this.RelationshipItem != null ? this.RelationshipItem.exclusive : false;
+                    throwEvents = true;
                 }
             }
         }

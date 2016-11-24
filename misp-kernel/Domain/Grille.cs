@@ -1,6 +1,7 @@
 ﻿using Misp.Kernel.Application;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -166,6 +167,44 @@ namespace Misp.Kernel.Domain
         {
             return this.report && !this.reconciliation;
         }
+
+
+
+
+
+        ObservableCollection<GrilleColumn> primaryColumns;
+        ObservableCollection<GrilleColumn> relatedColumns;
+
+        [ScriptIgnore]
+        public ObservableCollection<GrilleColumn> PrimaryColumns 
+        { 
+            get
+            {
+                if(primaryColumns == null) buildPrimaryAndRelatedColumns();
+                return primaryColumns;
+            } 
+        }
+
+        [ScriptIgnore]
+        public ObservableCollection<GrilleColumn> RelatedColumns
+        {
+            get
+            {
+                if (relatedColumns == null) buildPrimaryAndRelatedColumns();
+                return relatedColumns;
+            }
+        }
+
+        private void buildPrimaryAndRelatedColumns()
+        {
+            if (primaryColumns == null) primaryColumns = new ObservableCollection<GrilleColumn>();
+            if (relatedColumns == null) relatedColumns = new ObservableCollection<GrilleColumn>();
+            foreach (GrilleColumn column in columnListChangeHandler.Items)
+            {
+
+            }
+        }
+
 
     }
 }
