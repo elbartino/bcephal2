@@ -49,6 +49,14 @@ namespace Misp.Sourcing.InputGrid
             if (grid == null) return;
             throwEvent = false;
             this.Grid = grid;
+            if (this.Grid.relationship != null)
+            {
+                this.Grid.relationship.Grid = grid;
+                foreach (GrilleRelationshipItem item in this.Grid.relationship.itemListChangeHandler.Items)
+                {
+                    item.column = this.Grid.GetColumn(item.column);
+                }
+            }
             this.PrimaryRelationPanel.Display(this.Grid);
             this.RelationshipPanel.Display(this.Grid);
             throwEvent = true;

@@ -3,6 +3,7 @@ using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,9 +90,12 @@ namespace Misp.Sourcing.InputGrid.Relation
             }
             foreach (GrilleRelationshipItem item in this.Relationship.itemListChangeHandler.Items)
             {
-                RelationshipItemPanel itemPanel = new RelationshipItemPanel(grid, item, IsPrimary);
-                AddItemPanel(itemPanel);
-                index++;
+                if (IsPrimary == item.primary)
+                {
+                    RelationshipItemPanel itemPanel = new RelationshipItemPanel(grid, item, IsPrimary);
+                    AddItemPanel(itemPanel);
+                    index++;
+                }
             }
             this.ActiveItemPanel = new RelationshipItemPanel(grid, index, IsPrimary);
             AddItemPanel(this.ActiveItemPanel);
@@ -120,7 +124,11 @@ namespace Misp.Sourcing.InputGrid.Relation
                 panel.Fill();
                 if (isNew) this.Relationship.AddItem(panel.RelationshipItem);
                 else this.Relationship.UpdateItem(panel.RelationshipItem);
-                OnChanged(panel.RelationshipItem);
+                OnChanged(panel.RelationshipItem, isNew);
+
+                if (panel.RelationshipItem.primary) this.Grid.RelatedColumnsDataSource.Remove(panel.RelationshipItem.column);
+                else this.Grid.PrimaryColumnsDataSource.Remove(panel.RelationshipItem.column);
+
                 return true;
             }
             return false;
@@ -162,13 +170,22 @@ namespace Misp.Sourcing.InputGrid.Relation
                 }
                 if (Changed != null) Changed();
                 if (ItemDeleted != null && panel.RelationshipItem != null) ItemDeleted(panel.RelationshipItem);
+
+                if (panel.RelationshipItem.primary)
+                {
+                    this.Grid.RelatedColumnsDataSource.Add(panel.RelationshipItem.column);
+                }
+                else
+                {
+                    this.Grid.PrimaryColumnsDataSource.Add(panel.RelationshipItem.column);
+                }
             }
         }
         
-        private void OnChanged(object item)
+        private void OnChanged(object item, bool isNew)
         {
             if (this.Relationship == null) this.Relationship = GetNewRelationship();
-            if (this.panel.Children.Count <= this.Relationship.itemListChangeHandler.Items.Count)
+            if (isNew && this.panel.Children.Count <= this.Relationship.itemListChangeHandler.Items.Count)
             {
                 int countItems = this.Relationship.itemListChangeHandler.Items.Count + 1;
                 this.ActiveItemPanel = new RelationshipItemPanel(this.Grid, countItems, IsPrimary);
@@ -182,6 +199,7 @@ namespace Misp.Sourcing.InputGrid.Relation
         private GrilleRelationship GetNewRelationship()
         {
             GrilleRelationship Relationship = new GrilleRelationship();
+            Relationship.Grid = Grid;
             return Relationship;
         }
 

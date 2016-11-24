@@ -69,6 +69,8 @@ namespace Misp.Kernel.Domain
             column.isModified = true;
             columnListChangeHandler.AddNew(column, sort);
             OnPropertyChanged("columnListChangeHandler.Items");
+            PrimaryColumnsDataSource.Add(column);
+            RelatedColumnsDataSource.Add(column);
         }
 
         /// <summary>
@@ -98,6 +100,8 @@ namespace Misp.Kernel.Domain
                     columnListChangeHandler.AddUpdated(child, false);
                 }
             }
+            PrimaryColumnsDataSource.Remove(column);
+            RelatedColumnsDataSource.Remove(column);
         }
 
         /// <summary>
@@ -107,6 +111,8 @@ namespace Misp.Kernel.Domain
         public void ForgetColumn(GrilleColumn column, bool sort = true)
         {
             columnListChangeHandler.forget(column, sort);
+            PrimaryColumnsDataSource.Remove(column);
+            RelatedColumnsDataSource.Remove(column);
         }
 
         public GrilleColumn GetColumn(int col)
@@ -172,37 +178,59 @@ namespace Misp.Kernel.Domain
 
 
 
-        ObservableCollection<GrilleColumn> primaryColumns;
-        ObservableCollection<GrilleColumn> relatedColumns;
+        ObservableCollection<GrilleColumn> primaryColumnsDataSource;
+        ObservableCollection<GrilleColumn> relatedColumnsDataSource;
 
         [ScriptIgnore]
-        public ObservableCollection<GrilleColumn> PrimaryColumns 
+        public ObservableCollection<GrilleColumn> PrimaryColumnsDataSource 
         { 
             get
             {
-                if(primaryColumns == null) buildPrimaryAndRelatedColumns();
-                return primaryColumns;
+                if (primaryColumnsDataSource == null) buildPrimaryAndRelatedColumnsDataSource();
+                return primaryColumnsDataSource;
             } 
         }
 
         [ScriptIgnore]
-        public ObservableCollection<GrilleColumn> RelatedColumns
+        public ObservableCollection<GrilleColumn> RelatedColumnsDataSource
         {
             get
             {
-                if (relatedColumns == null) buildPrimaryAndRelatedColumns();
-                return relatedColumns;
+                if (relatedColumnsDataSource == null) buildPrimaryAndRelatedColumnsDataSource();
+                return relatedColumnsDataSource;
             }
         }
 
-        private void buildPrimaryAndRelatedColumns()
+        public void buildPrimaryAndRelatedColumnsDataSource()
         {
-            if (primaryColumns == null) primaryColumns = new ObservableCollection<GrilleColumn>();
-            if (relatedColumns == null) relatedColumns = new ObservableCollection<GrilleColumn>();
+            primaryColumnsDataSource = new ObservableCollection<GrilleColumn>();
+            relatedColumnsDataSource = new ObservableCollection<GrilleColumn>();
+            primaryColumnsDataSource.Clear();
+            relatedColumnsDataSource.Clear();
             foreach (GrilleColumn column in columnListChangeHandler.Items)
             {
-
+                if (this.relationship == null)
+                {
+                    primaryColumnsDataSource.Add(column);
+                    relatedColumnsDataSource.Add(column);
+                }
+                else
+                {
+                    bool primary = this.relationship.IsPrimaryColumn(column);
+                    bool related = this.relationship.IsRelatedColumn(column);
+                    if (!related) primaryColumnsDataSource.Add(column);
+                    if (!primary) relatedColumnsDataSource.Add(column);
+                }
             }
+        }
+
+        public GrilleColumn GetColumn(GrilleColumn column)
+        {
+            foreach (GrilleColumn item in columnListChangeHandler.Items)
+            {
+                if (column != null && item.type.Equals(column.type) && item.name.Equals(column.name)) return item;
+            }
+            return null;
         }
 
 

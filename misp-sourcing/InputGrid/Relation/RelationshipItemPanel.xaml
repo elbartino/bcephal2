@@ -13,7 +13,7 @@
         <ColumnDefinition Width="15"/>
         <ColumnDefinition Width="15"/>
     </Grid.ColumnDefinitions>
-    <CheckBox x:Name="checkBox" x:FieldModifier="public" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+    <CheckBox x:Name="checkBox" x:FieldModifier="public" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"/>
     <ComboBox x:Name="comboBox" x:FieldModifier="public" Grid.Column="1" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     <Button x:Name="deleteButton" x:FieldModifier="public" Grid.Column="2" ToolTip="Remove row" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
         <Button.Template>

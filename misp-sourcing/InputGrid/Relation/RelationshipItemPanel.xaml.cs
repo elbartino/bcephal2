@@ -90,7 +90,8 @@ namespace Misp.Sourcing.InputGrid.Relation
             : this(isPrimary)
         {
             throwEvents = false;
-            this.comboBox.ItemsSource = grid.columnListChangeHandler.Items;
+            if (isPrimary) this.comboBox.ItemsSource = grid.PrimaryColumnsDataSource;
+            else this.comboBox.ItemsSource = grid.RelatedColumnsDataSource;
             throwEvents = true;
         }
         

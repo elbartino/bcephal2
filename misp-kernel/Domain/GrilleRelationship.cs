@@ -72,46 +72,54 @@ namespace Misp.Kernel.Domain
         }
 
 
-
-        ObservableCollection<GrilleColumn> primaryColumns;
-        ObservableCollection<GrilleColumn> relatedColumns;
+        [ScriptIgnore]
+        public Grille Grid { get; set; }
 
         [ScriptIgnore]
-        public ObservableCollection<GrilleColumn> PrimaryColumns
+        public ObservableCollection<GrilleRelationshipItem> PrimaryItems
         {
             get
             {
-                if (primaryColumns == null) buildPrimaryAndRelatedColumns();
-                return primaryColumns;
+                ObservableCollection<GrilleRelationshipItem> items = new ObservableCollection<GrilleRelationshipItem>();
+                foreach (GrilleRelationshipItem item in itemListChangeHandler.Items)
+                {
+                    if (item.primary) items.Add(item);
+                }
+                return items;
             }
         }
 
         [ScriptIgnore]
-        public ObservableCollection<GrilleColumn> RelatedColumns
+        public ObservableCollection<GrilleRelationshipItem> RelatedItems
         {
             get
             {
-                if (relatedColumns == null) buildPrimaryAndRelatedColumns();
-                return relatedColumns;
+                ObservableCollection<GrilleRelationshipItem> items = new ObservableCollection<GrilleRelationshipItem>();
+                foreach (GrilleRelationshipItem item in itemListChangeHandler.Items)
+                {
+                    if (!item.primary) items.Add(item);
+                }
+                return items;
             }
         }
 
-        private void buildPrimaryAndRelatedColumns()
+        public bool IsPrimaryColumn(GrilleColumn column)
         {
-            if (primaryColumns == null) primaryColumns = new ObservableCollection<GrilleColumn>();
-            if (relatedColumns == null) relatedColumns = new ObservableCollection<GrilleColumn>();
-            //foreach (GrilleColumn column in columnListChangeHandler.Items)
-            //{
-
-            //}
+            GrilleRelationshipItem item = GetItemByColumn(column);
+            return item != null && item.primary;
         }
 
+        public bool IsRelatedColumn(GrilleColumn column)
+        {
+            GrilleRelationshipItem item = GetItemByColumn(column);
+            return item != null && !item.primary;
+        }
 
         public GrilleRelationshipItem GetItemByColumn(GrilleColumn column)
         {
             foreach (GrilleRelationshipItem item in itemListChangeHandler.Items)
             {
-                if (item.column != null && item.column.name.Equals(column.name)) return item;
+                if (column != null && item.column != null && item.column.name.Equals(column.name)) return item;
             }
             return null;
         }
