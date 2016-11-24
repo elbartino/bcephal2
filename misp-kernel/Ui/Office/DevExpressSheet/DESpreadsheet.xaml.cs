@@ -275,6 +275,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
                 DevExpress.Spreadsheet.Range selection = this.spreadsheetControl.Selection;
                 if (selection == null) return null;
                 DevExpress.Spreadsheet.Worksheet worksheet = this.spreadsheetControl.ActiveWorksheet;
+                
                 if (worksheet == null) return null;
 
                 Sheet sheet = new Sheet(worksheet.Index+1, worksheet.Name);
@@ -282,9 +283,9 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
 
                 foreach (DevExpress.Spreadsheet.Range area in selection.Areas)
                 {
-                    RangeItem item = new RangeItem(
-                        area.TopRowIndex + 1, area.BottomRowIndex + 1,
-                        area.RightColumnIndex + 1, area.LeftColumnIndex + 1);
+                    RangeItem item = new RangeItem(area.TopRowIndex + 1
+                       , area.BottomRowIndex + 1, area.LeftColumnIndex + 1,
+                         area.RightColumnIndex + 1);
                     range.Items.Add(item);
                 }
                 rangePreviousValue = range;
@@ -303,7 +304,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
         public int getActiveSheetIndex()
         {
             DevExpress.Spreadsheet.Worksheet worksheet = this.spreadsheetControl.ActiveWorksheet;
-            if (worksheet == null) return worksheet.Index;
+            if (worksheet != null) return worksheet.Index+1;
             return -1;
         }
 
@@ -497,6 +498,16 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             if (range == null) return;
             if (range.CellCount > 1) arg.Range = range;
             else arg.Range = previousRange;
+            if (arg.Range == null)
+            {
+                arg.Range = range;                
+            }
+
+            if (arg.Sheet == null)
+            {
+                arg.Sheet = arg.Range.Sheet;
+            }
+
             if (ThrowEvent && Edited != null)
             {
                 Edited(arg);
@@ -504,7 +515,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             if (ThrowEvent && SelectionChanged != null) SelectionChanged(arg);
         }
 
-        private void menuItem_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        protected virtual void menuItem_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {
             string menu = e.Item.Content.ToString();
             switch (menu)
@@ -535,16 +546,6 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
                     {
                         //Permet de definir un design de parametrisation
                         createDesign(new ExcelEventArg(getActiveSheet(), GetSelectedRange()));
-                        break;
-                    }
-
-                case ADD_AUTOMATICCOLUMN_LABEL:
-                    {
-                        break;
-                    }
-
-                case REMOVE_AUTOMATICCOLUMN_LABEL:
-                    {
                         break;
                     }
 
