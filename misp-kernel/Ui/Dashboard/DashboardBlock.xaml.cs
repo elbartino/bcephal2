@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Application;
+﻿using DevExpress.Xpf.Core;
+using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Service;
@@ -43,6 +44,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public DashboardBlock()
         {
+            ThemeManager.SetThemeName(this, "None");
             InitializeComponent();
             initContextHandlers();
         }

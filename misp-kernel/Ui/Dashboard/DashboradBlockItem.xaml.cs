@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Application;
+﻿using DevExpress.Xpf.Core;
+using Misp.Kernel.Application;
 using Misp.Kernel.Domain.Browser;
 using System;
 using System.Collections.Generic;
@@ -27,8 +28,9 @@ namespace Misp.Kernel.Ui.Dashboard
         public DashboardBlock Block { get; set; }
 
         public DashboradBlockItem()
-        {
+        {            
             InitializeComponent();
+            ThemeManager.SetThemeName(this, "None");
         }
 
         public DashboradBlockItem(BrowserData data, String fuctionalityCode) : this()
