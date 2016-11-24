@@ -9,8 +9,7 @@ namespace Misp.Kernel.Domain
     public class GrilleRelationship : Persistent
     {
 
-        public int position { get; set; }
-        public GrilleColumn primaryColumn { get; set; }
+        
         public PersistentListChangeHandler<GrilleRelationshipItem> itemListChangeHandler { get; set; }
 
         /**
