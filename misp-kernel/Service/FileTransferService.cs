@@ -161,6 +161,39 @@ namespace Misp.Kernel.Service
             return false;
         }
 
+
+        public string AutomaticActionsUpload(String name, String path)
+        {
+            try
+            {
+                string ext = Path.GetExtension(name);
+                string namewithNoext = Path.GetFileNameWithoutExtension(name);
+                string copy = path + namewithNoext + "-a" + ext;
+                if (!Directory.Exists(path)) return null;
+                path += name;
+                //if (!File.Exists(path)) return false;
+                File.Copy(path, copy);
+                name = Path.GetFileName(copy);
+                byte[] dataToSend = File.ReadAllBytes(copy);
+                
+                var request = new RestRequest(ResourcePath + "/automatic-actions/" + name, Method.POST);
+                request.AddHeader("Content-Type", "application/octet-stream");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                request.AddParameter("application/octet-stream", dataToSend, ParameterType.RequestBody);
+                IRestResponse response = RestClient.Execute(request);
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                bool ok = Serializer.Deserialize<bool>(response.Content);
+                File.Delete(copy);
+                return name;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to save file.", e);
+            }
+            return null;
+        }
+
         public bool downloadFile()
         {
             try

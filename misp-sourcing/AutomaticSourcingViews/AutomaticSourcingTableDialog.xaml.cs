@@ -25,6 +25,9 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         public bool requestGenerateInputTable { get; set; }
         public bool requestRunAllocation { get; set; }
         public String inputTableName { get; set; }
+        private string element ="table";
+        public bool isGrid {get;set;}
+        public bool isTarget { get; set; }
 
         public AutomaticSourcingService AutomaticSourcingService { get; set; }
 
@@ -42,7 +45,30 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             
         }
 
+
+        public void Customize() 
+        {
+            if (isGrid) CustomizeForGrid();
+            if (isTarget) CustomizeForTarget();
+        }
+
+        private void CustomizeForTarget() 
+        {
+            this.element = "Target";
+            this.Title = "Generate Target";
+            this.labelName.Content = "Target Name";
+            this.runAllocationCheckBox.Visibility = System.Windows.Visibility.Collapsed;
+
+        }
        
+        private void CustomizeForGrid() 
+        {
+            this.element = "Grid";
+            this.Title = "Generate Grid";
+            this.labelName.Content = "Grid Name";
+            this.runAllocationCheckBox.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
 
         private void OnRequestRunAllocation(object sender, RoutedEventArgs e)
         {
@@ -66,10 +92,22 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         {
             if(String.IsNullOrWhiteSpace(textbox.Text)) return false;
             String name = textbox.Text.Trim();
-            InputTable table = AutomaticSourcingService.InputTableService.getByName(name);
+            Object table = null;
+            if (isGrid)
+            {
+                table = AutomaticSourcingService.InputGridService.getByName(name);
+            }
+            else if (isTarget)
+            {
+                table = AutomaticSourcingService.TargetService.getByName(name);
+            }
+            else
+            {
+                table = AutomaticSourcingService.InputTableService.getByName(name);
+            }
             if (table != null)
             {
-                MessageDisplayer.DisplayWarning("Duplicate name", "Another table names '" + name + "' already exist");
+                MessageDisplayer.DisplayWarning("Duplicate name", "Another "+element+" named '" + name + "' already exist");
                 return false;
             }
             return true;

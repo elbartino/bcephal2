@@ -1179,17 +1179,42 @@ namespace Misp.Sourcing.Base
             return state;
         }
 
-        protected virtual void performRun(AutomaticSourcingEditorItem page)
+        private string getBaseName(AutomaticSourcingEditorItem page) 
         {
             string baseName = page.getAutomaticSourcingForm().SpreadSheet.DocumentName.Trim();
+            baseName = System.IO.Path.GetFileNameWithoutExtension(page.EditedObject.excelFile);
+            if (!string.IsNullOrEmpty(baseName)) return baseName;
+            if (isAutomaticGrid()) baseName = "Grid";
+            else if (isAutomaticTarget()) baseName = "Target";
+            else baseName = "Table";
+            return baseName;
+        }
+
+        protected virtual void performRun(AutomaticSourcingEditorItem page)
+        {
+            string baseName = getBaseName(page);
             String name = baseName;
             int i = 1;
-            while (GetAutomaticSourcingService().InputTableService.getByName(name) != null)
+            string filePath = page.EditedObject.excelFile;
+            string path = System.IO.Path.GetDirectoryName(filePath) + System.IO.Path.DirectorySeparatorChar;
+            string fileName = GetAutomaticSourcingService().FileService.FileTransferService.AutomaticActionsUpload(System.IO.Path.GetFileName(filePath), path);
+            if (fileName == null) return;
+             
+            AutomaticSourcingTableDialog AutomaticSourcingTableDialog = null;
+            if(isAutomaticTarget())
             {
-                name = baseName + i++;
+                AutomaticSourcingTableDialog =  new AutomaticSourcingTableDialog();
+                AutomaticSourcingTableDialog.isTarget = true;
             }
-
-            AutomaticSourcingTableDialog AutomaticSourcingTableDialog = new AutomaticSourcingTableDialog();
+            else
+            {
+                while (GetAutomaticSourcingService().InputTableService.getByName(name) != null)
+                {
+                    name = baseName + i++;
+                }
+                AutomaticSourcingTableDialog =  new AutomaticSourcingTableDialog();
+            }
+            AutomaticSourcingTableDialog.Customize();
             AutomaticSourcingTableDialog.AutomaticSourcingService = GetAutomaticSourcingService();
             AutomaticSourcingTableDialog.SetInputTableName(name);
             AutomaticSourcingTableDialog.Owner = ApplicationManager.Instance.MainWindow;
@@ -1202,11 +1227,12 @@ namespace Misp.Sourcing.Base
                 //GetAutomaticSourcingService().buildTableNameEventHandler += OnBuildTableName;
                 Mask(true, "Running ...");
                 String docUrl = page.getAutomaticSourcingForm().SpreadSheet.DocumentUrl;
+                if (string.IsNullOrEmpty(docUrl)) docUrl = fileName;
                 AutomaticSourcingData data = new AutomaticSourcingData(page.EditedObject.oid.Value, name, docUrl);
                 data.runTable = AutomaticSourcingTableDialog.requestRunAllocation;
                 data.createTable = true;
                 data.excelExtension = Kernel.Util.ExcelUtil.GetFileExtension(docUrl).Extension;
-                GetAutomaticSourcingService().Run(data);
+                GetAutomaticSourcingService().Run(data);               
             }
         }
 
@@ -1254,7 +1280,6 @@ namespace Misp.Sourcing.Base
             }
             page.EditedObject = automaticSourcing;
             page.EditedObject.excelFile = fileAttribute[1];
-
             InitializeExcelFile(page.EditedObject.excelFile);
             OnSheetActivated();
             if (page.EditedObject.ActiveSheet == null) return OperationState.CONTINUE;
@@ -1332,7 +1357,6 @@ namespace Misp.Sourcing.Base
             var filePath = fileDialog.FileName;
 
             string[] strings = { fileName, filePath };
-
             return result == true ? strings : null;
         }
 
