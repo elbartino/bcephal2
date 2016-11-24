@@ -199,6 +199,11 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             this.AutomaticSourcingPanel.SheetPanel.RangeCheckBox.IsChecked = selected;
         }
 
+        public void SetSelectedRange(string selectedRange)
+        {
+            this.AutomaticSourcingPanel.SheetPanel.RangeTextBox.Text = selectedRange;
+        }
+
         public void SetSelectedMeasure(Kernel.Domain.Measure measure)
         {
             this.AutomaticSourcingPanel.SetSelectedMeasure(measure);
@@ -355,14 +360,14 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             if (mask)
             {
                 if (isMasked) return;
-                image.Source = GetScreenInt();
-                image.Visibility = System.Windows.Visibility.Visible;
-                host.Visibility = System.Windows.Visibility.Hidden;
+                //image.Source = GetScreenInt();
+                //image.Visibility = System.Windows.Visibility.Visible;
+                //host.Visibility = System.Windows.Visibility.Hidden;
             }
             else
             {
-                image.Visibility = System.Windows.Visibility.Hidden;
-                host.Visibility = System.Windows.Visibility.Visible;
+                //image.Visibility = System.Windows.Visibility.Hidden;
+                //host.Visibility = System.Windows.Visibility.Visible;
             }
             isMasked = mask;
         }
