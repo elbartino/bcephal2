@@ -1,7 +1,9 @@
 ﻿using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,11 +41,17 @@ namespace Misp.Sourcing.InputGrid.Relation
 
         #region Properties
 
-        public GrilleRelationship Relationship { get; set; }
+        public GrilleRelationship Relationship 
+        { 
+            get { return this.Grid.relationship; }
+            set { this.Grid.relationship = value; }
+        }
 
         public RelationshipItemPanel ActiveItemPanel { get; set; }
 
         public Grille Grid { get; set; }
+
+        public bool IsPrimary { get; set; }
 
         #endregion
 
@@ -53,6 +61,11 @@ namespace Misp.Sourcing.InputGrid.Relation
         public RelationshipPanel()
         {
             InitializeComponent();
+        }
+
+        public RelationshipPanel(bool isPrimary) : this()
+        {
+            IsPrimary = isPrimary;
         }
         
         #endregion
@@ -64,72 +77,89 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// 
         /// </summary>
         /// <param name="relationship"></param>
-        public void Display(Grille grid, GrilleRelationship relationship)
+        public void Display(Grille grid)
         {
             this.Grid = grid;
-            this.Relationship = relationship;
             this.panel.Children.Clear();
             int index = 1;
-            if (relationship == null) 
+            if (this.Relationship == null) 
             {
-                this.ActiveItemPanel = new RelationshipItemPanel(grid, index);
+                this.ActiveItemPanel = new RelationshipItemPanel(grid, index, IsPrimary);
                 AddItemPanel(this.ActiveItemPanel);
                 return; 
             }
-            foreach (GrilleRelationshipItem item in relationship.itemListChangeHandler.Items)
+            foreach (GrilleRelationshipItem item in this.Relationship.itemListChangeHandler.Items)
             {
-                RelationshipItemPanel itemPanel = new RelationshipItemPanel(grid, item);
-                AddItemPanel(itemPanel);
-                index++;
+                if (IsPrimary == item.primary)
+                {
+                    RelationshipItemPanel itemPanel = new RelationshipItemPanel(grid, item, IsPrimary);
+                    AddItemPanel(itemPanel);
+                    index++;
+                }
             }
-            this.ActiveItemPanel = new RelationshipItemPanel(grid, index);
+            this.ActiveItemPanel = new RelationshipItemPanel(grid, index, IsPrimary);
             AddItemPanel(this.ActiveItemPanel);
         }
 
         protected void AddItemPanel(RelationshipItemPanel itemPanel)
         {
-            //itemPanel.Changed += OnChanged;
-            itemPanel.Added += OnAdded;
-            itemPanel.Updated += OnUpdated;
+            itemPanel.Changed += OnItemChanged;
             itemPanel.Deleted += OnDeleted;
-            itemPanel.Activated += OnActivated;
             this.panel.Children.Add(itemPanel);
         }
-
+        
         #endregion
 
 
         #region Handlers
 
-        private void OnActivated(object item)
-        {
-            RelationshipItemPanel panel = (RelationshipItemPanel)item;
-            this.ActiveItemPanel = panel;
-        }
 
-        private void OnAdded(object item)
+        private bool OnItemChanged(object item)
         {
-            RelationshipItemPanel panel = (RelationshipItemPanel)item;
+            RelationshipItemPanel panel = (RelationshipItemPanel)item;            
             if (this.Relationship == null) this.Relationship = GetNewRelationship();
-            //this.Relationship.AddTargetItem(panel.RelationshipItem);
-            OnChanged(panel.RelationshipItem);
+            if (ValidateSelection(panel))
+            {
+                bool isNew = panel.RelationshipItem == null;
+                panel.Fill();
+                if (isNew) this.Relationship.AddItem(panel.RelationshipItem);
+                else this.Relationship.UpdateItem(panel.RelationshipItem);
+                OnChanged(panel.RelationshipItem, isNew);
+
+                if (panel.RelationshipItem.primary) this.Grid.RelatedColumnsDataSource.Remove(panel.RelationshipItem.column);
+                else this.Grid.PrimaryColumnsDataSource.Remove(panel.RelationshipItem.column);
+
+                return true;
+            }
+            return false;
         }
 
-        private void OnUpdated(object item)
+        private bool ValidateSelection(RelationshipItemPanel panel)
         {
-            RelationshipItemPanel panel = (RelationshipItemPanel)item;
-            if (this.Relationship == null) this.Relationship = GetNewRelationship();
-            //this.Relationship.UpdateTargetItem(panel.RelationshipItem);
-            OnChanged(panel.RelationshipItem);
+            GrilleColumn column = panel.SelectedColumn();
+            GrilleRelationshipItem item = this.Relationship.GetItemByColumn(column);
+            if (item == null || item == panel.RelationshipItem) return true;
+            if (item != null)
+            {
+                String title = "";
+                String message = "";
+                if (panel.RelationshipItem == null)
+                {
+                    if (item.primary) title = "Wrong selection";
+                }
+                MessageDisplayer.DisplayWarning(title, message);
+                return false;
+            }
+            return true;
         }
-
+        
         private void OnDeleted(object item)
         {
             RelationshipItemPanel panel = (RelationshipItemPanel)item;
             if (panel.RelationshipItem != null)
             {
                 if (this.Relationship == null) this.Relationship = GetNewRelationship();
-                //panel.RelationshipItem.parent = this.Relationship;
+                this.Relationship.RemoveItem(panel.RelationshipItem);
                 this.panel.Children.Remove(panel);
                 if (this.ActiveItemPanel != null && this.ActiveItemPanel == panel)
                     this.ActiveItemPanel = (RelationshipItemPanel)this.panel.Children[this.panel.Children.Count - 1];
@@ -140,16 +170,25 @@ namespace Misp.Sourcing.InputGrid.Relation
                 }
                 if (Changed != null) Changed();
                 if (ItemDeleted != null && panel.RelationshipItem != null) ItemDeleted(panel.RelationshipItem);
+
+                if (panel.RelationshipItem.primary)
+                {
+                    this.Grid.RelatedColumnsDataSource.Add(panel.RelationshipItem.column);
+                }
+                else
+                {
+                    this.Grid.PrimaryColumnsDataSource.Add(panel.RelationshipItem.column);
+                }
             }
         }
         
-        private void OnChanged(object item)
+        private void OnChanged(object item, bool isNew)
         {
             if (this.Relationship == null) this.Relationship = GetNewRelationship();
-            if (this.panel.Children.Count <= this.Relationship.itemListChangeHandler.Items.Count)
+            if (isNew && this.panel.Children.Count <= this.Relationship.itemListChangeHandler.Items.Count)
             {
                 int countItems = this.Relationship.itemListChangeHandler.Items.Count + 1;
-                this.ActiveItemPanel = new RelationshipItemPanel(this.Grid, countItems);
+                this.ActiveItemPanel = new RelationshipItemPanel(this.Grid, countItems, IsPrimary);
                 AddItemPanel(this.ActiveItemPanel);
             }
             if (Changed != null) Changed();
@@ -160,6 +199,7 @@ namespace Misp.Sourcing.InputGrid.Relation
         private GrilleRelationship GetNewRelationship()
         {
             GrilleRelationship Relationship = new GrilleRelationship();
+            Relationship.Grid = Grid;
             return Relationship;
         }
 

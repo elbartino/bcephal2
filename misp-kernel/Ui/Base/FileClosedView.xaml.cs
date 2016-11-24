@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Application;
+﻿using DevExpress.Xpf.Core;
+using Misp.Kernel.Application;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -25,6 +26,7 @@ namespace Misp.Kernel.Ui.Base
     {
         public FileClosedView()
         {
+            ThemeManager.SetThemeName(this, "None");
             InitializeComponent();
             BuildNewFileControl();
             BuildGuidedTourControl();

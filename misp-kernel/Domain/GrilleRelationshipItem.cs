@@ -11,7 +11,14 @@ namespace Misp.Kernel.Domain
 
         public int position { get; set; }
         public GrilleColumn column { get; set; }
-        public bool isExclusive { get; set; }
+        public bool exclusive { get; set; }
+        public bool primary { get; set; }
 
+
+        public override int CompareTo(object obj)
+        {
+            if (obj == null || !(obj is GrilleRelationshipItem)) return 1;
+            return this.position.CompareTo(((GrilleRelationshipItem)obj).position);
+        }
     }
 }

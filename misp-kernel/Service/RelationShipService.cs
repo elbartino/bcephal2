@@ -9,7 +9,7 @@ using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Service
 {
-    public class relationShipService : Service<GrilleRelationships, Misp.Kernel.Domain.Browser.BrowserData>
+    public class relationShipService : Service<GrilleRelationship, Misp.Kernel.Domain.Browser.BrowserData>
     {
          
     }
