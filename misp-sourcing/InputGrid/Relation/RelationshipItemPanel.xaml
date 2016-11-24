@@ -11,6 +11,7 @@
         <ColumnDefinition Width="56"/>
         <ColumnDefinition Width="1*"/>
         <ColumnDefinition Width="15"/>
+        <ColumnDefinition Width="15"/>
     </Grid.ColumnDefinitions>
     <CheckBox x:Name="checkBox" x:FieldModifier="public" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     <ComboBox x:Name="comboBox" x:FieldModifier="public" Grid.Column="1" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
@@ -18,6 +19,13 @@
         <Button.Template>
             <ControlTemplate>
                 <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>
+            </ControlTemplate>
+        </Button.Template>
+    </Button>
+    <Button x:Name="addButton" x:FieldModifier="public" Grid.Column="3" ToolTip="Add row" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+        <Button.Template>
+            <ControlTemplate>
+                <Image Source="/bcephal;Component/Resources/Images/Icons/New.png"/>
             </ControlTemplate>
         </Button.Template>
     </Button>

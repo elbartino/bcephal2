@@ -234,20 +234,11 @@
     <Compile Include="InputGrid\InputGridSheetForm.cs" />
     <Compile Include="InputGrid\InputGridSideBar.cs" />
     <Compile Include="InputGrid\InputGridToolBar.cs" />
-    <Compile Include="InputGrid\Relation\PrimaryRelationItemPanel.xaml.cs">
-      <DependentUpon>PrimaryRelationItemPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="InputGrid\Relation\PrimaryRelationPanel.xaml.cs">
-      <DependentUpon>PrimaryRelationPanel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="InputGrid\Relation\RelationshipItemPanel.xaml.cs">
       <DependentUpon>RelationshipItemPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="InputGrid\Relation\RelationshipPanel.xaml.cs">
       <DependentUpon>RelationshipPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="InputGrid\Relation\RelationshipsPanel.xaml.cs">
-      <DependentUpon>RelationshipsPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="MultipleFilesUpload\Step1.xaml.cs" />
     <Compile Include="MultipleFilesUpload\Step2.xaml.cs" />
@@ -479,23 +470,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="InputGrid\Relation\PrimaryRelationItemPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="InputGrid\Relation\PrimaryRelationPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="InputGrid\Relation\RelationshipItemPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InputGrid\Relation\RelationshipPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="InputGrid\Relation\RelationshipsPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

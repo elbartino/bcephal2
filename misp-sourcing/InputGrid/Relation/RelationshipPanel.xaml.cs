@@ -39,11 +39,17 @@ namespace Misp.Sourcing.InputGrid.Relation
 
         #region Properties
 
-        public GrilleRelationship Relationship { get; set; }
+        public GrilleRelationship Relationship 
+        { 
+            get { return this.Grid.relationship; }
+            set { this.Grid.relationship = value; }
+        }
 
         public RelationshipItemPanel ActiveItemPanel { get; set; }
 
         public Grille Grid { get; set; }
+
+        public bool IsPrimary { get; set; }
 
         #endregion
 
@@ -53,6 +59,11 @@ namespace Misp.Sourcing.InputGrid.Relation
         public RelationshipPanel()
         {
             InitializeComponent();
+        }
+
+        public RelationshipPanel(bool isPrimary) : this()
+        {
+            IsPrimary = isPrimary;
         }
         
         #endregion
@@ -64,25 +75,24 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// 
         /// </summary>
         /// <param name="relationship"></param>
-        public void Display(Grille grid, GrilleRelationship relationship)
+        public void Display(Grille grid)
         {
             this.Grid = grid;
-            this.Relationship = relationship;
             this.panel.Children.Clear();
             int index = 1;
-            if (relationship == null) 
+            if (this.Relationship == null) 
             {
-                this.ActiveItemPanel = new RelationshipItemPanel(grid, index);
+                this.ActiveItemPanel = new RelationshipItemPanel(grid, index, IsPrimary);
                 AddItemPanel(this.ActiveItemPanel);
                 return; 
             }
-            foreach (GrilleRelationshipItem item in relationship.itemListChangeHandler.Items)
+            foreach (GrilleRelationshipItem item in this.Relationship.itemListChangeHandler.Items)
             {
-                RelationshipItemPanel itemPanel = new RelationshipItemPanel(grid, item);
+                RelationshipItemPanel itemPanel = new RelationshipItemPanel(grid, item, IsPrimary);
                 AddItemPanel(itemPanel);
                 index++;
             }
-            this.ActiveItemPanel = new RelationshipItemPanel(grid, index);
+            this.ActiveItemPanel = new RelationshipItemPanel(grid, index, IsPrimary);
             AddItemPanel(this.ActiveItemPanel);
         }
 
@@ -149,7 +159,7 @@ namespace Misp.Sourcing.InputGrid.Relation
             if (this.panel.Children.Count <= this.Relationship.itemListChangeHandler.Items.Count)
             {
                 int countItems = this.Relationship.itemListChangeHandler.Items.Count + 1;
-                this.ActiveItemPanel = new RelationshipItemPanel(this.Grid, countItems);
+                this.ActiveItemPanel = new RelationshipItemPanel(this.Grid, countItems, IsPrimary);
                 AddItemPanel(this.ActiveItemPanel);
             }
             if (Changed != null) Changed();

@@ -11,7 +11,7 @@ namespace Misp.Kernel.Domain
 
         public int position { get; set; }
         public GrilleColumn column { get; set; }
-        public bool isExclusive { get; set; }
+        public bool exclusive { get; set; }
         public bool primary { get; set; }
 
     }

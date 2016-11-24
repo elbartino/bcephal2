@@ -13,7 +13,7 @@
     </Grid.RowDefinitions>
 
     <GroupBox x:Name="PrimaryGroupBox" Header="Primary Columns" Margin="5,5,5,15" Grid.Row="0">
-        <src:PrimaryRelationPanel x:Name="PrimaryRelationPanel" x:FieldModifier="public" Grid.Row="1"/>
+        <src:RelationshipPanel x:Name="PrimaryRelationPanel" x:FieldModifier="public" Grid.Row="1"/>
     </GroupBox>
     <GridSplitter Height="5" ResizeDirection="Rows" Background="#FFFBF8F8"
                           VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="0"/>

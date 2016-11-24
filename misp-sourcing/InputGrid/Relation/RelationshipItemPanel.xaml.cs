@@ -59,6 +59,8 @@ namespace Misp.Sourcing.InputGrid.Relation
 
         public int Index { get; set; }
 
+        public bool IsPrimary { get; set; }
+
         protected bool throwEvents;
 
         #endregion
@@ -69,9 +71,11 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// <summary>
         /// Build a new instance of RelationshipItemPanel
         /// </summary>
-        public RelationshipItemPanel()
+        public RelationshipItemPanel(bool isPrimary = false)
         {
-            InitializeComponent();            
+            IsPrimary = isPrimary;
+            InitializeComponent();
+            CustomizeComponents();
             InitializeHandlers();
             throwEvents = true;
         }
@@ -80,8 +84,8 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// Build a new instance of RelationshipItemPanel
         /// </summary>
         /// <param name="index">Panel index</param>
-        public RelationshipItemPanel(Grille grid)
-            : this()
+        public RelationshipItemPanel(Grille grid, bool isPrimary = false)
+            : this(isPrimary)
         {
             throwEvents = false;
             this.comboBox.ItemsSource = grid.columnListChangeHandler.Items;
@@ -92,8 +96,8 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// Build a new instance of RelationshipItemPanel
         /// </summary>
         /// <param name="index">Panel index</param>
-        public RelationshipItemPanel(Grille grid, int index)
-            : this(grid)
+        public RelationshipItemPanel(Grille grid, int index, bool isPrimary = false)
+            : this(grid, isPrimary)
         {
             this.Index = index;
         }
@@ -102,8 +106,8 @@ namespace Misp.Sourcing.InputGrid.Relation
         /// Build a new instance of RelationshipItemPanel
         /// </summary>
         /// <param name="item">RelationshipItem to display in this panel</param>
-        public RelationshipItemPanel(Grille grid, GrilleRelationshipItem item)
-            : this(grid)
+        public RelationshipItemPanel(Grille grid, GrilleRelationshipItem item, bool isPrimary = false)
+            : this(grid, isPrimary)
         {
             Display(item); 
         }
@@ -119,7 +123,7 @@ namespace Misp.Sourcing.InputGrid.Relation
             this.RelationshipItem = item;
             if (item != null) this.Index = item.position + 1;
             this.comboBox.SelectedItem = item != null && item.column != null ? item.column.name : "";
-            this.checkBox.IsChecked = item != null ? item.isExclusive : false;
+            this.checkBox.IsChecked = item != null ? item.exclusive : false;
             throwEvents = true;
         }
 
@@ -147,6 +151,13 @@ namespace Misp.Sourcing.InputGrid.Relation
             //if (Changed != null) Changed();
         }
 
+
+
+        private void CustomizeComponents()
+        {
+            checkBox.Visibility = IsPrimary ? Visibility.Collapsed : Visibility.Visible;
+            addButton.Visibility = !IsPrimary ? Visibility.Collapsed : Visibility.Visible;
+        }
 
         #endregion
 

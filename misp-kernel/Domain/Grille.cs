@@ -38,7 +38,7 @@ namespace Misp.Kernel.Domain
 
         public int? cellOid { get; set; }
 
-        public GrilleRelationship grilleRelationship;
+        public GrilleRelationship relationship { get; set; }
 
         public PersistentListChangeHandler<GrilleColumn> columnListChangeHandler { get; set; }
 

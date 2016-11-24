@@ -36,7 +36,7 @@ namespace Misp.Sourcing.InputGrid
         public InputGridRelationshipPanel()
         {
             InitializeComponent();
-            this.PrimaryRelationPanel.RelationshipPanel = this.RelationshipPanel;
+            this.PrimaryRelationPanel.IsPrimary = true;
         }
 
         #endregion
@@ -49,7 +49,8 @@ namespace Misp.Sourcing.InputGrid
             if (grid == null) return;
             throwEvent = false;
             this.Grid = grid;
-            this.PrimaryRelationPanel.Display(this.Grid);    
+            this.PrimaryRelationPanel.Display(this.Grid);
+            this.RelationshipPanel.Display(this.Grid);
             throwEvent = true;
         }
 
