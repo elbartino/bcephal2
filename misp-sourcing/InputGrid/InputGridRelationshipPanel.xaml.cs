@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace Misp.Sourcing.InputGrid
 
         #region Properties
 
-        public bool throwEvent = true;
+        public event ChangeEventHandler Changed;
 
         public Grille Grid { get; set; }
 
@@ -37,6 +38,7 @@ namespace Misp.Sourcing.InputGrid
         {
             InitializeComponent();
             this.PrimaryRelationPanel.IsPrimary = true;
+            InitializeHandlers();
         }
 
         #endregion
@@ -47,7 +49,6 @@ namespace Misp.Sourcing.InputGrid
         public void Display(Grille grid)
         {
             if (grid == null) return;
-            throwEvent = false;
             this.Grid = grid;
             if (this.Grid.relationship != null)
             {
@@ -59,7 +60,6 @@ namespace Misp.Sourcing.InputGrid
             }
             this.PrimaryRelationPanel.Display(this.Grid);
             this.RelationshipPanel.Display(this.Grid);
-            throwEvent = true;
         }
 
         public void FillGrid(Grille grid)
@@ -69,6 +69,26 @@ namespace Misp.Sourcing.InputGrid
         }
 
         #endregion
+
+
+        #region Handlers
+
+        /// <summary>
+        /// Initialize les handlers
+        /// </summary>
+        protected void InitializeHandlers()
+        {
+            this.PrimaryRelationPanel.Changed += OnChanged;
+            this.RelationshipPanel.Changed += OnChanged;
+        }
+
+        private void OnChanged()
+        {
+            if (Changed != null) Changed();
+        }
+        
+        #endregion
+
 
     }
 }

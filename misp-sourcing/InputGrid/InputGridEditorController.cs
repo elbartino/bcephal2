@@ -425,7 +425,9 @@ namespace Misp.Sourcing.InputGrid
 
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.Changed += OnInputGridPropertiesChange;
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.selectionColumnChanged += OnInputGridPropertiesSelectionColumnChange;
-            
+
+            editorPage.getInputGridForm().InputGridSheetForm.InputGridRelationshipPanel.Changed += OnInputGridRelationshipChange;
+
             initializeGridFormHandlers(editorPage.getInputGridForm());
 
             editorPage.getInputGridForm().SelectionChanged += OnSelectedTabChange;
@@ -966,6 +968,11 @@ namespace Misp.Sourcing.InputGrid
 
             }
            
+        }
+
+        private void OnInputGridRelationshipChange()
+        {
+            OnChange();
         }
 
         private void OnInputGridPropertiesChange(object obj)
