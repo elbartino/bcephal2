@@ -487,7 +487,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             }
         }
 
-        private void OnCellEdited(object sender, DevExpress.XtraSpreadsheet.SpreadsheetCellEventArgs e)
+        private void OnCellEdited(object sender, EventArgs e)
         {  
             ExcelEventArg arg = new ExcelEventArg() { };
             Range previousRange = rangePreviousValue;
