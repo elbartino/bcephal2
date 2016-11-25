@@ -8,7 +8,7 @@
     <TreeView x:Name="treeView" x:FieldModifier="public">
         <TreeView.Resources>
             <HierarchicalDataTemplate DataType="{x:Type domain:Measure}" ItemsSource="{Binding childrenListChangeHandler.Items}">
-                <TextBlock Text="{Binding name}" Margin="3,4" VerticalAlignment="Center">
+                <TextBlock Text="{Binding name}" Margin="3" VerticalAlignment="Center">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
                             <Style.Triggers>

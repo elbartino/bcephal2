@@ -10,12 +10,12 @@
         <TreeView.Resources>
             <HierarchicalDataTemplate DataType="{x:Type domain:PeriodName}" ItemsSource="{Binding Items}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding name}" Margin="3,4" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding name}" Margin="3" VerticalAlignment="Center"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
 
             <HierarchicalDataTemplate DataType="{x:Type domain:PeriodInterval}" ItemsSource="{Binding childrenListChangeHandler.Items}">
-                <TextBlock Text="{Binding name}" Margin="3,4" VerticalAlignment="Center">
+                <TextBlock Text="{Binding name}" Margin="3" VerticalAlignment="Center">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
                             <Style.Triggers>

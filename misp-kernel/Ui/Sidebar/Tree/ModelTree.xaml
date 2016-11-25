@@ -10,26 +10,26 @@
         <TreeView.Resources>
 
             <HierarchicalDataTemplate DataType="{x:Type CollectionViewGroup}" ItemsSource="{Binding Items}">
-                <TextBlock Text="{Binding Name}" Margin="3,4" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Name}" Margin="3" VerticalAlignment="Center"/>
             </HierarchicalDataTemplate>
 
             <HierarchicalDataTemplate DataType="{x:Type domain:Model}" ItemsSource="{Binding EntityCollectionViewSource.View.Groups}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/Icons/model.png" Width="16" Height="16" SnapsToDevicePixels="True"/>
-                    <TextBlock Text="{Binding name}" Margin="3,4" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding name}" Margin="3" VerticalAlignment="Center"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
 
             <HierarchicalDataTemplate DataType="{x:Type domain:Entity}" ItemsSource="{Binding attributeListChangeHandler.Items}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding name}" Margin="3,4" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding name}" Margin="3" VerticalAlignment="Center"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
 
             <HierarchicalDataTemplate DataType="{x:Type domain:Attribute}" ItemsSource="{Binding Items}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/Icons/attribut.png" Width="16" Height="16" SnapsToDevicePixels="True"/>
-                    <TextBlock Text="{Binding name}" Margin="3,4" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding name}" Margin="3" VerticalAlignment="Center">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Style.Triggers>
@@ -47,7 +47,7 @@
             </HierarchicalDataTemplate>
 
             <HierarchicalDataTemplate DataType="{x:Type domain:AttributeValue}" ItemsSource="{Binding childrenListChangeHandler.Items}">
-                <TextBlock Text="{Binding name}" Margin="3,4" VerticalAlignment="Center">
+                <TextBlock Text="{Binding name}" Margin="3" VerticalAlignment="Center">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
                             <Style.Triggers>

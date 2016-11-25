@@ -55,7 +55,7 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
 
         protected static String SHOW_MORE_LABEL = "Show more...";
 
-        protected static int PAGE_SIZE = 2;
+        protected static int PAGE_SIZE = 10;
 
         #endregion
 
