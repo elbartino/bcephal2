@@ -19,7 +19,7 @@
                 <ColumnDefinition Width="119" />
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Content="Input Table name :" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="108" Margin="0,0,0,0"/>
+            <Label x:Name="labelName" Content="Input Table name :" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="108" Margin="0,0,0,0"/>
             <TextBox Name="inpuTableNameTextbox" Grid.Row="0" Grid.Column="1" Margin="0,0,10,0"/>
         </Grid>
 

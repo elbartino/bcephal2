@@ -21,6 +21,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             this.DisableFormualaBar(true);
             this.DisableTitleBar(true);
             this.DisableToolBar(true);
+           // Protect(true);
         }
 
 
@@ -267,6 +268,19 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             if (columnIndex > finCol) return false;
 
             return findInList(columnIndex, getColumnsIndexes(selectedRange)) ? true : false;
+        }
+
+        public void Protect(bool protect) 
+        {
+            DevExpress.Spreadsheet.IWorkbook workbook = this.spreadsheetControl.Document;
+            if (!workbook.IsProtected && protect)
+            {
+                workbook.Protect("Password", true, true);
+            }
+            else
+            {
+                workbook.Unprotect("Password");
+            }
         }
     }
 }

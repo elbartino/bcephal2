@@ -67,6 +67,8 @@ namespace Misp.Sourcing.Base
                 automaticSourcingService.InputTableService = GetInputTableService();
                 automaticSourcingService.CalculatedMeasureService = GetCalculatedMeasureService2();
                 automaticSourcingService.PeriodNameService = GetPeriodNameService();
+                automaticSourcingService.InputGridService = GetInputGridService();
+                automaticSourcingService.TargetService = GetTargetService();
                 configureService(automaticSourcingService);
             }
             return automaticSourcingService;
@@ -87,6 +89,7 @@ namespace Misp.Sourcing.Base
                 automaticTargetService.InputTableService = GetInputTableService();
                 automaticTargetService.CalculatedMeasureService = GetCalculatedMeasureService2();
                 automaticTargetService.PeriodNameService = GetPeriodNameService();
+                automaticTargetService.TargetService = GetTargetService();
                 configureService(automaticTargetService);
             }
             return automaticTargetService;

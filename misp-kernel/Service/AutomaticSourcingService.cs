@@ -57,6 +57,7 @@ namespace Misp.Kernel.Service
 
         public PeriodNameService PeriodNameService { get; set; }
 
+        public InputGridService InputGridService { get; set; }
 
 
         //public override List<BrowserData> getBrowserDatas()
