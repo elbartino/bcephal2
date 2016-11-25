@@ -122,13 +122,22 @@ namespace Misp.Sourcing.InputGrid.Relation
             if (ValidateSelection(panel))
             {
                 bool isNew = panel.RelationshipItem == null;
+                GrilleColumn oldColumn = isNew ? null : panel.RelationshipItem.column;
                 panel.Fill();
                 if (isNew) this.Relationship.AddItem(panel.RelationshipItem);
                 else this.Relationship.UpdateItem(panel.RelationshipItem);
                 OnChanged(panel.RelationshipItem, isNew);
 
-                if (panel.RelationshipItem.primary) this.Grid.RelatedColumnsDataSource.Remove(panel.RelationshipItem.column);
-                else this.Grid.PrimaryColumnsDataSource.Remove(panel.RelationshipItem.column);
+                if (panel.RelationshipItem.primary)
+                {
+                    this.Grid.RelatedColumnsDataSource.Remove(panel.RelationshipItem.column);
+                    this.Grid.RelatedColumnsDataSource.Add(oldColumn);
+                }
+                else
+                {
+                    this.Grid.PrimaryColumnsDataSource.Remove(panel.RelationshipItem.column);
+                    this.Grid.PrimaryColumnsDataSource.Add(oldColumn);
+                }
 
                 return true;
             }
