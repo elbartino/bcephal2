@@ -69,6 +69,7 @@ namespace Misp.Kernel.Domain
             column.isModified = true;
             columnListChangeHandler.AddNew(column, sort);
             OnPropertyChanged("columnListChangeHandler.Items");
+            if (column.type != ParameterType.SCOPE.ToString()) return;
             PrimaryColumnsDataSource.Add(column);
             RelatedColumnsDataSource.Add(column);
         }
@@ -209,6 +210,7 @@ namespace Misp.Kernel.Domain
             relatedColumnsDataSource.Clear();
             foreach (GrilleColumn column in columnListChangeHandler.Items)
             {
+                if (column.type != ParameterType.SCOPE.ToString()) continue;
                 if (this.relationship == null)
                 {
                     primaryColumnsDataSource.Add(column);

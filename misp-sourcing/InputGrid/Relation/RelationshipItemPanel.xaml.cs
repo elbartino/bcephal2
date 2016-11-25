@@ -125,7 +125,7 @@ namespace Misp.Sourcing.InputGrid.Relation
             throwEvents = false;
             this.RelationshipItem = item;
             if (item != null) this.Index = item.position + 1;
-            this.comboBox.SelectedItem = item != null && item.column != null ? item.column.name : "";
+            this.comboBox.SelectedItem = item != null && item.column != null ? item.column : null;
             this.checkBox.IsChecked = item != null ? item.exclusive : false;
             this.checkBox.IsEnabled = this.comboBox.SelectedItem != null;
             throwEvents = true;

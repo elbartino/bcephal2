@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Domain;
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Util;
 using System;
@@ -171,6 +172,7 @@ namespace Misp.Sourcing.InputGrid.Relation
                 if (Changed != null) Changed();
                 if (ItemDeleted != null && panel.RelationshipItem != null) ItemDeleted(panel.RelationshipItem);
 
+                if (panel.RelationshipItem.column.type != ParameterType.SCOPE.ToString()) return;
                 if (panel.RelationshipItem.primary)
                 {
                     this.Grid.RelatedColumnsDataSource.Add(panel.RelationshipItem.column);
