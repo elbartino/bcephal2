@@ -162,15 +162,18 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
         {
             try
             {
+                ThrowEvent = false;
                 DevExpress.Spreadsheet.IWorkbook workbook = this.spreadsheetControl.Document;
                 using (FileStream stream = new FileStream(filePath, FileMode.Open))
                 {
                     workbook.LoadDocument(stream, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
                 }
+                ThrowEvent = true;
                 return OperationState.CONTINUE;
             }
             catch (Exception)
             {
+                ThrowEvent = true;
                 return OperationState.STOP;
             }
         }
@@ -461,15 +464,9 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             this.spreadsheetControl.ActiveSheetChanged += OnSelectionChanged;
             this.spreadsheetControl.SheetInserted += OnSelectionChanged;
             this.spreadsheetControl.PopupMenuShowing += SpreadSheet_PopupMenuShowing;
-            //this.spreadsheetControl.SheetRemoved;
-            
 
-            //this.spreadsheetControl. WorkbookNewSheet += Office_WorkbookNewSheet;
-            //this.spreadsheetControl.SheetActivate += Office_SheetActivate;
-            //this.spreadsheetControl.SheetChange += Office_SheetChange;
-            //this.spreadsheetControl.WindowSelectionChange += Office_WindowSelectionChange;
-            //this.spreadsheetControl.WindowBeforeRightClick += Office_WindowBeforeRightClick;
-            //this.MouseDown += EdrawOffice_MouseDown;
+            this.spreadsheetControl.CellEndEdit += OnCellEdited;
+            //this.spreadsheetControl.CellValueChanged += OnCellEdited;
         }
 
         private void SpreadSheet_PopupMenuShowing(object sender, DevExpress.Xpf.Spreadsheet.Menu.PopupMenuShowingEventArgs e)
@@ -490,6 +487,31 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             }
         }
 
+        private void OnCellEdited(object sender, DevExpress.XtraSpreadsheet.SpreadsheetCellEventArgs e)
+        {  
+            ExcelEventArg arg = new ExcelEventArg() { };
+            Range previousRange = rangePreviousValue;
+            Range range = GetSelectedRange();
+            if (range == null) return;
+            if (range.CellCount > 1) arg.Range = range;
+            else arg.Range = previousRange;
+            if (arg.Range == null)
+            {
+                arg.Range = range;
+            }
+
+            if (arg.Sheet == null)
+            {
+                arg.Sheet = arg.Range.Sheet;
+            }
+
+            if (ThrowEvent && Edited != null)
+            {
+                Edited(arg);
+            }
+        }
+
+
         private void OnSelectionChanged(object sender, EventArgs e)
         {
             ExcelEventArg arg = new ExcelEventArg() { };
@@ -508,10 +530,10 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
                 arg.Sheet = arg.Range.Sheet;
             }
 
-            if (ThrowEvent && Edited != null)
-            {
-                Edited(arg);
-            }
+            //if (ThrowEvent && Edited != null)
+            //{
+            //    Edited(arg);
+            //}
             if (ThrowEvent && SelectionChanged != null) SelectionChanged(arg);
         }
 
