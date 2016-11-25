@@ -65,11 +65,19 @@ namespace Misp.Sourcing.GridViews
             AutomaticGridData data = dialog.Fill();            
             if (data == null) return;
             AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
+
+            string filePath = page.EditedObject.excelFile;
+            string path = System.IO.Path.GetDirectoryName(filePath) + System.IO.Path.DirectorySeparatorChar;
+            string fileName = GetAutomaticSourcingService().FileService.FileTransferService.AutomaticActionsUpload(System.IO.Path.GetFileName(filePath), path);
+            if (fileName == null) return;
+
             GetAutomaticSourcingService().SaveTableHandler += UpdateSaveInfo;
             GetAutomaticSourcingService().OnUpdateUniverse += OnUpdateUniverse;
             Mask(true, "Running ...");            
             data.automaticSourcingOid = page.EditedObject.oid.Value;
-            data.setExcelFilePath(page.getAutomaticSourcingForm().SpreadSheet.DocumentUrl);
+            
+            data.setExcelFilePath(fileName);
+            data.excelExtension = Kernel.Util.ExcelUtil.GetFileExtension(fileName).Extension;
             OnCancelAutomaticGridDataDialog(sender, e);
             GetAutomaticSourcingService().Run(data);            
         }

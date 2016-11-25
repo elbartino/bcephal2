@@ -1225,13 +1225,11 @@ namespace Misp.Sourcing.Base
                 GetAutomaticSourcingService().SaveTableHandler += UpdateSaveInfo;
                 GetAutomaticSourcingService().OnUpdateUniverse += OnUpdateUniverse;
                 //GetAutomaticSourcingService().buildTableNameEventHandler += OnBuildTableName;
-                Mask(true, "Running ...");
-                String docUrl = page.getAutomaticSourcingForm().SpreadSheet.DocumentUrl;
-                if (string.IsNullOrEmpty(docUrl)) docUrl = fileName;
-                AutomaticSourcingData data = new AutomaticSourcingData(page.EditedObject.oid.Value, name, docUrl);
+                Mask(true, "Running ...");                
+                AutomaticSourcingData data = new AutomaticSourcingData(page.EditedObject.oid.Value, name, fileName);
                 data.runTable = AutomaticSourcingTableDialog.requestRunAllocation;
                 data.createTable = true;
-                data.excelExtension = Kernel.Util.ExcelUtil.GetFileExtension(docUrl).Extension;
+                data.excelExtension = Kernel.Util.ExcelUtil.GetFileExtension(fileName).Extension;
                 GetAutomaticSourcingService().Run(data);               
             }
         }

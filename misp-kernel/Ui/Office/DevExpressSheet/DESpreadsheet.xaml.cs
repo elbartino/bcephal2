@@ -58,7 +58,10 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
 
         public string DocumentUrl
         {
-            get { return this.spreadsheetControl.Options.Save.CurrentFileName; }
+            get { 
+                String fileName = this.spreadsheetControl.Options.Save.CurrentFileName;
+                return fileName;
+            }
             set { /**documenturl = value;*/ }
         }
 
@@ -167,6 +170,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
                 using (FileStream stream = new FileStream(filePath, FileMode.Open))
                 {
                     workbook.LoadDocument(stream, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+                    this.spreadsheetControl.Options.Save.CurrentFileName = filePath;
                 }
                 ThrowEvent = true;
                 return OperationState.CONTINUE;
