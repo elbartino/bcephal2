@@ -1182,12 +1182,12 @@
                 <dxb:BarStaticItem x:Name="biPivotTableToggleBandedColumns" ContentTemplate="{Binding CheckEditTemplate, Mode=OneTime, Source={StaticResource defaultBarItemTemplates}}" Command="{Binding PivotTableToggleBandedColumns, Mode=OneTime, Source={StaticResource commands}}"/>
             </dxb:BarManager.Items>
             <DockPanel>
-                <dxr:RibbonControl x:Name="ribbonControl1" DockPanel.Dock="Top" ShowApplicationButton="False" RibbonStyle="OfficeSlim">
-                    <dxr:RibbonControl.ToolbarItemLinks>
+                <dxr:RibbonControl x:Name="ribbonControl1" DockPanel.Dock="Top" ShowApplicationButton="False" RibbonStyle="Office2010" ToolbarShowMode="Hide" >
+                    <!--<dxr:RibbonControl.ToolbarItemLinks>
                         <dxb:BarButtonItemLink BarItemName="biFileSave"/>
                         <dxb:BarButtonItemLink BarItemName="biFileUndo"/>
                         <dxb:BarButtonItemLink BarItemName="biFileRedo"/>
-                    </dxr:RibbonControl.ToolbarItemLinks>
+                    </dxr:RibbonControl.ToolbarItemLinks>-->
                     <dxr:RibbonDefaultPageCategory>
                         <dxr:RibbonPage x:Name="pageFile" Caption="{Binding ConverterParameter=Caption_PageFile, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}">
                             <dxr:RibbonPageGroup x:Name="grpFileCommon" Caption="{Binding ConverterParameter=Caption_GroupCommon, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}" ShowCaptionButton="False">
