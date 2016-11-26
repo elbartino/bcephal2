@@ -200,15 +200,40 @@ namespace Misp.Kernel.Domain
         }
 
 
+
         public Range buildRange(String rangeTemp)
         {
+            List<string> ranges = new List<string>();
+            if (rangeTemp.Contains(';'))
+            {
+                ranges.AddRange(rangeTemp.Split(';').ToList());
+            }
+            else 
+            {
+                ranges.Add(rangeTemp);
+            }
+                       
+            Range range = new Range();
+            foreach (string s in ranges)
+            {
+                RangeItem item = buildRangeItem(s);
+                if (item == null) continue;
+                range.Items.Add(item);
+            }
+            if (range.CellCount == 0) return null;
+            return range;
+        }
+
+        public RangeItem buildRangeItem(string rangeString) 
+        {
             string patternRange = @"^[a-zA-Z]+[0-9]+(:[a-zA-Z]+[0-9]+){0,1}$";
-            if (!Regex.IsMatch(rangeTemp, patternRange)) return null;
+            if (!Regex.IsMatch(rangeString, patternRange)) return null;
+
             RangeItem rangeItem = new RangeItem();
 
-            if (rangeTemp.Contains(':'))
+            if (rangeString.Contains(':'))
             {
-                string[] bloc = rangeTemp.Split(':');
+                string[] bloc = rangeString.Split(':');
 
                 string bloc1 = bloc[0];
                 string bloc2 = bloc[1];
@@ -221,16 +246,13 @@ namespace Misp.Kernel.Domain
                 rangeItem.Column2 = (int)endPos.X == 0 ? 1 : (int)endPos.X;
                 rangeItem.Row2 = (int)endPos.Y == 0 ? 1 : (int)endPos.Y;
             }
-            else 
+            else
             {
-                System.Windows.Point coords1 = Coord(rangeTemp.ToCharArray());
+                System.Windows.Point coords1 = Coord(rangeString.ToCharArray());
                 rangeItem.Column1 = rangeItem.Column2 = (int)coords1.X == 0 ? 1 : (int)coords1.X;
                 rangeItem.Row1 = rangeItem.Row2 = (int)coords1.Y == 0 ? 1 : (int)coords1.Y;
             }
-            Range range = new Range();
-            range.Items.Add(rangeItem);
-
-            return range;
+            return rangeItem;
         }
 
         [ScriptIgnore]

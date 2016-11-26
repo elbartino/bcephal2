@@ -1537,7 +1537,10 @@ namespace Misp.Sourcing.Base
             else
             {
                 rangeSelected = currentPage.EditedObject.ActiveSheet.buildRange(selecteRange);
-                rangeSelected.Sheet = currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet();
+                if (rangeSelected != null)
+                {
+                    rangeSelected.Sheet = currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet();
+                }
                 currentPage.EditedObject.ActiveSheet.rangeSelected = rangeSelected;
                 currentPage.EditedObject.ActiveSheet.SetSelectedRange = currentPage.EditedObject.ActiveSheet.SetSelectedRange;
                 ((AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage()).EditedObject = currentPage.EditedObject;
