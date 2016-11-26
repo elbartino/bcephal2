@@ -520,10 +520,11 @@ namespace Misp.Sourcing.InputGrid
 
         private void OnDuplicateRows(object obj)
         {
-            String message = "You are about to duplicate " + ((List<int>)obj).Count + " row(s).\nDo you want to continue?";
+            String message = "You are about to duplicate " + ((List<long>)obj).Count + " row(s).\nDo you want to continue?";
             if (MessageDisplayer.DisplayYesNoQuestion("Duplicate", message) == MessageBoxResult.Yes)
             {
-                if (this.GetInputGridService().duplicateGridRows((List<int>)obj))
+                var list = ((List<long>)obj).ConvertAll(i => (int)i).ToList();
+                if (this.GetInputGridService().duplicateGridRows(list))
                 {
                     InputGridEditorItem page = (InputGridEditorItem)getEditor().getActivePage();
                     Search(page.getInputGridForm().GridForm.toolBar.total + 1);
