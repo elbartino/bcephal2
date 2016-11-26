@@ -18,10 +18,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
         public DESheetPanel(): base()
         {
             this.ribbonControl1.Visibility = System.Windows.Visibility.Collapsed;
-            this.DisableFormualaBar(true);
-            this.DisableTitleBar(true);
-            this.DisableToolBar(true);
-           // Protect(true);
+            this.spreadsheetControl.ReadOnly = true;
         }
 
 
