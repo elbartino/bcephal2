@@ -318,7 +318,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         {
             if (args.Key == Key.Enter) 
             {
-                if(OnSelectedRangeChange != null)
+                if (throwChange && OnSelectedRangeChange != null)
                 {
                     Kernel.Ui.Office.Range range = new Kernel.Ui.Office.Range();
                     AutomaticSourcingSheet sourcingSheet = new Kernel.Domain.AutomaticSourcingSheet();
@@ -334,7 +334,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
      
         private void AutomaticSourcingColumnPanel_OnAllocationPanelChange()
         {
-            if (OnAllocationPanelChange != null)
+            if (throwChange && OnAllocationPanelChange != null)
                 OnAllocationPanelChange();
         }
 
@@ -342,7 +342,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         {
             if (args.Key == Key.Delete)
             {
-                if (OnRemoveColumn != null)
+                if (throwChange && OnRemoveColumn != null)
                 {
                     if(ColumnListBox.SelectedItem != null)
                         OnRemoveColumn(ColumnListBox.SelectedItem as AutomaticSourcingColumn, ColumnListBox.SelectedIndex);
@@ -361,7 +361,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
         private void OnRemoveColumnInList(object sender, RoutedEventArgs e)
         {
-            if (OnRemoveColumn != null)
+            if (throwChange && OnRemoveColumn != null)
                 OnRemoveColumn(activeColumn, ColumnListBox.SelectedIndex);
         }
 
@@ -487,7 +487,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
         private void OnSelectRangeOptionChange(object sender, RoutedEventArgs e)
         {
-            if(SelectRangeOption != null)
+            if (throwChange && SelectRangeOption != null)
             {
                 var state = ((CheckBox)sender).IsChecked.Value;
                 SelectRangeOption(state);
@@ -501,7 +501,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
         private void OnSetFirstRowAsHeaderChange(object sender, RoutedEventArgs e)
         {
-            if (SetFirstRowAsHeader != null) 
+            if (throwChange && SetFirstRowAsHeader != null) 
             {
                 var state = ((CheckBox)sender).IsChecked.Value;
                 SetFirstRowAsHeader(state);

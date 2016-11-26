@@ -355,18 +355,13 @@ namespace Misp.Sourcing.Base
         private void OnSelectedRangeChange(object range)
         {
             AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
-            if (page.getAutomaticSourcingForm().GetSelectionRangeState())
-            {
-                if (page.EditedObject.ActiveSheet.oid.HasValue) page.EditedObject.ActiveSheet.setToUpdate();
+            if (page.EditedObject.ActiveSheet.oid.HasValue) page.EditedObject.ActiveSheet.setToUpdate();
 
-                page.EditedObject.updateSheetParams(page.EditedObject.ActiveSheet, (Kernel.Ui.Office.Range)range);
-                InitializeColumnOnRangeChange();
-                if (page.EditedObject.ActiveSheet.ActiveColumn != null){
-                    page.getAutomaticSourcingForm().SetSelectedIndex(0);
-                    page.getAutomaticSourcingForm().AutomaticSourcingPanel.SheetPanel.Display(page.EditedObject.ActiveSheet);
-                }
-                OnChange();
-            }
+            page.EditedObject.updateSheetParams(page.EditedObject.ActiveSheet, (Kernel.Ui.Office.Range)range);
+            //InitializeColumnOnRangeChange();
+            page.getAutomaticSourcingForm().SetSelectedIndex(0);
+            page.getAutomaticSourcingForm().AutomaticSourcingPanel.SheetPanel.Display(page.EditedObject.ActiveSheet);
+            OnChange();
         }
         
         private void OnFilterDelete(object item)
@@ -414,7 +409,6 @@ namespace Misp.Sourcing.Base
 
             InitializeColumn();
             page.displayObject();
-            page.getAutomaticSourcingForm().SetSelectedRange(selecteRange != "");
 
         }
 
@@ -912,16 +906,19 @@ namespace Misp.Sourcing.Base
             }
             else 
             {
-                page.EditedObject.ActiveSheet.selectedRange = "";
+                OnSelectedRangeChange(null);
             }
 
             if (page.EditedObject.ActiveSheet.ActiveColumn == null)
             {
                 int activeCol = page.getAutomaticSourcingForm().SpreadSheet.getActiveCell().Column;
                 page.EditedObject.ActiveSheet.ActiveColumn = page.EditedObject.ActiveSheet.getAutomaticSourcingColumn(activeCol);
-                int listboxPos = page.getAutomaticSourcingForm().getColumnInListBox(page.EditedObject.ActiveSheet.ActiveColumn.columnIndex);
-                if (listboxPos > 0) page.getAutomaticSourcingForm().SetSelectedIndex(listboxPos);
-                else page.getAutomaticSourcingForm().SetSelectedIndex(0);
+                if (page.EditedObject.ActiveSheet.ActiveColumn != null)
+                {
+                    int listboxPos = page.getAutomaticSourcingForm().getColumnInListBox(page.EditedObject.ActiveSheet.ActiveColumn.columnIndex);
+                    if (listboxPos > 0) page.getAutomaticSourcingForm().SetSelectedIndex(listboxPos);
+                    else page.getAutomaticSourcingForm().SetSelectedIndex(0);
+                }
             }
 
             if (!refreshMode) OnChange();
@@ -1760,10 +1757,11 @@ namespace Misp.Sourcing.Base
         private void InitializeColumnOnRangeChange()
         {
             AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
-            Range rangeSelected = page.EditedObject.ActiveSheet.rangeSelected != null
-                            && page.getAutomaticSourcingForm().GetSelectionRangeState() ? page.EditedObject.ActiveSheet.rangeSelected : null;
+            Range rangeSelected = null;
+            //rangeSelected = page.EditedObject.ActiveSheet.rangeSelected != null
+            //                && page.getAutomaticSourcingForm().GetSelectionRangeState() ? page.EditedObject.ActiveSheet.rangeSelected : null;
 
-            if (rangeSelected == null) return;
+            //if (rangeSelected == null) return;
             page.EditedObject.ActiveSheet.listColumnToDisplay = new List<AutomaticSourcingColumn>(0);
             List<int> listeIndexColumn = page.getAutomaticSourcingForm().SpreadSheet.getColumnsIndexes(rangeSelected);
             foreach (int colPosition in listeIndexColumn)
@@ -1803,7 +1801,7 @@ namespace Misp.Sourcing.Base
                 page.EditedObject.ActiveSheet.selectedRange = UsableRange.Name;
 
                 page.getAutomaticSourcingForm().AutomaticSourcingPanel.SheetPanel.RangeTextBox.SelectAll();
-                InitializeColumnOnRangeChange();
+                //InitializeColumnOnRangeChange();
 
                 page.getAutomaticSourcingForm().displayObject();
             }

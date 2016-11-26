@@ -90,10 +90,15 @@ namespace Misp.Kernel.Domain
             {
                 this.automaticSourcingSheetListChangeHandler.Items[index].selectedRange = param.ToString();
             }
-            else if (param is  Kernel.Ui.Office.Range) 
+            else if (param is Kernel.Ui.Office.Range)
             {
                 this.automaticSourcingSheetListChangeHandler.Items[index].selectedRange = ((Kernel.Ui.Office.Range)param).Name;
                 this.automaticSourcingSheetListChangeHandler.Items[index].rangeSelected = ((Kernel.Ui.Office.Range)param);
+            }
+            else
+            {
+                this.automaticSourcingSheetListChangeHandler.Items[index].selectedRange = null;
+                this.automaticSourcingSheetListChangeHandler.Items[index].rangeSelected = null;
             }
 
             if (sheet.toUpdate) this.UpdateSheet(sheet);
