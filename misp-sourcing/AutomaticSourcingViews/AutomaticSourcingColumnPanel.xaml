@@ -20,7 +20,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+
+        <Grid x:Name="PrimaryGrid" x:FieldModifier="public" Grid.Row="0" Margin="0, 10 ,0 ,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <CheckBox x:Name="primaryCheckbox" Content="Is Primary" FlowDirection="RightToLeft"  Grid.Row="0"/>
+        </Grid>
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="95"/>
                 <ColumnDefinition Width="*"/>
@@ -29,7 +36,7 @@
             <ComboBox x:Name="TypeComboBox" x:FieldModifier="public" Grid.Column="1"/>
         </Grid>
 
-        <Grid x:Name="ScopeGrid" x:FieldModifier="public" Grid.Row="1" Margin="0, 10, 0, 0">
+        <Grid x:Name="ScopeGrid" x:FieldModifier="public" Grid.Row="2" Margin="0, 10, 0, 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="95"/>
                 <ColumnDefinition Width="*"/>
@@ -38,7 +45,7 @@
             <TextBox x:Name="AttributeTextBox" x:FieldModifier="public" Grid.Column="1"/>
         </Grid>
 
-        <Grid x:Name="TargetGrid" x:FieldModifier="public" Grid.Row="2" Margin="0, 10, 0, 0">
+        <Grid x:Name="TargetGrid" x:FieldModifier="public" Grid.Row="3" Margin="0, 10, 0, 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="95"/>
                 <ColumnDefinition Width="*"/>
@@ -47,11 +54,11 @@
             <ComboBox Grid.Column="1" x:Name="TargetTypeComboBox" x:FieldModifier="public"/>
         </Grid>
 
-        <Grid Grid.Row="3" x:Name="NewTargetGrid" x:FieldModifier="public"  Margin="0, 10, 0, 0" >
+        <Grid Grid.Row="4" x:Name="NewTargetGrid" x:FieldModifier="public"  Margin="0, 10, 0, 0" >
             <paramsType:NewTargetType   x:Name="newTargetElement" x:FieldModifier="public"  />
         </Grid>
         
-        <Grid x:Name="TagGrid" x:FieldModifier="public" Margin="0, 10, 0, 0" Grid.Row="4">
+        <Grid x:Name="TagGrid" x:FieldModifier="public" Margin="0, 10, 0, 0" Grid.Row="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="95"/>
                 <ColumnDefinition Width="*"/>
@@ -60,7 +67,7 @@
             <TextBox x:Name="TagNameTextBox" x:FieldModifier="public" Grid.Column="1"/>
         </Grid>
 
-        <Grid x:Name="PeriodGrid" x:FieldModifier="public" Grid.Row="5" Margin="0, 10, 0, 0">
+        <Grid x:Name="PeriodGrid" x:FieldModifier="public" Grid.Row="6" Margin="0, 10, 0, 0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -75,7 +82,7 @@
             <TextBox x:Name="PeriodNameTextBox" x:FieldModifier="public" Grid.Row="1" Grid.Column="1" Margin="0, 10, 0, 0"/>
         </Grid>
 
-        <Grid x:Name="MeasureGrid" x:FieldModifier="public" Grid.Row="6" Margin="0, 10, 0, 0">
+        <Grid x:Name="MeasureGrid" x:FieldModifier="public" Grid.Row="7" Margin="0, 10, 0, 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
@@ -91,14 +98,7 @@
             <GroupBox x:Name="AllocationGroupBox" Header="Allocation" Grid.Row="1">
                 <MeasurePan:AllocationPanel x:FieldModifier="public" x:Name="allocationPanel"/>
             </GroupBox>
-        </Grid>
-
-        <Grid x:Name="PrimaryGrid" x:FieldModifier="public" Grid.Row="7" Margin="0, 10 ,0 ,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>                
-            </Grid.RowDefinitions>
-            <CheckBox x:Name="primaryCheckbox" Content="Is Primary"  Grid.Row="0"/>
-        </Grid>
+        </Grid>       
 
         <Grid x:Name="defaultValueGrid" x:FieldModifier="public" Grid.Row="8" Margin="0, 10, 0, 0">
             <Grid.RowDefinitions>

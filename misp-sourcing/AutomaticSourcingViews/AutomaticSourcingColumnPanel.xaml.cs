@@ -535,6 +535,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
             if (this.AutomaticSourcingColumn != null)
             {
+                this.primaryCheckbox.IsChecked = this.AutomaticSourcingColumn.primary;
                 this.DefaultValuePanel.Display(this.AutomaticSourcingColumn.defaultValue);
                 this.ExcludedValuePanel.Display(this.AutomaticSourcingColumn);
                 string columnType = TypeComboBox.SelectedItem.ToString();
