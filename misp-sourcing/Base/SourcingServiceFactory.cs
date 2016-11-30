@@ -17,6 +17,7 @@ namespace Misp.Sourcing.Base
         private AutomaticSourcingGridService automaticSourcingGridService;
         private AutomaticTargetService automaticTargetService;
         private UploadMultipleFilesService uploadMultipleFilesService;
+        private AutomaticEnrichmentTableService automaticEnrichmentTableService;
 
         
         /// <summary>
@@ -126,6 +127,26 @@ namespace Misp.Sourcing.Base
                 configureService(automaticSourcingGridService);
             }
             return automaticSourcingGridService;
+        }
+
+        public AutomaticEnrichmentTableService GetAutomaticEnrichmentTableService()
+        {
+            if (automaticEnrichmentTableService == null)
+            {
+                automaticEnrichmentTableService = new AutomaticEnrichmentTableService();
+                automaticEnrichmentTableService.ResourcePath = ResourcePath.AUTOMATIC_ENRICHMENT_TABLE_RESOURCE_PATH;
+                automaticEnrichmentTableService.SocketResourcePath = ResourcePath.SOCKET_AUTOMATIC_ENRICHMENT_TABLE_RESOURCE_PATH;
+                automaticEnrichmentTableService.FileService = GetFileService();
+                automaticEnrichmentTableService.ModelService = GetModelService();
+                automaticEnrichmentTableService.MeasureService = GetMeasureService();
+                automaticEnrichmentTableService.PeriodicityService = GetPeriodicityService();
+                automaticEnrichmentTableService.GroupService = GetGroupService();
+                automaticEnrichmentTableService.InputTableService = GetInputTableService();
+                automaticEnrichmentTableService.CalculatedMeasureService = GetCalculatedMeasureService2();
+                automaticEnrichmentTableService.PeriodNameService = GetPeriodNameService();
+                configureService(automaticEnrichmentTableService);
+            }
+            return automaticEnrichmentTableService;
         }
 
         

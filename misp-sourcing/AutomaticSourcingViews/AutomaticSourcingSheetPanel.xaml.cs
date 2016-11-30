@@ -540,6 +540,13 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             this.ColumnPanel.customizeForTarget();
         }
 
+
+
+        public void customizeForEnrichmentTable()
+        {
+            this.ColumnPanel.customizeForEnrichmentTable();
+        }
+
         public  string getTargetGroupName()
         {
             return this.ColumnPanel.getGroupTargetName();

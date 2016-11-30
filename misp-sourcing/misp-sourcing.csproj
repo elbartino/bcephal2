@@ -209,6 +209,12 @@
     <Compile Include="Designer\LineItemField.xaml.cs">
       <DependentUpon>LineItemField.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableBrowser.cs" />
+    <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableBrowserController.cs" />
+    <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableEditor.cs" />
+    <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableEditorController.cs" />
+    <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableEditorItem.cs" />
+    <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableForm.cs" />
     <Compile Include="GridViews\AutomaticGridDataDialog.xaml.cs" />
     <Compile Include="GridViews\AutomaticSourcingGridBrowerController.cs" />
     <Compile Include="GridViews\AutomaticSourcingGridBrowser.cs" />

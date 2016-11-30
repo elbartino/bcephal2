@@ -14,6 +14,7 @@ using Misp.Sourcing.AutomaticTargetViews;
 using Misp.Sourcing.GridViews;
 using Misp.Sourcing.InputGrid;
 using Misp.Sourcing.Posting;
+using Misp.Sourcing.EnrichmentTableViews;
 
 namespace Misp.Sourcing.Base
 {
@@ -153,6 +154,27 @@ namespace Misp.Sourcing.Base
                 automaticSourcingGridBrowerController.FunctionalityCode = fonctionality;
                 automaticSourcingGridBrowerController.ApplicationManager = this.ApplicationManager;
                 automaticSourcingGridBrowerController.Service = ((SourcingServiceFactory)ServiceFactory).GetAutomaticSourcingGridService();
+                return automaticSourcingGridBrowerController;
+            }
+
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT)
+            {
+                AutomaticEnrichmentTableEditorController automaticSourcingGridController = new AutomaticEnrichmentTableEditorController();
+                automaticSourcingGridController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                automaticSourcingGridController.FunctionalityCode = fonctionality;
+                automaticSourcingGridController.ApplicationManager = this.ApplicationManager;
+                automaticSourcingGridController.Service = ((SourcingServiceFactory)ServiceFactory).GetAutomaticEnrichmentTableService();
+                automaticSourcingGridController.InputTableService = ((SourcingServiceFactory)ServiceFactory).GetInputTableService();
+                return automaticSourcingGridController;
+            }
+
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_LIST)
+            {
+                AutomaticEnrichmentTableBrowserController automaticSourcingGridBrowerController = new AutomaticEnrichmentTableBrowserController();
+                automaticSourcingGridBrowerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                automaticSourcingGridBrowerController.FunctionalityCode = fonctionality;
+                automaticSourcingGridBrowerController.ApplicationManager = this.ApplicationManager;
+                automaticSourcingGridBrowerController.Service = ((SourcingServiceFactory)ServiceFactory).GetAutomaticEnrichmentTableService();
                 return automaticSourcingGridBrowerController;
             }
 

@@ -148,6 +148,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         public AutomaticSourcingColumnPanel()
         {
             InitializeComponent();
+            this.PrimaryGrid.Visibility = System.Windows.Visibility.Collapsed;
             InitializeData();
             InitializeHandlers();
         }
@@ -173,6 +174,15 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
             this.DefaultValuePanel.Changed += OnDefaultValueChanged;
             this.ExcludedValuePanel.Changed += OnChanged;
+
+            this.primaryCheckbox.Checked += OnCheckPrimary;
+            this.primaryCheckbox.Unchecked += OnCheckPrimary;
+        }
+
+        private void OnCheckPrimary(object sender, RoutedEventArgs e)
+        {
+            //this.AutomaticSourcingColumn.isPrimary = this.primaryCheckbox.IsChecked.Value;
+            OnChanged();
         }
         
         private void OnDefaultValueChanged()
@@ -585,6 +595,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             PeriodNameTextBox.Text = automaticSourcingColumn.periodName;
             FormatComboBox.SelectionChanged -= OnFormatDateChanged;
             FormatComboBox.SelectedItem = automaticSourcingColumn.dateFormat;
+            primaryCheckbox.IsChecked = automaticSourcingColumn.primary;
         }
 
         /// <summary>
@@ -805,6 +816,11 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         {
             InitializeParameterTypeForAutomaticTarget();
             this.newTargetElement.customizeForAutomaticTarget();
+        }
+
+        public void customizeForEnrichmentTable() 
+        {
+            this.PrimaryGrid.Visibility = System.Windows.Visibility.Visible;
         }
 
         public string getGroupTargetName()
