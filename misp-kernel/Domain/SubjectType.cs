@@ -41,6 +41,8 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType AUTOMATIC_GRID = new SubjectType("Automatic Grid");
 
+        public static SubjectType AUTOMATIC_ENRICHMENT_TABLE = new SubjectType("Automatic Enrichment Table");
+
         public static SubjectType POSTING_GRID = new SubjectType("Posting Grid");
 
         public static SubjectType AUTOMATIC_POSTING_GRID = new SubjectType("Automatic Posting Grid");
