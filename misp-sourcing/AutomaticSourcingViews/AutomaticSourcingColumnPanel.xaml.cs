@@ -181,7 +181,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
         private void OnCheckPrimary(object sender, RoutedEventArgs e)
         {
-            //this.AutomaticSourcingColumn.isPrimary = this.primaryCheckbox.IsChecked.Value;
+            this.AutomaticSourcingColumn.primary = this.primaryCheckbox.IsChecked.Value;
             OnChanged();
         }
         
