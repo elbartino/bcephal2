@@ -11,6 +11,7 @@
              xmlns:Custom="http://schemas.devexpress.com/winfx/2008/xaml/richedit" 
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  
              dxc:ThemeManager.ThemeName="Office2016White"
+             xmlns:src="clr-namespace:Misp.Kernel.Ui.Office.DevExpressSheet"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
 
@@ -1182,7 +1183,7 @@
                 <dxb:BarStaticItem x:Name="biPivotTableToggleBandedColumns" ContentTemplate="{Binding CheckEditTemplate, Mode=OneTime, Source={StaticResource defaultBarItemTemplates}}" Command="{Binding PivotTableToggleBandedColumns, Mode=OneTime, Source={StaticResource commands}}"/>
             </dxb:BarManager.Items>
             <DockPanel>
-                <dxr:RibbonControl x:Name="ribbonControl1" DockPanel.Dock="Top" ShowApplicationButton="False" RibbonStyle="Office2010" ToolbarShowMode="Hide" >
+                <dxr:RibbonControl x:Name="ribbonControl1" DockPanel.Dock="Top" ShowApplicationButton="False" RibbonStyle="OfficeSlim" ToolbarShowMode="Hide" >
                     <!--<dxr:RibbonControl.ToolbarItemLinks>
                         <dxb:BarButtonItemLink BarItemName="biFileSave"/>
                         <dxb:BarButtonItemLink BarItemName="biFileUndo"/>
@@ -1586,7 +1587,9 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <dxsps:SpreadsheetFormulaBarControl x:Name="formulaBar" SpreadsheetControl="{Binding ElementName=spreadsheetControl}"/>
-                    <dxsps:SpreadsheetControl  x:Name="spreadsheetControl"  BarManager="{Binding ElementName=barManager1, Mode=OneTime}" Ribbon="{Binding ElementName=ribbonControl1, Mode=OneTime}" Grid.Row="1"/>
+                    <!--<dxsps:SpreadsheetControl  x:Name="spreadsheetControl"  BarManager="{Binding ElementName=barManager1, Mode=OneTime}" Ribbon="{Binding ElementName=ribbonControl1, Mode=OneTime}" Grid.Row="1"/>-->
+                    <src:BSpreadsheetControl  x:Name="spreadsheetControl"  BarManager="{Binding ElementName=barManager1, Mode=OneTime}" Ribbon="{Binding ElementName=ribbonControl1, Mode=OneTime}" Grid.Row="1"/>
+                    
                 </Grid>
             </DockPanel>
         </dxb:BarManager>

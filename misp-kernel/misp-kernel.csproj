@@ -498,6 +498,7 @@
     <Compile Include="Ui\File\FileNameDialog.xaml.cs">
       <DependentUpon>FileNameDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\Office\DevExpressSheet\BSpreadsheetControl.cs" />
     <Compile Include="Ui\Office\DevExpressSheet\DESheetPanel.cs" />
     <Compile Include="Ui\Office\DevExpressSheet\DESpreadsheet.xaml.cs">
       <DependentUpon>DESpreadsheet.xaml</DependentUpon>
