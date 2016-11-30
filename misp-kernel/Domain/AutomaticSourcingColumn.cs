@@ -37,6 +37,8 @@ namespace Misp.Kernel.Domain
         public string periodName { get; set; }
         
         public string dateFormat { get; set; }
+
+        private Boolean primary { get; set; }
               
         public CellPropertyAllocationData allocationData { get; set; }
 
