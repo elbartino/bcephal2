@@ -21,6 +21,11 @@ namespace Misp.Sourcing.EnrichmentTableViews
 
        #region Editor and Service
 
+       public override bool isEnrichmentTable()
+       {
+           return true;
+       }
+
        protected override IView getNewView() { return new AutomaticEnrichmentTableEditor(); }
 
        AutomaticGridDataDialog dialog;
@@ -105,11 +110,7 @@ namespace Misp.Sourcing.EnrichmentTableViews
            return (AutomaticEnrichmentTableService)base.Service;
        }
 
-       public override bool isAutomaticGrid()
-       {
-           return true;
-       }
-
+      
 
        /// <summary>
        /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.
