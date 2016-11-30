@@ -38,6 +38,12 @@ namespace Misp.Sourcing.Base
         public ApplicationMenu ListAutomaticGridMenu { get; private set; }
         public ApplicationMenu ListInputGridMenu { get; private set; }
 
+        public ApplicationMenu EnrichmentTableMenu { get; private set; }
+        public ApplicationMenu NewEnrichmentTableMenu { get; private set; }
+        public ApplicationMenu NewAutomaticEnrichmentTableMenu { get; private set; }
+        public ApplicationMenu ListAutomaticEnrichmentTableMenu { get; private set; }
+        public ApplicationMenu ListEnrichmentTableMenu { get; private set; }
+
         public ApplicationMenu AccessoriesMenu { get; private set; }
         public ApplicationMenu UploadMultipleFileSourcingMenu { get; private set; }
 
@@ -64,6 +70,8 @@ namespace Misp.Sourcing.Base
             menus.Add(InputTableMenu);
             menus.Add(new Separator());
             menus.Add(GridMenu);
+            menus.Add(new Separator());
+            menus.Add(EnrichmentTableMenu);
             menus.Add(new Separator());
             menus.Add(TargetMenu);
             menus.Add(new Separator());
@@ -119,6 +127,22 @@ namespace Misp.Sourcing.Base
             GridMenu.Items.Add(new Separator());
             GridMenu.Items.Add(NewAutomaticGridMenu);
             GridMenu.Items.Add(ListAutomaticGridMenu);
+
+
+
+            EnrichmentTableMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.ENRICHMENT_TABLE_LABEL, FunctionalitiesCode.ENRICHMENT_TABLE);
+
+            NewEnrichmentTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_ENRICHMENT_TABLE_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.ENRICHMENT_TABLE_EDIT));
+            ListEnrichmentTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_ENRICHMENT_TABLE_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.ENRICHMENT_TABLE_LIST));
+
+            NewAutomaticEnrichmentTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_AUTOMATIC_ENRICHMENT_TABLE_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT));
+            ListAutomaticEnrichmentTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_AUTOMATIC_ENRICHMENT_TABLE_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_LIST));
+
+            //EnrichmentTableMenu.Items.Add(NewEnrichmentTableMenu);
+            //EnrichmentTableMenu.Items.Add(ListEnrichmentTableMenu);
+            //EnrichmentTableMenu.Items.Add(new Separator());
+            EnrichmentTableMenu.Items.Add(NewAutomaticEnrichmentTableMenu);
+            EnrichmentTableMenu.Items.Add(ListAutomaticEnrichmentTableMenu);
 
             TargetMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.TARGET_LABEL, FunctionalitiesCode.TARGET);
             NewTargetMenu = BuildMenu(FunctionalitiesCode.TARGET, FunctionalitiesLabel.NEW_TARGET_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.TARGET_EDIT));
