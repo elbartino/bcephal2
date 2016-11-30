@@ -34,6 +34,9 @@ namespace Misp.Kernel.Service
         public static string AUTOMATIC_SOURCING_GRID_RESOURCE_PATH = "/automatic-grid";
         public static string SOCKET_AUTOMATIC_SOURCING_GRID_RESOURCE_PATH = ApplicationManager.Instance.ServerWebSocketUri + "automatic-grid";
 
+        public static string AUTOMATIC_ENRICHMENT_TABLE_RESOURCE_PATH = "/automatic-enrichment-table";
+        public static string SOCKET_AUTOMATIC_ENRICHMENT_TABLE_RESOURCE_PATH = ApplicationManager.Instance.ServerWebSocketUri + "automatic-enrichment-table";
+
         public static string GRID_RESOURCE_PATH = "/grid";
         public static string INPUT_GRID_RESOURCE_PATH = "/input-grid";
         public static string REPORT_GRID_RESOURCE_PATH = "/report-grid";
