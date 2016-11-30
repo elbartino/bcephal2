@@ -38,7 +38,7 @@ namespace Misp.Kernel.Domain
         
         public string dateFormat { get; set; }
 
-        private bool primary { get; set; }
+        public bool primary { get; set; }
               
         public CellPropertyAllocationData allocationData { get; set; }
 

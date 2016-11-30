@@ -88,6 +88,11 @@ namespace Misp.Kernel.Application
         public static string AUTOMATIC_INPUT_TABLE_GRID_VIEW = "functionality.automatic.input.table.grid.view";
         public static string AUTOMATIC_INPUT_TABLE_GRID_LIST = "functionality.automatic.input.table.grid.list";
 
+        public static string ENRICHMENT_TABLE = "functionality.enrichment.table";
+        public static string ENRICHMENT_TABLE_EDIT = "functionality.enrichment.table.edit";
+        public static string ENRICHMENT_TABLE_VIEW = "functionality.enrichment.table.view";
+        public static string ENRICHMENT_TABLE_LIST = "functionality.enrichment.table.list";
+
         public static string AUTOMATIC_ENRICHMENT_TABLE_EDIT = "functionality.automatic.enrichment.table.edit";
         public static string AUTOMATIC_ENRICHMENT_TABLE_VIEW = "functionality.automatic.enrichment.table.view";
         public static string AUTOMATIC_ENRICHMENT_TABLE_LIST = "functionality.automatic.enrichment.table.list";
