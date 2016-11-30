@@ -38,6 +38,8 @@ namespace Misp.Kernel.Domain
         public bool isAutomaticGrid { get; set; }
 
         public bool isPosting { get; set; }
+
+        public bool isEnrichmentTable { get; set; }
                 
         /// <summary>
         /// La date de début
