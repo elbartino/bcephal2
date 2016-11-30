@@ -756,6 +756,7 @@
       <DependentUpon>UserTreeview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\AnimatedGIFControl.cs" />
+    <Compile Include="Util\Chrono.cs" />
     <Compile Include="Util\ClipbordUtil.cs" />
     <Compile Include="Util\DataFormater.cs" />
     <Compile Include="Util\Dialog.xaml.cs">
