@@ -21,6 +21,11 @@ namespace Misp.Sourcing.EnrichmentTableViews
 
        #region Editor and Service
 
+       public override bool isEnrichmentTable()
+       {
+           return true;
+       }
+
        protected override IView getNewView() { return new AutomaticEnrichmentTableEditor(); }
 
        AutomaticGridDataDialog dialog;
@@ -29,6 +34,7 @@ namespace Misp.Sourcing.EnrichmentTableViews
            if (validateColumns(page))
            {
                dialog = new AutomaticGridDataDialog();
+               dialog.customizeForEnrichementTable();
                dialog.InputGridService = ApplicationManager.ControllerFactory.ServiceFactory.GetInputGridService();
                dialog.loadGrids();
                dialog.NewGridNameTextBox.Text = page.getAutomaticSourcingForm().SpreadSheet.DocumentName;
@@ -43,9 +49,13 @@ namespace Misp.Sourcing.EnrichmentTableViews
            List<String> columns = new List<string>(0);
            foreach (AutomaticSourcingSheet sheet in page.EditedObject.automaticSourcingSheetListChangeHandler.Items)
            {
+               if (sheet.firstRowColumn) 
+               {
+                   FillAutomaticSourcingColumn();
+               }
                foreach (AutomaticSourcingColumn column in sheet.automaticSourcingColumnListChangeHandler.Items)
                {
-                   if (!column.isValid()) columns.Add(column.Name);
+                   if (!column.isValid()) columns.Add(column.ToString());
                }
            }
            if (columns.Count > 0)
@@ -105,11 +115,7 @@ namespace Misp.Sourcing.EnrichmentTableViews
            return (AutomaticEnrichmentTableService)base.Service;
        }
 
-       public override bool isAutomaticGrid()
-       {
-           return true;
-       }
-
+      
 
        /// <summary>
        /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

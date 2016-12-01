@@ -204,6 +204,7 @@ namespace Misp.Kernel.Domain
         public Range buildRange(String rangeTemp)
         {
             List<string> ranges = new List<string>();
+            if (rangeTemp == null) return null;
             if (rangeTemp.Contains(';'))
             {
                 ranges.AddRange(rangeTemp.Split(';').ToList());

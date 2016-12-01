@@ -99,6 +99,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         public AutomaticSourcingSheetPanel()
         {
             InitializeComponent();
+            this.selectRangeGrid.Visibility = System.Windows.Visibility.Visible;
             InitializeContextMenu();
             InitializeHandlers();
         }
@@ -544,6 +545,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
         public void customizeForEnrichmentTable()
         {
+            this.selectRangeGrid.Visibility = System.Windows.Visibility.Collapsed;
             this.ColumnPanel.customizeForEnrichmentTable();
         }
 
