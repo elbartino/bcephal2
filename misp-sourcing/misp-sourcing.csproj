@@ -211,6 +211,9 @@
     </Compile>
     <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableBrowser.cs" />
     <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableBrowserController.cs" />
+    <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableDataDialog.xaml.cs">
+      <DependentUpon>AutomaticEnrichmentTableDataDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableEditor.cs" />
     <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableEditorController.cs" />
     <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableEditorItem.cs" />
@@ -445,6 +448,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Designer\LineItemField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EnrichmentTableViews\AutomaticEnrichmentTableDataDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

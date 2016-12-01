@@ -28,16 +28,15 @@ namespace Misp.Sourcing.EnrichmentTableViews
 
        protected override IView getNewView() { return new AutomaticEnrichmentTableEditor(); }
 
-       AutomaticGridDataDialog dialog;
+       AutomaticEnrichmentTableDataDialog dialog;
        protected override void performRun(AutomaticSourcingEditorItem page)
        {
            if (validateColumns(page))
            {
-               dialog = new AutomaticGridDataDialog();
-               dialog.customizeForEnrichementTable();
-               dialog.InputGridService = ApplicationManager.ControllerFactory.ServiceFactory.GetInputGridService();
-               dialog.loadGrids();
-               dialog.NewGridNameTextBox.Text = page.getAutomaticSourcingForm().SpreadSheet.DocumentName;
+               dialog = new AutomaticEnrichmentTableDataDialog();
+               //dialog.EnrichmentTableService = ApplicationManager.ControllerFactory.ServiceFactory.GetEnrichmentTableService();
+               dialog.loadTables();
+               dialog.NewTableNameTextBox.Text = page.getAutomaticSourcingForm().SpreadSheet.DocumentName;
                dialog.cancelButton.Click += OnCancelAutomaticGridDataDialog;
                dialog.runButton.Click += OnRunAutomaticDataDialog;
                dialog.ShowDialog();

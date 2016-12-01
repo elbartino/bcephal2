@@ -13,6 +13,7 @@ namespace Misp.Kernel.Domain
         public bool createTable { get; set; }
         public bool runTable { get; set; }
         public bool isLast { get; set; }
+        public bool overrideExisting { get; set; }
         public AutomaticGridAction action { get; set; }
 
         public byte[] fileBytes { get; set; }
