@@ -19,6 +19,7 @@ using Misp.Kernel.Domain;
 using System.Windows.Forms.Integration;
 using System.Collections.ObjectModel;
 using System.Threading;
+using Misp.Kernel.Ui.Office.DevExpressSheet;
 
 namespace Misp.Sourcing.Designer
 {
@@ -58,13 +59,9 @@ namespace Misp.Sourcing.Designer
             
             try
             {
-                this.SpreadSheet = new SheetPanel();
-                this.SpreadSheet.CreateNewExcelFile();
-                this.SpreadSheet.BuildSheetPanelMethod();
-                this.SpreadSheet.RemoveTempFiles();
-                WindowsFormsHost host = new WindowsFormsHost();
-                host.Child = SpreadSheet;
-                this.Content = host;
+                this.SpreadSheet = new DESheetPanel();
+                this.SpreadSheet.CreateNewExcelFile();                
+                this.Content = SpreadSheet;
             }
             catch (Exception) { }
         }
@@ -76,7 +73,7 @@ namespace Misp.Sourcing.Designer
 
         public DesignerPropertiesPanel DesignerPropertiesPanel { get; private set; }
         
-        public SheetPanel SpreadSheet { get; private set; }
+        public DESheetPanel SpreadSheet { get; private set; }
 
         public Periodicity periodicity { get; set; }
         /// <summary>
@@ -168,22 +165,24 @@ namespace Misp.Sourcing.Designer
         public void BuildSheetTable()
         {
             fillObject();
-            //this.SpreadSheet.DisableSheet(false);
-            this.SpreadSheet.protectSheet(false);
             BuildSheetTableWithoutFill();
-            this.SpreadSheet.protectSheet();
-            //this.SpreadSheet.DisableSheet();
         }
 
         public void BuildSheetTableWithoutFill()
         {
             Design design = this.EditedObject;
             if (design == null) return;
-            this.SpreadSheet.ClearUsedExcelCells();
+            ClearSheet();
             BuildCentralPart();
             BuildColunms();
             BuildRows();
             BuildTotals();
+        }
+
+        protected void ClearSheet()
+        {
+            string sheetName = this.SpreadSheet.getActiveSheetName();
+            this.SpreadSheet.ClearSheet(sheetName);
         }
         
         /// <summary>
@@ -206,10 +205,9 @@ namespace Misp.Sourcing.Designer
 
             if (!string.IsNullOrEmpty(value))
             {
-                this.SpreadSheet.deleteExcelRow(1);
-                this.SpreadSheet.SetValueAt(1, 1, value);
-                this.SpreadSheet.SetColorAt(1, 1, Designer.DesignerForm.CENTRAL_COLOR);
+                this.SpreadSheet.SetValueAt(1, 1, sheetName, value, Designer.DesignerForm.CENTRAL_COLOR);
             }
+            else this.SpreadSheet.SetValueAt(1, 1, sheetName, "", NULL_COLOR);
         }
 
         private void BuildTotals()
@@ -225,25 +223,20 @@ namespace Misp.Sourcing.Designer
             int rowSize = concatR ? 1 : design.rows.lineListChangeHandler.Items.Count;
             int colSize = concatH ? 1 : design.columns.lineListChangeHandler.Items.Count;
 
-
+            string sheetName = this.SpreadSheet.getActiveSheetName();
 
             if (design.addTotalColumnRight)
             {
                 int row = colSize;
                 int col = columnCount + rowSize + 1;
-
-                this.SpreadSheet.SetValueAt(row, col, "TOTAL");
-                this.SpreadSheet.SetColorAt(row, col, Designer.DesignerForm.TOTAL_COLOR);
+                this.SpreadSheet.SetValueAt(row, col, sheetName, "TOTAL", Designer.DesignerForm.TOTAL_COLOR);                
             }
 
             if (design.addTotalRowBelow)
             {
                 int row = rowCount + colSize  + 1;
                 int col = rowSize;
-
-               
-                this.SpreadSheet.SetValueAt(row, col, "TOTAL");
-                this.SpreadSheet.SetColorAt(row, col, Designer.DesignerForm.TOTAL_COLOR);
+                this.SpreadSheet.SetValueAt(row, col, sheetName, "TOTAL", Designer.DesignerForm.TOTAL_COLOR);                
             }
         }
 
@@ -291,8 +284,7 @@ namespace Misp.Sourcing.Designer
                                 
                                 if (!concat)
                                 {
-                                    this.SpreadSheet.SetValueAt(row, col, value);
-                                    this.SpreadSheet.SetColorAt(row, col, Designer.DesignerForm.COLUMNS_COLOR);
+                                    this.SpreadSheet.SetValueAt(row, col, sheetName, value, Designer.DesignerForm.COLUMNS_COLOR);                                    
                                 }
                                 else
                                 {
@@ -300,10 +292,7 @@ namespace Misp.Sourcing.Designer
                                     if (excelValue == null) excelValue = "";
                                     if (string.IsNullOrEmpty(excelValue.ToString())) cont = ""; else cont = " ; ";
                                     excelValue = "" + value + cont + excelValue;
-                                  
-                                    this.SpreadSheet.SetValueAt(row, col, excelValue.ToString());
-                                    this.SpreadSheet.SetColorAt(row, col, Designer.DesignerForm.COLUMNS_COLOR);
-                                    
+                                    this.SpreadSheet.SetValueAt(row, col, sheetName, excelValue.ToString(), Designer.DesignerForm.COLUMNS_COLOR);
                                 }
                                 col++;
                             }
@@ -333,8 +322,7 @@ namespace Misp.Sourcing.Designer
                                     value = item.GetValue().ToString();
                                     if (!concat)
                                     {
-                                        this.SpreadSheet.SetValueAt(row, col, value);
-                                        this.SpreadSheet.SetColorAt(row, col, Designer.DesignerForm.COLUMNS_COLOR);
+                                        this.SpreadSheet.SetValueAt(row, col, sheetName, value, Designer.DesignerForm.COLUMNS_COLOR);
                                     }
                                     else
                                     {
@@ -342,8 +330,7 @@ namespace Misp.Sourcing.Designer
                                         if (excelValue == null) excelValue = "";
                                         if (string.IsNullOrEmpty(excelValue.ToString())) cont = ""; else cont = " ; ";
                                         excelValue = "" + value + cont + excelValue;
-                                        this.SpreadSheet.SetValueAt(row, col, excelValue.ToString());
-                                        this.SpreadSheet.SetColorAt(row, col, Designer.DesignerForm.COLUMNS_COLOR);
+                                        this.SpreadSheet.SetValueAt(row, col, sheetName, excelValue.ToString(), Designer.DesignerForm.COLUMNS_COLOR);                                        
                                     }
                                     col++;
                                 }
@@ -397,8 +384,7 @@ namespace Misp.Sourcing.Designer
                                 value = item.GetValue().ToString();                                
                                 if (!concat)
                                 {
-                                    this.SpreadSheet.SetValueAt(row, col, value);
-                                    this.SpreadSheet.SetColorAt(row, col, Designer.DesignerForm.ROWS_COLOR);
+                                    this.SpreadSheet.SetValueAt(row, col, sheetName, value, Designer.DesignerForm.ROWS_COLOR);
                                 }
                                 else
                                 {
@@ -406,8 +392,7 @@ namespace Misp.Sourcing.Designer
                                     if (excelValue == null) excelValue = "";
                                     if (string.IsNullOrEmpty(excelValue.ToString())) cont = ""; else cont = " ; ";
                                     excelValue = "" + value + cont + excelValue;
-                                    this.SpreadSheet.SetValueAt(row, col, excelValue.ToString());
-                                    this.SpreadSheet.SetColorAt(row, col, Designer.DesignerForm.ROWS_COLOR);
+                                    this.SpreadSheet.SetValueAt(row, col, sheetName, excelValue.ToString(), Designer.DesignerForm.ROWS_COLOR);                                    
                                 }
 
                                 row++;
@@ -438,8 +423,7 @@ namespace Misp.Sourcing.Designer
                                     value = item.GetValue().ToString();
                                     if (!concat)
                                     {
-                                        this.SpreadSheet.SetValueAt(row, col, value.ToString());
-                                        this.SpreadSheet.SetColorAt(row, col, Designer.DesignerForm.ROWS_COLOR);
+                                        this.SpreadSheet.SetValueAt(row, col, sheetName, value.ToString(), Designer.DesignerForm.ROWS_COLOR);
                                     }
                                     else
                                     {
@@ -447,8 +431,7 @@ namespace Misp.Sourcing.Designer
                                         if (excelValue == null) excelValue = "";
                                         if (string.IsNullOrEmpty(excelValue.ToString())) cont = ""; else cont = " ; ";
                                         excelValue = "" + value + cont + excelValue;
-                                        this.SpreadSheet.SetValueAt(row, col, excelValue.ToString());
-                                        this.SpreadSheet.SetColorAt(row, col, Designer.DesignerForm.ROWS_COLOR);
+                                        this.SpreadSheet.SetValueAt(row, col, sheetName, excelValue.ToString(), Designer.DesignerForm.ROWS_COLOR);
                                     }
                                     row++;
                                 }

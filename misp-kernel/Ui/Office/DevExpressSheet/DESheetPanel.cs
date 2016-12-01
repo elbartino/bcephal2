@@ -20,9 +20,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             this.ribbonControl1.Visibility = System.Windows.Visibility.Collapsed;
             this.spreadsheetControl.ReadOnly = true;
         }
-
-
-
+        
         public List<Sheet> getAllExcelSheets()
         {
             List<Sheet> Sheets = new List<Sheet>(0);
@@ -278,6 +276,15 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             {
                 workbook.Unprotect("Password");
             }
+        }
+
+        public void ClearSheet(string sheetName)
+        {
+            var sheet = this.spreadsheetControl.Document.Worksheets[sheetName];
+            int i = sheet.GetUsedRange().TopRowIndex ;
+            int j = sheet.GetUsedRange().BottomRowIndex + 1;            
+            for(int v = i; v <= j; v++)
+            sheet.Rows.Remove(v);
         }
     }
 }

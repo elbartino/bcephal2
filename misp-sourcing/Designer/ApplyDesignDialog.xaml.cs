@@ -66,9 +66,7 @@ namespace Misp.Kernel.Ui.Designer
                     designForm = new DesignerForm();
                     designForm.EditedObject = design;
                     designForm.periodicity = periodicity;
-                    designForm.SpreadSheet.DisableSheet(false);
                     designForm.BuildSheetTableWithoutFill();
-                    designForm.SpreadSheet.DisableSheet();
                 }
                 this.previewDesignBlock.Content = designForm;
                 Height = 560;    

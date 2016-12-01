@@ -311,7 +311,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
         /// <returns>La sheet active</returns>
         public int getActiveSheetIndex()
         {
-            DevExpress.Spreadsheet.Worksheet worksheet = this.spreadsheetControl.ActiveWorksheet;
+            DevExpress.Spreadsheet.Worksheet worksheet = this.spreadsheetControl.ActiveWorksheet;            
             if (worksheet != null) return worksheet.Index+1;
             return -1;
         }
@@ -339,10 +339,17 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             SetValueAt(row, colunm, sheetName, value, -1);
         }
 
+        public void DeleteLine(int row,string sheetName) 
+        {
+            var sheet = this.spreadsheetControl.Document.Worksheets[sheetName];
+            sheet.Rows.Remove(row);
+        }
+
 
         public void SetValueAt(int row, int colunm, string sheetName, object value, int color)
         {
             var sheet = this.spreadsheetControl.Document.Worksheets[sheetName];
+            
             if (value is string)
             {
                 sheet.Cells[row - 1, colunm - 1].Value = value.ToString();
