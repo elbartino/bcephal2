@@ -129,7 +129,7 @@ namespace Misp.Kernel.Service
             }
         }
 
-        public bool deleteGridRows(List<int> oids)
+        public bool deleteGridRows(List<long> oids)
         {
             try
             {
