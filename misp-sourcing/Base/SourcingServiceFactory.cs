@@ -135,7 +135,7 @@ namespace Misp.Sourcing.Base
             {
                 automaticEnrichmentTableService = new AutomaticEnrichmentTableService();
                 automaticEnrichmentTableService.ResourcePath = ResourcePath.AUTOMATIC_ENRICHMENT_TABLE_RESOURCE_PATH;
-                automaticEnrichmentTableService.SocketResourcePath = ResourcePath.SOCKET_AUTOMATIC_SOURCING_RESOURCE_PATH;
+                automaticEnrichmentTableService.SocketResourcePath = ResourcePath.SOCKET_AUTOMATIC_ENRICHMENT_TABLE_RESOURCE_PATH;
                 automaticEnrichmentTableService.FileService = GetFileService();
                 automaticEnrichmentTableService.ModelService = GetModelService();
                 automaticEnrichmentTableService.MeasureService = GetMeasureService();

@@ -34,6 +34,7 @@ namespace Misp.Sourcing.EnrichmentTableViews
            if (validateColumns(page))
            {
                dialog = new AutomaticGridDataDialog();
+               dialog.customizeForEnrichementTable();
                dialog.InputGridService = ApplicationManager.ControllerFactory.ServiceFactory.GetInputGridService();
                dialog.loadGrids();
                dialog.NewGridNameTextBox.Text = page.getAutomaticSourcingForm().SpreadSheet.DocumentName;

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Misp.Sourcing.GridViews.AutomaticGridDataDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Automatic Grid" Height="270" Width="500" WindowStartupLocation="CenterScreen"
+        Title="Automatic Grid" Height="285" Width="500" WindowStartupLocation="CenterScreen"
         Icon="/bcephal;Component/Resources/Images/Logo/bcephal.ico">
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -13,18 +13,18 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
-        <RadioButton x:Name="NewGridRadioButton" Content="Create a new Grid" Grid.Row="0"/>
+        <RadioButton x:FieldModifier="public" x:Name="NewGridRadioButton" Content="Create a new Grid" Grid.Row="0"/>
         <Grid x:Name="NewGridBox" Grid.Row="1" Margin="100 0 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Grid name" Grid.Column="0"/>
+            <Label x:FieldModifier="public" x:Name="GridNameLabel" Content="Grid name" Grid.Column="0"/>
             <TextBox x:Name="NewGridNameTextBox" Grid.Column="1"/>
         </Grid>
 
 
-        <RadioButton x:Name="ModifyGridRadioButton" Content="Modify an existing Grid" Grid.Row="2" Margin="0 20 0 0"/>
+        <RadioButton x:FieldModifier="public" x:Name="ModifyGridRadioButton" Content="Modify an existing Grid" Grid.Row="2" Margin="0 20 0 0"/>
         <Grid x:Name="ModifyGridBox1" Grid.Row="3" Margin="100 0 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80"/>
@@ -38,8 +38,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <RadioButton x:Name="attemptRadioButton" Content="Insert in Grid" Grid.Row="0" Margin="0 5" IsChecked="True"/>
-            <RadioButton x:Name="replaceRadioButton" Content="Replace Grid" Grid.Row="1" Margin="0 5"/>
+            <RadioButton x:FieldModifier="public" x:Name="attemptRadioButton" Content="Insert in Grid" Grid.Row="0" Margin="0 5" IsChecked="True"/>
+            <RadioButton x:FieldModifier="public" x:Name="replaceRadioButton" Content="Replace Grid" Grid.Row="1" Margin="0 5"/>
         </Grid>
 
         <Grid Grid.Row="5" Margin="0 10 0 0" HorizontalAlignment="Center" VerticalAlignment="Center">
