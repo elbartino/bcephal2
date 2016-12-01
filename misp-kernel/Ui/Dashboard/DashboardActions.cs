@@ -1089,6 +1089,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #endregion
 
+
         #region Posting Grid
         
         public void DeletePostingGrid(List<int> oids, DashboardBlock block)
@@ -1103,6 +1104,20 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #endregion
 
+
+        #region Enrichment Table
+
+        public void DeleteEnrichmentTable(List<int> oids, DashboardBlock block)
+        {
+            Delete(ResourcePath.ENRICHMENT_TABLE_RESOURCE_PATH, oids, block);
+        }
+
+        public void DeleteAutomaticEnrichmentTable(List<int> oids, DashboardBlock block)
+        {
+            Delete(ResourcePath.AUTOMATIC_ENRICHMENT_TABLE_RESOURCE_PATH, oids, block);
+        }
+
+        #endregion
 
         protected void Mask(bool mask, string content = "Running...")
         {
