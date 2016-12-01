@@ -933,7 +933,7 @@ namespace Misp.Sourcing.Base
         /// <summary>
         /// Fill the column List when the first row is set as the header.
         /// </summary>
-        private void FillAutomaticSourcingColumn()
+        protected void FillAutomaticSourcingColumn()
         {
             AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
 

@@ -39,9 +39,14 @@ namespace Misp.Sourcing.GridViews
             List<String> columns = new List<string>(0);
             foreach (AutomaticSourcingSheet sheet in page.EditedObject.automaticSourcingSheetListChangeHandler.Items)
             {
+                if (sheet.firstRowColumn)
+                {
+                    FillAutomaticSourcingColumn();
+                }
+
                 foreach (AutomaticSourcingColumn column in sheet.automaticSourcingColumnListChangeHandler.Items)
                 {
-                    if (!column.isValid()) columns.Add(column.Name);
+                    if (!column.isValid()) columns.Add(column.ToString());
                 }
             }
             if (columns.Count > 0)
