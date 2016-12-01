@@ -213,6 +213,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             bool result = false;
             try
             {
+                this.biFileSaveAs.PerformClick();
                 //String url = this.Office.GetDocumentFullName();
                 //SaveAs(url, true);
                 //url = this.Office.GetDocumentFullName();
@@ -224,6 +225,20 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
 
                 //    return OperationState.CONTINUE;
                 //}
+            }
+            catch (Exception)
+            {
+                return OperationState.STOP;
+            }
+            return OperationState.STOP;
+        }
+
+
+        public OperationState Export()
+        {
+            try
+            {
+                this.biFileSaveAs.PerformClick();
             }
             catch (Exception)
             {
