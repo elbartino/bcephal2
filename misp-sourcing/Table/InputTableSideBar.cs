@@ -49,7 +49,7 @@ namespace Misp.Sourcing.Table
             this.MeasureGroup = new MeasureSidebarGroup();
             this.PeriodGroup = new PeriodSidebarGroup();
             this.DesignerGroup = new DesignerGroup("Designs", true);
-            this.CustomizedTargetGroup = new CustomizedTargetGroup("Customized Target", true);
+            this.CustomizedTargetGroup = new CustomizedTargetGroup("Customized Targets", true);
             this.TreeLoopGroup = new TreeLoopGroup("Loops", true);
 
             this.CustomizedTargetGroup.Background = System.Windows.Media.Brushes.LightBlue;
@@ -69,7 +69,7 @@ namespace Misp.Sourcing.Table
             this.AddGroup(this.InputTableGroup);
             this.AddGroup(this.EntityGroup);
             this.AddGroup(this.CustomizedTargetGroup);
-            this.AddGroup(this.TargetGroup);
+            //this.AddGroup(this.TargetGroup);
             this.AddGroup(this.MeasureGroup);
             this.AddGroup(this.PeriodGroup);
             this.AddGroup(this.DesignerGroup);

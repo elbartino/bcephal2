@@ -54,7 +54,7 @@ namespace Misp.Sourcing.InputGrid
 
             this.AddGroup(this.GrilleGroup);
             this.AddGroup(this.EntityGroup);
-            this.AddGroup(this.TargetGroup);
+            //this.AddGroup(this.TargetGroup);
             this.AddGroup(this.MeasureGroup);
             this.AddGroup(this.PeriodNameGroup);
             //this.AddGroup(this.CalculateMeasureGroup);
