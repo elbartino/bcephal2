@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Domain;
+﻿using DevExpress.Xpf.Core;
+using Misp.Kernel.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace Misp.Sourcing.GridViews
 
         public GridBrowserToolbar()
         {
+            ThemeManager.SetThemeName(this, "None");
             InitializeComponent();
             List<int> sizes = new List<int>(0);            
             sizes.Add(10);
