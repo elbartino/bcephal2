@@ -497,6 +497,7 @@ namespace Misp.Sourcing.Table
             }
             String file = currentPage.getInputTableForm().SpreadSheet.DocumentName;
             String path = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
+            if(page.EditedObject.excelFileName.Contains("\"")) page.EditedObject.excelFileName = page.EditedObject.excelFileName.Replace("\"",string.Empty);
             if (saveAs) GetInputTableService().FileService.FileTransferService.uploadTableForSaveAs(page.EditedObject.excelFileName,excelfileName,tempFolder);
             else GetInputTableService().FileService.FileTransferService.uploadTable(excelfileName, tempFolder);
             page.EditedObject.excelFileName = excelfileName;            
