@@ -479,12 +479,13 @@ namespace Misp.Sourcing.Table
         protected OperationState saveSpreedSheet(EditorItem<InputTable> page, String fileName = null,bool saveAs = false) 
         {
             InputTableEditorItem currentPage = (InputTableEditorItem)page;
-            String excelfileName = saveAs ? buildExcelFileName(page.EditedObject.excelFileName) : page.EditedObject.excelFileName;
+            String excelfileName = saveAs ? buildExcelFileName(fileName) : page.EditedObject.excelFileName;
             //page.EditedObject.excelFileName = filePath;
+            //if (!string.IsNullOrEmpty(fileName)) page.EditedObject.name = Path.GetFileNameWithoutExtension(excelfileName);
             String oldFilePath = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
             if (String.IsNullOrEmpty(page.EditedObject.excelFileName)) page.EditedObject.excelFileName = page.EditedObject.name + EdrawOffice.EXCEL_EXT;
             String tempFolder = GetInputTableService().FileService.GetFileDirs().TempTableFolder;
-            String pathexcel = tempFolder + page.EditedObject.name + EdrawOffice.EXCEL_EXT; //excelfileName;
+            String pathexcel = tempFolder + page.EditedObject.name + SheetConst.EXCEL_EXT; //excelfileName;
 
             if (currentPage.getInputTableForm().SpreadSheet.SaveAs(pathexcel, true) != OperationState.CONTINUE)
             {
@@ -496,7 +497,8 @@ namespace Misp.Sourcing.Table
             }
             String file = currentPage.getInputTableForm().SpreadSheet.DocumentName;
             String path = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
-            GetInputTableService().FileService.FileTransferService.uploadTable(excelfileName, tempFolder);
+            if (saveAs) GetInputTableService().FileService.FileTransferService.uploadTableForSaveAs(page.EditedObject.excelFileName,excelfileName,tempFolder);
+            else GetInputTableService().FileService.FileTransferService.uploadTable(excelfileName, tempFolder);
             page.EditedObject.excelFileName = excelfileName;            
 
             if (!saveAs)
@@ -2935,7 +2937,7 @@ namespace Misp.Sourcing.Table
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
             string excelDir = "";
-            string filePath = excelDir + name + EdrawOffice.EXCEL_EXT;
+            string filePath = excelDir + name + SheetConst.EXCEL_EXT;
             string newName = name;
             int i = 0;
             foreach (InputTableEditorItem unInputTable in getInputTableEditor().getPages())
@@ -2943,7 +2945,7 @@ namespace Misp.Sourcing.Table
                 i++;
                 if (unInputTable != page && filePath == unInputTable.EditedObject.excelFileName)
                 {
-                    filePath = excelDir + name + i + EdrawOffice.EXCEL_EXT;
+                    filePath = excelDir + name + i + SheetConst.EXCEL_EXT;
                 }
             }
             return filePath;
@@ -2951,6 +2953,7 @@ namespace Misp.Sourcing.Table
 
         protected virtual string buildExcelFileName(String name)
         {
+            if (string.IsNullOrEmpty(Path.GetExtension(name))) name += SheetConst.EXCEL_EXT;
             return GetInputTableService().buildExcelFileName(name);
         }
 
@@ -3003,7 +3006,7 @@ namespace Misp.Sourcing.Table
             page.getInputTableForm().SpreadSheet.DocumentName = newName;
             page.getInputTableForm().SpreadSheet.ChangeTitleBarCaption(newName);
             page.Title = newName;
-            table.excelFileName = newName + EdrawOffice.EXCEL_EXT;
+            table.excelFileName = newName + SheetConst.EXCEL_EXT;
             page.getInputTableForm().TablePropertiesPanel.nameTextBox.Text = newName;
             table.name = newName;
             table.isModified = true;           
