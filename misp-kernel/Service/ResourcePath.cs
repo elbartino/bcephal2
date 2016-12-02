@@ -35,6 +35,7 @@ namespace Misp.Kernel.Service
         public static string SOCKET_AUTOMATIC_SOURCING_GRID_RESOURCE_PATH = ApplicationManager.Instance.ServerWebSocketUri + "automatic-grid";
 
         public static string ENRICHMENT_TABLE_RESOURCE_PATH = "/enrichment-table";
+        public static string SOCKET_ENRICHMENT_TABLE_RESOURCE_PATH = ApplicationManager.Instance.ServerWebSocketUri + "enrichment-table";
         public static string AUTOMATIC_ENRICHMENT_TABLE_RESOURCE_PATH = "/automatic-enrichment-table";
         public static string SOCKET_AUTOMATIC_ENRICHMENT_TABLE_RESOURCE_PATH = ApplicationManager.Instance.ServerWebSocketUri + "automatic-enrichment-table";
 

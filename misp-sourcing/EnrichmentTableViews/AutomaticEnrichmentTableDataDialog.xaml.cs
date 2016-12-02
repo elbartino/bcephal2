@@ -1,5 +1,6 @@
 ﻿using Misp.Kernel.Domain;
 using Misp.Kernel.Domain.Browser;
+using Misp.Kernel.Service;
 using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace Misp.Sourcing.EnrichmentTableViews
     /// </summary>
     public partial class AutomaticEnrichmentTableDataDialog : Window
     {
-        //public EnrichmentTableService EnrichmentTableService { get; set; }
+        public EnrichmentTableService EnrichmentTableService { get; set; }
 
         public AutomaticEnrichmentTableDataDialog()
         {
@@ -56,9 +57,32 @@ namespace Misp.Sourcing.EnrichmentTableViews
             return data;
         }
 
-        public void loadTables()
+        public void loadTables(String baseName)
         {
-            //gridComboBox.ItemsSource = InputGridService.getBrowserDatas();
+            List<BrowserData> tables = EnrichmentTableService.getBrowserDatas();
+            this.NewTableNameTextBox.Text = buildNewTableName(baseName, tables);
+            gridComboBox.ItemsSource = tables;
+        }
+
+        protected string buildNewTableName(String baseName, List<BrowserData> tables)
+        {
+            if (valideName(baseName, tables)) return baseName;
+            int i = 1;
+            string name = baseName;
+            while (!valideName(name, tables))
+            {
+                name = baseName + i++;
+            }
+            return name;
+        }
+
+        protected bool valideName(String name, List<BrowserData> tables)
+        {
+            foreach (BrowserData table in tables)
+            {
+                if (table.name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) return false;
+            }
+            return true;
         }
 
         private void InitializeHandlers()

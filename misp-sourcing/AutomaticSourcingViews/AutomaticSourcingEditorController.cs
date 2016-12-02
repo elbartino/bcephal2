@@ -1535,33 +1535,36 @@ namespace Misp.Sourcing.Base
         private void RefreshView(AutomaticSourcingEditorItem currentPage, int activeSheetIndex, int activeColunIndex)
         {
             currentPage.EditedObject.refresh();
-            currentPage.EditedObject.ActiveSheet = currentPage.EditedObject.getAutomaticSourcingSheet(activeSheetIndex);
-            currentPage.EditedObject.ActiveSheet.ActiveColumn = currentPage.EditedObject.ActiveSheet.getAutomaticSourcingColumn(activeColIndex);
 
-            String selecteRange = currentPage.EditedObject.ActiveSheet.selectedRange;
-            Range rangeSelected;
-            if (selecteRange == "") rangeSelected = null;
-            else
-            {
-                rangeSelected = currentPage.EditedObject.ActiveSheet.buildRange(selecteRange);
-                if (rangeSelected != null)
-                {
-                    rangeSelected.Sheet = currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet();
-                }
-                currentPage.EditedObject.ActiveSheet.rangeSelected = rangeSelected;
-                currentPage.EditedObject.ActiveSheet.SetSelectedRange = currentPage.EditedObject.ActiveSheet.SetSelectedRange;
-                ((AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage()).EditedObject = currentPage.EditedObject;
-                OnSelectedRangeChange(rangeSelected);
-            }
-            currentPage.EditedObject.ActiveSheet.rangeSelected = rangeSelected;
-            if (currentPage.getAutomaticSourcingForm().SpreadSheet == null) return;
-            if (currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet() == null) return;
+            OnSheetActivated();
 
-            currentPage.EditedObject.ActiveSheet.Name = currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet().Name;
-            refreshMode = true;
-            //this.OnSetFirtRowAsHeader(currentPage.EditedObject.ActiveSheet.firstRowColumn);
-            //this.OnSelectRange(currentPage.EditedObject.ActiveSheet.SetSelectedRange);
-            refreshMode = false;
+            //currentPage.EditedObject.ActiveSheet = currentPage.EditedObject.getAutomaticSourcingSheet(activeSheetIndex);
+            //currentPage.EditedObject.ActiveSheet.ActiveColumn = currentPage.EditedObject.ActiveSheet.getAutomaticSourcingColumn(activeColIndex);
+
+            //String selecteRange = currentPage.EditedObject.ActiveSheet.selectedRange;
+            //Range rangeSelected;
+            //if (selecteRange == "") rangeSelected = null;
+            //else
+            //{
+            //    rangeSelected = currentPage.EditedObject.ActiveSheet.buildRange(selecteRange);
+            //    if (rangeSelected != null)
+            //    {
+            //        rangeSelected.Sheet = currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet();
+            //    }
+            //    currentPage.EditedObject.ActiveSheet.rangeSelected = rangeSelected;
+            //    currentPage.EditedObject.ActiveSheet.SetSelectedRange = currentPage.EditedObject.ActiveSheet.SetSelectedRange;
+            //    ((AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage()).EditedObject = currentPage.EditedObject;
+            //    OnSelectedRangeChange(rangeSelected);
+            //}
+            //currentPage.EditedObject.ActiveSheet.rangeSelected = rangeSelected;
+            //if (currentPage.getAutomaticSourcingForm().SpreadSheet == null) return;
+            //if (currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet() == null) return;
+
+            //currentPage.EditedObject.ActiveSheet.Name = currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet().Name;
+            //refreshMode = true;
+            ////this.OnSetFirtRowAsHeader(currentPage.EditedObject.ActiveSheet.firstRowColumn);
+            ////this.OnSelectRange(currentPage.EditedObject.ActiveSheet.SetSelectedRange);
+            //refreshMode = false;
         }
 
         /// <summary>
