@@ -401,7 +401,8 @@ namespace Misp.Kernel.Ui.Dashboard
             else if (newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_SOURCING_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT)
-                || newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_TARGET_EDIT))
+                || newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_TARGET_EDIT)
+                || newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT))
             {
                 block.contextMenu.Items.Add(block.NewMenuItem);
                 block.contextMenu.Items.Add(block.OpenMenuItem);
@@ -422,6 +423,17 @@ namespace Misp.Kernel.Ui.Dashboard
                 || newFunctionCode.Equals(FunctionalitiesCode.REPORT_GRID_EDIT))
             {
                 block.contextMenu.Items.Add(block.NewMenuItem);
+                block.contextMenu.Items.Add(block.OpenMenuItem);
+                block.contextMenu.Items.Add(block.HideMenuItem);
+                block.contextMenu.Items.Add(block.DeleteMenuItem);
+                block.contextMenu.Items.Add(new Separator());
+                block.contextMenu.Items.Add(block.SelectAllMenuItem);
+                block.contextMenu.Items.Add(block.DeselectAllMenuItem);
+                block.contextMenu.Items.Add(block.OrderByMenuItem);
+                block.contextMenu.Items.Add(block.ConfigurationMenuItem);
+            }
+            else if (newFunctionCode.Equals(FunctionalitiesCode.ENRICHMENT_TABLE_EDIT))
+            {
                 block.contextMenu.Items.Add(block.OpenMenuItem);
                 block.contextMenu.Items.Add(block.HideMenuItem);
                 block.contextMenu.Items.Add(block.DeleteMenuItem);
