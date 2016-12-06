@@ -45,6 +45,8 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
         /// </summary>
         public event SelectedItemChangedEventHandler Expanded;
 
+        public event SelectedItemChangedEventHandler OnRightClick;
+
         #endregion
 
 
@@ -360,6 +362,7 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
             this.Timer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 350), DispatcherPriority.Background, OnTimeTick, Dispatcher.CurrentDispatcher);
             this.Timer.Stop();
             InitializeResources();
+            InitializeHandlers();
         }
 
         #endregion
@@ -370,7 +373,7 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
         /// <summary>
         /// Initialize handlers
         /// </summary>
-        protected virtual void InitializeHandlers() { }
+        protected virtual void InitializeHandlers() {}
 
         private void OnDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -424,50 +427,20 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
         }
 
 
-        private void OnRightClick(object sender, MouseEventArgs e)
+        private void OnMouseRightClick(object sender, MouseEventArgs e)
         {
             this.Timer.Stop();
 
-            if (sender != null && sender is TreeViewItem)
+            if (sender is TreeViewItem)
             {
-                TreeViewItem item = (TreeViewItem)sender;
-                Persistent value = (Persistent)item.Header;
-                if (value != null && value.IsDefault) { e.Handled = true; return; }
 
-                EntityPopup popup = new EntityPopup();
-                popup.Tag = value;
-
-                //popup.OnValidate += OnValidate;
-                Domain.Attribute attribute = null;
-
-                if (popup.Tag is Kernel.Domain.Attribute)
+                if (((TreeViewItem)sender).Header is Kernel.Domain.Attribute)
                 {
-                    attribute = (Kernel.Domain.Attribute)popup.Tag;
-                    popup.selectedItem.Clear();
-                    popup.selectedNames.Clear();
-
-
-                    popup.ItemSource.Clear();
-                    List<Kernel.Domain.AttributeValue> values = this.Service.getAttributeValuesByAttribute(attribute.oid.Value);
-                    //values.BubbleSortByName();
-                    popup.ItemSource.AddRange(values);
-                    popup.selectedItem.AddRange(attribute.FilterAttributeValues);
-                    popup.FillSelectedNames();
-                    popup.Tag = attribute;
+                    popup.Tag = ((TreeViewItem)sender).Header as Target;
+                    if (OnRightClick != null) OnRightClick(popup);
+                    e.Handled = true;
                 }
-                //else if (popup.Tag is Kernel.Domain.AttributeValue) 
-                //{
-                //    popup.IsChildren = true;
-                //    Kernel.Domain.AttributeValue value = (Kernel.Domain.AttributeValue)popup.Tag;
-                //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
-                //    popup.Tag = value;
-                //}
-                popup.IsOpen = true;
-                popup.Display();
-
-
             }
-            e.Handled = true;
         }
 
 

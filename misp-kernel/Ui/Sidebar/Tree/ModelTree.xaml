@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:popup="clr-namespace:Misp.Kernel.Ui.Popup"
              xmlns:domain="clr-namespace:Misp.Kernel.Domain">
-
+    <Grid>
+        <popup:EntityPopup x:FieldModifier="public" x:Name="popup"/>
     <TreeView x:Name="treeView" x:FieldModifier="public">
-
+        
         <TreeView.Resources>
 
             <HierarchicalDataTemplate DataType="{x:Type CollectionViewGroup}" ItemsSource="{Binding Items}">
@@ -73,10 +75,10 @@
                 <EventSetter Event="Collapsed" Handler="OnCollapsed"/>
                 <EventSetter Event="MouseDoubleClick" Handler="OnDoubleClick"/>
                 <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnClick"/>
-                <EventSetter Event="MouseRightButtonDown" Handler="OnRightClick"/>
+                    <EventSetter Event="MouseRightButtonUp" Handler="OnMouseRightClick"/>
             </Style>
         </TreeView.ItemContainerStyle>
     </TreeView>
-
+    </Grid>
 </UserControl>
 

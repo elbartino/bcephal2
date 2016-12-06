@@ -27,6 +27,7 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
         /// <summary>
         /// Event to handle when single double click on item.
         /// </summary>
+        /// 
         public event SelectedItemChangedEventHandler DoubleClick;
 
         /// <summary>
