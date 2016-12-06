@@ -33,8 +33,6 @@ namespace Misp.Sourcing.InputGrid
         public static int COLUMNS_COLOR = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightCoral);
         
         public InputGridPropertiesPanel InputGridPropertiesPanel { get; private set; }
-
-        public InputGridRelationshipPanel InputGridRelationshipPanel { get; private set; }
         
         public GridBrowser GridBrowser { get; private set; }
 
@@ -73,7 +71,6 @@ namespace Misp.Sourcing.InputGrid
         protected virtual void InitializeComponents()
         {
             InputGridPropertiesPanel = new InputGridPropertiesPanel();
-            InputGridRelationshipPanel = new InputGridRelationshipPanel();
 
             this.Background = System.Windows.Media.Brushes.White;
             this.BorderBrush = System.Windows.Media.Brushes.White; 
@@ -127,7 +124,6 @@ namespace Misp.Sourcing.InputGrid
         {
             if (this.EditedObject == null) this.EditedObject = getNewObject();
             this.InputGridPropertiesPanel.FillGrid(this.EditedObject);
-            this.InputGridRelationshipPanel.FillGrid(this.EditedObject);
         }
      
         /// <summary>
@@ -137,7 +133,6 @@ namespace Misp.Sourcing.InputGrid
         public void displayObject()
         {
             this.InputGridPropertiesPanel.Display(this.EditedObject);
-            this.InputGridRelationshipPanel.Display(this.EditedObject);
             BuildColunms();
         }
 

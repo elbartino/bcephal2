@@ -428,8 +428,6 @@ namespace Misp.Sourcing.InputGrid
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.Changed += OnInputGridPropertiesChange;
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.selectionColumnChanged += OnInputGridPropertiesSelectionColumnChange;
 
-            editorPage.getInputGridForm().InputGridSheetForm.InputGridRelationshipPanel.Changed += OnInputGridRelationshipChange;
-
             initializeGridFormHandlers(editorPage.getInputGridForm());
 
             editorPage.getInputGridForm().SelectionChanged += OnSelectedTabChange;
@@ -460,13 +458,13 @@ namespace Misp.Sourcing.InputGrid
             if (page.getInputGridForm().SelectedIndex == 1)
             {
                 ((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel;
-                ((InputGridPropertyBar)this.PropertyBar).RelationshipLayoutAnchorable.Content = page.getInputGridForm().InputGridSheetForm.InputGridRelationshipPanel;
+                
                 //ApplicationManager.MainWindow.displayPropertyBar(this.PropertyBar);
             }
             else
             {
                 ((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getInputGridForm().GridForm.filterForm;
-                ((InputGridPropertyBar)this.PropertyBar).RelationshipLayoutAnchorable.Content = page.getInputGridForm().InputGridSheetForm.InputGridRelationshipPanel;
+                
                 //ApplicationManager.MainWindow.displayPropertyBar(null);
                 if (page.getInputGridForm().GridForm.gridBrowser.RebuildGrid) UpdateGridForm();
             }
@@ -974,12 +972,7 @@ namespace Misp.Sourcing.InputGrid
             }
            
         }
-
-        private void OnInputGridRelationshipChange()
-        {
-            OnChange();
-        }
-
+        
         private void OnInputGridPropertiesChange(object obj)
         {
             InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();

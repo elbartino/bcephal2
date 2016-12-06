@@ -12,7 +12,6 @@ namespace Misp.Sourcing.InputGrid
     {
 
         public LayoutAnchorable DesignLayoutAnchorable { get; set; }
-        public LayoutAnchorable RelationshipLayoutAnchorable { get; set; }
 
         public LayoutAnchorablePane Pane { get; set; }
 
@@ -24,17 +23,9 @@ namespace Misp.Sourcing.InputGrid
             this.DesignLayoutAnchorable.CanFloat = false;
             this.DesignLayoutAnchorable.CanAutoHide = false;
             this.DesignLayoutAnchorable.CanHide = false;
-
-            this.RelationshipLayoutAnchorable = new LayoutAnchorable();
-            this.RelationshipLayoutAnchorable.Title = "Relationships";
-            this.RelationshipLayoutAnchorable.CanClose = false;
-            this.RelationshipLayoutAnchorable.CanFloat = false;
-            this.RelationshipLayoutAnchorable.CanAutoHide = false;
-            this.RelationshipLayoutAnchorable.CanHide = false;
-
+            
             Pane = new LayoutAnchorablePane();
             Pane.Children.Add(DesignLayoutAnchorable);
-            Pane.Children.Add(RelationshipLayoutAnchorable);
             this.Panes.Add(Pane);
 
         }

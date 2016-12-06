@@ -5,33 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" >
     <Grid>
-        <Popup Height="250" HorizontalOffset="1cm" Name="myPopup" StaysOpen="True"
-                   Placement="MousePoint" Width="200" >
+        <Popup Height="450" HorizontalOffset="1cm" Name="myPopup" StaysOpen="True"
+                   Placement="MousePoint" Width="250" >
 
             <Border  BorderThickness="0" Padding="1"  BorderBrush="WhiteSmoke" Background="WhiteSmoke">
 
                 <Grid  Background="White"  Margin="1 1 1 1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.25*"/>
+                        <RowDefinition Height="25"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Margin="3" Grid.Column="1" ToolTip="Close" x:Name="closeButton" Click="btnClosePopup_Click">
-                            <Button.Template>
-                                <ControlTemplate>
-                                    <Image Source="/bcephal;Component/Resources/Images/Icons/close.png"/>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </Grid>
+                    
+                    <Button Grid.Row="0" Margin="3" Grid.Column="1" ToolTip="Close" x:Name="closeButton" Click="btnClosePopup_Click" HorizontalAlignment="Right">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Image Source="/bcephal;Component/Resources/Images/Icons/close.png"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>                    
                     
                     <MenuItem x:Name="ascending" Grid.Row="1" Background="WhiteSmoke" Click="OnOrdering" Margin="0 2 0 0">
                         <MenuItem.Header>Sort From A to Z</MenuItem.Header>
