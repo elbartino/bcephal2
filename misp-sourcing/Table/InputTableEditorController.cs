@@ -479,14 +479,15 @@ namespace Misp.Sourcing.Table
         protected OperationState saveSpreedSheet(EditorItem<InputTable> page, String fileName = null,bool saveAs = false) 
         {
             InputTableEditorItem currentPage = (InputTableEditorItem)page;
-            String excelfileName = saveAs ? buildExcelFileName(fileName)
-                : (page.EditedObject.excelFileName.EndsWith(SheetConst.EXCEL_EXT) ? page.EditedObject.excelFileName : page.EditedObject.excelFileName + SheetConst.EXCEL_EXT);
+            
             //page.EditedObject.excelFileName = filePath;
             //if (!string.IsNullOrEmpty(fileName)) page.EditedObject.name = Path.GetFileNameWithoutExtension(excelfileName);
             String oldFilePath = currentPage.getInputTableForm().SpreadSheet.DocumentUrl;
             if (String.IsNullOrEmpty(page.EditedObject.excelFileName)) page.EditedObject.excelFileName = page.EditedObject.name + EdrawOffice.EXCEL_EXT;
             String tempFolder = GetInputTableService().FileService.GetFileDirs().TempTableFolder;
             String pathexcel = tempFolder + page.EditedObject.name + SheetConst.EXCEL_EXT; //excelfileName;
+            String excelfileName = saveAs ? buildExcelFileName(fileName)
+                : Path.GetFileName(pathexcel);
 
             if (currentPage.getInputTableForm().SpreadSheet.SaveAs(pathexcel, true) != OperationState.CONTINUE)
             {
