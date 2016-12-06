@@ -478,6 +478,7 @@
     <Compile Include="Ui\Attribute\AttributeValueTreeView.xaml.cs">
       <DependentUpon>AttributeValueTreeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\Attribute\Class1.cs" />
     <Compile Include="Ui\Base\BrowserGridNavigationBar.xaml.cs">
       <DependentUpon>BrowserGridNavigationBar.xaml</DependentUpon>
     </Compile>
