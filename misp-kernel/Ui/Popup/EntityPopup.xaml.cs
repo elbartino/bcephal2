@@ -121,7 +121,7 @@ namespace Misp.Kernel.Ui.Popup
         /// <param name="sender"></param>
         private void butonActions(object sender) 
         {
-            myPopup.IsOpen = false;
+            //myPopup.IsOpen = false;
             if (sender == okButton)
             {
                 if (OnValidate != null) OnValidate(new Object[] { selectedItem,this.Tag });
@@ -135,7 +135,7 @@ namespace Misp.Kernel.Ui.Popup
             }
             else if (sender == closeButton) 
             {
-                myPopup.IsOpen = false;
+                //myPopup.IsOpen = false;
             }
             myPopup.Tag = null;
         }

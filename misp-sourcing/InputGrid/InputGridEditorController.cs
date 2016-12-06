@@ -762,7 +762,7 @@ namespace Misp.Sourcing.InputGrid
                 //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
                 //    popup.Tag = value;
                 //}
-                popup.IsOpen = true;
+                //popup. = true;
                 popup.Display();
             }
         }

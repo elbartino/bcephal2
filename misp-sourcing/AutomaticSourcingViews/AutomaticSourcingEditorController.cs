@@ -503,7 +503,7 @@ namespace Misp.Sourcing.Base
                 //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
                 //    popup.Tag = value;
                 //}
-                popup.IsOpen = true;
+               // popup.IsOpen = true;
                 popup.Display();
             }
         }

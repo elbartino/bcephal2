@@ -400,6 +400,8 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
             {
                 if (value.IsDefault) PerformDefaultAction(value);
                 else if (Click != null) Click(value);
+                EntityPopup popup = new EntityPopup();
+                popup.IsOpen = true;
             }
         }
 
@@ -428,45 +430,49 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
         {
             this.Timer.Stop();
 
-            if (sender != null && sender is TreeViewItem)
-            {
-                TreeViewItem item = (TreeViewItem)sender;
-                Persistent value = (Persistent)item.Header;
-                if (value != null && value.IsDefault) { e.Handled = true; return; }
-
-                EntityPopup popup = new EntityPopup();
-                popup.Tag = value;
-
-                //popup.OnValidate += OnValidate;
-                Domain.Attribute attribute = null;
-
-                if (popup.Tag is Kernel.Domain.Attribute)
-                {
-                    attribute = (Kernel.Domain.Attribute)popup.Tag;
-                    popup.selectedItem.Clear();
-                    popup.selectedNames.Clear();
+            EntityPopup popup = new EntityPopup();
+            popup.myPopup.IsOpen = true;
 
 
-                    popup.ItemSource.Clear();
-                    List<Kernel.Domain.AttributeValue> values = this.Service.getAttributeValuesByAttribute(attribute.oid.Value);
-                    //values.BubbleSortByName();
-                    popup.ItemSource.AddRange(values);
-                    popup.selectedItem.AddRange(attribute.FilterAttributeValues);
-                    popup.FillSelectedNames();
-                    popup.Tag = attribute;
-                }
-                //else if (popup.Tag is Kernel.Domain.AttributeValue) 
-                //{
-                //    popup.IsChildren = true;
-                //    Kernel.Domain.AttributeValue value = (Kernel.Domain.AttributeValue)popup.Tag;
-                //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
-                //    popup.Tag = value;
-                //}
-                popup.IsOpen = true;
-                popup.Display();
+            //if (sender != null && sender is TreeViewItem)
+            //{
+            //    TreeViewItem item = (TreeViewItem)sender;
+            //    Persistent value = (Persistent)item.Header;
+            //    if (value != null && value.IsDefault) { e.Handled = true; return; }
+
+            //    EntityPopup popup = new EntityPopup();
+            //    popup.Tag = value;
+
+            //    //popup.OnValidate += OnValidate;
+            //    Domain.Attribute attribute = null;
+
+            //    if (popup.Tag is Kernel.Domain.Attribute)
+            //    {
+            //        attribute = (Kernel.Domain.Attribute)popup.Tag;
+            //        popup.selectedItem.Clear();
+            //        popup.selectedNames.Clear();
 
 
-            }
+            //        popup.ItemSource.Clear();
+            //        List<Kernel.Domain.AttributeValue> values = this.Service.getAttributeValuesByAttribute(attribute.oid.Value);
+            //        //values.BubbleSortByName();
+            //        popup.ItemSource.AddRange(values);
+            //        popup.selectedItem.AddRange(attribute.FilterAttributeValues);
+            //        popup.FillSelectedNames();
+            //        popup.Tag = attribute;
+            //    }
+            //    //else if (popup.Tag is Kernel.Domain.AttributeValue) 
+            //    //{
+            //    //    popup.IsChildren = true;
+            //    //    Kernel.Domain.AttributeValue value = (Kernel.Domain.AttributeValue)popup.Tag;
+            //    //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
+            //    //    popup.Tag = value;
+            //    //}
+            //    popup.IsOpen = true;
+            //    popup.Display();
+
+
+            //}
             e.Handled = true;
         }
 
