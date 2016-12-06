@@ -654,6 +654,7 @@ namespace Misp.Sourcing.InputGrid
         private void OnFilterChange()
         {
             Search();
+            OnChange();
         }
 
         private void OnResetClick(object sender, RoutedEventArgs e)
