@@ -534,10 +534,10 @@ namespace Misp.Sourcing.InputGrid
 
         private void OnDeleteRows(object obj)
         {
-            String message = "You are about to delete " + ((List<int>)obj).Count + " row(s).\nDo you want to continue?";
+            String message = "You are about to delete " + ((List<long>)obj).Count + " row(s).\nDo you want to continue?";
             if (MessageDisplayer.DisplayYesNoQuestion("Delete", message) == MessageBoxResult.Yes)
             {
-                if (this.GetInputGridService().deleteGridRows((List<int>)obj))
+                if (this.GetInputGridService().deleteGridRows((List<long>)obj))
                 {
                     InputGridEditorItem page = (InputGridEditorItem)getEditor().getActivePage();
                     Search(page.getInputGridForm().GridForm.toolBar.current);
@@ -762,7 +762,7 @@ namespace Misp.Sourcing.InputGrid
                 //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
                 //    popup.Tag = value;
                 //}
-                popup.IsOpen = true;
+                //popup. = true;
                 popup.Display();
             }
         }

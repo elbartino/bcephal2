@@ -32,6 +32,15 @@ namespace Misp.Sourcing.GridViews
             NewGridRadioButton.IsChecked = true;
         }
 
+        public void customizeForEnrichementTable()
+        {
+            GridNameLabel.Content = "Enrichment Table name";
+            NewGridRadioButton.Visibility = System.Windows.Visibility.Collapsed;
+            ModifyGridRadioButton.Visibility = System.Windows.Visibility.Collapsed;
+            ModifyGridBox1.Visibility = System.Windows.Visibility.Collapsed;
+            ModifyGridBox2.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
         public AutomaticGridData Fill()
         {
             AutomaticGridData data = new AutomaticGridData();

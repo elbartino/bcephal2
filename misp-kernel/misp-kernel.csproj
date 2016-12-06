@@ -257,6 +257,7 @@
     <Compile Include="Domain\Browser\RoleBrowserData.cs" />
     <Compile Include="Domain\Browser\ProfilBrowserData.cs" />
     <Compile Include="Domain\Browser\UserBrowserData.cs" />
+    <Compile Include="Domain\EnrichmentTable.cs" />
     <Compile Include="Domain\GrilleRelationship.cs" />
     <Compile Include="Domain\GrilleRelationshipItem.cs" />
     <Compile Include="Domain\LoopCondition.cs" />
@@ -330,6 +331,7 @@
     <Compile Include="Service\AutomaticTargetService.cs" />
     <Compile Include="Service\CombineTransformationTreeService.cs" />
     <Compile Include="Service\AutomaticPostingGridService.cs" />
+    <Compile Include="Service\EnrichmentTableService.cs" />
     <Compile Include="Service\RelationShipService.cs" />
     <Compile Include="Service\RightService.cs" />
     <Compile Include="Service\FileTransferService.cs" />
@@ -478,7 +480,6 @@
     <Compile Include="Ui\Attribute\AttributeValueTreeView.xaml.cs">
       <DependentUpon>AttributeValueTreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Attribute\Class1.cs" />
     <Compile Include="Ui\Base\BrowserGridNavigationBar.xaml.cs">
       <DependentUpon>BrowserGridNavigationBar.xaml</DependentUpon>
     </Compile>

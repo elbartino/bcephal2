@@ -181,7 +181,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
         private void OnCheckPrimary(object sender, RoutedEventArgs e)
         {
-            //this.AutomaticSourcingColumn.isPrimary = this.primaryCheckbox.IsChecked.Value;
+            this.AutomaticSourcingColumn.primary = this.primaryCheckbox.IsChecked.Value;
             OnChanged();
         }
         
@@ -535,6 +535,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
             if (this.AutomaticSourcingColumn != null)
             {
+                this.primaryCheckbox.IsChecked = this.AutomaticSourcingColumn.primary;
                 this.DefaultValuePanel.Display(this.AutomaticSourcingColumn.defaultValue);
                 this.ExcludedValuePanel.Display(this.AutomaticSourcingColumn);
                 string columnType = TypeComboBox.SelectedItem.ToString();

@@ -44,6 +44,9 @@ namespace Misp.Kernel.Application
 
         private FileTransferService fileTransferService;
         private TransformationTreeService transformationTreeService;
+
+        private EnrichmentTableService enrichmentTableService;
+
         /// <summary>
         /// Build a new instance of ServiceFactory.
         /// </summary>
@@ -90,6 +93,20 @@ namespace Misp.Kernel.Application
                 configureService(inputGridService);
             }
             return inputGridService;
+        }
+
+        public EnrichmentTableService GetEnrichmentTableService()
+        {
+            if (enrichmentTableService == null)
+            {
+                enrichmentTableService = new EnrichmentTableService();
+                enrichmentTableService.ResourcePath = ResourcePath.ENRICHMENT_TABLE_RESOURCE_PATH;
+                enrichmentTableService.SocketResourcePath = ResourcePath.SOCKET_ENRICHMENT_TABLE_RESOURCE_PATH;
+                enrichmentTableService.FileService = GetFileService();
+                enrichmentTableService.GroupService = GetGroupService();
+                configureService(enrichmentTableService);
+            }
+            return enrichmentTableService;
         }
              
 

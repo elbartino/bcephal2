@@ -137,6 +137,17 @@ namespace Misp.Kernel.Application
         public static string LIST_REPORT_GRID_LABEL = "List Report Grid";
 
 
+        //ENRICHMENT TABLE 
+        public static string ENRICHMENT_TABLE_LABEL = "Enrichment Table";
+        public static string ENRICHMENT_TABLE_DASHBOARD_LABEL = "Enrichment Tables";
+        public static string AUTOMATIC_ENRICHMENT_TABLE_DASHBOARD_LABEL = "Automatic Sourcing for Enrichment Table";
+        public static string RECENT_AUTOMATIC_ENRICHMENT_TABLE_LABEL = "Recent Automatic Sourcing for Enrichment Table";
+        public static string NEW_AUTOMATIC_ENRICHMENT_TABLE_LABEL = "New Automatic Sourcing for Enrichment Table";
+        public static string LIST_AUTOMATIC_ENRICHMENT_TABLE_LABEL = "List Automatic Sourcing for Enrichment Table";
+        public static string RECENT_ENRICHMENT_TABLE_LABEL = "Recent Enrichment Tables";
+        public static string NEW_ENRICHMENT_TABLE_LABEL = "New Enrichment Table";
+        public static string LIST_ENRICHMENT_TABLE_LABEL = "List Enrichment Table";
+
         //PIVOT_TABLE
         public static string PIVOT_TABLE_LABEL = "Pivot Table";
         public static string NEW_PIVOT_TABLE_LABEL = "New Pivot Table";

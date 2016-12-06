@@ -403,6 +403,8 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
             {
                 if (value.IsDefault) PerformDefaultAction(value);
                 else if (Click != null) Click(value);
+                EntityPopup popup = new EntityPopup();
+                popup.IsOpen = true;
             }
         }
 
@@ -440,6 +442,25 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
                     if (OnRightClick != null) OnRightClick(popup);
                     e.Handled = true;
                 }
+            //        popup.ItemSource.Clear();
+            //        List<Kernel.Domain.AttributeValue> values = this.Service.getAttributeValuesByAttribute(attribute.oid.Value);
+            //        //values.BubbleSortByName();
+            //        popup.ItemSource.AddRange(values);
+            //        popup.selectedItem.AddRange(attribute.FilterAttributeValues);
+            //        popup.FillSelectedNames();
+            //        popup.Tag = attribute;
+            //    }
+            //    //else if (popup.Tag is Kernel.Domain.AttributeValue) 
+            //    //{
+            //    //    popup.IsChildren = true;
+            //    //    Kernel.Domain.AttributeValue value = (Kernel.Domain.AttributeValue)popup.Tag;
+            //    //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
+            //    //    popup.Tag = value;
+            //    //}
+            //    popup.IsOpen = true;
+            //    popup.Display();
+
+
             }
         }
 

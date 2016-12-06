@@ -85,7 +85,6 @@ namespace Misp.Sourcing.Designer
             initializePageHandlers(page);
             page.Title = design.name;
             getDesignerEditor().ListChangeHandler.AddNew(design);
-            page.getDesignerForm().SpreadSheet.protectSheet();
             return OperationState.CONTINUE;
         }
 
@@ -447,9 +446,7 @@ namespace Misp.Sourcing.Designer
                 }
                 DesignerEditorItem page = (DesignerEditorItem)getDesignerEditor().getActivePage();
                 if (page == null) return;
-                page.getDesignerForm().SpreadSheet.protectSheet(false);
                 page.getDesignerForm().DesignerPropertiesPanel.SetValue(period.childrenListChangeHandler.Items);
-                page.getDesignerForm().SpreadSheet.protectSheet();
             }
             if (sender != null && sender is PeriodName)
             {
@@ -486,11 +483,8 @@ namespace Misp.Sourcing.Designer
                 EditorItem<Design> page = getDesignerEditor().getPage(design.name);
                 if (page != null)
                 {
-                    ((DesignerEditorItem)page).getDesignerForm().SpreadSheet.DisableSheet(false);
                     page.fillObject();
-                    getDesignerEditor().selectePage(page);
-                    ((DesignerEditorItem)page).getDesignerForm().SpreadSheet.DisableSheet();
-                    
+                    getDesignerEditor().selectePage(page);                    
                 }
                 else if (design.oid != null && design.oid.HasValue)
                 {
@@ -499,13 +493,11 @@ namespace Misp.Sourcing.Designer
                 }
                 else
                 {
-                    ((DesignerEditorItem)page).getDesignerForm().SpreadSheet.DisableSheet(false);
                     page = getDesignerEditor().addOrSelectPage(design);
                     initializePageHandlers(page);
                     page.Title = design.name;
 
                     getDesignerEditor().ListChangeHandler.AddNew(design);
-                    ((DesignerEditorItem)page).getDesignerForm().SpreadSheet.DisableSheet();
                 }
                 DesignerEditorItem pageOpen = (DesignerEditorItem)getDesignerEditor().getActivePage();
 
@@ -526,11 +518,7 @@ namespace Misp.Sourcing.Designer
                 Measure measure = (Measure)sender;
                 DesignerEditorItem page = (DesignerEditorItem)getDesignerEditor().getActivePage();
                 if (page == null) return;
-                //page.getDesignerForm().SpreadSheet.DisableSheet(false);
-                page.getDesignerForm().SpreadSheet.protectSheet(false);
                 page.getDesignerForm().DesignerPropertiesPanel.SetValue(measure);
-                page.getDesignerForm().SpreadSheet.protectSheet();
-                //page.getDesignerForm().SpreadSheet.DisableSheet(true);
             }
         }
 
@@ -546,12 +534,10 @@ namespace Misp.Sourcing.Designer
                 PeriodInterval period = (PeriodInterval)sender;
                 DesignerEditorItem page = (DesignerEditorItem)getDesignerEditor().getActivePage();
                 if (page == null) return;
-                page.getDesignerForm().SpreadSheet.protectSheet(false);
                 Object value = null;
                 if (period.isStandardPeriod) value = period.childrenListChangeHandler.Items;
                 else value = period;
                 page.getDesignerForm().DesignerPropertiesPanel.SetValue(value);
-                page.getDesignerForm().SpreadSheet.protectSheet();
             }
             if (sender != null && sender is PeriodName)
             {
@@ -661,11 +647,7 @@ namespace Misp.Sourcing.Designer
         {
             DesignerEditorItem page = (DesignerEditorItem)getDesignerEditor().getActivePage();
             if (page == null) return;
-            //page.getDesignerForm().SpreadSheet.DisableSheet(false);
-            page.getDesignerForm().SpreadSheet.protectSheet(false);
             page.getDesignerForm().BuildSheetTable();
-            page.getDesignerForm().SpreadSheet.protectSheet();
-            //page.getDesignerForm().SpreadSheet.DisableSheet();
         }
         
         /// <summary>
@@ -698,7 +680,7 @@ namespace Misp.Sourcing.Designer
             Design table = page.EditedObject;
             if (string.IsNullOrEmpty(newName))
             newName = page.getDesignerForm().DesignerPropertiesPanel.NameTextBox.Text.Trim();
-            string excelName = page.getDesignerForm().SpreadSheet.Office.GetDocumentFullName();
+            string excelName = page.getDesignerForm().SpreadSheet.DocumentUrl;
             if (string.IsNullOrEmpty(newName))
             {
                 DisplayError("Empty Name", "The Design name can't be mepty!");

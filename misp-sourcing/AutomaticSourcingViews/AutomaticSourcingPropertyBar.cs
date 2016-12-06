@@ -19,6 +19,8 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
         public static bool isAutomaticGrid { get; set; }
 
+        public static bool isEnrichmentTable { get; set; }
+
         protected override void UserInitialisation()
         {
             this.AutomaticSourcingLayoutAnchorable = new LayoutAnchorable();
@@ -29,6 +31,10 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             else if (isAutomaticTarget)
             {
                 this.AutomaticSourcingLayoutAnchorable.Title = "Automatic Target Properties";
+            }
+            else if (isEnrichmentTable)
+            {
+                this.AutomaticSourcingLayoutAnchorable.Title = "Enrichment Table Properties";
             }
             else
             {
@@ -42,7 +48,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
             Pane = new LayoutAnchorablePane();
             Pane.Children.Add(AutomaticSourcingLayoutAnchorable);
-            bool AddTablePanel = isAutomaticGrid || isAutomaticTarget;
+            bool AddTablePanel = isAutomaticGrid || isAutomaticTarget || isEnrichmentTable;
             if (!AddTablePanel)
             {
                 this.AutomaticTablePropertiesLayoutAnchorable = new LayoutAnchorable();

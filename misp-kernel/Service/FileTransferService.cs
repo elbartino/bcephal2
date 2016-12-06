@@ -131,6 +131,37 @@ namespace Misp.Kernel.Service
             return false;
         }
 
+        public bool uploadTableForSaveAs(String name,String saveAsName,String path)
+        {
+            try
+            {
+                string ext = Path.GetExtension(name);
+                string namewithNoext = Path.GetFileNameWithoutExtension(name);
+                string copy = path + saveAsName;
+                if (!Directory.Exists(path)) return false;
+                path += name;
+                //if (!File.Exists(path)) return false;
+                File.Copy(path, copy);
+                byte[] dataToSend = File.ReadAllBytes(copy);
+                File.Delete(copy);
+                var request = new RestRequest(ResourcePath + "/upload-table/" + saveAsName, Method.POST);
+                request.AddHeader("Content-Type", "application/octet-stream");
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                request.AddParameter("application/octet-stream", dataToSend, ParameterType.RequestBody);
+                IRestResponse response = RestClient.Execute(request);
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                bool ok = Serializer.Deserialize<bool>(response.Content);
+                return ok;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to save file.", e);
+            }
+            return false;
+        }
+
+
         public bool MultipleUploadTable(String name, String path)
         {
             try

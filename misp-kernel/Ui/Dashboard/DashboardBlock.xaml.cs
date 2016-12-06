@@ -237,6 +237,8 @@ namespace Misp.Kernel.Ui.Dashboard
             else if (isAutomaticGrid()) new DashboardActions().DeleteAutomaticGrid(oids, this);
             else if (isAutomaticPostingGrid()) new DashboardActions().DeleteAutomaticPostingGrid(oids, this);
             else if (isPostingGrid()) new DashboardActions().DeletePostingGrid(oids, this);
+            else if (isAutomaticEnrichmentTable()) new DashboardActions().DeleteAutomaticEnrichmentTable(oids, this);
+            else if (isEnrichmentTable()) new DashboardActions().DeleteEnrichmentTable(oids, this);
         }
 
         private void OnHide(object sender, RoutedEventArgs e)
@@ -479,6 +481,16 @@ namespace Misp.Kernel.Ui.Dashboard
             return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.TRANSACTION_FILE_TYPES_FUNCTIONALITY);
         }
 
+        public Boolean isAutomaticEnrichmentTable()
+        {
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT);
+        }
+
+        public Boolean isEnrichmentTable()
+        {
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.ENRICHMENT_TABLE_EDIT);
+        }
+
         public string GetParam()
         {
             if (isTable()) return DashBoardService.TABLES;
@@ -500,6 +512,8 @@ namespace Misp.Kernel.Ui.Dashboard
             if (isAutomaticTarget()) return DashBoardService.AUTOMATIC_TARGET;
             if (isAutomaticPostingGrid()) return DashBoardService.AUTOMATIC_POSTING_GRID;
             if (isPostingGrid()) return DashBoardService.POSTING_GRID;
+            if (isAutomaticEnrichmentTable()) return DashBoardService.AUTOMATIC_ENRICHMENT_TABLE;
+            if (isEnrichmentTable()) return DashBoardService.ENRICHMENT_TABLE;
 
             return null;
         }

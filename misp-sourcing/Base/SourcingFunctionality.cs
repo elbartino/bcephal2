@@ -49,13 +49,13 @@ namespace Misp.Sourcing.Base
 
 
             Functionality enrichmentTable = new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE, "Enrichment Table", true);
-            grid.Children.Add(new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE_LIST, "Enrichment Table List", true));
-            grid.Children.Add(new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE_VIEW, "Enrichment Table View", true));
-            grid.Children.Add(new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE_EDIT, "Enrichment Table Edit", true));
-            grid.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_LIST, "Automatic Sourcing for Enrichment Table List", true));
-            grid.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_VIEW, "Automatic Sourcing for Enrichment Table View", true));
-            grid.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT, "Automatic Sourcing for Enrichment Table Edit", true));
-            this.Children.Add(grid);
+            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE_LIST, "Enrichment Table List", true));
+            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE_VIEW, "Enrichment Table View", true));
+            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE_EDIT, "Enrichment Table Edit", true));
+            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_LIST, "Automatic Sourcing for Enrichment Table List", true));
+            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_VIEW, "Automatic Sourcing for Enrichment Table View", true));
+            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT, "Automatic Sourcing for Enrichment Table Edit", true));
+            this.Children.Add(enrichmentTable);
 
             Functionality target = new Functionality(this, FunctionalitiesCode.TARGET, "Target", true);
             target.Children.Add(new Functionality(this, FunctionalitiesCode.TARGET_LIST, "Target List", true));

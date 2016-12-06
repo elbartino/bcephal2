@@ -47,6 +47,11 @@ namespace Misp.Sourcing.Base
             return false;
         }
 
+        public virtual bool isEnrichmentTable() 
+        {
+            return false;
+        }
+
         public virtual bool isGrid()
         {
             return false;
@@ -104,6 +109,7 @@ namespace Misp.Sourcing.Base
         {
             AutomaticSourcingPropertyBar.isAutomaticTarget = isAutomaticTarget();
             AutomaticSourcingPropertyBar.isAutomaticGrid = isAutomaticGrid();
+            AutomaticSourcingPropertyBar.isEnrichmentTable = isEnrichmentTable();
             return new AutomaticSourcingPropertyBar();
         }
 
@@ -497,7 +503,7 @@ namespace Misp.Sourcing.Base
                 //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
                 //    popup.Tag = value;
                 //}
-                popup.IsOpen = true;
+               // popup.IsOpen = true;
                 popup.Display();
             }
         }
@@ -927,7 +933,7 @@ namespace Misp.Sourcing.Base
         /// <summary>
         /// Fill the column List when the first row is set as the header.
         /// </summary>
-        private void FillAutomaticSourcingColumn()
+        protected void FillAutomaticSourcingColumn()
         {
             AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage();
 
@@ -1183,6 +1189,7 @@ namespace Misp.Sourcing.Base
             if (!string.IsNullOrEmpty(baseName)) return baseName;
             if (isAutomaticGrid()) baseName = "Grid";
             else if (isAutomaticTarget()) baseName = "Target";
+            else if (isEnrichmentTable()) baseName = "Enrichment Table";
             else baseName = "Table";
             return baseName;
         }
@@ -1360,7 +1367,7 @@ namespace Misp.Sourcing.Base
             if (page == null) return;
             AutomaticSourcingForm form = ((AutomaticSourcingEditorItem)page).getAutomaticSourcingForm();
            ((AutomaticSourcingPropertyBar)this.PropertyBar).AutomaticSourcingLayoutAnchorable.Content = form.AutomaticSourcingPanel;
-           bool canAddTableProperty = isAutomaticGrid() || isAutomaticTarget();
+           bool canAddTableProperty = isAutomaticGrid() || isAutomaticTarget() || isEnrichmentTable();
            if (!canAddTableProperty)
            {
                ((AutomaticSourcingPropertyBar)this.PropertyBar).AutomaticTablePropertiesLayoutAnchorable.Content = form.AutomaticTablePropertiesPanel;
@@ -1528,33 +1535,36 @@ namespace Misp.Sourcing.Base
         private void RefreshView(AutomaticSourcingEditorItem currentPage, int activeSheetIndex, int activeColunIndex)
         {
             currentPage.EditedObject.refresh();
-            currentPage.EditedObject.ActiveSheet = currentPage.EditedObject.getAutomaticSourcingSheet(activeSheetIndex);
-            currentPage.EditedObject.ActiveSheet.ActiveColumn = currentPage.EditedObject.ActiveSheet.getAutomaticSourcingColumn(activeColIndex);
 
-            String selecteRange = currentPage.EditedObject.ActiveSheet.selectedRange;
-            Range rangeSelected;
-            if (selecteRange == "") rangeSelected = null;
-            else
-            {
-                rangeSelected = currentPage.EditedObject.ActiveSheet.buildRange(selecteRange);
-                if (rangeSelected != null)
-                {
-                    rangeSelected.Sheet = currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet();
-                }
-                currentPage.EditedObject.ActiveSheet.rangeSelected = rangeSelected;
-                currentPage.EditedObject.ActiveSheet.SetSelectedRange = currentPage.EditedObject.ActiveSheet.SetSelectedRange;
-                ((AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage()).EditedObject = currentPage.EditedObject;
-                OnSelectedRangeChange(rangeSelected);
-            }
-            currentPage.EditedObject.ActiveSheet.rangeSelected = rangeSelected;
-            if (currentPage.getAutomaticSourcingForm().SpreadSheet == null) return;
-            if (currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet() == null) return;
+            OnSheetActivated();
 
-            currentPage.EditedObject.ActiveSheet.Name = currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet().Name;
-            refreshMode = true;
-            //this.OnSetFirtRowAsHeader(currentPage.EditedObject.ActiveSheet.firstRowColumn);
-            //this.OnSelectRange(currentPage.EditedObject.ActiveSheet.SetSelectedRange);
-            refreshMode = false;
+            //currentPage.EditedObject.ActiveSheet = currentPage.EditedObject.getAutomaticSourcingSheet(activeSheetIndex);
+            //currentPage.EditedObject.ActiveSheet.ActiveColumn = currentPage.EditedObject.ActiveSheet.getAutomaticSourcingColumn(activeColIndex);
+
+            //String selecteRange = currentPage.EditedObject.ActiveSheet.selectedRange;
+            //Range rangeSelected;
+            //if (selecteRange == "") rangeSelected = null;
+            //else
+            //{
+            //    rangeSelected = currentPage.EditedObject.ActiveSheet.buildRange(selecteRange);
+            //    if (rangeSelected != null)
+            //    {
+            //        rangeSelected.Sheet = currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet();
+            //    }
+            //    currentPage.EditedObject.ActiveSheet.rangeSelected = rangeSelected;
+            //    currentPage.EditedObject.ActiveSheet.SetSelectedRange = currentPage.EditedObject.ActiveSheet.SetSelectedRange;
+            //    ((AutomaticSourcingEditorItem)getAutomaticSourcingEditor().getActivePage()).EditedObject = currentPage.EditedObject;
+            //    OnSelectedRangeChange(rangeSelected);
+            //}
+            //currentPage.EditedObject.ActiveSheet.rangeSelected = rangeSelected;
+            //if (currentPage.getAutomaticSourcingForm().SpreadSheet == null) return;
+            //if (currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet() == null) return;
+
+            //currentPage.EditedObject.ActiveSheet.Name = currentPage.getAutomaticSourcingForm().SpreadSheet.getActiveSheet().Name;
+            //refreshMode = true;
+            ////this.OnSetFirtRowAsHeader(currentPage.EditedObject.ActiveSheet.firstRowColumn);
+            ////this.OnSelectRange(currentPage.EditedObject.ActiveSheet.SetSelectedRange);
+            //refreshMode = false;
         }
 
         /// <summary>

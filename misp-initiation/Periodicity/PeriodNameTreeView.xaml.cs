@@ -510,6 +510,11 @@ namespace Misp.Initiation.Periodicity
                         PeriodName valid = ValidateName(editedPeriod, name);
                         editedPeriod.name = name;
                         editedPeriod.parent.UpdateChild(editedPeriod);
+                        if (!editedPeriod.name.Equals(Label_DEFAULT_PERIOD)) 
+                        {
+                            defaultValue.name = Label_DEFAULT_PERIOD;
+                            AddNode(null, name);
+                        }
                         //this.tree.Items.Refresh();
                     }
                 }
