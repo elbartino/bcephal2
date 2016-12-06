@@ -19,6 +19,10 @@ namespace Misp.Kernel.Domain
             this.loaded = true;
         }
 
+        public Target filterScope { get; set; }
+
+        public Period filterPeriod { get; set; }
+
         public String code {get;set;}
 	
 	    public String name {get;set;}
@@ -235,6 +239,24 @@ namespace Misp.Kernel.Domain
             return null;
         }
 
+        public void loadGrilleFilter()
+        {
+            if (GrilleFilter == null) GrilleFilter = new GrilleFilter();
+            this.GrilleFilter.filterScope = filterScope;
+            this.GrilleFilter.filterPeriod = filterPeriod;
+        }
 
+        public void loadFilters()
+        {
+            this.filterScope = null;
+            this.filterPeriod = null;
+            if (GrilleFilter != null)
+            {
+                if (GrilleFilter.filterScope != null) GrilleFilter.filterScope.targetItemListChangeHandler.resetOriginalList();
+                if (GrilleFilter.filterPeriod != null) GrilleFilter.filterPeriod.itemListChangeHandler.resetOriginalList();
+                this.filterScope = GrilleFilter.filterScope;
+                this.filterPeriod = GrilleFilter.filterPeriod;
+            }
+        }
     }
 }

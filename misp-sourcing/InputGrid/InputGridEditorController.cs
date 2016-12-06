@@ -98,6 +98,7 @@ namespace Misp.Sourcing.InputGrid
         /// <returns></returns>
         public override OperationState Open(Grille grid)
         {
+            if (getEditor().getPage(grid) == null) grid.loadGrilleFilter();
             InputGridEditorItem page = (InputGridEditorItem)getEditor().addOrSelectPage(grid);
             UpdateStatusBar();
             UpdateToolBar(page.EditedObject);
@@ -179,6 +180,7 @@ namespace Misp.Sourcing.InputGrid
             try
             {
                 InputGridEditorItem currentPage = (InputGridEditorItem)page;
+                currentPage.EditedObject.loadFilters();
                 if (base.Save(page) == OperationState.STOP) return OperationState.STOP;
                 UpdateGridForm();
             }
