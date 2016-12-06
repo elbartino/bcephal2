@@ -135,7 +135,7 @@ namespace Misp.Kernel.Ui.Popup
             }
             else if (sender == closeButton) 
             {
-                //myPopup.IsOpen = false;
+                myPopup.IsOpen = false;
             }
             myPopup.Tag = null;
         }
