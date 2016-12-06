@@ -719,6 +719,7 @@ namespace Misp.Sourcing.InputGrid
 
             ((InputGridSideBar)SideBar).MeasureGroup.Tree.Click += onSelectMeasureFromSidebar;
             ((InputGridSideBar)SideBar).EntityGroup.Tree.Click += onSelectTargetFromSidebar;
+            ((InputGridSideBar)SideBar).EntityGroup.Tree.OnRightClick += onRightClickFromSidebar;
             ((InputGridSideBar)SideBar).EntityGroup.Tree.DoubleClick += onDoubleClickSelectTargetFromSidebar;
             ((InputGridSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
@@ -764,7 +765,7 @@ namespace Misp.Sourcing.InputGrid
                 //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
                 //    popup.Tag = value;
                 //}
-                //popup. = true;
+                popup.IsOpen = true;
                 popup.Display();
             }
         }
