@@ -2034,88 +2034,13 @@ namespace Misp.Sourcing.Table
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.SelectionChanged += onSelectInputTableFromSidebar;
             ((InputTableSideBar)SideBar).MeasureGroup.Tree.Click += onSelectMeasureFromSidebar;
             ((InputTableSideBar)SideBar).EntityGroup.Tree.Click += OnSelectTarget;
-            ((InputTableSideBar)SideBar).EntityGroup.Tree.OnRightClick += onRightClickFromSidebar;
             ((InputTableSideBar)SideBar).PeriodGroup.Tree.Click += onSelectPeriodNameFromSidebar;
             
             ((InputTableSideBar)SideBar).DesignerGroup.DesignerTreeview.SelectionChanged += onSelectDesignFromSidebar;
             ((InputTableSideBar)SideBar).CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
             ((InputTableSideBar)SideBar).TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += onSelectLoopFromSidebar;
         }
-
-         private void onRightClickFromSidebar(object sender)
-         {
-            if (sender != null && sender is Kernel.Ui.Popup.EntityPopup) 
-            {
-                Kernel.Ui.Popup.EntityPopup popup = (Kernel.Ui.Popup.EntityPopup)sender;
-                popup.OnValidate += OnValidate;
-                Kernel.Domain.Attribute attribute = null;
                 
-                if (popup.Tag is Kernel.Domain.Attribute) 
-                {
-                    attribute = (Kernel.Domain.Attribute)popup.Tag;
-                    popup.selectedItem.Clear();
-                    popup.selectedNames.Clear();
-                    
-
-                    popup.ItemSource.Clear();
-                    List<Kernel.Domain.AttributeValue> values = GetInputTableService().ModelService.getAttributeValuesByAttribute(attribute.oid.Value);
-                    values.BubbleSortByName();
-                    popup.ItemSource.AddRange(values);
-                    popup.selectedItem.AddRange(attribute.FilterAttributeValues);
-                    popup.FillSelectedNames();
-                    popup.Tag = attribute;
-                }
-
-
-                //else if (popup.Tag is Kernel.Domain.AttributeValue) 
-                //{
-                //    popup.IsChildren = true;
-                //    Kernel.Domain.AttributeValue value = (Kernel.Domain.AttributeValue)popup.Tag;
-                //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
-                //    popup.Tag = value;
-                //}
-                popup.IsOpen = true;
-                popup.Display();
-            }
-        }
-
-        private void OnValidate(object sender)
-        {
-            if (sender == null) return;
-            if (!(sender is Array)) return;
-            object[] senderArray = (object[])sender;
-            bool isAttribute;
-            Kernel.Domain.Attribute attribute = null;
-            Kernel.Domain.AttributeValue value = null;
-            List<Kernel.Domain.AttributeValue> listValues = new List<AttributeValue>(0);
-            
-            isAttribute = senderArray[1] is Kernel.Domain.Attribute;
-            if (senderArray[0] is IList && senderArray[1] is Kernel.Domain.Target)
-            {
-                List<object> liste = (List<object>)senderArray[0];
-                listValues.AddRange(liste.Cast<Kernel.Domain.AttributeValue>().ToList());
-                attribute = isAttribute ? (Kernel.Domain.Attribute)senderArray[1] : null;
-                value = !isAttribute ? (Kernel.Domain.AttributeValue)senderArray[1] : null;
-            }
-
-            if (isAttribute) 
-            {
-                attribute.valueListChangeHandler.Items.Clear();
-                attribute.FilterAttributeValues.Clear();
-                attribute.FilterAttributeValues.AddRange(listValues);
-            }
-             else
-            {
-                attribute.FilterAttributeValues.Clear();
-                attribute.FilterAttributeValues.AddRange(listValues);
-            }
-
-            foreach (Kernel.Domain.AttributeValue avalue in listValues)
-            {
-                attribute.valueListChangeHandler.Items.Add(avalue);
-            }
-        }
- 
 
         private void OnSelectTarget(object target)
         {

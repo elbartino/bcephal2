@@ -507,6 +507,9 @@
       <DependentUpon>DESpreadsheet.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Office\SheetConst.cs" />
+    <Compile Include="Ui\Popup\ModelFilterDialog.xaml.cs">
+      <DependentUpon>ModelFilterDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\Role\RoleTreeView.xaml.cs">
       <DependentUpon>RoleTreeView.xaml</DependentUpon>
     </Compile>
@@ -666,9 +669,6 @@
     </Compile>
     <Compile Include="Ui\PeriodicityTree\PeriodIntervalTreeView.xaml.cs">
       <DependentUpon>PeriodIntervalTreeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Ui\Popup\EntityPopup.xaml.cs">
-      <DependentUpon>EntityPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Sidebar\GroupSidebarGroup.cs" />
     <Compile Include="Ui\Sidebar\MeasureSidebarGroup.cs" />
@@ -940,6 +940,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ui\Popup\ModelFilterDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ui\Role\RoleTreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1053,10 +1057,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\PeriodicityTree\PeriodIntervalTreeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Ui\Popup\EntityPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

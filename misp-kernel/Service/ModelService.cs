@@ -93,6 +93,26 @@ namespace Misp.Kernel.Service
             }
         }
 
+        public BrowserDataPage<Kernel.Domain.AttributeValue> getAllAttributeValuesByAttribute(BrowserDataFilter filter)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/all-attribute-values", Method.POST);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                request.RequestFormat = DataFormat.Json;
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = serializer.Serialize(filter);
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                BrowserDataPage<Kernel.Domain.AttributeValue> values = RestSharp.SimpleJson.DeserializeObject<BrowserDataPage<Kernel.Domain.AttributeValue>>(queryResult.Content);
+                return values;
+            }
+            catch (Exception e)
+            {
+                throw new BcephalException("Unable to Return attributes.", e);
+            }
+        }
+
         public BrowserDataPage<Kernel.Domain.AttributeValue> getRootAttributeValuesByAttribute(BrowserDataFilter filter)
         {
             try

@@ -6,8 +6,7 @@
               xmlns:popup="clr-namespace:Misp.Kernel.Ui.Popup"
              xmlns:domain="clr-namespace:Misp.Kernel.Domain">
     <Grid>
-        <popup:EntityPopup x:FieldModifier="public" x:Name="popup"/>
-    <TreeView x:Name="treeView" x:FieldModifier="public">
+        <TreeView x:Name="treeView" x:FieldModifier="public">
         
         <TreeView.Resources>
 
@@ -75,7 +74,7 @@
                 <EventSetter Event="Collapsed" Handler="OnCollapsed"/>
                 <EventSetter Event="MouseDoubleClick" Handler="OnDoubleClick"/>
                 <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnClick"/>
-                    <EventSetter Event="MouseRightButtonUp" Handler="OnMouseRightClick"/>
+                <EventSetter Event="MouseRightButtonUp" Handler="OnMouseRightClick"/>
             </Style>
         </TreeView.ItemContainerStyle>
     </TreeView>

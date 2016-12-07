@@ -5,12 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Misp.Kernel.Domain"
              xmlns:base="clr-namespace:Misp.Kernel.Ui.TreeView"
-             
-             xmlns:popup="clr-namespace:Misp.Kernel.Ui.Popup"
              mc:Ignorable="d" 
              >
     <Grid>
-        <popup:EntityPopup x:FieldModifier="public" x:Name="popup"/>
         <TreeView Name="entityTreeview" ItemsSource="{Binding Path=CVS.View.Groups}"  SelectedItemChanged="entityTreeview_SelectedItemChanged">
                   
             <TreeView.Resources>
