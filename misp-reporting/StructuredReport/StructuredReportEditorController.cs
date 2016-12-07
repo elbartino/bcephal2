@@ -779,6 +779,19 @@ namespace Misp.Reporting.StructuredReport
             return ValidateEditedNewName() == OperationState.CONTINUE;
         }
 
+        public bool validateName(string name)
+        {
+            foreach (char c in name.ToCharArray())
+            {
+                if (Path.GetInvalidFileNameChars().Contains(c))
+                {
+                    Kernel.Util.MessageDisplayer.DisplayError("Invalid Name", "The name can't containt: " + c);
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private bool IsRenameOnDoubleClick = false;
         /// <summary>
         /// 
@@ -790,6 +803,9 @@ namespace Misp.Reporting.StructuredReport
             Kernel.Domain.StructuredReport table = page.EditedObject;
             if (string.IsNullOrEmpty(newName))
                 newName = page.getStructuredReportForm().StructuredReportPropertiesPanel.NameTextBox.Text.Trim();
+
+            if (!validateName(newName)) return OperationState.STOP;
+
             if (string.IsNullOrEmpty(newName))
             {
                 DisplayError("Empty Name", "The Structured Report name can't be mepty!");
