@@ -20,6 +20,7 @@ using System.Windows.Forms.Integration;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Drawing;
+using Misp.Kernel.Ui.Office.DevExpressSheet;
 
 namespace Misp.Reporting.StructuredReport
 {
@@ -56,20 +57,8 @@ namespace Misp.Reporting.StructuredReport
 
             try
             {
-                windowsFormsHost = new WindowsFormsHost();
-                this.SpreadSheet = new SheetPanel();
-                this.SpreadSheet.CreateNewExcelFile();
-                this.SpreadSheet.BuildSheetPanelMethod();
-                this.SpreadSheet.RemoveTempFiles();
-                windowsFormsHost.Child = SpreadSheet;
-
-                image = new System.Windows.Controls.Image();
-                Grid grid = new Grid();
-                grid.Children.Add(windowsFormsHost);
-                grid.Children.Add(image);
-                image.Visibility = System.Windows.Visibility.Hidden;
-                windowsFormsHost.Visibility = System.Windows.Visibility.Visible;
-                this.Content = grid;
+                this.SpreadSheet = new DESheetPanel();
+                this.Content = this.SpreadSheet;
             }
             catch (Exception e)
             {
@@ -113,15 +102,16 @@ namespace Misp.Reporting.StructuredReport
 
         public BitmapSource GetScreenInt()
         {
-            Bitmap bm = new Bitmap(SpreadSheet.ClientRectangle.Width, SpreadSheet.ClientRectangle.Height);
-            Graphics g = Graphics.FromImage(bm);
-            PrintWindow(SpreadSheet.Handle, g.GetHdc(), 0);
-            g.ReleaseHdc(); g.Flush();
-            BitmapSource src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bm.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
-            src.Freeze();
-            bm.Dispose();
-            bm = null;
-            return src;
+            //Bitmap bm = new Bitmap(SpreadSheet.ClientRectangle.Width, SpreadSheet.ClientRectangle.Height);
+            //Graphics g = Graphics.FromImage(bm);
+            //PrintWindow(SpreadSheet.Handle, g.GetHdc(), 0);
+            //g.ReleaseHdc(); g.Flush();
+            //BitmapSource src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bm.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+            //src.Freeze();
+            //bm.Dispose();
+            //bm = null;
+            //return src;
+            return null;
         }
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -134,7 +124,7 @@ namespace Misp.Reporting.StructuredReport
 
         public StructuredReportPropertiesPanel StructuredReportPropertiesPanel { get; private set; }
         
-        public SheetPanel SpreadSheet { get; private set; }
+        public DESheetPanel SpreadSheet { get; private set; }
 
         public Periodicity periodicity { get; set; }
         /// <summary>
@@ -223,9 +213,7 @@ namespace Misp.Reporting.StructuredReport
         {
             //fillObject();
             //this.SpreadSheet.DisableSheet(false);
-            this.SpreadSheet.protectSheet(false);
             BuildSheetTableWithoutFill();
-            this.SpreadSheet.protectSheet();
             //this.SpreadSheet.DisableSheet();
         }
 
@@ -233,7 +221,7 @@ namespace Misp.Reporting.StructuredReport
         {
             Misp.Kernel.Domain.StructuredReport report = this.EditedObject;
             if (report == null) return;
-            this.SpreadSheet.ClearUsedExcelCells();
+            ClearSheet();
             BuildColunms();
         }
         
@@ -250,13 +238,18 @@ namespace Misp.Reporting.StructuredReport
             {
                 if(!column.show) continue;
                 String value = column.name;
-                this.SpreadSheet.SetValueAt(row, col, value);
-                this.SpreadSheet.SetColorAt(row, col++, COLUMNS_COLOR);
+                this.SpreadSheet.SetValueAt(row, col++,sheetName, value,COLUMNS_COLOR);
+                //this.SpreadSheet.SetColorAt(row, col++, );
                 //this.SpreadSheet.SetValueAt(row, col++, sheetName, value, COLUMNS_COLOR);
             }            
         }
 
 
+        protected void ClearSheet()
+        {
+            string sheetName = this.SpreadSheet.getActiveSheetName();
+            this.SpreadSheet.ClearSheet(sheetName);
+        }
         #endregion
 
 
