@@ -162,24 +162,7 @@ namespace Misp.Kernel.Application
             if (config == null) config = new ApplcationConfiguration(ApplcationConfiguration.Editon.MONOUSER, ApplcationConfiguration.Domain.RECONCILIATION);
             ApplicationManager.Instance.ApplcationConfiguration = config;
         }
-
-           
-        private void setPowerPointExtension()
-        {
-            logger.Info("MS PowerPoint checking...");
-            try
-            {
-                PowerPointExtension defaultPowerPointExtenstion = PowerPointUtil.GetDefaultPowerPointExtension();
-                if (defaultPowerPointExtenstion == null) MessageDisplayer.DisplayWarning("Bcephal - MS PowerPoint not found", "The MS PowerPoint version of your computer is not supported or there is no MS PowerPoint installed. \n You may not be able to use some functionnalities!");
-                else ApplicationManager.Instance.DefaultPowertPointExtension = defaultPowerPointExtenstion;
-            }
-            catch (Exception e)
-            {
-                logger.Error("MS PowerPoint checking faild: " + e);
-            }
-            logger.Debug("PowerPoint checking end.");
-        }
-
+        
         
         
         /// <summary>

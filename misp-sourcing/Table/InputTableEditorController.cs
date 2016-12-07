@@ -673,10 +673,7 @@ namespace Misp.Sourcing.Table
         protected override void Rename(string name)
         {
             InputTableEditorItem page = (InputTableEditorItem)getEditor().getActivePage();
-            string nameExcel = name + SheetConst.EXCEL_EXT;
-            Regex validator = new Regex(new String(Path.GetInvalidFileNameChars()), RegexOptions.IgnoreCase);
-
-            bool isValidName = !validator.IsMatch(name) ? validateName(page, name) : false;          
+            bool isValidName = validateName(page, name);          
 
             if (isValidName)
             {
@@ -703,7 +700,6 @@ namespace Misp.Sourcing.Table
             }
             else
             {
-                Kernel.Util.MessageDisplayer.DisplayError("Rename ", "Unable to rename table " + page.EditedObject.name + " to " + name + " !");
                 String oldName = page.EditedObject.name;
                 page.getInputTableForm().TablePropertiesPanel.nameTextBox.Text = oldName;
             }
@@ -716,7 +712,15 @@ namespace Misp.Sourcing.Table
                 Kernel.Util.MessageDisplayer.DisplayError("Empty Name", "Name can't be empty!");
                 return false;
             }
-            
+            foreach (char c in name.ToCharArray())
+            {
+                if (Path.GetInvalidFileNameChars().Contains(c))
+                {
+                    Kernel.Util.MessageDisplayer.DisplayError("Invalid Name", "The name can't containt: " + c);
+                    return false;
+                }
+            }
+
             if (!base.validateName(page, name))
             {
                 String objectName = page.EditedObject is Report ? "Report" : "InputTable";
