@@ -15,17 +15,17 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
 
-        <dxb:BarManager x:Name="barManager1" ToolbarGlyphSize="Small" >
+        <dxb:BarManager x:FieldModifier="public" x:Name="barManager1" ToolbarGlyphSize="Small" >
             <dxb:BarManager.Resources>
                 <dxsps:SpreadsheetUICommand x:Key="commands"/>
                 <dxsps:SpreadsheetStringIdConverter x:Key="stringIdConverter"/>
                 <dxsps:SpreadsheetDefaultBarItemDataTemplates x:Key="defaultBarItemTemplates"/>
             </dxb:BarManager.Resources>
             <dxb:BarManager.Items>
-                <dxb:BarButtonItem x:Name="biFileNew" Command="{Binding FileNew, Mode=OneTime, Source={StaticResource commands}}"/>
+                <!--<dxb:BarButtonItem x:Name="biFileNew" Command="{Binding FileNew, Mode=OneTime, Source={StaticResource commands}}"/>
                 <dxb:BarButtonItem x:Name="biFileOpen" Command="{Binding FileOpen, Mode=OneTime, Source={StaticResource commands}}"/>
                 <dxb:BarButtonItem x:Name="biFileSave" Command="{Binding FileSave, Mode=OneTime, Source={StaticResource commands}}"/>
-                <dxb:BarButtonItem x:Name="biFileSaveAs" Command="{Binding FileSaveAs, Mode=OneTime, Source={StaticResource commands}}"/>
+                <dxb:BarButtonItem x:Name="biFileSaveAs" Command="{Binding FileSaveAs, Mode=OneTime, Source={StaticResource commands}}"/>-->
                 <dxb:BarButtonItem x:Name="biFileQuickPrint" Command="{Binding FileQuickPrint, Mode=OneTime, Source={StaticResource commands}}"/>
                 <dxb:BarButtonItem x:Name="biFilePrint" Command="{Binding FilePrint, Mode=OneTime, Source={StaticResource commands}}"/>
                 <dxb:BarButtonItem x:Name="biFilePrintPreview" Command="{Binding FilePrintPreview, Mode=OneTime, Source={StaticResource commands}}"/>

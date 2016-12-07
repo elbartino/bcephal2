@@ -93,7 +93,6 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
         {
             InitializeComponent();
             InitializeHandlers();
-            customizeToolbar();
             DisableTitleBar(true);
             customlistMenuItems = new List<string>(0);
         }
@@ -102,14 +101,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
 
 
         #region Toolbar
-
-        private void customizeToolbar()
-        {
-            biFileSave.IsVisible = false;
-            biFileSaveAs.IsVisible = false;
-            biFileOpen.IsVisible = false;
-        }
-
+        
         public void DisableToolBar(bool value)
         {
             
@@ -186,13 +178,15 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
         /// <summary>
         /// Ouvre le dialogue permettant de choisir le document à importer.
         /// </summary>
-        /// <returns>
+        /// <returns>cre
         /// OperationState.CONTINUE si l'opération a réussi
         /// OperationState.STOP sinon
         /// </returns>
         public OperationState Import()
         {
-            this.biFileOpen.PerformClick();
+            SpreadsheetCommand ImportCommand = spreadsheetControl.CreateCommand(SpreadsheetCommandId.FileOpen);
+            ImportCommand.Execute();
+            //this.biFileOpen.PerformClick();
             this.DocumentUrl = this.spreadsheetControl.Options.Save.CurrentFileName;
             //this.DocumentName = this.Office.GetDocumentName();
             if (Changed != null) Changed();
@@ -210,21 +204,11 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
         /// </returns>
         public OperationState Export(string filePath)
         {
-            bool result = false;
             try
             {
-                this.biFileSaveAs.PerformClick();
-                //String url = this.Office.GetDocumentFullName();
-                //SaveAs(url, true);
-                //url = this.Office.GetDocumentFullName();
-
-                //result = this.Office.SaveAs(filePath);
-                //if (result)
-                //{
-                //    if (url != this.Office.GetDocumentFullName()) return Open(url, EXCEL_ID);
-
-                //    return OperationState.CONTINUE;
-                //}
+                SpreadsheetCommand FileSaveAsCommand = spreadsheetControl.CreateCommand(SpreadsheetCommandId.FileSaveAs);
+                FileSaveAsCommand.Execute();
+                //this.biFileSaveAs.PerformClick();
             }
             catch (Exception)
             {
@@ -238,7 +222,9 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
         {
             try
             {
-                this.biFileSaveAs.PerformClick();
+                SpreadsheetCommand FileSaveAsCommand = spreadsheetControl.CreateCommand(SpreadsheetCommandId.FileSaveAs);
+                FileSaveAsCommand.Execute();
+                //this.biFileSaveAs.PerformClick();
             }
             catch (Exception)
             {
