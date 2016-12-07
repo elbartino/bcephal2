@@ -27,6 +27,7 @@ using System.Collections;
 using Misp.Kernel.Domain.Browser;
 using Misp.Sourcing.Table;
 using Misp.Kernel.Task;
+using System.IO;
 
 namespace Misp.Reporting.StructuredReport
 {
@@ -766,6 +767,14 @@ namespace Misp.Reporting.StructuredReport
 
         public override bool validateName(EditorItem<Kernel.Domain.StructuredReport> page, string name)
         {
+            foreach (char c in name.ToCharArray())
+            {
+                if (Path.GetInvalidFileNameChars().Contains(c))
+                {
+                    Kernel.Util.MessageDisplayer.DisplayError("Invalid Name", "The name can't containt: " + c);
+                    return false;
+                }
+            }
             if (!base.validateName(page, name)) return false;
             return ValidateEditedNewName() == OperationState.CONTINUE;
         }
