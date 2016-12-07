@@ -549,30 +549,20 @@ namespace Misp.Reporting.StructuredReport
                 EditorItem<Kernel.Domain.StructuredReport> page = getStructuredReportEditor().getPage(design.name);
                 if (page != null)
                 {
-                    //((StructuredReportEditorItem)page).getStructuredReportForm().SpreadSheet.DisableSheet(false);
-                    ((StructuredReportEditorItem)page).getStructuredReportForm().SpreadSheet.protectSheet(false);
                     page.fillObject();
                     getStructuredReportEditor().selectePage(page);
-                    ((StructuredReportEditorItem)page).getStructuredReportForm().SpreadSheet.protectSheet();
-                    //((StructuredReportEditorItem)page).getStructuredReportForm().SpreadSheet.DisableSheet();
-
                 }
                 else if (design.oid != null && design.oid.HasValue)
                 {
                     this.Open(design.oid.Value);
-
                 }
                 else
                 {
-                    //((StructuredReportEditorItem)page).getStructuredReportForm().SpreadSheet.DisableSheet(false);
-                    ((StructuredReportEditorItem)page).getStructuredReportForm().SpreadSheet.protectSheet(false);
                     page = getStructuredReportEditor().addOrSelectPage(design);
                     initializePageHandlers(page);
                     page.Title = design.name;
 
                     getStructuredReportEditor().ListChangeHandler.AddNew(design);
-                    ((StructuredReportEditorItem)page).getStructuredReportForm().SpreadSheet.protectSheet();
-                    //((StructuredReportEditorItem)page).getStructuredReportForm().SpreadSheet.DisableSheet();
                 }
                 StructuredReportEditorItem pageOpen = (StructuredReportEditorItem)getStructuredReportEditor().getActivePage();
                 UpdateStatusBar();

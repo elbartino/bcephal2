@@ -612,7 +612,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
 
         public void DeleteExcelSheet()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }
