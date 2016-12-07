@@ -492,6 +492,12 @@ namespace Misp.Initiation.Periodicity
                         e.Canceled = true;
                         return;
                     }
+                    bool isSameName = editedPeriod.name.ToUpper().Equals(name.ToUpper());
+                    if (isSameName)
+                    {
+                        e.Canceled = true;
+                        return;
+                    }
                     if (editedPeriod.IsDefault)
                     {
                         if (name.ToUpper() != Label_DEFAULT_PERIOD.ToUpper())
