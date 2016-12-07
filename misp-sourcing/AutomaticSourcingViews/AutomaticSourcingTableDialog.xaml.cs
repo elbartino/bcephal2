@@ -93,6 +93,14 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             if(String.IsNullOrWhiteSpace(textbox.Text)) return false;
             String name = textbox.Text.Trim();
             Object table = null;
+            foreach (char c in name.ToCharArray())
+            {
+                if (System.IO.Path.GetInvalidFileNameChars().Contains(c))
+                {
+                    Kernel.Util.MessageDisplayer.DisplayError("Invalid Name", "The name can't containt: " + c);
+                    return false;
+                }
+            }
             if (isGrid)
             {
                 table = AutomaticSourcingService.InputGridService.getByName(name);
