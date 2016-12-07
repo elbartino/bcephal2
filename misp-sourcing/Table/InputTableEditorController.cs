@@ -325,7 +325,8 @@ namespace Misp.Sourcing.Table
                 }
             }
             else
-            {               
+            {
+                if (string.IsNullOrWhiteSpace(nameAfterImport)) return OperationState.STOP;
                 if (!validateName(page, nameAfterImport))
                 {
                     nameAfterImport = getNewPageName(nameAfterImport);
@@ -675,7 +676,7 @@ namespace Misp.Sourcing.Table
             string nameExcel = name + SheetConst.EXCEL_EXT;
             Regex validator = new Regex(new String(Path.GetInvalidFileNameChars()), RegexOptions.IgnoreCase);
 
-            bool isValidName = validator.IsMatch(nameExcel) ? validateName(page, name) : false;          
+            bool isValidName = !validator.IsMatch(name) ? validateName(page, name) : false;          
 
             if (isValidName)
             {

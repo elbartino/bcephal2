@@ -105,9 +105,15 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
 
         private void customizeToolbar()
         {
-            biFileSave.IsVisible = false;
-            biFileSaveAs.IsVisible = false;
-            biFileOpen.IsVisible = false;
+            //biFileSave.IsVisible = false;
+            //biFileSaveAs.IsVisible = false;
+            //biFileOpen.IsVisible = false;
+            //biFileNew.IsVisible = false;
+            //ribbonControl1.RibbonHeaderVisibility = DevExpress.Xpf.Ribbon.RibbonHeaderVisibility.Collapsed;
+            spreadsheetControl.Options.Behavior.CreateNew = DevExpress.XtraSpreadsheet.DocumentCapability.Hidden;
+            spreadsheetControl.Options.Behavior.Open = DevExpress.XtraSpreadsheet.DocumentCapability.Hidden;
+            spreadsheetControl.Options.Behavior.Save = DevExpress.XtraSpreadsheet.DocumentCapability.Hidden;
+            spreadsheetControl.Options.Behavior.SaveAs = DevExpress.XtraSpreadsheet.DocumentCapability.Hidden;
         }
 
         public void DisableToolBar(bool value)
@@ -192,9 +198,11 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
         /// </returns>
         public OperationState Import()
         {
+            this.spreadsheetControl.Options.Behavior.Open = DevExpress.XtraSpreadsheet.DocumentCapability.Default;
             this.biFileOpen.PerformClick();
             this.DocumentUrl = this.spreadsheetControl.Options.Save.CurrentFileName;
             //this.DocumentName = this.Office.GetDocumentName();
+            this.spreadsheetControl.Options.Behavior.Open = DevExpress.XtraSpreadsheet.DocumentCapability.Hidden;
             if (Changed != null) Changed();
             return OperationState.CONTINUE;
         }
@@ -213,7 +221,9 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             bool result = false;
             try
             {
+                spreadsheetControl.Options.Behavior.SaveAs = DevExpress.XtraSpreadsheet.DocumentCapability.Default;
                 this.biFileSaveAs.PerformClick();
+                spreadsheetControl.Options.Behavior.SaveAs = DevExpress.XtraSpreadsheet.DocumentCapability.Hidden;
                 //String url = this.Office.GetDocumentFullName();
                 //SaveAs(url, true);
                 //url = this.Office.GetDocumentFullName();
@@ -238,13 +248,15 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
         {
             try
             {
+                spreadsheetControl.Options.Behavior.SaveAs = DevExpress.XtraSpreadsheet.DocumentCapability.Default;
                 this.biFileSaveAs.PerformClick();
+                spreadsheetControl.Options.Behavior.SaveAs = DevExpress.XtraSpreadsheet.DocumentCapability.Hidden;
             }
             catch (Exception)
             {
                 return OperationState.STOP;
             }
-            return OperationState.STOP;
+            return OperationState.CONTINUE;
         }
 
         /// <summary>
