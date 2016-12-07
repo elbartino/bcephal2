@@ -796,24 +796,11 @@ namespace Misp.Kernel.Application
             ApplicationManager.Instance.MainWindow.LoginPanel.Visibility = Visibility.Collapsed;
             ApplicationManager.Instance.MainWindow.FileClosedView.Visibility = Visibility.Visible;
             buildMenus(ApplicationManager.Instance);
-            setExcelExtension();
+            ApplicationManager.Instance.DefaultExcelExtension = ExcelExtension.XLSX;
             ApplicationManager.Instance.DefaultPowertPointExtension = PowerPointExtension.PPTX;
             ApplicationManager.Instance.OpenDefaultFile();
         }
 
-        private void setExcelExtension()
-        {
-            try
-            {
-                ExcelExtension defaultExtension = ExcelUtil.GetDefaultExcelExtenstion();
-                if (defaultExtension == null) MessageDisplayer.DisplayWarning("Bcephal - MS Excel not found", "The MS Excel version of your computer is not supported or there is no MS Excel installed. \n You may not be able to use some functionnalities!");
-                else ApplicationManager.Instance.DefaultExcelExtension = defaultExtension;
-            }
-            catch (Exception)
-            {
-                //logger.Error("MS Excel checking faild: " + e);
-            }
-        }
 
         /// <summary>
         /// Build application menu bar.
