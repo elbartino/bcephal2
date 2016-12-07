@@ -232,8 +232,7 @@ namespace Misp.Kernel.Ui.TreeView
             {
                 if (((TreeViewItem)sender).Header is Kernel.Domain.Target)
                 {
-                    popup.Tag = ((TreeViewItem)sender).Header as Target;
-                    if (OnRightClick != null) OnRightClick(popup);
+                    if (OnRightClick != null) OnRightClick(null);
                     e.Handled = true;
                 }
             }

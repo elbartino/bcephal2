@@ -4,6 +4,7 @@ using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Popup;
+using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -403,8 +404,6 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
             {
                 if (value.IsDefault) PerformDefaultAction(value);
                 else if (Click != null) Click(value);
-                EntityPopup popup = new EntityPopup();
-                popup.IsOpen = true;
             }
         }
 
@@ -435,32 +434,17 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
 
             if (sender is TreeViewItem)
             {
-
-                if (((TreeViewItem)sender).Header is Kernel.Domain.Attribute)
+                Object tag = ((TreeViewItem)sender).Header;
+                if (tag is Domain.Attribute)
                 {
-                    popup.Tag = ((TreeViewItem)sender).Header as Target;
-                    if (OnRightClick != null) OnRightClick(popup);
+                    ModelFilterDialog dialog = new ModelFilterDialog();
+                    dialog.Display((Domain.Attribute)tag);
+                    dialog.SearchTextBox.Focus();
+                    WindowPositioner.ShowCenteredToMouse(dialog);
+                    AttributeValue value = dialog.Selection;
+                    if (value != null && Click != null) Click(value);
                     e.Handled = true;
                 }
-            //        popup.ItemSource.Clear();
-            //        List<Kernel.Domain.AttributeValue> values = this.Service.getAttributeValuesByAttribute(attribute.oid.Value);
-            //        //values.BubbleSortByName();
-            //        popup.ItemSource.AddRange(values);
-            //        popup.selectedItem.AddRange(attribute.FilterAttributeValues);
-            //        popup.FillSelectedNames();
-            //        popup.Tag = attribute;
-            //    }
-            //    //else if (popup.Tag is Kernel.Domain.AttributeValue) 
-            //    //{
-            //    //    popup.IsChildren = true;
-            //    //    Kernel.Domain.AttributeValue value = (Kernel.Domain.AttributeValue)popup.Tag;
-            //    //    popup.ItemSource.AddRange(value.childrenListChangeHandler.Items);
-            //    //    popup.Tag = value;
-            //    //}
-            //    popup.IsOpen = true;
-            //    popup.Display();
-
-
             }
         }
 

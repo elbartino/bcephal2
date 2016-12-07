@@ -18,6 +18,10 @@ namespace Misp.Kernel.Domain.Browser
 
         public int? groupOid { get; set; }
 
+        public string criteria { get; set; }
+
+        public bool orderAsc { get; set; }
+
         public List<BrowserDataFilterItem> items { get; set; }
 
         [ScriptIgnore]
@@ -27,6 +31,7 @@ namespace Misp.Kernel.Domain.Browser
         {
             pageSize = DEFAULT_PAGE_SIZE;
             items = new List<BrowserDataFilterItem>(0);
+            orderAsc = true;
         }
 
     }
