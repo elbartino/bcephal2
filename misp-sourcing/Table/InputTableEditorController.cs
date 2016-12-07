@@ -22,6 +22,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
@@ -324,7 +325,8 @@ namespace Misp.Sourcing.Table
                 }
             }
             else
-            {               
+            {
+                if (string.IsNullOrWhiteSpace(nameAfterImport)) return OperationState.STOP;
                 if (!validateName(page, nameAfterImport))
                 {
                     nameAfterImport = getNewPageName(nameAfterImport);
@@ -671,7 +673,12 @@ namespace Misp.Sourcing.Table
         protected override void Rename(string name)
         {
             InputTableEditorItem page = (InputTableEditorItem)getEditor().getActivePage();
-            if (validateName(page, name))
+            string nameExcel = name + SheetConst.EXCEL_EXT;
+            Regex validator = new Regex(new String(Path.GetInvalidFileNameChars()), RegexOptions.IgnoreCase);
+
+            bool isValidName = !validator.IsMatch(name) ? validateName(page, name) : false;          
+
+            if (isValidName)
             {
                 if (GetInputTableService().renameTable(name, page.EditedObject))
                 {
@@ -696,6 +703,7 @@ namespace Misp.Sourcing.Table
             }
             else
             {
+                Kernel.Util.MessageDisplayer.DisplayError("Rename ", "Unable to rename table " + page.EditedObject.name + " to " + name + " !");
                 String oldName = page.EditedObject.name;
                 page.getInputTableForm().TablePropertiesPanel.nameTextBox.Text = oldName;
             }
