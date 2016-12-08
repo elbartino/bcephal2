@@ -18,6 +18,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -749,6 +750,12 @@ namespace Misp.Planification.PresentationView
         protected override void Rename(string name)
         {
             PresentationEditorItem page = (PresentationEditorItem)getEditor().getActivePage();
+            
+            if (!Kernel.Util.FileUtil.isValidFileName(name)) 
+            {
+                MessageDisplayer.DisplayInfo("Presentation", "The slide name "+name+" is not valid");
+                return;
+            }
             if (validateName(page, name))
             {
                     ChangePowerPointFileName(name, page, page.EditedObject);
