@@ -44,7 +44,13 @@ namespace Misp.Sourcing.Table
             if (item == null || String.IsNullOrWhiteSpace(header) || value == null) return OperationState.STOP;
             if (header.Equals("Name", StringComparison.InvariantCultureIgnoreCase))
             {
-                return RenameItem(item, (String)value);
+                if (Kernel.Util.FileUtil.isValidFileName((String)value))
+                    return RenameItem(item, (String)value);
+                else
+                {
+                    DisplayError("Unable edit item", "Invalid File name.");
+                    return OperationState.STOP;
+                }
             }
             if (header.Equals("Active", StringComparison.InvariantCultureIgnoreCase)
                 || header.Equals("Template", StringComparison.InvariantCultureIgnoreCase)
@@ -72,7 +78,16 @@ namespace Misp.Sourcing.Table
             return OperationState.CONTINUE;
         }
 
-
+        public override OperationState SaveAs(string name)
+        {
+            if (Kernel.Util.FileUtil.isValidFileName(name))
+                return base.SaveAs(name);
+            else
+            {
+                DisplayError("Unable edit item", "Invalid File name.");
+                return OperationState.STOP;
+            }
+        }
 
 
     }
