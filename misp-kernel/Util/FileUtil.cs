@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Misp.Kernel.Util
@@ -83,6 +84,16 @@ namespace Misp.Kernel.Util
         public static void CopyFile(String sourceFilePath, string destFilePath, bool overwrite) 
         {
             System.IO.File.Copy(sourceFilePath, destFilePath, overwrite);
+        }
+
+        public static bool isValidFileName(string fileName)
+        {
+            string strRegex = "[" + new string(Path.GetInvalidFileNameChars()) + "]+";
+            Regex re = new Regex(strRegex, RegexOptions.IgnoreCase);
+            if (!re.IsMatch(fileName))
+                return (true);
+            else
+                return (false);
         }
     }
 }

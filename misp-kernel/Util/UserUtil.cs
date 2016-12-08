@@ -23,5 +23,16 @@ namespace Misp.Kernel.Util
             else
                 return (false);
         }
+
+        public static bool validateFileName(string fileName) 
+        {
+            string strRegex = "[" + new string(System.IO.Path.GetInvalidFileNameChars()) + "]+"; 
+            Regex re = new Regex(strRegex,RegexOptions.IgnoreCase);
+            if (!re.IsMatch(fileName))
+                return (true);
+            else
+                return (false);
+        }
+
     }
 }
