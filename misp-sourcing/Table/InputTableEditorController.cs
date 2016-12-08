@@ -672,6 +672,7 @@ namespace Misp.Sourcing.Table
 
         protected override void Rename(string name)
         {
+            name = name != null ? name.Trim() : name;
             InputTableEditorItem page = (InputTableEditorItem)getEditor().getActivePage();
             bool isValidName = validateName(page, name);          
 
@@ -707,6 +708,7 @@ namespace Misp.Sourcing.Table
                 
         public override bool validateName(EditorItem<InputTable> page, string name)
         {
+            
             if (String.IsNullOrEmpty(name))
             {
                 Kernel.Util.MessageDisplayer.DisplayError("Empty Name", "Name can't be empty!");
