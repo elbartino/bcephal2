@@ -476,6 +476,7 @@ namespace Misp.Planification.Tranformation
             {
                 loopcondition = ((Kernel.Domain.LoopCondition)item);                
             }
+            if (loopcondition == null) return;
             this.Loop.SynchronizeDeleteLoopCondition(loopcondition);
         }
 
