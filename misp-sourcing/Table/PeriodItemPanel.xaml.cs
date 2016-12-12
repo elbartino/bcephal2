@@ -210,6 +210,8 @@ namespace Misp.Sourcing.Table
             bool enableForLoop = item.loop != null;
             if (enableForLoop)
             {
+                this.NameTextBox.Text = item.loop.name;
+                this.NameTextBox.Foreground = Brushes.Red;
                 this.numberValueTextBox.IsEnabled = !enableForLoop;
                 this.FormulaTextBox.IsEnabled = !enableForLoop;
                 this.granulartityComBox.IsEnabled = !enableForLoop;
