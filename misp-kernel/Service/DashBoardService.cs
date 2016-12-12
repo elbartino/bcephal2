@@ -54,7 +54,7 @@ namespace Misp.Kernel.Service
             try
             {
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                var request = new RestRequest(ResourcePath + "/" + param, Method.POST);
+                var request = new RestRequest(ResourcePath + "/" + param + "/" + ApplicationManager.Instance.File.name, Method.POST);
                 request.RequestFormat = DataFormat.Json;
                 serializer.MaxJsonLength = int.MaxValue;
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
@@ -72,7 +72,7 @@ namespace Misp.Kernel.Service
             try
             {
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                var request = new RestRequest(ResourcePath + "/allconfiguration", Method.POST);
+                var request = new RestRequest(ResourcePath + "/allconfiguration" + "/" + ApplicationManager.Instance.File.name, Method.POST);
                 request.RequestFormat = DataFormat.Json;
                 serializer.MaxJsonLength = int.MaxValue;
                 string json = userOid != null ? serializer.Serialize(userOid) : null;
@@ -92,7 +92,7 @@ namespace Misp.Kernel.Service
             try
             {
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                var request = new RestRequest(ResourcePath + "/configurationbyname/" + name, Method.POST);
+                var request = new RestRequest(ResourcePath + "/configurationbyname/" + name +"/" + ApplicationManager.Instance.File.name, Method.POST);
                 request.RequestFormat = DataFormat.Json;
                 serializer.MaxJsonLength = int.MaxValue;
                 string json = userOid != null ? serializer.Serialize(userOid) : null;
@@ -113,7 +113,7 @@ namespace Misp.Kernel.Service
             try
             {
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                var request = new RestRequest(ResourcePath + "/configurationbyposition/" + position, Method.POST);
+                var request = new RestRequest(ResourcePath + "/configurationbyposition/" + position + "/" + ApplicationManager.Instance.File.name, Method.POST);
                 request.RequestFormat = DataFormat.Json;
                 serializer.MaxJsonLength = int.MaxValue;
                 string json = userOid != null ? serializer.Serialize(userOid) : null;
@@ -127,10 +127,14 @@ namespace Misp.Kernel.Service
                 return new DashBoardConfiguration();
             }
 
-        }
+       } 
 
         public DashBoardConfiguration saveDashboardConfiguration(DashBoardConfiguration dashboardConfiguration,int? userOid = null)
         {
+            if (ApplicationManager.Instance.File.name != null)
+            {
+                dashboardConfiguration.file = ApplicationManager.Instance.File.name;
+            }
             try
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -153,10 +157,18 @@ namespace Misp.Kernel.Service
 
         public List<DashBoardConfiguration> saveListDashboardConfiguration(List<DashBoardConfiguration> dashboardConfigurations,int? userOid = null)
         {
+            if (ApplicationManager.Instance.File.name != null)
+            {
+                foreach (DashBoardConfiguration dashboardConfiguration in dashboardConfigurations)
+                {
+                    dashboardConfiguration.file = ApplicationManager.Instance.File.name;
+                }
+            }
+
             try
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string resPath = userOid != null ? ResourcePath + "/configuration/saveall/" + userOid : ResourcePath + "/configuration/saveall";
+                string resPath = userOid != null ? ResourcePath + "/configuration/saveall/" + userOid + "/" + ApplicationManager.Instance.File.name : ResourcePath + "/configuration/saveall";
                 var request = new RestRequest(resPath, Method.POST);
                 request.RequestFormat = DataFormat.Json;
                 serializer.MaxJsonLength = int.MaxValue;
