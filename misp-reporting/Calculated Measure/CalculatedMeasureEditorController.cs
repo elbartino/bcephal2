@@ -199,7 +199,7 @@ namespace Misp.Reporting.Calculated_Measure
                        // if (valuePrev != null && (valuePrev.measure == null && item.amount == 0 && (valuePrev.sign != null || valuePrev.openPar))) status = false;
                        // if (valueAft != null && (valueAft.openPar || ((valueAft.measure != null || valueAft.amount!= 0) && valuePrev.sign == null))) status = false;
                     }
-                    if (status && item.sign != null)
+                    if (status && item.sign != null && item.sign != "=")
                     {
                         if (valuePrev != null && (item.amount == 0 && item.measure == null)) status = false;
                         if (item.amount == 0 && item.measure == null) status = false;

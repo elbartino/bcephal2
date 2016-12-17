@@ -236,7 +236,7 @@ namespace Misp.Planification.Tranformation
             if (!IsActionReportView) return;
             if (info == null || info.isEnd == true)
             {
-                this.ReportEditorController.GetInputTableService().SaveTableHandler -= UpdateSaveInfo;
+                if (this.ReportEditorController != null) this.ReportEditorController.GetInputTableService().SaveTableHandler -= UpdateSaveInfo;
                 if (Action != null && table != null && table is InputTable)
                 {
                     Action.reportOid = ((InputTable)table).oid;

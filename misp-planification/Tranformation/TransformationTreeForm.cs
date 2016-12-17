@@ -348,6 +348,7 @@ namespace Misp.Planification.Tranformation
             TransformationTreeItem parent = item.parent;
             item = item.oid != null ? this.TransformationTreeService.getItemByOid(item.oid) : item ;
             item.parent = parent;
+            item.tree = EditedObject;
             if (item.IsLoop)
             {
                 if (this.LoopDialog == null)

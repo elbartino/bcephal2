@@ -44,7 +44,14 @@ namespace Misp.Kernel.Domain
         public int? refreshLoopOid { get; set; }
 
         [ScriptIgnore]
-        public TransformationTree tree { get; set; }
+        public TransformationTree tree { get { return t; } 
+            set { 
+                t = value;
+                if (t == null)
+                    return;
+            } }
+
+        TransformationTree t;
 
         [ScriptIgnore]
         public TransformationTreeItem parent { get; set; }

@@ -58,5 +58,7 @@ namespace Misp.Kernel.Domain
 
         public int userOid { get; set; }
 
+        public String file { get; set; }
+
     }
 }

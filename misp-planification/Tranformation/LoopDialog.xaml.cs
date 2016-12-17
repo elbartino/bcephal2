@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Domain;
+﻿using DevExpress.Xpf.Core;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Util;
@@ -50,6 +51,7 @@ namespace Misp.Planification.Tranformation
 
         public LoopDialog()
         {
+            ThemeManager.SetThemeName(this, "None");
             InitializeComponent();
             InitializeHandlers();
             scrollCondition.Visibility = System.Windows.Visibility.Collapsed;
