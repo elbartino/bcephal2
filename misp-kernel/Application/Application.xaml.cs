@@ -113,8 +113,8 @@ namespace Misp.Kernel.Application
 
         private void OnApplicationStarting(object sender, StartupEventArgs args)
         {
-            //DevExpress.Xpf.Core.ApplicationThemeHelper.ApplicationThemeName = "Aqua";
-            DevExpress.Xpf.Core.ApplicationThemeHelper.ApplicationThemeName = "Office2016White";
+            DevExpress.Xpf.Core.ApplicationThemeHelper.ApplicationThemeName = "None";
+            //DevExpress.Xpf.Core.ApplicationThemeHelper.ApplicationThemeName = "Office2016White";
             DevExpress.Xpf.Core.ApplicationThemeHelper.UpdateApplicationThemeName();
         }
 
