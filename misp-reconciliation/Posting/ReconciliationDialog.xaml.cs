@@ -45,8 +45,8 @@ namespace Misp.Reconciliation.Posting
                 if (item is GridItem) rows.Add(((GridItem)item).Datas);
             }
             grid.displayRows(rows);
-            grid.grid.SelectAll();
-            this.toolbar.displayBalance(grid.grid.SelectedItems, Context, grille);
+            grid.gridControl.SelectAll();
+            this.toolbar.displayBalance(grid.gridControl.SelectedItems, Context, grille);
             decimal balance = toolbar.getBalance();
             writeOffForm.Visibility = balance == 0 ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
 

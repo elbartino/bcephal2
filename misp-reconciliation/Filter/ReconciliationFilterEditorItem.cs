@@ -67,9 +67,9 @@ namespace Misp.Reconciliation.Filter
         {
             List<GridItem> items = new List<GridItem>(0);
             List<int> ids = new List<int>(0);
-            if (getReconciliationFilterForm().GridForm.gridBrowser.grid.ItemsSource != null)
+            if (getReconciliationFilterForm().GridForm.gridBrowser.gridControl.ItemsSource != null)
             {
-                foreach (object row in getReconciliationFilterForm().GridForm.gridBrowser.grid.ItemsSource)
+                foreach (object row in getReconciliationFilterForm().GridForm.gridBrowser.gridControl.ItemsSource)
                 {
                     if (row is GridItem)
                     {
@@ -90,7 +90,7 @@ namespace Misp.Reconciliation.Filter
                 }
             }            
             getReconciliationFilterForm().GridForm.gridBrowser.displayItems(items);
-            getReconciliationFilterForm().GridForm.gridBrowser.grid.SelectAll();
+            getReconciliationFilterForm().GridForm.gridBrowser.gridControl.SelectAll();
         }
 
         protected void AddToRecoGrid(GridItem item)
@@ -112,9 +112,9 @@ namespace Misp.Reconciliation.Filter
                 }
             }
             
-            if (getReconciliationFilterForm().GridForm.gridBrowser.grid.ItemsSource != null)
+            if (getReconciliationFilterForm().GridForm.gridBrowser.gridControl.ItemsSource != null)
             {
-                foreach (object row in getReconciliationFilterForm().GridForm.gridBrowser.grid.ItemsSource)
+                foreach (object row in getReconciliationFilterForm().GridForm.gridBrowser.gridControl.ItemsSource)
                 {
                     if (row is GridItem)
                     {
@@ -124,7 +124,7 @@ namespace Misp.Reconciliation.Filter
                 }
             }
             getReconciliationFilterForm().GridForm.gridBrowser.displayItems(items);
-            getReconciliationFilterForm().GridForm.gridBrowser.grid.SelectAll();
+            getReconciliationFilterForm().GridForm.gridBrowser.gridControl.SelectAll();
         }
 
         protected void RemoveFormRecoGrid(GridItem item)
@@ -169,9 +169,9 @@ namespace Misp.Reconciliation.Filter
         {
             PostingToolBar = getReconciliationFilterForm().recoPostingToolBar;
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
-            PostingToolBar.displayBalance(getReconciliationFilterForm().GridForm.gridBrowser.grid.SelectedItems, context, this.EditedObject);
+            PostingToolBar.displayBalance(getReconciliationFilterForm().GridForm.gridBrowser.gridControl.SelectedItems, context, this.EditedObject);
 
-            int count = getReconciliationFilterForm().GridForm.gridBrowser.grid.SelectedItems.Count;
+            int count = getReconciliationFilterForm().GridForm.gridBrowser.gridControl.SelectedItems.Count;
             PostingToolBar.resetRecoButton.IsEnabled = count > 0;
             PostingToolBar.reconciliateButton.IsEnabled = count > 0;
             PostingToolBar.deleteButton.IsEnabled = count > 0;

@@ -149,9 +149,9 @@ namespace Misp.Reconciliation.Posting
         protected virtual void OnGridSelectionchange()
         {
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
-            this.PostingToolBar.displayBalance(this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems, context, this.EditedObject);
+            this.PostingToolBar.displayBalance(this.getInputGridForm().GridForm.gridBrowser.gridControl.SelectedItems, context, this.EditedObject);
 
-            int count = this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems.Count;
+            int count = this.getInputGridForm().GridForm.gridBrowser.gridControl.SelectedItems.Count;
             this.PostingToolBar.resetRecoButton.IsEnabled = count > 0;
             this.PostingToolBar.reconciliateButton.IsEnabled = count > 0;
             this.PostingToolBar.deleteButton.IsEnabled = count > 0;
@@ -160,7 +160,7 @@ namespace Misp.Reconciliation.Posting
         protected void OnReconciliate(object sender, RoutedEventArgs e)
         {
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
-            IList items = this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems;
+            IList items = this.getInputGridForm().GridForm.gridBrowser.gridControl.SelectedItems;
             int position = this.EditedObject.GetRecoNbrColumn(context).position;
             foreach (object item in items)
             {
@@ -199,7 +199,7 @@ namespace Misp.Reconciliation.Posting
             MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Reset Reconciliation", "You are about to reset reconciliation.\nDo you confirm operation?");
             if (response != MessageBoxResult.Yes) return;
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
-            IList items = this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems;
+            IList items = this.getInputGridForm().GridForm.gridBrowser.gridControl.SelectedItems;
             int position = this.EditedObject.GetRecoNbrColumn(context).position;
             List<string> numbers = new List<string>(0);
             foreach (object item in items)
@@ -223,7 +223,7 @@ namespace Misp.Reconciliation.Posting
             MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Delete Postings", "You are about to delete selected postings.\nDo you confirm operation?");
             if (response != MessageBoxResult.Yes) return;
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
-            IList items = this.getInputGridForm().GridForm.gridBrowser.grid.SelectedItems;
+            IList items = this.getInputGridForm().GridForm.gridBrowser.gridControl.SelectedItems;
             int position = this.EditedObject.GetRecoNbrColumn(context).position;
             foreach (object item in items)
             {

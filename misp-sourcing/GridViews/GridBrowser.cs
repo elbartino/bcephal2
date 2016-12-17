@@ -20,6 +20,7 @@ using System.Windows.Input;
 using Xceed.Wpf.AvalonDock.Layout;
 using DevExpress.Data.Filtering;
 using DevExpress.Xpf.Editors.Settings;
+using DevExpress.Xpf.Core;
 
 namespace Misp.Sourcing.GridViews
 {
@@ -52,7 +53,7 @@ namespace Misp.Sourcing.GridViews
 
         public GridBrowser()
         {
-            
+            ThemeManager.SetThemeName(this, "Office2016White");
         }
 
         public List<long> GetSelectedOis()
