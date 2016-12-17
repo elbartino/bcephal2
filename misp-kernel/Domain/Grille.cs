@@ -138,6 +138,14 @@ namespace Misp.Kernel.Domain
             return null;
         }
 
+        public void ClearColumnFilter() 
+        {
+            for(int i = columnListChangeHandler.Items.Count-1; i>=0; i--)
+            {
+                columnListChangeHandler.Items[i].filterValue = null;
+            }            
+        }
+
         public GrilleColumn GetColumn(string type, int oid)
         {
             foreach (GrilleColumn column in columnListChangeHandler.Items)

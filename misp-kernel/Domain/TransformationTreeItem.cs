@@ -230,7 +230,7 @@ namespace Misp.Kernel.Domain
 
         public TransformationTreeItem getLoopByOid(int oid)
         {
-            TransformationTree parent = this.tree;
+            TransformationTree parent = this.GetTree(); ;
             foreach (TransformationTreeItem treeItem in parent.GetAllLoops())
             {
                 if (treeItem.oid == oid) return treeItem;
@@ -247,6 +247,12 @@ namespace Misp.Kernel.Domain
                 entities.AddRange(entity.GetDescendentsTree());
             }
             return entities;
+        }
+
+
+        public TransformationTree GetTree() 
+        {
+            return this.tree != null ? this.tree : this.parent.GetTree();
         }
 
         public List<TransformationTreeItem> GetDescendentsLoopTree()

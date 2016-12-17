@@ -769,6 +769,7 @@
     <Compile Include="Util\ExcelExtension.cs" />
     <Compile Include="Util\ExcelUtil.cs" />
     <Compile Include="Util\FileUtil.cs" />
+    <Compile Include="Util\OperatorUtil.cs" />
     <Compile Include="Util\PasteBcephalDialog.xaml.cs">
       <DependentUpon>PasteBcephalDialog.xaml</DependentUpon>
     </Compile>

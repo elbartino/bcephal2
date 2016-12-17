@@ -1,4 +1,5 @@
 ﻿using DataGridFilterLibrary.Support;
+using DevExpress.Xpf.Grid;
 using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Domain.Browser;
@@ -17,6 +18,8 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using Xceed.Wpf.AvalonDock.Layout;
+using DevExpress.Data.Filtering;
+using DevExpress.Xpf.Editors.Settings;
 
 namespace Misp.Sourcing.GridViews
 {
@@ -38,16 +41,14 @@ namespace Misp.Sourcing.GridViews
         public Kernel.Ui.Base.SelectedItemChangedEventHandler DeselectedItemChangedHandler;
 
         private List<string> columnNames = new List<string>(0);
-
-        public DataGrid grid;
+        
+        public GridControl gridControl;
 
         public bool RebuildGrid = true;
         
         public Grille Grille { get; set; }
 
         public InputGridService Service { get; set; }
-
-        public BrowserGridContextMenu BrowserGridContextMenu { get; set; }
 
         public GridBrowser()
         {
@@ -57,7 +58,7 @@ namespace Misp.Sourcing.GridViews
         public List<long> GetSelectedOis()
         {
             List<long> oids = new List<long>(0);
-            foreach (Object row in grid.SelectedItems)
+            foreach (Object row in gridControl.SelectedItems)
             {
                 if (row is GridItem)
                 {
@@ -69,161 +70,73 @@ namespace Misp.Sourcing.GridViews
             return oids;
         }
 
-        protected void buildGrid()
+        protected void buildGrid() 
         {
-            if (grid != null)
+            if (gridControl != null)
             {
-                //grid.FilterChanged -= OnFilterChanged;
-                grid.CellEditEnding -= OnCellEditEnding;
-                grid.Sorting -= OnSort;
-                grid.SelectionChanged -= onSelectionchange;
-                if (this.BrowserGridContextMenu != null)
-                {
-                    //this.BrowserGridContextMenu.NewMenuItem.Click -= OnNewMenuClick;
-                    this.BrowserGridContextMenu.SaveAsMenuItem.Click -= OnDuplicateMenuClick;
-                    this.BrowserGridContextMenu.DeleteMenuItem.Click -= OnDeleteMenuClick;
-                    grid.ContextMenuOpening -= OnContextMenuOpening;
-                    grid.ContextMenu = null;
-                }
+                gridControl.FilterChanged -= OnFilterChanged;
+                gridControl.SelectedItemChanged -= OnSelectionChanged;
+                ((GridTableView)gridControl.View).CellValueChanged -= OnCellValueChanged;
+                ((GridTableView)gridControl.View).SortEventHandler -= OnSort;
+                ((GridTableView)gridControl.View).SortEventHandler -= OnSort;
+                ((GridTableView)gridControl.View).Menu.DeleteItem.ItemClick -= OnDelete;
+                ((GridTableView)gridControl.View).Menu.DuplicateItem.ItemClick -= OnDuplicate;
+                gridControl.View = null;
             }
-            this.Children.Clear();
 
-            grid = new DataGrid();
-            initializeContextMenu();
-            grid.SelectionChanged += onSelectionchange;
+            gridControl = new GridControl();
+            GridTableView view = new GridTableView(gridControl);
+            //gridControl.SelectionMode = MultiSelectMode.MultipleRow;
+            gridControl.View = view;
 
-            var brushConverter = new System.Windows.Media.BrushConverter();
-            System.Windows.Media.Brush bruch = (System.Windows.Media.Brush)brushConverter.ConvertFrom(System.Windows.Media.Brushes.White.Color.ToString());
-            grid.Background = bruch;
-            grid.BorderBrush = bruch;
-            grid.AlternatingRowBackground = System.Windows.Media.Brushes.LightBlue;
-            grid.HeadersVisibility = DataGridHeadersVisibility.All;
-            grid.GridLinesVisibility = DataGridGridLinesVisibility.None;
-            grid.RowHeaderWidth = 20;
-            grid.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
-            grid.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            grid.CanUserReorderColumns = false;
-            grid.CanUserResizeColumns = true;
-            grid.CanUserSortColumns = true;
-            grid.AutoGenerateColumns = false;
-            grid.CanUserAddRows = false;
-            grid.IsReadOnly = false;
-            grid.MinColumnWidth = 70;
-            grid.MaxColumnWidth = 1000;
-            grid.SelectionUnit = DataGridSelectionUnit.FullRow;
+            gridControl.FilterChanged += OnFilterChanged;
+            gridControl.SelectedItemChanged += OnSelectionChanged;
+            view.SortEventHandler += OnSort;
+            view.CellValueChanged += OnCellValueChanged;
+            
 
-            var gridFactory = new FrameworkElementFactory(typeof(Grid));
-            var checkboxFactory = new FrameworkElementFactory(typeof(CheckBox));
-            checkboxFactory.SetBinding(CheckBox.IsCheckedProperty, new Binding("IsSelected") { RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(DataGridRow), 1) });
-            gridFactory.AppendChild(checkboxFactory);
-            DataTemplate template = new DataTemplate();
-            template.VisualTree = gridFactory;
-            grid.RowHeaderTemplate = template;
+            view.Menu.DeleteItem.ItemClick += OnDelete;
+            view.Menu.DuplicateItem.ItemClick += OnDuplicate;
 
-            grid.CellEditEnding += OnCellEditEnding;
-            grid.Sorting += OnSort;
-            //grid.FilterChanged += OnFilterChanged;
+            view.IsRowCellMenuEnabled = !Grille.IsReadOnly();
         }
 
-        private void onSelectionchange(object sender, SelectionChangedEventArgs e)
+        private void OnSelectionChanged(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.OriginalSource != sender) return;
-            if (ChangeHandler != null) ChangeHandler();
-            if (e.AddedItems.Count > 0 && SelectedItemChangedHandler != null) SelectedItemChangedHandler(e.AddedItems);
-            if (e.RemovedItems.Count > 0 && DeselectedItemChangedHandler != null) DeselectedItemChangedHandler(e.RemovedItems);
+            //if (ChangeHandler != null) ChangeHandler();
+            //if (e.AddedItems.Count > 0 && SelectedItemChangedHandler != null) SelectedItemChangedHandler(e.AddedItems);
+            //if (e.RemovedItems.Count > 0 && DeselectedItemChangedHandler != null) DeselectedItemChangedHandler(e.RemovedItems);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected void initializeContextMenu()
-        {
-            if (!this.Grille.report)
-            {
-                this.BrowserGridContextMenu = new BrowserGridContextMenu();
-                this.BrowserGridContextMenu.NewMenuItem.Header = "New line";
-                this.BrowserGridContextMenu.SaveAsMenuItem.Header = "Duplicate";
-                this.BrowserGridContextMenu.NewMenuItem.IsEnabled = false;
-                this.BrowserGridContextMenu.SaveAsMenuItem.IsEnabled = false;
-                this.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = false;
-
-                this.BrowserGridContextMenu.Items.Clear();
-                //this.BrowserGridContextMenu.Items.Add(this.BrowserGridContextMenu.NewMenuItem);
-                this.BrowserGridContextMenu.Items.Add(this.BrowserGridContextMenu.SaveAsMenuItem);
-                //this.BrowserGridContextMenu.Items.Add(new Separator());
-                this.BrowserGridContextMenu.Items.Add(this.BrowserGridContextMenu.DeleteMenuItem);
-
-                //this.BrowserGridContextMenu.NewMenuItem.Click += OnNewMenuClick;
-                this.BrowserGridContextMenu.SaveAsMenuItem.Click += OnDuplicateMenuClick;
-                this.BrowserGridContextMenu.DeleteMenuItem.Click += OnDeleteMenuClick;
-                grid.ContextMenuOpening += OnContextMenuOpening;
-
-                grid.ContextMenu = BrowserGridContextMenu;
-            }
-        }
-
-        private void OnDeleteMenuClick(object sender, RoutedEventArgs e)
-        {
-            if (DeleteEventHandler != null) DeleteEventHandler(GetSelectedOis());
-        }
-
-        private void OnDuplicateMenuClick(object sender, RoutedEventArgs e)
+        private void OnDuplicate(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {
             if (DuplicateEventHandler != null) DuplicateEventHandler(GetSelectedOis());
         }
 
-        private void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+        private void OnDelete(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {
-            if (this.BrowserGridContextMenu != null)
-            {
-                this.BrowserGridContextMenu.NewMenuItem.IsEnabled = this.grid.SelectedItems.Count > 0;
-                this.BrowserGridContextMenu.SaveAsMenuItem.IsEnabled = this.grid.SelectedItems.Count > 0;
-                this.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = this.grid.SelectedItems.Count > 0;
-            }
+            if (DeleteEventHandler != null) DeleteEventHandler(GetSelectedOis());
         }
-
-        protected void OnFilterChanged()
+                        
+        protected void OnCellValueChanged(object sender, CellValueChangedEventArgs args)
         {
-            //foreach (FilterData data in grid.FilterData.Datas)
-            //{
-            //    String name = data.Column;
-            //    GrilleColumn column = this.Grille.GetColumn(name);
-            //    if (column == null) continue;
-            //    if (data.IsEmpty()) column.filterValue = null;
-            //    else column.filterValue = data.QueryString;
-            //}
-            //if (FilterEventHandler != null) FilterEventHandler();
-        }
-
-        private void OnSort(object sender, DataGridSortingEventArgs e)
-        {
-            DataGridColumn col = e.Column;
-            GrilleColumn column = this.Grille.GetColumn(col.Header.ToString());
-            e.Handled = true;
-            if (SortEventHandler != null) SortEventHandler(column);
-        }
-        
-        protected void OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs args)
-        {
-            GridItem item = (GridItem)this.grid.SelectedItem;
-            if (args.EditAction == DataGridEditAction.Commit && item != null)
+            GridItem item = (GridItem)this.gridControl.SelectedItem;
+            if (item != null)
             {
                 int? oid = item.GetOid();
-                DataGridColumn col = args.Column;
-                GrilleColumn column = this.Grille.GetColumn(col.Header.ToString());
+                GridColumn col = args.Column;
+                GrilleColumn column = this.Grille.GetColumn(col.FieldName);
                 string oldValue = item.Datas[column.position] != null ? item.Datas[column.position].ToString() : "";
-                string newValue = "";
-                if (args.EditingElement is TextBox) newValue = ((TextBox)args.EditingElement).Text.Trim();
-                else if (args.EditingElement is ComboBox)
-                {
-                    if (((ComboBox)args.EditingElement).SelectedItem != null) newValue = ((ComboBox)args.EditingElement).SelectedItem.ToString();
-                }
+                string newValue = args.Value != null ? args.Value.ToString() : "";
+                
                 GrilleEditedElement element = new GrilleEditedElement();
                 element.column = column;
                 element.oid = oid;
 
-                if (newValue.Equals(oldValue)) return;
-                if (column.type.Equals(ParameterType.MEASURE.ToString())){
+                //if (newValue.Equals(oldValue)) return;
+                if (column.type.Equals(ParameterType.MEASURE.ToString()))
+                {
                     decimal val = 0;
                     if (string.IsNullOrWhiteSpace(newValue)) val = 0;
                     else if (decimal.TryParse(newValue, out val)) element.measure = val;
@@ -231,14 +144,26 @@ namespace Misp.Sourcing.GridViews
                     else
                     {
                         MessageDisplayer.DisplayError("Wromg measure", "'" + newValue + "'" + " is not a decimal!");
-                        args.Cancel = true;
+                        args.Handled = true;
+                        //args.Value = args.OldValue;
                         return;
                     }
                 }
                 else if (column.type.Equals(ParameterType.SCOPE.ToString()))
                 {
                     if (string.IsNullOrWhiteSpace(newValue)) element.value = null;
-                    else element.value = column.getValue(newValue);
+                    else
+                    {
+                        BrowserData data = column.getValue(newValue);
+                        if (data == null)
+                        {
+                            MessageDisplayer.DisplayError("Wromg value", "Unknow value : '" + newValue + "'");
+                            args.Handled = true;                            
+                            return;
+                        }
+                        else element.value = data;
+                        
+                    }
                 }
                 if (column.type.Equals(ParameterType.PERIOD.ToString()))
                 {
@@ -251,7 +176,7 @@ namespace Misp.Sourcing.GridViews
                     else
                     {
                         MessageDisplayer.DisplayError("Wromg date", "'" + newValue + "'" + " is not a date!");
-                        args.Cancel = true;
+                        args.Handled = true;
                         return;
                     }
                 }
@@ -259,20 +184,77 @@ namespace Misp.Sourcing.GridViews
                 if (this.EditEventHandler != null)
                 {
                     Object[] row = EditEventHandler(element);
-                    if (row == null) args.Cancel = true;
+                    if (row == null) args.Handled = true;
                     else item.Datas = row;
                     Refresh();
-                    this.grid.SelectedItem = item;
+                    //this.grid.SelectedItem = item;
                 }
             }
         }
 
+        private void OnSort(object columnName)
+        {
+            if (this.Grille != null && columnName != null)
+            {
+                GrilleColumn column = this.Grille.GetColumn(columnName.ToString());
+                if (SortEventHandler != null) SortEventHandler(column);
+            }
+        }
+        
+        private void OnFilterChanged(object sender, RoutedEventArgs e)
+        {
+            if (e is DevExpress.Xpf.Grid.GridEventArgs) 
+            {
+                GridEventArgs filterArgs = (GridEventArgs)e;
+                if (filterArgs.Source is GridControl)
+                {
+                    GridControl filterGrid = (GridControl)filterArgs.Source;
+                    OperandValue[] operand = null;
+                    CriteriaOperator criteria = null;
+                    if (filterGrid.FilterCriteria != null)
+                    {
+                        criteria = FunctionOperator.Parse(filterGrid.FilterCriteria.ToString(), out operand) as FunctionOperator;
+                        if (criteria == null) criteria = BinaryOperator.Parse(filterGrid.FilterCriteria.ToString(), out operand) as BinaryOperator;
+                        if (criteria == null) criteria = GroupOperator.Parse(filterGrid.FilterCriteria.ToString(), out operand) as GroupOperator;
+                        string propertyName = "";
+                        object value = null;
+                        if (criteria is FunctionOperator)
+                        {
+                            OperandProperty col = (OperandProperty)((FunctionOperator)criteria).Operands[0];
+                            ConstantValue val = (ConstantValue)((FunctionOperator)criteria).Operands[1];
+                            FunctionOperatorType type = ((FunctionOperator)criteria).OperatorType;
+                            propertyName = col.PropertyName;
+                            value = val.Value;
+                        }
+                        if (criteria is BinaryOperator)
+                        {
+
+
+                        }
+                        GrilleColumn column = this.Grille.GetColumn(propertyName);
+                        if (column != null)
+                        {
+                            if (value == null || string.IsNullOrWhiteSpace(value.ToString())) column.filterValue = null;
+                            else column.filterValue = value.ToString();
+                            if (FilterEventHandler != null) FilterEventHandler();
+                        }
+                    }
+                    else
+                    {
+                        this.Grille.ClearColumnFilter();
+                        if (FilterEventHandler != null) FilterEventHandler();
+                    }
+                    
+                }
+             }
+        }
+                
         protected void Refresh()
         {            
             List<object[]> rows = new List<object[]>(0);
-            if (this.grid.ItemsSource != null)
+            if (this.gridControl.ItemsSource != null)
             {
-                foreach (object row in this.grid.ItemsSource)
+                foreach (object row in (List<GridItem>)this.gridControl.ItemsSource)
                 {
                     if (row is GridItem)
                     {
@@ -284,7 +266,6 @@ namespace Misp.Sourcing.GridViews
             displayRows(rows);
         }
 
-
         public void buildColumns(Grille grid)
         {
             this.Grille = grid;
@@ -293,47 +274,41 @@ namespace Misp.Sourcing.GridViews
             {
                 if (column.show) this.AddColumn(column);
             }
-            this.Children.Add(this.grid);
+            this.Children.Add(this.gridControl);
             RebuildGrid = false;
         }
-                
+
         public void displayPage(GrillePage page)
         {
             if(page !=null) displayRows(page.rows);
         }
 
-       
-        public void displayRows(List<object[]> rows)
+        public void displayRows(List<object[]> rows) 
         {
             List<GridItem> items = new List<GridItem>(0);
             foreach (object[] row in rows)
             {
-                items.Add(new GridItem(row));                
+                items.Add(new GridItem(row));
             }
             if (!this.Grille.IsReadOnly())
             {
-                items.Add(new GridItem(new object[this.grid.Columns.Count]));
+                items.Add(new GridItem(new object[this.gridControl.Columns.Count]));
             }
-
-            this.grid.ItemsSource = items;
+           
+            this.gridControl.ItemsSource = items;
+            this.gridControl.View.FocusedRowHandle = GridControl.AutoFilterRowHandle;
+            this.gridControl.View.ShowEditor();
         }
 
-        public void displayItems(List<GridItem> items)
-        {            
-            this.grid.ItemsSource = items;
+        public void displayItems(List<GridItem> items) 
+        {
+            this.gridControl.ItemsSource = items;
         }
-        
 
         public void AddColumn(GrilleColumn grilleColumn)
         {
-            String name = grilleColumn.name;
-            DataGridColumn column = getColumn(grilleColumn);
-            column.Header = name;
-            column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
-            column.MinWidth = 5;
-            column.IsReadOnly = this.Grille.IsReadOnly();
-            grid.Columns.Add(column);
-            columnNames.Add(name);
+            DevExpress.Xpf.Grid.GridColumn column = getColumn(grilleColumn);
+            gridControl.Columns.Add(column);
         }
 
         private String getBindingName(GrilleColumn grilleColumn)
@@ -341,119 +316,41 @@ namespace Misp.Sourcing.GridViews
             return "Datas[" + grilleColumn.position + "]";
         }
 
-        private DataGridColumn getColumn(GrilleColumn grilleColumn)
+        private GridColumn getColumn(GrilleColumn grilleColumn) 
         {
-            
-            if(!this.Grille.report && grilleColumn.type.Equals(ParameterType.SCOPE.ToString())){
-                //DataGridComboBoxColumn column = new DataGridComboBoxColumn();
-                //try
-                //{
-                //    grilleColumn.values = Service.ModelService.getLeafAttributeValues(grilleColumn.valueOid.Value);
-                //}catch(Exception){}                
-                //Binding binding = new Binding();
-                //binding.Source = grilleColumn;
-                //binding.Path = new PropertyPath("Items");
-                //BindingOperations.SetBinding(column, ComboBox.ItemsSourceProperty, binding);
-                //column.SelectedValueBinding = new Binding(getBindingName(grilleColumn));
-                //return column;
-
-
-                DataGridComboBoxColumn column = new DataGridComboBoxColumn();
+            DevExpress.Xpf.Grid.GridColumn column = new DevExpress.Xpf.Grid.GridColumn();
+            column.FieldName = grilleColumn.name;
+            column.IsSmart = true;
+            column.ReadOnly = this.Grille.IsReadOnly();
+            column.ColumnFilterMode = ColumnFilterMode.DisplayText;
+            Binding b = new Binding(getBindingName(grilleColumn));
+            b.Mode = BindingMode.TwoWay;
+            column.Binding = b;
+            if (!this.Grille.report && grilleColumn.type.Equals(ParameterType.SCOPE.ToString()))
+            {
                 try
                 {
                     grilleColumn.values = Service.ModelService.getLeafAttributeValues(grilleColumn.valueOid.Value);
                 }
                 catch (Exception) { }
-                Binding binding = new Binding();
-                binding.Source = grilleColumn;
-                binding.Path = new PropertyPath("Items");
-                BindingOperations.SetBinding(column, ComboBox.ItemsSourceProperty, binding);
-                column.SelectedValueBinding = new Binding(getBindingName(grilleColumn));
-                column.EditingElementStyle = new Style(typeof(ComboBox));
-                column.EditingElementStyle.Setters.Add(new Setter(ComboBox.IsEditableProperty, true));
-                column.EditingElementStyle.Setters.Add(new Setter(ComboBox.IsSynchronizedWithCurrentItemProperty, true));
-                column.EditingElementStyle.Setters.Add(new EventSetter(ComboBox.PreviewKeyDownEvent, new KeyEventHandler(comboboxBoxKeyDown)));
-
-                column.SelectedValueBinding = new Binding(getBindingName(grilleColumn));
-                return column;
-
-
-                //try
-                //{
-                //    grilleColumn.values = Service.ModelService.getLeafAttributeValues(grilleColumn.valueOid.Value);
-                //}
-                //catch (Exception) { }
-                //DataGridTemplateColumn column = new DataGridTemplateColumn();
-                //FrameworkElementFactory factory = new FrameworkElementFactory(typeof(ComboBox));
-                //Binding textBinding = new Binding("Text");
-                //textBinding.Mode = BindingMode.TwoWay;
-                //Binding sourceBinding = new Binding("values");
-                //sourceBinding.Source = grilleColumn;
-                //factory.SetValue(ComboBox.TextProperty, textBinding);
-                //factory.SetValue(ComboBox.IsEditableProperty, true);
-                //factory.SetValue(ComboBox.ItemsSourceProperty, sourceBinding);
-                
-                ////factory.AddHandler(ComboBox.CheckedEvent, new RoutedEventHandler(chkSelect_Checked));
-                //DataTemplate cellTemplate = new DataTemplate();
-                //cellTemplate.VisualTree = factory;
-                //column.CellEditingTemplate = cellTemplate;
-
-                //FrameworkElementFactory factory2 = new FrameworkElementFactory(typeof(Label));
-                //Binding labelBinding = new Binding(getBindingName(grilleColumn));
-                ////labelBinding.Mode = BindingMode.TwoWay;
-                //factory2.SetValue(Label.ContentProperty, labelBinding);
-                //column.CellTemplate = new DataTemplate();
-                //column.CellTemplate.VisualTree = factory2;
-                //return column;
+                ComboBoxEditSettings combo = new ComboBoxEditSettings();
+                combo.ItemsSource = grilleColumn.Items;
+                combo.IsTextEditable = true;
+                combo.ShowText = true;
+                combo.ValidateOnTextInput = true;
+                combo.AllowNullInput = true;
+                column.EditSettings = combo;
             }
-
-            DataGridTextColumn col = new DataGridTextColumn();
-            col.Binding = new Binding(getBindingName(grilleColumn));
-            return col;
+            return column;        
         }
-
-        private void comboboxBoxKeyDown(object sender, KeyEventArgs e)
-        {
-            var combobox = sender as ComboBox;
-            var edit = (TextBox)combobox.Template.FindName("PART_EditableTextBox", combobox);
-            String old = combobox.Text.TrimStart();
-            String text = edit.Text;
-            String selection = edit.SelectedText;
-            String key = "" + e.Key;
-            if (key.Length > 1) key = "";
-            //String typed = text.Remove(text.LastIndexOf(selection)) + key;
-            //Trace.WriteLine(text);
-            //Trace.WriteLine(key);
-            //Trace.WriteLine(selection);
-            //Trace.WriteLine(typed);
-
-            //DataGridColumn col = grid.seColumn;
-            //GrilleColumn column = this.Grille.GetColumn(col.Header.ToString());
-
-            //try
-            //{
-            //    grilleColumn.values = Service.ModelService.getLeafAttributeValues(grilleColumn.valueOid.Value);
-            //}
-            //catch (Exception) { }
-
-            if (e.Key == Key.Enter)
-            {                
-                
-            }
-            if (e.Key == Key.Escape)
-            {
-                
-            }
-        }
-        
 
         public void RemoveColumn(String name, int position = -1)
         {
-            for (int i = this.grid.Columns.Count - 1; i >= 0; i--)
+            for (int i = this.gridControl.Columns.Count - 1; i >= 0; i--)
             {
-                DataGridColumn col = this.grid.Columns[i];
-                if (!col.Header.Equals(name)) continue;
-                this.grid.Columns.Remove(col);
+                GridColumn col = this.gridControl.Columns[i];
+                if (!col.FieldName.Equals(name)) continue;
+                this.gridControl.Columns.Remove(col);
                 columnNames.Remove(name);
                 break;
             }
