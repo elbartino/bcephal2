@@ -1135,6 +1135,7 @@ namespace Misp.Kernel.Ui.Dashboard
             socket.Send(text);
         }
 
+        DashboardBlock enrichmentTableBlock;
         public event ClearInfoEventHandler ClearEnrichmentTablesHandler;
         public void ClearEnrichmentTables(List<int> oids, DashboardBlock blockToUpdate, bool deleteTable = false)
         {
@@ -1166,6 +1167,7 @@ namespace Misp.Kernel.Ui.Dashboard
         
         public void DeleteEnrichmentTable(List<int> oids, DashboardBlock block)
         {
+            enrichmentTableBlock = block;
             ClearEnrichmentTables(oids, block, true);
         }
 
@@ -1182,7 +1184,9 @@ namespace Misp.Kernel.Ui.Dashboard
                 ClearEnrichmentTablesHandler -= updateClearEnrichmentTablesProgress;
                 //this.ApplicationManager.AllocationCount = this.Service.FileService.GetAllocationCount();
                 Kernel.Util.MessageDisplayer.DisplayInfo("Clear Enrichment Tables", "Enrichment Tables clearing ended!");
+                if (this.enrichmentTableBlock != null) this.enrichmentTableBlock.RefreshData();
                 if (this.BlockToUpdate != null) this.BlockToUpdate.RefreshData();
+                enrichmentTableBlock = null;
                 Mask(false);
             }
             else
