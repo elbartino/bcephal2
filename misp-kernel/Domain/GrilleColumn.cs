@@ -26,6 +26,8 @@ namespace Misp.Kernel.Domain
 
         public string filterValue { get; set; }
 
+        public string filterOperator { get; set; }
+
         [ScriptIgnore]
         public bool isAdded { get; set; }
 
