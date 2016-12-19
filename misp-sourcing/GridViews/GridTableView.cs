@@ -22,7 +22,7 @@ namespace Misp.Sourcing.GridViews
             this.ShowGroupPanel = true;
             this.ShowAutoFilterRow = true;
             this.ShowCriteriaInAutoFilterRow = true;
-            this.AutoWidth = true;
+           // this.AutoWidth = true;
             this.IsEnabled = true;
             this.AllowEditing = true;
             this.UseIndicatorForSelection = true;
