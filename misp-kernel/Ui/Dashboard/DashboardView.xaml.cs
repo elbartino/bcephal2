@@ -432,8 +432,11 @@ namespace Misp.Kernel.Ui.Dashboard
                 block.contextMenu.Items.Add(block.OrderByMenuItem);
                 block.contextMenu.Items.Add(block.ConfigurationMenuItem);
             }
-            else if (newFunctionCode.Equals(FunctionalitiesCode.ENRICHMENT_TABLE_EDIT))
+            else if (newFunctionCode.Equals(FunctionalitiesCode.RECONCILIATION_FILTER_EDIT)
+                || newFunctionCode.Equals(FunctionalitiesCode.RECONCILIATION_POSTINGS)
+                || newFunctionCode.Equals(FunctionalitiesCode.TRANSACTION_FILE_TYPES_FUNCTIONALITY))
             {
+                block.contextMenu.Items.Add(block.NewMenuItem);
                 block.contextMenu.Items.Add(block.OpenMenuItem);
                 block.contextMenu.Items.Add(block.HideMenuItem);
                 block.contextMenu.Items.Add(block.DeleteMenuItem);
@@ -443,12 +446,12 @@ namespace Misp.Kernel.Ui.Dashboard
                 block.contextMenu.Items.Add(block.OrderByMenuItem);
                 block.contextMenu.Items.Add(block.ConfigurationMenuItem);
             }
-            else if (newFunctionCode.Equals(FunctionalitiesCode.RECONCILIATION_FILTER_EDIT)
-                || newFunctionCode.Equals(FunctionalitiesCode.RECONCILIATION_POSTINGS)
-                || newFunctionCode.Equals(FunctionalitiesCode.TRANSACTION_FILE_TYPES_FUNCTIONALITY))
+            else if (newFunctionCode.Equals(FunctionalitiesCode.ENRICHMENT_TABLE_EDIT))
             {
-                block.contextMenu.Items.Add(block.NewMenuItem);
-                block.contextMenu.Items.Add(block.OpenMenuItem);
+                //block.contextMenu.Items.Add(block.NewMenuItem);
+                //block.contextMenu.Items.Add(block.OpenMenuItem);
+                block.contextMenu.Items.Add(block.RunMenuItem);
+                block.contextMenu.Items.Add(block.ClearMenuItem);
                 block.contextMenu.Items.Add(block.HideMenuItem);
                 block.contextMenu.Items.Add(block.DeleteMenuItem);
                 block.contextMenu.Items.Add(new Separator());
