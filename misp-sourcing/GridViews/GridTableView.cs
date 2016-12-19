@@ -19,7 +19,7 @@ namespace Misp.Sourcing.GridViews
         public GridTableView(GridControl grid)
         {
             this.grid = grid;
-            this.ShowGroupPanel = true;
+            this.ShowGroupPanel = false;
             this.ShowAutoFilterRow = true;
             this.ShowCriteriaInAutoFilterRow = true;
            // this.AutoWidth = true;
