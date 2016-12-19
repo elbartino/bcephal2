@@ -583,9 +583,9 @@ namespace Misp.Sourcing.InputGrid
 
         public virtual void Search(int currentPage = 0)
         {
+            InputGridEditorItem page = (InputGridEditorItem)getEditor().getActivePage();
             try
-            {
-                InputGridEditorItem page = (InputGridEditorItem)getEditor().getActivePage();
+            {                
                 GrilleFilter filter = page.getInputGridForm().GridForm.filterForm.Fill();
                 filter.grid = new Grille();
                 filter.grid.code = page.EditedObject.code;
@@ -600,7 +600,11 @@ namespace Misp.Sourcing.InputGrid
                 page.getInputGridForm().GridForm.displayPage(rows);
                 //OnChange();
             }
-            catch (ServiceExecption) { }
+            catch (ServiceExecption) {
+                GrillePage rows = new GrillePage();
+                rows.rows = new List<object[]>(0);
+                page.getInputGridForm().GridForm.displayPage(rows);
+            }
         }
 
         public void Export()
