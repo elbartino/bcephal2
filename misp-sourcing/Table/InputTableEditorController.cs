@@ -1551,7 +1551,8 @@ namespace Misp.Sourcing.Table
 
             if (page.getInputTableForm().TablePropertiesPanel.reportPeriodPanel != null) page.getInputTableForm().TablePropertiesPanel.reportPeriodPanel.DisplayPeriod(table.period, true);
             else page.getInputTableForm().TablePropertiesPanel.periodPanel.DisplayPeriod(table.period, true);
-
+            page.EditedObject = table;
+            page.EditedObject.isModified = true;
             OnChange();
         }
 
