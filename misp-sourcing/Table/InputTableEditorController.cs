@@ -1353,6 +1353,7 @@ namespace Misp.Sourcing.Table
             if (table != null) 
             {
                 if (table.filter != null) table.filter = table.correctFilter();
+                if (table.period != null) table.period.itemListChangeHandler.Items = table.period.itemListChangeHandler.getItems();
             }
             bool isNoAllocation = false;
             //if (!isReport())
