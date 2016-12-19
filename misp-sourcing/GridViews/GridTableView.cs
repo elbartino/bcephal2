@@ -30,6 +30,7 @@ namespace Misp.Sourcing.GridViews
             //this.ShowCheckBoxSelectorInGroupRow = true;
             this.NavigationStyle = GridViewNavigationStyle.Cell;
             //this.OptionsClipboard.
+            this.BestFitColumns();
                      
             this.Menu = new GridContextMenu(this);
         }

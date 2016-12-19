@@ -69,7 +69,7 @@ namespace Misp.Reconciliation.Filter
             List<int> ids = new List<int>(0);
             if (getReconciliationFilterForm().GridForm.gridBrowser.gridControl.ItemsSource != null)
             {
-                foreach (object row in getReconciliationFilterForm().GridForm.gridBrowser.gridControl.ItemsSource)
+                foreach (object row in (List<GridItem>)getReconciliationFilterForm().GridForm.gridBrowser.gridControl.ItemsSource)
                 {
                     if (row is GridItem)
                     {
@@ -114,7 +114,7 @@ namespace Misp.Reconciliation.Filter
             
             if (getReconciliationFilterForm().GridForm.gridBrowser.gridControl.ItemsSource != null)
             {
-                foreach (object row in getReconciliationFilterForm().GridForm.gridBrowser.gridControl.ItemsSource)
+                foreach (object row in (List<GridItem>)getReconciliationFilterForm().GridForm.gridBrowser.gridControl.ItemsSource)
                 {
                     if (row is GridItem)
                     {
@@ -136,7 +136,7 @@ namespace Misp.Reconciliation.Filter
         private void OnLeftGridSelectionchange(object item)
         {
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
-            getReconciliationFilterForm().leftPostingToolBar.displayBalance(getReconciliationFilterForm().leftGrilleBrowserForm.gridBrowser.grid.SelectedItems, context, this.EditedObject);
+            getReconciliationFilterForm().leftPostingToolBar.displayBalance(getReconciliationFilterForm().leftGrilleBrowserForm.gridBrowser.gridControl.SelectedItems, context, this.EditedObject);
             if (item is GridItem) AddToRecoGrid((GridItem)item);
             else if (item is Object[]) AddToRecoGrid((Object[])item); //item.GetType()//typeof(item);
         }
@@ -144,7 +144,7 @@ namespace Misp.Reconciliation.Filter
         private void OnLeftGridDeselectionchange(object item)
         {
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
-            getReconciliationFilterForm().leftPostingToolBar.displayBalance(getReconciliationFilterForm().leftGrilleBrowserForm.gridBrowser.grid.SelectedItems, context, this.EditedObject);
+            getReconciliationFilterForm().leftPostingToolBar.displayBalance(getReconciliationFilterForm().leftGrilleBrowserForm.gridBrowser.gridControl.SelectedItems, context, this.EditedObject);
             if (item is GridItem) RemoveFormRecoGrid((GridItem)item);
             else if (item is Object[]) RemoveFormRecoGrid((Object[])item);
         }
@@ -152,7 +152,7 @@ namespace Misp.Reconciliation.Filter
         private void OnRigthGridSelectionchange(object item)
         {
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
-            getReconciliationFilterForm().rigthPostingToolBar.displayBalance(getReconciliationFilterForm().rigthGrilleBrowserForm.gridBrowser.grid.SelectedItems, context, this.EditedObject);
+            getReconciliationFilterForm().rigthPostingToolBar.displayBalance(getReconciliationFilterForm().rigthGrilleBrowserForm.gridBrowser.gridControl.SelectedItems, context, this.EditedObject);
             if (item is GridItem) AddToRecoGrid((GridItem)item);
             else if (item is Object[]) AddToRecoGrid((Object[])item); 
         }
@@ -160,7 +160,7 @@ namespace Misp.Reconciliation.Filter
         private void OnRigthGridDeselectionchange(object item)
         {
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
-            getReconciliationFilterForm().rigthPostingToolBar.displayBalance(getReconciliationFilterForm().rigthGrilleBrowserForm.gridBrowser.grid.SelectedItems, context, this.EditedObject);
+            getReconciliationFilterForm().rigthPostingToolBar.displayBalance(getReconciliationFilterForm().rigthGrilleBrowserForm.gridBrowser.gridControl.SelectedItems, context, this.EditedObject);
             if (item is GridItem) RemoveFormRecoGrid((GridItem)item);
             else if (item is Object[]) RemoveFormRecoGrid((Object[])item); 
         }

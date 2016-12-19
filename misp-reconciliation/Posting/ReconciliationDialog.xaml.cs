@@ -44,7 +44,7 @@ namespace Misp.Reconciliation.Posting
             foreach(object item in items){
                 if (item is GridItem) rows.Add(((GridItem)item).Datas);
             }
-            grid.displayRows(rows);
+            grid.displayRows(rows); 
             grid.gridControl.SelectAll();
             this.toolbar.displayBalance(grid.gridControl.SelectedItems, Context, grille);
             decimal balance = toolbar.getBalance();

@@ -276,6 +276,7 @@ namespace Misp.Sourcing.GridViews
                 if (column.show) this.AddColumn(column);
             }
             this.Children.Add(this.gridControl);
+            //RemoveLastEmptyColumn();
             RebuildGrid = false;
         }
 
@@ -342,6 +343,16 @@ namespace Misp.Sourcing.GridViews
                 combo.AllowNullInput = true;
                 column.EditSettings = combo;
             }
+            if (!this.Grille.report && grilleColumn.type.Equals(ParameterType.PERIOD.ToString()))
+            {
+                DateEditSettings dateSetting = new DateEditSettings();
+                dateSetting.IsTextEditable = true;
+                dateSetting.ShowText = true;
+                dateSetting.ValidateOnTextInput = true;
+                dateSetting.AllowNullInput = true;
+                column.EditSettings = dateSetting;
+            }
+
             return column;        
         }
 
@@ -355,6 +366,13 @@ namespace Misp.Sourcing.GridViews
                 columnNames.Remove(name);
                 break;
             }
+        }
+
+        public void RemoveLastEmptyColumn()
+        {
+            int LastColumn = this.gridControl.Columns.Count - 1;
+            GridColumn col = this.gridControl.Columns[LastColumn];
+            this.gridControl.Columns.Remove(col);            
         }
 
 
