@@ -98,6 +98,10 @@ namespace Misp.Planification.Tranformation
                 this.LoopConditionsPanel.Instruction = this.LoopUserTemplate.Instruction;
                 this.LoopConditionsPanel.conditions = this.LoopUserTemplate.conditions;
             }
+            else
+            {
+                resetComponent();
+            }
             this.LoopConditionsPanel.TransformationTreeService = this.TransformationTreeService;
             this.LoopConditionsPanel.DisplayLoopCondition();
             trow = false;
@@ -121,6 +125,18 @@ namespace Misp.Planification.Tranformation
         public void setValue(object value)
         {
             this.LoopConditionsPanel.setValue(value);
+        }
+
+        public void resetComponent()
+        {
+            this.ActiveCheckbox.IsChecked = true;
+            this.OnePossibleChoiceCheckbox.IsChecked = false;
+            this.EditMessageTextBox.Clear();
+            this.HelpMessageTextBox.Clear();
+
+            this.LoopConditionsPanel.LoopUserTemplate = null;
+            this.LoopConditionsPanel.Instruction = null;
+            this.LoopConditionsPanel.conditions = null;
         }
     }
 }
