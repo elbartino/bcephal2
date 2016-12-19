@@ -265,6 +265,11 @@ namespace Misp.Kernel.Ui.Dashboard
                 DashboardBlock block = this.DashboardView.getDisplayedBlock(this.DashboardView.TableBlock.FunctionalityCode);
                 new DashboardActions().ClearTrees(oids, block);
             }
+            else if (isEnrichmentTable())
+            {
+                DashboardBlock block = this.DashboardView.getDisplayedBlock(this.DashboardView.TableBlock.FunctionalityCode);
+                new DashboardActions().ClearEnrichmentTables(oids, block);
+            }
             else if (isCombinedTransformationTree()) new DashboardActions().ClearCombinedTrees(oids);
         }
 
@@ -345,6 +350,11 @@ namespace Misp.Kernel.Ui.Dashboard
                     return;
                 }
                 new DashboardActions().RunAutomaticUploads(oids);
+            }
+            else if (isEnrichmentTable())
+            {
+                DashboardBlock block = this.DashboardView.getDisplayedBlock(this.DashboardView.TableBlock.FunctionalityCode);
+                new DashboardActions().RunEnrichmentTables(oids, block);
             }
         }
 

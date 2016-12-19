@@ -1107,14 +1107,137 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Enrichment Table
 
+
+        public event RunInfoEventHandler RunEnrichmentTablesHandler;
+        public void RunEnrichmentTables(List<int> oids, DashboardBlock blockToUpdate)
+        {
+            this.BlockToUpdate = blockToUpdate;
+            EnrichmentTableData data = new EnrichmentTableData();
+            data.oids = oids;
+            Mask(true, "Enrichment Tables loading...");
+            RunEnrichmentTablesHandler += updateRunEnrichmentTablesProgress;
+
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            serializer.MaxJsonLength = int.MaxValue;
+            Socket socket = buildSocket(ResourcePath.SOCKET_ENRICHMENT_TABLE_RESOURCE_PATH + "/run/");
+            socket.OnMessage += (sender, e) =>
+            {
+                AllocationRunInfo runInfo = deserializeRunInfo(e.Data);
+                if (runInfo != null)
+                {
+                    if (RunEnrichmentTablesHandler != null) System.Windows.Application.Current.Dispatcher.Invoke(() => RunEnrichmentTablesHandler(runInfo));
+                    if (runInfo.runEnded) socket.Close(CloseStatusCode.Normal);
+                    return;
+                }
+            };
+            socket.Connect();
+            string text = serializer.Serialize(data);
+            socket.Send(text);
+        }
+
+        DashboardBlock enrichmentTableBlock;
+        public event ClearInfoEventHandler ClearEnrichmentTablesHandler;
+        public void ClearEnrichmentTables(List<int> oids, DashboardBlock blockToUpdate, bool deleteTable = false)
+        {
+            this.BlockToUpdate = blockToUpdate;
+            EnrichmentTableData data = new EnrichmentTableData();
+            data.oids = oids;
+            data.deleteTable = deleteTable;
+            Mask(true, "Clearing Enrichment Tables...");
+            ClearEnrichmentTablesHandler += updateClearEnrichmentTablesProgress;
+
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            serializer.MaxJsonLength = int.MaxValue;
+            Socket socket = buildSocket(ResourcePath.SOCKET_ENRICHMENT_TABLE_RESOURCE_PATH + "/clear/");
+            socket.OnMessage += (sender, e) =>
+            {
+                AllocationRunInfo runInfo = deserializeRunInfo(e.Data);
+                if (runInfo != null)
+                {
+                    if (ClearEnrichmentTablesHandler != null) System.Windows.Application.Current.Dispatcher.Invoke(() => ClearEnrichmentTablesHandler(runInfo));
+                    if (runInfo.runEnded) socket.Close(CloseStatusCode.Normal);
+                    return;
+                }
+            };
+
+            socket.Connect();
+            string text = serializer.Serialize(data);
+            socket.Send(text);
+        }
+        
         public void DeleteEnrichmentTable(List<int> oids, DashboardBlock block)
         {
-            Delete(ResourcePath.ENRICHMENT_TABLE_RESOURCE_PATH, oids, block);
+            enrichmentTableBlock = block;
+            ClearEnrichmentTables(oids, block, true);
         }
 
         public void DeleteAutomaticEnrichmentTable(List<int> oids, DashboardBlock block)
         {
             Delete(ResourcePath.AUTOMATIC_ENRICHMENT_TABLE_RESOURCE_PATH, oids, block);
+        }
+
+
+        private void updateClearEnrichmentTablesProgress(AllocationRunInfo runInfo)
+        {
+            if (runInfo == null || runInfo.runEnded == true)
+            {
+                ClearEnrichmentTablesHandler -= updateClearEnrichmentTablesProgress;
+                //this.ApplicationManager.AllocationCount = this.Service.FileService.GetAllocationCount();
+                Kernel.Util.MessageDisplayer.DisplayInfo("Clear Enrichment Tables", "Enrichment Tables clearing ended!");
+                if (this.enrichmentTableBlock != null) this.enrichmentTableBlock.RefreshData();
+                if (this.BlockToUpdate != null) this.BlockToUpdate.RefreshData();
+                enrichmentTableBlock = null;
+                Mask(false);
+            }
+            else
+            {
+                int rate = runInfo.totalCellCount != 0 ? (Int32)(runInfo.runedCellCount * 100 / runInfo.totalCellCount) : 0;
+                if (rate > 100) rate = 100;
+                ApplicationManager.Instance.MainWindow.ProgressBarTree.Maximum = runInfo.totalCellCount;
+                ApplicationManager.Instance.MainWindow.ProgressBarTree.Value = runInfo.runedCellCount;
+                ApplicationManager.Instance.MainWindow.statusTextBlockTree.Content = "Enrichment Tables clearing: " + rate + " %"
+                    + " (" + runInfo.runedCellCount + "/" + runInfo.totalCellCount + ")";
+            }
+        }
+
+        private void updateRunEnrichmentTablesProgress(AllocationRunInfo runInfo)
+        {
+            if (runInfo == null || runInfo.runEnded == true)
+            {
+                //ApplicationManager.Instance.AllocationCount = this.Service.FileService.GetAllocationCount();
+                RunEnrichmentTablesHandler -= updateRunEnrichmentTablesProgress;
+                Kernel.Util.MessageDisplayer.DisplayInfo("Load Enrichment Tables", "Enrichment Tables loaded!");
+                if (this.BlockToUpdate != null) this.BlockToUpdate.RefreshData();
+                Mask(false);
+                ApplicationManager.Instance.MainWindow.treeDetails.Visibility = Visibility.Hidden;
+                ApplicationManager.Instance.MainWindow.ProgressBarTreeContent.Maximum = 0;
+                ApplicationManager.Instance.MainWindow.ProgressBarTreeContent.Value = 0;
+                ApplicationManager.Instance.MainWindow.statusTextBlockTreeContent.Content = "";
+            }
+            else
+            {
+                int rate = runInfo.totalCellCount != 0 ? (Int32)(runInfo.runedCellCount * 100 / runInfo.totalCellCount) : 0;
+                if (rate > 100) rate = 100;
+                ApplicationManager.Instance.MainWindow.ProgressBarTree.Maximum = runInfo.totalCellCount;
+                ApplicationManager.Instance.MainWindow.ProgressBarTree.Value = runInfo.runedCellCount;
+                ApplicationManager.Instance.MainWindow.statusTextBlockTree.Content = "Enrichment Tables loading: " + rate + " %"
+                    + " (" + runInfo.runedCellCount + "/" + runInfo.totalCellCount + ")";
+
+                if (runInfo.currentInfo != null)
+                {
+                    rate = runInfo.currentInfo.totalCellCount != 0 ? (Int32)(runInfo.currentInfo.runedCellCount * 100 / runInfo.currentInfo.totalCellCount) : 0;
+                    if (rate > 100) rate = 100;
+
+                    if (runInfo.currentInfo.runedCellCount != 0)
+                    {
+                        ApplicationManager.Instance.MainWindow.treeDetails.Visibility = Visibility.Visible;
+                        ApplicationManager.Instance.MainWindow.ProgressBarTreeContent.Maximum = runInfo.currentInfo.totalCellCount;
+                        ApplicationManager.Instance.MainWindow.ProgressBarTreeContent.Value = runInfo.currentInfo.runedCellCount;
+                        ApplicationManager.Instance.MainWindow.statusTextBlockTreeContent.Content = runInfo.currentInfo.tableName + ": " + rate + " %"
+                            + " (" + runInfo.currentInfo.runedCellCount + "/" + runInfo.currentInfo.totalCellCount + ")";
+                    }
+                }
+            }
         }
 
         #endregion
