@@ -1353,6 +1353,7 @@ namespace Misp.Sourcing.Table
             if (table != null) 
             {
                 if (table.filter != null) table.filter = table.correctFilter();
+                if (table.period != null) table.period.itemListChangeHandler.Items = table.period.itemListChangeHandler.getItems();
             }
             bool isNoAllocation = false;
             //if (!isReport())
@@ -1551,7 +1552,8 @@ namespace Misp.Sourcing.Table
 
             if (page.getInputTableForm().TablePropertiesPanel.reportPeriodPanel != null) page.getInputTableForm().TablePropertiesPanel.reportPeriodPanel.DisplayPeriod(table.period, true);
             else page.getInputTableForm().TablePropertiesPanel.periodPanel.DisplayPeriod(table.period, true);
-
+            page.EditedObject = table;
+            page.EditedObject.isModified = true;
             OnChange();
         }
 

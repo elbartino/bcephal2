@@ -161,7 +161,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
                     LoopConditionItemPanel panel = (LoopConditionItemPanel)this.LoopConditionsPanel.Children[0];
                     panel.OperatorComboBox.IsEnabled = false;
                     panel.OperatorComboBox.SelectedItem = "";
-                    if (this.LoopUserTemplate != null) this.LoopUserTemplate.SynchronizeDeleteLoopCondition(panel.LoopCondition);
+                    //if (this.LoopUserTemplate != null) this.LoopUserTemplate.SynchronizeDeleteLoopCondition(panel.LoopCondition);
                 }
                 int index = 1;
                 foreach (object pan in this.LoopConditionsPanel.Children)
@@ -170,9 +170,9 @@ namespace Misp.Planification.Tranformation.LoopCondition
                 }
             }
 
-            if (item is Kernel.Domain.LoopCondition)
+            if (item is LoopConditionItemPanel)
             {
-                Kernel.Domain.LoopCondition loopcondition = ((Kernel.Domain.LoopCondition)item);
+                Kernel.Domain.LoopCondition loopcondition = ((LoopConditionItemPanel)item).LoopCondition;
                 this.LoopUserTemplate.SynchronizeDeleteLoopCondition(loopcondition);
                 this.ActiveLoopConditionItemPanel.LoopCondition = loopcondition;
             }
