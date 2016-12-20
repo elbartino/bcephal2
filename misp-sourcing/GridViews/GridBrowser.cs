@@ -437,6 +437,10 @@ namespace Misp.Sourcing.GridViews
                 dateSetting.AllowNullInput = true;
                 column.EditSettings = dateSetting;
             }
+            if (grilleColumn.type.Equals(ParameterType.PERIOD.ToString()) || grilleColumn.type.Equals(ParameterType.MEASURE.ToString()))
+            {
+                column.ColumnFilterMode = ColumnFilterMode.Value;
+            }
 
             return column;        
         }
