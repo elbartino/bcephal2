@@ -86,6 +86,7 @@ namespace Misp.Sourcing.GridViews
             }
 
             gridControl = new GridControl();
+            GridControl.AllowInfiniteGridSize = true;
             GridTableView view = new GridTableView(gridControl);
             //gridControl.Height = 1500;
             gridControl.SelectionMode = MultiSelectMode.MultipleRow;
