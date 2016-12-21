@@ -88,14 +88,12 @@ namespace Misp.Sourcing.GridViews
             gridControl = new GridControl();
             GridControl.AllowInfiniteGridSize = true;
             GridTableView view = new GridTableView(gridControl);
-            //gridControl.Height = 1500;
             gridControl.SelectionMode = MultiSelectMode.MultipleRow;
             gridControl.View = view;
             view.ShowGroupPanel = Grille.report && !Grille.reconciliation;
 
             gridControl.FilterChanged += OnFilterChanged;
             gridControl.SelectedItemChanged += OnSelectionChanged;
-            gridControl.CurrentItemChanged += OnCurrentItemChanged;
             view.SortEventHandler += OnSort;
             view.CellValueChanged += OnCellValueChanged;
 
@@ -104,13 +102,7 @@ namespace Misp.Sourcing.GridViews
 
             view.IsRowCellMenuEnabled = !Grille.IsReadOnly();
         }
-
-        private void OnCurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
-        {
-            if (e.OriginalSource != sender) return;
-        }
-
-      
+              
         private void OnSelectionChanged(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.OriginalSource != sender) return;
