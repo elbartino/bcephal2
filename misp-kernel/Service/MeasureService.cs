@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using RestSharp;
+using Misp.Kernel.Domain.Browser;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Service
 {
@@ -63,6 +65,26 @@ namespace Misp.Kernel.Service
             catch (Exception e)
             {
                 throw new BcephalException("Unable to Return Measures.", e);
+            }
+        }
+
+        public BrowserDataPage<Kernel.Domain.Measure> getAllDescendents(BrowserDataFilter filter, bool showPostingMeasure = true)
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/all-descendents/" + showPostingMeasure, Method.POST);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                request.RequestFormat = DataFormat.Json;
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = serializer.Serialize(filter);
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                BrowserDataPage<Kernel.Domain.Measure> values = RestSharp.SimpleJson.DeserializeObject<BrowserDataPage<Kernel.Domain.Measure>>(queryResult.Content);
+                return values;
+            }
+            catch (Exception e)
+            {
+                throw new BcephalException("Unable to Return measures.", e);
             }
         }
 

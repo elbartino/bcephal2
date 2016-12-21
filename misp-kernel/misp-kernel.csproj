@@ -508,6 +508,9 @@
       <DependentUpon>DESpreadsheet.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Office\SheetConst.cs" />
+    <Compile Include="Ui\Popup\MeasureFilterDialog.xaml.cs">
+      <DependentUpon>MeasureFilterDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\Popup\ModelFilterDialog.xaml.cs">
       <DependentUpon>ModelFilterDialog.xaml</DependentUpon>
     </Compile>
@@ -938,6 +941,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\Office\DevExpressSheet\DESpreadsheet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Popup\MeasureFilterDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

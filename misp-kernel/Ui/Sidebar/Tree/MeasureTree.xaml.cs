@@ -3,6 +3,8 @@ using Misp.Kernel.Domain;
 using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Popup;
+using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -251,6 +253,26 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
         private void OnCollapsed(object sender, RoutedEventArgs e)
         {
             this.Timer.Stop();
+        }
+
+
+        private void OnMouseRightClick(object sender, MouseEventArgs e)
+        {
+            this.Timer.Stop();
+            MeasureFilterDialog dialog = new MeasureFilterDialog();
+            if (sender is TreeViewItem)
+            {
+                Object tag = ((TreeViewItem)sender).Header;
+                if (tag is Domain.Measure)
+                {
+                    dialog.Display((Domain.Measure)tag);
+                }
+            }            
+            dialog.SearchTextBox.Focus();
+            WindowPositioner.ShowCenteredToMouse(dialog);
+            Domain.Measure value = dialog.Selection;
+            if (value != null && Click != null) Click(value);
+            e.Handled = true;
         }
         
         #endregion

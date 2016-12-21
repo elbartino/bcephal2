@@ -33,6 +33,7 @@
                 <EventSetter Event="Collapsed" Handler="OnCollapsed"/>
                 <EventSetter Event="MouseDoubleClick" Handler="OnDoubleClick"/>
                 <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnClick"/>
+                <EventSetter Event="MouseRightButtonUp" Handler="OnMouseRightClick"/>
             </Style>
         </TreeView.ItemContainerStyle>
     </TreeView>
