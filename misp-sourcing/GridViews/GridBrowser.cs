@@ -76,7 +76,7 @@ namespace Misp.Sourcing.GridViews
             if (gridControl != null)
             {
                 gridControl.FilterChanged -= OnFilterChanged;
-                gridControl.SelectedItemChanged -= OnSelectionChanged;
+                gridControl.SelectionChanged -= OnSelectionChanged;
                 ((GridTableView)gridControl.View).CellValueChanged -= OnCellValueChanged;
                 ((GridTableView)gridControl.View).SortEventHandler -= OnSort;
                 ((GridTableView)gridControl.View).SortEventHandler -= OnSort;
@@ -87,29 +87,33 @@ namespace Misp.Sourcing.GridViews
 
             gridControl = new GridControl();
             GridControl.AllowInfiniteGridSize = true;
-            GridTableView view = new GridTableView(gridControl);
+            GridTableView view = new GridTableView(gridControl);            
             gridControl.SelectionMode = MultiSelectMode.MultipleRow;
             gridControl.View = view;
             view.ShowGroupPanel = Grille.report && !Grille.reconciliation;
+            view.AllowEditing = !Grille.report && !Grille.reconciliation;
 
             gridControl.FilterChanged += OnFilterChanged;
-            gridControl.SelectedItemChanged += OnSelectionChanged;
+            gridControl.SelectionChanged += OnSelectionChanged;
             view.SortEventHandler += OnSort;
             view.CellValueChanged += OnCellValueChanged;
-
+            
             view.Menu.DeleteItem.ItemClick += OnDelete;
             view.Menu.DuplicateItem.ItemClick += OnDuplicate;
 
             view.IsRowCellMenuEnabled = !Grille.IsReadOnly();
         }
-              
-        private void OnSelectionChanged(object sender, SelectedItemChangedEventArgs e)
+
+        private void OnSelectionChanged(object sender, GridSelectionChangedEventArgs e)
         {
             if (e.OriginalSource != sender) return;
-            //if (ChangeHandler != null) ChangeHandler();
-            //if (e.AddedItems.Count > 0 && SelectedItemChangedHandler != null) SelectedItemChangedHandler(e.AddedItems);
-            //if (e.RemovedItems.Count > 0 && DeselectedItemChangedHandler != null) DeselectedItemChangedHandler(e.RemovedItems);
+            if (ChangeHandler != null) ChangeHandler();
+
+            if (e.Action == System.ComponentModel.CollectionChangeAction.Add && SelectedItemChangedHandler != null) SelectedItemChangedHandler(gridControl.SelectedItems);
+            if (e.Action == System.ComponentModel.CollectionChangeAction.Remove && DeselectedItemChangedHandler != null) DeselectedItemChangedHandler(gridControl.SelectedItem);
         }
+        
+        
 
         private void OnDuplicate(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {

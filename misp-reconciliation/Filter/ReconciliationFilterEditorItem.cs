@@ -4,6 +4,7 @@ using Misp.Kernel.Ui.Base;
 using Misp.Reconciliation.Posting;
 using Misp.Sourcing.GridViews;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -63,7 +64,7 @@ namespace Misp.Reconciliation.Filter
             SearchAll();
         }
 
-        protected void AddToRecoGrid(Object[] objects)
+        protected void AddToRecoGrid(IList objects)
         {
             List<GridItem> items = new List<GridItem>(0);
             List<int> ids = new List<int>(0);
@@ -95,11 +96,12 @@ namespace Misp.Reconciliation.Filter
 
         protected void AddToRecoGrid(GridItem item)
         {
-            Object[] items = new Object[] { item };
+            IList items = new List<GridItem>(0);
+            items.Add(item);
             AddToRecoGrid(items);
         }
 
-        protected void RemoveFormRecoGrid(Object[] objects)
+        protected void RemoveFormRecoGrid(IList objects)
         {
             List<GridItem> items = new List<GridItem>(0);
             List<int> ids = new List<int>(0);
@@ -129,7 +131,8 @@ namespace Misp.Reconciliation.Filter
 
         protected void RemoveFormRecoGrid(GridItem item)
         {
-            Object[] items = new Object[] { item };
+            IList items = new List<GridItem>(0);
+            items.Add(item);
             RemoveFormRecoGrid(items);
         }
 
@@ -138,7 +141,7 @@ namespace Misp.Reconciliation.Filter
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
             getReconciliationFilterForm().leftPostingToolBar.displayBalance(getReconciliationFilterForm().leftGrilleBrowserForm.gridBrowser.gridControl.SelectedItems, context, this.EditedObject);
             if (item is GridItem) AddToRecoGrid((GridItem)item);
-            else if (item is Object[]) AddToRecoGrid((Object[])item); //item.GetType()//typeof(item);
+            else if (item is IList) AddToRecoGrid((IList)item); //item.GetType()//typeof(item);
         }
 
         private void OnLeftGridDeselectionchange(object item)
@@ -146,7 +149,7 @@ namespace Misp.Reconciliation.Filter
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
             getReconciliationFilterForm().leftPostingToolBar.displayBalance(getReconciliationFilterForm().leftGrilleBrowserForm.gridBrowser.gridControl.SelectedItems, context, this.EditedObject);
             if (item is GridItem) RemoveFormRecoGrid((GridItem)item);
-            else if (item is Object[]) RemoveFormRecoGrid((Object[])item);
+            else if (item is IList) RemoveFormRecoGrid((IList)item);
         }
 
         private void OnRigthGridSelectionchange(object item)
@@ -154,7 +157,7 @@ namespace Misp.Reconciliation.Filter
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
             getReconciliationFilterForm().rigthPostingToolBar.displayBalance(getReconciliationFilterForm().rigthGrilleBrowserForm.gridBrowser.gridControl.SelectedItems, context, this.EditedObject);
             if (item is GridItem) AddToRecoGrid((GridItem)item);
-            else if (item is Object[]) AddToRecoGrid((Object[])item); 
+            else if (item is IList) AddToRecoGrid((IList)item); 
         }
 
         private void OnRigthGridDeselectionchange(object item)
@@ -162,7 +165,7 @@ namespace Misp.Reconciliation.Filter
             Kernel.Domain.ReconciliationContext context = this.PostingGridService.ReconciliationContextService.getReconciliationContext();
             getReconciliationFilterForm().rigthPostingToolBar.displayBalance(getReconciliationFilterForm().rigthGrilleBrowserForm.gridBrowser.gridControl.SelectedItems, context, this.EditedObject);
             if (item is GridItem) RemoveFormRecoGrid((GridItem)item);
-            else if (item is Object[]) RemoveFormRecoGrid((Object[])item); 
+            else if (item is IList) RemoveFormRecoGrid((IList)item); 
         }
 
         protected override void OnGridSelectionchange()

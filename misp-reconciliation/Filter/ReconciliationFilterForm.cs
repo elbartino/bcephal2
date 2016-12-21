@@ -43,6 +43,7 @@ namespace Misp.Reconciliation.Filter
             this.AuditTabItem.Content = null;            
 
             leftGrilleBrowserForm = new GrilleBrowserForm();
+            leftGrilleBrowserForm.splitter.Visibility = System.Windows.Visibility.Visible;
             leftGrilleBrowserForm.filterForm.Margin = new Thickness(2.0);
             //Grid.SetRow(leftGrilleBrowserForm.filterForm, 0);
             leftGrilleBrowserForm.Children.Add(leftGrilleBrowserForm.filterForm);
@@ -52,6 +53,7 @@ namespace Misp.Reconciliation.Filter
             leftGrilleBrowserForm.otherToolBarPanel.Children.Add(leftPostingToolBar);
 
             rigthGrilleBrowserForm = new GrilleBrowserForm();
+            rigthGrilleBrowserForm.splitter.Visibility = System.Windows.Visibility.Visible;
             rigthGrilleBrowserForm.filterForm.Margin = new Thickness(2.0);
             //Grid.SetRow(rigthGrilleBrowserForm.filterForm, 0);
             rigthGrilleBrowserForm.Children.Add(rigthGrilleBrowserForm.filterForm);
