@@ -108,9 +108,9 @@ namespace Misp.Reconciliation.Filter
             Grid.SetRow(GridForm, 1);
             panel.Children.Add(GridForm);
 
-            ScrollViewer viewer = new ScrollViewer();
-            viewer.Content = panel;
-            this.AuditTabItem.Content = viewer;
+            //ScrollViewer viewer = new ScrollViewer();
+            //viewer.Content = panel;
+            this.AuditTabItem.Content = panel;
 
             leftGrilleBrowserForm.GotFocus += OnLeftFocus;
             rigthGrilleBrowserForm.GotFocus += OnRigthFocus;

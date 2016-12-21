@@ -106,11 +106,22 @@ namespace Misp.Sourcing.GridViews
 
         private void OnSelectionChanged(object sender, GridSelectionChangedEventArgs e)
         {
-            if (e.OriginalSource != sender) return;
             if (ChangeHandler != null) ChangeHandler();
-
-            if (e.Action == System.ComponentModel.CollectionChangeAction.Add && SelectedItemChangedHandler != null) SelectedItemChangedHandler(gridControl.SelectedItems);
-            if (e.Action == System.ComponentModel.CollectionChangeAction.Remove && DeselectedItemChangedHandler != null) DeselectedItemChangedHandler(gridControl.SelectedItem);
+            if (e.Action == System.ComponentModel.CollectionChangeAction.Add)
+            {
+                object obj = gridControl.GetRow(e.ControllerRow);
+                if (obj != null && SelectedItemChangedHandler != null) SelectedItemChangedHandler(obj);
+            }
+            else if (e.Action == System.ComponentModel.CollectionChangeAction.Remove)
+            {
+                object obj = gridControl.GetRow(e.ControllerRow);
+                if (obj != null && DeselectedItemChangedHandler != null) DeselectedItemChangedHandler(obj);
+            }
+            else if (e.Action == System.ComponentModel.CollectionChangeAction.Refresh)
+            {
+                if (gridControl.SelectedItems.Count <= 0 && DeselectedItemChangedHandler != null) DeselectedItemChangedHandler(gridControl.ItemsSource);
+                if (gridControl.SelectedItems.Count >= gridControl.VisibleRowCount && SelectedItemChangedHandler != null) SelectedItemChangedHandler(gridControl.SelectedItems);
+            }
         }
         
         

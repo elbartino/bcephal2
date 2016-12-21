@@ -126,6 +126,7 @@ namespace Misp.Reconciliation.Filter
                 }
             }
             getReconciliationFilterForm().GridForm.gridBrowser.displayItems(items);
+            OnGridSelectionchange();
             getReconciliationFilterForm().GridForm.gridBrowser.gridControl.SelectAll();
         }
 
