@@ -430,11 +430,9 @@ namespace Misp.Kernel.Ui.EditableTree
             if (brother == null) return;
 
             ForgetDefaultMeasures(parent);
-            ForgetDefaultMeasures(brother);
             parent.ForgetChild(attribute);
             brother.AddChild(attribute);
             AddDefaultMeasures(parent);
-            AddDefaultMeasures(brother);
             brother.IsExpanded = true;
             SetSelectedValue(attribute);
             if (Changed != null) Changed();
@@ -450,11 +448,9 @@ namespace Misp.Kernel.Ui.EditableTree
             Domain.Measure grandParent = parent.parent;
             if (grandParent == null) return;
 
-            ForgetDefaultMeasures(parent);
             ForgetDefaultMeasures(grandParent);
             parent.ForgetChild(attribute);
             grandParent.AddChild(attribute);
-            AddDefaultMeasures(parent);
             AddDefaultMeasures(grandParent);
             parent.IsExpanded = true;
             SetSelectedValue(attribute);

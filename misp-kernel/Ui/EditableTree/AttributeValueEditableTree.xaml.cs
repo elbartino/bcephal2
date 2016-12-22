@@ -103,6 +103,7 @@ namespace Misp.Kernel.Ui.EditableTree
                     return;
                 }
                 Domain.AttributeValue root = new Kernel.Domain.AttributeValue();
+                root.name = "Root";
                 root.childrenListChangeHandler = attribute.valueListChangeHandler;
                 root.DataFilter = this.Attribute.DataFilter;
                 this.DisplayRoot(root);
@@ -182,9 +183,11 @@ namespace Misp.Kernel.Ui.EditableTree
         {
             if (item != null)
             {
+                int position = 0;
                 foreach (Domain.AttributeValue child in item.childrenListChangeHandler.Items)
                 {
                     child.SetParent(item);
+                    child.position = ++position;
                     RefreshParent(child);
                 }
             }
@@ -263,6 +266,7 @@ namespace Misp.Kernel.Ui.EditableTree
                             newValue.parent = this.Root;
                             ForgetDefaultAttributeValues(this.Root);
                             this.Root.AddChild(newValue);
+                            newValue.position = this.Root.childrenListChangeHandler.Items.Count;
                             AddDefaultAttributeValues(this.Root);
                             SetSelectedValue(newValue);
                         }
@@ -340,7 +344,7 @@ namespace Misp.Kernel.Ui.EditableTree
         private void OnExpanded(object sender, RoutedEventArgs e)
         {
             Domain.AttributeValue value = (Domain.AttributeValue)((TreeViewItem)e.OriginalSource).Header;
-            if (value != this.Root && Expanded != null)
+            if (value != null && value != this.Root && Expanded != null)
             {
                 ForgetDefaultAttributeValues(value);
                 Expanded(value);
@@ -451,11 +455,9 @@ namespace Misp.Kernel.Ui.EditableTree
             if (brother == null) return;
 
             ForgetDefaultAttributeValues(parent);
-            ForgetDefaultAttributeValues(brother);
             parent.ForgetChild(attribute);
             brother.AddChild(attribute);
             AddDefaultAttributeValues(parent);
-            AddDefaultAttributeValues(brother);
             brother.IsExpanded = true;
             SetSelectedValue(attribute);
             if (Changed != null) Changed();
@@ -471,11 +473,9 @@ namespace Misp.Kernel.Ui.EditableTree
             Domain.AttributeValue grandParent = parent.parent;
             if (grandParent == null) return;
 
-            ForgetDefaultAttributeValues(parent);
             ForgetDefaultAttributeValues(grandParent);
             parent.ForgetChild(attribute);
             grandParent.AddChild(attribute);
-            AddDefaultAttributeValues(parent);
             AddDefaultAttributeValues(grandParent);
             parent.IsExpanded = true;
             SetSelectedValue(attribute);

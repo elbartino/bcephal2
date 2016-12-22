@@ -80,9 +80,6 @@ namespace Misp.Sourcing.Table
 
         TabItem auditTabItem;
         TabItem designTabItem;
-        WindowsFormsHost windowsFormsHost;
-        System.Windows.Controls.Image image;
-
 
         protected virtual void InitializeComponents()
         {

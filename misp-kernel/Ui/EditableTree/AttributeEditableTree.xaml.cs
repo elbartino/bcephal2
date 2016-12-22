@@ -412,11 +412,9 @@ namespace Misp.Kernel.Ui.EditableTree
             if (brother == null) return;
 
             ForgetDefaultAttributes(parent);
-            ForgetDefaultAttributes(brother);
             parent.ForgetChild(attribute);
             brother.AddChild(attribute);
             AddDefaultAttributes(parent);
-            AddDefaultAttributes(brother);
             brother.IsExpanded = true;
             SetSelectedAttribute(attribute);
             if (Changed != null) Changed();
@@ -432,11 +430,9 @@ namespace Misp.Kernel.Ui.EditableTree
             Domain.Attribute grandParent = parent.parent;
             if (grandParent == null) return;
 
-            ForgetDefaultAttributes(parent);
             ForgetDefaultAttributes(grandParent);
             parent.ForgetChild(attribute);
-            grandParent.AddChild(attribute);            
-            AddDefaultAttributes(parent);
+            grandParent.AddChild(attribute); 
             AddDefaultAttributes(grandParent);
             parent.IsExpanded = true;
             SetSelectedAttribute(attribute);

@@ -61,8 +61,9 @@ namespace Misp.Kernel.Domain
         public void AddChild(IHierarchyObject child) 
         {
             child.SetPosition(childrenListChangeHandler.Items.Count);
-            child.SetParent(this);
+            child.SetParent(this);            
             childrenListChangeHandler.AddNew((AttributeValue)child);
+            child.SetPosition(childrenListChangeHandler.Items.Count);
             UpdateParents();
             OnPropertyChanged("childrenListChangeHandler.Items");
         }
