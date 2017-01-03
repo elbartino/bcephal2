@@ -35,6 +35,8 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType PRESENTATION = new SubjectType("Presentation");
 
+        public static SubjectType RECONCILIATION = new SubjectType("Reconciliation");
+
         public static SubjectType COMBINED_TRANSFORMATION_TREE = new SubjectType("Combined Transformation Tree");
 
         public static SubjectType AUTOMATIC_TARGET = new SubjectType("Automatic Target");
@@ -53,7 +55,7 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType REPORT_GRID = new SubjectType("Report Grid");
 
-        public static SubjectType RECONCILIATION = new SubjectType("Reconciliation");
+        
 
         public static SubjectType RECONCILIATION_FILTER = new SubjectType("Reconciliation Filter");
 
@@ -96,6 +98,9 @@ namespace Misp.Kernel.Domain
             if (COMBINED_TRANSFORMATION_TREE.label.Equals(label)) return COMBINED_TRANSFORMATION_TREE;
             if (AUTOMATIC_TARGET.label.Equals(label)) return AUTOMATIC_TARGET;
             if (AUTOMATIC_GRID.label.Equals(label)) return AUTOMATIC_GRID;
+            if (POSTING_GRID.label.Equals(label)) return POSTING_GRID;
+            if (AUTOMATIC_POSTING_GRID.label.Equals(label)) return AUTOMATIC_POSTING_GRID;
+            if (AUTOMATIC_ENRICHMENT_TABLE.label.Equals(label)) return AUTOMATIC_ENRICHMENT_TABLE;
             if (GROUP.label.Equals(label)) return GROUP;
             if (USER.label.Equals(label)) return USER;
             if (PROFIL.label.Equals(label)) return PROFIL;
