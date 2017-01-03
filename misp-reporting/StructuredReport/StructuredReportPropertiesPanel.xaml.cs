@@ -99,8 +99,8 @@ namespace Misp.Reporting.StructuredReport
             if (value is Measure)
             {
                 Measure measure = (Measure)value;
-                if (measure.IsLeaf) ColumnForms.SetValue(measure);
-                else SetListValue(measure.Leafs);
+                if (measure.IsLeaf()) ColumnForms.SetValue(measure);
+                else SetListValue(measure.GetLeafs());
             }
             else
             {

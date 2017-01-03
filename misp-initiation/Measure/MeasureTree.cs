@@ -15,7 +15,7 @@ namespace Misp.Initiation.Measure
         protected override string GetChildrenBindingName() { return "childrenListChangeHandler.Items"; }
         protected override string GetRendererBindingName() { return "name"; }
         protected override string GetClipbordDataFormat() { return Kernel.Util.ClipbordUtil.MEASURE_CLIPBOARD_FORMAT; }
-        protected override IHierarchyObject GetNewTreeViewModel()
+        protected override Kernel.Domain.IHierarchyObject GetNewTreeViewModel()
         {
             Kernel.Domain.Measure measure = new Kernel.Domain.Measure();
             measure.name = "Measure1";
@@ -30,7 +30,8 @@ namespace Misp.Initiation.Measure
                 }
                 while (m != null);
             }
-            return measure;
+            //return measure;
+            return null;
         }
     }
 }

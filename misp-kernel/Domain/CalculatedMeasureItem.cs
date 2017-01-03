@@ -91,7 +91,7 @@ namespace Misp.Kernel.Domain
         /// 
         /// </summary>
         /// <returns></returns>
-        public IHierarchyObject GetParent() { return this.calculatedMeasure; }
+        public Measure GetParent() { return this.calculatedMeasure; }
 
         /// <summary>
         /// Définit la position

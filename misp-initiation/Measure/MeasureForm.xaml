@@ -11,8 +11,9 @@
     <Grid.RowDefinitions>
         <RowDefinition Height="1*"/>
     </Grid.RowDefinitions>
-    <!--<base:MeasureTreeView x:Name="measureTree"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed"/>-->
-    <EditableTree:MeasureEditableTree x:Name="measureEditableTree"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+    <!--<base:MeasureTreeView x:Name="measureTree"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed"/>
+    <EditableTree:MeasureEditableTree x:Name="measureEditableTree"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />-->
+    <EditableTree:MeasureTreeList x:Name="measureTreeList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 </Grid>
 
     

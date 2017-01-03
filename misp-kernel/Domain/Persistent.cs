@@ -24,6 +24,7 @@ namespace Misp.Kernel.Domain
         }
 
         protected bool isDefault;
+
         [ScriptIgnore]
         public bool IsDefault
         {

@@ -172,11 +172,11 @@ namespace Misp.Kernel.Ui.Measure
 
             }
         }
-        private void RefreshParent(IHierarchyObject item)
+        private void RefreshParent(Domain.Measure item)
         {
             if (item != null)
             {
-                foreach(IHierarchyObject child in item.GetItems())
+                foreach (Domain.Measure child in item.GetItems())
                 {
                     child.SetParent(item);
                     RefreshParent(child);
@@ -712,7 +712,7 @@ namespace Misp.Kernel.Ui.Measure
             
             if(selectedMeasures.Count > 0)
             if (selectedMeasures.ContainsKey(GetSelectedMultiMeasure())) parent = GetSelectedMultiMeasure();
-            getMeasuresFromClipboard(Kernel.Util.ClipbordUtil.GetMeasure(), parent);
+            getMeasuresFromClipboard(Kernel.Util.ClipbordUtil.GetMeasures(), parent);
 
        }
         
@@ -1114,7 +1114,7 @@ namespace Misp.Kernel.Ui.Measure
             if (item.parent != null)
             {
                int position = item.position + (up ? -1 : 1);
-                IHierarchyObject child = item.parent.GetChildByPosition(position);
+               Domain.Measure child = item.parent.GetChildByPosition(position);
                 if (child != null)
                 {
                     child.SetPosition(item.position); 
@@ -1142,7 +1142,7 @@ namespace Misp.Kernel.Ui.Measure
                 if (item1 != null)
                 {
                     int position = item1.GetPosition();
-                    IHierarchyObject child = item1.parent.GetChildByPosition(position - 1);
+                    Domain.Measure child = item1.parent.GetChildByPosition(position - 1);
                     Domain.Measure measure = (Domain.Measure)child;
                     if (measure != null && !measure.IsDefault && Kernel.Application.ApplicationManager.Instance.AllocationCount > 0 && this.MeasureService.isMeasureUseAllocation(measure))
                     {
@@ -1152,7 +1152,7 @@ namespace Misp.Kernel.Ui.Measure
                     }
                     if (child != null)
                     {
-                        foreach (Kernel.Domain.Measure item in measures)
+                        foreach (Domain.Measure item in measures)
                         {
                             item.parent.ForgetChild(item);
                             child.AddChild(item);
@@ -1172,7 +1172,7 @@ namespace Misp.Kernel.Ui.Measure
         {
             if (item.parent != null)
             {
-                IHierarchyObject parent = item.parent.GetParent();
+                Domain.Measure parent = item.parent.GetParent();
                 if (parent != null)
                 {
                     item.parent.ForgetChild(item);
@@ -1197,10 +1197,10 @@ namespace Misp.Kernel.Ui.Measure
             if (copieListMeasure.Count > 0)
             {
                 Kernel.Util.ClipbordUtil.ClearClipboard();
-                List<IHierarchyObject> listeCopy = new List<IHierarchyObject>(0);
+                List<Domain.Measure> listeCopy = new List<Domain.Measure>(0);
                 if (!isTreeInCutMode)
                 {
-                    foreach (Kernel.Domain.Measure measureToCopy in copieListMeasure)
+                    foreach (Domain.Measure measureToCopy in copieListMeasure)
                     {
                         listeCopy.Add(measureToCopy.GetCopy());
                     }
@@ -1218,7 +1218,7 @@ namespace Misp.Kernel.Ui.Measure
                         }
                     }
                 }
-                Kernel.Util.ClipbordUtil.SetHierarchyObject(listeCopy);
+                //Kernel.Util.ClipbordUtil.SetHierarchyObject(listeCopy);
             }
         }
 

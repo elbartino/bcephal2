@@ -90,7 +90,7 @@ namespace Misp.Kernel.Ui.TreeView
             if (root == null) this.measureTreeview.ItemsSource = null;
             else
             {
-                RefreshParent(root);
+                //RefreshParent(root);
                 this.measureTreeview.ItemsSource = root.GetItems();
             }
         }
