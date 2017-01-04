@@ -654,8 +654,8 @@ namespace Misp.Kernel.Ui.Attribute
                 Kernel.Util.MessageDisplayer.DisplayWarning("Paste", message);
                 return;
             }
-            Domain.Attribute attribute = Kernel.Util.ClipbordUtil.GetAttribute()[0];
-            getAttributesFromClipboard(Kernel.Util.ClipbordUtil.GetAttribute());
+            Domain.Attribute attribute = Kernel.Util.ClipbordUtil.GetAttributes()[0];
+            getAttributesFromClipboard(Kernel.Util.ClipbordUtil.GetAttributes());
             System.Collections.ObjectModel.ObservableCollection<Domain.Attribute> l = (System.Collections.ObjectModel.ObservableCollection<Domain.Attribute>)this.tree.ItemsSource;
             //Domain.Attribute attributeFromSource = l[l.IndexOf(attribute)];
             Domain.Attribute att = null;

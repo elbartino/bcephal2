@@ -24,12 +24,9 @@ using DevExpress.Xpf.Editors;
 
 namespace Misp.Kernel.Ui.EditableTree
 {
-    /// <summary>
-    /// Interaction logic for MeasureTreeList.xaml
-    /// </summary>
-    public partial class MeasureTreeList : UserControl
+    public partial class AttributeTreeList : UserControl
     {
-
+    
         #region events
 
         public ChangeEventHandler Changed;
@@ -43,8 +40,12 @@ namespace Misp.Kernel.Ui.EditableTree
 
         #region Properties
 
-        public Domain.Measure Root { get; set; }
-        public ObservableCollection<Domain.Measure> Source { get; set; }
+        /// <summary>
+        /// Display entity
+        /// </summary>
+        public Kernel.Domain.Entity Entity { get; set; }
+        public Domain.Attribute Root { get; set; }
+        public ObservableCollection<Domain.Attribute> Source { get; set; }
 
         #endregion
 
@@ -54,7 +55,7 @@ namespace Misp.Kernel.Ui.EditableTree
         /// <summary>
         /// Default constructor
         /// </summary>
-        public MeasureTreeList()
+        public AttributeTreeList()
         {
             ThemeManager.SetThemeName(this, "Office2016White");
             InitializeComponent();
@@ -64,27 +65,52 @@ namespace Misp.Kernel.Ui.EditableTree
 
 
         #region Operations
-        
+
+
         /// <summary>
-        /// Display entity Measures.
+        /// Display entity attributes.
         /// Builds the root node and calls DisplayRoot()
         /// </summary>
         /// <param name="entity"> Entity to display </param>
-        public void DisplayMeasure(Domain.Measure measure)
+        public void DisplayEntity(Kernel.Domain.Entity entity)
         {
-            this.DisplayRoot(measure);
+            this.Entity = entity;
+            if (entity != null)
+            {
+                Kernel.Domain.Attribute root = new Kernel.Domain.Attribute();
+                root.childrenListChangeHandler = entity.attributeListChangeHandler;
+                //root.entity = entity;
+                this.DisplayRoot(root);
+            }
+            else
+            {
+                this.DisplayRoot(null);
+            }
+        }
+
+        /// <summary>
+        /// Display entity Attributes.
+        /// Builds the root node and calls DisplayRoot()
+        /// </summary>
+        /// <param name="entity"> Entity to display </param>
+        public void DisplayAttribute(Domain.Attribute attribute)
+        {
+            this.DisplayRoot(attribute);
         }
 
         /// <summary>
         /// Display children od root node
         /// </summary>
-        /// <param name="root"> Measure representing the root node </param>
-        private void DisplayRoot(Domain.Measure root)
+        /// <param name="root"> Attribute representing the root node </param>
+        private void DisplayRoot(Domain.Attribute root)
         {
-            Source = new ObservableCollection<Domain.Measure>();
+            Source = new ObservableCollection<Domain.Attribute>();
             this.Root = root;
-            AddDefaultMeasures(this.Root);
-            RefreshParent(this.Root);            
+            if (this.Root != null)
+            {
+                AddDefaultAttributes(this.Root);
+                RefreshParent(this.Root);
+            }
             treeList.ItemsSource = Source;  
         }
 
@@ -92,11 +118,11 @@ namespace Misp.Kernel.Ui.EditableTree
         /// Initialize chidren's parent
         /// </summary>
         /// <param name="item"></param>
-        private void RefreshParent(Kernel.Domain.Measure item, bool addToSource = true)
+        private void RefreshParent(Kernel.Domain.Attribute item, bool addToSource = true)
         {
             if (item != null)
             {
-                foreach (Domain.Measure child in item.childrenListChangeHandler.Items)
+                foreach (Domain.Attribute child in item.childrenListChangeHandler.Items)
                 {
                     if (addToSource) Source.Add(child);
                     child.SetParent(item);
@@ -105,27 +131,27 @@ namespace Misp.Kernel.Ui.EditableTree
             }
         }
 
-        protected void AddDefaultMeasures(Domain.Measure parent)
+        protected void AddDefaultAttributes(Domain.Attribute parent)
         {
-            Domain.Measure addNewAttribute = new Kernel.Domain.Measure();
+            Domain.Attribute addNewAttribute = new Kernel.Domain.Attribute();
             addNewAttribute.IsAddNewItem = true;
-            addNewAttribute.name = "Add new measure...";
+            addNewAttribute.name = "Add new attribute...";
             addNewAttribute.parent = this.Root;
             this.Root.childrenListChangeHandler.Items.Add(addNewAttribute);
 
             if (parent.isCompleted && parent.HasMoreElements())
             {
-                Domain.Measure showModeAttributes = new Domain.Measure();
+                Domain.Attribute showModeAttributes = new Domain.Attribute();
                 showModeAttributes.IsShowMoreItem = true;
-                showModeAttributes.name = "Show more measure...";
+                showModeAttributes.name = "Show more attribute...";
                 showModeAttributes.parent = parent;
                 parent.childrenListChangeHandler.Items.Add(showModeAttributes);
             }
             if (parent != this.Root && this.Root.isCompleted && this.Root.HasMoreElements())
             {
-                Domain.Measure showModeAttributes = new Domain.Measure();
+                Domain.Attribute showModeAttributes = new Domain.Attribute();
                 showModeAttributes.IsShowMoreItem = true;
-                showModeAttributes.name = "Show more measure...";
+                showModeAttributes.name = "Show more attribute...";
                 showModeAttributes.parent = this.Root;
                 this.Root.childrenListChangeHandler.Items.Add(showModeAttributes);
             }
@@ -134,16 +160,16 @@ namespace Misp.Kernel.Ui.EditableTree
         /// <summary>
         /// Remove default nodes from root attribute
         /// </summary>
-        protected void ForgetDefaultMeasures(Domain.Measure parent)
+        protected void ForgetDefaultAttributes(Domain.Attribute parent)
         {
-            foreach (Domain.Measure value in parent.childrenListChangeHandler.Items.ToArray())
+            foreach (Domain.Attribute value in parent.childrenListChangeHandler.Items.ToArray())
             {
                 if (value.IsDefault) parent.childrenListChangeHandler.Items.Remove(value);
                 //this.Source.Remove(value);
             }
             if (parent != this.Root)
             {
-                foreach (Domain.Measure value in this.Root.childrenListChangeHandler.Items.ToArray())
+                foreach (Domain.Attribute value in this.Root.childrenListChangeHandler.Items.ToArray())
                 {
                     if (value.IsDefault)
                     {
@@ -157,35 +183,35 @@ namespace Misp.Kernel.Ui.EditableTree
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The selectected Measure</returns>
-        public Domain.Measure GetSelectedValue()
+        /// <returns>The selectected Attribute</returns>
+        public Domain.Attribute GetSelectedValue()
         {
             return this.treeList.SelectedItem != null ?
-                this.treeList.SelectedItem as Domain.Measure : null;
+                this.treeList.SelectedItem as Domain.Attribute : null;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The selectected Measures</returns>
-        public List<Domain.Measure> GetSelectedValues()
+        /// <returns>The selectected Attributes</returns>
+        public List<Domain.Attribute> GetSelectedValues()
         {
-            List<Domain.Measure> measures = new List<Domain.Measure>(0);
+            List<Domain.Attribute> attributes = new List<Domain.Attribute>(0);
             if (this.treeList.SelectedItems != null)
             {
                 foreach (object item in this.treeList.SelectedItems)
                 {
-                    if (item is Domain.Measure) measures.Add((Domain.Measure)item);
+                    if (item is Domain.Attribute) attributes.Add((Domain.Attribute)item);
                 }
             }
-            return measures;
+            return attributes;
         }
 
         /// <summary>
         /// Select 
         /// </summary>
-        /// <param name="attribute">The Measure to select</param>
-        public void SetSelectedValue(Domain.Measure value)
+        /// <param name="attribute">The Attribute to select</param>
+        public void SetSelectedValue(Domain.Attribute value)
         {
             if (value != null)
             {
@@ -195,7 +221,7 @@ namespace Misp.Kernel.Ui.EditableTree
             }
             else
             {
-                Domain.Measure selection = GetSelectedValue();
+                Domain.Attribute selection = GetSelectedValue();
                 if (selection != null) selection.IsSelected = false;
                 treeList.SelectedItem = null;
             }
@@ -206,12 +232,12 @@ namespace Misp.Kernel.Ui.EditableTree
         /// </summary>
         /// <param name="selectedItems"></param>
         /// <returns></returns>
-        protected bool canMoveUp(List<Domain.Measure> selectedItems)
+        protected bool canMoveUp(List<Domain.Attribute> selectedItems)
         {
-            foreach (Domain.Measure measure in selectedItems)
+            foreach (Domain.Attribute attribute in selectedItems)
             {
-                Domain.Measure parent = measure != null ? measure.parent : null;
-                int index = parent != null ? parent.childrenListChangeHandler.Items.IndexOf(measure) : -1;
+                Domain.Attribute parent = attribute != null ? attribute.parent : null;
+                int index = parent != null ? parent.childrenListChangeHandler.Items.IndexOf(attribute) : -1;
                 if(index <= 0) return false;
             }
             return selectedItems.Count > 0;
@@ -222,12 +248,12 @@ namespace Misp.Kernel.Ui.EditableTree
         /// </summary>
         /// <param name="selectedItems"></param>
         /// <returns></returns>
-        protected bool canMoveDown(List<Domain.Measure> selectedItems)
+        protected bool canMoveDown(List<Domain.Attribute> selectedItems)
         {
-            foreach (Domain.Measure measure in selectedItems)
+            foreach (Domain.Attribute attribute in selectedItems)
             {
-                Domain.Measure parent = measure != null ? measure.parent : null;
-                int index = parent != null ? parent.childrenListChangeHandler.Items.IndexOf(measure) : -1;
+                Domain.Attribute parent = attribute != null ? attribute.parent : null;
+                int index = parent != null ? parent.childrenListChangeHandler.Items.IndexOf(attribute) : -1;
                 int count = parent != null ? parent.childrenListChangeHandler.Items.Count : -1;
                 bool moveDown = count - 1 > index && !parent.childrenListChangeHandler.Items[index + 1].IsDefault;
                 if (!moveDown) return false;
@@ -240,11 +266,11 @@ namespace Misp.Kernel.Ui.EditableTree
         /// </summary>
         /// <param name="selectedItems"></param>
         /// <returns></returns>
-        protected bool canOutdent(List<Domain.Measure> selectedItems)
+        protected bool canOutdent(List<Domain.Attribute> selectedItems)
         {
-            foreach (Domain.Measure measure in selectedItems)
+            foreach (Domain.Attribute attribute in selectedItems)
             {
-                if (measure == null || measure.parent == null || measure.parent == this.Root) return false;
+                if (attribute == null || attribute.parent == null || attribute.parent == this.Root) return false;
             }
             return selectedItems.Count > 0;
         }
@@ -254,12 +280,12 @@ namespace Misp.Kernel.Ui.EditableTree
         /// </summary>
         /// <param name="selectedItems"></param>
         /// <returns></returns>
-        protected bool canIndent(List<Domain.Measure> selectedItems)
+        protected bool canIndent(List<Domain.Attribute> selectedItems)
         {
-            foreach (Domain.Measure measure in selectedItems)
+            foreach (Domain.Attribute attribute in selectedItems)
             {
-                Domain.Measure parent = measure != null ? measure.parent : null;
-                int index = parent != null ? parent.childrenListChangeHandler.Items.IndexOf(measure) : -1;
+                Domain.Attribute parent = attribute != null ? attribute.parent : null;
+                int index = parent != null ? parent.childrenListChangeHandler.Items.IndexOf(attribute) : -1;
                 if (index <= 0) return false;
             }
             return selectedItems.Count > 0;
@@ -270,17 +296,17 @@ namespace Misp.Kernel.Ui.EditableTree
         /// </summary>
         /// <param name="selectedItems"></param>
         /// <returns></returns>
-        protected bool isContiguous(List<Domain.Measure> selectedItems)
+        protected bool isContiguous(List<Domain.Attribute> selectedItems)
         {
             if (selectedItems.Count == 1) return true;
             selectedItems.BubbleSort();
-            Domain.Measure parent = null;
+            Domain.Attribute parent = null;
             int i = 0;
             int index = -1;
-            foreach (Domain.Measure measure in selectedItems)
+            foreach (Domain.Attribute attribute in selectedItems)
             {
-                Domain.Measure newparent = measure.parent;
-                int newindex = newparent != null ? newparent.childrenListChangeHandler.Items.IndexOf(measure) : -1;
+                Domain.Attribute newparent = attribute.parent;
+                int newindex = newparent != null ? newparent.childrenListChangeHandler.Items.IndexOf(attribute) : -1;
                 if (++i > 1)
                 {
                     if (parent != newparent) return false;
@@ -297,27 +323,27 @@ namespace Misp.Kernel.Ui.EditableTree
         /// </summary>
         /// <param name="selectedItems"></param>
         /// <returns></returns>
-        protected bool isContainsDefault(List<Domain.Measure> selectedItems)
+        protected bool isContainsDefault(List<Domain.Attribute> selectedItems)
         {
             if (selectedItems.Count == 1) return selectedItems[0].IsDefault;            
-            foreach (Domain.Measure measure in selectedItems)
+            foreach (Domain.Attribute attribute in selectedItems)
             {
-                if (measure.IsDefault) return true;
+                if (attribute.IsDefault) return true;
             }
             return false;
         }
 
-        protected Domain.Measure GetCopy(Domain.Measure measure)
+        protected Domain.Attribute GetCopy(Domain.Attribute attribute)
         {
-            Domain.Measure copy = new Domain.Measure();
+            Domain.Attribute copy = new Domain.Attribute();
 
-            copy.name = "Copy Of " + measure.name;
+            copy.name = "Copy Of " + attribute.name;
             copy.IsDefault = false;
-            copy.position = measure.position;
+            copy.position = attribute.position;
             copy.parent = null;
-            foreach (Domain.Measure child in measure.childrenListChangeHandler.Items)
+            foreach (Domain.Attribute child in attribute.childrenListChangeHandler.Items)
             {
-                Domain.Measure childcopy = GetCopy(child);
+                Domain.Attribute childcopy = GetCopy(child);
                 copy.AddChild(childcopy);
                 childcopy.parent = null;
             }
@@ -333,7 +359,7 @@ namespace Misp.Kernel.Ui.EditableTree
         {
             object row = treeList.GetRow(e.RowHandle);
             
-            if (row != null && ((Domain.Measure)row).IsDefault)
+            if (row != null && ((Domain.Attribute)row).IsDefault)
             {
                 bool isForeground = e.Property != null && e.Property.Name == "Foreground";
                 bool isBackground = e.Property != null && e.Property.Name == "Background";
@@ -358,35 +384,35 @@ namespace Misp.Kernel.Ui.EditableTree
                 String oldName = e.OldValue.ToString().Trim();
                 if (!name.Equals(oldName.Trim()))
                 {
-                    Domain.Measure measure = GetSelectedValue();
-                    if (measure != null && ValidateName(measure, name))
+                    Domain.Attribute attribute = GetSelectedValue();
+                    if (attribute != null && ValidateName(attribute, name))
                     {
-                        if (measure.IsDefault)
+                        if (attribute.IsDefault)
                         {
-                            measure.name = oldName;
-                            Domain.Measure newMeasure = new Domain.Measure();
-                            newMeasure.name = name;
-                            newMeasure.parent = this.Root;
-                            ForgetDefaultMeasures(this.Root);
-                            this.Root.AddChild(newMeasure);
-                            AddDefaultMeasures(this.Root);
+                            attribute.name = oldName;
+                            Domain.Attribute newAttribute = new Domain.Attribute();
+                            newAttribute.name = name;
+                            newAttribute.parent = this.Root;
+                            ForgetDefaultAttributes(this.Root);
+                            this.Root.AddChild(newAttribute);
+                            AddDefaultAttributes(this.Root);
 
                             int row = Source.Count;
-                            if (row - 2 >= 0) Source.Insert(row - 2, newMeasure);
-                            else Source.Add(newMeasure);
-                            SetSelectedValue(newMeasure);
+                            if (row - 2 >= 0) Source.Insert(row - 2, newAttribute);
+                            else Source.Add(newAttribute);
+                            SetSelectedValue(newAttribute);
                         }
                         else
                         {
-                            measure.name = name;
-                            ForgetDefaultMeasures(measure.parent);
-                            measure.parent.UpdateChild(measure);
-                            AddDefaultMeasures(measure.parent);
-                            SetSelectedValue(measure);
+                            attribute.name = name;
+                            ForgetDefaultAttributes(attribute.parent);
+                            attribute.parent.UpdateChild(attribute);
+                            AddDefaultAttributes(attribute.parent);
+                            SetSelectedValue(attribute);
                         }
                         if (Changed != null) Changed();
                     }
-                    else measure.name = oldName;
+                    else attribute.name = oldName;
                 }
             }            
         }
@@ -399,7 +425,7 @@ namespace Misp.Kernel.Ui.EditableTree
         /// <param name="e"></param>
         private void contextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            List<Domain.Measure> selectedItems = GetSelectedValues();
+            List<Domain.Attribute> selectedItems = GetSelectedValues();
             if (selectedItems.Count == 0) this.contextMenu.Visibility = Visibility.Collapsed;
             else if (Root != null)
             {
@@ -411,7 +437,7 @@ namespace Misp.Kernel.Ui.EditableTree
                 this.newMenuItem.IsEnabled = slectionCount <= 1 && (slectionCount == 0 || !selectedItems[0].IsDefault);
                 this.cutMenuItem.IsEnabled = slectionCount > 0 && isContiguousSelection && !containsDefault;
                 this.copyMenuItem.IsEnabled = slectionCount > 0 && isContiguousSelection && !containsDefault;
-                this.pasteMenuItem.IsEnabled = !Kernel.Util.ClipbordUtil.IsClipBoardEmptyMeasure() && !containsDefault;
+                this.pasteMenuItem.IsEnabled = !Kernel.Util.ClipbordUtil.IsClipBoardEmptyAttribute() && !containsDefault;
                 this.deleteMenuItem.IsEnabled = slectionCount > 0 && !containsDefault;
 
                 this.moveUpMenuItem.IsEnabled = canMoveUp(selectedItems) && isContiguousSelection && !containsDefault;
@@ -425,21 +451,21 @@ namespace Misp.Kernel.Ui.EditableTree
 
         private void OnNewClick(object sender, RoutedEventArgs e)
         {
-            Domain.Measure parent = GetSelectedValue();
+            Domain.Attribute parent = GetSelectedValue();
             if (IsUsedToGenerateUniverse(parent)) return;
-            Kernel.Domain.Measure measure = GetNewMeasure();
+            Kernel.Domain.Attribute attribute = GetNewAttribute();
             if (parent == null) parent = this.Root;
             if (parent != null)
             {
-                ForgetDefaultMeasures(parent);
-                parent.AddChild(measure);
-                AddDefaultMeasures(parent);
+                ForgetDefaultAttributes(parent);
+                parent.AddChild(attribute);
+                AddDefaultAttributes(parent);
                 
                 int row = Source.Count;
-                Source.Remove(measure);
-                if (row - 2 >= 0) Source.Insert(row - 2, measure);
-                else Source.Add(measure);
-                SetSelectedValue(measure);
+                Source.Remove(attribute);
+                if (row - 2 >= 0) Source.Insert(row - 2, attribute);
+                else Source.Add(attribute);
+                SetSelectedValue(attribute);
 
                 if (Changed != null) Changed();
             }
@@ -448,19 +474,19 @@ namespace Misp.Kernel.Ui.EditableTree
 
         private void OnCopyClick(object sender, RoutedEventArgs e)
         {
-            List<Domain.Measure> measures = GetSelectedValues();            
-            if (measures.Count == 0) return;
+            List<Domain.Attribute> attributes = GetSelectedValues();            
+            if (attributes.Count == 0) return;
             Kernel.Util.ClipbordUtil.ClearClipboard();
             List<Object> listeCopy = new List<Object>(0);
-            foreach (Domain.Measure measure in measures)
+            foreach (Domain.Attribute attribute in attributes)
             {
-                ForgetDefaultMeasures(measure);
-                Domain.Measure copy = GetCopy(measure);
+                ForgetDefaultAttributes(attribute);
+                Domain.Attribute copy = GetCopy(attribute);
                 copy.parent = null;
                 listeCopy.Add(copy);
             }
             if (listeCopy.Count == 0) return;
-            Kernel.Util.ClipbordUtil.SetMeasures(listeCopy);
+            Kernel.Util.ClipbordUtil.SetAttributes(listeCopy);
         }
 
         private void OnCutClick(object sender, RoutedEventArgs e)
@@ -470,18 +496,18 @@ namespace Misp.Kernel.Ui.EditableTree
 
         private void OnPasteClick(object sender, RoutedEventArgs e)
         {
-            Domain.Measure parent = GetSelectedValue();
+            Domain.Attribute parent = GetSelectedValue();
             if (parent == null || parent.IsDefault) parent = this.Root;
-            List<Domain.Measure> measures = Kernel.Util.ClipbordUtil.GetMeasures();
-            if (measures != null && measures.Count > 0)
+            List<Domain.Attribute> attributes = Kernel.Util.ClipbordUtil.GetAttributes();
+            if (attributes != null && attributes.Count > 0)
             {
-                foreach (Domain.Measure measure in measures)
+                foreach (Domain.Attribute attribute in attributes)
                 {
-                    ForgetDefaultMeasures(parent);
-                    measure.SetParent(parent);
-                    parent.AddChild(measure);
-                    AddDefaultMeasures(parent);
-                    addToSource(measure);
+                    ForgetDefaultAttributes(parent);
+                    attribute.SetParent(parent);
+                    parent.AddChild(attribute);
+                    AddDefaultAttributes(parent);
+                    addToSource(attribute);
                 }
                 if (Changed != null) Changed();
             }
@@ -489,47 +515,47 @@ namespace Misp.Kernel.Ui.EditableTree
 
         private void OnDeleteClick(object sender, RoutedEventArgs e)
         {
-            List<Domain.Measure> measures = GetSelectedValues();
-            if (measures.Count == 0) return;
-            String message = "Do you want to delete Measure: '" + measures[0] + "' ?";
-            if (measures.Count > 1) message = "Do you want to delete the " + measures.Count + " selected measures ?";
-            MessageBoxResult result = Kernel.Util.MessageDisplayer.DisplayYesNoQuestion("Delete Measure", message);
+            List<Domain.Attribute> attributes = GetSelectedValues();
+            if (attributes.Count == 0) return;
+            String message = "Do you want to delete Attribute: '" + attributes[0] + "' ?";
+            if (attributes.Count > 1) message = "Do you want to delete the " + attributes.Count + " selected attributes ?";
+            MessageBoxResult result = Kernel.Util.MessageDisplayer.DisplayYesNoQuestion("Delete Attribute", message);
             if (result == MessageBoxResult.Yes)
             {
-                foreach (Domain.Measure measure in measures)
+                foreach (Domain.Attribute attribute in attributes)
                 {
-                    if (IsUsedToGenerateUniverse(measure)) return;
-                    Domain.Measure parent = measure.parent;
+                    if (IsUsedToGenerateUniverse(attribute)) return;
+                    Domain.Attribute parent = attribute.parent;
 
-                    ForgetDefaultMeasures(parent);
-                    if (measure.oid.HasValue) parent.RemoveChild(measure);
-                    else parent.ForgetChild(measure);
-                    AddDefaultMeasures(parent);
-                    removeFromSource(measure);
+                    ForgetDefaultAttributes(parent);
+                    if (attribute.oid.HasValue) parent.RemoveChild(attribute);
+                    else parent.ForgetChild(attribute);
+                    AddDefaultAttributes(parent);
+                    removeFromSource(attribute);
                 }
                 if (Changed != null) Changed();
             }
 
         }
 
-        private void removeFromSource(Domain.Measure measure)
+        private void removeFromSource(Domain.Attribute attribute)
         {
-            Source.Remove(measure);
-            foreach (Domain.Measure child in measure.childrenListChangeHandler.Items)
+            Source.Remove(attribute);
+            foreach (Domain.Attribute child in attribute.childrenListChangeHandler.Items)
             {
                 removeFromSource(child);
             }
         }
 
-        private void addToSource(Domain.Measure measure)
+        private void addToSource(Domain.Attribute attribute)
         {            
             int row = Source.Count;
-            if (row - 2 >= 0) Source.Insert(row - 2, measure);
-            else Source.Add(measure);
-            measure.childrenListChangeHandler.Items = new ObservableCollection<Domain.Measure>(measure.childrenListChangeHandler.newItems);
-            foreach (Domain.Measure child in measure.childrenListChangeHandler.Items)
+            if (row - 2 >= 0) Source.Insert(row - 2, attribute);
+            else Source.Add(attribute);
+            attribute.childrenListChangeHandler.Items = new ObservableCollection<Domain.Attribute>(attribute.childrenListChangeHandler.newItems);
+            foreach (Domain.Attribute child in attribute.childrenListChangeHandler.Items)
             {
-                child.SetParent(measure);
+                child.SetParent(attribute);
                 addToSource(child);
             }
         }
@@ -546,45 +572,45 @@ namespace Misp.Kernel.Ui.EditableTree
 
         private void OnIndentClick(object sender, RoutedEventArgs e)
         {
-            List<Domain.Measure> measures = GetSelectedValues();            
-            if (measures.Count == 0) return;
-            measures.BubbleSort();
-            foreach (Domain.Measure measure in measures)
+            List<Domain.Attribute> attributes = GetSelectedValues();            
+            if (attributes.Count == 0) return;
+            attributes.BubbleSort();
+            foreach (Domain.Attribute attribute in attributes)
             {
-                Domain.Measure parent = measure.parent;
+                Domain.Attribute parent = attribute.parent;
                 if (parent == null) parent = this.Root;
-                int position = measure.GetPosition();
-                Domain.Measure brother = (Domain.Measure)parent.GetChildByPosition(position - 1);
+                int position = attribute.GetPosition();
+                Domain.Attribute brother = (Domain.Attribute)parent.GetChildByPosition(position - 1);
                 if (brother == null) return;
-                ForgetDefaultMeasures(parent);
-                parent.ForgetChild(measure);
-                brother.AddChild(measure);                
+                ForgetDefaultAttributes(parent);
+                parent.ForgetChild(attribute);
+                brother.AddChild(attribute);                
                 brother.IsExpanded = true;
 
                 int row = Source.IndexOf(brother);
                 Source.Remove(brother);
                 Source.Insert(row, brother);
-                AddDefaultMeasures(parent);
+                AddDefaultAttributes(parent);
             }
-            treeList.SelectedItems = measures;
+            treeList.SelectedItems = attributes;
             if (Changed != null) Changed();
         }
 
         private void OnOutdentClick(object sender, RoutedEventArgs e)
         {
-            List<Domain.Measure> measures = GetSelectedValues();
-            if (measures.Count == 0) return;
-            measures.BubbleSort();
-            foreach (Domain.Measure measure in measures)
+            List<Domain.Attribute> attributes = GetSelectedValues();
+            if (attributes.Count == 0) return;
+            attributes.BubbleSort();
+            foreach (Domain.Attribute attribute in attributes)
             {
-                Domain.Measure parent = measure.parent;
+                Domain.Attribute parent = attribute.parent;
                 if (parent == null) parent = this.Root;
-                Domain.Measure grandParent = parent.parent;
+                Domain.Attribute grandParent = parent.parent;
                 if (grandParent == null) return;
 
-                ForgetDefaultMeasures(grandParent);
-                parent.ForgetChild(measure);
-                grandParent.AddChild(measure);                
+                ForgetDefaultAttributes(grandParent);
+                parent.ForgetChild(attribute);
+                grandParent.AddChild(attribute);                
                 parent.IsExpanded = true;
 
                 int row = Source.IndexOf(grandParent);
@@ -596,44 +622,44 @@ namespace Misp.Kernel.Ui.EditableTree
                 else
                 {
                     row = Source.Count;
-                    Source.Remove(measure);
-                    if (row -2 >= 0) Source.Insert(row-2, measure);
-                    else Source.Add(measure);
+                    Source.Remove(attribute);
+                    if (row -2 >= 0) Source.Insert(row-2, attribute);
+                    else Source.Add(attribute);
                 }
-                AddDefaultMeasures(grandParent);
+                AddDefaultAttributes(grandParent);
             }
-            treeList.SelectedItems = measures;
+            treeList.SelectedItems = attributes;
             if (Changed != null) Changed();
         }
 
         private void OnMove(bool up)
         {
-            List<Domain.Measure> measures = GetSelectedValues();            
-            if (measures.Count == 0) return;
-            if (up) measures.BubbleSort();
-            else measures.BubbleSortDesc();
-            foreach (Domain.Measure measure in measures)
+            List<Domain.Attribute> attributes = GetSelectedValues();            
+            if (attributes.Count == 0) return;
+            if (up) attributes.BubbleSort();
+            else attributes.BubbleSortDesc();
+            foreach (Domain.Attribute attribute in attributes)
             {
-                Domain.Measure parent = measure.parent;
+                Domain.Attribute parent = attribute.parent;
                 if (parent == null) parent = this.Root;
 
-                ForgetDefaultMeasures(parent);
-                int position = measure.position + (up ? -1 : 1);
-                Domain.Measure child = (Domain.Measure)parent.GetChildByPosition(position);
+                ForgetDefaultAttributes(parent);
+                int position = attribute.position + (up ? -1 : 1);
+                Domain.Attribute child = (Domain.Attribute)parent.GetChildByPosition(position);
                 if (child != null)
                 {
-                    child.SetPosition(measure.position);
+                    child.SetPosition(attribute.position);
                     parent.UpdateChild(child);
-                    measure.SetPosition(position);
-                    parent.UpdateChild(measure);
+                    attribute.SetPosition(position);
+                    parent.UpdateChild(attribute);
 
                     int row = Source.IndexOf(child);
-                    Source.Remove(measure);
-                    Source.Insert(row, measure);
+                    Source.Remove(attribute);
+                    Source.Insert(row, attribute);
                 }
-                AddDefaultMeasures(parent);
+                AddDefaultAttributes(parent);
             }
-            treeList.SelectedItems = measures;
+            treeList.SelectedItems = attributes;
             if (Changed != null) Changed();
         }
 
@@ -648,51 +674,51 @@ namespace Misp.Kernel.Ui.EditableTree
         /// <param name="attribute"></param>
         /// <param name="name"></param>
         /// <returns>La attribute à copier</returns>
-        private bool ValidateName(Kernel.Domain.Measure value, string name)
+        private bool ValidateName(Kernel.Domain.Attribute value, string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                Kernel.Util.MessageDisplayer.DisplayError("Empty Measure name", "Name can't be empty! ");
+                Kernel.Util.MessageDisplayer.DisplayError("Empty Attribute name", "Name can't be empty! ");
                 return false;
             }
-            Domain.Measure found = getMeasureByName(this.Root, name);
+            Domain.Attribute found = getAttributeByName(this.Root, name);
             if (found == null || found.Equals(value)) return true;
 
-            Kernel.Util.MessageDisplayer.DisplayError("Duplicate Measure", "There is another measure named : '" + name + "'!");
+            Kernel.Util.MessageDisplayer.DisplayError("Duplicate Attribute", "There is another attribute named : '" + name + "'!");
             return false;
         }
 
-        protected Domain.Measure getMeasureByName(Domain.Measure parent, string name)
+        protected Domain.Attribute getAttributeByName(Domain.Attribute parent, string name)
         {
-            foreach (Domain.Measure value in parent.childrenListChangeHandler.Items)
+            foreach (Domain.Attribute value in parent.childrenListChangeHandler.Items)
             {
                 if (value.IsDefault) continue;
                 if (value.name.ToUpper().Equals(name.ToUpper())) return value;
-                Domain.Measure child = getMeasureByName(value, name);
+                Domain.Attribute child = getAttributeByName(value, name);
                 if (child != null) return child;
             }
             return null;
         }
 
-        protected Domain.Measure GetNewMeasure()
+        protected Domain.Attribute GetNewAttribute()
         {
-            Domain.Measure attribute = new Domain.Measure();
-            attribute.name = "Measure";
+            Domain.Attribute attribute = new Domain.Attribute();
+            attribute.name = "Attribute";
             if (Root != null)
             {
-                Kernel.Domain.Measure m = null;
+                Kernel.Domain.Attribute m = null;
                 int i = 1;
                 do
                 {
-                    attribute.name = "Measure" + i++;
-                    m = (Domain.Measure)Root.GetChildByName(attribute.name);
+                    attribute.name = "Attribute" + i++;
+                    m = (Domain.Attribute)Root.GetChildByName(attribute.name);
                 }
                 while (m != null);
             }
             return attribute;
         }
 
-        private bool IsUsedToGenerateUniverse(Domain.Measure value)
+        private bool IsUsedToGenerateUniverse(Domain.Attribute value)
         {
             //if (value != null && value.usedToGenerateUniverse && Kernel.Application.ApplicationManager.Instance.AllocationCount > 0)
             //{
@@ -704,7 +730,6 @@ namespace Misp.Kernel.Ui.EditableTree
         }
         
         #endregion
-
 
     }
 }

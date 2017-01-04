@@ -772,7 +772,7 @@ namespace Misp.Kernel.Ui.Attribute
             if (selectedValues.Count > 0)
                 if (selectedValues.ContainsKey(GetSelectedMultiValue())) parent = GetSelectedMultiValue();
 
-            getValuesFromClipboard(Kernel.Util.ClipbordUtil.GetAttributeValue(), parent);
+            getValuesFromClipboard(Kernel.Util.ClipbordUtil.GetAttributeValues(), parent);
  
         }
 
@@ -944,7 +944,7 @@ namespace Misp.Kernel.Ui.Attribute
                 this.newMenuItem.IsEnabled = this.Root != null && selectedItem != defaultValue && selectedValues.Count <= 1;
                 this.cutMenuItem.IsEnabled = this.Root != null && selectedItem != null && selectedItem.parent != null && selectedItem != defaultValue && isContiguousList();
                 this.copyMenuItem.IsEnabled = this.Root != null && selectedItem != null && selectedItem.parent != null && selectedItem != defaultValue && isContiguousList();
-                this.pasteMenuItem.IsEnabled = this.Root != null && !Kernel.Util.ClipbordUtil.IsClipBoardEmptyValues() && selectedItem != defaultValue && selectedValues.Count <= 1;
+                this.pasteMenuItem.IsEnabled = this.Root != null && !Kernel.Util.ClipbordUtil.IsClipBoardEmptyAttributeValue() && selectedItem != defaultValue && selectedValues.Count <= 1;
                 this.deleteMenuItem.IsEnabled = this.Root != null && selectedItem != null && selectedItem.parent != null && selectedItem != defaultValue && isContiguousList();
                 this.moveUpMenuItem.IsEnabled = this.Root != null && CanMoveUp && selectedItem != null && selectedItem.parent != null && selectedItem != defaultValue ;
                 this.moveDownMenuItem.IsEnabled = this.Root != null && CanMoveDown && selectedItem != null && selectedItem.parent != null && selectedItem != defaultValue;

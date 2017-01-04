@@ -50,6 +50,9 @@ namespace Misp.Kernel.Domain
         [ScriptIgnore]
         public AttributeValue parent { get; set; }
 
+        [ScriptIgnore]
+        public String parentId { get { return parent != null ? parent.name : null; } set { } }
+
         public bool usedToGenerateUniverse { get; set; }
 
         public PersistentListChangeHandler<AttributeValue> childrenListChangeHandler { get; set; }
