@@ -22,7 +22,7 @@ namespace Misp.Reporting.StructuredReport
         protected override void InitializeNewPage()
         {
             base.InitializeNewPage();
-            ((StructuredReportEditorItem)NewPage).getStructuredReportForm().SpreadSheet.Close();
+           // ((StructuredReportEditorItem)NewPage).getStructuredReportForm().SpreadSheet.Close();
         }
 
         protected override void OnChildrenCollectionChanged()
