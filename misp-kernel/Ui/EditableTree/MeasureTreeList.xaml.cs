@@ -373,6 +373,7 @@ namespace Misp.Kernel.Ui.EditableTree
 
                             int row = Source.Count;
                             if (row - 2 >= 0) Source.Insert(row - 2, newMeasure);
+                            else if (row - 1 >= 0) Source.Insert(row - 1, newMeasure); 
                             else Source.Add(newMeasure);
                             SetSelectedValue(newMeasure);
                         }
@@ -525,6 +526,7 @@ namespace Misp.Kernel.Ui.EditableTree
         {            
             int row = Source.Count;
             if (row - 2 >= 0) Source.Insert(row - 2, measure);
+            else if (row - 1 >= 0) Source.Insert(row - 1, measure); 
             else Source.Add(measure);
             measure.childrenListChangeHandler.Items = new ObservableCollection<Domain.Measure>(measure.childrenListChangeHandler.newItems);
             foreach (Domain.Measure child in measure.childrenListChangeHandler.Items)

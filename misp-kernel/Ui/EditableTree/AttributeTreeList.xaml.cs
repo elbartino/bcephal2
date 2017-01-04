@@ -400,6 +400,7 @@ namespace Misp.Kernel.Ui.EditableTree
 
                             int row = Source.Count;
                             if (row - 2 >= 0) Source.Insert(row - 2, newAttribute);
+                            else if (row - 1 >= 0) Source.Insert(row - 1, newAttribute);
                             else Source.Add(newAttribute);
                             SetSelectedValue(newAttribute);
                         }
@@ -552,6 +553,7 @@ namespace Misp.Kernel.Ui.EditableTree
         {            
             int row = Source.Count;
             if (row - 2 >= 0) Source.Insert(row - 2, attribute);
+            else if (row - 1 >= 0) Source.Insert(row - 1, attribute);
             else Source.Add(attribute);
             attribute.childrenListChangeHandler.Items = new ObservableCollection<Domain.Attribute>(attribute.childrenListChangeHandler.newItems);
             foreach (Domain.Attribute child in attribute.childrenListChangeHandler.Items)
