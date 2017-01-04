@@ -40,7 +40,7 @@ namespace Misp.Kernel.Util
         #endregion
         
         
-        #region Les méthodes
+        #region Operations
 
         /// <summary>
         /// Cette méthode vérifie si le presse-papiers contient du texte ou
@@ -69,7 +69,7 @@ namespace Misp.Kernel.Util
             return res;
         }
 
-        public static bool IsClipBoardEmptyValues()
+        public static bool IsClipBoardEmptyAttributeValue()
         {
             bool res;
             if (System.Windows.Clipboard.ContainsText()) res = false;
@@ -322,21 +322,26 @@ namespace Misp.Kernel.Util
         /// </summary>
         /// <param name="format">Le format du type de données</param>
         /// <returns>L'objet présent dans le presse-papiers</returns>
-        public static List<Domain.Attribute> GetAttribute()
+        public static List<Domain.Attribute> GetAttributes()
         {
-            try
+            if (System.Windows.Clipboard.ContainsData(ATTRIBUTE_CLIPBOARD_FORMAT))
             {
-                List<Domain.IHierarchyObject> listeAttribute = GetHierarchyObject(ATTRIBUTE_CLIPBOARD_FORMAT);
-                if (listeAttribute != null)
+                try
                 {
-                    List<Domain.Attribute> ob = listeAttribute.Cast<Domain.Attribute>().ToList();
-                    if (ob != null && ob.Count > 0) return ob;
+                    object data = System.Windows.Clipboard.GetData(ATTRIBUTE_CLIPBOARD_FORMAT);
+                    if (data != null && data is String) return RestSharp.SimpleJson.DeserializeObject<List<Domain.Attribute>>((String)data);
+                }
+                catch (Exception)
+                {
+                    Kernel.Util.MessageDisplayer.DisplayError("Error copy", "Unable to paste " + ATTRIBUTE_CLIPBOARD_FORMAT.Split('.')[1]);
                 }
             }
-            catch (Exception)
+            else if (System.Windows.Clipboard.ContainsText())
             {
+                List<Domain.Attribute> attributes = GetTextDatas(ATTRIBUTE_CLIPBOARD_FORMAT).Cast<Domain.Attribute>().ToList();
+                if (attributes != null) return attributes;
             }
-            return null;
+            return new List<Domain.Attribute>(0);
         }
 
         /// <summary>
@@ -345,15 +350,26 @@ namespace Misp.Kernel.Util
         /// </summary>
         /// <param name="format">Le format du type de données</param>
         /// <returns>L'objet présent dans le presse-papiers</returns>
-        public static List<Domain.AttributeValue> GetAttributeValue()
+        public static List<Domain.AttributeValue> GetAttributeValues()
         {
-            List<Domain.IHierarchyObject> listeAttributeValues = GetHierarchyObject(ATTRIBUTE_VALUE_CLIPBOARD_FORMAT);
-            if (listeAttributeValues != null)
+            if (System.Windows.Clipboard.ContainsData(ATTRIBUTE_VALUE_CLIPBOARD_FORMAT))
             {
-                List<Domain.AttributeValue> ob = listeAttributeValues.Cast<Domain.AttributeValue>().ToList();
-                if (ob != null && ob.Count > 0) return ob;
+                try
+                {
+                    object data = System.Windows.Clipboard.GetData(ATTRIBUTE_VALUE_CLIPBOARD_FORMAT);
+                    if (data != null && data is String) return RestSharp.SimpleJson.DeserializeObject<List<Domain.AttributeValue>>((String)data);
+                }
+                catch (Exception)
+                {
+                    Kernel.Util.MessageDisplayer.DisplayError("Error copy", "Unable to paste " + ATTRIBUTE_VALUE_CLIPBOARD_FORMAT.Split('.')[1]);
+                }
             }
-            return null;
+            else if (System.Windows.Clipboard.ContainsText())
+            {
+                List<Domain.AttributeValue> values = GetTextDatas(ATTRIBUTE_VALUE_CLIPBOARD_FORMAT).Cast<Domain.AttributeValue>().ToList();
+                if (values != null) return values;
+            }
+            return new List<Domain.AttributeValue>(0);
         }
 
         /// <summary>

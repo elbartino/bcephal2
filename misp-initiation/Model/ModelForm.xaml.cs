@@ -445,6 +445,7 @@ namespace Misp.Initiation.Model
                 TypeTextBox.Text = entity.isObject ? "Object" : "ValueChain";                
             }
             attributeEditableTree.DisplayEntity(entity);
+            attributeTreeList.DisplayEntity(entity);
             nameTextBox.KeyUp += nameKeyEventHandler;
         }
 

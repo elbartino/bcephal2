@@ -14,7 +14,39 @@ namespace Misp.Kernel.Domain
     [Serializable]
     public class Attribute : Target, IHierarchyObject
     {
-        
+
+        #region Fields
+
+
+        #endregion
+
+
+        #region Properties
+
+        [ScriptIgnore]
+        public List<AttributeValue> FilterAttributeValues { get; set; }
+
+        [ScriptIgnore]
+        public Attribute parent { get; set; }
+
+        [ScriptIgnore]
+        public String parentId { get { return parent != null ? parent.name : null; } set { } }
+
+        [ScriptIgnore]
+        public Entity entity { get; set; }
+
+        [ScriptIgnore]
+        public bool LoadValues { get; set; }
+
+        public PersistentListChangeHandler<Attribute> childrenListChangeHandler { get; set; }
+
+        public PersistentListChangeHandler<AttributeValue> valueListChangeHandler { get; set; }
+
+        #endregion
+
+
+        #region Constructors
+
         public Attribute()
         {
             this.childrenListChangeHandler = new PersistentListChangeHandler<Attribute>();
@@ -28,8 +60,11 @@ namespace Misp.Kernel.Domain
             this.Items = new ObservableCollection<Target>();
         }
 
-        [ScriptIgnore]
-        public List<AttributeValue> FilterAttributeValues { get; set; }
+        #endregion
+
+        
+
+        
 
         [ScriptIgnore]
         public List<AttributeValue> LeafAttributeValues
@@ -46,18 +81,9 @@ namespace Misp.Kernel.Domain
             }
         }
 
-        [ScriptIgnore]
-        public Attribute parent { get; set; }
-   
-        [ScriptIgnore]
-        public Entity entity { get; set; }
         
-        [ScriptIgnore]
-        public bool LoadValues { get; set; }
 
-        public PersistentListChangeHandler<Attribute> childrenListChangeHandler { get; set; }
-
-        public PersistentListChangeHandler<AttributeValue> valueListChangeHandler { get; set; }
+        
 
         /// <summary>
         /// Méthode qui assigne une valeur à la property attribut de attributeValue

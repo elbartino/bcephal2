@@ -348,7 +348,7 @@ namespace Misp.Kernel.Ui.EditableTree
                 this.newMenuItem.IsEnabled = (selectedItem == null || !selectedItem.IsDefault) && slectionCount <= 1;
                 this.cutMenuItem.IsEnabled = selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null && isContiguousSelection;
                 this.copyMenuItem.IsEnabled = selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null && isContiguousSelection;
-                this.pasteMenuItem.IsEnabled = !Kernel.Util.ClipbordUtil.IsClipBoardEmptyValues() && (selectedItem == null || !selectedItem.IsDefault) && slectionCount <= 1;
+                this.pasteMenuItem.IsEnabled = !Kernel.Util.ClipbordUtil.IsClipBoardEmptyAttributeValue() && (selectedItem == null || !selectedItem.IsDefault) && slectionCount <= 1;
                 this.deleteMenuItem.IsEnabled =     selectedItem != null && !selectedItem.IsDefault && selectedItem.parent != null && isContiguousSelection;
                 this.moveUpMenuItem.IsEnabled = canMoveUp;
                 this.moveDownMenuItem.IsEnabled = canMoveDown;
