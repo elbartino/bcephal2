@@ -297,7 +297,7 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
                          area.RightColumnIndex + 1);
                     range.Items.Add(item);
                 }
-                rangePreviousValue = range;
+                //rangePreviousValue = range;
                 return range;
             }
             catch (Exception)
@@ -477,9 +477,41 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             this.spreadsheetControl.ActiveSheetChanged += OnSelectionChanged;
             this.spreadsheetControl.SheetInserted += OnSelectionChanged;
             this.spreadsheetControl.PopupMenuShowing += SpreadSheet_PopupMenuShowing;
-
             this.spreadsheetControl.CellEndEdit += OnCellEdited;
+            this.spreadsheetControl.CellValueChanged += spreadsheetControl_CellValueChanged;
             //this.spreadsheetControl.CellValueChanged += OnCellEdited;
+        }
+
+        bool IsSameRange = false;
+        private void spreadsheetControl_CellValueChanged(object sender, DevExpress.XtraSpreadsheet.SpreadsheetCellEventArgs e)
+        {
+            
+            ExcelEventArg arg = new ExcelEventArg() { };
+            
+            Range range = GetSelectedRange();
+            //Range previousRange = rangePreviousValue;
+            //IsSameRange = previousRange == range;
+
+            if (range == null || (rangePreviousValue != null && rangePreviousValue.Name.Equals(range.Name))) return;
+            
+           
+            if (range.CellCount > 1) arg.Range = range;
+            else arg.Range = rangePreviousValue;
+            if (arg.Range == null)
+            {
+                arg.Range = range;
+            }
+
+            if (arg.Sheet == null)
+            {
+                arg.Sheet = arg.Range.Sheet;
+            }
+
+            if (ThrowEvent && Edited != null)
+            {
+                Edited(arg);
+                rangePreviousValue = range;
+            }
         }
 
         private void SpreadSheet_PopupMenuShowing(object sender, DevExpress.Xpf.Spreadsheet.Menu.PopupMenuShowingEventArgs e)
