@@ -70,17 +70,18 @@ namespace Misp.Initiation.Model
             diagramEditor.designerCanvas.AddLink += new DiagramDesigner.AddLinkEventHandler(onAddLink);
             diagramEditor.designerCanvas.DeleteLink += new DiagramDesigner.DeleteLinkEventHandler(onDeleteLink);
 
-            attributeEditableTree.Changed += onAttributeChange;
-            attributeEditableTree.treeView.SelectedItemChanged += OnSelectedAttributeChange;
-            attributeValueEditableTree.Changed += onAttributeValueChange;
-            attributeValueEditableTree.Expanded += onAttributeValueExpend;
-            attributeValueEditableTree.ShowMore += onAttributeValueShowMore;
+            attributeTreeList.Changed += onAttributeChange;
+            attributeTreeList.treeList.SelectedItemChanged += OnSelectedAttributeChange;
+            attributeValueTreeList.Changed += onAttributeValueChange;
+            attributeValueTreeList.Expanded += onAttributeValueExpend;
+            attributeValueTreeList.ShowMore += onAttributeValueShowMore;
 
             nameKeyEventHandler = new KeyEventHandler(onNameTextChange);
             nameTextBox.KeyUp += nameKeyEventHandler;
             nameTextBox.LostFocus += onNameTextBoxLostFocus;
         }
 
+        
         /// <summary>
         ///
         /// </summary>
@@ -95,20 +96,20 @@ namespace Misp.Initiation.Model
         /// </summary>
         protected void onAttributeValueChange()
         {
-            Kernel.Domain.Attribute attribute = attributeEditableTree.GetSelectedValue();
+            Kernel.Domain.Attribute attribute = attributeTreeList.GetSelectedValue();
             if (ActiveEntity != null && attribute != null)
             {
-                attributeEditableTree.ForgetDefaultAttributes(attribute);
+                attributeTreeList.ForgetDefaultAttributes(attribute);
                 attribute.UpdateParents();
                 ActiveEntity.UpdateParents();
-                attributeEditableTree.AddDefaultAttributes(attribute);
+                attributeTreeList.AddDefaultAttributes(attribute);
             }
             this.IsModify = true;
         }
-
-        protected void OnSelectedAttributeChange(object sender, RoutedPropertyChangedEventArgs<object> arg)
-        {     
-            Kernel.Domain.Attribute selection = attributeEditableTree.GetSelectedValue(); ;
+        
+        protected void OnSelectedAttributeChange(object sender, DevExpress.Xpf.Grid.SelectedItemChangedEventArgs e)
+        {
+            Kernel.Domain.Attribute selection = attributeTreeList.GetSelectedValue(); ;
             if (selection != null && !selection.isCompleted && selection.oid.HasValue)
             {
                 BrowserDataFilter filter = new BrowserDataFilter();
@@ -122,7 +123,7 @@ namespace Misp.Initiation.Model
                 filter.totalPages = page.pageCount;
                 selection.DataFilter = filter;
             }
-            attributeValueEditableTree.DisplayAttribute(selection);
+            attributeValueTreeList.DisplayAttribute(selection);
         }
 
         private void onAttributeValueExpend(object item)
@@ -142,18 +143,7 @@ namespace Misp.Initiation.Model
 
                     selection.DataFilter.page++;
                     BrowserDataPage<Kernel.Domain.AttributeValue> page = ModelService.getAttributeValueChildren(selection.DataFilter);
-                    if (!selection.isCompleted)
-                    {
-                        foreach (Kernel.Domain.AttributeValue value in selection.childrenListChangeHandler.originalList.ToArray())
-                        {
-                            selection.childrenListChangeHandler.forget(value);
-                        }
-                    }
-                    foreach(Kernel.Domain.AttributeValue value in page.rows){
-                        value.parent = selection;
-                        selection.childrenListChangeHandler.Items.Add(value);
-                    }
-                    selection.childrenListChangeHandler.Items.BubbleSort();
+                    attributeValueTreeList.addPage(selection, page);
                     selection.isCompleted = true;
                     selection.DataFilter.page = page.currentPage;
                     selection.DataFilter.totalPages = page.pageCount;
@@ -171,13 +161,9 @@ namespace Misp.Initiation.Model
                 parent.DataFilter.page++;
                 BrowserDataPage<Kernel.Domain.AttributeValue> page = parent.parent != null
                     ? ModelService.getAttributeValueChildren(parent.DataFilter)
-                    : ModelService.getRootAttributeValuesByAttribute(parent.DataFilter);                
-                foreach(Kernel.Domain.AttributeValue value in page.rows){
-                    value.parent = parent;
-                    parent.childrenListChangeHandler.Items.Add(value);
-                }
-                parent.childrenListChangeHandler.Items.BubbleSort();
+                    : ModelService.getRootAttributeValuesByAttribute(parent.DataFilter);
                 parent.isCompleted = true;
+                attributeValueTreeList.addPage(parent, page);
                 parent.DataFilter.page = page.currentPage;
                 parent.DataFilter.totalPages = page.pageCount;
             }
@@ -423,8 +409,8 @@ namespace Misp.Initiation.Model
             List<object> controls = new List<object>(0);
             controls.Add(diagramEditor.designerCanvas);
             controls.Add(this.visibleInShortcutCheckBox);
-            controls.Add(attributeEditableTree);
-            controls.Add(attributeValueEditableTree);
+            controls.Add(attributeTreeList);
+            controls.Add(attributeValueTreeList);
             return controls;
         }
 
@@ -444,7 +430,7 @@ namespace Misp.Initiation.Model
                 nameTextBox.Text = entity.name;
                 TypeTextBox.Text = entity.isObject ? "Object" : "ValueChain";                
             }
-            attributeEditableTree.DisplayEntity(entity);
+            attributeTreeList.DisplayEntity(entity);
             attributeTreeList.DisplayEntity(entity);
             nameTextBox.KeyUp += nameKeyEventHandler;
         }

@@ -7,7 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <dxg:TreeListControl Name="treeList" ShowBorder="False" ContextMenuOpening="contextMenuOpening" SelectionMode="Row">
+    <dxg:TreeListControl Name="treeList" ShowBorder="False" ContextMenuOpening="contextMenuOpening" 
+                         SelectionMode="Row" SelectedItemChanged="OnSelectedItemChanged" >
         <dxg:TreeListControl.Columns>
             <dxg:TreeListColumn FieldName="name"/>
         </dxg:TreeListControl.Columns>
@@ -16,7 +17,7 @@
                               AutoWidth="True" AllowPerPixelScrolling="True" AutoExpandAllNodes="False" ShowColumnHeaders="False"
                               ShowNodeImages="True" AllowScrollAnimation="True" PrintNodeImages="True" ShowIndicator="False" EditorShowMode="MouseUpFocused"  
                               CellValueChanged="OnCellValueChanged" ShownEditor="OnShownEditor" ShowHorizontalLines="False" ShowVerticalLines="False" 
-                              CustomCellAppearance="OnCustomCellAppearance" />
+                              CustomCellAppearance="OnCustomCellAppearance" NodeExpanding="OnExpanded"/>
         </dxg:TreeListControl.View>
 
         <dxg:TreeListControl.ContextMenu>

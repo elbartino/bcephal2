@@ -51,28 +51,14 @@
 
 
         <GroupBox x:Name="attributesEditableGroupBox" Header="Attributes" Margin="5,5,5,10" Grid.Row="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <EditableTree:AttributeEditableTree x:Name="attributeEditableTree" />
-                <EditableTree:AttributeTreeList Grid.Row="1" x:Name="attributeTreeList" />
-            </Grid>            
+            <EditableTree:AttributeTreeList x:Name="attributeTreeList" />           
         </GroupBox>
         
         <GridSplitter Height="5" ResizeDirection="Rows" Background="#FFFBF8F8"
                       VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>   
         
         <GroupBox x:Name="attributeValuesEditableGroupBox" Header="Values" Margin="5,0,5,10" Grid.Row="2">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <EditableTree:AttributeValueEditableTree x:Name="attributeValueEditableTree" />
-                <EditableTree:AttributeValueTreeList Grid.Row="1" x:Name="attributeValueTreeList" />
-            </Grid>
+            <EditableTree:AttributeValueTreeList x:Name="attributeValueTreeList" />
         </GroupBox>   
         
     </Grid>

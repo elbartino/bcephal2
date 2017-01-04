@@ -21,6 +21,7 @@ using Misp.Kernel.Domain;
 using System.Web.Script.Serialization;
 using DevExpress.Xpf.Grid.TreeList;
 using DevExpress.Xpf.Editors;
+using Misp.Kernel.Domain.Browser;
 
 
 namespace Misp.Kernel.Ui.EditableTree
@@ -42,6 +43,7 @@ namespace Misp.Kernel.Ui.EditableTree
 
         #region Properties
 
+        public Domain.Attribute Attribute { get; set; }
         public Domain.AttributeValue Root { get; set; }
         public ObservableCollection<Domain.AttributeValue> Source { get; set; }
 
@@ -64,6 +66,35 @@ namespace Misp.Kernel.Ui.EditableTree
 
         #region Operations
 
+
+        /// <summary>
+        /// Display entity attributes.
+        /// Builds the root node and calls DisplayRoot()
+        /// </summary>
+        /// <param name="entity"> Entity to display </param>
+        public void DisplayAttribute(Domain.Attribute attribute)
+        {
+            this.Attribute = attribute;
+            if (attribute != null)
+            {
+                if (attribute.IsDefault)
+                {
+                    this.Attribute = null;
+                    this.DisplayRoot(null);
+                    return;
+                }
+                Domain.AttributeValue root = new Kernel.Domain.AttributeValue();
+                root.name = "Root";
+                root.childrenListChangeHandler = attribute.valueListChangeHandler;
+                root.DataFilter = this.Attribute.DataFilter;
+                this.DisplayRoot(root);
+            }
+            else
+            {
+                this.DisplayRoot(null);
+            }
+        }
+
         /// <summary>
         /// Display entity AttributeValues.
         /// Builds the root node and calls DisplayRoot()
@@ -82,8 +113,12 @@ namespace Misp.Kernel.Ui.EditableTree
         {
             Source = new ObservableCollection<Domain.AttributeValue>();
             this.Root = root;
-            AddDefaultAttributeValues(this.Root);
-            RefreshParent(this.Root);
+            if (this.Root != null)
+            {
+                ForgetDefaultAttributeValues(this.Root);
+                AddDefaultAttributeValues(this.Root);
+                RefreshParent(this.Root);
+            }
             treeList.ItemsSource = Source;
         }
 
@@ -323,10 +358,54 @@ namespace Misp.Kernel.Ui.EditableTree
             return copy;
         }
 
+        public void addPage(Domain.AttributeValue selection, BrowserDataPage<Domain.AttributeValue> page)
+        {
+            if (!selection.isCompleted)
+            {
+                foreach (Domain.AttributeValue value in selection.childrenListChangeHandler.originalList.ToArray())
+                {
+                    selection.childrenListChangeHandler.forget(value);
+                    removeFromSource(value);
+                }
+            }
+            Domain.AttributeValue sel = null;
+            foreach (Domain.AttributeValue value in page.rows)
+            {
+                value.parent = selection;
+                addToSource(value);
+                sel = value;
+            }
+            selection.childrenListChangeHandler.Items.BubbleSort();
+            SetSelectedValue(sel);
+        }
+
         #endregion
 
 
         #region Handlers
+
+        private void OnExpanded(object sender, TreeListNodeAllowEventArgs e)
+        {
+            Domain.AttributeValue value = (Domain.AttributeValue)e.Row;
+            if (value != null && value != this.Root && Expanded != null)
+            {
+                ForgetDefaultAttributeValues(value);
+                Expanded(value);
+                AddDefaultAttributeValues(value);
+            }
+        }
+
+        private void OnSelectedItemChanged(object sender, SelectedItemChangedEventArgs e)
+        {
+            Kernel.Domain.AttributeValue value = GetSelectedValue();
+            if (value != null && value.IsShowMoreItem)
+            {
+                ForgetDefaultAttributeValues(value.parent);
+                if (value.parent.HasMoreElements() && ShowMore != null) ShowMore(value);
+                AddDefaultAttributeValues(value.parent);
+                return;
+            }
+        }
 
         private void OnCustomCellAppearance(object sender, CustomCellAppearanceEventArgs e)
         {
@@ -336,7 +415,7 @@ namespace Misp.Kernel.Ui.EditableTree
             {
                 bool isForeground = e.Property != null && e.Property.Name == "Foreground";
                 bool isBackground = e.Property != null && e.Property.Name == "Background";
-                if (isForeground) e.Result = Brushes.Red;
+                if (isForeground) e.Result = ((Domain.AttributeValue)row).IsAddNewItem ? Brushes.Red : Brushes.Green;
                 e.Handled = true;
             }
 
@@ -693,12 +772,12 @@ namespace Misp.Kernel.Ui.EditableTree
 
         private bool IsUsedToGenerateUniverse(Domain.AttributeValue value)
         {
-            //if (value != null && value.usedToGenerateUniverse && Kernel.Application.ApplicationManager.Instance.AllocationCount > 0)
-            //{
-            //    string message = "You're not allowed to modify value." + "\n" + "You have to clear allocation before modify value.";
-            //    Kernel.Util.MessageDisplayer.DisplayWarning("Modify value", message);
-            //    return true;
-            //}
+            if (value != null && value.usedToGenerateUniverse && Kernel.Application.ApplicationManager.Instance.AllocationCount > 0)
+            {
+                string message = "You're not allowed to modify value." + "\n" + "You have to clear allocation before modify value.";
+                Kernel.Util.MessageDisplayer.DisplayWarning("Modify value", message);
+                return true;
+            }
             return false;
         }
 

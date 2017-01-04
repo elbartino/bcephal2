@@ -108,6 +108,7 @@ namespace Misp.Kernel.Ui.EditableTree
             this.Root = root;
             if (this.Root != null)
             {
+                ForgetDefaultAttributes(this.Root);
                 AddDefaultAttributes(this.Root);
                 RefreshParent(this.Root);
             }
@@ -131,7 +132,7 @@ namespace Misp.Kernel.Ui.EditableTree
             }
         }
 
-        protected void AddDefaultAttributes(Domain.Attribute parent)
+        public void AddDefaultAttributes(Domain.Attribute parent)
         {
             Domain.Attribute addNewAttribute = new Kernel.Domain.Attribute();
             addNewAttribute.IsAddNewItem = true;
@@ -160,7 +161,7 @@ namespace Misp.Kernel.Ui.EditableTree
         /// <summary>
         /// Remove default nodes from root attribute
         /// </summary>
-        protected void ForgetDefaultAttributes(Domain.Attribute parent)
+        public void ForgetDefaultAttributes(Domain.Attribute parent)
         {
             foreach (Domain.Attribute value in parent.childrenListChangeHandler.Items.ToArray())
             {
@@ -718,14 +719,14 @@ namespace Misp.Kernel.Ui.EditableTree
             return attribute;
         }
 
-        private bool IsUsedToGenerateUniverse(Domain.Attribute value)
+        private bool IsUsedToGenerateUniverse(Domain.Attribute attribute)
         {
-            //if (value != null && value.usedToGenerateUniverse && Kernel.Application.ApplicationManager.Instance.AllocationCount > 0)
-            //{
-            //    string message = "You're not allowed to modify value." + "\n" + "You have to clear allocation before modify value.";
-            //    Kernel.Util.MessageDisplayer.DisplayWarning("Modify value", message);
-            //    return true;
-            //}
+            if (this.Entity != null && this.Entity.model != null && this.Entity.usedToGenerateUniverse && this.Entity.model.IsUniverseGenerated() && Kernel.Application.ApplicationManager.Instance.AllocationCount > 0)
+            {
+                string message = "You're not allowed to add a new attribute." + "\n" + "You have to clear allocation before add attribute.";
+                Kernel.Util.MessageDisplayer.DisplayWarning("Add attribute", message);
+                return true;
+            }
             return false;
         }
         
