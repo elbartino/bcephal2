@@ -162,7 +162,7 @@ namespace Misp.Kernel.Ui.EditableTree
             {
                 foreach (Domain.Measure child in item.childrenListChangeHandler.Items)
                 {
-                    child.SetParent(item);
+                    child.parent = item;
                     RefreshParent(child);
                 }
             }

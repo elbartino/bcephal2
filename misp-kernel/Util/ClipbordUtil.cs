@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 using System.Windows.Forms;
 
 
@@ -103,8 +104,7 @@ namespace Misp.Kernel.Util
             else res = true;
             return res;
         }
-
-
+        
         public static bool IsClipBoardEmptyRange()
         {
             bool res;
@@ -112,6 +112,267 @@ namespace Misp.Kernel.Util
             else res = true;
             return res;
         }
+        
+        public static void SetDatas(String format, List<Object> datas)
+        {
+            if (format == null || datas == null || datas.Count == 0) return;
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = int.MaxValue;
+            string json = serializer.Serialize(datas);
+            System.Windows.Clipboard.SetData(format, json);
+        }
+
+        public static List<Object> GetTextDatas(string format)
+        {
+            List<Object> datas = new List<Object>(0);
+            if (format != null && System.Windows.Clipboard.ContainsText())
+            {
+                string name = System.Windows.Clipboard.GetText();
+                if (format.Equals(GROUP_CLIPBOARD_FORMAT))
+                {
+                    foreach (string copies in ExcelCellsCopies(name))
+                    {
+                        Domain.BGroup group = new Domain.BGroup();
+                        group.name = copies;
+                        group.subjectType = Domain.SubjectType.DEFAULT.label;
+                        datas.Add(group as Domain.BGroup);
+                    }
+                }
+
+                else if (format.Equals(MEASURE_CLIPBOARD_FORMAT))
+                {
+                    Kernel.Domain.Measure parent = null;
+                    List<String> listeResult = ExcelCellsCopies(name);
+                    if (listeResult == null) return null;
+                    if (listeResult[0] == IS_PARENT_CHILD_MODE)
+                    {
+                        parent = new Domain.Measure()
+                        {
+                            name = listeResult[1]
+                        };
+                        listeResult.RemoveAt(0);
+                        listeResult.RemoveAt(0);
+                    }
+                    foreach (string copies in listeResult)
+                    {
+                        Domain.Measure value = new Domain.Measure();
+                        value.name = copies.Trim();
+                        if (parent != null) parent.AddChild(value as Domain.Measure);
+                        else datas.Add(value as Domain.Measure);
+                    }
+                    if (parent != null) datas.Add(parent as Domain.Measure);
+                }
+
+                else if (format.Equals(ATTRIBUTE_CLIPBOARD_FORMAT))
+                {
+                    List<String> listeResult = ExcelCellsCopies(name);
+                    if (listeResult[0] == IS_PARENT_CHILD_MODE)
+                    {
+                        listeResult.RemoveAt(0);
+                    }
+                    foreach (string copies in listeResult)
+                    {
+                        Domain.Attribute attribute = new Domain.Attribute();
+                        attribute.name = copies;
+                        datas.Add(attribute as Domain.Attribute);
+                    }
+                }
+                
+                else if (format.Equals(ATTRIBUTE_VALUE_CLIPBOARD_FORMAT))
+                {
+                    Kernel.Domain.AttributeValue parent = null;
+
+                    List<String> listeResult = ExcelCellsCopies(name);
+                    if (listeResult == null) return null;
+                    if (listeResult[0] == IS_PARENT_CHILD_MODE)
+                    {
+                        parent = new Domain.AttributeValue()
+                        {
+                            name = listeResult[1]
+                        };
+                        listeResult.RemoveAt(0);
+                        listeResult.RemoveAt(0);
+                    }
+                    foreach (string copies in listeResult)
+                    {
+                        Domain.AttributeValue value = new Domain.AttributeValue();
+                        value.name = copies;
+                        if (parent != null) parent.AddChild(value as Domain.AttributeValue);
+                        else datas.Add(value as Domain.AttributeValue);
+                    }
+                    if (parent != null) datas.Add(parent as Domain.AttributeValue);
+                }
+            }
+            return datas;
+        }
+
+        public static void SetMeasures(List<Object> datas)
+        {
+            SetDatas(MEASURE_CLIPBOARD_FORMAT, datas);
+        }
+
+        public static void SetRoles(List<Object> datas)
+        {
+            SetDatas(ROLE_CLIPBOARD_FORMAT, datas);
+        }
+        
+        public static void SetGroups(List<Object> datas)
+        {
+            SetDatas(GROUP_CLIPBOARD_FORMAT, datas);
+        }
+
+        public static void SetAttributeValues(List<Object> datas)
+        {
+            SetDatas(ATTRIBUTE_VALUE_CLIPBOARD_FORMAT, datas);
+        }
+
+        public static void SetAttributes(List<Object> datas)
+        {
+            SetDatas(ATTRIBUTE_CLIPBOARD_FORMAT, datas);
+        }
+
+        public static void SetPeriodNames(List<Object> datas)
+        {
+            SetDatas(PERIODNAME_CLIPBOARD_FORMAT, datas);
+        }
+
+
+        /// <summary>
+        /// Cette méthode vérifie si le presse-papier contient un group et 
+        /// renvoie un objet de ce type
+        /// </summary>
+        /// <param name="format">Le format du type de données</param>
+        /// <returns>L'objet présent dans le presse-papiers</returns>
+        public static List<Domain.BGroup> GetGroup()
+        {
+            List<Domain.IHierarchyObject> listeGroup = GetHierarchyObject(GROUP_CLIPBOARD_FORMAT);
+            if (listeGroup != null)
+            {
+                List<Domain.BGroup> ob = listeGroup.Cast<Domain.BGroup>().ToList();
+                if (ob != null && ob.Count > 0) return ob;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Cette méthode vérifie si le presse-papier contient une mesure et 
+        /// renvoie un objet de ce type
+        /// </summary>
+        /// <param name="format">Le format du type de données</param>
+        /// <returns>L'objet présent dans le presse-papiers</returns>
+        public static List<Domain.Measure> GetMeasures()
+        {
+            if (System.Windows.Clipboard.ContainsData(MEASURE_CLIPBOARD_FORMAT))
+            {
+                try
+                {
+                    object data = System.Windows.Clipboard.GetData(MEASURE_CLIPBOARD_FORMAT);
+                    if(data != null && data is String) return RestSharp.SimpleJson.DeserializeObject<List<Domain.Measure>>((String)data);
+                }
+                catch (Exception)
+                {
+                    Kernel.Util.MessageDisplayer.DisplayError("Error copy", "Unable to paste " + MEASURE_CLIPBOARD_FORMAT.Split('.')[1]);
+                }
+            }
+            else if (System.Windows.Clipboard.ContainsText())
+            {
+                List<Domain.Measure> measures = GetTextDatas(MEASURE_CLIPBOARD_FORMAT).Cast<Domain.Measure>().ToList();
+                if (measures != null) return measures;                
+            }
+            return new List<Domain.Measure>(0);
+        }
+
+        /// <summary>
+        /// Cette méthode vérifie si le presse-papier contient une role et 
+        /// renvoie un objet de ce type
+        /// </summary>
+        /// <param name="format">Le format du type de données</param>
+        /// <returns>L'objet présent dans le presse-papiers</returns>
+        public static List<Domain.Role> GetRole()
+        {
+            List<Domain.IHierarchyObject> listeRole = GetHierarchyObject(MEASURE_CLIPBOARD_FORMAT);
+            if (listeRole != null)
+            {
+                List<Domain.Role> ob = listeRole.Cast<Domain.Role>().ToList();
+                if (ob != null && ob.Count > 0) return ob;
+            }
+            return null;
+        }
+
+        public static List<Domain.PeriodName> GetPeriodName()
+        {
+            try
+            {
+                List<Domain.IHierarchyObject> listeAttribute = GetHierarchyObject(PERIODNAME_CLIPBOARD_FORMAT);
+                if (listeAttribute != null)
+                {
+                    List<Domain.PeriodName> ob = listeAttribute.Cast<Domain.PeriodName>().ToList();
+                    if (ob != null && ob.Count > 0) return ob;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Cette méthode vérifie si le presse-papier contient une Attribute et 
+        /// renvoie un objet de ce type
+        /// </summary>
+        /// <param name="format">Le format du type de données</param>
+        /// <returns>L'objet présent dans le presse-papiers</returns>
+        public static List<Domain.Attribute> GetAttribute()
+        {
+            try
+            {
+                List<Domain.IHierarchyObject> listeAttribute = GetHierarchyObject(ATTRIBUTE_CLIPBOARD_FORMAT);
+                if (listeAttribute != null)
+                {
+                    List<Domain.Attribute> ob = listeAttribute.Cast<Domain.Attribute>().ToList();
+                    if (ob != null && ob.Count > 0) return ob;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Cette méthode vérifie si le presse-papier contient une AttributeValue et 
+        /// renvoie un objet de ce type
+        /// </summary>
+        /// <param name="format">Le format du type de données</param>
+        /// <returns>L'objet présent dans le presse-papiers</returns>
+        public static List<Domain.AttributeValue> GetAttributeValue()
+        {
+            List<Domain.IHierarchyObject> listeAttributeValues = GetHierarchyObject(ATTRIBUTE_VALUE_CLIPBOARD_FORMAT);
+            if (listeAttributeValues != null)
+            {
+                List<Domain.AttributeValue> ob = listeAttributeValues.Cast<Domain.AttributeValue>().ToList();
+                if (ob != null && ob.Count > 0) return ob;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Cette méthode permet de vider le contenu du presse-papier.
+        /// </summary>
+        public static void ClearClipboard()
+        {
+            System.Windows.Clipboard.Clear();
+        }
+              
+
+
+
+
+
+
+
+
+
         /// <summary>
         /// Cette méthode insère un type de données spécifique dans le presse-papiers
         /// </summary>
@@ -125,13 +386,7 @@ namespace Misp.Kernel.Util
             if (item is Domain.PeriodName) System.Windows.Clipboard.SetData(PERIODNAME_CLIPBOARD_FORMAT, item);
             if (item is Domain.AttributeValue) System.Windows.Clipboard.SetData(ATTRIBUTE_VALUE_CLIPBOARD_FORMAT, item);
         }
-
-        public static void SetData(Object item)
-        {
-            if(item == null) return;
-            
-        }
-
+        
         /// <summary>
         /// Cette méthode insère un type de données spécifique dans le presse-papiers
         /// </summary>
@@ -149,6 +404,7 @@ namespace Misp.Kernel.Util
                 if (item is Domain.PeriodName) System.Windows.Clipboard.SetData(PERIODNAME_CLIPBOARD_FORMAT, listeItem);
             }
         }
+        
         /// <summary>
         /// Mets les ranges selectionnés dans le presse-papier.
         /// </summary>
@@ -160,8 +416,6 @@ namespace Misp.Kernel.Util
             System.Windows.Clipboard.SetData(RANGE_CLIPBOARD_FORMAT, range);
         }
 
-
-
         /// <summary>
         /// Récupère les ranges du presse-papier.
         /// </summary>
@@ -172,6 +426,7 @@ namespace Misp.Kernel.Util
             return System.Windows.Clipboard.GetData(RANGE_CLIPBOARD_FORMAT) as Ui.Office.Range;
              return null;
         }
+        
         /// <summary>
         /// Cette méthode détermine le nombre de colonnes copiées depuis
         /// un fichier excel.
@@ -267,7 +522,8 @@ namespace Misp.Kernel.Util
             }
             return listResult.Count == 0 ? null : listResult;
         }
-      static void addParent(String name, ref List<Kernel.Domain.AttributeValue> liste ) 
+      
+        static void addParent(String name, ref List<Kernel.Domain.AttributeValue> liste ) 
         {
             if (!String.IsNullOrEmpty(name))
             {
@@ -298,7 +554,6 @@ namespace Misp.Kernel.Util
             return listResult;
         }
 
-
         private static List<String> parcourCells(String[] lignes,int index=0) 
         {
             List<String> listResult = new List<String>(0);
@@ -319,42 +574,6 @@ namespace Misp.Kernel.Util
             return listResult;
         }
 
-        public static bool  IsSerializable(object obj)
-        {
-            System.IO.MemoryStream mem = new System.IO.MemoryStream();
-            BinaryFormatter bin = new BinaryFormatter();
-            try
-            {
-                bin.Serialize(mem, obj);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Your object cannot be serialized." +
-                                 " The reason is: " + ex.ToString());
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Retourne le target présent dans le presse-papier.
-        /// </summary>
-        /// <returns></returns>
-        public static Kernel.Domain.Target GetFromClipboard()
-        {
-            Kernel.Domain.Target target = null;
-            IDataObject dataObj = Clipboard.GetDataObject();
-            string format = TARGET_VALUE_CLIPBOARD_FORMAT;
-
-            if (dataObj.GetDataPresent(format))
-            {
-                target = dataObj.GetData(format) as Kernel.Domain.Target;
-            }
-            return target;
-        }
-  
-
-     
         /// <summary>
         /// Cette méthode vérifie si le presse-papier contient un type de donnés et 
         /// renvoie un objet de ce type
@@ -395,32 +614,7 @@ namespace Misp.Kernel.Util
                     }
                     return copiedElements;
                 }
-
-                if (format.Equals(MEASURE_CLIPBOARD_FORMAT))
-                {
-                    Kernel.Domain.Measure parent = null;
-                    List<String> listeResult = ExcelCellsCopies(name);
-                    if (listeResult == null) return null;
-                    if (listeResult[0] == IS_PARENT_CHILD_MODE)
-                    {
-                        parent = new Domain.Measure()
-                        {
-                            name = listeResult[1]
-                        };
-                        listeResult.RemoveAt(0);
-                        listeResult.RemoveAt(0);
-                    }
-                    foreach (string copies in listeResult)
-                    {
-                        Domain.Measure value = new Domain.Measure();
-                        value.name = copies;
-                        if (parent != null) parent.AddChild(value as Domain.Measure);
-                        else copiedElements.Add(value as Domain.Measure);
-                    }
-                    if (parent != null) copiedElements.Add(parent as Domain.Measure);
-                    return copiedElements;
-                }
-
+                                
                 if (format.Equals(ATTRIBUTE_CLIPBOARD_FORMAT))
                 {
                     List<String> listeResult = ExcelCellsCopies(name);
@@ -487,121 +681,6 @@ namespace Misp.Kernel.Util
             return null;
         }
 
-        /// <summary>
-        /// Cette méthode vérifie si le presse-papier contient un group et 
-        /// renvoie un objet de ce type
-        /// </summary>
-        /// <param name="format">Le format du type de données</param>
-        /// <returns>L'objet présent dans le presse-papiers</returns>
-        public static List<Domain.BGroup> GetGroup()
-        {
-            List<Domain.IHierarchyObject> listeGroup = GetHierarchyObject(GROUP_CLIPBOARD_FORMAT);
-            if (listeGroup != null)
-            {
-                List<Domain.BGroup> ob = listeGroup.Cast<Domain.BGroup>().ToList();
-                if (ob != null && ob.Count > 0) return ob;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Cette méthode vérifie si le presse-papier contient une mesure et 
-        /// renvoie un objet de ce type
-        /// </summary>
-        /// <param name="format">Le format du type de données</param>
-        /// <returns>L'objet présent dans le presse-papiers</returns>
-        public static List<Domain.Measure> GetMeasure()
-        {
-            List<Domain.IHierarchyObject> listeMeasure = GetHierarchyObject(MEASURE_CLIPBOARD_FORMAT);
-            if (listeMeasure != null)
-            {
-                List<Domain.Measure> ob = listeMeasure.Cast<Domain.Measure>().ToList();
-                if (ob != null && ob.Count > 0) return ob;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Cette méthode vérifie si le presse-papier contient une role et 
-        /// renvoie un objet de ce type
-        /// </summary>
-        /// <param name="format">Le format du type de données</param>
-        /// <returns>L'objet présent dans le presse-papiers</returns>
-        public static List<Domain.Role> GetRole()
-        {
-            List<Domain.IHierarchyObject> listeRole = GetHierarchyObject(MEASURE_CLIPBOARD_FORMAT);
-            if (listeRole != null)
-            {
-                List<Domain.Role> ob = listeRole.Cast<Domain.Role>().ToList();
-                if (ob != null && ob.Count > 0) return ob;
-            }
-            return null;
-        }
-
-        public static List<Domain.PeriodName> GetPeriodName()
-        {
-            try
-            {
-                List<Domain.IHierarchyObject> listeAttribute = GetHierarchyObject(PERIODNAME_CLIPBOARD_FORMAT);
-                if (listeAttribute != null)
-                {
-                    List<Domain.PeriodName> ob = listeAttribute.Cast<Domain.PeriodName>().ToList();
-                    if (ob != null && ob.Count > 0) return ob;
-                }
-            }
-            catch (Exception)
-            {
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Cette méthode vérifie si le presse-papier contient une Attribute et 
-        /// renvoie un objet de ce type
-        /// </summary>
-        /// <param name="format">Le format du type de données</param>
-        /// <returns>L'objet présent dans le presse-papiers</returns>
-        public static List<Domain.Attribute> GetAttribute()
-        {
-            try
-            {
-                List<Domain.IHierarchyObject> listeAttribute = GetHierarchyObject(ATTRIBUTE_CLIPBOARD_FORMAT);
-                if (listeAttribute != null)
-                {
-                    List<Domain.Attribute> ob = listeAttribute.Cast<Domain.Attribute>().ToList();
-                    if (ob != null && ob.Count > 0) return ob;
-                }
-            }
-            catch (Exception)
-            {
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Cette méthode vérifie si le presse-papier contient une AttributeValue et 
-        /// renvoie un objet de ce type
-        /// </summary>
-        /// <param name="format">Le format du type de données</param>
-        /// <returns>L'objet présent dans le presse-papiers</returns>
-        public static List<Domain.AttributeValue> GetAttributeValue()
-        {
-            List<Domain.IHierarchyObject> listeAttributeValues = GetHierarchyObject(ATTRIBUTE_VALUE_CLIPBOARD_FORMAT);
-            if (listeAttributeValues != null)
-            {
-                List<Domain.AttributeValue> ob = listeAttributeValues.Cast<Domain.AttributeValue>().ToList();
-                if (ob != null && ob.Count > 0) return ob;
-            }
-            return null;
-        }
-        /// <summary>
-        /// Cette méthode permet de vider le contenu du presse-papier.
-        /// </summary>
-        public static void ClearClipboard()
-        {
-            System.Windows.Clipboard.Clear();
-        }
-              
         #endregion
     }
 }

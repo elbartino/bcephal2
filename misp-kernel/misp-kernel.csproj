@@ -83,6 +83,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Core.v16.1.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Grid.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Ribbon.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Ribbon.v16.1.dll</HintPath>
@@ -498,6 +500,9 @@
     </Compile>
     <Compile Include="Ui\EditableTree\MeasureEditableTree.xaml.cs">
       <DependentUpon>MeasureEditableTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\EditableTree\MeasureTreeList.xaml.cs">
+      <DependentUpon>MeasureTreeList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\File\FileNameDialog.xaml.cs">
       <DependentUpon>FileNameDialog.xaml</DependentUpon>
@@ -933,6 +938,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\EditableTree\MeasureEditableTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\EditableTree\MeasureTreeList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -105,13 +105,13 @@ namespace Misp.Initiation.Measure
         public List<object> getEditableControls() 
         {
             List<object> controls = new List<object>(0);
-            controls.Add(measureEditableTree);
+            controls.Add(measureTreeList);
             return controls;
         }
 
-        public MeasureEditableTree MeasureTree
+        public MeasureTreeList MeasureTree
         {
-            get { return measureEditableTree; } 
+            get { return measureTreeList; } 
         }
         
     }

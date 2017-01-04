@@ -220,8 +220,8 @@ namespace Misp.Sourcing.Table
             scrollViewer.Content = measureTreeView;
             scrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
             scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            
-            if (this.OutputMeasure != null && !this.OutputMeasure.IsLeaf)
+
+            if (this.OutputMeasure != null && !this.OutputMeasure.IsLeaf())
             {
                 measureTreeView.DisplayRoot(this.OutputMeasure);
             }

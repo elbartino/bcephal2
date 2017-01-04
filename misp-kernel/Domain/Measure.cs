@@ -7,21 +7,45 @@ using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.Runtime.Serialization;
 
 namespace Misp.Kernel.Domain
 {
     [Serializable]
-    public class Measure : Persistent, IHierarchyObject
+    public class Measure : Persistent //, IHierarchyObject
     {
 
-        private string  _name;
-        private int     _position;
-        
-        private bool    _isInEditMode;
-        private bool _isFocused;
+        #region Fields
 
-        [NonSerialized]
-        private System.Windows.Media.Brush foreground;
+        
+        #endregion
+
+
+        #region Properties
+
+        public int position { get; set; }
+
+        public bool defaultData { get; set; }
+
+        public string name { get; set; }
+
+        public bool visibleInShortcut { get; set; }
+
+        [ScriptIgnore]
+        public Measure parent { get; set; }
+
+        [ScriptIgnore]
+        public String parentId { get { return parent != null ? parent.name : null; } set { } }
+
+        [ScriptIgnore]
+        public bool IsInEditMode { get; set; }
+
+        public PersistentListChangeHandler<Measure> childrenListChangeHandler { get; set; }
+
+        #endregion
+
+
+        #region Constructors
 
         public Measure()
         {
@@ -31,90 +55,36 @@ namespace Misp.Kernel.Domain
             this.defaultData = false;
         }
 
-        [ScriptIgnore]
-        public List<Measure> Leafs
+        #endregion
+        
+
+        public List<Measure> GetLeafs()
         {
-            get
+            List<Measure> measures = new List<Measure>(0);
+            foreach (Measure measure in childrenListChangeHandler.Items)
             {
-                List<Measure> measures = new List<Measure>(0);
-                foreach (Measure measure in childrenListChangeHandler.Items)
-                {
-                    if (measure.IsLeaf) measures.Add(measure);
-                    else measures.AddRange(measure.Leafs);
-                }
-                return measures;
+                if (measure.IsLeaf()) measures.Add(measure);
+                else measures.AddRange(measure.GetLeafs());
             }
+            return measures;
         }
 
-        [ScriptIgnore]
-        public bool IsLeaf
-        {            
-            get
-            {
-                return childrenListChangeHandler.Items.Count == 0;
-            }
+        public bool IsLeaf()
+        {
+            return childrenListChangeHandler.Items.Count == 0;
         }
                 
-        [ScriptIgnore]
-        public bool IsInEditMode
-        {
-            get { return _isInEditMode; }
-            set { _isInEditMode = value; }
-        }
+        
 
-        [ScriptIgnore]
-        public System.Windows.Media.Brush Foreground 
-        {
-            set
-            {
-                foreground = value;
-            }
-            get
-            {
-                return foreground;
-            } 
-        }
-
-        [ScriptIgnore]
-        public double FontSize { get; set; }
-                
-        public int position
-        {
-            get { return _position; }
-
-            set
-            {
-                _position = value;
-                this.OnPropertyChanged("position");
-            }
-        }
-
-        public bool defaultData { get; set; }
-
-        public string name
-        {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                this.OnPropertyChanged("name");
-            }
-        }
-
-        public bool visibleInShortcut { get; set; }
-
-        [ScriptIgnore]
-        public Measure parent { get; set; }
-
-        public PersistentListChangeHandler<Measure> childrenListChangeHandler { get; set; }
+        
 
         /// <summary>
         /// Rajoute un fils
         /// </summary>
         /// <param name="child"></param>
-        public void AddChild(IHierarchyObject child) {
+        public void AddChild(Measure child) {
             child.SetPosition(childrenListChangeHandler.Items.Count);
-            child.SetParent(this);
+            child.parent = this;
             childrenListChangeHandler.AddNew((Measure)child);
             UpdateParents();
             OnPropertyChanged("childrenListChangeHandler.Items");
@@ -146,7 +116,7 @@ namespace Misp.Kernel.Domain
         /// Met à jour un fils
         /// </summary>
         /// <param name="child"></param>
-        public void UpdateChild(IHierarchyObject child)
+        public void UpdateChild(Measure child)
         {
             
             childrenListChangeHandler.AddUpdated((Measure)child);
@@ -158,9 +128,9 @@ namespace Misp.Kernel.Domain
         /// Retire un fils
         /// </summary>
         /// <param name="child"></param>
-        public void RemoveChild(IHierarchyObject child) 
+        public void RemoveChild(Measure child) 
         {
-            foreach (IHierarchyObject item in childrenListChangeHandler.Items)
+            foreach (Measure item in childrenListChangeHandler.Items)
             {
                 if (item.GetPosition() > child.GetPosition()) 
                 { 
@@ -178,9 +148,9 @@ namespace Misp.Kernel.Domain
         /// Oublier un fils
         /// </summary>
         /// <param name="child"></param>
-        public void ForgetChild(IHierarchyObject child)
+        public void ForgetChild(Measure child)
         {
-            foreach (IHierarchyObject item in childrenListChangeHandler.Items)
+            foreach (Measure item in childrenListChangeHandler.Items)
             {
                 if (item.GetPosition() > child.GetPosition()) item.SetPosition(item.GetPosition() - 1);
             }
@@ -192,9 +162,9 @@ namespace Misp.Kernel.Domain
         /// 
         /// </summary>
         /// <returns></returns>
-        public IHierarchyObject GetChildByPosition(int position)
+        public Measure GetChildByPosition(int position)
         {
-            foreach (IHierarchyObject item in childrenListChangeHandler.Items)
+            foreach (Measure item in childrenListChangeHandler.Items)
             {
                 if (item.GetPosition() == position) return item;
             }
@@ -205,13 +175,13 @@ namespace Misp.Kernel.Domain
         /// Définit le parent
         /// </summary>
         /// <param name="parent"></param>
-        public void SetParent(IHierarchyObject parent) { this.parent = (Measure) parent; }
+        public void SetParent(Measure parent) { this.parent = (Measure)parent; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public IHierarchyObject GetParent() { return this.parent; }
+        public Measure GetParent() { return this.parent; }
 
         /// <summary>
         /// Définit la position
@@ -247,13 +217,13 @@ namespace Misp.Kernel.Domain
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public IHierarchyObject GetChildByName(string name)
+        public Measure GetChildByName(string name)
         {
            
             foreach (Measure measure in childrenListChangeHandler.Items)
             {
                 if (measure.name.ToUpper().Equals(name.ToUpper())) return measure;
-                IHierarchyObject ob = measure.GetChildByName(name);
+                Measure ob = measure.GetChildByName(name);
                 if (ob != null) return ob;
             }
             return null;
@@ -264,7 +234,7 @@ namespace Misp.Kernel.Domain
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public IHierarchyObject GetNotEditedChildByName(Measure editedMeasure, string name)
+        public Measure GetNotEditedChildByName(Measure editedMeasure, string name)
         {
             if(editedMeasure.name.ToUpper().Equals(name.ToUpper()))
             {
@@ -272,7 +242,7 @@ namespace Misp.Kernel.Domain
             foreach (Measure measure in childrenListChangeHandler.Items)
             {
                 if (measure.name.ToUpper().Equals(name.ToUpper()) && !measure.Equals(editedMeasure)) return measure;
-                IHierarchyObject ob = measure.GetNotEditedChildByName(editedMeasure, name);
+                Measure ob = measure.GetNotEditedChildByName(editedMeasure, name);
                 if (ob != null) return ob;
             }
             
@@ -286,7 +256,7 @@ namespace Misp.Kernel.Domain
         /// 
         /// </summary>
         /// <returns></returns>
-        public IHierarchyObject GetCopy()
+        public Measure GetCopy()
         {
             Measure measure = new Measure();
          
@@ -296,12 +266,13 @@ namespace Misp.Kernel.Domain
             measure.parent = null;
             foreach (Measure child in this.childrenListChangeHandler.Items)
             {
-                IHierarchyObject copy = child.GetCopy();
+                Measure copy = child.GetCopy();
                 measure.AddChild(copy);
             }
             return measure;
         }
-        public IHierarchyObject CloneObject() 
+
+        public Measure CloneObject() 
         {
             Measure measure = new Measure();
             measure.name =  this.name;

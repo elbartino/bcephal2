@@ -54,9 +54,9 @@ namespace Misp.Reporting.StructuredReport
             if (column.type == StructuredReportColumn.Type.MEASURE.ToString())
             {
                 Measure measure = column.measure;
-                if (measure != null && !measure.IsLeaf)
-                {                    
-                    FromListBox.ItemsSource = measure.Leafs;                    
+                if (measure != null && !measure.IsLeaf())
+                {
+                    FromListBox.ItemsSource = measure.GetLeafs();                    
                 }
             }
             else if (column.type == StructuredReportColumn.Type.PERIOD.ToString())
