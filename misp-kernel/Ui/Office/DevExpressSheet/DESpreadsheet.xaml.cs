@@ -489,6 +489,20 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             ExcelEventArg arg = new ExcelEventArg() { };
             
             Range range = GetSelectedRange();
+            
+            Cell active = getActiveCell();
+            object value = getValueAt(active.Row, active.Column, getActiveSheetName());
+            if (value is float || value is double || value is int)
+            {
+                bool availableDigitNumber = validateNumberDigit(value);
+                if (!availableDigitNumber)
+                {
+                    var sheet = this.spreadsheetControl.Document.Worksheets[getActiveSheetName()];
+                    sheet.Cells[active.Row - 1, active.Column - 1].Value = e.OldValue;
+                    Kernel.Util.MessageDisplayer.DisplayError("Number Digit", "Number of digit is over !");
+                    return;
+                }
+            }
             //Range previousRange = rangePreviousValue;
             //IsSameRange = previousRange == range;
 
@@ -512,6 +526,40 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
                 Edited(arg);
                 rangePreviousValue = range;
             }
+        }
+
+        private bool validateNumberDigit(object value)
+        {
+            bool availableDigitNumber = true;
+            string str = value.ToString();
+            string partString = "";
+            char[] op; string[] integerPart;            
+            if (str.Contains("+"))
+            {
+                op = new char[] { '+' };
+                integerPart = str.Split(op);
+                if (integerPart.Length > 1)
+                {
+                    partString = integerPart[1];
+                    int digit = int.Parse(partString.ToString());
+                    if (digit > 16) availableDigitNumber = false;
+                }
+            }
+            else if (str.Contains("."))
+            {
+                op = new char[] { '.' };
+                integerPart = str.Split(op);
+                if (integerPart.Length > 1)
+                {
+                    partString = integerPart[1];
+                    if (partString.Length > 17) availableDigitNumber = false;
+                }
+            }
+            else 
+            {
+                if (str.Length > 17) availableDigitNumber = false;
+            }
+            return availableDigitNumber;
         }
 
         private void SpreadSheet_PopupMenuShowing(object sender, DevExpress.Xpf.Spreadsheet.Menu.PopupMenuShowingEventArgs e)
