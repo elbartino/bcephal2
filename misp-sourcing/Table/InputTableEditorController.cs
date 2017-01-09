@@ -447,7 +447,18 @@ namespace Misp.Sourcing.Table
                 if (!page.validateEdition()) return OperationState.STOP;
                 InputTable table;
                 if (page.EditedObject is Report) table = (Report)page.EditedObject;
-                else table = page.EditedObject;
+                else
+                {
+                    if (listUncorrectCellRefAllocation != null && listUncorrectCellRefAllocation.Count > 0)
+                    {
+                        int lastComa = listUncorrectCellRefAllocation.Count;
+                        listUncorrectCellRefAllocation.RemoveAt(lastComa-1);
+                        var s = String.Concat(listUncorrectCellRefAllocation);
+                        MessageBoxResult result = MessageDisplayer.DisplayYesNoQuestion("InputTable", "There is no reference measure on " + s + ". \nDo you want to continue?");
+                        if (result == MessageBoxResult.No) return OperationState.STOP;
+                    }
+                    table = page.EditedObject;
+                }
                 page.EditedObject.excelFileName = page.EditedObject.excelFileName.Replace("\"", "");
                 try
                 {
@@ -1614,6 +1625,7 @@ namespace Misp.Sourcing.Table
             OnDisplayActiveCellData();            
         }
 
+      
         /// <summary>
         /// 
         /// </summary>
@@ -1765,7 +1777,9 @@ namespace Misp.Sourcing.Table
             page.getInputTableForm().TableCellParameterPanel.Display(cellProperty);
             OnChange();
         }
+
         
+        List<string> listUncorrectCellRefAllocation;
 
         /// <summary>
         /// Cette méthode est exécutée lorsque le AllocationData d'un groupe de cellule change.
@@ -1779,6 +1793,7 @@ namespace Misp.Sourcing.Table
             string sheetName = range.Sheet.Name;
             CellPropertyAllocationData data = page.getInputTableForm().AllocationPropertiesPanel.CellAllocationData;
             
+
             Kernel.Ui.Office.Cell activeCell = page.getInputTableForm().SpreadSheet.getActiveCell();
             int row = activeCell.Row;
             int col = activeCell.Column;
@@ -1794,7 +1809,29 @@ namespace Misp.Sourcing.Table
             page.groupProperty.isCellPropertyAllocationData = true;
             cellProperty = page.groupProperty.cellProperty;
             cellProperty.cellAllocationData = data;
-        
+
+            if (data.type.Equals(CellPropertyAllocationData.AllocationType.Reference.ToString()))
+            {
+                if (listUncorrectCellRefAllocation == null) listUncorrectCellRefAllocation = new List<string>();
+                if (data.measureRef == null)
+                {
+                    if (!listUncorrectCellRefAllocation.Contains(range.Name))
+                    {
+                        listUncorrectCellRefAllocation.Add(range.Name);
+                        listUncorrectCellRefAllocation.Add(",");
+                    }
+                }
+                else 
+                {
+                    if(listUncorrectCellRefAllocation.Contains(range.Name))
+                    {
+                        int index = listUncorrectCellRefAllocation.IndexOf(range.Name);
+                        listUncorrectCellRefAllocation.Remove(range.Name);
+                        listUncorrectCellRefAllocation.RemoveAt(index + 1);
+                    }
+                }
+            }
+
             page.getInputTableForm().TableCellParameterPanel.Display(cellProperty);
             bool isNoAllocation = false;
             if (!isReport())
