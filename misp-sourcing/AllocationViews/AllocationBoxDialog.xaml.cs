@@ -98,6 +98,23 @@ namespace Misp.Sourcing.AllocationViews
                         return;
                     }
                 }
+                string currentName ="";
+              
+                if (Loop.isDefaultName) 
+                {
+                    if (value is Kernel.Domain.Attribute)
+                    {
+                        currentName = ((Kernel.Domain.Attribute)value).name;
+                    }
+                    else if (value is Kernel.Domain.PeriodName)
+                    {
+                        currentName = ((Kernel.Domain.PeriodName)value).name;
+                    }
+                    Loop.name = currentName;
+                    this.NameTextBox.Text = currentName;
+                    Loop.isDefaultName = false;
+                } 
+
                 this.ValueField.SetValue(value);
             }
             else if (TabConditions.IsSelected)
@@ -431,7 +448,12 @@ namespace Misp.Sourcing.AllocationViews
             {
                object value = null;
                if (sender is Entity) value = sender;
-               else if (sender is Kernel.Domain.Attribute) value = sender;
+               else if (sender is Kernel.Domain.Attribute)
+               {
+                   value = sender;
+                   SetValue(value as Kernel.Domain.Attribute);
+                   return;
+               }
                else if (sender is AttributeValue) value = sender;
                SetValue(value);
             }
@@ -464,6 +486,10 @@ namespace Misp.Sourcing.AllocationViews
         {
             if (sender != null && (sender is PeriodName || sender is PeriodInterval))
             {
+                if (sender is PeriodName) { 
+                    SetValue(sender as PeriodName);
+                    return;
+                }
                 SetValue(sender);               
             }
         }

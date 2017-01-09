@@ -16,6 +16,9 @@ namespace Misp.Kernel.Domain
     {
         public string name { get; set; }
 
+        [ScriptIgnore]
+        public bool isDefaultName { get; set; }
+
         public int position { get; set; }
 
         public bool loop { get; set; }
