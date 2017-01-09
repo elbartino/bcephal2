@@ -26,6 +26,7 @@ namespace Misp.Kernel.Ui.Base
     {
 
         public LoopUserDialogTemplateData LoopUserTemplateData { get; set; }
+        public int itemCount { get; set; }
         private bool IsOneChoice;
         private bool isNotCloseAction = false;
 
@@ -37,6 +38,7 @@ namespace Misp.Kernel.Ui.Base
         public ProcessPopup()
         {
             InitializeComponent();
+            this.Owner = Application.ApplicationManager.Instance.MainWindow;
             setTitle("Parametize Loop");
             InitializeValuesGrid();
             InitializeHandlers();
@@ -122,10 +124,14 @@ namespace Misp.Kernel.Ui.Base
                 isNotCloseAction = false;
                 return;
             }
-            foreach (Object obj in items)
+
+            if (itemCount != items.Count)
             {
-                if (obj is Value) LoopUserTemplateData.values.Add((Value)obj);
-            }
+                foreach (Object obj in items)
+                {
+                    if (obj is Value) LoopUserTemplateData.values.Add((Value)obj);
+                }
+            }            
             isNotCloseAction = true;
             this.Close();            
         }
@@ -149,6 +155,7 @@ namespace Misp.Kernel.Ui.Base
         public void Display(LoopUserDialogTemplateData LoopTemplate)
         {
             if (LoopTemplate == null) return;
+            itemCount = LoopTemplate.values.Count;
             this.LoopUserTemplateData = LoopTemplate;
             this.IsOneChoice = LoopTemplate.onePossibleChoice;
             ValuesGrid.SelectionMode = this.IsOneChoice ? DataGridSelectionMode.Single : DataGridSelectionMode.Extended;

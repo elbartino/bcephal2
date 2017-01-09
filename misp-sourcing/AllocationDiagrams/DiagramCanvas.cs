@@ -133,6 +133,7 @@ namespace Misp.Sourcing.AllocationDiagrams
         {
             TransformationTreeItem loop = new TransformationTreeItem(true);
             loop.name = getNewName("Block");
+            loop.isDefaultName = true;
             AddNewBlock(new AllocationBoxItem(), loop);
         }
 
