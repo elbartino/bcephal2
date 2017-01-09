@@ -1827,7 +1827,7 @@ namespace Misp.Sourcing.Table
                     {
                         int index = listUncorrectCellRefAllocation.IndexOf(range.Name);
                         listUncorrectCellRefAllocation.Remove(range.Name);
-                        listUncorrectCellRefAllocation.RemoveAt(index + 1);
+                        listUncorrectCellRefAllocation.RemoveAt(index - 1);
                     }
                 }
             }
