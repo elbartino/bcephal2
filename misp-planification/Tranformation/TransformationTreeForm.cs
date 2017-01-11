@@ -155,12 +155,16 @@ namespace Misp.Planification.Tranformation
             if (this.EditedObject != null && sender.Tag != null)
             {
                 TransformationTreeItem entity = (TransformationTreeItem)sender.Tag;
-                TransformationTreeItem entityChild = entity.childrenListChangeHandler.Items[0];
+                
                 if (entity.parent != null)
                 {
-                    entity.ForgetChild(entityChild);
-                    entityChild.parent = null;
-                    this.EditedObject.AddItem(entityChild);
+                    if (entity.childrenListChangeHandler.Items.Count > 0)
+                    {
+                        TransformationTreeItem entityChild = entity.childrenListChangeHandler.Items[0];
+                        entity.ForgetChild(entityChild);
+                        entityChild.parent = null;
+                        this.EditedObject.AddItem(entityChild);
+                    }
 
                     entity.parent.RemoveChild(entity);
                 }
