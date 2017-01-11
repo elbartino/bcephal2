@@ -197,7 +197,7 @@ namespace Misp.Sourcing.Table
             }
             page.getInputTableForm().EditedObject = table;
             page.getInputTableForm().displayObject();
-            OnDisplayActiveCellData();
+            //OnDisplayActiveCellData();
             return OperationState.CONTINUE;
         }
 
@@ -220,11 +220,7 @@ namespace Misp.Sourcing.Table
             string excelDir = getExcelFolder();
             string filePath = excelDir + table.name + SheetConst.EXCEL_EXT;
             string tempPath = GetInputTableService().FileService.FileTransferService.downloadTable(table.name + SheetConst.EXCEL_EXT);
-            if (string.IsNullOrWhiteSpace(filePath))
-            {
-
-            }
-
+            
             filePath = tempPath + table.name + SheetConst.EXCEL_EXT;
 
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.AddInputTableIfNatExist(table);
@@ -244,15 +240,11 @@ namespace Misp.Sourcing.Table
                 GetInputTableService().parametrizeTable(parameter);
             }
             bool isNoAllocation = false;
-            if (!isReport())
-            {
-                //((InputTableEditorItem)page).getInputTableForm().TableCellParameterPanel.allocationPanel.FillAllocationData();
-                //isNoAllocation = data.type == CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
-            }
+            
             ((InputTableEditorItem)page).getInputTableForm().TablePropertiesPanel.displayTable(table, isNoAllocation);
             setActivationTableAction(table);
             setIsTemplateTableAction(table);
-            OnDisplayActiveCellData();
+            //OnDisplayActiveCellData();
             page.IsModify = false;
             return OperationState.CONTINUE;
         }

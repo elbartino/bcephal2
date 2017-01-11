@@ -7,6 +7,6 @@ namespace Misp.Kernel.Application
 {
     public enum ParameterType
     {
-        SCOPE, TARGET, TAG, PERIOD, MEASURE, SPECIAL, NULL        
+        SCOPE, TARGET, TAG, PERIOD, MEASURE, SPECIAL, SPECIAL_MEASURE, NULL        
     }
 }
