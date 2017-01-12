@@ -399,8 +399,7 @@ namespace Misp.Kernel.Ui.EditableTree
                             AddDefaultAttributes(this.Root);
 
                             int row = Source.Count;
-                            if (row - 2 >= 0) Source.Insert(row - 2, newAttribute);
-                            else if (row - 1 >= 0) Source.Insert(row - 1, newAttribute);
+                            if (row > 0) Source.Insert(row - 1, newAttribute);
                             else Source.Add(newAttribute);
                             SetSelectedValue(newAttribute);
                         }

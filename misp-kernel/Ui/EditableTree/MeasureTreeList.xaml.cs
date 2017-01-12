@@ -372,8 +372,7 @@ namespace Misp.Kernel.Ui.EditableTree
                             AddDefaultMeasures(this.Root);
 
                             int row = Source.Count;
-                            if (row - 2 >= 0) Source.Insert(row - 2, newMeasure);
-                            else if (row - 1 >= 0) Source.Insert(row - 1, newMeasure); 
+                            if (row > 0) Source.Insert(row - 1, newMeasure);
                             else Source.Add(newMeasure);
                             SetSelectedValue(newMeasure);
                         }
