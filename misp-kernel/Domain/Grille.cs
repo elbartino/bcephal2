@@ -189,6 +189,15 @@ namespace Misp.Kernel.Domain
         }
 
 
+        public List<int> getPeriodColumnPositions() {
+		    List<int> positions = new List<int>(0);
+		    foreach (GrilleColumn col in this.columnListChangeHandler.Items) {
+                if (col.type == ParameterType.PERIOD.ToString())
+				    positions.Add(col.position);
+		    }
+		    return positions;
+	    }
+
 
 
 

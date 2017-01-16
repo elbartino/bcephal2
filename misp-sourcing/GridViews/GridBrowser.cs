@@ -260,6 +260,7 @@ namespace Misp.Sourcing.GridViews
                     
                 }
              }
+            e.Handled = true;
         }
 
         protected Object[] getOperatorType(CriteriaOperator criteriaOperator) 
@@ -387,8 +388,11 @@ namespace Misp.Sourcing.GridViews
         public void displayRows(List<object[]> rows) 
         {
             List<GridItem> items = new List<GridItem>(0);
+            List<int> positions = this.Grille.getPeriodColumnPositions();
+            int count = positions.Count;
             foreach (object[] row in rows)
             {
+                if(count > 0)buildDate(row, positions);
                 items.Add(new GridItem(row));
             }
             if (!this.Grille.IsReadOnly())
@@ -400,6 +404,26 @@ namespace Misp.Sourcing.GridViews
             this.gridControl.View.FocusedRowHandle = GridControl.AutoFilterRowHandle;
             this.gridControl.View.ShowEditor();
         }
+
+        protected void buildDate(object[] row, List<int> positions){
+            if(row != null && row.Length > 0){
+                foreach (int position in positions) {
+                    if (row.Length > position)
+                    {
+                        Object period = row[position];
+                        if (period != null)
+                        {
+                            if (period is long) row[position] = new DateTime((long)period);
+                            else if (period is string)
+                            {
+                                row[position] = DateTime.ParseExact((string)period, "dd/MM/yyyy",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+                            }
+                        }
+                    }
+			    }
+            }
+		}
 
         public void displayItems(List<GridItem> items) 
         {
