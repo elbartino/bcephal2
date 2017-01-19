@@ -171,8 +171,11 @@ namespace Misp.Kernel.Application
 
         //ADMINISTRATION
         public static string ADMINISTRATION_LABEL = "Administration";
+        public static string ADMINISTRATION_USER_LABEL = "User";
         public static string ADMINISTRATION_NEW_USER_LABEL = "New User";
         public static string ADMINISTRATION_LIST_USER_LABEL = "List User";
+
+        public static string ADMINISTRATION_PROFIL_LABEL = "Profil";
         public static string ADMINISTRATION_LIST_PROFIL_LABEL = "List Profil";
         public static string ADMINISTRATION_NEW_PROFIL_LABEL = "New Profil";
         public static string ADMINISTRATION_ROLE_LABEL = "Manage Role";
