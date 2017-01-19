@@ -24,9 +24,7 @@ namespace Misp.Kernel.Domain
 
         public int? valueOid { get; set; }
 
-        public string filterValue { get; set; }
-
-        public string filterOperator { get; set; }
+        
 
         [ScriptIgnore]
         public bool isAdded { get; set; }
@@ -109,6 +107,8 @@ namespace Misp.Kernel.Domain
                 return names;
             }
         }
+
+        
 
     }
 }

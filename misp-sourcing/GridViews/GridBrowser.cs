@@ -217,7 +217,115 @@ namespace Misp.Sourcing.GridViews
                 if (SortEventHandler != null) SortEventHandler(column);
             }
         }
+
+
+
+
+
+        private void OnFilterChanged(object sender, RoutedEventArgs e)
+        {
+            if (e is GridEventArgs)
+            {
+                if (this.gridControl.IsFilterEnabled)
+                {
+                    if (this.gridControl.FilterCriteria != null)
+                    {
+                        this.Grille.GrilleFilter.filter = buildColumnFilters(this.gridControl.FilterCriteria);
+                        if (FilterEventHandler != null) FilterEventHandler();
+                    }
+                }
+                else
+                {
+                    this.Grille.ClearColumnFilter();
+                    if (FilterEventHandler != null) FilterEventHandler();
+                }
+            }
+            e.Handled = true;
+        }
         
+        private GrilleColumnFilter buildColumnFilters(CriteriaOperator criteria)
+        {
+            GrilleColumnFilter filter = new GrilleColumnFilter();
+            if (criteria != null)
+            {
+                String link = "And";
+                if (criteria is FunctionOperator)
+                {
+                    FunctionOperator function = (FunctionOperator)criteria;
+                    if (function.Operands.Count == 3)
+                    {
+                        String operation = function.Operands[0].ToString();                        
+                        String name = ((OperandProperty)function.Operands[1]).PropertyName;
+                        String value = ((OperandValue)function.Operands[2]).Value.ToString();
+                        filter = buildColumnFilter(link, name, operation, value);
+                    }
+                    else if (function.Operands.Count == 2)
+                    {
+                        String operation = function.OperatorType.ToString();
+                        String name = ((OperandProperty)function.Operands[0]).PropertyName;
+                        String value = ((OperandValue)function.Operands[1]).Value.ToString();
+                        filter = buildColumnFilter(link, name, operation, value);
+                    }
+                }
+
+                if (criteria is UnaryOperator)
+                {
+                    UnaryOperator function = (UnaryOperator)criteria;
+                    /*String operation = function.OperatorType.ToString();
+                    String name = ((OperandProperty)function.LeftOperand).PropertyName;
+                    String value = function.RightOperand.ToString();
+                    buildColumnFilter(name, operation, value);
+
+                    Object[] firstOperand = getOperationItems(((UnaryOperator)criteria).Operand);
+                    if (firstOperand == null) return null;
+                    UnaryOperatorType type = ((UnaryOperator)criteria).OperatorType;
+                    string operatorType = type.ToString() + firstOperand[2].ToString();
+                    return new Object[] { firstOperand[0], firstOperand[1], operatorType };*/
+                }
+
+                if (criteria is BinaryOperator)
+                {
+                    BinaryOperator function = (BinaryOperator)criteria;
+                    String operation = function.OperatorType.ToString();
+                    String name = ((OperandProperty)function.LeftOperand).PropertyName;
+                    String value = ((OperandValue)function.RightOperand).Value.ToString();
+                    filter = buildColumnFilter(link, name, operation, value);                    
+                }
+
+                if (criteria is GroupOperator)
+                {                    
+                    GroupOperator function = (GroupOperator)criteria;
+                    filter.isGroup = true;
+                    filter.filterOperation = function.OperatorType.ToString();
+                    foreach (CriteriaOperator op in function.Operands)
+                    {
+                        GrilleColumnFilter item = buildColumnFilters(op);
+                        if (item != null) filter.items.Add(item);
+                    }
+                }
+            }
+            return filter;
+        }
+
+        private GrilleColumnFilter buildColumnFilter(String link, String name, String operation, String value)
+        {
+            GrilleColumn column = this.Grille.GetColumn(name);
+            if (column != null && value != null)
+            {
+                GrilleColumnFilter filter = new GrilleColumnFilter();
+                filter.column = column;
+                filter.filterOperation = link;
+                filter.filterOperator = operation;
+                filter.filterValue = value;
+                return filter;
+            }
+            return null;
+        }
+
+
+
+
+        /*
         private void OnFilterChanged(object sender, RoutedEventArgs e)
         {
             if (e is DevExpress.Xpf.Grid.GridEventArgs) 
@@ -347,8 +455,18 @@ namespace Misp.Sourcing.GridViews
                 return new Object[] { firstOperand[0],firstOperand[1],operatorType};
             }
 
+            if (criteria is GroupOperator)
+            {
+                GroupOperator group = (GroupOperator)criteria;
+                foreach(CriteriaOperator op in group.Operands){
+                    Object[] vals = getOperationItems(op);
+                    var l = vals.Length;
+                }
+            }
+
             return null;
         }
+        */
 
         protected void Refresh()
         {            
