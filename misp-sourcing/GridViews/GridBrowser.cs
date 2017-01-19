@@ -271,16 +271,9 @@ namespace Misp.Sourcing.GridViews
                 if (criteria is UnaryOperator)
                 {
                     UnaryOperator function = (UnaryOperator)criteria;
-                    /*String operation = function.OperatorType.ToString();
-                    String name = ((OperandProperty)function.LeftOperand).PropertyName;
-                    String value = function.RightOperand.ToString();
-                    buildColumnFilter(name, operation, value);
-
-                    Object[] firstOperand = getOperationItems(((UnaryOperator)criteria).Operand);
-                    if (firstOperand == null) return null;
-                    UnaryOperatorType type = ((UnaryOperator)criteria).OperatorType;
-                    string operatorType = type.ToString() + firstOperand[2].ToString();
-                    return new Object[] { firstOperand[0], firstOperand[1], operatorType };*/
+                    String operation = function.OperatorType.ToString();
+                    String name = ((OperandProperty)function.Operand).PropertyName;
+                    filter = buildColumnFilter(link, name, operation, null);
                 }
 
                 if (criteria is BinaryOperator)
@@ -310,7 +303,7 @@ namespace Misp.Sourcing.GridViews
         private GrilleColumnFilter buildColumnFilter(String link, String name, String operation, String value)
         {
             GrilleColumn column = this.Grille.GetColumn(name);
-            if (column != null && value != null)
+            if (column != null)
             {
                 GrilleColumnFilter filter = new GrilleColumnFilter();
                 filter.column = column;
