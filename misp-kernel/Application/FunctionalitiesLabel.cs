@@ -106,6 +106,7 @@ namespace Misp.Kernel.Application
         public static string TRANSFORMATION_LABEL = "Transformation data";
         public static string TRANSFORMATION_TREE_DASHBOARD_LABEL = "Transformation Trees";
         public static string RECENT_TRANSFORMATION_TREE_LABEL = "Recent Transformation Trees";
+        public static string TRANSFORMATION_TREE_LABEL = "Transformation Tree";
         public static string NEW_TRANSFORMATION_TREE_LABEL = "New Transformation Tree";
         public static string LIST_TRANSFORMATION_TREE_LABEL = "List Transformation Trees";
         public static string NEW_TRANSFORMATION_TABLE_LABEL = "New Transformation Table";
@@ -114,7 +115,8 @@ namespace Misp.Kernel.Application
         public static string CLEAR_TRANSFORMATION_TREES_LABEL = "Clear all Transformation Trees";
         public static string COMBINED_TRANSFORMATION_TREE_DASHBOARD_LABEL = "Combined Transformation Trees";
         public static string RECENT_TRANSFORMATION_TREE_DASHBOARD_LABEL = "Recent Combined Transformation Trees";
-        public static string NEW_COMBINED_TRANSFORMATION_TREES_LABEL = "New Combined Transformation Trees";
+        public static string COMBINED_TRANSFORMATION_TREES_LABEL = "Combined Transformation Tree";
+        public static string NEW_COMBINED_TRANSFORMATION_TREES_LABEL = "New Combined Transformation Tree";
         public static string LIST_COMBINED_TRANSFORMATION_TREES_LABEL = "List Combined Transformation Trees";
 
 

@@ -65,18 +65,12 @@ namespace Misp.Sourcing.Base
             if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
             {
                 menus.Add(PostingMenu);
-                menus.Add(new Separator());
             }            
             menus.Add(InputTableMenu);
-            menus.Add(new Separator());
             menus.Add(GridMenu);
-            menus.Add(new Separator());
             menus.Add(EnrichmentTableMenu);
-            menus.Add(new Separator());
             menus.Add(TargetMenu);
-            menus.Add(new Separator());
             menus.Add(DesignMenu);
-            menus.Add(new Separator());
             menus.Add(AccessoriesMenu);
             return menus;
         }
