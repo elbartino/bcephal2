@@ -484,11 +484,12 @@ namespace Misp.Initiation.Periodicity
                 {
                     PeriodName editedPeriod = (PeriodName)e.Item;
                     string name = e.Text.Trim();
+                    string oldName = editedPeriod.name;
 
                     PeriodName ValidPeriod = ValidateName(editedPeriod, name);
                     if (ValidPeriod == null)
                     {
-                        editedPeriod.name = name;
+                        editedPeriod.name = oldName;
                         e.Canceled = true;
                         return;
                     }
