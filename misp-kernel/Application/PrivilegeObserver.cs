@@ -70,6 +70,43 @@ namespace Misp.Kernel.Application
         /// <summary>
         /// has Privilege?
         /// </summary>
+        /// <param name="code">Functionaliti code</param>
+        /// <returns></returns>
+        public bool hasPrivilegeOrSubprivilege(String code)
+        {
+            if (user.IsAdmin()) return true;
+            if (String.IsNullOrWhiteSpace(code)) return false;
+            String theCode = code;
+            if (code.EndsWith(".edit"))
+            {
+                theCode = code.Substring(0, code.Length - 5);
+            }
+            Functionality functionality = ApplicationManager.Instance.FunctionalityFactory.Get(theCode);
+            return hasPrivilegeOrSubprivilege(functionality);
+        }
+
+        /// <summary>
+        /// has Privilege?
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public bool hasPrivilegeOrSubprivilege(Functionality functionality)
+        {
+            if (!user.active.HasValue || !user.active.Value) return false;
+            if (user.IsAdmin()) return true;
+            if (functionality == null) return false;
+            if (containsPrivilege(functionality.Code)) return true;
+            foreach (Functionality child in functionality.Children)
+            {
+                if (containsPrivilege(child.Code)) return true;
+                if (child.Parent != null && containsPrivilege(child.Parent.Code)) return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// has Privilege?
+        /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
         private bool containsPrivilege(String code)
