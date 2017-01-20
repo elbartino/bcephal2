@@ -33,7 +33,7 @@ namespace Misp.Initiation.Periodicity
    
         #region properties
 
-        static string Label_DEFAULT_PERIOD = "Add Period";
+        public static string Label_DEFAULT_PERIOD = "Add Period";
         public PeriodName Root { get; set; }
         public PeriodName defaultValue;
         private bool isTreeInCutMode { get; set; }

@@ -150,7 +150,7 @@ namespace Misp.Initiation.Periodicity
         private void OnShowPeriodIntervalParams(object sender, RequestNavigateEventArgs e)
         {
             editedPeriodName = this.periodTree.GetSelectedPeriod();
-            if(!editedPeriodName.name.Equals("Add Period"))
+            if (!editedPeriodName.name.Equals(PeriodNameTreeView.Label_DEFAULT_PERIOD))
             {
                 if (sender is Hyperlink) showStandartPeriodEditor();
             }
