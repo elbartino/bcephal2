@@ -452,15 +452,15 @@ namespace Misp.Kernel.Ui.EditableTree
             if (measures.Count == 0) return;
             Kernel.Util.ClipbordUtil.ClearClipboard();
             List<Object> listeCopy = new List<Object>(0);
-            foreach (Domain.Measure measure in measures)
-            {
-                ForgetDefaultMeasures(measure);
-                Domain.Measure copy = GetCopy(measure);
-                copy.parent = null;
-                listeCopy.Add(copy);
-            }
-            if (listeCopy.Count == 0) return;
-            Kernel.Util.ClipbordUtil.SetMeasures(listeCopy);
+            //foreach (Domain.Measure measure in measures)
+            //{
+            //    ForgetDefaultMeasures(measure);
+            //    Domain.Measure copy = GetCopy(measure);
+            //    copy.parent = null;
+            //    listeCopy.Add(copy);
+            //}
+            //if (listeCopy.Count == 0) return;
+            Kernel.Util.ClipbordUtil.SetMeasures(measures.ToList<Object>());
         }
 
         private void OnCutClick(object sender, RoutedEventArgs e)
@@ -477,12 +477,17 @@ namespace Misp.Kernel.Ui.EditableTree
             {
                 foreach (Domain.Measure measure in measures)
                 {
+
+                    Domain.Measure copy = GetCopy(measure);
+                    copy.name = GetNewMeasureName(copy.name);    
+
                     ForgetDefaultMeasures(parent);
                     measure.SetParent(parent);
-                    parent.AddChild(measure);
+                    parent.AddChild(copy);
                     AddDefaultMeasures(parent);
-                    addToSource(measure);
+                    addToSource(copy);
                 }
+                measures.Clear();
                 if (Changed != null) Changed();
             }
         }
@@ -691,6 +696,24 @@ namespace Misp.Kernel.Ui.EditableTree
                 while (m != null);
             }
             return attribute;
+        }
+
+        protected String GetNewMeasureName(string name)
+        {
+            Domain.Measure measure = new Domain.Measure();
+            measure.name = name;
+            if (Root != null)
+            {
+                Kernel.Domain.Measure m = null;
+                int i = 1;
+                do
+                {
+                    measure.name = name + i++;
+                    m = (Domain.Measure)Root.GetChildByName(measure.name);
+                }
+                while (m != null);
+            }
+            return measure.name;
         }
 
         private bool IsUsedToGenerateUniverse(Domain.Measure value)
