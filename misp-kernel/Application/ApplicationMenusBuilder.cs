@@ -90,8 +90,23 @@ namespace Misp.Kernel.Application
         protected void buildPluginsMenus(MenuBar menuBar)
         {
             PrivilegeObserver observer = new PrivilegeObserver();
-            fileMenu.customize(observer);
-            settingsMenu.customize(observer);
+            if (ApplicationManager.ApplcationConfiguration.IsMultiuser())
+            {
+                if (fileMenu.customize(observer) == null)
+                {
+                    fileMenu.Items.Remove(fileMenu.NewFile);
+                    fileMenu.Items.Remove(fileMenu.OpenFile);
+                    //fileMenu.Items.Remove(fileMenu.RecentFiles);
+                    fileMenu.Items.Remove(fileMenu.SaveAsFile);
+                    fileMenu.Items.Remove(fileMenu.SaveFile);
+                    fileMenu.Items.Remove(fileMenu.ArchiveMenu);
+                    //fileMenu.Items.Remove(fileMenu.QuitApplication);
+                }
+                if (settingsMenu.customize(observer) == null)
+                {
+                    settingsMenu.Items.Remove(settingsMenu.Groups);
+                }
+            }
             foreach(IPlugin plugin in ApplicationManager.Plugins){
                 foreach (ApplicationMenu menu in plugin.Menus)
                 {

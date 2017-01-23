@@ -46,14 +46,11 @@ namespace Misp.Kernel.Ui.Base.Menu
             menus.Add(NewFile);
             menus.Add(OpenFile);
             menus.Add(RecentFiles);
-            menus.Add(new Separator());
             menus.Add(SaveAsFile);
             menus.Add(SaveFile);
-            menus.Add(new Separator());
             ArchiveMenu.Items.Add(backupSimpleMenu);
             ArchiveMenu.Items.Add(backupAutomaticMenu);
             menus.Add(ArchiveMenu);
-            menus.Add(new Separator());
             menus.Add(QuitApplication);
             return menus;
         }
