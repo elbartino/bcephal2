@@ -66,8 +66,8 @@ namespace Misp.Sourcing.GridViews
 
         private void OnSort(object col)
         {
-            GrilleColumn column = (GrilleColumn)col;
-            this.filterForm.GrilleFilter.orderByColumn = column;
+            //GrilleColumn column = (GrilleColumn)col;
+            //this.filterForm.GrilleFilter.orderByColumn = column;
             this.filterForm.GrilleFilter.page = 1;
             //this.filterForm.GrilleFilter.orderDes = ;
             this.filterForm.OnChange();

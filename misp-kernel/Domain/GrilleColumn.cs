@@ -24,7 +24,7 @@ namespace Misp.Kernel.Domain
 
         public int? valueOid { get; set; }
 
-        
+        public bool? orderAsc { get; set; }
 
         [ScriptIgnore]
         public bool isAdded { get; set; }
