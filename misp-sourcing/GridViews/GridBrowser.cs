@@ -139,6 +139,7 @@ namespace Misp.Sourcing.GridViews
         protected void OnCellValueChanged(object sender, CellValueChangedEventArgs args)
         {
             GridItem item = (GridItem)this.gridControl.SelectedItem;
+            if (item == null) item = (GridItem)this.gridControl.CurrentItem;
             if (item != null)
             {
                 int? oid = item.GetOid();
