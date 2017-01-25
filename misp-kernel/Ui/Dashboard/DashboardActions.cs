@@ -622,7 +622,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public void HideTrees(List<int> oids, DashboardBlock block)
         {
-            Hide(ResourcePath.TRANSFORMATION_COMBINED_RESOURCE_PATH, oids, block);
+            Hide(ResourcePath.TRANSFORMATION_TREE_RESOURCE_PATH, oids, block);
         }
 
         public Dictionary<int,List<int>> getTreeOid(List<int> combinedTreeOids)
