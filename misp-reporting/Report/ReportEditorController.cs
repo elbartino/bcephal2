@@ -153,6 +153,11 @@ namespace Misp.Reporting.Report
             OperationState state = OperationState.CONTINUE;
             ReportEditorItem page = (ReportEditorItem)getInputTableEditor().getActivePage();
             if (page == null) return state;
+            if (page.EditedObject.template)
+            {
+                MessageDisplayer.DisplayInfo("Report", "It is not a possible to run a template");
+                return OperationState.STOP;
+            }
             nextRunActionData = null;
             TableActionData data = new TableActionData();
             if (page.EditedObject.oid.HasValue) data = new TableActionData(page.EditedObject.oid.Value, null);
