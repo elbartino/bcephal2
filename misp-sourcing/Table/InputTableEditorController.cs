@@ -2657,9 +2657,10 @@ namespace Misp.Sourcing.Table
             if (activeCell == null) return "";
             return "Selected Range: " + range.FullName
                         + "    Selection count: " + range.CellCount
+                        + " Selected Range Sum :" + page.getInputTableForm().SpreadSheet.getSelectedRangeSum()
                 //+ "    Bcephal Cells count: " + bcephalTotalCellCount
                 //+ "    Bcephal Cells in selection: " + bcephalCellsInSelection
-                        + "           Active Cell: " + activeCell + (cardinality != -1 ? " Cardinality: " + cardinality : "");
+                        + "           Active Cell: " + activeCell; //+ (cardinality != -1 ? " Cardinality: " + cardinality : "");
 
         }
                

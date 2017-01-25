@@ -306,6 +306,29 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             }
         }
 
+        public double getSelectedRangeSum() 
+        {
+            DevExpress.Spreadsheet.Range range = this.spreadsheetControl.Selection;
+            IEnumerable<DevExpress.Spreadsheet.Cell> cells = range.ExistingCells;
+
+            double sum = 0;
+
+            foreach(DevExpress.Spreadsheet.Cell cell in cells){
+                double value;
+                try
+                {
+                    value = Convert.ToDouble(cell.Value.ToString());
+                }
+                catch
+                {
+                    value = 0;
+                }
+                sum = sum + value;
+            }
+            return sum;
+            
+        }
+
         /// <summary>
         /// getActiveSheetIndex
         /// </summary>
