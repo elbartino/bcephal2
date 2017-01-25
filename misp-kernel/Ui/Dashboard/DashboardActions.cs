@@ -75,7 +75,35 @@ namespace Misp.Kernel.Ui.Dashboard
             }
         }
 
+        public Boolean Hide(string path, List<int> oids, DashboardBlock block)
+        {
+            if (oids == null || oids.Count == 0) return false;            
+            try
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                var request = new RestRequest(path + "/set-visible/" + Boolean.FalseString, Method.POST);
+                request.RequestFormat = RestSharp.DataFormat.Json;
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = serializer.Serialize(oids);
+                request.AddParameter("application/json", json, RestSharp.ParameterType.RequestBody);
+                RestResponse queryResult = (RestResponse)ApplicationManager.Instance.RestClient.Execute(request);
+                Boolean data = RestSharp.SimpleJson.DeserializeObject<Boolean>(queryResult.Content);
+                if (data != null && data && block != null) block.RefreshData();
+                return data;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        
+
         #region Model Actions
+
+        public void HideModels(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.MODEL_RESOURCE_PATH, oids, block);
+        }
 
         public void DeleteModels(List<int> oids, DashboardBlock block)
         {
@@ -86,6 +114,11 @@ namespace Misp.Kernel.Ui.Dashboard
 
 
         #region Input Table Actions
+
+        public void HideTables(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.INPUT_TABLE_RESOURCE_PATH, oids, block);
+        }
 
         public void DeleteTables(List<int> oids, DashboardBlock block)
         {
@@ -236,6 +269,11 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Report Actions
 
+        public void HideReports(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.REPORT_RESOURCE_PATH, oids, block);
+        }
+
         public void DeleteReports(List<int> oids, DashboardBlock block)
         {
             Delete(ResourcePath.REPORT_RESOURCE_PATH, oids, block);
@@ -334,6 +372,11 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Design Actions
 
+        public void HideDesigns(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.DESIGN_RESOURCE_PATH, oids, block);
+        }
+
         public void DeleteDesigns(List<int> oids, DashboardBlock block)
         {
             Delete(ResourcePath.DESIGN_RESOURCE_PATH, oids, block);
@@ -343,6 +386,11 @@ namespace Misp.Kernel.Ui.Dashboard
 
 
         #region Automatic Upload Actions
+
+        public void HideAutomaticUploads(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.AUTOMATIC_SOURCING_RESOURCE_PATH, oids, block);
+        }
 
         public void DeleteAutomaticUploads(List<int> oids, DashboardBlock block)
         {
@@ -557,6 +605,11 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Target Actions
 
+        public void HideTargets(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.TARGET_RESOURCE_PATH, oids, block);
+        }
+
         public void DeleteTargets(List<int> oids, DashboardBlock block)
         {
             Delete(ResourcePath.TARGET_RESOURCE_PATH, oids, block);
@@ -566,6 +619,11 @@ namespace Misp.Kernel.Ui.Dashboard
         
 
         #region Transformation Tree Actions
+
+        public void HideTrees(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.TRANSFORMATION_COMBINED_RESOURCE_PATH, oids, block);
+        }
 
         public Dictionary<int,List<int>> getTreeOid(List<int> combinedTreeOids)
         {
@@ -852,6 +910,11 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Calculated Measure Actions
 
+        public void HideCalculatedMeasures(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.CALCULATED_MEASURE_RESOURCE_PATH, oids, block);
+        }
+
         public void DeleteCalculatedMeasures(List<int> oids, DashboardBlock block)
         {
             Delete(ResourcePath.CALCULATED_MEASURE_RESOURCE_PATH, oids, block);
@@ -861,6 +924,11 @@ namespace Misp.Kernel.Ui.Dashboard
 
 
         #region Combined Tree Actions
+
+        public void HideCombinedTrees(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.TRANSFORMATION_COMBINED_RESOURCE_PATH, oids, block);
+        }
 
         public void DeleteCombinedTrees(List<int> oids, DashboardBlock block)
         {
@@ -982,6 +1050,11 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Structured Report Actions
 
+        public void HideStructuredReports(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.STRUCTURED_REPORT_RESOURCE_PATH, oids, block);
+        }
+
         public void DeleteStructuredReports(List<int> oids, DashboardBlock block)
         {
             Delete(ResourcePath.STRUCTURED_REPORT_RESOURCE_PATH, oids, block);
@@ -1051,7 +1124,23 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #endregion
 
+
         #region Bank Reconciliation Actions
+
+        public void HideReconciliationFilters(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.RECONCILIATON_FILTER_RESOURCE_PATH, oids, block);
+        }
+
+        public void HideReconciliationPostings(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.RECONCILIATON_POSTING_RESOURCE_PATH, oids, block);
+        }
+
+        public void HideTransactionFileTypes(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.TRANSACTION_FILE_TYPE_RESOURCE_PATH, oids, block);
+        }
 
         public void DeleteReconciliationFilters(List<int> oids, DashboardBlock block)
         {
@@ -1067,31 +1156,57 @@ namespace Misp.Kernel.Ui.Dashboard
         {
             Delete(ResourcePath.TRANSACTION_FILE_TYPE_RESOURCE_PATH, oids, block);
         }
-
-        
+                
         #endregion
 
+
         #region Grid
-            public void DeleteInputGrid(List<int> oids, DashboardBlock block)
-            {
-                Delete(ResourcePath.INPUT_GRID_RESOURCE_PATH, oids, block);
-            }
 
-            public void DeleteReportGrid(List<int> oids, DashboardBlock block)
-            {
-                Delete(ResourcePath.REPORT_GRID_RESOURCE_PATH, oids, block);
-            }
+        public void HideInputGrids(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.INPUT_GRID_RESOURCE_PATH, oids, block);
+        }
 
-            public void DeleteAutomaticGrid(List<int> oids, DashboardBlock block)
-            {
-                Delete(ResourcePath.AUTOMATIC_SOURCING_GRID_RESOURCE_PATH, oids, block);
-            }
+        public void HideReportGrids(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.REPORT_GRID_RESOURCE_PATH, oids, block);
+        }
+
+        public void HideAutomaticGrids(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.AUTOMATIC_SOURCING_GRID_RESOURCE_PATH, oids, block);
+        }
+        
+        public void DeleteInputGrid(List<int> oids, DashboardBlock block)
+        {
+            Delete(ResourcePath.INPUT_GRID_RESOURCE_PATH, oids, block);
+        }
+
+        public void DeleteReportGrid(List<int> oids, DashboardBlock block)
+        {
+            Delete(ResourcePath.REPORT_GRID_RESOURCE_PATH, oids, block);
+        }
+
+        public void DeleteAutomaticGrid(List<int> oids, DashboardBlock block)
+        {
+            Delete(ResourcePath.AUTOMATIC_SOURCING_GRID_RESOURCE_PATH, oids, block);
+        }  
 
         #endregion
 
 
         #region Posting Grid
-        
+
+        public void HidePostingGrids(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.POSTING_GRID_RESOURCE_PATH, oids, block);
+        }
+
+        public void HideAutomaticPostingGrids(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.AUTOMATIC_POSTING_GRID_RESOURCE_PATH, oids, block);
+        }
+
         public void DeletePostingGrid(List<int> oids, DashboardBlock block)
         {
             Delete(ResourcePath.POSTING_GRID_RESOURCE_PATH, oids, block);
@@ -1107,7 +1222,16 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Enrichment Table
 
+        public void HideEnrichmentTables(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.ENRICHMENT_TABLE_RESOURCE_PATH, oids, block);
+        }
 
+        public void HideAutomaticEnrichmentTables(List<int> oids, DashboardBlock block)
+        {
+            Hide(ResourcePath.AUTOMATIC_ENRICHMENT_TABLE_RESOURCE_PATH, oids, block);
+        }
+        
         public event RunInfoEventHandler RunEnrichmentTablesHandler;
         public void RunEnrichmentTables(List<int> oids, DashboardBlock blockToUpdate)
         {
@@ -1241,6 +1365,7 @@ namespace Misp.Kernel.Ui.Dashboard
         }
 
         #endregion
+
 
         protected void Mask(bool mask, string content = "Running...")
         {
