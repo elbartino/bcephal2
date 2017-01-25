@@ -271,6 +271,7 @@
     <Compile Include="Domain\Browser\UserBrowserData.cs" />
     <Compile Include="Domain\EnrichmentTable.cs" />
     <Compile Include="Domain\EnrichmentTableData.cs" />
+    <Compile Include="Domain\GrilleColumnFilter.cs" />
     <Compile Include="Domain\GrilleRelationship.cs" />
     <Compile Include="Domain\GrilleRelationshipItem.cs" />
     <Compile Include="Domain\LoopCondition.cs" />

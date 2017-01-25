@@ -479,15 +479,15 @@ namespace Misp.Kernel.Ui.EditableTree
             if (attributes.Count == 0) return;
             Kernel.Util.ClipbordUtil.ClearClipboard();
             List<Object> listeCopy = new List<Object>(0);
-            foreach (Domain.Attribute attribute in attributes)
-            {
-                ForgetDefaultAttributes(attribute);
-                Domain.Attribute copy = GetCopy(attribute);
-                copy.parent = null;
-                listeCopy.Add(copy);
-            }
-            if (listeCopy.Count == 0) return;
-            Kernel.Util.ClipbordUtil.SetAttributes(listeCopy);
+            //foreach (Domain.Attribute attribute in attributes)
+            //{
+            //    ForgetDefaultAttributes(attribute);
+            //    Domain.Attribute copy = GetCopy(attribute);
+            //    copy.parent = null;
+            //    listeCopy.Add(copy);
+            //}
+            //if (listeCopy.Count == 0) return;
+            Kernel.Util.ClipbordUtil.SetAttributes(attributes.ToList<Object>());
         }
 
         private void OnCutClick(object sender, RoutedEventArgs e)
@@ -504,12 +504,16 @@ namespace Misp.Kernel.Ui.EditableTree
             {
                 foreach (Domain.Attribute attribute in attributes)
                 {
+                    Domain.Attribute copy = GetCopy(attribute);
+                    copy.name = GetNewAttributeName(copy.name);    
+                   
                     ForgetDefaultAttributes(parent);
-                    attribute.SetParent(parent);
-                    parent.AddChild(attribute);
+                    copy.SetParent(parent);
+                    parent.AddChild(copy);
                     AddDefaultAttributes(parent);
-                    addToSource(attribute);
+                    addToSource(copy);
                 }
+                attributes.Clear();
                 if (Changed != null) Changed();
             }
         }
@@ -719,6 +723,25 @@ namespace Misp.Kernel.Ui.EditableTree
             }
             return attribute;
         }
+
+        protected String GetNewAttributeName(String name)
+        {
+            Domain.Attribute attribute = new Domain.Attribute();
+            attribute.name = name;
+            if (Root != null)
+            {
+                Kernel.Domain.Attribute m = null;
+                int i = 1;
+                do
+                {
+                    attribute.name = name + i++;
+                    m = (Domain.Attribute)Root.GetChildByName(attribute.name);
+                }
+                while (m != null);
+            }
+            return attribute.name;
+        }
+
 
         private bool IsUsedToGenerateUniverse(Domain.Attribute attribute)
         {

@@ -33,6 +33,8 @@ namespace Misp.Kernel.Domain
         
         public bool includeRecoChecked { get; set; }
 
+        public GrilleColumnFilter filter { get; set; }
+
 
         public GrilleFilter()
         {
@@ -41,5 +43,10 @@ namespace Misp.Kernel.Domain
             includeRecoChecked = false;
         }
 
+        public void ClearColumnFilter()
+        {
+            filter = null;
+        }
+        
     }
 }

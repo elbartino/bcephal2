@@ -325,7 +325,7 @@ namespace Misp.Kernel.Ui.Dashboard
         {
             if (observer != null)
             {
-                if (!observer.hasPrivilege(newFunctionCode)) return null;
+                if (!observer.hasPrivilegeOrSubprivilege(newFunctionCode)) return null;
             }
 
             DashboardBlock block = new DashboardBlock(newFunctionCode);

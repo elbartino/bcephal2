@@ -243,7 +243,7 @@ namespace Misp.Kernel.Util
         /// </summary>
         /// <param name="format">Le format du type de données</param>
         /// <returns>L'objet présent dans le presse-papiers</returns>
-        public static List<Domain.BGroup> GetGroup()
+        public static List<Domain.BGroup> GetGroups()
         {
             List<Domain.IHierarchyObject> listeGroup = GetHierarchyObject(GROUP_CLIPBOARD_FORMAT);
             if (listeGroup != null)
@@ -252,6 +252,28 @@ namespace Misp.Kernel.Util
                 if (ob != null && ob.Count > 0) return ob;
             }
             return null;
+        }
+
+        public static List<Domain.BGroup> GetGroupes()
+        {
+            if (System.Windows.Clipboard.ContainsData(GROUP_CLIPBOARD_FORMAT))
+            {
+                try
+                {
+                    object data = System.Windows.Clipboard.GetData(GROUP_CLIPBOARD_FORMAT);
+                    if (data != null && data is String) return RestSharp.SimpleJson.DeserializeObject<List<Domain.BGroup>>((String)data);
+                }
+                catch (Exception)
+                {
+                    Kernel.Util.MessageDisplayer.DisplayError("Error copy", "Unable to paste " + GROUP_CLIPBOARD_FORMAT.Split('.')[1]);
+                }
+            }
+            else if (System.Windows.Clipboard.ContainsText())
+            {
+                List<Domain.BGroup> groups = GetTextDatas(GROUP_CLIPBOARD_FORMAT).Cast<Domain.BGroup>().ToList();
+                if (groups != null) return groups;
+            }
+            return new List<Domain.BGroup>(0);
         }
 
         /// <summary>

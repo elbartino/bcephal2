@@ -50,17 +50,9 @@ namespace Misp.Reporting.Base
             List<Control> menus = new List<Control>(0);
             
             menus.Add(ReportGroupMenu);
-            menus.Add(new Separator());
-            
             menus.Add(GridGroupMenu);
-            menus.Add(new Separator());
-
             menus.Add(StructuredReportGrouMenu);
-            menus.Add(new Separator());
-
             menus.Add(CalculatedMeasureGroupMenu);
-            menus.Add(new Separator());
-
             menus.Add(PivotTableGroupMenu);
             
             return menus;

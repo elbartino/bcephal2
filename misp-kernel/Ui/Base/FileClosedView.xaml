@@ -30,7 +30,12 @@
             </Grid>            
             <TextBlock x:Name="NewFileTextBlock" Grid.Row="1" Margin="30,0,0,0"/>
             <TextBlock x:Name="RecentFilesTextBlock" Text="Recent Projects" Grid.Row="2" Margin="30,0,0,0"/>
-            <StackPanel x:Name="ItemsPanel" x:FieldModifier="public" Grid.Row="3" Margin="50,0,0,0"/>
+            <!--<StackPanel x:Name="ItemsPanel" x:FieldModifier="public" Grid.Row="3" Margin="50,0,0,0"/>-->
+
+            <ScrollViewer x:FieldModifier="public" x:Name="ScrollView" Grid.Row="3" Margin="50,0,0,0">
+                <StackPanel x:FieldModifier="public" x:Name="ItemsPanel"/>
+            </ScrollViewer>
+
         </Grid>
     </Border>
 

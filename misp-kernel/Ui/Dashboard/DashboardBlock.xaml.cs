@@ -246,8 +246,32 @@ namespace Misp.Kernel.Ui.Dashboard
             if (string.IsNullOrWhiteSpace(this.FunctionalityCode)) return;
             List<int> oids = GetSelectedIds();
             if (oids.Count == 0) return;
-            bool ok = this.DashBoardService.setInvisible(this.FunctionalityCode, oids);
-            if (ok) RefreshData();
+            if (isTable()) new DashboardActions().HideTables(oids, this);
+            else if (isReport()) new DashboardActions().HideReports(oids, this);
+            else if (isTransformationTree()) new DashboardActions().HideTrees(oids, this);
+            else if (isCombinedTransformationTree()) new DashboardActions().HideCombinedTrees(oids, this);
+            else if (isStructuredReport()) new DashboardActions().HideStructuredReports(oids, this);
+            else if (isModel()) new DashboardActions().HideModels(oids, this);
+            else if (isTarget()) new DashboardActions().HideTargets(oids, this);
+            else if (isCalculatedMeasure()) new DashboardActions().HideCalculatedMeasures(oids, this);
+            else if (isAutomaticUpload()) new DashboardActions().HideAutomaticUploads(oids, this);
+            else if (isDesign()) new DashboardActions().HideDesigns(oids, this);
+            else if (isReconciliationFilterUpload()) new DashboardActions().HideReconciliationFilters(oids, this);
+            else if (isInputGrid()) new DashboardActions().HideInputGrids(oids, this);
+            else if (isPostingGrid()) new DashboardActions().HidePostingGrids(oids, this);
+            else if (isEnrichmentTable()) new DashboardActions().HideEnrichmentTables(oids, this);
+            else if (isReportGrid()) new DashboardActions().HideReportGrids(oids, this);
+            else if (isAutomaticGrid()) new DashboardActions().HideAutomaticGrids(oids, this);
+            else if (isAutomaticPostingGrid()) new DashboardActions().HideAutomaticPostingGrids(oids, this);
+            else if (isReconciliationPostingUpload()) new DashboardActions().HideReconciliationPostings(oids, this);
+            else if (isTransactionFileTypeUpload()) new DashboardActions().HideTransactionFileTypes(oids, this);
+            else if (isAutomaticEnrichmentTable()) new DashboardActions().HideAutomaticEnrichmentTables(oids, this);
+            
+            //if (string.IsNullOrWhiteSpace(this.FunctionalityCode)) return;
+            //List<int> oids = GetSelectedIds();
+            //if (oids.Count == 0) return;
+            //bool ok = this.DashBoardService.setInvisible(this.FunctionalityCode, oids);
+            //if (ok) RefreshData();
         }
 
         private void OnClear(object sender, RoutedEventArgs e)

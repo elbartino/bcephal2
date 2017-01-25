@@ -332,8 +332,10 @@ namespace Misp.Kernel.Ui.Group
             BGroup group = GetSelectedGroup();
             if (group != null)
             {
-                IHierarchyObject copy = group.GetCopy();
-                Kernel.Util.ClipbordUtil.SetHierarchyObject(copy);                
+                List<Domain.BGroup> grps = new List<BGroup>(0);
+                grps.Add(group);
+                //IHierarchyObject copy = group.GetCopy();
+                Kernel.Util.ClipbordUtil.SetGroups(grps.ToList<Object>());                
             }
             CurrentCutObject = null;
         }
@@ -352,7 +354,9 @@ namespace Misp.Kernel.Ui.Group
             CurrentCutObject = group;
             if (group != null)
             {
-                Kernel.Util.ClipbordUtil.SetHierarchyObject(CurrentCutObject);
+                List<Domain.BGroup> grps = new List<BGroup>(0);
+                grps.Add(group);
+                Kernel.Util.ClipbordUtil.SetGroups(grps.ToList<Object>());
             }            
         }
 
@@ -379,23 +383,26 @@ namespace Misp.Kernel.Ui.Group
                 {
                     CurrentCutObject.parent.ForgetChild(CurrentCutObject);
                     parent.AddChild(CurrentCutObject);
-                    SaveGroup(CurrentCutObject);                    
-                    IHierarchyObject copy = CurrentCutObject.GetCopy();
-                    Kernel.Util.ClipbordUtil.SetHierarchyObject(copy);
+                    SaveGroup(CurrentCutObject);
+                    List<Domain.BGroup> groupes = Kernel.Util.ClipbordUtil.GetGroupes();
+                                         
                     CurrentCutObject = null;
                     if (Changed != null) Changed();
                 }                
             }
             else
             {
-                List<BGroup> listeGroupe = Kernel.Util.ClipbordUtil.GetGroup();
+                List<BGroup> listeGroupe = Kernel.Util.ClipbordUtil.GetGroupes();
+                List<BGroup> cListGroupe = new List<BGroup>();
                 foreach (BGroup newItem in listeGroupe)
                 {
                     if (newItem != null)
                     {
-                        parent.AddChild(newItem);
-                        SaveGroup(newItem);
-                        Kernel.Util.ClipbordUtil.SetHierarchyObject(newItem.GetCopy());
+                        BGroup newitem = newItem.GetCopy() as BGroup;
+                        parent.AddChild(newitem);
+                        SaveGroup(newitem);
+                        cListGroupe.Add(newitem);
+                        Kernel.Util.ClipbordUtil.SetGroups(cListGroupe.ToList<Object>());
                         if (Changed != null) Changed();
                     }
                 }

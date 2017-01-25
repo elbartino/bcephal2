@@ -21,7 +21,7 @@ namespace Misp.Initiation.Base
         private void buildChildren()
         {
             this.Children.Add(new Functionality(this, FunctionalitiesCode.INITIATION_MODEL, "Model", true));
-            this.Children.Add(new Functionality(this, FunctionalitiesCode.INITIATION_MEASURE, "Measure", true));
+            //this.Children.Add(new Functionality(this, FunctionalitiesCode.INITIATION_MEASURE, "Measure", true));
             this.Children.Add(new Functionality(this, FunctionalitiesCode.INITIATION_PERIOD, "Period", true));
         }
 

@@ -21,6 +21,7 @@ using Xceed.Wpf.AvalonDock.Layout;
 using DevExpress.Data.Filtering;
 using DevExpress.Xpf.Editors.Settings;
 using DevExpress.Xpf.Core;
+using System.ComponentModel;
 
 namespace Misp.Sourcing.GridViews
 {
@@ -75,10 +76,10 @@ namespace Misp.Sourcing.GridViews
         {
             if (gridControl != null)
             {
+                gridControl.EndSorting -= OnEndSorting;
                 gridControl.FilterChanged -= OnFilterChanged;
                 gridControl.SelectionChanged -= OnSelectionChanged;
                 ((GridTableView)gridControl.View).CellValueChanged -= OnCellValueChanged;
-                ((GridTableView)gridControl.View).SortEventHandler -= OnSort;
                 ((GridTableView)gridControl.View).SortEventHandler -= OnSort;
                 ((GridTableView)gridControl.View).Menu.DeleteItem.ItemClick -= OnDelete;
                 ((GridTableView)gridControl.View).Menu.DuplicateItem.ItemClick -= OnDuplicate;
@@ -89,9 +90,11 @@ namespace Misp.Sourcing.GridViews
             GridControl.AllowInfiniteGridSize = true;
             GridTableView view = new GridTableView(gridControl);            
             gridControl.SelectionMode = MultiSelectMode.MultipleRow;
-            gridControl.View = view;
+            gridControl.View = view; 
             view.ShowGroupPanel = Grille.report && !Grille.reconciliation;
             view.AllowEditing = !Grille.report && !Grille.reconciliation;
+
+            gridControl.EndSorting += OnEndSorting;
 
             gridControl.FilterChanged += OnFilterChanged;
             gridControl.SelectionChanged += OnSelectionChanged;
@@ -102,6 +105,59 @@ namespace Misp.Sourcing.GridViews
             view.Menu.DuplicateItem.ItemClick += OnDuplicate;
 
             view.IsRowCellMenuEnabled = !Grille.IsReadOnly();
+        }
+
+        private bool allowSort = true;
+        private void OnEndSorting(object sender, RoutedEventArgs e)
+        {
+            
+            if (allowSort && this.Grille != null && gridControl.SortInfo != null)
+            {
+                OnClearSort();
+                foreach (GridSortInfo info in gridControl.SortInfo)
+                {
+                    GrilleColumn column = this.Grille.GetColumn(info.FieldName);
+                    if (column != null)
+                    {
+                        column.orderAsc = info.SortOrder.Equals(ListSortDirection.Ascending);
+                    }
+                }
+
+                if (allowSort && SortEventHandler != null)
+                {
+                    allowSort = false;
+                    SortEventHandler(null);
+                }
+                allowSort = true;
+            }
+        }
+
+        
+
+        private void OnSort(object columnName)
+        {            
+            if (this.Grille != null && columnName != null)
+            {                
+                GrilleColumn column = this.Grille.GetColumn(columnName.ToString());
+                if (column != null)
+                {
+                    bool orderAsc = column.orderAsc.HasValue && column.orderAsc.Value;
+                    OnClearSort();
+                    column.orderAsc = !orderAsc;
+                }
+                if (SortEventHandler != null) SortEventHandler(column);
+            }
+        }
+
+        private void OnClearSort()
+        {
+            if (this.Grille != null)
+            {
+                foreach (GrilleColumn column in this.Grille.columnListChangeHandler.Items)
+                {
+                    column.orderAsc = null;
+                }   
+            }
         }
 
         private void OnSelectionChanged(object sender, GridSelectionChangedEventArgs e)
@@ -139,6 +195,7 @@ namespace Misp.Sourcing.GridViews
         protected void OnCellValueChanged(object sender, CellValueChangedEventArgs args)
         {
             GridItem item = (GridItem)this.gridControl.SelectedItem;
+            if (item == null) item = (GridItem)this.gridControl.CurrentItem;
             if (item != null)
             {
                 int? oid = item.GetOid();
@@ -209,15 +266,109 @@ namespace Misp.Sourcing.GridViews
             }
         }
 
-        private void OnSort(object columnName)
+        
+
+
+
+
+
+        private void OnFilterChanged(object sender, RoutedEventArgs e)
         {
-            if (this.Grille != null && columnName != null)
+            if (e is GridEventArgs)
             {
-                GrilleColumn column = this.Grille.GetColumn(columnName.ToString());
-                if (SortEventHandler != null) SortEventHandler(column);
+                if (this.gridControl.IsFilterEnabled)
+                {
+                    if (this.gridControl.FilterCriteria != null)
+                    {
+                        this.Grille.GrilleFilter.filter = buildColumnFilters(this.gridControl.FilterCriteria);
+                        if (FilterEventHandler != null) FilterEventHandler();
+                    }
+                }
+                else
+                {
+                    this.Grille.ClearColumnFilter();
+                    if (FilterEventHandler != null) FilterEventHandler();
+                }
             }
+            e.Handled = true;
         }
         
+        private GrilleColumnFilter buildColumnFilters(CriteriaOperator criteria)
+        {
+            GrilleColumnFilter filter = new GrilleColumnFilter();
+            if (criteria != null)
+            {
+                String link = "And";
+                if (criteria is FunctionOperator)
+                {
+                    FunctionOperator function = (FunctionOperator)criteria;
+                    if (function.Operands.Count == 3)
+                    {
+                        String operation = function.Operands[0].ToString();                        
+                        String name = ((OperandProperty)function.Operands[1]).PropertyName;
+                        String value = ((OperandValue)function.Operands[2]).Value.ToString();
+                        filter = buildColumnFilter(link, name, operation, value);
+                    }
+                    else if (function.Operands.Count == 2)
+                    {
+                        String operation = function.OperatorType.ToString();
+                        String name = ((OperandProperty)function.Operands[0]).PropertyName;
+                        String value = ((OperandValue)function.Operands[1]).Value.ToString();
+                        filter = buildColumnFilter(link, name, operation, value);
+                    }
+                }
+
+                if (criteria is UnaryOperator)
+                {
+                    UnaryOperator function = (UnaryOperator)criteria;
+                    String operation = function.OperatorType.ToString();
+                    String name = ((OperandProperty)function.Operand).PropertyName;
+                    filter = buildColumnFilter(link, name, operation, null);
+                }
+
+                if (criteria is BinaryOperator)
+                {
+                    BinaryOperator function = (BinaryOperator)criteria;
+                    String operation = function.OperatorType.ToString();
+                    String name = ((OperandProperty)function.LeftOperand).PropertyName;
+                    String value = ((OperandValue)function.RightOperand).Value.ToString();
+                    filter = buildColumnFilter(link, name, operation, value);                    
+                }
+
+                if (criteria is GroupOperator)
+                {                    
+                    GroupOperator function = (GroupOperator)criteria;
+                    filter.isGroup = true;
+                    filter.filterOperation = function.OperatorType.ToString();
+                    foreach (CriteriaOperator op in function.Operands)
+                    {
+                        GrilleColumnFilter item = buildColumnFilters(op);
+                        if (item != null) filter.items.Add(item);
+                    }
+                }
+            }
+            return filter;
+        }
+
+        private GrilleColumnFilter buildColumnFilter(String link, String name, String operation, String value)
+        {
+            GrilleColumn column = this.Grille.GetColumn(name);
+            if (column != null)
+            {
+                GrilleColumnFilter filter = new GrilleColumnFilter();
+                filter.column = column;
+                filter.filterOperation = link;
+                filter.filterOperator = operation;
+                filter.filterValue = value;
+                return filter;
+            }
+            return null;
+        }
+
+
+
+
+        /*
         private void OnFilterChanged(object sender, RoutedEventArgs e)
         {
             if (e is DevExpress.Xpf.Grid.GridEventArgs) 
@@ -347,8 +498,18 @@ namespace Misp.Sourcing.GridViews
                 return new Object[] { firstOperand[0],firstOperand[1],operatorType};
             }
 
+            if (criteria is GroupOperator)
+            {
+                GroupOperator group = (GroupOperator)criteria;
+                foreach(CriteriaOperator op in group.Operands){
+                    Object[] vals = getOperationItems(op);
+                    var l = vals.Length;
+                }
+            }
+
             return null;
         }
+        */
 
         protected void Refresh()
         {            

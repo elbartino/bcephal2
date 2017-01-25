@@ -106,6 +106,7 @@ namespace Misp.Kernel.Application
         public static string TRANSFORMATION_LABEL = "Transformation data";
         public static string TRANSFORMATION_TREE_DASHBOARD_LABEL = "Transformation Trees";
         public static string RECENT_TRANSFORMATION_TREE_LABEL = "Recent Transformation Trees";
+        public static string TRANSFORMATION_TREE_LABEL = "Transformation Tree";
         public static string NEW_TRANSFORMATION_TREE_LABEL = "New Transformation Tree";
         public static string LIST_TRANSFORMATION_TREE_LABEL = "List Transformation Trees";
         public static string NEW_TRANSFORMATION_TABLE_LABEL = "New Transformation Table";
@@ -114,7 +115,8 @@ namespace Misp.Kernel.Application
         public static string CLEAR_TRANSFORMATION_TREES_LABEL = "Clear all Transformation Trees";
         public static string COMBINED_TRANSFORMATION_TREE_DASHBOARD_LABEL = "Combined Transformation Trees";
         public static string RECENT_TRANSFORMATION_TREE_DASHBOARD_LABEL = "Recent Combined Transformation Trees";
-        public static string NEW_COMBINED_TRANSFORMATION_TREES_LABEL = "New Combined Transformation Trees";
+        public static string COMBINED_TRANSFORMATION_TREES_LABEL = "Combined Transformation Tree";
+        public static string NEW_COMBINED_TRANSFORMATION_TREES_LABEL = "New Combined Transformation Tree";
         public static string LIST_COMBINED_TRANSFORMATION_TREES_LABEL = "List Combined Transformation Trees";
 
 
@@ -169,8 +171,11 @@ namespace Misp.Kernel.Application
 
         //ADMINISTRATION
         public static string ADMINISTRATION_LABEL = "Administration";
+        public static string ADMINISTRATION_USER_LABEL = "User";
         public static string ADMINISTRATION_NEW_USER_LABEL = "New User";
         public static string ADMINISTRATION_LIST_USER_LABEL = "List User";
+
+        public static string ADMINISTRATION_PROFIL_LABEL = "Profil";
         public static string ADMINISTRATION_LIST_PROFIL_LABEL = "List Profil";
         public static string ADMINISTRATION_NEW_PROFIL_LABEL = "New Profil";
         public static string ADMINISTRATION_ROLE_LABEL = "Manage Role";

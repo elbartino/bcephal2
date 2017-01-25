@@ -12,9 +12,13 @@ namespace Misp.Kernel.Administration.Base
     public class AdministrationMenu : ApplicationMenu
     {
         public ApplicationMenu UserMenu { get; private set; }
+        public ApplicationMenu NewUserMenu { get; private set; }
+        public ApplicationMenu ListUserMenu { get; private set; }
+        
         public ApplicationMenu ProfilMenu { get; private set; }
-        public ApplicationMenu ProfilListMenu { get; private set; }
-        public ApplicationMenu UserListMenu { get; private set; }
+        public ApplicationMenu NewProfilMenu { get; private set; }
+        public ApplicationMenu ListProfilMenu { get; private set; }
+        
         public ApplicationMenu RoleMenu { get; private set; }
 
 
@@ -27,11 +31,7 @@ namespace Misp.Kernel.Administration.Base
         {
             List<Control> menus = new List<Control>(0);
             menus.Add(UserMenu);
-            menus.Add(UserListMenu);
-            menus.Add(new Separator());
             menus.Add(ProfilMenu);
-            menus.Add(ProfilListMenu);
-            menus.Add(new Separator());
             menus.Add(RoleMenu);
             return menus;
         }
@@ -41,16 +41,22 @@ namespace Misp.Kernel.Administration.Base
         /// </summary>
         protected override void initChildren()
         {
-            this.Code = ApplicationMenu.ADMINISTRATION_MENU_CODE;
+            this.Code = FunctionalitiesCode.ADMINISTRATION;
             this.Header = FunctionalitiesLabel.ADMINISTRATION_LABEL;
-            
-            UserMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE,FunctionalitiesLabel.ADMINISTRATION_NEW_USER_LABEL, Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_USER_EDIT));
-            UserListMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE,FunctionalitiesLabel.ADMINISTRATION_LIST_USER_LABEL, Kernel.Application.NavigationToken.GetSearchViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_USER_LIST));
-            
-            ProfilMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE,FunctionalitiesLabel.ADMINISTRATION_NEW_PROFIL_LABEL, Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_PROFIL_EDIT));
-            ProfilListMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE,FunctionalitiesLabel.ADMINISTRATION_LIST_PROFIL_LABEL, Kernel.Application.NavigationToken.GetSearchViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_PROFIL_LIST));
 
-            RoleMenu = BuildMenu(ApplicationMenu.ADMINISTRATION_MENU_CODE, FunctionalitiesLabel.ADMINISTRATION_ROLE_LABEL, Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_ROLE));
+            UserMenu = BuildMenu(FunctionalitiesCode.ADMINISTRATION, FunctionalitiesLabel.ADMINISTRATION_USER_LABEL, FunctionalitiesCode.ADMINISTRATION_USER);
+            NewUserMenu = BuildMenu(FunctionalitiesCode.ADMINISTRATION_USER, FunctionalitiesLabel.ADMINISTRATION_NEW_USER_LABEL, Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_USER_EDIT));
+            ListUserMenu = BuildMenu(FunctionalitiesCode.ADMINISTRATION_USER, FunctionalitiesLabel.ADMINISTRATION_LIST_USER_LABEL, Kernel.Application.NavigationToken.GetSearchViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_USER_LIST));
+            UserMenu.Items.Add(NewUserMenu);
+            UserMenu.Items.Add(ListUserMenu);
+
+            ProfilMenu = BuildMenu(FunctionalitiesCode.ADMINISTRATION, FunctionalitiesLabel.ADMINISTRATION_PROFIL_LABEL, FunctionalitiesCode.ADMINISTRATION_PROFIL);
+            NewProfilMenu = BuildMenu(FunctionalitiesCode.ADMINISTRATION_PROFIL, FunctionalitiesLabel.ADMINISTRATION_NEW_PROFIL_LABEL, Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_PROFIL_EDIT));
+            ListProfilMenu = BuildMenu(FunctionalitiesCode.ADMINISTRATION_PROFIL, FunctionalitiesLabel.ADMINISTRATION_LIST_PROFIL_LABEL, Kernel.Application.NavigationToken.GetSearchViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_PROFIL_LIST));
+            ProfilMenu.Items.Add(NewProfilMenu);
+            ProfilMenu.Items.Add(ListProfilMenu);
+
+            RoleMenu = BuildMenu(FunctionalitiesCode.ADMINISTRATION, FunctionalitiesLabel.ADMINISTRATION_ROLE_LABEL, Kernel.Application.NavigationToken.GetCreateViewToken(AdministrationFunctionalitiesCode.ADMINISTRATION_ROLE));
 
         }
     }
