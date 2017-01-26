@@ -26,7 +26,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Period Name" Grid.Column="0" HorizontalAlignment="Left" />
-            <TextBox  x:Name="periodNameTextBox" Grid.Column="1" HorizontalAlignment="Stretch"/>
+            <TextBox  x:Name="periodNameTextBox" Grid.Column="1" HorizontalAlignment="Stretch" IsReadOnly="True"/>
         </Grid>
         <Grid Grid.Row="1" Margin="0 5 5 0">
             <Grid.ColumnDefinitions>
