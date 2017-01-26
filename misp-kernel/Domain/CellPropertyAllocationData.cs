@@ -28,6 +28,7 @@ namespace Misp.Kernel.Domain
 
         public TransformationTree allocationTree { get; set; }
 
+        public bool showGridInShortcut { get; set; }
 
         public CellPropertyAllocationData GetCopy()
         {
@@ -36,6 +37,7 @@ namespace Misp.Kernel.Domain
             data.active = this.active;
             data.measureRef = this.measureRef;
             data.allocationTree = this.allocationTree;
+            data.showGridInShortcut = this.showGridInShortcut;
             return data;
         }
 
