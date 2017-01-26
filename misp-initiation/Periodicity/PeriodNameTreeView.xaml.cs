@@ -499,7 +499,7 @@ namespace Misp.Initiation.Periodicity
                         e.Canceled = true;
                         return;
                     }
-                    if (editedPeriod.IsDefault)
+                    if (editedPeriod.iDateDefault)
                     {
                         if (name.ToUpper() != Label_DEFAULT_PERIOD.ToUpper())
                         {
