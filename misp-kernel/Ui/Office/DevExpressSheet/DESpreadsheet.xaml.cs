@@ -556,8 +556,9 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
             bool availableDigitNumber = true;
             string str = value.ToString();
             string partString = "";
-            char[] op; string[] integerPart;            
-            if (str.Contains("+"))
+            char[] op; string[] integerPart;
+            
+            if (str.Contains("+")) //le cas où c'est du format 2,5476E+16
             {
                 op = new char[] { '+' };
                 integerPart = str.Split(op);
@@ -565,22 +566,32 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
                 {
                     partString = integerPart[1];
                     int digit = int.Parse(partString.ToString());
-                    if (digit > 16) availableDigitNumber = false;
+                    if (digit >= 16) availableDigitNumber = false;
                 }
             }
-            else if (str.Contains("."))
+            else if (str.Contains(".")) //le cas où c'est du format str = 12345678901234567.5476
             {
                 op = new char[] { '.' };
                 integerPart = str.Split(op);
                 if (integerPart.Length > 1)
                 {
                     partString = integerPart[1];
-                    if (partString.Length > 17) availableDigitNumber = false;
+                    if (partString.Length >= 17) availableDigitNumber = false;
                 }
             }
-            else 
+            else if (str.Contains(",")) //le cas où c'est du format str = 12345678901234567,5476
             {
-                if (str.Length > 17) availableDigitNumber = false;
+                op = new char[] { ',' };
+                integerPart = str.Split(op);
+                if (integerPart.Length > 1)
+                {
+                    partString = integerPart[1];
+                    if (partString.Length >= 17) availableDigitNumber = false;
+                }
+            }
+            else //le cas où c'est du format str = 12345678901234567
+            {
+                if (str.Length >= 17) availableDigitNumber = false;
             }
             return availableDigitNumber;
         }

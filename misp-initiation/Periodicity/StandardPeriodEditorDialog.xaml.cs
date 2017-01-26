@@ -23,7 +23,7 @@ namespace Misp.Initiation.Periodicity
     public partial class StandardPeriodEditorDialog : Window
     {
         public event ValidateChangeEventHandler OnValidateChange;
-        public delegate void ValidateChangeEventHandler(object item, bool cancel);
+        public delegate void ValidateChangeEventHandler(object item, bool cancel);        
         public PeriodName periodName;
         public bool tryToValidate = false;
 
@@ -31,6 +31,7 @@ namespace Misp.Initiation.Periodicity
         {
             InitializeComponent();
             this.Owner = Misp.Kernel.Application.ApplicationManager.Instance.MainWindow;
+            this.periodNameTextBox.IsEnabled = false;
             initializeViewHandler();
         }
 
