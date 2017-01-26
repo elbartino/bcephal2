@@ -450,7 +450,11 @@ namespace Misp.Kernel.Ui.EditableTree
                             AddDefaultAttributeValues(this.Root);
 
                             int row = Source.Count;
-                            if (row - 2 >= 0) Source.Insert(row - 2, newAttributeValue);
+                            if (row - 2 >= 0)
+                            {
+                                if(Source[row - 2].IsDefault) Source.Insert(row - 2, newAttributeValue);
+                                else Source.Insert(row - 1, newAttributeValue);
+                            }
                             else if (row - 1 >= 0) Source.Insert(row - 1, newAttributeValue);
                             else Source.Add(newAttributeValue);
                             SetSelectedValue(newAttributeValue);
