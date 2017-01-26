@@ -499,18 +499,19 @@ namespace Misp.Initiation.Periodicity
                         e.Canceled = true;
                         return;
                     }
-                    if (editedPeriod.IsDefault)
+                    if (editedPeriod.iDateDefault)
                     {
-                        if (name.ToUpper() != Label_DEFAULT_PERIOD.ToUpper())
-                        {
-                            PeriodName addedNode = new PeriodName();
-                            addedNode.name = name;
-                            editedPeriod.name = Label_DEFAULT_PERIOD;
-                            editedPeriod.parent.UpdateChild(editedPeriod);
-                            addedNode = ValidateName(addedNode, name);
-                            AddNode(null, addedNode.name);
-                            e.Canceled = true;
-                        }
+                        e.Canceled = true;
+                        //if (name.ToUpper() != Label_DEFAULT_PERIOD.ToUpper())
+                        //{
+                        //    PeriodName addedNode = new PeriodName();
+                        //    addedNode.name = name;
+                        //    editedPeriod.name = Label_DEFAULT_PERIOD;
+                        //    editedPeriod.parent.UpdateChild(editedPeriod);
+                        //    addedNode = ValidateName(addedNode, name);
+                        //    AddNode(null, addedNode.name);
+                        //    e.Canceled = true;
+                        //}
                      }
                     else
                     {
