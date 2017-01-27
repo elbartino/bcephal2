@@ -702,8 +702,10 @@ namespace Misp.Sourcing.InputGrid
             ((InputGridSideBar)SideBar).EntityGroup.InitializeData();            
             ((InputGridSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
 
-            PeriodName rootPeriodName = GetInputGridService().PeriodNameService.getRootPeriodName();
-            ((InputGridSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
+            ((InputGridSideBar)SideBar).PeriodGroup.InitializeData();
+
+            //PeriodName rootPeriodName = GetInputGridService().PeriodNameService.getRootPeriodName();
+            //((InputGridSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
 
             Target targetAll = GetInputGridService().ModelService.getTargetAll();
             List<Target> targets = new List<Target>(0);

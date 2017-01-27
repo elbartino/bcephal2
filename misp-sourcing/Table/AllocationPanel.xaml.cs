@@ -177,6 +177,7 @@ namespace Misp.Sourcing.Table
                 TemplateGrid.Visibility = System.Windows.Visibility.Collapsed;
                 SequenceGrid.Visibility = System.Windows.Visibility.Collapsed;
                 ShowGridGrid.Visibility = System.Windows.Visibility.Collapsed;
+                ConsiderCellGrid.Visibility = System.Windows.Visibility.Collapsed;
             }
             SequenceGrid.Visibility = System.Windows.Visibility.Collapsed;
             this.OutputMeasureButton.Visibility = System.Windows.Visibility.Collapsed;

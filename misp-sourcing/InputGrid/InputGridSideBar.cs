@@ -25,6 +25,7 @@ namespace Misp.Sourcing.InputGrid
         public MeasureSidebarGroup MeasureGroup { get; set; }
         public TargetGroup TargetGroup { get; set; }
         public PeriodNameGroup PeriodNameGroup { get; set; }
+        public PeriodSidebarGroup PeriodGroup { get; set; }
 
         #endregion
 
@@ -42,6 +43,8 @@ namespace Misp.Sourcing.InputGrid
             this.TargetGroup = new TargetGroup("Targets", true);
             this.MeasureGroup = new MeasureSidebarGroup();
             this.PeriodNameGroup = new PeriodNameGroup("Period", true);
+            this.PeriodGroup = new PeriodSidebarGroup();
+
 
             this.GrilleGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.PeriodNameGroup.Background = System.Windows.Media.Brushes.LightBlue;
@@ -56,7 +59,7 @@ namespace Misp.Sourcing.InputGrid
             this.AddGroup(this.EntityGroup);
             //this.AddGroup(this.TargetGroup);
             this.AddGroup(this.MeasureGroup);
-            this.AddGroup(this.PeriodNameGroup);
+            this.AddGroup(this.PeriodGroup);
             //this.AddGroup(this.CalculateMeasureGroup);
         }
 
