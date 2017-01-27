@@ -3,6 +3,8 @@ using Misp.Kernel.Domain;
 using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Popup;
+using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -389,7 +391,27 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
         {
             this.Timer.Stop();
         }
-        
+
+        private void OnMouseRightClick(object sender, MouseEventArgs e)
+        {
+            this.Timer.Stop();
+
+            if (sender is TreeViewItem)
+            {
+                Object tag = ((TreeViewItem)sender).Header;
+                if (tag is Domain.PeriodInterval)
+                {
+                    PeriodFilterDialog dialog = new PeriodFilterDialog();
+                    dialog.Display((Domain.PeriodInterval)tag);
+                    dialog.SearchTextBox.Focus();
+                    WindowPositioner.ShowCenteredToMouse(dialog);
+                    PeriodInterval value = dialog.Selection;
+                    if (value != null && Click != null) Click(value);
+                    e.Handled = true;
+                }
+            }
+        }
+
         #endregion
 
 

@@ -90,6 +90,7 @@ namespace Misp.Sourcing.Table
             this.AllocationData.type = string.IsNullOrEmpty(selectType) ? null : selectType;
             bool addRefMeasuref = selectType.Equals(CellPropertyAllocationData.AllocationType.Reference.ToString());
             this.AllocationData.measureRef = addRefMeasuref ? this.RefMeasure : null;
+            this.AllocationData.showGridInShortcut = this.ShowInShorcut.IsChecked.Value;
         }
         
         /// <summary>
@@ -103,7 +104,8 @@ namespace Misp.Sourcing.Table
             if (allocationData != null)
             {
                 this.TypeComboBox.SelectedItem = allocationData.type;
-                this.RefMeasure = allocationData.measureRef;                
+                this.RefMeasure = allocationData.measureRef;
+                this.ShowInShorcut.IsChecked = allocationData.showGridInShortcut;
             }
             else
             {
@@ -134,7 +136,7 @@ namespace Misp.Sourcing.Table
                 MeasureGrid.Visibility = System.Windows.Visibility.Collapsed;
                 RefMeasureGrid.Visibility = System.Windows.Visibility.Collapsed;
                 TemplateGrid.Visibility = System.Windows.Visibility.Collapsed;
-                
+                ShowGridGrid.Visibility = System.Windows.Visibility.Visible;
             }
             else if (CellPropertyAllocationData.AllocationType.Scope2Scope.ToString() == selectType)
             {
@@ -153,6 +155,7 @@ namespace Misp.Sourcing.Table
                 RefMeasureRow.Height = new GridLength(27);
                 RefMeasureGrid.Visibility = System.Windows.Visibility.Visible;
                 this.RefMeasureButton.Visibility = System.Windows.Visibility.Collapsed;
+                ShowGridGrid.Visibility = System.Windows.Visibility.Visible;
             }
             else if (CellPropertyAllocationData.AllocationType.Template.ToString() == selectType)
             {
@@ -169,6 +172,7 @@ namespace Misp.Sourcing.Table
                 RefMeasureGrid.Visibility = System.Windows.Visibility.Collapsed;
                 TemplateGrid.Visibility = System.Windows.Visibility.Collapsed;
                 SequenceGrid.Visibility = System.Windows.Visibility.Collapsed;
+                ShowGridGrid.Visibility = System.Windows.Visibility.Collapsed;
             }
             SequenceGrid.Visibility = System.Windows.Visibility.Collapsed;
             this.OutputMeasureButton.Visibility = System.Windows.Visibility.Collapsed;
@@ -184,6 +188,13 @@ namespace Misp.Sourcing.Table
             this.RefMeasureButton.Click += OnRefMeasureButtonClicked;
             this.TemplateButton.Click += OnTemplateButtonClicked;
             this.SequenceTextBox.TextChanged += OnSequenceChanged;
+            this.ShowInShorcut.Checked += OnSelectShorcutOptions;
+            this.ShowInShorcut.Unchecked += OnSelectShorcutOptions;
+        }
+
+        private void OnSelectShorcutOptions(object sender, RoutedEventArgs e)
+        {
+            OnChange();
         }
 
         /// <summary>

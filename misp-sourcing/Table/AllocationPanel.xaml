@@ -6,7 +6,7 @@
              xmlns:Base="clr-namespace:Misp.Kernel.Ui.Base;assembly=bcephal" 
              xmlns:Numeric="clr-namespace:Misp.Kernel.Ui.Numeric;assembly=bcephal" 
              mc:Ignorable="d" 
-             d:DesignHeight="140"  HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto">
+             d:DesignHeight="200"  HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto">
     <StackPanel >
         <Grid>
             <Grid.RowDefinitions>
@@ -15,6 +15,7 @@
                 <RowDefinition x:Name="RefMeasureRow"   Height="27" />
                 <RowDefinition x:Name="TemplateRow"     Height="27" />
                 <RowDefinition x:Name="SequenceRow"     Height="*" />
+                <RowDefinition x:Name="ShowGridRow"     Height="*" />
             </Grid.RowDefinitions>
 
             <Grid x:Name="TypeGrid" Grid.Row="0">
@@ -70,10 +71,13 @@
                 <Label x:Name="sequence" Grid.Column="0" Content="Sequence"  HorizontalAlignment="Left" VerticalAlignment="Center" />
                 <TextBox x:Name="SequenceTextBox" Numeric:TextBoxMaskBehavior.Mask="Integer" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="23" />
             </Grid>
-
             
-            
-            
+            <Grid x:Name="ShowGridGrid" Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
+                <CheckBox x:Name="ShowInShorcut" Content="Show Grid in Shortcut" FlowDirection="RightToLeft"   Grid.Column="0"  IsChecked="False" Margin="5 5 0 0"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" />
+            </Grid>            
         </Grid>
     </StackPanel>
 </ScrollViewer>
