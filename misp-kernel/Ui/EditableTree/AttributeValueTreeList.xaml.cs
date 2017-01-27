@@ -458,6 +458,7 @@ namespace Misp.Kernel.Ui.EditableTree
                             else if (row - 1 >= 0) Source.Insert(row - 1, newAttributeValue);
                             else Source.Add(newAttributeValue);
                             SetSelectedValue(newAttributeValue);
+                            DisplayRoot(this.Root);
                         }
                         else
                         {
