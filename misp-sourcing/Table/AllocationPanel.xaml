@@ -75,7 +75,7 @@
 
             <Grid x:Name="ConsiderCellGrid" Grid.Row="5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="200" />
                 </Grid.ColumnDefinitions>
                 <CheckBox x:Name="ConsiderCell" Content="Consider Cell Parametrisation" FlowDirection="RightToLeft"   Grid.Column="0"  IsChecked="True" Margin="5 5 0 0"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="23" />
             </Grid>
