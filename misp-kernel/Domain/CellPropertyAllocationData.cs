@@ -18,6 +18,8 @@ namespace Misp.Kernel.Domain
         public CellPropertyAllocationData() {
             type = AllocationType.NoAllocation.ToString();
             active = true;
+            considerCell = true;
+            showGridInShortcut = true;
         }
 
         public string type { get; set; }

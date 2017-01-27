@@ -116,6 +116,8 @@ namespace Misp.Sourcing.Table
                 this.RefMeasure = null;
                 this.TemplateTextBox.Text = "";
                 this.SequenceTextBox.Text = "1";
+                this.ShowInShorcut.IsChecked = true;
+                this.ConsiderCell.IsChecked = true;
             }
             updateButtons();
             thrawChange = true;
