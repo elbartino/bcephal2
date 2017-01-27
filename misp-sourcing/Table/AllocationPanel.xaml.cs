@@ -91,6 +91,7 @@ namespace Misp.Sourcing.Table
             bool addRefMeasuref = selectType.Equals(CellPropertyAllocationData.AllocationType.Reference.ToString());
             this.AllocationData.measureRef = addRefMeasuref ? this.RefMeasure : null;
             this.AllocationData.showGridInShortcut = this.ShowInShorcut.IsChecked.Value;
+            this.AllocationData.considerCell = this.ConsiderCell.IsChecked.Value;
         }
         
         /// <summary>
@@ -106,6 +107,7 @@ namespace Misp.Sourcing.Table
                 this.TypeComboBox.SelectedItem = allocationData.type;
                 this.RefMeasure = allocationData.measureRef;
                 this.ShowInShorcut.IsChecked = allocationData.showGridInShortcut;
+                this.ConsiderCell.IsChecked = allocationData.considerCell;
             }
             else
             {
@@ -137,6 +139,7 @@ namespace Misp.Sourcing.Table
                 RefMeasureGrid.Visibility = System.Windows.Visibility.Collapsed;
                 TemplateGrid.Visibility = System.Windows.Visibility.Collapsed;
                 ShowGridGrid.Visibility = System.Windows.Visibility.Visible;
+                ConsiderCellGrid.Visibility = System.Windows.Visibility.Collapsed;
             }
             else if (CellPropertyAllocationData.AllocationType.Scope2Scope.ToString() == selectType)
             {
@@ -156,6 +159,7 @@ namespace Misp.Sourcing.Table
                 RefMeasureGrid.Visibility = System.Windows.Visibility.Visible;
                 this.RefMeasureButton.Visibility = System.Windows.Visibility.Collapsed;
                 ShowGridGrid.Visibility = System.Windows.Visibility.Visible;
+                ConsiderCellGrid.Visibility = System.Windows.Visibility.Visible;
             }
             else if (CellPropertyAllocationData.AllocationType.Template.ToString() == selectType)
             {
@@ -190,6 +194,13 @@ namespace Misp.Sourcing.Table
             this.SequenceTextBox.TextChanged += OnSequenceChanged;
             this.ShowInShorcut.Checked += OnSelectShorcutOptions;
             this.ShowInShorcut.Unchecked += OnSelectShorcutOptions;
+            this.ConsiderCell.Checked += OnConsiderCell;
+            this.ConsiderCell.Unchecked += OnConsiderCell;
+        }
+
+        private void OnConsiderCell(object sender, RoutedEventArgs e)
+        {
+            OnChange();
         }
 
         private void OnSelectShorcutOptions(object sender, RoutedEventArgs e)

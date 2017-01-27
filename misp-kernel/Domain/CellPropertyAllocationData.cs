@@ -30,6 +30,8 @@ namespace Misp.Kernel.Domain
 
         public bool showGridInShortcut { get; set; }
 
+        public bool considerCell { get; set; }
+
         public CellPropertyAllocationData GetCopy()
         {
             CellPropertyAllocationData data = new CellPropertyAllocationData();
