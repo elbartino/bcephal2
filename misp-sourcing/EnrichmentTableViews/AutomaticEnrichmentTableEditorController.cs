@@ -143,7 +143,7 @@ namespace Misp.Sourcing.EnrichmentTableViews
            sideBar.AutomaticSourcingGroup.Header = "Automatic Enrichment Tables";
            sideBar.RemoveGroup(sideBar.MeasureGroup);
            sideBar.RemoveGroup(sideBar.CaculatedMeasureGroup);
-           sideBar.RemoveGroup(sideBar.PeriodNameGroup);
+           sideBar.RemoveGroup(sideBar.PeriodGroup);
            return sideBar;
        }
 

@@ -19,7 +19,7 @@ namespace Misp.Sourcing.AutomaticTargetViews
             base.InitializeGroups();
             this.RemoveGroup(this.MeasureGroup);
             this.RemoveGroup(this.CaculatedMeasureGroup);
-            this.RemoveGroup(this.PeriodNameGroup);
+            this.RemoveGroup(this.PeriodGroup);
             this.AutomaticSourcingGroup.Header = "Automatic Target";
         }
     }

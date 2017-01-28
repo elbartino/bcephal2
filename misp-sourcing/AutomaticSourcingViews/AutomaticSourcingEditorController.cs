@@ -264,9 +264,9 @@ namespace Misp.Sourcing.Base
                 }
                 catch (BcephalException) { }
 
-                tagNames = GetAutomaticSourcingService().PeriodNameService.getAll();
+                //tagNames = GetAutomaticSourcingService().PeriodNameService.getAll();
 
-                ((AutomaticSourcingSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(tagNames);
+                //((AutomaticSourcingSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(tagNames);
 
                 AutomaticSourcingPropertyBar propertyBar = (AutomaticSourcingPropertyBar)this.PropertyBar;
                 if (propertyBar.Pane.SelectedContent == propertyBar.AutomaticTablePropertiesLayoutAnchorable)
@@ -436,9 +436,7 @@ namespace Misp.Sourcing.Base
 
                 List<CalculatedMeasure> ListCalculatedMeasure = GetAutomaticSourcingService().CalculatedMeasureService.getAllCalculatedMeasure();
                 ((AutomaticSourcingSideBar)SideBar).CaculatedMeasureGroup.CalculatedMeasureTreeview.fillTree(new ObservableCollection<CalculatedMeasure>(ListCalculatedMeasure));
-
-                PeriodName rootPeriodName = GetAutomaticSourcingService().PeriodNameService.getRootPeriodName();
-                ((AutomaticSourcingSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);               
+                ((AutomaticSourcingSideBar)SideBar).PeriodGroup.InitializeData();                
             }
             BGroup group = GetAutomaticSourcingService().GroupService.getDefaultGroup();
         }
@@ -470,7 +468,7 @@ namespace Misp.Sourcing.Base
             ((AutomaticSourcingSideBar)SideBar).MeasureGroup.Tree.Click += SidebarMeasureSelected;
             ((AutomaticSourcingSideBar)SideBar).EntityGroup.Tree.Click += SidebarTargetSelected;
             //((AutomaticSourcingSideBar)SideBar).EntityGroup.Tree.OnRightClick += onRightClickFromSidebar;
-            ((AutomaticSourcingSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += SidebarPeriodNameSelected;
+           // ((AutomaticSourcingSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += SidebarPeriodNameSelected;
         }
         
         private void SidebarPeriodNameSelected(object sender)

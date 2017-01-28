@@ -564,9 +564,8 @@ namespace Misp.Planification.Tranformation
             List<Kernel.Domain.CalculatedMeasure> CalculatedMeasures = TransformationTreeService.CalculatedMeasureService.getAllCalculatedMeasure();
             if (CalculatedMeasures != null)
                 SideBar.CalculateMeasureGroup.CalculatedMeasureTreeview.fillTree(new ObservableCollection<CalculatedMeasure>(CalculatedMeasures));
-            
-            PeriodName RootPeriodName = TransformationTreeService.PeriodNameService.getRootPeriodName();
-            SideBar.PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(RootPeriodName);
+
+            SideBar.PeriodGroup.InitializeData();
             
             Target targetAll = TransformationTreeService.ModelService.getTargetAll();
             List<Target> targets = new List<Target>(0);
@@ -590,11 +589,6 @@ namespace Misp.Planification.Tranformation
 
             SideBar.CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
             SideBar.TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
-
-            SideBar.PeriodNameGroup.PeriodNameTreeview.setDisplacherInterval(new TimeSpan(0, 0, 0, 1));
-            SideBar.PeriodNameGroup.PeriodNameTreeview.SelectionDoubleClick += onDoubleClickSelectPeriodNameFromSidebar;
-
-            SideBar.PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodNameFromSidebar;
             SideBar.TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += OnSelecteLoopFromSidebar;
         }
 

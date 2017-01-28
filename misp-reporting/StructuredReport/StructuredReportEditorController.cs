@@ -508,9 +508,9 @@ namespace Misp.Reporting.StructuredReport
             
             ((StructuredReportSideBar)SideBar).MeasureGroup.InitializeMeasure(true);
 
-            PeriodName rootPeriodName = GetStructuredReportService().PeriodNameService.getRootPeriodName();
-            ((StructuredReportSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
+            ((StructuredReportSideBar)SideBar).PeriodGroup.InitializeData();
 
+            
             Target targetAll = GetStructuredReportService().ModelService.getTargetAll();
             List<Target> targets = new List<Target>(0);
             targets.Add(targetAll);
@@ -530,9 +530,7 @@ namespace Misp.Reporting.StructuredReport
             ((StructuredReportSideBar)SideBar).EntityGroup.Tree.Click += onSelectTargetFromSidebar;
             ((StructuredReportSideBar)SideBar).EntityGroup.Tree.DoubleClick += onDoubleClickSelectTargetFromSidebar;
             ((StructuredReportSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
-
-            ((StructuredReportSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodFromSidebar;
-
+       
             ((StructuredReportSideBar)SideBar).TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += onSelectLoopFromSidebar;
             ((StructuredReportSideBar)SideBar).SpecialGroup.SelectionChanged += onSelectSpecialFromSidebar;
         }

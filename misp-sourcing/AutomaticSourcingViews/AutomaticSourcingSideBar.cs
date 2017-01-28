@@ -23,8 +23,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         public ModelSidebarGroup EntityGroup { get; set; }
         public MeasureSidebarGroup MeasureGroup { get; set; }
         public CalculatedMeasureGroup CaculatedMeasureGroup { get; set; }
-        public PeriodNameGroup PeriodNameGroup { get; set; }
-        
+        public PeriodSidebarGroup PeriodGroup { get; set; }
         #endregion
 
 
@@ -40,21 +39,19 @@ namespace Misp.Sourcing.AutomaticSourcingViews
             this.EntityGroup = new ModelSidebarGroup();
             this.MeasureGroup = new MeasureSidebarGroup();
             this.CaculatedMeasureGroup = new CalculatedMeasureGroup("Calculate Measure", true);
-            this.PeriodNameGroup = new PeriodNameGroup("Period Names", true);
+            this.PeriodGroup = new PeriodSidebarGroup();
 
             this.AutomaticSourcingGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.CaculatedMeasureGroup.Background = System.Windows.Media.Brushes.LightBlue;
-            this.PeriodNameGroup.Background = System.Windows.Media.Brushes.LightBlue;
-
+           
             this.AutomaticSourcingGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.CaculatedMeasureGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
-            this.PeriodNameGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
-
+          
             this.AddGroup(this.AutomaticSourcingGroup);
             this.AddGroup(this.EntityGroup);
             this.AddGroup(this.MeasureGroup);
             this.AddGroup(this.CaculatedMeasureGroup);
-            this.AddGroup(this.PeriodNameGroup);
+            this.AddGroup(this.PeriodGroup);
            
         }
 

@@ -391,14 +391,13 @@ namespace Misp.Sourcing.Designer
             
             ((DesignerSideBar)SideBar).EntityGroup.InitializeData();
             ((DesignerSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
+
+            ((DesignerSideBar)SideBar).PeriodGroup.InitializeData();
             
             List<Kernel.Domain.CalculatedMeasure> CalculatedMeasures = GetDesignService().CalculatedMeasureService.getAllCalculatedMeasure();
             if (CalculatedMeasures != null)
                 ((DesignerSideBar)SideBar).CalculateMeasureGroup.CalculatedMeasureTreeview.fillTree(new ObservableCollection<CalculatedMeasure>(CalculatedMeasures));
-      
-            PeriodName rootPeriodName = GetDesignService().PeriodNameService.getRootPeriodName();
-            ((DesignerSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
-            
+                  
             Target targetAll = GetDesignService().ModelService.getTargetAll();
             List<Target> targets = new List<Target>(0);
             targets.Add(targetAll);
@@ -427,9 +426,6 @@ namespace Misp.Sourcing.Designer
             ((DesignerSideBar)SideBar).EntityGroup.Tree.DoubleClick += onDoubleClickSelectTargetFromSidebar;
            
             ((DesignerSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
-
-            ((DesignerSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodFromSidebar;
-            ((DesignerSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionDoubleClick += onDoubleClickPeriodFromSidebar;
 
             ((DesignerSideBar)SideBar).CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
         }

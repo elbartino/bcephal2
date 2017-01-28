@@ -23,11 +23,10 @@ namespace Misp.Reporting.StructuredReport
         public ModelSidebarGroup EntityGroup { get; set; }
         public TargetGroup TargetGroup { get; set; }
         public MeasureSidebarGroup MeasureGroup { get; set; }
-        public PeriodNameGroup PeriodNameGroup { get; set; }
-
+     
         public SpecialGroup SpecialGroup { get; set; }
         public TreeLoopGroup TreeLoopGroup { get; set; }
-
+        public PeriodSidebarGroup PeriodGroup { get; set; }
         #endregion
 
 
@@ -43,16 +42,14 @@ namespace Misp.Reporting.StructuredReport
             this.EntityGroup = new ModelSidebarGroup();
             this.TargetGroup = new TargetGroup("Targets", true);
             this.MeasureGroup = new MeasureSidebarGroup();
-            this.PeriodNameGroup = new PeriodNameGroup("Period", true);
+            this.PeriodGroup = new PeriodSidebarGroup();
 
             this.StructuredReportGroup.Background = System.Windows.Media.Brushes.LightBlue;
-            this.PeriodNameGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.EntityGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.TargetGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.MeasureGroup.Background = System.Windows.Media.Brushes.LightBlue;
 
-            this.StructuredReportGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
-            this.PeriodNameGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
+            this.StructuredReportGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;           
             this.EntityGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.TargetGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.MeasureGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
@@ -71,7 +68,7 @@ namespace Misp.Reporting.StructuredReport
             this.AddGroup(this.EntityGroup);
             this.AddGroup(this.TargetGroup);
             this.AddGroup(this.MeasureGroup);
-            this.AddGroup(this.PeriodNameGroup);
+            this.AddGroup(this.PeriodGroup);
         }
 
 

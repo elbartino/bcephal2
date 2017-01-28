@@ -28,7 +28,7 @@ namespace Misp.Sourcing.Designer
         public CalculatedMeasureGroup CalculateMeasureGroup { get; set; }
         public CustomizedTargetGroup CustomizedTargetGroup { get; set; }
         public PeriodicityGroup PeriodicityGroup { get; set; }
-        public PeriodNameGroup PeriodNameGroup { get; set; }
+        public PeriodSidebarGroup PeriodGroup { get; set; }
 
         #endregion
 
@@ -46,19 +46,17 @@ namespace Misp.Sourcing.Designer
             this.TargetGroup = new TargetGroup("Targets", true);
             this.MeasureGroup = new MeasureSidebarGroup();
             this.CalculateMeasureGroup = new CalculatedMeasureGroup("Calculated Measure", true);
-            this.PeriodNameGroup = new PeriodNameGroup("Period", true);
+            this.PeriodGroup = new PeriodSidebarGroup();
             this.CustomizedTargetGroup = new CustomizedTargetGroup("Customized Targets", true);
 
             this.DesignerGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.TargetGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.CalculateMeasureGroup.Background = System.Windows.Media.Brushes.LightBlue;
-            this.PeriodNameGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.CustomizedTargetGroup.Background = System.Windows.Media.Brushes.LightBlue;
 
             this.DesignerGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.TargetGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.CalculateMeasureGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
-            this.PeriodNameGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.CustomizedTargetGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
 
 
@@ -68,7 +66,7 @@ namespace Misp.Sourcing.Designer
             this.AddGroup(this.TargetGroup);
             this.AddGroup(this.MeasureGroup);
             this.AddGroup(this.CalculateMeasureGroup);
-            this.AddGroup(this.PeriodNameGroup);
+            this.AddGroup(this.PeriodGroup);
             //this.AddGroup(this.TagGroup);
 
         }
