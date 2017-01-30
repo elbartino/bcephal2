@@ -55,6 +55,8 @@ namespace Misp.Kernel.Ui.Base
                 }                
                 if (!string.IsNullOrWhiteSpace(code) && ApplicationMenu.HELP_MENU_CODE.Equals(code)) continue;
                 EnableChildren(menu, false);
+                this.GetFileMenu().BackupSimpleMenu.IsEnabled = false;
+                this.GetFileMenu().BackupAutomaticMenu.IsEnabled = false;
             }
         }
 

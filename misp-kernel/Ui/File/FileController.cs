@@ -247,6 +247,8 @@ namespace Misp.Kernel.Ui.File
                         ApplicationManager.MainWindow.MenuBar.GetFileMenu().lastFilePath = filePath;
                         ApplicationManager.MainWindow.MenuBar.GetFileMenu().BuildSaveAsMenu(); 
                         ApplicationManager.MainWindow.MenuBar.GetFileMenu().BuildRecentOpenedFiles();
+                        ApplicationManager.MainWindow.MenuBar.GetFileMenu().BackupSimpleMenu.IsEnabled = true;
+                        ApplicationManager.MainWindow.MenuBar.GetFileMenu().BackupAutomaticMenu.IsEnabled = true;
                         RefreshDashboard();                        
                     }
                     catch (Exception e)
@@ -403,6 +405,8 @@ namespace Misp.Kernel.Ui.File
             //this.ApplicationManager.MainWindow.FileOpenedView.Visibility = Visibility.Collapsed;
             this.ApplicationManager.MainWindow.DashboardView.Visibility = Visibility.Collapsed;
             this.ApplicationManager.MainWindow.FileClosedView.Visibility = Visibility.Visible;
+            this.ApplicationManager.MainWindow.MenuBar.GetFileMenu().BackupSimpleMenu.IsEnabled = false;
+            this.ApplicationManager.MainWindow.MenuBar.GetFileMenu().BackupAutomaticMenu.IsEnabled = false;
 
             this.ApplicationManager.MainWindow.DashboardView.Reset();
         }
