@@ -98,6 +98,17 @@ namespace Misp.Planification.Tranformation
                 this.ApplicationManager.HistoryHandler.closePage(this);
                 return OperationState.STOP;
             }
+
+            bool isOk = true;
+            if (tree.oid.HasValue)
+            {
+                isOk = GetTransformationTreeService().locked(ApplicationManager.File.oid.Value, tree.oid.Value);
+                if (!isOk)
+                {
+                    MessageDisplayer.DisplayWarning("Entity Locked", "Tree locked by another user!");
+                }
+            }
+
             //tree.RefreshItems();
             //List<TransformationTreeItem> roots = tree.GetRoots();
             ((TransformationTreeSideBar)SideBar).TransformationTreeGroup.TransformationTreeTreeview.AddTransformationTreeIfNatExist(tree);
@@ -537,9 +548,18 @@ namespace Misp.Planification.Tranformation
                 ((TransformationTreeSideBar)SideBar).TransformationTreeGroup.TransformationTreeTreeview.RemoveTransformationTree(page.EditedObject);
             }
             base.OnPageClosed(sender, args);
+            GetTransformationTreeService().unlocked(ApplicationManager.Instance.File.oid.Value,page.EditedObject.oid.Value);
         }
 
-        
+        /// <summary>
+        /// Close all opened Excel files
+        /// </summary>
+        protected override void AfterClose()
+        {
+            base.AfterClose();
+            Kernel.Util.ClipbordUtil.ClearClipboard();
+            GetTransformationTreeService().unlockedAll(ApplicationManager.Instance.File.oid.Value);
+        }
         
 
         private void UpdateSaveInfo(SaveInfo info, object transformationTree)

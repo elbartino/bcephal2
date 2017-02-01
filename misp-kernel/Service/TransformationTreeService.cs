@@ -62,6 +62,78 @@ namespace Misp.Kernel.Service
 
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="oid">Oid of the object to return.</param>
+        /// <returns>Object such that object.oid == oid.</returns>
+        public virtual bool locked(int fileOid, int oid)
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath + "/locked/" + fileOid + "/" + oid, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                bool value = Serializer.Deserialize<bool>(queryResult.Content);
+                return value;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve object from server.", e);
+                throw new ServiceExecption("Unable to retrieve object from server.", e);
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="oid">Oid of the object to return.</param>
+        /// <returns>Object such that object.oid == oid.</returns>
+        public virtual bool unlocked(int fileOid, int oid)
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath + "/unlocked/" + fileOid + "/" + oid, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                bool value = Serializer.Deserialize<bool>(queryResult.Content);
+                return value;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve object from server.", e);
+                throw new ServiceExecption("Unable to retrieve object from server.", e);
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="oid">Oid of the object to return.</param>
+        /// <returns>Object such that object.oid == oid.</returns>
+        public virtual bool unlockedAll(int fileOid)
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath + "/unlocked-all/" + fileOid, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                bool value = Serializer.Deserialize<bool>(queryResult.Content);
+                return value;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve object from server.", e);
+                throw new ServiceExecption("Unable to retrieve object from server.", e);
+            }
+        }
+
+
+        /// <summary>
         /// Save the given item.
         /// </summary>
         /// <param name="item"></param>
