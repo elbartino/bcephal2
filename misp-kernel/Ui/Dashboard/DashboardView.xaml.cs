@@ -328,13 +328,22 @@ namespace Misp.Kernel.Ui.Dashboard
             bool hasCreatePrivilage = true;
             bool hasViewOrEditPrivilage = true;
             if (observer != null && !observer.user.IsAdmin())
-            {                  
-                rights = observer.GetRights(newFunctionCode);
-                if (rights.Count == 0) return null;
-
+            {
                 hasPrivilage = false;
                 hasCreatePrivilage = false;
                 hasViewOrEditPrivilage = false;
+                rights = observer.GetRights(newFunctionCode);
+                if (rights.Count == 0)
+                {
+                    if (observer.hasAcendentPrivilege(newFunctionCode))
+                    {
+                        hasPrivilage = true;
+                        hasCreatePrivilage = true;
+                        hasViewOrEditPrivilage = true;
+                    }
+                    else return null;
+                }
+                                
                 foreach (Right right in rights)
                 {
                     if (string.IsNullOrWhiteSpace(right.rightType))
