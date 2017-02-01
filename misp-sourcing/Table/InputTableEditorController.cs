@@ -217,6 +217,16 @@ namespace Misp.Sourcing.Table
         /// </returns>
         public override OperationState Open(InputTable table)
         {
+            bool isOk = true;
+            if (table.oid.HasValue)
+            {
+                isOk = GetInputTableService().locked(ApplicationManager.File.oid.Value, table.oid.Value);
+                if (!isOk)
+                {
+                    MessageDisplayer.DisplayWarning("Entity Locked", "Table locked by another user!");
+                }
+            }
+
             string excelDir = getExcelFolder();
             string filePath = excelDir + table.name + SheetConst.EXCEL_EXT;
             string tempPath = GetInputTableService().FileService.FileTransferService.downloadTable(table.name + SheetConst.EXCEL_EXT);
