@@ -89,6 +89,7 @@ namespace Misp.Kernel.Administration.Profil
             if (this.Functionality.HasType(RightType.VIEW))
             {
                 this.ConsultationCheckBox = new CheckBox();
+                this.ConsultationCheckBox.Content = " ";
                 this.ConsultationCheckBox.ToolTip = "Consultation";
                 this.ConsultationCheckBox.Margin = new System.Windows.Thickness(0, 5, 0, 0);
                 this.ConsultationCheckBox.Checked += OnChecked;
@@ -99,6 +100,7 @@ namespace Misp.Kernel.Administration.Profil
             if (this.Functionality.HasType(RightType.EDIT))
             {
                 this.EditionCheckBox = new CheckBox();
+                this.EditionCheckBox.Content = " ";
                 this.EditionCheckBox.ToolTip = "Edition";
                 this.EditionCheckBox.Margin = new System.Windows.Thickness(0, 5, 0, 0);
                 this.EditionCheckBox.Checked += OnChecked;
@@ -115,7 +117,7 @@ namespace Misp.Kernel.Administration.Profil
             editorPanel.Children.Add(this.CreationCheckBox);
             
             this.ChidrenPanel = new StackPanel();
-            this.ChidrenPanel.Margin = new System.Windows.Thickness(50, 0, 0, 0);
+            this.ChidrenPanel.Margin = new System.Windows.Thickness(30, 0, 0, 0);
             this.Children.Add(editorPanel);
             this.Children.Add(this.ChidrenPanel);
 
