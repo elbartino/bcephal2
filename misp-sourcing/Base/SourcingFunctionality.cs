@@ -20,7 +20,8 @@ namespace Misp.Sourcing.Base
 
         private void buildChildren()
         {
-            Functionality posting = new Functionality(this, FunctionalitiesCode.POSTING_GRID, "Posting", true);
+            Functionality postingGrid = new Functionality(this, FunctionalitiesCode.POSTING_GRID, "Posting Grid", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
+            Functionality autoPostingGrid = new Functionality(this, FunctionalitiesCode.AUTOMATIC_POSTING_GRID, "Automatic Sourcing for Posting Grid", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
             /*
             posting.Children.Add(new Functionality(this, FunctionalitiesCode.POSTING_GRID_LIST, "Posting Grid List", true));
             posting.Children.Add(new Functionality(this, FunctionalitiesCode.POSTING_GRID_VIEW, "Posting Grid View", true));
@@ -29,9 +30,11 @@ namespace Misp.Sourcing.Base
             posting.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_POSTING_GRID_VIEW, "Automatic Sourcing for Posting Grid View", true));
             posting.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT, "Automatic Sourcing for Posting Grid Edit", true));
             */
-            this.Children.Add(posting);
+            this.Children.Add(postingGrid);
+            this.Children.Add(autoPostingGrid);
 
-            Functionality table = new Functionality(this, FunctionalitiesCode.INPUT_TABLE, "Input Table", true);
+            Functionality table = new Functionality(this, FunctionalitiesCode.INPUT_TABLE, "Input Table", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
+            Functionality autoTable = new Functionality(this, FunctionalitiesCode.AUTOMATIC_SOURCING, "Automatic Sourcing for Table", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
             /*
             table.Children.Add(new Functionality(this, FunctionalitiesCode.INPUT_TABLE_LIST, "Input Table List", true));
             table.Children.Add(new Functionality(this, FunctionalitiesCode.INPUT_TABLE_VIEW, "Input Table View", true));
@@ -41,8 +44,10 @@ namespace Misp.Sourcing.Base
             table.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_SOURCING_EDIT, "Automatic Sourcing for Table Edit", true));
             */
             this.Children.Add(table);
+            this.Children.Add(autoTable);
 
-            Functionality grid = new Functionality(this, FunctionalitiesCode.INPUT_TABLE_GRID, "Input Table Grid", true);
+            Functionality grid = new Functionality(this, FunctionalitiesCode.INPUT_TABLE_GRID, "Input Table Grid", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
+            Functionality autoGrid = new Functionality(this, FunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID, "Automatic Sourcing for Table Grid", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
             /*
             grid.Children.Add(new Functionality(this, FunctionalitiesCode.INPUT_TABLE_GRID_LIST, "Input Table Grid List", true));
             grid.Children.Add(new Functionality(this, FunctionalitiesCode.INPUT_TABLE_GRID_VIEW, "Input Table Grid View", true));
@@ -52,20 +57,10 @@ namespace Misp.Sourcing.Base
             grid.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_EDIT, "Automatic Sourcing for Table Grid Edit", true));
             */
             this.Children.Add(grid);
-
-
-            Functionality enrichmentTable = new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE, "Enrichment Table", true);
-            /*
-            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE_LIST, "Enrichment Table List", true));
-            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE_VIEW, "Enrichment Table View", true));
-            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE_EDIT, "Enrichment Table Edit", true));
-            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_LIST, "Automatic Sourcing for Enrichment Table List", true));
-            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_VIEW, "Automatic Sourcing for Enrichment Table View", true));
-            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT, "Automatic Sourcing for Enrichment Table Edit", true));
-            */
-            this.Children.Add(enrichmentTable);
-
-            Functionality target = new Functionality(this, FunctionalitiesCode.TARGET, "Target", true);
+            this.Children.Add(autoGrid);
+                        
+            Functionality target = new Functionality(this, FunctionalitiesCode.TARGET, "Target", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
+            Functionality autoTargetTable = new Functionality(this, FunctionalitiesCode.AUTOMATIC_TARGET, "Automatic Sourcing for Target", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
             /*
             target.Children.Add(new Functionality(this, FunctionalitiesCode.TARGET_LIST, "Target List", true));
             target.Children.Add(new Functionality(this, FunctionalitiesCode.TARGET_VIEW, "Target View", true));
@@ -75,14 +70,28 @@ namespace Misp.Sourcing.Base
             target.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_TARGET_EDIT, "Automatic Sourcing for Target Edit", true));
             */
             this.Children.Add(target);
+            this.Children.Add(autoTargetTable);
 
-            Functionality design = new Functionality(this, FunctionalitiesCode.DESIGN, "Design", true);
+            Functionality design = new Functionality(this, FunctionalitiesCode.DESIGN, "Design", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
             /*
             design.Children.Add(new Functionality(this, FunctionalitiesCode.DESIGN_LIST, "Design List", true));
             design.Children.Add(new Functionality(this, FunctionalitiesCode.DESIGN_VIEW, "Design View", true));
             design.Children.Add(new Functionality(this, FunctionalitiesCode.DESIGN_EDIT, "Design Edit", true));
             */
             this.Children.Add(design);
+
+            Functionality enrichmentTable = new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE, "Enrichment Table", true);
+            Functionality autoEnrichmentTable = new Functionality(this, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE, "Automatic Sourcing for Enrichment Table", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
+            /*
+            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE_LIST, "Enrichment Table List", true));
+            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE_VIEW, "Enrichment Table View", true));
+            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.ENRICHMENT_TABLE_EDIT, "Enrichment Table Edit", true));
+            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_LIST, "Automatic Sourcing for Enrichment Table List", true));
+            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_VIEW, "Automatic Sourcing for Enrichment Table View", true));
+            enrichmentTable.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT, "Automatic Sourcing for Enrichment Table Edit", true));
+            */
+            this.Children.Add(enrichmentTable);
+            this.Children.Add(autoEnrichmentTable);
 
             Functionality accessories = new Functionality(this, FunctionalitiesCode.ACCESSORIES, "Accessories", true);
             /*

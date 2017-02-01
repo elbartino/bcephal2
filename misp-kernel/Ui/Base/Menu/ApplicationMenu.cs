@@ -49,6 +49,8 @@ namespace Misp.Kernel.Ui.Base.Menu
         /// </summary>
         public NavigationToken NavigationToken { get; set; }
 
+        public RightType? RightType { get; set; }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -67,8 +69,9 @@ namespace Misp.Kernel.Ui.Base.Menu
         /// </summary>
         /// <param name="header"></param>
         /// <param name="token"></param>
-        public ApplicationMenu(string header, NavigationToken token)
+        public ApplicationMenu(string header, NavigationToken token, RightType? type = null)
         {
+            this.RightType = type;
             this.Header = header;
             NavigationToken = token;
             initChildren();
@@ -108,9 +111,9 @@ namespace Misp.Kernel.Ui.Base.Menu
         /// </summary>
         /// <param name="header"></param>
         /// <returns></returns>
-        public ApplicationMenu BuildMenu(string parentCode, string header, NavigationToken token)
+        public ApplicationMenu BuildMenu(string parentCode, string header, NavigationToken token, RightType? type = null)
         {
-            ApplicationMenu menu = new ApplicationMenu(header, token);
+            ApplicationMenu menu = new ApplicationMenu(header, token, type);
             menu.ParentCode = parentCode;
             menu.Click += new RoutedEventHandler (this.onMenuClick);
             return menu;
@@ -121,9 +124,9 @@ namespace Misp.Kernel.Ui.Base.Menu
         /// </summary>
         /// <param name="header"></param>
         /// <returns></returns>
-        public ApplicationMenu BuildMenu(string parentCode, string header, String code)
+        public ApplicationMenu BuildMenu(string parentCode, string header, String code, RightType? type = null)
         {
-            ApplicationMenu menu = BuildMenu(parentCode, header, (NavigationToken)null);
+            ApplicationMenu menu = BuildMenu(parentCode, header, (NavigationToken)null, type);
             menu.Code = code;
             return menu;
         }
@@ -150,14 +153,20 @@ namespace Misp.Kernel.Ui.Base.Menu
             if (observer.user.IsAdmin()) return this;
             if (observer.user.profil == null || !observer.user.profil.active) return null;
             String code = this.GetFunctionalityCode();
-            if (observer.hasPrivilege(code)) return this;
+            RightType? rightType = this.RightType;
+            if (!string.IsNullOrWhiteSpace(code)){
+                if (rightType.HasValue){
+                    if (observer.hasPrivilege(code, rightType.Value)) return this;
+                }
+                else if (observer.hasPrivilege(code)) return this;
+            }
 
             List<String> list = new List<String>(0);
             list.Add(FunctionalitiesCode.FILE_QUIT);
             list.Add(FunctionalitiesCode.FILE_SAVE);
             list.Add(FunctionalitiesCode.FILE_SAVE_AS);
             list.Add(FunctionalitiesCode.HELP);
-            if (list.Contains(code)) return this;
+            if (!string.IsNullOrWhiteSpace(code) && list.Contains(code)) return this;
 
             int added = 0;
             List<Object> controls = new List<Object>(0);            
@@ -181,6 +190,6 @@ namespace Misp.Kernel.Ui.Base.Menu
         {
             return NavigationToken != null ? NavigationToken.Functionality : this.Code;
         }
-
+        
     }
 }

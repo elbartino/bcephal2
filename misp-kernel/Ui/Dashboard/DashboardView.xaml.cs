@@ -248,7 +248,7 @@ namespace Misp.Kernel.Ui.Dashboard
         {
             observer = new PrivilegeObserver();
 
-            this.ModelBlock = buildBlock(FunctionalitiesLabel.INITIATION_MODEL_LABEL, FunctionalitiesLabel.INITIATION_NEW_MODEL_LABEL, FunctionalitiesLabel.INITIATION_RECENT_MODEL_LABEL, FunctionalitiesCode.INITIATION);
+            this.ModelBlock = buildBlock(FunctionalitiesLabel.INITIATION_MODEL_LABEL, FunctionalitiesLabel.INITIATION_NEW_MODEL_LABEL, FunctionalitiesLabel.INITIATION_RECENT_MODEL_LABEL, FunctionalitiesCode.INITIATION_MODEL);
 
             this.TableBlock = buildBlock(FunctionalitiesLabel.INPUT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_INPUT_TABLE_LABEL, FunctionalitiesLabel.RECENT_INPUT_TABLE_LABEL, FunctionalitiesCode.INPUT_TABLE_EDIT);
             this.ReportBlock = buildBlock(FunctionalitiesLabel.REPORT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_REPORT_LABEL, FunctionalitiesLabel.RECENT_REPORT_LABEL, FunctionalitiesCode.REPORT_EDIT);
@@ -323,33 +323,45 @@ namespace Misp.Kernel.Ui.Dashboard
 
         private DashboardBlock buildBlock(string title, string newLabel, string recentItemsLabel, string newFunctionCode)
         {
-            if (observer != null)
-            {
-                if (!observer.hasPrivilegeOrSubprivilege(newFunctionCode)) return null;
+            List<Right> rights = new List<Right>(0);
+            bool hasPrivilage = true;
+            bool hasCreatePrivilage = true;
+            bool hasViewOrEditPrivilage = true;
+            if (observer != null && !observer.user.IsAdmin())
+            {                  
+                rights = observer.GetRights(newFunctionCode);
+                if (rights.Count == 0) return null;
+
+                hasPrivilage = false;
+                hasCreatePrivilage = false;
+                hasViewOrEditPrivilage = false;
+                foreach (Right right in rights)
+                {
+                    if (string.IsNullOrWhiteSpace(right.rightType))
+                    {
+                        hasPrivilage = true;
+                        hasCreatePrivilage = true;
+                        hasViewOrEditPrivilage = true;
+                    }
+                    else if (right.rightType.Equals(RightType.CREATE.ToString())) hasCreatePrivilage = true;
+                    else if (right.rightType.Equals(RightType.EDIT.ToString())) hasViewOrEditPrivilage = true;
+                    else if (right.rightType.Equals(RightType.VIEW.ToString())) hasViewOrEditPrivilage = true;
+                }                
             }
 
-            DashboardBlock block = new DashboardBlock(newFunctionCode);
-            block.DashboardView = this;
-            block.TitleLabel.Content = title;
-            block.RecentItemsTextBlock.Text = recentItemsLabel;
-            buildNewControl(block, newLabel, newFunctionCode);
-            customizeMenu(block, newFunctionCode);
-            return block;
+            if (hasPrivilage || hasCreatePrivilage || hasViewOrEditPrivilage)
+            {
+                DashboardBlock block = new DashboardBlock(newFunctionCode);
+                block.DashboardView = this;
+                block.TitleLabel.Content = title;
+                block.RecentItemsTextBlock.Text = recentItemsLabel;
+                if (hasPrivilage || hasCreatePrivilage) buildNewControl(block, newLabel, newFunctionCode);
+                customizeMenu(block, newFunctionCode);
+                return block;
+            }
+            return null;
         }
 
-        private DashboardBlock buildBlock(string title, Dictionary<string, object> newLabels, string recentItemsLabel, string newFunctionCode)
-        {
-            DashboardBlock block = new DashboardBlock(newFunctionCode);
-            block.DashboardView = this;
-            block.TitleLabel.Content = title;
-            block.RecentItemsTextBlock.Text = recentItemsLabel;
-            foreach (string newLabel in newLabels.Keys)
-            {
-                buildNewControl(block, newLabel, newLabels[newLabel].ToString());
-            }
-            customizeMenu(block, newFunctionCode);
-            return block;
-        }
 
         private void customizeMenu(DashboardBlock block, string newFunctionCode)
         {

@@ -28,9 +28,9 @@ namespace Misp.Initiation.Base
         /// </summary>
         /// <param name="fonctionality"></param>
         /// <returns></returns>
-        public override Controllable GetController(string fonctionality)
+        public override Controllable GetController(string fonctionality, ViewType? viewType = null, EditionMode? editionMode = null)
         {
-            if (fonctionality == InitiationFunctionalitiesCode.INITIATION)
+            if (fonctionality == InitiationFunctionalitiesCode.INITIATION_MODEL)
             {
                 InitiationController initiationController = new InitiationController();
                 initiationController.ApplicationManager = this.ApplicationManager;

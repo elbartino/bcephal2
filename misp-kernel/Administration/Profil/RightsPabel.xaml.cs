@@ -57,7 +57,7 @@ namespace Misp.Kernel.Administration.Profil
             {
                 foreach (RightGroup group in Groups)
                 {
-                    group.Select(right.functionnality);
+                    group.Select(right);
                 }
             }
         }
@@ -145,12 +145,12 @@ namespace Misp.Kernel.Administration.Profil
         }
 
 
-        private void OnRightSelected(string functionality, bool selected)
+        private void OnRightSelected(Right right, bool selected)
         {
             if (this.Profil != null)
             {
-                if (selected) this.Profil.AddRight(functionality);
-                else this.Profil.RemoveRight(functionality);
+                if (selected) this.Profil.AddRight(right);
+                else this.Profil.RemoveRight(right);
             }
             if (Changed != null) Changed();            
         }

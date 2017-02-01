@@ -84,10 +84,10 @@ namespace Misp.Sourcing.Base
             this.Header = FunctionalitiesLabel.SOURCING_LABEL;
 
             PostingMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.POSTING_LABEL, FunctionalitiesCode.POSTING_GRID);
-            NewPostingGridMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.NEW_POSTING_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.POSTING_GRID_EDIT));
-            ListPostingGridMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.LIST_POSTING_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.POSTING_GRID_LIST));
-            NewAutomaticPostingGridMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.NEW_AUTOMATIC_POSTING_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT));
-            ListAutomaticPostingGridMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.LIST_AUTOMATIC_POSTING_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_POSTING_GRID_LIST));
+            NewPostingGridMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.NEW_POSTING_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.POSTING_GRID_EDIT), Kernel.Domain.RightType.CREATE);
+            ListPostingGridMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.LIST_POSTING_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.POSTING_GRID_LIST), Kernel.Domain.RightType.VIEW);
+            NewAutomaticPostingGridMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.NEW_AUTOMATIC_POSTING_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT), Kernel.Domain.RightType.CREATE);
+            ListAutomaticPostingGridMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.LIST_AUTOMATIC_POSTING_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_POSTING_GRID_LIST), Kernel.Domain.RightType.VIEW);
 
             PostingMenu.Items.Add(NewPostingGridMenu);
             PostingMenu.Items.Add(ListPostingGridMenu);
@@ -96,11 +96,11 @@ namespace Misp.Sourcing.Base
             PostingMenu.Items.Add(ListAutomaticPostingGridMenu);
 
             InputTableMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.INPUT_TABLE_LABEL, FunctionalitiesCode.INPUT_TABLE);
-            NewInputTableMenu = BuildMenu(FunctionalitiesCode.INPUT_TABLE, FunctionalitiesLabel.NEW_INPUT_TABLE_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.INPUT_TABLE_EDIT));
-            ListInputTableMenu = BuildMenu(FunctionalitiesCode.INPUT_TABLE, FunctionalitiesLabel.LIST_INPUT_TABLE_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.INPUT_TABLE_LIST));
+            NewInputTableMenu = BuildMenu(FunctionalitiesCode.INPUT_TABLE, FunctionalitiesLabel.NEW_INPUT_TABLE_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.INPUT_TABLE_EDIT), Kernel.Domain.RightType.CREATE);
+            ListInputTableMenu = BuildMenu(FunctionalitiesCode.INPUT_TABLE, FunctionalitiesLabel.LIST_INPUT_TABLE_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.INPUT_TABLE_LIST), Kernel.Domain.RightType.VIEW);
 
-            AutomaticSourcingMenu = BuildMenu(FunctionalitiesCode.INPUT_TABLE, FunctionalitiesLabel.NEW_AUTOMATIC_SOURCING_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.UPLOAD_STRUCTURED_FILE_FUNCTIONALITY));
-            ListAutomaticSourcingMenu = BuildMenu(FunctionalitiesCode.INPUT_TABLE, FunctionalitiesLabel.LIST_AUTOMATIC_SOURCING_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_LIST));
+            AutomaticSourcingMenu = BuildMenu(FunctionalitiesCode.INPUT_TABLE, FunctionalitiesLabel.NEW_AUTOMATIC_SOURCING_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_EDIT), Kernel.Domain.RightType.CREATE);
+            ListAutomaticSourcingMenu = BuildMenu(FunctionalitiesCode.INPUT_TABLE, FunctionalitiesLabel.LIST_AUTOMATIC_SOURCING_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_LIST), Kernel.Domain.RightType.VIEW);
 
             InputTableMenu.Items.Add(NewInputTableMenu);
             InputTableMenu.Items.Add(ListInputTableMenu);
@@ -110,11 +110,11 @@ namespace Misp.Sourcing.Base
 
             GridMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.GRID_LABEL, FunctionalitiesCode.INPUT_TABLE_GRID);
 
-            NewInputGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_INPUT_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.INPUT_TABLE_GRID_EDIT));
-            ListInputGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_INPUT_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.INPUT_TABLE_GRID_LIST));
-            
-            NewAutomaticGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_AUTOMATIC_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_EDIT));
-            ListAutomaticGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_AUTOMATIC_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_LIST));
+            NewInputGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_INPUT_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.INPUT_TABLE_GRID_EDIT), Kernel.Domain.RightType.CREATE);
+            ListInputGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_INPUT_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.INPUT_TABLE_GRID_LIST), Kernel.Domain.RightType.VIEW);
+
+            NewAutomaticGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_AUTOMATIC_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_EDIT), Kernel.Domain.RightType.CREATE);
+            ListAutomaticGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_AUTOMATIC_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_LIST), Kernel.Domain.RightType.VIEW);
 
             GridMenu.Items.Add(NewInputGridMenu);
             GridMenu.Items.Add(ListInputGridMenu);
@@ -126,11 +126,11 @@ namespace Misp.Sourcing.Base
 
             EnrichmentTableMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.ENRICHMENT_TABLE_LABEL, FunctionalitiesCode.ENRICHMENT_TABLE);
 
-            NewEnrichmentTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_ENRICHMENT_TABLE_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.ENRICHMENT_TABLE_EDIT));
-            ListEnrichmentTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_ENRICHMENT_TABLE_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.ENRICHMENT_TABLE_LIST));
+            NewEnrichmentTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_ENRICHMENT_TABLE_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.ENRICHMENT_TABLE_EDIT), Kernel.Domain.RightType.CREATE);
+            ListEnrichmentTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_ENRICHMENT_TABLE_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.ENRICHMENT_TABLE_LIST), Kernel.Domain.RightType.VIEW);
 
-            NewAutomaticEnrichmentTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_AUTOMATIC_ENRICHMENT_TABLE_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT));
-            ListAutomaticEnrichmentTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_AUTOMATIC_ENRICHMENT_TABLE_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_LIST));
+            NewAutomaticEnrichmentTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.NEW_AUTOMATIC_ENRICHMENT_TABLE_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT), Kernel.Domain.RightType.CREATE);
+            ListAutomaticEnrichmentTableMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LIST_AUTOMATIC_ENRICHMENT_TABLE_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_LIST), Kernel.Domain.RightType.VIEW);
 
             //EnrichmentTableMenu.Items.Add(NewEnrichmentTableMenu);
             //EnrichmentTableMenu.Items.Add(ListEnrichmentTableMenu);
@@ -139,11 +139,11 @@ namespace Misp.Sourcing.Base
             EnrichmentTableMenu.Items.Add(ListAutomaticEnrichmentTableMenu);
 
             TargetMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.TARGET_LABEL, FunctionalitiesCode.TARGET);
-            NewTargetMenu = BuildMenu(FunctionalitiesCode.TARGET, FunctionalitiesLabel.NEW_TARGET_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.TARGET_EDIT));
-            ListTargetMenu = BuildMenu(FunctionalitiesCode.TARGET, FunctionalitiesLabel.LIST_TARGET_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.TARGET_LIST));
+            NewTargetMenu = BuildMenu(FunctionalitiesCode.TARGET, FunctionalitiesLabel.NEW_TARGET_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.TARGET_EDIT), Kernel.Domain.RightType.CREATE);
+            ListTargetMenu = BuildMenu(FunctionalitiesCode.TARGET, FunctionalitiesLabel.LIST_TARGET_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.TARGET_LIST), Kernel.Domain.RightType.VIEW);
 
-            AutomaticTargetMenu = BuildMenu(FunctionalitiesCode.TARGET, FunctionalitiesLabel.NEW_AUTOMATIC_TARGET_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.AUTOMATIC_TARGET_EDIT));
-            ListAutomaticTargetMenu = BuildMenu(FunctionalitiesCode.TARGET, FunctionalitiesLabel.LIST_AUTOMATIC_TARGET_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_TARGET_LIST));
+            AutomaticTargetMenu = BuildMenu(FunctionalitiesCode.TARGET, FunctionalitiesLabel.NEW_AUTOMATIC_TARGET_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.AUTOMATIC_TARGET_EDIT), Kernel.Domain.RightType.CREATE);
+            ListAutomaticTargetMenu = BuildMenu(FunctionalitiesCode.TARGET, FunctionalitiesLabel.LIST_AUTOMATIC_TARGET_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_TARGET_LIST), Kernel.Domain.RightType.VIEW);
 
             TargetMenu.Items.Add(NewTargetMenu);
             TargetMenu.Items.Add(ListTargetMenu);
@@ -152,8 +152,8 @@ namespace Misp.Sourcing.Base
             TargetMenu.Items.Add(ListAutomaticTargetMenu);
 
             DesignMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.DESIGN_LABEL, FunctionalitiesCode.DESIGN);
-            NewDesignMenu = BuildMenu(FunctionalitiesCode.DESIGN, FunctionalitiesLabel.NEW_DESIGN_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.DESIGN_EDIT));
-            ListDesignMenu = BuildMenu(FunctionalitiesCode.DESIGN, FunctionalitiesLabel.LIST_DESIGN_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.DESIGN_LIST));
+            NewDesignMenu = BuildMenu(FunctionalitiesCode.DESIGN, FunctionalitiesLabel.NEW_DESIGN_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.DESIGN_EDIT), Kernel.Domain.RightType.CREATE);
+            ListDesignMenu = BuildMenu(FunctionalitiesCode.DESIGN, FunctionalitiesLabel.LIST_DESIGN_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.DESIGN_LIST), Kernel.Domain.RightType.VIEW);
 
             DesignMenu.Items.Add(NewDesignMenu);
             DesignMenu.Items.Add(ListDesignMenu);

@@ -15,7 +15,7 @@ namespace Misp.Kernel.Application
         /// </summary>
         public User user;
 
-        protected List<String> privileges;
+        protected List<Right> Rights;
 
         /// <summary>
         /// Default constructor
@@ -29,28 +29,35 @@ namespace Misp.Kernel.Application
         /// Initialize user rigths
         /// </summary>
         /// <param name="user"></param>
-        public void initializePrivileges(User user) {
-            privileges = new List<String>(0);
+        public void initializePrivileges(User user) {            
             this.user = ApplicationManager.Instance.User;
             if (user.IsAdmin()) return;
             UserService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetUserService();
-            List<Right> rights = service.getConnectedUserRights();
-		    foreach (Right right in rights) {
-                privileges.Add(right.functionnality);
-		    }
+            this.Rights = service.getConnectedUserRights();
+            if (this.Rights == null) this.Rights = new List<Right>(0);
 	    }
+
+        public List<Right> GetRights(String code)
+        {
+            List<Right> rights = new List<Right>(0);
+            foreach(Right right in this.Rights){
+                if(right.functionnality.Equals(code)) rights.Add(right);
+            }
+            return rights;
+        }
+
 
         /// <summary>
         /// has Privilege?
         /// </summary>
         /// <param name="code">Functionaliti code</param>
         /// <returns></returns>
-        public bool hasPrivilege(String code)
+        public bool hasPrivilege(String code, RightType? type = null)
         {
             if (user.IsAdmin()) return true;
             if (String.IsNullOrWhiteSpace(code)) return false;
-            Functionality functionality = ApplicationManager.Instance.FunctionalityFactory.Get(code);
-            return hasPrivilege(functionality);
+            Functionality functionality = ApplicationManager.Instance.FunctionalityFactory.Get(code, type);
+            return hasPrivilege(functionality, type);
         }
 
         /// <summary>
@@ -58,12 +65,12 @@ namespace Misp.Kernel.Application
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        public bool hasPrivilege(Functionality functionality)
+        public bool hasPrivilege(Functionality functionality, RightType? type = null)
         {
             if (!user.active.HasValue || !user.active.Value) return false;
             if (user.IsAdmin()) return true;
             if (functionality == null) return false;
-            if (containsPrivilege(functionality.Code)) return true;
+            if (containsPrivilege(functionality.Code, type)) return true;
             return hasPrivilege(functionality.Parent);
         }
 
@@ -109,11 +116,31 @@ namespace Misp.Kernel.Application
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        private bool containsPrivilege(String code)
+        private bool containsPrivilege(String code, RightType? type = null)
         {
             if (user.IsAdmin()) return true;
             if (String.IsNullOrWhiteSpace(code)) return false;
-            return privileges.Contains(code);
+            return GetRight(code, type) != null;
+        }
+
+        /// <summary>
+        /// has Privilege?
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        private Right GetRight(String code, RightType? type = null)
+        {
+            foreach (Right right in Rights)
+            {
+                if(right.functionnality.Equals(code)) {
+                    if (type.HasValue)
+                    {
+                        if (!String.IsNullOrWhiteSpace(right.rightType) && right.rightType.Equals(type.Value.ToString())) return right;
+                    }
+                    else if (String.IsNullOrWhiteSpace(right.rightType)) return right;
+                }
+            }
+            return null;
         }
 
 

@@ -29,7 +29,7 @@ namespace Misp.Allocation.Base
         /// </summary>
         /// <param name="fonctionality"></param>
         /// <returns></returns>
-        public override Controllable GetController(string fonctionality)
+        public override Controllable GetController(string fonctionality, ViewType? viewType = null, EditionMode? editionMode = null)
         {
             if (fonctionality == FunctionalitiesCode.LOAD_CLEAR_TABLES_AND_GRIDS)
             {

@@ -483,8 +483,8 @@ namespace Misp.Planification.PresentationView
 
             NavigationToken token = NavigationToken.GetCreateViewToken(Reporting.Base.ReportingFunctionalitiesCode.REPORT_EDIT);
             if (reportoid > 0) token = NavigationToken.GetModifyViewToken(Reporting.Base.ReportingFunctionalitiesCode.REPORT_EDIT, reportoid);
-            
-            controllable = ApplicationManager.ControllerFactory.GetController(token.Functionality);
+
+            controllable = ApplicationManager.ControllerFactory.GetController(token.Functionality, token.ViewType, token.EditionMode);
             controllable.NavigationToken = token;
             controllable.Initialize();
 

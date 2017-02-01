@@ -30,11 +30,11 @@ namespace Misp.Kernel.Application
             this.ApplicationManager = applicationManager;
         }
 
-        public Functionality Get(String code)
+        public Functionality Get(String code, RightType? type = null)
         {
             foreach (Functionality functionality in this.Functionalities)
             {
-                Functionality f = functionality.get(code);
+                Functionality f = functionality.get(code, type);
                 if (f != null) return f;
             }
             return null;

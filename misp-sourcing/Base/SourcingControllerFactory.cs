@@ -36,9 +36,9 @@ namespace Misp.Sourcing.Base
         /// </summary>
         /// <param name="fonctionality"></param>
         /// <returns></returns>
-        public override Controllable GetController(string fonctionality)
+        public override Controllable GetController(string fonctionality, ViewType? viewType = null, EditionMode? editionMode = null)
         {
-            if (fonctionality == SourcingFunctionalitiesCode.INPUT_TABLE_EDIT)
+            if (fonctionality == SourcingFunctionalitiesCode.INPUT_TABLE_EDIT && editionMode.HasValue)
             {
                 InputTableEditorController tableController = new InputTableEditorController();
                 tableController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -47,7 +47,7 @@ namespace Misp.Sourcing.Base
                 tableController.Service = ((SourcingServiceFactory)ServiceFactory).GetInputTableService();
                 return tableController;
             }
-            if (fonctionality == SourcingFunctionalitiesCode.INPUT_TABLE_LIST)
+            if (fonctionality == SourcingFunctionalitiesCode.INPUT_TABLE_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 InputTableBrowserController tableController = new InputTableBrowserController();
                 tableController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -57,7 +57,7 @@ namespace Misp.Sourcing.Base
                 return tableController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.TARGET_EDIT)
+            if (fonctionality == SourcingFunctionalitiesCode.TARGET_EDIT && editionMode.HasValue)
             {
                 TargetEditorController targetController = new TargetEditorController();
                 targetController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -66,7 +66,7 @@ namespace Misp.Sourcing.Base
                 targetController.Service = ((SourcingServiceFactory)ServiceFactory).GetTargetService();
                 return targetController;
             }
-            if (fonctionality == SourcingFunctionalitiesCode.TARGET_LIST)
+            if (fonctionality == SourcingFunctionalitiesCode.TARGET_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 TargetBrowserController targetController = new TargetBrowserController();
                 targetController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -76,7 +76,7 @@ namespace Misp.Sourcing.Base
                 return targetController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.DESIGN_EDIT)
+            if (fonctionality == SourcingFunctionalitiesCode.DESIGN_EDIT && editionMode.HasValue)
             {
                 DesignerEditorController designerController = new DesignerEditorController();
                 designerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -85,7 +85,7 @@ namespace Misp.Sourcing.Base
                 designerController.Service = ((SourcingServiceFactory)ServiceFactory).GetDesignService();
                 return designerController;
             }
-            if (fonctionality == SourcingFunctionalitiesCode.DESIGN_LIST)
+            if (fonctionality == SourcingFunctionalitiesCode.DESIGN_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 DesignerBrowserController designerController = new DesignerBrowserController();
                 designerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -94,8 +94,8 @@ namespace Misp.Sourcing.Base
                 designerController.Service = ((SourcingServiceFactory)ServiceFactory).GetDesignService();
                 return designerController;
             }
-        
-            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_EDIT || fonctionality == SourcingFunctionalitiesCode.UPLOAD_STRUCTURED_FILE_FUNCTIONALITY)
+
+            if ((fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_EDIT && editionMode.HasValue) || fonctionality == SourcingFunctionalitiesCode.UPLOAD_STRUCTURED_FILE_FUNCTIONALITY)
             {
                 AutomaticSourcingEditorController automaticSourcingController = new AutomaticSourcingEditorController();
                 automaticSourcingController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -106,7 +106,7 @@ namespace Misp.Sourcing.Base
                 return automaticSourcingController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_LIST)
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
                 {
                 AutomaticSourcingBrowserController automaticSourcingController = new AutomaticSourcingBrowserController();
                 automaticSourcingController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -116,7 +116,7 @@ namespace Misp.Sourcing.Base
                 return automaticSourcingController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.INPUT_TABLE_GRID_LIST)
+            if (fonctionality == SourcingFunctionalitiesCode.INPUT_TABLE_GRID_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 InputGridBrowserController controller = new InputGridBrowserController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -126,7 +126,7 @@ namespace Misp.Sourcing.Base
                 return controller;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.INPUT_TABLE_GRID_EDIT)
+            if (fonctionality == SourcingFunctionalitiesCode.INPUT_TABLE_GRID_EDIT && editionMode.HasValue)
             {
                 InputGridEditorController controller = new InputGridEditorController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -135,8 +135,8 @@ namespace Misp.Sourcing.Base
                 controller.Service = ((SourcingServiceFactory)ServiceFactory).GetInputGridService();
                 return controller;
             }
-            
-            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_EDIT)
+
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_EDIT && editionMode.HasValue)
             {
                 AutomaticSourcingGridEditorController automaticSourcingGridController = new AutomaticSourcingGridEditorController();
                 automaticSourcingGridController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -147,7 +147,7 @@ namespace Misp.Sourcing.Base
                 return automaticSourcingGridController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_LIST)
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 AutomaticSourcingGridBrowerController automaticSourcingGridBrowerController = new AutomaticSourcingGridBrowerController();
                 automaticSourcingGridBrowerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -157,7 +157,7 @@ namespace Misp.Sourcing.Base
                 return automaticSourcingGridBrowerController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT)
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT && editionMode.HasValue)
             {
                 AutomaticEnrichmentTableEditorController automaticSourcingGridController = new AutomaticEnrichmentTableEditorController();
                 automaticSourcingGridController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -168,7 +168,7 @@ namespace Misp.Sourcing.Base
                 return automaticSourcingGridController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_LIST)
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 AutomaticEnrichmentTableBrowserController automaticSourcingGridBrowerController = new AutomaticEnrichmentTableBrowserController();
                 automaticSourcingGridBrowerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -178,7 +178,7 @@ namespace Misp.Sourcing.Base
                 return automaticSourcingGridBrowerController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_TARGET_EDIT)
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_TARGET_EDIT && editionMode.HasValue)
             {
                 AutomaticTargetEditorController automaticTargetController = new AutomaticTargetEditorController();
                 automaticTargetController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -188,7 +188,7 @@ namespace Misp.Sourcing.Base
                 return automaticTargetController;
             }
 
-            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_TARGET_LIST)
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_TARGET_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 AutomaticTargetBrowserController automaticTargetBrowserController = new AutomaticTargetBrowserController();
                 automaticTargetBrowserController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;

@@ -41,8 +41,8 @@ namespace Misp.Reconciliation.Base
         {
             this.Code = FunctionalitiesCode.RECONCILIATION;
             this.Header = FunctionalitiesLabel.RECONCILIATION_LABEL;
-            ReconciliationFiltersMenu = BuildMenu(FunctionalitiesCode.RECONCILIATION, FunctionalitiesLabel.NEW_RECONCILIATION_FILTER_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_EDIT));
-            ReconciliationFiltersListMenu = BuildMenu(FunctionalitiesCode.RECONCILIATION, FunctionalitiesLabel.LIST_RECONCILIATION_FILTERS_LABEL, NavigationToken.GetSearchViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_LIST));
+            ReconciliationFiltersMenu = BuildMenu(FunctionalitiesCode.RECONCILIATION, FunctionalitiesLabel.NEW_RECONCILIATION_FILTER_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_EDIT), Kernel.Domain.RightType.CREATE);
+            ReconciliationFiltersListMenu = BuildMenu(FunctionalitiesCode.RECONCILIATION, FunctionalitiesLabel.LIST_RECONCILIATION_FILTERS_LABEL, NavigationToken.GetSearchViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_LIST), Kernel.Domain.RightType.VIEW);
             ReconciliationPostingMenu = BuildMenu(FunctionalitiesCode.RECONCILIATION, FunctionalitiesLabel.RECONCILIATION_POSTING_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_POSTINGS));
             ReconciliationContextMenu = BuildMenu(FunctionalitiesCode.RECONCILIATION, FunctionalitiesLabel.RECONCILIATION_CONFIGURATION_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_CONFIGURATION));        
         }

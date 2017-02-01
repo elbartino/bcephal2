@@ -28,9 +28,9 @@ namespace Misp.Planification.Base
         /// </summary>
         /// <param name="fonctionality"></param>
         /// <returns></returns>
-        public override Controllable GetController(string fonctionality)
+        public override Controllable GetController(string fonctionality, ViewType? viewType = null, EditionMode? editionMode = null)
         {
-            if (fonctionality == PlanificationFunctionalitiesCode.TRANSFORMATION_TREE_EDIT)
+            if (fonctionality == PlanificationFunctionalitiesCode.TRANSFORMATION_TREE_EDIT && editionMode.HasValue)
             {
                 TransformationTreeEditorController tableController = new TransformationTreeEditorController();
                 tableController.ModuleName = Misp.Planification.PlugIn.MODULE_NAME;
@@ -39,7 +39,7 @@ namespace Misp.Planification.Base
                 tableController.Service = ((PlanificationServiceFactory)ServiceFactory).GetTransformationTreeService();
                 return tableController;
             }
-            if (fonctionality == PlanificationFunctionalitiesCode.TRANSFORMATION_TREE_LIST)
+            if (fonctionality == PlanificationFunctionalitiesCode.TRANSFORMATION_TREE_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 TransformationTreeBrowserController tableController = new TransformationTreeBrowserController();
                 tableController.ModuleName = Misp.Planification.PlugIn.MODULE_NAME;
@@ -90,7 +90,7 @@ namespace Misp.Planification.Base
                 return RunAllTransformationTreesController;
             }
 
-            if (fonctionality == PlanificationFunctionalitiesCode.COMBINED_TRANSFORMATION_TREES_EDIT)
+            if (fonctionality == PlanificationFunctionalitiesCode.COMBINED_TRANSFORMATION_TREES_EDIT && editionMode.HasValue)
             {
                 CombinedTransformationTree.CombinedTransformationTreeEditorController CombineTransformationTreeEditorController = new CombinedTransformationTree.CombinedTransformationTreeEditorController();
                 CombineTransformationTreeEditorController.ModuleName = Misp.Planification.PlugIn.MODULE_NAME;
@@ -100,7 +100,7 @@ namespace Misp.Planification.Base
                 return CombineTransformationTreeEditorController;
             }
 
-            if (fonctionality == PlanificationFunctionalitiesCode.COMBINED_TRANSFORMATION_TREES_LIST)
+            if (fonctionality == PlanificationFunctionalitiesCode.COMBINED_TRANSFORMATION_TREES_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 CombinedTransformationTree.CombinedTransformationTreeBrowserController CombineTransformationTreeEditorBrowserController = new CombinedTransformationTree.CombinedTransformationTreeBrowserController();
                 CombineTransformationTreeEditorBrowserController.ModuleName = Misp.Planification.PlugIn.MODULE_NAME;

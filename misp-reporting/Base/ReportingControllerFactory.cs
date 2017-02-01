@@ -32,9 +32,9 @@ namespace Misp.Reporting.Base
         /// </summary>
         /// <param name="fonctionality"></param>
         /// <returns></returns>
-        public override Controllable GetController(string fonctionality)
+        public override Controllable GetController(string fonctionality, ViewType? viewType = null, EditionMode? editionMode = null)
         {
-            if (fonctionality == ReportingFunctionalitiesCode.REPORT_EDIT)
+            if (fonctionality == ReportingFunctionalitiesCode.REPORT_EDIT && editionMode.HasValue)
             {
                 ReportEditorController reportController = new ReportEditorController();
                 reportController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
@@ -43,7 +43,7 @@ namespace Misp.Reporting.Base
                 reportController.Service = ((ReportingServiceFactory)ServiceFactory).GetReportService();
                 return reportController;
             }
-            if (fonctionality == ReportingFunctionalitiesCode.REPORT_LIST)
+            if (fonctionality == ReportingFunctionalitiesCode.REPORT_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 ReportBrowserController reportController = new ReportBrowserController();
                 reportController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
@@ -53,7 +53,7 @@ namespace Misp.Reporting.Base
                 return reportController;
             }
 
-            if (fonctionality == ReportingFunctionalitiesCode.STRUCTURED_REPORT_EDIT)
+            if (fonctionality == ReportingFunctionalitiesCode.STRUCTURED_REPORT_EDIT && editionMode.HasValue)
             {
                 StructuredReportEditorController reportController = new StructuredReportEditorController();
                 reportController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
@@ -62,7 +62,7 @@ namespace Misp.Reporting.Base
                 reportController.Service = ((ReportingServiceFactory)ServiceFactory).GetStructuredReportService();
                 return reportController;
             }
-            if (fonctionality == ReportingFunctionalitiesCode.STRUCTURED_REPORT_LIST)
+            if (fonctionality == ReportingFunctionalitiesCode.STRUCTURED_REPORT_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 StructuredReportBrowserController reportController = new StructuredReportBrowserController();
                 reportController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
@@ -72,7 +72,7 @@ namespace Misp.Reporting.Base
                 return reportController;
             }
 
-            if (fonctionality == ReportingFunctionalitiesCode.CALCULATED_MEASURE_EDIT)
+            if (fonctionality == ReportingFunctionalitiesCode.CALCULATED_MEASURE_EDIT && editionMode.HasValue)
             {
                 CalculatedMeasureEditorController calculatedMeasureEditorController = new CalculatedMeasureEditorController();
                 calculatedMeasureEditorController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
@@ -81,7 +81,7 @@ namespace Misp.Reporting.Base
                 calculatedMeasureEditorController.Service = ((ReportingServiceFactory)ServiceFactory).GetCalculatedMeasureService2();
                 return calculatedMeasureEditorController;
             }
-            if (fonctionality == ReportingFunctionalitiesCode.CALCULATED_MEASURE_LIST)
+            if (fonctionality == ReportingFunctionalitiesCode.CALCULATED_MEASURE_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 CalculatedMeasureBrowserController calculatedMeasureBrowserController = new CalculatedMeasureBrowserController();
                 calculatedMeasureBrowserController.ModuleName = Misp.Reporting.PlugIn.MODULE_NAME;
@@ -90,7 +90,7 @@ namespace Misp.Reporting.Base
                 calculatedMeasureBrowserController.Service = ((ReportingServiceFactory)ServiceFactory).GetCalculatedMeasureService2();
                 return calculatedMeasureBrowserController;
             }
-            if (fonctionality == ReportingFunctionalitiesCode.REPORT_GRID_LIST)
+            if (fonctionality == ReportingFunctionalitiesCode.REPORT_GRID_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 ReportGridBrowserController controller = new ReportGridBrowserController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -100,7 +100,7 @@ namespace Misp.Reporting.Base
                 return controller;
             }
 
-            if (fonctionality == ReportingFunctionalitiesCode.REPORT_GRID_EDIT)
+            if (fonctionality == ReportingFunctionalitiesCode.REPORT_GRID_EDIT && editionMode.HasValue)
             {
                 ReportGridEditorController controller = new ReportGridEditorController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;

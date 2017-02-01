@@ -129,7 +129,7 @@ namespace Misp.Kernel.Controller
         /// Assigne ou retourne le nom (ou code) de la fonctionnalité contrôlée.
         /// </summary>
         public string FunctionalityCode { get; set; }
-        
+                
         /// <summary>
         /// Assigne ou retourne le nom du module auquel appartient la fonctionnalité contrôlée. 
         /// </summary>

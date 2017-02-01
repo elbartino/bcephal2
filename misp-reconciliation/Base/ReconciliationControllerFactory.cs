@@ -35,10 +35,10 @@ namespace Misp.Reconciliation.Base
         /// </summary>
         /// <param name="fonctionality"></param>
         /// <returns></returns>
-        public override Controllable GetController(string fonctionality)
+        public override Controllable GetController(string fonctionality, ViewType? viewType = null, EditionMode? editionMode = null)
         {
 
-            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_EDIT)
+            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_EDIT && editionMode.HasValue)
             {
                 ReconciliationFilterEditorController recoEditorController = new ReconciliationFilterEditorController();
                 recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
@@ -48,7 +48,7 @@ namespace Misp.Reconciliation.Base
                 return recoEditorController;
             }
 
-            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_LIST)
+            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 ReconciliationFilterBrowserController recoBrowserController = new ReconciliationFilterBrowserController();
                 recoBrowserController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
@@ -75,7 +75,7 @@ namespace Misp.Reconciliation.Base
                 return controller;
             }
 
-            if (fonctionality == ReconciliationFunctionalitiesCode.POSTING_GRID_LIST)
+            if (fonctionality == ReconciliationFunctionalitiesCode.POSTING_GRID_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 PostingGridBrowserController controller = new PostingGridBrowserController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -84,7 +84,7 @@ namespace Misp.Reconciliation.Base
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingGridService();
                 return controller;
             }
-            if (fonctionality == ReconciliationFunctionalitiesCode.POSTING_GRID_EDIT)
+            if (fonctionality == ReconciliationFunctionalitiesCode.POSTING_GRID_EDIT && editionMode.HasValue)
             {
                 PostingGridEditorController controller = new PostingGridEditorController();
                 controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -93,7 +93,7 @@ namespace Misp.Reconciliation.Base
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingGridService();
                 return controller;
             }
-            if (fonctionality == ReconciliationFunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT)
+            if (fonctionality == ReconciliationFunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT && editionMode.HasValue)
             {
                 AutomaticPostingGridEditorController automaticSourcingGridController = new AutomaticPostingGridEditorController();
                 automaticSourcingGridController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
@@ -103,7 +103,7 @@ namespace Misp.Reconciliation.Base
                 //automaticSourcingGridController.InputTableService = ((ReconciliationServiceFactory)ServiceFactory).GetInputTableService();
                 return automaticSourcingGridController;
             }
-            if (fonctionality == ReconciliationFunctionalitiesCode.AUTOMATIC_POSTING_GRID_LIST)
+            if (fonctionality == ReconciliationFunctionalitiesCode.AUTOMATIC_POSTING_GRID_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
                 AutomaticPostingGridBrowerController automaticSourcingGridBrowerController = new AutomaticPostingGridBrowerController();
                 automaticSourcingGridBrowerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;

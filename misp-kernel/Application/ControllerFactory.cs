@@ -42,7 +42,7 @@ namespace Misp.Kernel.Application
         /// </summary>
         /// <param name="fonctionality"></param>
         /// <returns></returns>
-        public virtual Controller.Controllable GetController(string fonctionality)
+        public virtual Controller.Controllable GetController(string fonctionality, ViewType? viewType = null, EditionMode? editionMode = null)
         {
             if (fonctionality == FunctionalitiesCode.HOME_PAGE)
             {
@@ -130,7 +130,7 @@ namespace Misp.Kernel.Application
             
             foreach (Plugin.IPlugin plugin in ApplicationManager.Plugins)
             {
-                Controller.Controllable controller = plugin.ControllerFactory.GetController(fonctionality);
+                Controller.Controllable controller = plugin.ControllerFactory.GetController(fonctionality, viewType, editionMode);
                 if (controller != null) return controller;
             }
             return null;

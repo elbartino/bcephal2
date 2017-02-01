@@ -36,9 +36,9 @@ namespace Misp.Kernel.Administration.Profil
             this.RightField.SetFunctionality(functionality);
         }
 
-        public void Select(String functionalityCode)
+        public void Select(Right right)
         {
-            this.RightField.Select(functionalityCode);
+            this.RightField.Select(right);
         }
 
         protected void InitHandlers()
@@ -46,9 +46,9 @@ namespace Misp.Kernel.Administration.Profil
             this.RightField.RightSelected += OnRightSelected;
         }
 
-        private void OnRightSelected(string functionality, bool selected)
+        private void OnRightSelected(Right right, bool selected)
         {
-            if (RightSelected != null) RightSelected(functionality, selected);
+            if (RightSelected != null) RightSelected(right, selected);
         }
     }
 }

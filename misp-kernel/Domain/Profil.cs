@@ -25,26 +25,26 @@ namespace Misp.Kernel.Domain
 
         #region Build Rights
 
-        public void AddRight(string functionality)
+        public void AddRight(Right newRight)
         {
-            Right right = GetRight(functionality);
+            Right right = GetRight(newRight);
             if (right == null)
             {
-                rightsListChangeHandler.AddNew(new Right(functionality));
+                rightsListChangeHandler.AddNew(newRight);
             }
         }
 
-        public void RemoveRight(string functionality)
+        public void RemoveRight(Right oldRight)
         {
-            Right right = GetRight(functionality);
+            Right right = GetRight(oldRight);
             if (right != null) rightsListChangeHandler.AddDeleted(right);
         }
 
-        public Right GetRight(string functionality)
+        public Right GetRight(Right aRight)
         {
             foreach (Right right in rightsListChangeHandler.Items)
             {
-                if (right.functionnality.Equals(functionality)) return right;
+                if (right.functionnality.Equals(aRight.functionnality) && right.rightType == aRight.rightType) return right;
             }
             return null;
         }

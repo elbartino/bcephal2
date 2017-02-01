@@ -427,7 +427,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public Boolean isModel()
         {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.INITIATION);
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.INITIATION_MODEL);
         }
 
         public Boolean isReport()

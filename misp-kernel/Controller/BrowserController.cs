@@ -34,7 +34,7 @@ namespace Misp.Kernel.Controller
         /// <summary>
         /// Construit une nouvelle instance de BrowserController
         /// </summary>
-        public BrowserController() : base() { }
+        public BrowserController() : base() {}
 
         #endregion
 

@@ -8,7 +8,9 @@ namespace Misp.Kernel.Domain
 {
     public class Right : Persistent
     {
-        public String functionnality { get; set; }        
+        public String functionnality { get; set; }
+
+        public String rightType { get; set; } 
 
         [ScriptIgnore]
         public Profil profil { get; set;}

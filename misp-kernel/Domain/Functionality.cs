@@ -14,9 +14,13 @@ namespace Misp.Kernel.Domain
         public bool ShowInDashboard { get; set; }
         public List<Functionality> Children { get; set; }
 
+        public List<RightType> RightTypes { get; set; }
+        
+
         public Functionality()
         {
-            this.Children = new List<Functionality>(0);          
+            this.Children = new List<Functionality>(0);
+            this.RightTypes = new List<RightType>(0);  
         }
 
         public Functionality(string code, string name) : this()
@@ -37,30 +41,42 @@ namespace Misp.Kernel.Domain
             this.Parent = parent;
         }
 
-
-        public Functionality get(String code)
+        public Functionality(Functionality parent, string code, string name, bool showInDashboard, params RightType[] types)
+            : this(code, name, showInDashboard)
         {
-            if (this.equals(code)) return this;
-            else return getDescendent(code);
+            this.Parent = parent;
+            this.RightTypes.AddRange(types);
         }
 
-        public Functionality getDescendent(String code)
+
+        public Functionality get(String code, RightType? type = null)
+        {
+            if (this.equals(code, type)) return this;
+            else return getDescendent(code, type);
+        }
+
+        public Functionality getDescendent(String code, RightType? type = null)
         {
             if (String.IsNullOrWhiteSpace(code)) return null;
             foreach (Functionality child in this.Children)
             {
-                if (child.equals(code)) return child;
-                Functionality f = child.getDescendent(code);
+                if (child.equals(code, type)) return child;
+                Functionality f = child.getDescendent(code, type);
                 if (f != null) return f;
             }
             return null;
         }
 
-        public bool equals(String code)
+        public bool HasType(RightType type)
+        {
+            return this.RightTypes.Contains(type);
+        }
+
+        public bool equals(String code, RightType? type = null)
         {
             if (String.IsNullOrWhiteSpace(code)) return false;
             if (String.IsNullOrWhiteSpace(this.Code)) return false;
-            return this.Code.Equals(code);
+            return this.Code.Equals(code) && (!type.HasValue || HasType(type.Value));
         }
 
     }

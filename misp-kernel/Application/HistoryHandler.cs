@@ -493,7 +493,7 @@ namespace Misp.Kernel.Application
 
                 if (page == null)
                 {
-                    page = ApplicationManager.ControllerFactory.GetController(functionality);
+                    page = ApplicationManager.ControllerFactory.GetController(functionality, token.ViewType, token.EditionMode);
                     if (page == null)
                     {
                         return openHomePage();
@@ -549,7 +549,7 @@ namespace Misp.Kernel.Application
             Controllable page = searchInOpenedPages(functionality);
             if (page == null)
             {
-                page = ApplicationManager.ControllerFactory.GetController(functionality);
+                page = ApplicationManager.ControllerFactory.GetController(functionality, token.ViewType, token.EditionMode);
                 if (page == null) { return openHomePage(); }
                 OpenedPages.Add(page);
                 page.NavigationToken = token;

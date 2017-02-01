@@ -65,57 +65,60 @@ namespace Misp.Kernel.Application
         //SOURCING
         public static string SOURCING = "functionality.sourcing";
 
-        public static string POSTING_GRID       = "functionality.posting.grid";
-        public static string POSTING_GRID_EDIT  = "functionality.posting.grid.edit";
-        public static string POSTING_GRID_VIEW  = "functionality.posting.grid.view";
-        public static string POSTING_GRID_LIST  = "functionality.posting.grid.list";
+        public static string POSTING_GRID      = "functionality.posting.grid";
+        public static string POSTING_GRID_EDIT = POSTING_GRID;//"functionality.posting.grid.edit";
+        public static string POSTING_GRID_VIEW = POSTING_GRID;//"functionality.posting.grid.view";
+        public static string POSTING_GRID_LIST = POSTING_GRID;//"functionality.posting.grid.list";
 
-        public static string AUTOMATIC_POSTING_GRID_EDIT = "functionality.automatic.posting.grid.edit";
-        public static string AUTOMATIC_POSTING_GRID_VIEW = "functionality.automatic.posting.grid.view";
-        public static string AUTOMATIC_POSTING_GRID_LIST = "functionality.automatic.posting.grid.list";
+        public static string AUTOMATIC_POSTING_GRID = "functionality.automatic.posting.grid";
+        public static string AUTOMATIC_POSTING_GRID_EDIT = AUTOMATIC_POSTING_GRID;//"functionality.automatic.posting.grid.edit";
+        public static string AUTOMATIC_POSTING_GRID_VIEW = AUTOMATIC_POSTING_GRID;//"functionality.automatic.posting.grid.view";
+        public static string AUTOMATIC_POSTING_GRID_LIST = AUTOMATIC_POSTING_GRID;//"functionality.automatic.posting.grid.list";
 
         public static string INPUT_TABLE        = "functionality.input.table";
-        public static string INPUT_TABLE_EDIT   = "functionality.input.table.edit";
-        public static string INPUT_TABLE_VIEW   = "functionality.input.table.view";
-        public static string INPUT_TABLE_LIST   = "functionality.input.table.list";
+        public static string INPUT_TABLE_EDIT = INPUT_TABLE;//"functionality.input.table.edit";
+        public static string INPUT_TABLE_VIEW = INPUT_TABLE;//"functionality.input.table.view";
+        public static string INPUT_TABLE_LIST = INPUT_TABLE;//"functionality.input.table.list";
 
         public static string INPUT_TABLE_GRID       = "functionality.input.table.grid";
-        public static string INPUT_TABLE_GRID_EDIT  = "functionality.input.table.grid.edit";
-        public static string INPUT_TABLE_GRID_VIEW  = "functionality.input.table.grid.view";
-        public static string INPUT_TABLE_GRID_LIST  = "functionality.input.table.grid.list";
+        public static string INPUT_TABLE_GRID_EDIT  = INPUT_TABLE_GRID;//"functionality.input.table.grid.edit";
+        public static string INPUT_TABLE_GRID_VIEW = INPUT_TABLE_GRID;//"functionality.input.table.grid.view";
+        public static string INPUT_TABLE_GRID_LIST = INPUT_TABLE_GRID;//"functionality.input.table.grid.list";
 
-        public static string AUTOMATIC_INPUT_TABLE_GRID_EDIT = "functionality.automatic.input.table.grid.edit";
-        public static string AUTOMATIC_INPUT_TABLE_GRID_VIEW = "functionality.automatic.input.table.grid.view";
-        public static string AUTOMATIC_INPUT_TABLE_GRID_LIST = "functionality.automatic.input.table.grid.list";
+        public static string AUTOMATIC_INPUT_TABLE_GRID = "functionality.automatic.input.table.grid";
+        public static string AUTOMATIC_INPUT_TABLE_GRID_EDIT = AUTOMATIC_INPUT_TABLE_GRID;//"functionality.automatic.input.table.grid.edit";
+        public static string AUTOMATIC_INPUT_TABLE_GRID_VIEW = AUTOMATIC_INPUT_TABLE_GRID;//"functionality.automatic.input.table.grid.view";
+        public static string AUTOMATIC_INPUT_TABLE_GRID_LIST = AUTOMATIC_INPUT_TABLE_GRID;//"functionality.automatic.input.table.grid.list";
 
         public static string ENRICHMENT_TABLE = "functionality.enrichment.table";
-        public static string ENRICHMENT_TABLE_EDIT = "functionality.enrichment.table.edit";
-        public static string ENRICHMENT_TABLE_VIEW = "functionality.enrichment.table.view";
-        public static string ENRICHMENT_TABLE_LIST = "functionality.enrichment.table.list";
+        public static string ENRICHMENT_TABLE_EDIT = ENRICHMENT_TABLE;//"functionality.enrichment.table.edit";
+        public static string ENRICHMENT_TABLE_VIEW = ENRICHMENT_TABLE;//"functionality.enrichment.table.view";
+        public static string ENRICHMENT_TABLE_LIST = ENRICHMENT_TABLE;//"functionality.enrichment.table.list";
 
-        public static string AUTOMATIC_ENRICHMENT_TABLE_EDIT = "functionality.automatic.enrichment.table.edit";
-        public static string AUTOMATIC_ENRICHMENT_TABLE_VIEW = "functionality.automatic.enrichment.table.view";
-        public static string AUTOMATIC_ENRICHMENT_TABLE_LIST = "functionality.automatic.enrichment.table.list";
+        public static string AUTOMATIC_ENRICHMENT_TABLE = "functionality.automatic.enrichment.table";
+        public static string AUTOMATIC_ENRICHMENT_TABLE_EDIT = AUTOMATIC_ENRICHMENT_TABLE;//"functionality.automatic.enrichment.table.edit";
+        public static string AUTOMATIC_ENRICHMENT_TABLE_VIEW = AUTOMATIC_ENRICHMENT_TABLE;//"functionality.automatic.enrichment.table.view";
+        public static string AUTOMATIC_ENRICHMENT_TABLE_LIST = AUTOMATIC_ENRICHMENT_TABLE;//"functionality.automatic.enrichment.table.list";
 
         public static string TARGET         = "functionality.target";
-        public static string TARGET_EDIT    = "functionality.target.edit";
-        public static string TARGET_VIEW    = "functionality.target.view";
-        public static string TARGET_LIST    = "functionality.target.list";
+        public static string TARGET_EDIT    = TARGET;//"functionality.target.edit";
+        public static string TARGET_VIEW = TARGET;//"functionality.target.view";
+        public static string TARGET_LIST = TARGET;//"functionality.target.list";
 
         public static string AUTOMATIC_TARGET      = "functionality.automatic.target";
-        public static string AUTOMATIC_TARGET_EDIT = "functionality.automatic.target.edit";
-        public static string AUTOMATIC_TARGET_VIEW = "functionality.automatic.target.view";
-        public static string AUTOMATIC_TARGET_LIST = "functionality.automatic.target.list";
+        public static string AUTOMATIC_TARGET_EDIT = AUTOMATIC_TARGET;//"functionality.automatic.target.edit";
+        public static string AUTOMATIC_TARGET_VIEW = AUTOMATIC_TARGET;//"functionality.automatic.target.view";
+        public static string AUTOMATIC_TARGET_LIST = AUTOMATIC_TARGET;//"functionality.automatic.target.list";
 
         public static string DESIGN      = "functionality.design";
-        public static string DESIGN_EDIT = "functionality.design.edit";
-        public static string DESIGN_VIEW = "functionality.design.view";
-        public static string DESIGN_LIST = "functionality.design.list";
+        public static string DESIGN_EDIT = DESIGN;//"functionality.design.edit";
+        public static string DESIGN_VIEW = DESIGN;//"functionality.design.view";
+        public static string DESIGN_LIST = DESIGN;//"functionality.design.list";
 
         public static string AUTOMATIC_SOURCING      = "functionality.automatic.sourcing";
-        public static string AUTOMATIC_SOURCING_EDIT = "functionality.automatic.sourcing.edit";
-        public static string AUTOMATIC_SOURCING_VIEW = "functionality.automatic.sourcing.view";
-        public static string AUTOMATIC_SOURCING_LIST = "functionality.automatic.sourcing.list";
+        public static string AUTOMATIC_SOURCING_EDIT = AUTOMATIC_SOURCING;//"functionality.automatic.sourcing.edit";
+        public static string AUTOMATIC_SOURCING_VIEW = AUTOMATIC_SOURCING;//"functionality.automatic.sourcing.view";
+        public static string AUTOMATIC_SOURCING_LIST = AUTOMATIC_SOURCING;//"functionality.automatic.sourcing.list";
 
         public static string ACCESSORIES = "functionality.accessories";
         public static string MULTIPLE_FILES_UPLOAD = "functionality.multiple.files.upload";
@@ -126,17 +129,17 @@ namespace Misp.Kernel.Application
         public static string TRANSFORMATION_DATA = "functionality.transformation.data";
 
         public static string TRANSFORMATION_TREE = "functionality.transformation.tree";
-        public static string TRANSFORMATION_TREE_EDIT = "functionality.transformation.tree.edit";
-        public static string TRANSFORMATION_TREE_VIEW = "functionality.transformation.tree.view";
-        public static string TRANSFORMATION_TREE_LIST = "functionality.transformation.tree.list";
+        public static string TRANSFORMATION_TREE_EDIT = TRANSFORMATION_TREE;//"functionality.transformation.tree.edit";
+        public static string TRANSFORMATION_TREE_VIEW = TRANSFORMATION_TREE;//"functionality.transformation.tree.view";
+        public static string TRANSFORMATION_TREE_LIST = TRANSFORMATION_TREE;//"functionality.transformation.tree.list";
 
         public static string TRANSFORMATION_TREE_LOAD = "functionality.transformation.tree.load";
         public static string TRANSFORMATION_TREE_CLEAR = "functionality.transformation.tree.clear";
 
         public static string COMBINED_TRANSFORMATION_TREES = "functionality.combined.transformation.tree";
-        public static string COMBINED_TRANSFORMATION_TREES_EDIT = "functionality.combined.transformation.tree.edit";
-        public static string COMBINED_TRANSFORMATION_TREES_VIEW = "functionality.combined.transformation.tree.view";
-        public static string COMBINED_TRANSFORMATION_TREES_LIST = "functionality.combined.transformation.tree.list";
+        public static string COMBINED_TRANSFORMATION_TREES_EDIT = COMBINED_TRANSFORMATION_TREES;//"functionality.combined.transformation.tree.edit";
+        public static string COMBINED_TRANSFORMATION_TREES_VIEW = COMBINED_TRANSFORMATION_TREES;//"functionality.combined.transformation.tree.view";
+        public static string COMBINED_TRANSFORMATION_TREES_LIST = COMBINED_TRANSFORMATION_TREES;//"functionality.combined.transformation.tree.list";
 
         public static string TRANSFORMATION_TABLE = "functionality.transformation.table";
         public static string SLIDE = "functionality.slide";
@@ -154,29 +157,29 @@ namespace Misp.Kernel.Application
         public static string REPORTING = "functionality.reporting";
 
         public static string REPORT         = "functionality.report";
-        public static string REPORT_EDIT    = "functionality.report.edit";
-        public static string REPORT_VIEW    = "functionality.report.view";
-        public static string REPORT_LIST    = "functionality.report.list";
+        public static string REPORT_EDIT = REPORT;//"functionality.report.edit";
+        public static string REPORT_VIEW = REPORT;//"functionality.report.view";
+        public static string REPORT_LIST = REPORT;//"functionality.report.list";
 
         public static string STRUCTURED_REPORT      = "functionality.structured.report";
-        public static string STRUCTURED_REPORT_EDIT = "functionality.structured.report.edit";
-        public static string STRUCTURED_REPORT_VIEW = "functionality.structured.report.view";
-        public static string STRUCTURED_REPORT_LIST = "functionality.structured.report.list";
+        public static string STRUCTURED_REPORT_EDIT = STRUCTURED_REPORT;//"functionality.structured.report.edit";
+        public static string STRUCTURED_REPORT_VIEW = STRUCTURED_REPORT;//"functionality.structured.report.view";
+        public static string STRUCTURED_REPORT_LIST = STRUCTURED_REPORT;//"functionality.structured.report.list";
 
         public static string CALCULATED_MEASURE         = "functionality.calculate.measure";
-        public static string CALCULATED_MEASURE_EDIT    = "functionality.calculate.measure.edit";
-        public static string CALCULATED_MEASURE_VIEW    = "functionality.calculate.measure.view";
-        public static string CALCULATED_MEASURE_LIST    = "functionality.calculate.measure.list";
+        public static string CALCULATED_MEASURE_EDIT    = CALCULATED_MEASURE;//"functionality.calculate.measure.edit";
+        public static string CALCULATED_MEASURE_VIEW = CALCULATED_MEASURE;//"functionality.calculate.measure.view";
+        public static string CALCULATED_MEASURE_LIST = CALCULATED_MEASURE;//"functionality.calculate.measure.list";
 
         public static string REPORT_GRID        = "functionality.report.grid";
-        public static string REPORT_GRID_EDIT   = "functionality.report.grid.edit";
-        public static string REPORT_GRID_VIEW   = "functionality.report.grid.view";
-        public static string REPORT_GRID_LIST   = "functionality.report.grid.list";
+        public static string REPORT_GRID_EDIT   = REPORT_GRID;//"functionality.report.grid.edit";
+        public static string REPORT_GRID_VIEW = REPORT_GRID;//"functionality.report.grid.view";
+        public static string REPORT_GRID_LIST = REPORT_GRID;//"functionality.report.grid.list";
 
         public static string PIVOT_TABLE = "functionality.pivot.table";
-        public static string PIVOT_TABLE_EDIT = "functionality.pivot.table.edit";
-        public static string PIVOT_TABLE_VIEW = "functionality.pivot.table.edit";
-        public static string PIVOT_TABLE_LIST = "functionality.pivot.table.list";
+        public static string PIVOT_TABLE_EDIT = PIVOT_TABLE;//"functionality.pivot.table.edit";
+        public static string PIVOT_TABLE_VIEW = PIVOT_TABLE;//"functionality.pivot.table.edit";
+        public static string PIVOT_TABLE_LIST = PIVOT_TABLE;//"functionality.pivot.table.list";
 
         
 
@@ -184,9 +187,9 @@ namespace Misp.Kernel.Application
         public static string RECONCILIATION = "functionality.reconciliation";
 
         public static string RECONCILIATION_FILTER = "functionality.reconciliation.filter";
-        public static string RECONCILIATION_FILTER_EDIT = "functionality.reconciliation.filter.edit";
-        public static string RECONCILIATION_FILTER_VIEW = "functionality.reconciliation.filter.view";
-        public static string RECONCILIATION_FILTER_LIST = "functionality.reconciliation.filter.list";
+        public static string RECONCILIATION_FILTER_EDIT = RECONCILIATION_FILTER;//"functionality.reconciliation.filter.edit";
+        public static string RECONCILIATION_FILTER_VIEW = RECONCILIATION_FILTER;//"functionality.reconciliation.filter.view";
+        public static string RECONCILIATION_FILTER_LIST = RECONCILIATION_FILTER;//"functionality.reconciliation.filter.list";
 
         public static string RECONCILIATION_POSTINGS = "functionality.reconciliation.postings";
         public static string RECONCILIATION_CONFIGURATION = "functionality.reconciliation.configuration";

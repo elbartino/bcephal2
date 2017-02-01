@@ -46,7 +46,7 @@ namespace Misp.Initiation.Base
         {
             this.Code = InitiationFunctionalitiesCode.INITIATION;
             this.Header = FunctionalitiesLabel.INITIATION_LABEL;
-            model = BuildMenu(InitiationFunctionalitiesCode.INITIATION, FunctionalitiesLabel.INITIATION_EDIT_MODEL_LABEL, NavigationToken.GetSearchViewToken(InitiationFunctionalitiesCode.INITIATION));
+            model = BuildMenu(InitiationFunctionalitiesCode.INITIATION, FunctionalitiesLabel.INITIATION_EDIT_MODEL_LABEL, NavigationToken.GetSearchViewToken(InitiationFunctionalitiesCode.INITIATION_MODEL));
             period = BuildMenu(InitiationFunctionalitiesCode.INITIATION, FunctionalitiesLabel.INITIATION_EDIT_PERIOD_LABEL, NavigationToken.GetSearchViewToken(InitiationFunctionalitiesCode.INITIATION_PERIOD));
         }
                 

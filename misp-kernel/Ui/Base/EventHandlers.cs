@@ -46,5 +46,5 @@ namespace Misp.Kernel.Ui.Base
 
     public delegate bool ActionEventHandler(object item);
 
-    public delegate void RightEventHandler(string functionality, bool selected);
+    public delegate void RightEventHandler(Right right, bool selected);
 }

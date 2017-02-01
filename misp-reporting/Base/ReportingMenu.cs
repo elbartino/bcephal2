@@ -67,24 +67,24 @@ namespace Misp.Reporting.Base
             this.Header = FunctionalitiesLabel.REPORTING_LABEL;
 
             ReportGroupMenu = BuildMenu(FunctionalitiesCode.REPORTING, FunctionalitiesLabel.REPORT_LABEL, FunctionalitiesCode.REPORT);
-            newReportMenu = BuildMenu(FunctionalitiesCode.REPORT, FunctionalitiesLabel.NEW_REPORT_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.REPORT_EDIT));
-            listReportMenu = BuildMenu(FunctionalitiesCode.REPORT, FunctionalitiesLabel.LIST_REPORT_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.REPORT_LIST));
+            newReportMenu = BuildMenu(FunctionalitiesCode.REPORT, FunctionalitiesLabel.NEW_REPORT_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.REPORT_EDIT), Kernel.Domain.RightType.CREATE);
+            listReportMenu = BuildMenu(FunctionalitiesCode.REPORT, FunctionalitiesLabel.LIST_REPORT_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.REPORT_LIST), Kernel.Domain.RightType.VIEW);
 
             StructuredReportGrouMenu = BuildMenu(FunctionalitiesCode.REPORTING, FunctionalitiesLabel.STRUCTURED_REPORT_LABEL, FunctionalitiesCode.STRUCTURED_REPORT);
-            newStructuredReportMenu = BuildMenu(FunctionalitiesCode.STRUCTURED_REPORT, FunctionalitiesLabel.NEW_STRUCTURED_REPORT_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.STRUCTURED_REPORT_EDIT));
-            listStructuredReportMenu = BuildMenu(FunctionalitiesCode.STRUCTURED_REPORT, FunctionalitiesLabel.LIST_STRUCTURED_REPORT_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.STRUCTURED_REPORT_LIST));
+            newStructuredReportMenu = BuildMenu(FunctionalitiesCode.STRUCTURED_REPORT, FunctionalitiesLabel.NEW_STRUCTURED_REPORT_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.STRUCTURED_REPORT_EDIT), Kernel.Domain.RightType.CREATE);
+            listStructuredReportMenu = BuildMenu(FunctionalitiesCode.STRUCTURED_REPORT, FunctionalitiesLabel.LIST_STRUCTURED_REPORT_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.STRUCTURED_REPORT_LIST), Kernel.Domain.RightType.VIEW);
 
             CalculatedMeasureGroupMenu = BuildMenu(FunctionalitiesCode.REPORTING, FunctionalitiesLabel.CALCULATED_MEASURE_LABEL, FunctionalitiesCode.CALCULATED_MEASURE);
-            calculatedMeasureMenu = BuildMenu(FunctionalitiesCode.CALCULATED_MEASURE, FunctionalitiesLabel.NEW_CALCULATED_MEASURE_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.CALCULATED_MEASURE_EDIT));
-            listCalculatedMeasureMenu = BuildMenu(FunctionalitiesCode.CALCULATED_MEASURE, FunctionalitiesLabel.LIST_CALCULATED_MEASURE_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.CALCULATED_MEASURE_LIST));
+            calculatedMeasureMenu = BuildMenu(FunctionalitiesCode.CALCULATED_MEASURE, FunctionalitiesLabel.NEW_CALCULATED_MEASURE_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.CALCULATED_MEASURE_EDIT), Kernel.Domain.RightType.CREATE);
+            listCalculatedMeasureMenu = BuildMenu(FunctionalitiesCode.CALCULATED_MEASURE, FunctionalitiesLabel.LIST_CALCULATED_MEASURE_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.CALCULATED_MEASURE_LIST), Kernel.Domain.RightType.VIEW);
 
             PivotTableGroupMenu = BuildMenu(FunctionalitiesCode.REPORTING, FunctionalitiesLabel.PIVOT_TABLE_LABEL, FunctionalitiesCode.PIVOT_TABLE);
-            newPivotTableMenu = BuildMenu(FunctionalitiesCode.PIVOT_TABLE, FunctionalitiesLabel.NEW_PIVOT_TABLE_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.PIVOT_TABLE_EDIT));
-            listPivotTableMenu = BuildMenu(FunctionalitiesCode.PIVOT_TABLE, FunctionalitiesLabel.LIST_PIVOT_TABLE_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.PIVOT_TABLE_LIST));
+            newPivotTableMenu = BuildMenu(FunctionalitiesCode.PIVOT_TABLE, FunctionalitiesLabel.NEW_PIVOT_TABLE_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.PIVOT_TABLE_EDIT), Kernel.Domain.RightType.CREATE);
+            listPivotTableMenu = BuildMenu(FunctionalitiesCode.PIVOT_TABLE, FunctionalitiesLabel.LIST_PIVOT_TABLE_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.PIVOT_TABLE_LIST), Kernel.Domain.RightType.VIEW);
 
             GridGroupMenu = BuildMenu(FunctionalitiesCode.REPORTING, FunctionalitiesLabel.GRID_LABEL, FunctionalitiesCode.REPORT_GRID);
-            NewReportGridMenu = BuildMenu(FunctionalitiesCode.REPORT_GRID, FunctionalitiesLabel.NEW_REPORT_GRID_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.REPORT_GRID_EDIT));
-            ListReportGridMenu = BuildMenu(FunctionalitiesCode.REPORT_GRID, FunctionalitiesLabel.LIST_REPORT_GRID_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.REPORT_GRID_LIST));
+            NewReportGridMenu = BuildMenu(FunctionalitiesCode.REPORT_GRID, FunctionalitiesLabel.NEW_REPORT_GRID_LABEL, NavigationToken.GetCreateViewToken(ReportingFunctionalitiesCode.REPORT_GRID_EDIT), Kernel.Domain.RightType.CREATE);
+            ListReportGridMenu = BuildMenu(FunctionalitiesCode.REPORT_GRID, FunctionalitiesLabel.LIST_REPORT_GRID_LABEL, NavigationToken.GetSearchViewToken(ReportingFunctionalitiesCode.REPORT_GRID_LIST), Kernel.Domain.RightType.VIEW);
             
             ReportGroupMenu.Items.Add(NewReportMenu);
             ReportGroupMenu.Items.Add(ListReportMenu);
