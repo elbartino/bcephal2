@@ -381,39 +381,43 @@ namespace Misp.Kernel.Ui.EditableTree
         {
             if (e.Row != null)
             {
-                String name = e.Value.ToString().Trim();
-                String oldName = e.OldValue.ToString().Trim();
+                String name = e.Value != null ? e.Value.ToString().Trim() : "";
+                String oldName = e.OldValue != null ? e.OldValue.ToString().Trim() : "";
+
+                Domain.Attribute attribute = (Domain.Attribute)e.Row;
+                if (!ValidateName(attribute, name))
+                {
+                    attribute.name = oldName;
+                    e.Handled = true;
+                    return;
+                }
+
                 if (!name.Equals(oldName.Trim()))
                 {
-                    Domain.Attribute attribute = GetSelectedValue();
-                    if (attribute != null && ValidateName(attribute, name))
+                    if (attribute.IsDefault)
                     {
-                        if (attribute.IsDefault)
-                        {
-                            attribute.name = oldName;
-                            Domain.Attribute newAttribute = new Domain.Attribute();
-                            newAttribute.name = name;
-                            newAttribute.parent = this.Root;
-                            ForgetDefaultAttributes(this.Root);
-                            this.Root.AddChild(newAttribute);
-                            AddDefaultAttributes(this.Root);
+                        attribute.name = oldName;
+                        Domain.Attribute newAttribute = new Domain.Attribute();
+                        newAttribute.name = name;
+                        newAttribute.parent = this.Root;
+                        ForgetDefaultAttributes(this.Root);
+                        this.Root.AddChild(newAttribute);
+                        AddDefaultAttributes(this.Root);
 
-                            int row = Source.Count;
-                            if (row > 0) Source.Insert(row - 1, newAttribute);
-                            else Source.Add(newAttribute);
-                            SetSelectedValue(newAttribute);
-                        }
-                        else
-                        {
-                            attribute.name = name;
-                            ForgetDefaultAttributes(attribute.parent);
-                            attribute.parent.UpdateChild(attribute);
-                            AddDefaultAttributes(attribute.parent);
-                            SetSelectedValue(attribute);
-                        }
-                        if (Changed != null) Changed();
+                        int row = Source.Count;
+                        if (row > 0) Source.Insert(row - 1, newAttribute);
+                        else Source.Add(newAttribute);
+                        SetSelectedValue(newAttribute);
                     }
-                    else attribute.name = oldName;
+                    else
+                    {
+                        attribute.name = name;
+                        ForgetDefaultAttributes(attribute.parent);
+                        attribute.parent.UpdateChild(attribute);
+                        AddDefaultAttributes(attribute.parent);
+                        SetSelectedValue(attribute);
+                    }
+                    if (Changed != null) Changed();
                 }
             }            
         }

@@ -354,39 +354,41 @@ namespace Misp.Kernel.Ui.EditableTree
         {
             if (e.Row != null)
             {
-                String name = e.Value.ToString().Trim();
-                String oldName = e.OldValue.ToString().Trim();
+                String name = e.Value != null ? e.Value.ToString().Trim() : "";
+                String oldName = e.OldValue != null ? e.OldValue.ToString().Trim() : "";
+                Domain.Measure measure = (Domain.Measure)e.Row;
+                if (!ValidateName(measure, name))
+                {
+                    measure.name = oldName;
+                    e.Handled = true;
+                    return;
+                }
                 if (!name.Equals(oldName.Trim()))
                 {
-                    Domain.Measure measure = GetSelectedValue();
-                    if (measure != null && ValidateName(measure, name))
+                    if (measure.IsDefault)
                     {
-                        if (measure.IsDefault)
-                        {
-                            measure.name = oldName;
-                            Domain.Measure newMeasure = new Domain.Measure();
-                            newMeasure.name = name;
-                            newMeasure.parent = this.Root;
-                            ForgetDefaultMeasures(this.Root);
-                            this.Root.AddChild(newMeasure);
-                            AddDefaultMeasures(this.Root);
+                        measure.name = oldName;
+                        Domain.Measure newMeasure = new Domain.Measure();
+                        newMeasure.name = name;
+                        newMeasure.parent = this.Root;
+                        ForgetDefaultMeasures(this.Root);
+                        this.Root.AddChild(newMeasure);
+                        AddDefaultMeasures(this.Root);
 
-                            int row = Source.Count;
-                            if (row > 0) Source.Insert(row - 1, newMeasure);
-                            else Source.Add(newMeasure);
-                            SetSelectedValue(newMeasure);
-                        }
-                        else
-                        {
-                            measure.name = name;
-                            ForgetDefaultMeasures(measure.parent);
-                            measure.parent.UpdateChild(measure);
-                            AddDefaultMeasures(measure.parent);
-                            SetSelectedValue(measure);
-                        }
-                        if (Changed != null) Changed();
+                        int row = Source.Count;
+                        if (row > 0) Source.Insert(row - 1, newMeasure);
+                        else Source.Add(newMeasure);
+                        SetSelectedValue(newMeasure);
                     }
-                    else measure.name = oldName;
+                    else
+                    {
+                        measure.name = name;
+                        ForgetDefaultMeasures(measure.parent);
+                        measure.parent.UpdateChild(measure);
+                        AddDefaultMeasures(measure.parent);
+                        SetSelectedValue(measure);
+                    }
+                    if (Changed != null) Changed();
                 }
             }            
         }

@@ -82,7 +82,7 @@ namespace Misp.Kernel.Domain
             set
             {
                 _name = value;
-                this.OnPropertyChanged("name");
+                //this.OnPropertyChanged("name");
             }
         }
 

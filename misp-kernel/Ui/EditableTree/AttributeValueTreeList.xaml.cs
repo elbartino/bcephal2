@@ -143,7 +143,7 @@ namespace Misp.Kernel.Ui.EditableTree
         {
             Domain.AttributeValue addNewAttribute = new Kernel.Domain.AttributeValue();
             addNewAttribute.IsAddNewItem = true;
-            addNewAttribute.name = "Add new attributeValue...";
+            addNewAttribute.name = "Add new value...";
             addNewAttribute.parent = this.Root;
             this.Root.childrenListChangeHandler.Items.Add(addNewAttribute);
 
@@ -151,7 +151,7 @@ namespace Misp.Kernel.Ui.EditableTree
             {
                 Domain.AttributeValue showModeAttributes = new Domain.AttributeValue();
                 showModeAttributes.IsShowMoreItem = true;
-                showModeAttributes.name = "Show more attributeValue...";
+                showModeAttributes.name = "Show more value...";
                 showModeAttributes.parent = parent;
                 parent.childrenListChangeHandler.Items.Add(showModeAttributes);
             }
@@ -159,7 +159,7 @@ namespace Misp.Kernel.Ui.EditableTree
             {
                 Domain.AttributeValue showModeAttributes = new Domain.AttributeValue();
                 showModeAttributes.IsShowMoreItem = true;
-                showModeAttributes.name = "Show more attributeValue...";
+                showModeAttributes.name = "Show more values...";
                 showModeAttributes.parent = this.Root;
                 this.Root.childrenListChangeHandler.Items.Add(showModeAttributes);
             }
@@ -432,45 +432,48 @@ namespace Misp.Kernel.Ui.EditableTree
         {
             if (e.Row != null)
             {
-                String name = e.Value.ToString().Trim();
-                String oldName = e.OldValue.ToString().Trim();
+                String name = e.Value != null ? e.Value.ToString().Trim() : "";
+                String oldName = e.OldValue != null ? e.OldValue.ToString().Trim() : "";
+                Domain.AttributeValue attributeValue = (Domain.AttributeValue)e.Row;
+                if (!ValidateName(attributeValue, name))
+                {
+                    attributeValue.name = oldName;
+                    e.Handled = true;
+                    return;
+                }
+
                 if (!name.Equals(oldName.Trim()))
                 {
-                    Domain.AttributeValue attributeValue = GetSelectedValue();
-                    if (attributeValue != null && ValidateName(attributeValue, name))
+                    if (attributeValue.IsDefault)
                     {
-                        if (attributeValue.IsDefault)
-                        {
-                            attributeValue.name = oldName;
-                            Domain.AttributeValue newAttributeValue = new Domain.AttributeValue();
-                            newAttributeValue.name = name;
-                            newAttributeValue.parent = this.Root;
-                            ForgetDefaultAttributeValues(this.Root);
-                            this.Root.AddChild(newAttributeValue);
-                            AddDefaultAttributeValues(this.Root);
+                        attributeValue.name = oldName;
+                        Domain.AttributeValue newAttributeValue = new Domain.AttributeValue();
+                        newAttributeValue.name = name;
+                        newAttributeValue.parent = this.Root;
+                        ForgetDefaultAttributeValues(this.Root);
+                        this.Root.AddChild(newAttributeValue);
+                        AddDefaultAttributeValues(this.Root);
 
-                            int row = Source.Count;
-                            if (row - 2 >= 0)
-                            {
-                                if(Source[row - 2].IsDefault) Source.Insert(row - 2, newAttributeValue);
-                                else Source.Insert(row - 1, newAttributeValue);
-                            }
-                            else if (row - 1 >= 0) Source.Insert(row - 1, newAttributeValue);
-                            else Source.Add(newAttributeValue);
-                            SetSelectedValue(newAttributeValue);
-                            DisplayRoot(this.Root);
-                        }
-                        else
+                        int row = Source.Count;
+                        if (row - 2 >= 0)
                         {
-                            attributeValue.name = name;
-                            ForgetDefaultAttributeValues(attributeValue.parent);
-                            attributeValue.parent.UpdateChild(attributeValue);
-                            AddDefaultAttributeValues(attributeValue.parent);
-                            SetSelectedValue(attributeValue);
+                            if (Source[row - 2].IsDefault) Source.Insert(row - 2, newAttributeValue);
+                            else Source.Insert(row - 1, newAttributeValue);
                         }
-                        if (Changed != null) Changed();
+                        else if (row - 1 >= 0) Source.Insert(row - 1, newAttributeValue);
+                        else Source.Add(newAttributeValue);
+                        SetSelectedValue(newAttributeValue);
+                        DisplayRoot(this.Root);
                     }
-                    else attributeValue.name = oldName;
+                    else
+                    {
+                        attributeValue.name = name;
+                        ForgetDefaultAttributeValues(attributeValue.parent);
+                        attributeValue.parent.UpdateChild(attributeValue);
+                        AddDefaultAttributeValues(attributeValue.parent);
+                        SetSelectedValue(attributeValue);
+                    }
+                    if (Changed != null) Changed();
                 }
             }
         }
@@ -740,13 +743,13 @@ namespace Misp.Kernel.Ui.EditableTree
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                Kernel.Util.MessageDisplayer.DisplayError("Empty AttributeValue name", "Name can't be empty! ");
+                Kernel.Util.MessageDisplayer.DisplayError("Empty value name", "Name can't be empty! ");
                 return false;
             }
             Domain.AttributeValue found = getAttributeValueByName(this.Root, name);
             if (found == null || found.Equals(value)) return true;
 
-            Kernel.Util.MessageDisplayer.DisplayError("Duplicate AttributeValue", "There is another attributeValue named : '" + name + "'!");
+            Kernel.Util.MessageDisplayer.DisplayError("Duplicate value", "There is another value named : '" + name + "'!");
             return false;
         }
 
