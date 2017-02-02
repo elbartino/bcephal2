@@ -52,7 +52,7 @@ namespace Misp.Kernel.Administration.User
             switch (index)
             {
                 case 0: return "Name";
-                case 1: return "First nAme";
+                case 1: return "First Name";
                 case 2: return "Profil";
                 case 3: return "Creation Date";
                 case 4: return "Active";
