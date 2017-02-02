@@ -140,6 +140,7 @@ namespace Misp.Sourcing.AllocationViews
                         this.EditedObject.itemListChangeHandler.newItems.Remove(item);
                         this.EditedObject.itemListChangeHandler.deletedItems.Remove(item);
                         this.EditedObject.itemListChangeHandler.updatedItems.Remove(item);
+                        this.EditedObject.itemListChangeHandler.originalList.Remove(item);
                         this.EditedObject.itemListChangeHandler.Items.Remove(item);
                         break;
                     }
