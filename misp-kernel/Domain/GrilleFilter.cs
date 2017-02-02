@@ -20,6 +20,8 @@ namespace Misp.Kernel.Domain
 
         public int pageSize { get; set; }
 
+        public bool showAll { get; set; }
+
         public GrilleColumn orderByColumn { get; set; }
 
         public bool orderDes { get; set; }

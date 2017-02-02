@@ -72,6 +72,7 @@ namespace Misp.Reconciliation.Posting
                 filter.grid.reconciliation = true;
                 filter.grid.report = this.EditedObject.report;
                 filter.pageSize = (int)this.getInputGridForm().GridForm.toolBar.pageSizeComboBox.SelectedItem;
+                filter.showAll = this.getInputGridForm().GridForm.toolBar.showAllCheckBox.IsChecked.Value;
                 GrillePage rows = this.PostingGridService.getGridRows(filter);
                 return rows;
             }

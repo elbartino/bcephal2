@@ -536,7 +536,7 @@ namespace Misp.Sourcing.GridViews
             {
                 if (column.show) this.AddColumn(column);
             }
-            this.Children.Add(this.gridControl);
+            this.Children.Add(this.gridControl);            
             //RemoveLastEmptyColumn();
             RebuildGrid = false;
         }

@@ -596,6 +596,7 @@ namespace Misp.Sourcing.InputGrid
                 //filter.grid = page.EditedObject;
                 filter.page = currentPage;
                 filter.pageSize = (int)page.getInputGridForm().GridForm.toolBar.pageSizeComboBox.SelectedItem;
+                filter.showAll = page.getInputGridForm().GridForm.toolBar.showAllCheckBox.IsChecked.Value;
                 GrillePage rows = this.GetInputGridService().getGridRows(filter);
                 page.getInputGridForm().GridForm.displayPage(rows);
                 //OnChange();

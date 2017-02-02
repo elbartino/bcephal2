@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
-             d:DesignHeight="30" d:DesignWidth="600" HorizontalAlignment="Center" VerticalAlignment="Center">
+             d:DesignHeight="30" d:DesignWidth="650" HorizontalAlignment="Center" VerticalAlignment="Center">
     <Grid.RowDefinitions>
         <RowDefinition Height="14*"/>
         <RowDefinition/>
@@ -19,6 +19,7 @@
         <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="*"/>
         <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="85"/>
         <ColumnDefinition Width="85"/>
     </Grid.ColumnDefinitions>
 
@@ -58,5 +59,6 @@
     
     <Label Content="Page size" Grid.Column="8" VerticalAlignment="Center" Margin="5,0" HorizontalAlignment="Right"/>
     <ComboBox x:Name="pageSizeComboBox" x:FieldModifier="public" Grid.Column="9" VerticalAlignment="Center" Margin="0 2 15 2"  HorizontalAlignment="Right" Width="70"/>
+    <CheckBox x:Name="showAllCheckBox" x:FieldModifier="public" Grid.Column="10" Content="Show all" VerticalAlignment="Center" Margin="0 2 5 2"  HorizontalAlignment="Right"/>
     
 </Grid>

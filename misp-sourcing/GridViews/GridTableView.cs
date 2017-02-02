@@ -27,6 +27,8 @@ namespace Misp.Sourcing.GridViews
             this.AllowEditing = true;
             this.UseIndicatorForSelection = true;
             this.ShowCheckBoxSelectorColumn = true;
+            this.AllowFixedColumnMenu = true;
+            
             //this.ShowCheckBoxSelectorInGroupRow = true;
             this.NavigationStyle = GridViewNavigationStyle.Cell;
             //this.OptionsClipboard.

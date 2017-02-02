@@ -71,8 +71,11 @@ namespace Misp.Sourcing.GridViews
             this.nextPageButton.Foreground = this.nextPageButton.IsEnabled ? Brushes.Black : Brushes.Gray;
             this.LastPageButton.Foreground = this.LastPageButton.IsEnabled ? Brushes.Black : Brushes.Gray;
 
-            this.pageSizeComboBox.SelectedItem = page.pageSize;
-            this.pageSizeComboBox.IsEnabled = page.pageCount > 0;
+            if (!this.showAllCheckBox.IsChecked.Value)
+            {
+                this.pageSizeComboBox.SelectedItem = page.pageSize;
+                this.pageSizeComboBox.IsEnabled = page.pageCount > 0;
+            }
 
             this.Visibility = page.pageCount > 0 ? Visibility.Visible : Visibility.Hidden;
             throwHandler = true;
@@ -85,6 +88,14 @@ namespace Misp.Sourcing.GridViews
             this.nextPageButton.Click += OnNextPage;
             this.LastPageButton.Click += OnLastPage;
             this.pageSizeComboBox.SelectionChanged += OnSelectPageSize;
+            this.showAllCheckBox.Checked += OnShowAllChecked;
+            this.showAllCheckBox.Unchecked += OnShowAllChecked;
+        }
+
+        private void OnShowAllChecked(object sender, RoutedEventArgs e)
+        {
+            this.pageSizeComboBox.IsEnabled = !this.showAllCheckBox.IsChecked.Value;
+            if (throwHandler) GotoPage(1);
         }
 
         private void OnSelectPageSize(object sender, SelectionChangedEventArgs e)
