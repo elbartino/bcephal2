@@ -479,15 +479,12 @@ namespace Misp.Kernel.Ui.EditableTree
             {
                 foreach (Domain.Measure measure in measures)
                 {
-
-                    Domain.Measure copy = GetCopy(measure);
-                    copy.name = GetNewMeasureName(copy.name);    
-
+                    measure.name = GetNewMeasureName(measure.name);
                     ForgetDefaultMeasures(parent);
                     measure.SetParent(parent);
-                    parent.AddChild(copy);
+                    parent.AddChild(measure);
                     AddDefaultMeasures(parent);
-                    addToSource(copy);
+                    addToSource(measure);
                 }
                 measures.Clear();
                 if (Changed != null) Changed();
@@ -538,6 +535,7 @@ namespace Misp.Kernel.Ui.EditableTree
             foreach (Domain.Measure child in measure.childrenListChangeHandler.Items)
             {
                 child.SetParent(measure);
+                child.name = GetNewMeasureName(child.name);
                 addToSource(child);
             }
         }
@@ -706,14 +704,13 @@ namespace Misp.Kernel.Ui.EditableTree
             measure.name = name;
             if (Root != null)
             {
-                Kernel.Domain.Measure m = null;
+                Kernel.Domain.Measure m = (Domain.Measure)Root.GetChildByName(measure.name);
                 int i = 1;
-                do
+                while (m != null) ;
                 {
                     measure.name = name + i++;
                     m = (Domain.Measure)Root.GetChildByName(measure.name);
-                }
-                while (m != null);
+                }                
             }
             return measure.name;
         }

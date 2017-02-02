@@ -508,14 +508,12 @@ namespace Misp.Kernel.Ui.EditableTree
             {
                 foreach (Domain.Attribute attribute in attributes)
                 {
-                    Domain.Attribute copy = GetCopy(attribute);
-                    copy.name = GetNewAttributeName(copy.name);    
-                   
+                    attribute.name = GetNewAttributeName(attribute.name);
                     ForgetDefaultAttributes(parent);
-                    copy.SetParent(parent);
-                    parent.AddChild(copy);
+                    attribute.SetParent(parent);
+                    parent.AddChild(attribute);
                     AddDefaultAttributes(parent);
-                    addToSource(copy);
+                    addToSource(attribute);
                 }
                 attributes.Clear();
                 if (Changed != null) Changed();
@@ -566,6 +564,7 @@ namespace Misp.Kernel.Ui.EditableTree
             foreach (Domain.Attribute child in attribute.childrenListChangeHandler.Items)
             {
                 child.SetParent(attribute);
+                child.name = GetNewAttributeName(child.name);
                 addToSource(child);
             }
         }
@@ -734,14 +733,13 @@ namespace Misp.Kernel.Ui.EditableTree
             attribute.name = name;
             if (Root != null)
             {
-                Kernel.Domain.Attribute m = null;
+                Kernel.Domain.Attribute m = (Domain.Attribute)Root.GetChildByName(attribute.name);
                 int i = 1;
-                do
+                while (m != null)
                 {
                     attribute.name = name + i++;
                     m = (Domain.Attribute)Root.GetChildByName(attribute.name);
-                }
-                while (m != null);
+                }                
             }
             return attribute.name;
         }
