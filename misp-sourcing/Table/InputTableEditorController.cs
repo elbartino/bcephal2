@@ -223,7 +223,12 @@ namespace Misp.Sourcing.Table
                 isOk = GetInputTableService().locked(ApplicationManager.File.oid.Value, table.oid.Value);
                 if (!isOk)
                 {
-                    MessageDisplayer.DisplayWarning("Entity Locked", "Table locked by another user!");
+                    String entity = "Table";
+                    if (isReport()) entity = "Report";
+                    MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion(entity + " Locked", entity + " '" + table.name + "' is locked by another user!\n" 
+                        + "You cannot edit the " + entity + " until the " + entity + " is open by another user.\n"
+                        + "Do you want to switch in read only mode ?");
+                    if (MessageBoxResult.Yes != response) return OperationState.STOP;
                 }
             }
 
@@ -2631,6 +2636,7 @@ namespace Misp.Sourcing.Table
         protected void UpdateStatusBar(Parameter parameter)
         {
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
+            if (page == null) return;
             Kernel.Ui.Office.Range range = page.getInputTableForm().SpreadSheet.GetSelectedRange();
             if (range == null) return;
             string sheetName = range.Sheet.Name;

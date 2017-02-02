@@ -78,6 +78,29 @@ namespace Misp.Kernel.Service
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="oid">Oid of the object to return.</param>
+        /// <returns>Object such that object.oid == oid.</returns>
+        public virtual bool locked(int fileOid, int oid)
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath + "/locked/" + fileOid + "/" + oid, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                bool value = Serializer.Deserialize<bool>(queryResult.Content);
+                return value;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to lock object.", e);
+                throw new ServiceExecption("Unable to lock object.", e);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns>List of BrowserData</returns>
         public virtual List<B> getBrowserDatas()
         {

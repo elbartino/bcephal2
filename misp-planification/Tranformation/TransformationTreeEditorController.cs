@@ -105,7 +105,10 @@ namespace Misp.Planification.Tranformation
                 isOk = GetTransformationTreeService().locked(ApplicationManager.File.oid.Value, tree.oid.Value);
                 if (!isOk)
                 {
-                    MessageDisplayer.DisplayWarning("Entity Locked", "Tree locked by another user!");
+                    MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Tree Locked", "Tree '" + tree.name + "' is locked by another user!\n"
+                        + "You cannot edit the tree until the tree is open by another user.\n"
+                        + "Do you want to switch in read only mode ?");
+                    if (MessageBoxResult.Yes != response) return OperationState.STOP;
                 }
             }
 
