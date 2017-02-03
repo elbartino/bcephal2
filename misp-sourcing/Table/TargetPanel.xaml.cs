@@ -53,7 +53,7 @@ namespace Misp.Sourcing.Table
         /// 
         /// </summary>
         /// <param name="table"></param>
-        public void DisplayScope(Target scope,bool isNoAllocation=false)
+        public void DisplayScope(Target scope,bool isNoAllocation=false,bool readOnly = false)
         {
             this.Scope = scope;
             this.panel.Children.Clear();
@@ -61,6 +61,7 @@ namespace Misp.Sourcing.Table
             if (scope == null)
             {
                 this.ActiveItemPanel = new TargetItemPanel(index);
+                this.ActiveItemPanel.SetReadOnly(readOnly);
                 //this.ActiveItemPanel = new ScopeItemPanel(index);
                 AddItemPanel(this.ActiveItemPanel);
                 return;
@@ -68,10 +69,12 @@ namespace Misp.Sourcing.Table
             foreach (TargetItem item in scope.targetItemListChangeHandler.Items)
             {
                 TargetItemPanel itemPanel = new TargetItemPanel(item,isNoAllocation);
+                itemPanel.SetReadOnly(readOnly);
                 AddItemPanel(itemPanel);
                 index++;
             }
             this.ActiveItemPanel = new TargetItemPanel(index,isNoAllocation);
+            this.ActiveItemPanel.SetReadOnly(readOnly);
             AddItemPanel(this.ActiveItemPanel);
         }
 

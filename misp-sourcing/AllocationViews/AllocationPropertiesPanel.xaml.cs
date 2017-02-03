@@ -41,7 +41,7 @@ namespace Misp.Sourcing.AllocationViews
         }
 
 
-        public void Display(Kernel.Domain.CellProperty cellProperty)
+        public void Display(Kernel.Domain.CellProperty cellProperty,bool readOnly =false)
         {
             thrawChange = false;
             bool isNoAllocation = cellProperty.cellAllocationData != null &&
@@ -53,10 +53,19 @@ namespace Misp.Sourcing.AllocationViews
             this.ForAllocationCheckBox.IsChecked = cellProperty != null ? cellProperty.IsForAllocation : false;
             this.CellAllocationData = cellProperty != null ? cellProperty.cellAllocationData : null;
             this.ActivateAllocationCheckBox.IsChecked = CellAllocationData != null ? CellAllocationData.active : true;
-            this.AllocationPanel.DisplayAllocationData(this.CellAllocationData);
+            this.AllocationPanel.DisplayAllocationData(this.CellAllocationData,readOnly);
             this.AllocationForm.EditedObject = this.CellAllocationData != null ? this.CellAllocationData.allocationTree : null;
+            if (readOnly) SetReadOnly(readOnly);
+
             this.AllocationForm.displayObject();
             thrawChange = true;
+        }
+
+        public void SetReadOnly(bool readOnly)
+        {
+            this.ResetButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.ForAllocationCheckBox.IsEnabled = !readOnly;
+            this.ActivateAllocationCheckBox.IsEnabled = !readOnly;
         }
 
         public Kernel.Domain.CellPropertyAllocationData FillAllocationData() 

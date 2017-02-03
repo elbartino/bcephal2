@@ -98,7 +98,7 @@ namespace Misp.Sourcing.Table
         /// affiche les parametres d'allocation sur la vue
         /// </summary>
         /// <param name="allocationData"></param>
-        public void DisplayAllocationData(CellPropertyAllocationData allocationData)
+        public void DisplayAllocationData(CellPropertyAllocationData allocationData,bool readOnly = false)
         {
             thrawChange = false;
             this.AllocationData = allocationData;
@@ -120,7 +120,15 @@ namespace Misp.Sourcing.Table
                 this.ConsiderCell.IsChecked = true;
             }
             updateButtons();
+            if (readOnly) SetReadOnly(readOnly);
             thrawChange = true;
+        }
+
+        public void SetReadOnly(bool readOnly)
+        {
+            this.TypeComboBox.IsEnabled = !readOnly;
+            this.ShowInShorcut.IsEnabled = !readOnly;
+            this.ConsiderCell.IsEnabled = !readOnly;
         }
 
         /// <summary>

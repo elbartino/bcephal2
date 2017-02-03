@@ -272,7 +272,11 @@ namespace Misp.Sourcing.Table
         public virtual void SetReadOnly(bool readOnly)
         {
             this.IsReadOnly = readOnly;
-            //if (TablePropertiesPanel != null) TablePropertiesPanel.SetReadOnly(readOnly);
+            if (TablePropertiesPanel != null) TablePropertiesPanel.SetReadOnly(readOnly);
+            if (TableCellParameterPanel != null) TableCellParameterPanel.SetReadOnly(readOnly);
+            //if (AllocationForm  != null) AllocationForm.SetReadOnly(readOnly);
+            if (AllocationPropertiesPanel != null) AllocationPropertiesPanel.SetReadOnly(readOnly);
+            if (SpreadSheet != null) SpreadSheet.SetReadOnly(readOnly);
         }
 
         protected virtual bool isReport()

@@ -47,7 +47,7 @@ namespace Misp.Sourcing.Table
         /// 
         /// </summary>
         /// <param name="table"></param>
-        public void displayTable(InputTable table, bool isNoAllocation = false)
+        public void displayTable(InputTable table, bool isNoAllocation = false,bool readOnly=false)
         {
             if (table == null) return;
             thowEvent = false;
@@ -57,9 +57,9 @@ namespace Misp.Sourcing.Table
             templateCheckBox.IsChecked = table.template;
             visibleInShortcutCheckBox.IsChecked = table.visibleInShortcut;
 
-            if (reportPeriodPanel != null) this.reportPeriodPanel.DisplayPeriod(table.period, true);
-            else periodPanel.DisplayPeriod(table.period, true);
-            filterScopePanel.DisplayScope(table.correctFilter(),isNoAllocation);
+            if (reportPeriodPanel != null) this.reportPeriodPanel.DisplayPeriod(table.period, true,readOnly);
+            else periodPanel.DisplayPeriod(table.period, true,readOnly);
+            filterScopePanel.DisplayScope(table.correctFilter(),isNoAllocation,readOnly);
             thowEvent = true;
         }
 
@@ -108,7 +108,19 @@ namespace Misp.Sourcing.Table
         {
             filterScopePanel.Expand(expand);
         }
-
-
+                
+        public void SetReadOnly(bool readOnly)
+        {
+            if (activeCheckBox != null) activeCheckBox.IsEnabled = !readOnly;
+            if (templateCheckBox != null) templateCheckBox.IsEnabled = !readOnly;
+            if (visibleInShortcutCheckBox != null) visibleInShortcutCheckBox.IsEnabled = !readOnly;
+            this.ResetAllCellsButton.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            if (nameTextBox != null) nameTextBox.IsEnabled = !readOnly;
+            if (reportPeriodPanel != null) reportPeriodPanel.SetReadOnly(readOnly);
+            if (periodPanel != null) periodPanel.SetReadOnly(readOnly);
+            //if (periodPanel != null) periodPanel.SetReadOnly(readOnly);
+            //if (filterScopePanel != null) filterScopePanel.SetReadOnly(readOnly);
+            if (groupField != null) groupField.SetReadOnly(readOnly);
+        }
     }
 }

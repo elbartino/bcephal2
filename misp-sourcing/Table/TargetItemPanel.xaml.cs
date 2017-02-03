@@ -304,5 +304,11 @@ namespace Misp.Sourcing.Table
 
 
         #endregion
+
+        public void SetReadOnly(bool readOnly)
+        {
+            this.button.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.formulaTextBox.IsEnabled = !readOnly;
+        }
     }
 }

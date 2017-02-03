@@ -118,16 +118,18 @@ namespace Misp.Sourcing.Table
         /// 
         /// </summary>
         /// <param name="table"></param>
-        public void DisplayPeriod(Period period, bool isTableView = false)
+        public void DisplayPeriod(Period period, bool isTableView = false,bool readOnly=false)
         {
             this.Period = period;
             this.panel.Children.Clear();
             if(forAutomaticSourcing) this.tagFormula.Visibility = System.Windows.Visibility.Collapsed;
+            if (readOnly) this.NewPeriodTextBlock.Visibility = System.Windows.Visibility.Collapsed;
             int index = 1;
             if (period == null || period.itemListChangeHandler.Items.Count == 0)
             {
                 this.ActiveItemPanel = new PeriodItemPanel(index, forReport,forAutomaticSourcing,isTableView);
                 this.ActiveItemPanel.NameTextBox.Text = PeriodName.DEFAULT_DATE_NAME;
+                this.ActiveItemPanel.SetReadOnly(readOnly);
                 AddItemPanel(this.ActiveItemPanel);
                 return;
             }
@@ -137,6 +139,7 @@ namespace Misp.Sourcing.Table
                 isDefaultDate = item.name.Equals(PeriodName.DEFAULT_DATE_NAME, StringComparison.OrdinalIgnoreCase);
                 isDefaultDate = isDefaultDate && String.IsNullOrEmpty(item.value);
                 PeriodItemPanel itemPanel = new PeriodItemPanel(item, forReport,forAutomaticSourcing,isTableView);
+                itemPanel.SetReadOnly(readOnly);
                 AddItemPanel(itemPanel);
                 index++;
             }
@@ -362,6 +365,11 @@ namespace Misp.Sourcing.Table
 
 
         public void CustomizeForLoop()
+        {
+            
+        }
+
+        public void SetReadOnly(bool readOnly)
         {
             
         }

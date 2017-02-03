@@ -58,7 +58,7 @@ namespace Misp.Sourcing.Table
         }
 
 
-        public void Display(Kernel.Domain.CellProperty cellProperty)
+        public void Display(Kernel.Domain.CellProperty cellProperty,bool readOnly = false)
         {
             thrawChange = false;
             bool isNoAllocation = cellProperty.cellAllocationData != null && 
@@ -68,11 +68,11 @@ namespace Misp.Sourcing.Table
 
             this.CellTextBox.Text = cellProperty != null ? cellProperty.name : "";
           //  this.ForAllocationCheckBox.IsChecked = cellProperty != null ? cellProperty.IsForAllocation : false;
-            this.CellMeasurePanel.Display(cellProperty != null ? cellProperty.cellMeasure : null);
+            this.CellMeasurePanel.Display(cellProperty != null ? cellProperty.cellMeasure : null,readOnly);
 
-            if (reportPeriodPanel != null) this.reportPeriodPanel.DisplayPeriod(cellProperty != null ? cellProperty.period : null);
-            else this.periodPanel.DisplayPeriod(cellProperty != null ? cellProperty.period : null);
-            this.filterScopePanel.DisplayScope((cellProperty != null ? cellProperty.cellScope : null),isNoAllocation);
+            if (reportPeriodPanel != null) this.reportPeriodPanel.DisplayPeriod(cellProperty != null ? cellProperty.period : null,false,readOnly);
+            else this.periodPanel.DisplayPeriod(cellProperty != null ? cellProperty.period : null,false,readOnly);
+            this.filterScopePanel.DisplayScope((cellProperty != null ? cellProperty.cellScope : null),isNoAllocation,readOnly);
            // this.allocationPanel.DisplayAllocationData(cellProperty != null ? cellProperty.cellAllocationData : null);
             thrawChange = true;
         }
@@ -101,5 +101,10 @@ namespace Misp.Sourcing.Table
             filterScopePanel.Expand(expand);
         }
 
+
+        public  void SetReadOnly(bool readOnly)
+        {
+            this.ResetButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
+        }
     }
 }

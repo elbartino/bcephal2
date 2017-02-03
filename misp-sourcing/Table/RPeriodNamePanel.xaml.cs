@@ -244,5 +244,11 @@ namespace Misp.Sourcing.Table
             else OnUpdate(this.ItemPanel2);
         }
 
+
+        public void SetReadOnly(bool readOnly)
+        {
+            if (this.ItemPanel1 != null) this.ItemPanel1.SetReadOnly(readOnly);
+            if (this.ItemPanel2 != null) this.ItemPanel2.SetReadOnly(readOnly);
+        }
     }
 }

@@ -714,6 +714,14 @@ namespace Misp.Kernel.Ui.Office.DevExpressSheet
         {
             //throw new NotImplementedException();
         }
+
+        public void SetReadOnly(bool readOnly)
+        {
+            DisableFormualaBar(readOnly);
+            DisableTitleBar(readOnly);
+            DisableToolBar(readOnly);
+            this.spreadsheetControl.ReadOnly = readOnly;
+        }
     }
 }
 
