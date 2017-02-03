@@ -67,12 +67,14 @@ namespace Misp.Planification.Tranformation
         public virtual void SetReadOnly(bool readOnly)
         {
             this.IsReadOnly = readOnly;
-            this.NameTextBox.IsReadOnly = readOnly;
+            this.NameTextBox.IsEnabled = !readOnly;
             this.IncreaseButton.IsEnabled = !readOnly;
             this.DecreaseButton.IsEnabled = !readOnly;
+            this.LoopComboBox.IsEnabled = !readOnly;
+            this.ValueField.SetReadOnly(readOnly);
+            //this.UserTemplatePanel.SetReadOnly(readOnly);
 
-            //this.ValueField.SetReadOnly(readOnly);
-
+            this.DeleteAllValuesButton.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
             this.SideBarGridSplitter.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
             this.SideBar.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
             this.DeleteButton.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;

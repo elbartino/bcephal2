@@ -112,6 +112,15 @@ namespace Misp.Planification.Tranformation
             this.LoopValue = item;
         }
 
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            if (readOnly)
+            {
+                this.CloseButton.Visibility = System.Windows.Visibility.Collapsed;
+                this.CloseButton1.Visibility = System.Windows.Visibility.Collapsed;
+            }
+        }
+
         #endregion
 
 

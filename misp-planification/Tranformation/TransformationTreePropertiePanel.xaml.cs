@@ -29,7 +29,7 @@ namespace Misp.Planification.Tranformation
 
         public virtual void SetReadOnly(bool readOnly)
         {
-            this.nameTextBox.IsReadOnly = readOnly;
+            this.nameTextBox.IsEnabled = !readOnly;
             this.visibleInShortcutCheckBox.IsEnabled = !readOnly;
             this.groupField.SetReadOnly(readOnly);
         }

@@ -352,6 +352,7 @@ namespace Misp.Planification.Tranformation
         {
             this.IsReadOnly = readOnly;
             if(this.TransformationTreePropertiePanel != null) this.TransformationTreePropertiePanel.SetReadOnly(readOnly);
+            if (this.TransformationTreeDiagramView != null) this.TransformationTreeDiagramView.SetReadOnly(readOnly);
         }
 
 
@@ -373,7 +374,6 @@ namespace Misp.Planification.Tranformation
                 if (this.LoopDialog == null)
                 {
                     this.LoopDialog = new LoopDialog();
-                    this.LoopDialog.SetReadOnly(this.IsReadOnly);
                     this.LoopDialog.TransformationTreeService = this.TransformationTreeService;
                     if (!this.IsReadOnly) this.LoopDialog.initializeSideBar();
                     if (!this.IsReadOnly) this.LoopDialog.SaveButton.Click += OnLoopDialogSave;
@@ -384,6 +384,7 @@ namespace Misp.Planification.Tranformation
                 
                 this.LoopDialog.Loop = item;
                 this.LoopDialog.DisplayItem();
+                this.LoopDialog.SetReadOnly(this.IsReadOnly);
                 if (!this.LoopDialog.IsVisible) this.LoopDialog.ShowDialog();
             }
             else 
@@ -391,7 +392,6 @@ namespace Misp.Planification.Tranformation
                 if (this.ActionDialog == null)
                 {
                     this.ActionDialog = new TreeActionDialog();
-                    this.ActionDialog.SetReadOnly(this.IsReadOnly);
                     this.ActionDialog.TransformationTreeService = this.TransformationTreeService;
                     if (!this.IsReadOnly) this.ActionDialog.initializeSideBarHandlers();
                     if (!this.IsReadOnly) this.ActionDialog.SaveButton.Click += OnActionDialogSave;
@@ -431,7 +431,9 @@ namespace Misp.Planification.Tranformation
                 };
                                 
                 action.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(this.ActionDialog.OnBusyPropertyChanged);
+                this.ActionDialog.IsReadOnly = this.IsReadOnly;
                 action.Run();
+                this.ActionDialog.SetReadOnly(this.IsReadOnly);
                 if(!this.ActionDialog.IsVisible) this.ActionDialog.ShowDialog();
             }
         }

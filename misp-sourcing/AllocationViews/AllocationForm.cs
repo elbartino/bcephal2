@@ -21,6 +21,7 @@ namespace Misp.Sourcing.AllocationViews
 
         #region Properties
 
+        public bool IsReadOnly { get; set; }
         public AllocationDiagram AllocationDiagramView { get; set; }
         public AllocationBoxDialog AllocationBoxDialog { get; set; }
         public DesignerItem EditedDesignerItem { get; set; }
@@ -223,7 +224,13 @@ namespace Misp.Sourcing.AllocationViews
 
         
         #region Operations
-        
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+            if (this.AllocationDiagramView != null) this.AllocationDiagramView.SetReadOnly(readOnly);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -237,8 +244,8 @@ namespace Misp.Sourcing.AllocationViews
             {
                 this.AllocationBoxDialog = new AllocationBoxDialog();
                 this.AllocationBoxDialog.TransformationTreeService = this.TransformationTreeService;
-                this.AllocationBoxDialog.initializeSideBar();
-                this.AllocationBoxDialog.SaveButton.Click += OnLoopDialogSave;
+                if (!this.IsReadOnly) this.AllocationBoxDialog.initializeSideBar();
+                if (!this.IsReadOnly) this.AllocationBoxDialog.SaveButton.Click += OnLoopDialogSave;
                 this.AllocationBoxDialog.CancelButton.Click += OnLoopDialogCancel;
                 this.AllocationBoxDialog.Closing += OnLoopDialogClosing;
                 this.AllocationBoxDialog.Owner = ApplicationManager.Instance.MainWindow;
@@ -246,6 +253,7 @@ namespace Misp.Sourcing.AllocationViews
                 
             this.AllocationBoxDialog.Loop = item;
             this.AllocationBoxDialog.DisplayItem();
+            this.AllocationBoxDialog.SetReadOnly(this.IsReadOnly);
             if (!this.AllocationBoxDialog.IsVisible) this.AllocationBoxDialog.ShowDialog();
         }
 

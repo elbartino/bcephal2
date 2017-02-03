@@ -27,6 +27,11 @@ namespace Misp.Sourcing.AllocationDiagrams
 
         }
 
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            designerCanvas.SetReadOnly(readOnly);
+        }
+
         private void onZoom(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             double value = zoomSlide.Value;

@@ -19,14 +19,7 @@ namespace Misp.Planification.Diagram
 {
     public class DiagramCanvas : DiagramDesigner.DesignerCanvas
     {
-        public bool IsReadOnly { get; set; }
-
-        public virtual void SetReadOnly(bool readOnly)
-        {
-            this.IsReadOnly = readOnly;
-            if (readOnly) this.ContextMenu = null;
-        }
-
+        
         protected override void initContextMenu()
         {
             base.initContextMenu();

@@ -108,6 +108,14 @@ namespace Misp.Planification.Tranformation
 
         #region Operations
 
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            foreach (UIElement child in Panel.Children)
+            {
+                if (child is LoopValueItemField) ((LoopValueItemField)child).SetReadOnly(readOnly);
+            }  
+        }
+
         public void Display(TransformationTreeItem item)
         {
             throwEvent = false;

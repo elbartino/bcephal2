@@ -33,8 +33,8 @@ namespace Misp.Sourcing.AllocationDiagrams
 
         protected override void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            base.OnContextMenuOpening(sender, e);            
-            ((DesignerContextMenu)this.ContextMenu).CustomizeForAllocation();
+            base.OnContextMenuOpening(sender, e);
+            if (this.ContextMenu != null) ((DesignerContextMenu)this.ContextMenu).CustomizeForAllocation();
         }
 
         protected override DesignerItem GetNewDesignerItem(Guid id)

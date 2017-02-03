@@ -99,18 +99,25 @@ namespace DiagramDesigner
 
         protected virtual void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            CustomizeContextMenu();
-            if (e.Source is DesignerItem)
+            if (this.IsReadOnly)
             {
-                ((DesignerContextMenu)this.ContextMenu).CustomizeForItem();
-            }
-            else if (e.Source is Connection)
-            {
-                ((DesignerContextMenu)this.ContextMenu).CustomizeForConnector();
+                this.ContextMenu = null;
             }
             else
             {
-                ((DesignerContextMenu)this.ContextMenu).CustomizeForDiagram();
+                CustomizeContextMenu();
+                if (e.Source is DesignerItem)
+                {
+                    ((DesignerContextMenu)this.ContextMenu).CustomizeForItem();
+                }
+                else if (e.Source is Connection)
+                {
+                    ((DesignerContextMenu)this.ContextMenu).CustomizeForConnector();
+                }
+                else
+                {
+                    ((DesignerContextMenu)this.ContextMenu).CustomizeForDiagram();
+                }
             }
         }
 
