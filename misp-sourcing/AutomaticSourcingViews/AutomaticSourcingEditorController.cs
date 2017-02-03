@@ -467,8 +467,7 @@ namespace Misp.Sourcing.Base
             ((AutomaticSourcingSideBar)SideBar).AutomaticSourcingGroup.AutomaticSourcingTreeview.SelectionChanged += SidebarAutomaticSourcingSelected;
             ((AutomaticSourcingSideBar)SideBar).MeasureGroup.Tree.Click += SidebarMeasureSelected;
             ((AutomaticSourcingSideBar)SideBar).EntityGroup.Tree.Click += SidebarTargetSelected;
-            //((AutomaticSourcingSideBar)SideBar).EntityGroup.Tree.OnRightClick += onRightClickFromSidebar;
-           // ((AutomaticSourcingSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += SidebarPeriodNameSelected;
+            ((AutomaticSourcingSideBar)SideBar).PeriodGroup.Tree.Click += SidebarPeriodNameSelected;
         }
         
         private void SidebarPeriodNameSelected(object sender)

@@ -27,7 +27,6 @@ namespace Misp.Sourcing.Designer
         public TargetGroup TargetGroup { get; set; }
         public CalculatedMeasureGroup CalculateMeasureGroup { get; set; }
         public CustomizedTargetGroup CustomizedTargetGroup { get; set; }
-        public PeriodicityGroup PeriodicityGroup { get; set; }
         public PeriodSidebarGroup PeriodGroup { get; set; }
 
         #endregion

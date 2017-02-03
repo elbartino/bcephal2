@@ -609,6 +609,7 @@ namespace Misp.Planification.Tranformation
             SideBar.CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
             SideBar.TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
             SideBar.TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += OnSelecteLoopFromSidebar;
+            SideBar.PeriodGroup.Tree.Click += onSelectPeriodNameFromSidebar;
         }
 
         private void OnSelecteLoopFromSidebar(object item)
