@@ -73,10 +73,15 @@ namespace Misp.Kernel.Ui.Group
                     g = GroupService.getByOid(g.oid.Value);
                     this.Group = g;
                     if (Changed != null) Changed();
-                }
-                
+                }                
             }
         }
 
+
+        public void SetReadOnly(bool readOnly)
+        {
+            this.button.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.textBox.IsEnabled = !readOnly;
+        }
     }
 }

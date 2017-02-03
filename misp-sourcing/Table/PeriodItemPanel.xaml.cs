@@ -517,5 +517,16 @@ namespace Misp.Sourcing.Table
         
         #endregion
 
+
+        public void SetReadOnly(bool readOnly)
+        {
+            this.SignComboBox.IsEnabled = !readOnly;
+            this.ValueDatePicker.IsEnabled = !readOnly;
+            this.FormulaTextBox.IsEnabled = !readOnly;
+            this.operationComboBox.IsEnabled = !readOnly;
+            this.numberValueTextBox.IsEnabled = !readOnly;
+            this.granulartityComBox.IsEnabled = !readOnly;
+            this.Button.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+        }
     }
 }

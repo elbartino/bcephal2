@@ -220,7 +220,8 @@ namespace Misp.Sourcing.Table
             bool isOk = true;
             if (table.oid.HasValue)
             {
-                isOk = GetInputTableService().locked(ApplicationManager.File.oid.Value, table.oid.Value);
+                //isOk = GetInputTableService().locked(ApplicationManager.File.oid.Value, table.oid.Value);
+                isOk = false;
                 if (!isOk)
                 {
                     String entity = "Table";
@@ -257,7 +258,7 @@ namespace Misp.Sourcing.Table
             }
             bool isNoAllocation = false;
             
-            ((InputTableEditorItem)page).getInputTableForm().TablePropertiesPanel.displayTable(table, isNoAllocation);
+            ((InputTableEditorItem)page).getInputTableForm().TablePropertiesPanel.displayTable(table, isNoAllocation,page.IsReadOnly);
             setActivationTableAction(table);
             setIsTemplateTableAction(table);
             //OnDisplayActiveCellData();
@@ -278,10 +279,12 @@ namespace Misp.Sourcing.Table
             ((InputTableEditorItem)page).getInputTableForm().SpreadSheet.Open(filePath);
             ((InputTableEditorItem)page).getInputTableForm().InputTableService = (InputTableService)this.Service;
             UpdateStatusBar(null);
-            CustomizeSpreedSheet((InputTableEditorItem)page);
+            //CustomizeSpreedSheet((InputTableEditorItem)page);
             getEditor().ListChangeHandler.AddNew(table);
             GetInputTableService().createTable(table);
             page.SetReadOnly(true);
+            bool isNoAllocation = false;
+            ((InputTableEditorItem)page).getInputTableForm().TablePropertiesPanel.displayTable(table, isNoAllocation, page.IsReadOnly);
             page.IsModify = false;
             return OperationState.CONTINUE;
         }
@@ -789,7 +792,9 @@ namespace Misp.Sourcing.Table
         {
             return false;
         }
-        
+
+       
+
         /// <summary>
         /// Run audit
         /// </summary>
@@ -1591,8 +1596,8 @@ namespace Misp.Sourcing.Table
 
             if (table.period != null) table.period.itemListChangeHandler.Items = table.period.itemListChangeHandler.getItems();
 
-            if (page.getInputTableForm().TablePropertiesPanel.reportPeriodPanel != null) page.getInputTableForm().TablePropertiesPanel.reportPeriodPanel.DisplayPeriod(table.period, true);
-            else page.getInputTableForm().TablePropertiesPanel.periodPanel.DisplayPeriod(table.period, true);
+            if (page.getInputTableForm().TablePropertiesPanel.reportPeriodPanel != null) page.getInputTableForm().TablePropertiesPanel.reportPeriodPanel.DisplayPeriod(table.period, true, page.IsReadOnly);
+            else page.getInputTableForm().TablePropertiesPanel.periodPanel.DisplayPeriod(table.period, true, page.IsReadOnly);
             page.EditedObject = table;
             page.EditedObject.isModified = true;
             OnChange();
@@ -2643,10 +2648,10 @@ namespace Misp.Sourcing.Table
                 }
             }
 
-                                    
-            page.getInputTableForm().TableCellParameterPanel.Display(cellProperty);
-            page.getInputTableForm().TablePropertiesPanel.displayTable(page.EditedObject,isNoAllocation);
-            page.getInputTableForm().AllocationPropertiesPanel.Display(cellProperty);
+            bool readOnly = page.IsReadOnly;
+            page.getInputTableForm().TableCellParameterPanel.Display(cellProperty, readOnly);
+            page.getInputTableForm().TablePropertiesPanel.displayTable(page.EditedObject, isNoAllocation, readOnly);
+            page.getInputTableForm().AllocationPropertiesPanel.Display(cellProperty, readOnly);
             UpdateStatusBar(null);
             
         }

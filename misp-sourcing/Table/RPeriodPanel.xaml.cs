@@ -106,7 +106,7 @@ namespace Misp.Sourcing.Table
         /// 
         /// </summary>
         /// <param name="table"></param>
-        public void DisplayPeriod(Period period, bool isTableView = false)
+        public void DisplayPeriod(Period period, bool isTableView = false,bool readOnly = false)
         {
             this.Period = period;
             this.panel.Children.Clear();
@@ -115,6 +115,7 @@ namespace Misp.Sourcing.Table
             {
                 if (DefaultPeriodName != null) this.ActiveNamePanel = new RPeriodNamePanel(DefaultPeriodName.name);
                 else this.ActiveNamePanel = new RPeriodNamePanel();
+                this.ActiveNamePanel.SetReadOnly(readOnly);
                 AddNamePanel(this.ActiveNamePanel);
                 return;
             }
@@ -126,6 +127,7 @@ namespace Misp.Sourcing.Table
                 List<PeriodItem> items;
                 dictionary.TryGetValue(name, out items);
                 RPeriodNamePanel itemPanel = new RPeriodNamePanel(name, items);
+                itemPanel.SetReadOnly(readOnly);
                 itemPanel.Index = index;
                 AddNamePanel(itemPanel);
                 index++;
@@ -133,9 +135,12 @@ namespace Misp.Sourcing.Table
             if (this.panel.Children.Count == 0)
             {
                 this.ActiveNamePanel = new RPeriodNamePanel();
+                this.ActiveNamePanel.SetReadOnly(readOnly);
                 AddNamePanel(this.ActiveNamePanel);
             }
         }
+
+        
         
         /// <summary>
         /// Définit la valeur du TargetItem en cour d'édition
@@ -357,5 +362,9 @@ namespace Misp.Sourcing.Table
         #endregion
 
 
+        public void SetReadOnly(bool readOnly)
+        {
+            if (NewPeriodTextBlockRow != null) NewPeriodTextBlock.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+        }
     }
 }

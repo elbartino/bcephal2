@@ -101,12 +101,13 @@ namespace Misp.Sourcing.Table
             }
         }
 
-        public void Display(CellMeasure item)
+        public void Display(CellMeasure item,bool readOnly=false)
         {
             update = false;
             this.CellMeasure = item;
             this.ValueTextBox.Text = item != null ? item.measure != null ? item.measure.name : item.name: "";
             this.FormulaTextBox.Text = item != null && item.formula != null ? item.formula : "";
+            this.FormulaTextBox.IsEnabled = !readOnly;
             update = true;
         }
 
