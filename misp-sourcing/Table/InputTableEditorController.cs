@@ -258,8 +258,8 @@ namespace Misp.Sourcing.Table
             bool isNoAllocation = false;
             
             ((InputTableEditorItem)page).getInputTableForm().TablePropertiesPanel.displayTable(table, isNoAllocation);
-            setActivationTableAction(table);
-            setIsTemplateTableAction(table);
+            setActivationTableAction(table, isReadonly);
+            setIsTemplateTableAction(table, isReadonly);
             //OnDisplayActiveCellData();
             page.IsModify = false;
             return OperationState.CONTINUE;
@@ -267,47 +267,39 @@ namespace Misp.Sourcing.Table
 
 
         public override OperationState OpenInReadOnlyMode(InputTable table)
-        {            
-            string excelDir = getExcelFolder();
-            string filePath = excelDir + table.name + SheetConst.EXCEL_EXT;
-            string tempPath = GetInputTableService().FileService.FileTransferService.downloadTable(table.name + SheetConst.EXCEL_EXT);
-            filePath = tempPath + table.name + SheetConst.EXCEL_EXT;
-
-            ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.AddInputTableIfNatExist(table);
-            EditorItem<InputTable> page = getEditor().addOrSelectPage(table);
-            ((InputTableEditorItem)page).getInputTableForm().SpreadSheet.Open(filePath);
-            ((InputTableEditorItem)page).getInputTableForm().InputTableService = (InputTableService)this.Service;
-            UpdateStatusBar(null);
-            CustomizeSpreedSheet((InputTableEditorItem)page);
-            getEditor().ListChangeHandler.AddNew(table);
-            GetInputTableService().createTable(table);
-            page.SetReadOnly(true);
-            page.IsModify = false;
-            base.OnPageSelected(page);
+        {    
             return OperationState.CONTINUE;
         }
 
+        public override void SetContextMenuReadOnly(bool isReadOnly)
+        {
+            base.SetContextMenuReadOnly(isReadOnly);
+            RunMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
+            ImportMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
+            ExportMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
+            ApplyToAllMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
+            ClearMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
+        }
 
         /// <summary>
         /// met à jour les actions de désactivation et activation des buttons et menu si la table est active ou pas
         /// </summary>
         /// <param name="table"></param>
-        public void setActivationTableAction(InputTable table)
+        public void setActivationTableAction(InputTable table, bool isReadOnly = false)
         {
             ((InputTableToolBar)this.ToolBar).RunButton.IsEnabled = table.active;
             RunMenuItem.IsEnabled = table.active;
-            //OnChange();
         }
 
         /// <summary>
         /// met à jour les actions de désactivation et activation des buttons et menu si la table est un template ou pas
         /// </summary>
         /// <param name="table"></param>
-        public void setIsTemplateTableAction(InputTable table)
+        public void setIsTemplateTableAction(InputTable table, bool isReadOnly = false)
         {
             bool isTemplate = table.template;
-            ((InputTableToolBar)this.ToolBar).SaveButton.Visibility = isTemplate ? Visibility.Collapsed : Visibility.Visible;
-            ((InputTableToolBar)this.ToolBar).SaveAsButton.Visibility = isTemplate ? Visibility.Visible : Visibility.Collapsed;
+            ((InputTableToolBar)this.ToolBar).SaveButton.Visibility = isTemplate || isReadOnly ? Visibility.Collapsed : Visibility.Visible;
+            ((InputTableToolBar)this.ToolBar).SaveAsButton.Visibility = isTemplate && !isReadOnly ? Visibility.Visible : Visibility.Collapsed;
             if (isTemplate)
             {
                 SaveMenuItem.IsEnabled = !isTemplate;
@@ -473,7 +465,7 @@ namespace Misp.Sourcing.Table
         /// </returns>
         public override OperationState Save(EditorItem<InputTable> page)
         {
-            if (page.IsModify)
+            if (!page.IsReadOnly && page.IsModify)
             {
                 if (!page.validateEdition()) return OperationState.STOP;
                 InputTable table;
@@ -1285,7 +1277,7 @@ namespace Misp.Sourcing.Table
             ((InputTablePropertyBar)this.PropertyBar).ParameterLayoutAnchorable.Content = form.TableCellParameterPanel;
             ((InputTablePropertyBar)this.PropertyBar).MappingLayoutAnchorable.Content = form.TableCellParameterPanel.TableCellMappingPanel;
             OnDisplayActiveCellData();
-            setIsTemplateTableAction(page.EditedObject);
+            setIsTemplateTableAction(page.EditedObject, page.IsReadOnly);
         }
 
         /// <summary>
@@ -1465,7 +1457,7 @@ namespace Misp.Sourcing.Table
             }
             if (table == null) return;
             if (Save(page) == OperationState.STOP) return;
-            setIsTemplateTableAction(table);
+            setIsTemplateTableAction(table, page.IsReadOnly);
         }
 
         protected void OnResetAllCells(object sender, RoutedEventArgs arg)
@@ -1496,7 +1488,7 @@ namespace Misp.Sourcing.Table
             }
             if (table == null) table = page.EditedObject;
             page.getInputTableForm().TablePropertiesPanel.activeCheckBox.IsChecked = table.active;
-            setActivationTableAction(table);
+            setActivationTableAction(table, page.IsReadOnly);
         }
 
         private void OnTableVisibleInShortcutOptionChecked(object sender, RoutedEventArgs e)
