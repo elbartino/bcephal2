@@ -95,9 +95,11 @@ namespace Misp.Planification.Tranformation.LoopCondition
             //}
         }
 
-        public void DisplayInstructions(Instruction instruction)
+        public void DisplayInstructions(Instruction instruction,bool readOnly = false)
         {
             this.ConditionPanel.Children.Clear();
+
+            this.IsReadOnly = readOnly;
 
             if (instruction == null)
             {
@@ -222,6 +224,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
             ExpressionPanel panel = new ExpressionPanel();
             panel.Margin = new Thickness(50, 0, 0, 10);
             panel.Background = new SolidColorBrush();
+            panel.IsReadOnly = this.IsReadOnly;
             panel.DisplayFromLoop(item);
             panel.Height = 30;
             panel.Arg1TextBox.IsEnabled = false;
@@ -235,6 +238,14 @@ namespace Misp.Planification.Tranformation.LoopCondition
             if (this.filterScopePanel != null) this.filterScopePanel.DisplayScope(null, false, readOnly);
             if (this.periodPanel != null) this.periodPanel.DisplayPeriod(null, false, readOnly);
             if (this.CellMeasurePanel != null) this.CellMeasurePanel.Display(null, readOnly);
+            foreach (UIElement child in this.ConditionPanel.Children)
+            {
+                if (child is ExpressionPanel) ((ExpressionPanel)child).SetReadOnly(readOnly);
+            }
+        }
+
+        public void SetExpressionPanelReadOnly(bool readOnly)
+        {
             foreach (UIElement child in this.ConditionPanel.Children)
             {
                 if (child is ExpressionPanel) ((ExpressionPanel)child).SetReadOnly(readOnly);

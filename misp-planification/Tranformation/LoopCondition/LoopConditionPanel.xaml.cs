@@ -64,10 +64,6 @@ namespace Misp.Planification.Tranformation.LoopCondition
             if (liste.Count == 0)
             {
                 OnAddConditionItem(null);
-                foreach (UIElement child in this.LoopConditionsPanel.Children)
-                {
-                    if (child is LoopConditionItemPanel) ((LoopConditionItemPanel)child).SetReadOnly(this.IsReadOnly);
-                }
                 return;
             }
             else
@@ -96,7 +92,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
             LoopConditionItemPanel panel = new LoopConditionItemPanel();
             panel.Margin = new Thickness(0, 0, 0, 10);
             panel.Background = new SolidColorBrush();
-            panel.Display(item);
+            panel.Display(item,this.IsReadOnly);
             //panel.Height = 250;
             initLoopConditionHandlers(panel);
             return panel;

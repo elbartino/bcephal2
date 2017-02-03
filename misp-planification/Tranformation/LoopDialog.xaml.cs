@@ -432,7 +432,7 @@ namespace Misp.Planification.Tranformation
             LoopConditionItemPanel panel = new LoopConditionItemPanel();
             panel.Margin = new Thickness(0, 0, 0, 10);
             panel.Background = new SolidColorBrush();
-            panel.Display(item);
+            panel.Display(item,this.IsReadOnly);
             //panel.Height = 250;
             initLoopConditionHandlers(panel);
             return panel;
