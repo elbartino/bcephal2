@@ -30,8 +30,8 @@ namespace Misp.Planification.Tranformation
         public virtual void SetReadOnly(bool readOnly)
         {
             this.nameTextBox.IsReadOnly = readOnly;
-            visibleInShortcutCheckBox.IsEnabled = !readOnly;
-            //this.groupField.SetReadOnly(readOnly);
+            this.visibleInShortcutCheckBox.IsEnabled = !readOnly;
+            this.groupField.SetReadOnly(readOnly);
         }
 
         public void fillTransformationTree(TransformationTree transformationTree)
