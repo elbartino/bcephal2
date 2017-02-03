@@ -27,7 +27,8 @@ namespace DiagramDesigner
         //public event SelectionChangeEventHandler SelectionChange;
         public event ZoomEventHandler           Zoomed;
         public event ChangeEventHandler         Changed;
-        
+
+        public bool IsReadOnly { get; set; }
 
         private Point? rubberbandSelectionStartPoint = null;
 
@@ -57,6 +58,14 @@ namespace DiagramDesigner
             root.Add(connectionsXML);
             
             return root.ToString();
+        }
+
+        
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+            if (readOnly) this.ContextMenu = null;
         }
 
         public void Display(string xml)
