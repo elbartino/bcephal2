@@ -275,7 +275,7 @@ namespace Misp.Planification.Tranformation
                 dockingManager.Visibility = Visibility.Collapsed;
                 return;
             }
-
+            
             displaySideBar(page.SideBar);
             displayView(page.View);
             displayPropertyBar(page.PropertyBar);
@@ -301,6 +301,7 @@ namespace Misp.Planification.Tranformation
             sideBarContainer.CanHide = false;
             sideBarContainer.CanFloat = false;
             sideBarContainer.Content = sideBar;
+            if(this.IsReadOnly)leftPanel.Children.Remove(sideBarContainer);
         }
 
         private void displayPropertyBar(PropertyBar propertyBar)
@@ -350,7 +351,7 @@ namespace Misp.Planification.Tranformation
         public virtual void SetReadOnly(bool readOnly)
         {
             this.IsReadOnly = readOnly;
-            this.NameTextBox.IsReadOnly = readOnly;
+            this.NameTextBox.IsEnabled = !readOnly;
             this.SaveButton.Visibility = readOnly ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
             this.InstructionsPanel.SetReadOnly(readOnly);
         }
@@ -385,7 +386,9 @@ namespace Misp.Planification.Tranformation
                 Cell activeCell = ((ReportEditorItem)this.ReportEditorController.getEditor().getActivePage()).getReportForm().SpreadSheet.getActiveCell();
                 ApplicationManager.Instance.MainWindow.StatusLabel.Content = "";
             }
-            
+
+            if (report != null && IsReadOnly) this.ReportEditorController.getEditor().getActivePage().SetReadOnly(IsReadOnly);
+                        
             BlockPanel.listeTotalReport = new ObservableCollection<Kernel.Domain.Browser.InputTableBrowserData>();
 
             BlockPanel.listeTotalReport.Add(new Kernel.Domain.Browser.InputTableBrowserData() 

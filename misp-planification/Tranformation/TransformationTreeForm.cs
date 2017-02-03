@@ -402,6 +402,7 @@ namespace Misp.Planification.Tranformation
                     this.ActionDialog.SaveEndedEventHandler += OnSaveActionReportEnded;
                     this.ActionDialog.Owner = ApplicationManager.Instance.MainWindow;
                 }
+                this.ActionDialog.IsReadOnly = this.IsReadOnly;
                 if (this.ActionDialog.ReportEditorController == null) this.ActionDialog.initializeReport();
                 action = new BusyAction(false)
                 {

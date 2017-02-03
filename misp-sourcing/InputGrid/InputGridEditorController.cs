@@ -728,9 +728,7 @@ namespace Misp.Sourcing.InputGrid
             ((InputGridSideBar)SideBar).EntityGroup.Tree.DoubleClick += onDoubleClickSelectTargetFromSidebar;
             ((InputGridSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
-            //((InputGridSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.SelectionChanged += onSelectPeriodFromSidebar;
-            ((InputGridSideBar)SideBar).PeriodNameGroup.OnSelectPeriodName += onSelectPeriodFromSidebar;
-            ((InputGridSideBar)SideBar).PeriodNameGroup.OnSelectPeriodInterval += onSelectPeriodFromSidebar;
+            ((InputGridSideBar)SideBar).PeriodGroup.Tree.Click += onSelectPeriodFromSidebar;
         }
 
         private void ExportCommandEnabled(object sender, CanExecuteRoutedEventArgs e) { e.CanExecute = true; }

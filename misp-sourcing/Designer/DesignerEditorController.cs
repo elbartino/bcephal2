@@ -428,6 +428,8 @@ namespace Misp.Sourcing.Designer
             ((DesignerSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
             ((DesignerSideBar)SideBar).CustomizedTargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
+
+            ((DesignerSideBar)SideBar).PeriodGroup.Tree.Click += onSelectPeriodFromSidebar;
         }
                 
         private void onDoubleClickPeriodFromSidebar(object sender)

@@ -530,6 +530,7 @@ namespace Misp.Reporting.StructuredReport
             ((StructuredReportSideBar)SideBar).EntityGroup.Tree.Click += onSelectTargetFromSidebar;
             ((StructuredReportSideBar)SideBar).EntityGroup.Tree.DoubleClick += onDoubleClickSelectTargetFromSidebar;
             ((StructuredReportSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
+            ((StructuredReportSideBar)SideBar).PeriodGroup.Tree.Click += onSelectPeriodFromSidebar;
        
             ((StructuredReportSideBar)SideBar).TreeLoopGroup.TransformationTreeLoopTreeview.SelectionChanged += onSelectLoopFromSidebar;
             ((StructuredReportSideBar)SideBar).SpecialGroup.SelectionChanged += onSelectSpecialFromSidebar;
