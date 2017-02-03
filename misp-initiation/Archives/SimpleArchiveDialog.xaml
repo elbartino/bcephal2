@@ -39,7 +39,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="40"/>
                 </Grid.ColumnDefinitions>
-                <Label  Content="Archive repository :" Grid.Column="0" />
+                <Label  x:Name="archiveLabel" Content="Archive repository :" Grid.Column="0" />
                 <TextBox x:Name="archiveRepo" Grid.Column="1" />
                 <Button x:Name="browser" Grid.Column="2" Content="..." Margin="5 0 0 0"/>
             </Grid>
