@@ -137,6 +137,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
                 panel.OperatorComboBox.IsEnabled = false;
                 panel.OperatorComboBox.SelectedItem = "";
             }
+            if (this.IsReadOnly) panel.SetReadOnly(this.IsReadOnly);
          }
 
         private void OnDeleteCondition(object item)
@@ -230,9 +231,14 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         public void SetReadOnly(bool readOnly) 
         {
+            this.IsReadOnly = readOnly;
             if (this.filterScopePanel != null) this.filterScopePanel.DisplayScope(null, false, readOnly);
             if (this.periodPanel != null) this.periodPanel.DisplayPeriod(null, false, readOnly);
             if (this.CellMeasurePanel != null) this.CellMeasurePanel.Display(null, readOnly);
+            foreach (UIElement child in this.ConditionPanel.Children)
+            {
+                if (child is ExpressionPanel) ((ExpressionPanel)child).SetReadOnly(readOnly);
+            }
         }
     }
 }

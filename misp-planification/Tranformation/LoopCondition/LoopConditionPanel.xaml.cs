@@ -64,6 +64,10 @@ namespace Misp.Planification.Tranformation.LoopCondition
             if (liste.Count == 0)
             {
                 OnAddConditionItem(null);
+                foreach (UIElement child in this.LoopConditionsPanel.Children)
+                {
+                    if (child is LoopConditionItemPanel) ((LoopConditionItemPanel)child).SetReadOnly(this.IsReadOnly);
+                }
                 return;
             }
             else
@@ -200,6 +204,15 @@ namespace Misp.Planification.Tranformation.LoopCondition
                 this.ActiveLoopConditionItemPanel = (LoopConditionItemPanel)this.LoopConditionsPanel.Children[0];
             }
             this.ActiveLoopConditionItemPanel.setValue(value);
+        }
+
+        public void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+            foreach (UIElement child in this.LoopConditionsPanel.Children)
+            {
+                if (child is LoopConditionItemPanel) ((LoopConditionItemPanel)child).SetReadOnly(readOnly);
+            }
         }
     }
 }

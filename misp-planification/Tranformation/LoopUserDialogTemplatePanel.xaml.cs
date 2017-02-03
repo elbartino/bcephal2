@@ -116,7 +116,7 @@ namespace Misp.Planification.Tranformation
             this.OnePossibleChoiceCheckbox.IsEnabled = !readOnly;
             this.EditMessageTextBox.IsEnabled = !readOnly;
             this.HelpMessageTextBox.IsEnabled = !readOnly;
-            this.LoopConditionsPanel.IsReadOnly = readOnly;
+            this.LoopConditionsPanel.SetReadOnly(readOnly);
         }
 
         public void Fill()

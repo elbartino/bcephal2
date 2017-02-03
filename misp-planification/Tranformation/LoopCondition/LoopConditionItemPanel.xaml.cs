@@ -489,6 +489,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         public void SetReadOnly(bool readOnly) 
         {
+            this.IsReadOnly = readOnly;
             this.OpenBracketComboBox.IsEnabled = !readOnly;
             this.CloseBracketComboBox.IsEnabled = !readOnly;
             this.OperatorComboBox.IsEnabled = !readOnly;

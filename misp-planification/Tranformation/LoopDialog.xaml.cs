@@ -53,12 +53,11 @@ namespace Misp.Planification.Tranformation
 
         public LoopDialog()
         {
-            ThemeManager.SetThemeName(this, "None");
+            ThemeManager.SetThemeName(this, "None");             
             InitializeComponent();
             InitializeHandlers();
             scrollCondition.Visibility = System.Windows.Visibility.Collapsed;
         }
-        
         #endregion
 
 
@@ -72,8 +71,8 @@ namespace Misp.Planification.Tranformation
             this.DecreaseButton.IsEnabled = !readOnly;
             this.LoopComboBox.IsEnabled = !readOnly;
             this.ValueField.SetReadOnly(readOnly);
-            //this.UserTemplatePanel.SetReadOnly(readOnly);
-
+            this.UserTemplatePanel.SetReadOnly(readOnly);
+            
             this.DeleteAllValuesButton.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
             this.SideBarGridSplitter.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
             this.SideBar.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
@@ -506,7 +505,7 @@ namespace Misp.Planification.Tranformation
         private void OnAddConditionItem(object item)
         {
             LoopConditionItemPanel panel = GetNewConditionItemPanel(item);
-            
+            if (this.IsReadOnly) panel.SetReadOnly(this.IsReadOnly);
             int countContainerChildren = this.LoopConditionsPanel.Children.Count + 1;
             panel.Index = countContainerChildren;
 

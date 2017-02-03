@@ -383,8 +383,8 @@ namespace Misp.Planification.Tranformation
                 }
                 
                 this.LoopDialog.Loop = item;
-                this.LoopDialog.DisplayItem();
                 this.LoopDialog.SetReadOnly(this.IsReadOnly);
+                this.LoopDialog.DisplayItem();               
                 if (!this.LoopDialog.IsVisible) this.LoopDialog.ShowDialog();
             }
             else 
