@@ -46,54 +46,6 @@ namespace Misp.Kernel.Controller
 
         #region Operations
 
-        /// <summary>
-        /// Ouvre l'objet identifié par l'oid dans une page de l'éditeur.
-        /// 1. Si il existe déjà une page ouverte pour cet objet, on la sélectionne.
-        /// 2. Sinon
-        /// 2.1. On récupère l'objet à ouvrir via le service
-        /// 2.2. On rajoute une nouvelle page pour cette objet dans l'éditeur.
-        /// 2.3. On initialise les handlers sur la nouvelle page
-        /// 2.4.
-        /// </summary>
-        /// <param name="oid">L'identifiant de l'objet à ouvrir</param>
-        /// <returns>
-        /// OperationState.CONTINUE si l'opération a réussi
-        /// OperationState.STOP sinon
-        /// </returns>
-        //public override OperationState Open(object oid)
-        //{
-        //    DateTime start = DateTime.Now;
-
-        //    EditorItem<T> page = getEditor().getPage((int)oid);
-        //    if (page != null)
-        //    {
-        //        getEditor().selectePage(page);
-        //        return OperationState.CONTINUE;
-        //    }
-        //    try
-        //    {
-        //        DateTime time = DateTime.Now;
-        //        T item = Service.getByOid((int)oid);
-        //        TimeSpan read = DateTime.Now - time;
-
-        //        time = DateTime.Now;
-        //        OperationState state = Open(item);
-        //        TimeSpan open = DateTime.Now - time;
-        //        TimeSpan total = DateTime.Now - start;
-        //        Console.Out.WriteLine("Read : " + read);
-        //        Console.Out.WriteLine("Open : " + open);
-        //        Console.Out.WriteLine("Total : " + total);
-        //        return state;
-        //    }
-        //    catch (Kernel.Service.ServiceExecption)
-        //    {
-        //        DisplayError("Unable to read item", "Unable to read item identified by : " + oid);
-        //    }
-
-
-        //    return OperationState.STOP;
-        //}
-
         BusyAction action;
 
         public override OperationState Open(object oid)
@@ -166,6 +118,14 @@ namespace Misp.Kernel.Controller
             initializePageHandlers(page);
             getEditor().ListChangeHandler.AddNew(item);
             return OperationState.CONTINUE;    
+        }
+
+        public virtual OperationState OpenInReadOnlyMode(T item)
+        {
+            EditorItem<T> page = getEditor().addOrSelectPage(item);
+            page.SetReadOnly(true);
+            getEditor().ListChangeHandler.AddNew(item);
+            return OperationState.CONTINUE;
         }
 
         /// <summary>
@@ -287,25 +247,6 @@ namespace Misp.Kernel.Controller
         public virtual OperationState Delete(EditorItem<T> page)
         {
             page.Content = null;
-            /* if (page.IsModify)
-             {
-                 if (!page.validateEdition()) return OperationState.STOP;
-                 page.fillObject();
-                 T editedObject = page.EditedObject;
-                 try
-                 {
-                     page.Content = null;
-                     editedObject = Service.Save(editedObject);
-                     page.EditedObject = editedObject;
-                     page.displayObject();
-                     page.IsModify = false;
-                 }
-                 catch (Domain.BcephalException)
-                 {
-                     DisplayError("Unable to save item", "Unable to save : " + editedObject.ToString());
-                     return OperationState.STOP;
-                 }
-             }*/
             return OperationState.CONTINUE;
         }
 
@@ -377,15 +318,6 @@ namespace Misp.Kernel.Controller
             }
             T objectD = Service.getByName(name);
             if (objectD != null && objectEdit.oid != objectD.oid) return false;
-
-            //foreach (EditorItem<T> pageItem in getEditor().getPages())
-            //{
-            //    if (page != pageItem && name.ToUpper() == pageItem.Title.ToUpper())
-            //    {
-            //        Kernel.Util.MessageDisplayer.DisplayError("Duplicate Name", "Another Object named " + name + " already exists!");
-            //        return false;
-            //    }
-            //}
             return true;
         }
 
@@ -491,8 +423,8 @@ namespace Misp.Kernel.Controller
         /// </summary>
         protected virtual void initializePageHandlers(EditorItem<T> page) 
         {
-            page.Closing += new EventHandler<CancelEventArgs>(OnPageClosing);
-            page.Closed += new EventHandler(OnPageClosed);
+            page.Closing += OnPageClosing;
+            page.Closed += OnPageClosed;
             page.PageTabDoubleClick += this.PageTabDoubleClick;
         }
 
@@ -522,7 +454,7 @@ namespace Misp.Kernel.Controller
             if (sender is EditorItem<T>)
             {
                 EditorItem<T> page = (EditorItem<T>) sender;
-                if(page.IsModify)
+                if (page.IsModify && !page.IsReadOnly)
                 {
                     MessageBoxResult result = Util.MessageDisplayer.DisplayYesNoCancelQuestion("Close Page", 
                         "You are about closing page : " + page.Title +"\nDo you want to save change before close?");
@@ -552,7 +484,7 @@ namespace Misp.Kernel.Controller
         {
             foreach (EditorItem<T> page in getEditor().getPages())
             {
-                if (page.IsModify)
+                if (page.IsModify && !page.IsReadOnly)
                 {
                     this.IsModify = true;
                     if (this.ToolBar != null) this.ToolBar.SaveButton.IsEnabled = true;
@@ -619,28 +551,11 @@ namespace Misp.Kernel.Controller
                 ApplicationManager.MainWindow.dockingManager.DocumentContextMenu.CommandBindings.Remove(RefreshCommandBinding);
             }
         }
-
-
-        /*private void SaveAsItemMenu_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void SaveItemMenu_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void RenameItemMenu_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-        */
-
+        
 
         public virtual void OnPageSelected(object sender, EventArgs args)
         {
-                OnPageSelected(getEditor().getActivePage());
+            OnPageSelected(getEditor().getActivePage());
         }
 
         /// <summary>

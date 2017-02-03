@@ -71,6 +71,8 @@ namespace Misp.Sourcing.Designer
         
         #region Properties
 
+        public bool IsReadOnly { get; set; }
+        
         public DesignerPropertiesPanel DesignerPropertiesPanel { get; private set; }
         
         public DESheetPanel SpreadSheet { get; private set; }
@@ -98,6 +100,11 @@ namespace Misp.Sourcing.Designer
         #endregion
         
         #region Methods
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         /// <summary>
         /// 

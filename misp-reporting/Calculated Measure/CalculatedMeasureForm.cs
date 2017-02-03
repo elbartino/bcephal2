@@ -11,7 +11,8 @@ namespace Misp.Reporting.Calculated_Measure
 {
     public class CalculatedMeasureForm : UserControl, IEditableView<CalculatedMeasure>
     {
-           #region Constructor
+           
+        #region Constructor
 
         /// <summary>
         /// Constructeur
@@ -50,6 +51,8 @@ namespace Misp.Reporting.Calculated_Measure
 
         #region Properties
 
+        public bool IsReadOnly { get; set; }
+        
         public CalculatedMeasurePropertiesPanel CalculatedMeasurePropertiesPanel { get; private set; }
         public CalculatedMeasurePanel CalculatedMeasurePanel { get; set; }
 
@@ -74,6 +77,11 @@ namespace Misp.Reporting.Calculated_Measure
 
 
         #region Methods
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         /// <summary>
         /// 

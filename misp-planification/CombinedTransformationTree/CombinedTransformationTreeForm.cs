@@ -49,6 +49,8 @@ namespace Misp.Planification.CombinedTransformationTree
 
         #region Properties
 
+        public bool IsReadOnly { get; set; }
+        
         public CombinedTransformationTreePropertiesPanel CombinedTransformationTreePropertiesPanel { get; private set; }
 
         public CombinedTransformationTreePanel CombinedTransformationTreePanel { get; private set; }
@@ -74,6 +76,11 @@ namespace Misp.Planification.CombinedTransformationTree
 
 
         #region Methods
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         /// <summary>
         /// 

@@ -33,6 +33,8 @@ namespace Misp.Sourcing.Table
     {
 
         #region Properties
+
+        public bool IsReadOnly { get; set; }
         
         public MenuItem RunMenuItem;
         public MenuItem ClearMenuItem;
@@ -41,8 +43,7 @@ namespace Misp.Sourcing.Table
         public MenuItem AuditMenuItem;
 
         #endregion
-
-
+        
         #region Constructor
 
         /// <summary>
@@ -267,6 +268,12 @@ namespace Misp.Sourcing.Table
 
 
         #region Methods
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+            //if (TablePropertiesPanel != null) TablePropertiesPanel.SetReadOnly(readOnly);
+        }
 
         protected virtual bool isReport()
         {

@@ -17,5 +17,12 @@ namespace Misp.Kernel.Ui.Base
         /// </summary>
         /// <param name="ChangeEventHandler"></param>
         void SetChangeEventHandler(ChangeEventHandlerBuilder ChangeEventHandler);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void SetReadOnly(bool readOnly);
+
+        bool IsReadOnly { get; set; }
     }
 }

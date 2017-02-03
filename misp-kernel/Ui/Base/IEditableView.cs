@@ -14,6 +14,8 @@ namespace Misp.Kernel.Ui.Base
     public interface IEditableView<T> : IView
     {
 
+        
+
         /// <summary>
         /// Indique si la vue a été modifiée.
         /// </summary>

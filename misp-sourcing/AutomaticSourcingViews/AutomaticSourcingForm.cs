@@ -26,7 +26,9 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 {
     public class AutomaticSourcingForm : UserControl, IEditableView<Misp.Kernel.Domain.AutomaticSourcing>
     {
-         #region Properties
+        #region Properties
+
+        public bool IsReadOnly { get; set; }
         
         public MenuItem RunMenuItem;
         public MenuItem ClearMenuItem;
@@ -147,6 +149,11 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 
 
         #region Methods
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         public virtual bool isAutomaticTarget()
         {

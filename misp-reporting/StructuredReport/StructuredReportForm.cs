@@ -31,6 +31,8 @@ namespace Misp.Reporting.StructuredReport
         
         public static int COLUMNS_COLOR = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightCoral);
 
+        public bool IsReadOnly { get; set; }
+        
         #endregion
         
         #region Constructor
@@ -149,6 +151,11 @@ namespace Misp.Reporting.StructuredReport
         #endregion
         
         #region Methods
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         /// <summary>
         /// 

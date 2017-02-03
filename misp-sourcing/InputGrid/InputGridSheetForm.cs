@@ -29,6 +29,8 @@ namespace Misp.Sourcing.InputGrid
     {
 
         #region Properties
+
+        public bool IsReadOnly { get; set; }
         
         public static int COLUMNS_COLOR = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightCoral);
         
@@ -86,6 +88,11 @@ namespace Misp.Sourcing.InputGrid
         
         
         #region Methods
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         /// <summary>
         /// 

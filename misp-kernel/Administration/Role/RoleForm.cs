@@ -37,6 +37,8 @@ namespace Misp.Kernel.Administration.Role
 
         #region Properties
 
+        public bool IsReadOnly { get; set; }
+
         // public CalculatedMeasurePropertiesPanel CalculatedMeasurePropertiesPanel { get; private set; }
         public RolePanel RolePanel { get; set; }
 
@@ -61,6 +63,11 @@ namespace Misp.Kernel.Administration.Role
 
 
         #region Methods
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         /// <summary>
         /// 

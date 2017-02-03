@@ -34,6 +34,8 @@ namespace Misp.Initiation.Measure
             InitializeComponent();
         }
 
+        public bool IsReadOnly { get; set; }
+
         /// <summary>
         /// Spécifie la méthode à exécuter lorsqu'un changement survient sur la vue.
         /// </summary>
@@ -96,6 +98,11 @@ namespace Misp.Initiation.Measure
         public void displayObject() 
         {
          
+        }
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
         }
 
         /// <summary>

@@ -229,6 +229,7 @@ namespace Misp.Sourcing.Table
                         + "You cannot edit the " + entity + " until the " + entity + " is open by another user.\n"
                         + "Do you want to switch in read only mode ?");
                     if (MessageBoxResult.Yes != response) return OperationState.STOP;
+                    else return OpenInReadOnlyMode(table);
                 }
             }
 
@@ -263,6 +264,28 @@ namespace Misp.Sourcing.Table
             page.IsModify = false;
             return OperationState.CONTINUE;
         }
+
+
+        public override OperationState OpenInReadOnlyMode(InputTable table)
+        {            
+            string excelDir = getExcelFolder();
+            string filePath = excelDir + table.name + SheetConst.EXCEL_EXT;
+            string tempPath = GetInputTableService().FileService.FileTransferService.downloadTable(table.name + SheetConst.EXCEL_EXT);
+            filePath = tempPath + table.name + SheetConst.EXCEL_EXT;
+
+            ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.AddInputTableIfNatExist(table);
+            EditorItem<InputTable> page = getEditor().addOrSelectPage(table);
+            ((InputTableEditorItem)page).getInputTableForm().SpreadSheet.Open(filePath);
+            ((InputTableEditorItem)page).getInputTableForm().InputTableService = (InputTableService)this.Service;
+            UpdateStatusBar(null);
+            CustomizeSpreedSheet((InputTableEditorItem)page);
+            getEditor().ListChangeHandler.AddNew(table);
+            GetInputTableService().createTable(table);
+            page.SetReadOnly(true);
+            page.IsModify = false;
+            return OperationState.CONTINUE;
+        }
+
 
         /// <summary>
         /// met à jour les actions de désactivation et activation des buttons et menu si la table est active ou pas

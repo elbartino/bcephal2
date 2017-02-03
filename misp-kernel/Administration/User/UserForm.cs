@@ -12,6 +12,9 @@ namespace Misp.Kernel.Administration.User
     public class UserForm : UserControl, IEditableView<Kernel.Domain.User>
     {
         #region Property
+
+        public bool IsReadOnly { get; set; }
+
         /// <summary>
         /// Indique si la vue a été modifiée.
         /// </summary>
@@ -59,6 +62,11 @@ namespace Misp.Kernel.Administration.User
         #endregion
 
         #region Methods
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         /// <summary>
         /// 

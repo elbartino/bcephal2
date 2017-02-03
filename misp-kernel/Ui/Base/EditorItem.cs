@@ -34,14 +34,13 @@ namespace Misp.Kernel.Ui.Base
 
 
         #region Constructors
-
-
-
+        
         /// <summary>
         /// Construit une nouvelle instance de EditorItem.
         /// </summary>
         public EditorItem()
         {
+            this.IsReadOnly = false;
             ListChangeHandler = new Domain.PersistentListChangeHandler<T>();
             initializeForm();            
         }
@@ -61,6 +60,8 @@ namespace Misp.Kernel.Ui.Base
 
 
         #region Properties
+
+        public bool IsReadOnly { get; set; }
 
         public TextBox RenameTextBox { get; set; }
         public Util.Dialog RenameDialog { get; set; }
@@ -113,6 +114,12 @@ namespace Misp.Kernel.Ui.Base
             RemoveChangeHandlers();
             editorItemForm.displayObject();
             AddChangeHandlers();
+        }
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+            if (editorItemForm != null) editorItemForm.SetReadOnly(readOnly);
         }
 
         #endregion

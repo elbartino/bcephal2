@@ -24,6 +24,8 @@ namespace Misp.Sourcing.InputGrid
     public class InputGridForm : TabControl, IEditableView<Grille>
     {
 
+        public bool IsReadOnly { get; set; }
+        
         public TabItem AuditTabItem;
         public TabItem ConfigurationTabItem;
         public GrilleBrowserForm GridForm;
@@ -32,6 +34,11 @@ namespace Misp.Sourcing.InputGrid
         public InputGridForm()
         {
             InitializeComponent();
+        }
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
         }
 
         public virtual void SetTarget(Target target)

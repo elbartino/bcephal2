@@ -23,6 +23,8 @@ namespace Misp.Initiation.Base
     public class InitiationEditor : LayoutDocumentPane, IView
     {
 
+        public bool IsReadOnly { get; set; }
+
         private Model.ModelEditor modelEditor;
         private Measure.MeasureEditorItem measureEditorItem;
 
@@ -46,6 +48,11 @@ namespace Misp.Initiation.Base
             Initializepages(modelEditor, measureEditorItem);
         }
 
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         /// <summary>
         /// 

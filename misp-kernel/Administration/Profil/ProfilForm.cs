@@ -12,6 +12,9 @@ namespace Misp.Kernel.Administration.Profil
     public class ProfilForm : UserControl, IEditableView<Kernel.Domain.Profil>
     {
         #region Property
+
+        public bool IsReadOnly { get; set; }
+
         /// <summary>
         /// Indique si la vue a été modifiée.
         /// </summary>
@@ -56,6 +59,11 @@ namespace Misp.Kernel.Administration.Profil
         #endregion
 
         #region Methods
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         /// <summary>
         /// 

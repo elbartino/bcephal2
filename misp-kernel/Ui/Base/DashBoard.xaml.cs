@@ -28,13 +28,20 @@ namespace Misp.Kernel.Ui.Base
     /// </summary>
     public partial class DashBoard : UserControl, IView
     {
+        public bool IsReadOnly { get; set; }
+
         DashboardData dashboardData;
 
         public DashBoard()
         { 
             InitializeComponent();
         }
-        
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
+
         /// <summary>
         /// 
         /// </summary>

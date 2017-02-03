@@ -49,6 +49,8 @@ namespace Misp.Kernel.Ui.Base
 
 
         #region Properties
+
+        public bool IsReadOnly { get; set; }
         
         /// <summary>
         /// Assigne ou retourne le ChangeEventHandler qui spécifie 
@@ -78,6 +80,11 @@ namespace Misp.Kernel.Ui.Base
 
 
         #region Operation
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         public BrowserDataFilter BuildFilter(int page = 0)
         {

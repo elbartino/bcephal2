@@ -25,6 +25,8 @@ namespace Misp.Reconciliation.ReconciliationContext
 
         #region Properties
 
+        public bool IsReadOnly { get; set; }
+        
         public ReconciliationContextPanel ReconciliationContextPanel { get; private set; }
 
         public ReconciliationContextPropertyBar ReconciliationContextPropertyBar { get; set; }
@@ -92,6 +94,11 @@ namespace Misp.Reconciliation.ReconciliationContext
 
 
         #region Methods
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         /// <summary>
         /// 

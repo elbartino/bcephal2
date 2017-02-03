@@ -25,6 +25,8 @@ namespace Misp.Sourcing.GridViews
         
         protected bool throwHandler = true;
 
+        public bool IsReadOnly { get; set; }
+        
         /// <summary>
         /// Indique si la vue a été modifiée.
         /// </summary>
@@ -57,6 +59,11 @@ namespace Misp.Sourcing.GridViews
             gridBrowser.SortEventHandler += OnSort;
             gridBrowser.EditEventHandler += OnEdit;
             gridBrowser.FilterEventHandler += OnFilter;
+        }
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
         }
 
         private void OnFilter()

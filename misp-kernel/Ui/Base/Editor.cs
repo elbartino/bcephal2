@@ -23,6 +23,8 @@ namespace Misp.Kernel.Ui.Base
         //private ContextMenu ContextMenu;
         //public EditorContextMenu EditorContextMenu = new EditorContextMenu();
 
+        public bool IsReadOnly { get; set; }
+
         public event NewPageEventHandler NewPageSelected;
         public delegate void NewPageEventHandler();
         public EventHandler newPageEventHandler;
@@ -38,13 +40,11 @@ namespace Misp.Kernel.Ui.Base
         {
             ListChangeHandler = new Domain.PersistentListChangeHandler<T>();
             InitializeNewPage();
-            /*EditorContextMenu = new EditorContextMenu();
-            ContextMenu=new ContextMenu();
-            ContextMenu.Items.Add(EditorContextMenu.RenameItemMenu);
-            ContextMenu.Items.Add(EditorContextMenu.DeleteItemMenu);
-            ContextMenu.Items.Add(EditorContextMenu.SaveItemMenu);
-            ContextMenu.Items.Add(EditorContextMenu.SaveAsItemMenu);
-             */ 
+        }
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
         }
 
         protected virtual void InitializeNewPage()

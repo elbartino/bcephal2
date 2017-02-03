@@ -21,6 +21,11 @@ namespace Misp.Kernel.Ui.Base
             UserInitialisation();
         }
 
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            
+        }
+
         protected void InitializeComponent()
         {
             this.DockWidth = new GridLength(200);

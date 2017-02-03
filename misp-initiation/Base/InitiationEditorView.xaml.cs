@@ -28,6 +28,8 @@ namespace Misp.Initiation.Base
             InitializeComponent();
         }
 
+        public bool IsReadOnly { get; set; }
+
         /// <summary>
         /// Spécifie la méthode à exécuter lorsqu'un changement survient sur la vue.
         /// </summary>
@@ -41,6 +43,11 @@ namespace Misp.Initiation.Base
         public void SetChangeEventHandler(ChangeEventHandlerBuilder ChangeEventHandler)
         {
             this.ChangeEventHandler = ChangeEventHandler;
+        }
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
         }
 
     }

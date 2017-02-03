@@ -25,6 +25,8 @@ namespace Misp.Planification.Tranformation
 
         #region Properties
 
+        public bool IsReadOnly { get; set; }
+        
         public TransformationTree EditedObject { get; set; }
 
         public TransformationTreeService TransformationTreeService { get; set; }
@@ -344,6 +346,13 @@ namespace Misp.Planification.Tranformation
         }
 
         #endregion
+
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
+
 
         BusyAction action;
         /// <summary>

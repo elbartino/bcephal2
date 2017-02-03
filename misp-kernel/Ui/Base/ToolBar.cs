@@ -51,7 +51,19 @@ namespace Misp.Kernel.Ui.Base
         public System.Windows.Controls.Button DeleteButton { get { return deleteButton; } }
         public System.Windows.Controls.Button CloseButton { get { return closeButton; } }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            SaveButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+            SaveAllButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+            RenameButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+            DeleteButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+            ImportButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+            ExportButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+            AutomaticButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+        }
 
         /// <summary>
         /// Cette methode permet de configurer la barre pour spécifier les boutons qui doivent être prrésents.

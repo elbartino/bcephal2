@@ -14,6 +14,8 @@ namespace Misp.Initiation.Periodicity
     public class PeriodNameEditor : LayoutDocumentPane, IView
     {
 
+        public bool IsReadOnly { get; set; }
+
         /// <summary>
         /// Spécifie la méthode à exécuter lorsqu'un changement survient sur la vue.
         /// </summary>
@@ -29,6 +31,11 @@ namespace Misp.Initiation.Periodicity
         public PeriodNameEditor()
         {
             Initialize();
+        }
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
         }
 
         private void Initialize()

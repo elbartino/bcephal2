@@ -17,6 +17,9 @@ namespace Misp.Planification.PresentationView
 {
     public class PresentationForm : Grid, IEditableView<Presentation>
     {
+
+        public bool IsReadOnly { get; set; }
+        
         public bool IsModify
         {
             get;
@@ -36,10 +39,18 @@ namespace Misp.Planification.PresentationView
         public PresentationPropertiesPanel PresentationPropertiesPanel { get; set; }
         WindowsFormsHost windowsFormsHost;
         System.Windows.Controls.Image image;
+        
         public PresentationForm()
         {
             InitializeComponents();
         }
+
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
+
 
         protected virtual void InitializeComponents()
         {

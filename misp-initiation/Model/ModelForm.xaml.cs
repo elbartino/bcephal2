@@ -34,6 +34,8 @@ namespace Misp.Initiation.Model
             InitializeHandlers();
         }
 
+        public bool IsReadOnly { get; set; }
+
         /// <summary>
         /// Spécifie la méthode à exécuter lorsqu'un changement survient sur la vue.
         /// </summary>
@@ -43,6 +45,10 @@ namespace Misp.Initiation.Model
 
         public Kernel.Service.ModelService ModelService { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetModelService(); } }
 
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         /// <summary>
         /// 

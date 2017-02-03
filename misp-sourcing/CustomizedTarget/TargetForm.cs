@@ -49,6 +49,8 @@ namespace Misp.Sourcing.CustomizedTarget
 
         #region Properties
 
+        public bool IsReadOnly { get; set; }
+        
         public TargetPropertiesPanel TargetPropertiesPanel { get; private set; }
 
         public ScopePanel ScopePanel { get; private set; }
@@ -74,6 +76,11 @@ namespace Misp.Sourcing.CustomizedTarget
 
 
         #region Methods
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
 
         /// <summary>
         /// 

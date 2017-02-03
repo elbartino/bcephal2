@@ -26,6 +26,8 @@ namespace Misp.Initiation.Periodicity
     public partial class PeriodNameForm : Grid, IEditableView<Misp.Kernel.Domain.PeriodName>
     {
 
+        public bool IsReadOnly { get; set; }
+
         public Hyperlink hyperLink;
         PeriodName editedPeriodName;
         public int selectedPeriodNamePosition;
@@ -46,7 +48,12 @@ namespace Misp.Initiation.Periodicity
         /// Spécifie la méthode à exécuter lorsqu'un changement survient sur la vue.
         /// </summary>
         public ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
-        
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
+
         private void InitializeHandlers()
         {
             hyperLink.RequestNavigate += OnShowPeriodIntervalParams;
