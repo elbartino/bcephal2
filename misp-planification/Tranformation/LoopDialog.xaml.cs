@@ -188,6 +188,7 @@ namespace Misp.Planification.Tranformation
         {
             this.UserTemplatePanel.TransformationTreeService = this.TransformationTreeService;
             this.UserTemplatePanel.LoopUserTemplate = this.Loop.userDialogTemplate;
+            this.UserTemplatePanel.IsReadOnly = this.IsReadOnly;
             this.UserTemplatePanel.Display();
         }
 

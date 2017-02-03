@@ -31,6 +31,8 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         public TransformationTreeItem Loop { get; set; }
 
+        public bool IsReadOnly { get; set; }
+
         public LoopUserDialogTemplate LoopUserTemplate { get; set; }
 
         public Kernel.Service.TransformationTreeService TransformationTreeService { get; set; }
@@ -138,7 +140,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
         public void OnAddConditionItem(object item)
         {
             LoopConditionItemPanel panel = GetNewConditionItemPanel(null);
-
+            panel.SetReadOnly(this.IsReadOnly);
             int countContainerChildren = this.LoopConditionsPanel.Children.Count + 1;
             panel.Index = countContainerChildren;
 

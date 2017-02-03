@@ -33,6 +33,8 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         public Kernel.Domain.LoopCondition LoopCondition { get; set; }
 
+        public bool IsReadOnly { get; set; }
+
         public bool trow = false;
 
         private bool isViewDetailsHided { get; set; }
@@ -101,6 +103,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
             this.CommentTextBlock.Text = "";
             refreshCommentIcon();
+            if (this.IsReadOnly) this.SetReadOnly(this.IsReadOnly);
             trow = true;
         }
 
@@ -210,9 +213,9 @@ namespace Misp.Planification.Tranformation.LoopCondition
             CellProperty cell = loopCondition.cellProperty;
             if (cell == null) cell = new CellProperty();
             this.LoopCalutedValue.ChangeEventHandler += onChange;
-            this.LoopCalutedValue.periodPanel.DisplayPeriod(cell.period);
-            this.LoopCalutedValue.filterScopePanel.DisplayScope(cell.cellScope);
-            this.LoopCalutedValue.CellMeasurePanel.Display(cell.cellMeasure);
+            this.LoopCalutedValue.periodPanel.DisplayPeriod(cell.period,false,this.IsReadOnly);
+            this.LoopCalutedValue.filterScopePanel.DisplayScope(cell.cellScope, false, this.IsReadOnly);
+            this.LoopCalutedValue.CellMeasurePanel.Display(cell.cellMeasure,this.IsReadOnly);
             if (!string.IsNullOrEmpty(loopCondition.conditions)) 
             {
                 this.LoopCalutedValue.DisplayInstructions(loopCondition.instructions);
@@ -482,6 +485,16 @@ namespace Misp.Planification.Tranformation.LoopCondition
             scope.targetType = Target.TargetType.COMBINED.ToString();
             scope.type = Target.Type.OBJECT_VC.ToString();
             return scope;
+        }
+
+        public void SetReadOnly(bool readOnly) 
+        {
+            this.OpenBracketComboBox.IsEnabled = !readOnly;
+            this.CloseBracketComboBox.IsEnabled = !readOnly;
+            this.OperatorComboBox.IsEnabled = !readOnly;
+            this.AddButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.DeleteButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
+            if (this.LoopCalutedValue != null) this.LoopCalutedValue.SetReadOnly(readOnly);
         }
 
 

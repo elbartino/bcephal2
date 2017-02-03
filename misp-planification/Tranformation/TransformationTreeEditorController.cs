@@ -102,7 +102,8 @@ namespace Misp.Planification.Tranformation
             bool isReadonly = false;
             if (tree.oid.HasValue)
             {
-                bool isOk = GetTransformationTreeService().locked(ApplicationManager.File.oid.Value, tree.oid.Value);
+                //bool isOk = GetTransformationTreeService().locked(ApplicationManager.File.oid.Value, tree.oid.Value);
+                bool isOk = false;
                 if (!isOk)
                 {
                     MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Tree Locked", "Tree '" + tree.name + "' is locked by another user!\n"

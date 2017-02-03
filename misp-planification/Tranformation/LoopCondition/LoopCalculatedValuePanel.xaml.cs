@@ -32,6 +32,8 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         public ChangeEventHandler ChangeEventHandler;
 
+        public bool IsReadOnly { get; set; }
+
         private bool trow;
 
         public LoopCalculatedValuePanel()
@@ -135,8 +137,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
                 panel.OperatorComboBox.IsEnabled = false;
                 panel.OperatorComboBox.SelectedItem = "";
             }
-        
-        }
+         }
 
         private void OnDeleteCondition(object item)
         {
@@ -225,6 +226,13 @@ namespace Misp.Planification.Tranformation.LoopCondition
             panel.Arg1TextBox.IsEnabled = false;
             initHandlers(panel);
             return panel;
+        }
+
+        public void SetReadOnly(bool readOnly) 
+        {
+            if (this.filterScopePanel != null) this.filterScopePanel.DisplayScope(null, false, readOnly);
+            if (this.periodPanel != null) this.periodPanel.DisplayPeriod(null, false, readOnly);
+            if (this.CellMeasurePanel != null) this.CellMeasurePanel.Display(null, readOnly);
         }
     }
 }
