@@ -66,6 +66,8 @@ namespace Misp.Sourcing.AllocationViews
             this.ResetButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
             this.ForAllocationCheckBox.IsEnabled = !readOnly;
             this.ActivateAllocationCheckBox.IsEnabled = !readOnly;
+            this.AllocationPanel.SetReadOnly(readOnly);
+            this.AllocationForm.SetReadOnly(readOnly);
         }
 
         public Kernel.Domain.CellPropertyAllocationData FillAllocationData() 

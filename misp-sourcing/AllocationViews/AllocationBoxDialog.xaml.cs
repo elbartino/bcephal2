@@ -29,6 +29,8 @@ namespace Misp.Sourcing.AllocationViews
 
         #region Properties
 
+        public bool IsReadOnly { get; set; }
+
         public TransformationTreeItem Loop { get; set; }
 
         private Measure ranking;
@@ -36,8 +38,6 @@ namespace Misp.Sourcing.AllocationViews
         public TransformationTreeService TransformationTreeService { get; set; }
 
         public ChangeItemEventHandler SaveEndedEventHandler { get; set; }
-        
-        //public LoopConditionItemPanel ActiveLoopConditionItemPanel { get; set; }
 
         public bool trow = false;
 
@@ -50,15 +50,28 @@ namespace Misp.Sourcing.AllocationViews
         {
             InitializeComponent();
             InitializeHandlers();
-            //scrollCondition.Visibility = System.Windows.Visibility.Collapsed;
-            //this.TabConditions.Visibility = System.Windows.Visibility.Collapsed;
-            //this.TabUserTemplate.Visibility = System.Windows.Visibility.Collapsed;
         }
         
         #endregion
 
 
         #region Operations
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+            this.NameTextBox.IsEnabled = !readOnly;
+            this.IncreaseButton.IsEnabled = !readOnly;
+            this.DecreaseButton.IsEnabled = !readOnly;
+            this.LoopComboBox.IsEnabled = !readOnly;
+            this.ValueField.SetReadOnly(readOnly);
+            
+            this.DeleteAllValuesButton.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.SideBarGridSplitter.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.SideBar.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.DeleteButton.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.SaveButton.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+        }
 
         public void initializeSideBar()
         {

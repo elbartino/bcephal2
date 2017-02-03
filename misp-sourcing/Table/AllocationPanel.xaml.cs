@@ -120,7 +120,6 @@ namespace Misp.Sourcing.Table
                 this.ConsiderCell.IsChecked = true;
             }
             updateButtons();
-            if (readOnly) SetReadOnly(readOnly);
             thrawChange = true;
         }
 

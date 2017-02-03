@@ -36,7 +36,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <src:AllocationBoxSideBar Grid.Column="0" x:FieldModifier="public" x:Name="SideBar"/>
-                <GridSplitter Width="5" ResizeDirection="Columns" Background="#FFFBF8F8" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                <GridSplitter x:Name="SideBarGridSplitter" Width="5" ResizeDirection="Columns" Background="#FFFBF8F8" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                 <TabControl Grid.Row="1" Grid.Column="2" TabStripPlacement="Bottom" BorderThickness="0" Background="White" x:Name="TabLoop">
                     <TabItem Header="Values" x:Name="TabValues">
                         <Grid>
