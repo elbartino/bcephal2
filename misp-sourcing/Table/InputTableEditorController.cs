@@ -220,8 +220,7 @@ namespace Misp.Sourcing.Table
             bool isOk = true;
             if (table.oid.HasValue)
             {
-                //isOk = GetInputTableService().locked(ApplicationManager.File.oid.Value, table.oid.Value);
-                isOk = false;
+                isOk = GetInputTableService().locked(ApplicationManager.File.oid.Value, table.oid.Value);
                 if (!isOk)
                 {
                     String entity = "Table";
