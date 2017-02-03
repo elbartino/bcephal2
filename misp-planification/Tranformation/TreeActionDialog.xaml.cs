@@ -50,6 +50,8 @@ namespace Misp.Planification.Tranformation
 
         #region Properties
 
+        public bool IsReadOnly { get; set; }
+
         public TransformationTreeItem Action { get; set; }
 
         public static bool IsActionReportView { get; set; }
@@ -344,7 +346,15 @@ namespace Misp.Planification.Tranformation
 
         
         #region Operations
-        
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+            this.NameTextBox.IsReadOnly = readOnly;
+            this.SaveButton.Visibility = readOnly ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+            this.InstructionsPanel.SetReadOnly(readOnly);
+        }
+
         public void DisplayItem()
         {
             if (Action == null) { Reset(); return; }

@@ -351,6 +351,7 @@ namespace Misp.Planification.Tranformation
         public virtual void SetReadOnly(bool readOnly)
         {
             this.IsReadOnly = readOnly;
+            if(this.TransformationTreePropertiePanel != null) this.TransformationTreePropertiePanel.SetReadOnly(readOnly);
         }
 
 
@@ -372,13 +373,12 @@ namespace Misp.Planification.Tranformation
                 if (this.LoopDialog == null)
                 {
                     this.LoopDialog = new LoopDialog();
+                    this.LoopDialog.SetReadOnly(this.IsReadOnly);
                     this.LoopDialog.TransformationTreeService = this.TransformationTreeService;
-                    this.LoopDialog.initializeSideBar();
-                    //this.LoopDialog.ValueField.Periodicity = GetDesignService().PeriodicityService.getPeriodicity(); 
-                    this.LoopDialog.SaveButton.Click += OnLoopDialogSave;
+                    if (!this.IsReadOnly) this.LoopDialog.initializeSideBar();
+                    if (!this.IsReadOnly) this.LoopDialog.SaveButton.Click += OnLoopDialogSave;
                     this.LoopDialog.CancelButton.Click += OnLoopDialogCancel;
                     this.LoopDialog.Closing += OnLoopDialogClosing;
-                   // this.LoopDialog.ReportPanel.SaveEndedEventHandler += OnSaveLoopReportEnded;
                     this.LoopDialog.Owner = ApplicationManager.Instance.MainWindow;
                 }
                 
@@ -391,9 +391,10 @@ namespace Misp.Planification.Tranformation
                 if (this.ActionDialog == null)
                 {
                     this.ActionDialog = new TreeActionDialog();
+                    this.ActionDialog.SetReadOnly(this.IsReadOnly);
                     this.ActionDialog.TransformationTreeService = this.TransformationTreeService;
-                    this.ActionDialog.initializeSideBarHandlers();
-                    this.ActionDialog.SaveButton.Click += OnActionDialogSave;
+                    if (!this.IsReadOnly) this.ActionDialog.initializeSideBarHandlers();
+                    if (!this.IsReadOnly) this.ActionDialog.SaveButton.Click += OnActionDialogSave;
                     this.ActionDialog.CancelButton.Click += OnActionDialogCancel;
                     this.ActionDialog.Closing += OnActionDialogClosing;
                     this.ActionDialog.OnCloseSlideDialog += OnCloseSlideView;

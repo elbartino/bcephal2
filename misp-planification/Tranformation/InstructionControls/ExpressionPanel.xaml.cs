@@ -39,6 +39,15 @@ namespace Misp.Planification.Tranformation.InstructionControls
             initHandlers();
         }
 
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.OperatorComboBox.IsEnabled = OperatorComboBox.IsEnabled && !readOnly;
+            this.SignComboBox.IsEnabled = !readOnly;
+            this.OpenBracketComboBox.IsEnabled = !readOnly;
+            this.CloseBracketComboBox.IsEnabled = !readOnly;
+            this.OperatorComboBox.IsEnabled = !readOnly;
+        }
+
         public ConditionItem Fill()
         {
             ConditionItem item = new ConditionItem();

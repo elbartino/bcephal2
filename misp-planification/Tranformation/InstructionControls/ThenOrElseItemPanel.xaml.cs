@@ -67,6 +67,12 @@ namespace Misp.Planification.Tranformation.InstructionControls
             initHandlers();
         }
 
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.ActionComboBox.IsEnabled = !readOnly;
+            this.LoopComboBox.IsEnabled = !readOnly;
+        }
+
         public Instruction Fill()
         {
             if (ActionComboBox.SelectedItem == null) return null;

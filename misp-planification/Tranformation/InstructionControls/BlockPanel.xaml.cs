@@ -69,6 +69,13 @@ namespace Misp.Planification.Tranformation.InstructionControls
             initHandlers();
         }
 
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IfInstructionPanel.SetReadOnly(readOnly);
+            this.ThenInstructionPanel.SetReadOnly(readOnly);
+            this.ElseInstructionPanel.SetReadOnly(readOnly);
+        }
+
         public Instruction Fill()
         {
             Instruction instruction = new Instruction(Instruction.BLOCK, Instruction.END);

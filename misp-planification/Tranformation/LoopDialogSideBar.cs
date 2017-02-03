@@ -36,6 +36,17 @@ namespace Misp.Planification.Tranformation
 
         #region Initialization
 
+        public override void SetReadOnly(bool readOnly)
+        {
+            EntityGroup.Visibility = readOnly ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+            TargetGroup.Visibility = readOnly ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+            MeasureGroup.Visibility = readOnly ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+            PeriodGroup.Visibility = readOnly ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+            CalculateMeasureGroup.Visibility = readOnly ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+            CustomizedTargetGroup.Visibility = readOnly ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+            TreeLoopGroup.Visibility = readOnly ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+        }
+
         /// <summary>
         /// 
         /// </summary>

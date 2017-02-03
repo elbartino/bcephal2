@@ -27,6 +27,13 @@ namespace Misp.Planification.Tranformation
             this.periodGrid.Visibility = System.Windows.Visibility.Collapsed;
         }
 
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.nameTextBox.IsReadOnly = readOnly;
+            visibleInShortcutCheckBox.IsEnabled = !readOnly;
+            //this.groupField.SetReadOnly(readOnly);
+        }
+
         public void fillTransformationTree(TransformationTree transformationTree)
         {
             if (transformationTree == null) return;

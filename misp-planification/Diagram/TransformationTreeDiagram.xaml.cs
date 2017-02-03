@@ -20,9 +20,15 @@ namespace Misp.Planification.Diagram
     /// </summary>
     public partial class TransformationTreeDiagram : Grid
     {
+
         public TransformationTreeDiagram()
         {
             InitializeComponent();
+        }
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            designerCanvas.SetReadOnly(readOnly);
         }
 
         private void onZoom(object sender, RoutedPropertyChangedEventArgs<double> e)

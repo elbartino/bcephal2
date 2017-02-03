@@ -84,6 +84,12 @@ namespace Misp.Planification.Tranformation.InstructionControls
             return instruction;
         }
 
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.ThenOrElseItemPanel.SetReadOnly(readOnly);
+            this.IfItemPanel.SetReadOnly(readOnly);
+        }
+
         private Kernel.Domain.Instruction Fill(UIElement panel)
         {
             if (panel == null) return null;

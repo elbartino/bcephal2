@@ -32,6 +32,8 @@ namespace Misp.Planification.Tranformation
 
         #region Properties
 
+        public bool IsReadOnly { get; set; }
+
         public TransformationTreeItem Loop { get; set; }
 
         private Measure ranking;
@@ -61,6 +63,21 @@ namespace Misp.Planification.Tranformation
 
 
         #region Operations
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+            this.NameTextBox.IsReadOnly = readOnly;
+            this.IncreaseButton.IsEnabled = !readOnly;
+            this.DecreaseButton.IsEnabled = !readOnly;
+
+            //this.ValueField.SetReadOnly(readOnly);
+
+            this.SideBarGridSplitter.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.SideBar.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.DeleteButton.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.SaveButton.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+        }
 
         public void initializeSideBar()
         {
