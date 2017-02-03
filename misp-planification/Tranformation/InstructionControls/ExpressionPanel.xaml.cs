@@ -52,7 +52,9 @@ namespace Misp.Planification.Tranformation.InstructionControls
             this.AddButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
             this.DeleteButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
             this.Arg2TextBox.IsEnabled = !readOnly;
+            this.Arg1TextBox.IsEnabled = !readOnly;
             this.CommentTextBlock.IsEnabled = !readOnly;
+            this.NoCommentButton.ToolTip = readOnly ? "View comment" : "Edit comment";
         }
 
         public ConditionItem Fill()

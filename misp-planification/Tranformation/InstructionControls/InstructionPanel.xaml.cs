@@ -39,6 +39,8 @@ namespace Misp.Planification.Tranformation.InstructionControls
         public bool isThenBloc { get; set; }
         public bool isElseBloc { get; set; }
 
+        public bool IsReadOnly { get; set; }
+
         public bool trow = false;
         
         public InstructionPanel()
@@ -136,6 +138,7 @@ namespace Misp.Planification.Tranformation.InstructionControls
         {
             ExpressionPanel panel = new ExpressionPanel();
             panel.Display(item);
+            panel.SetReadOnly(this.IsReadOnly);
             panel.Height = 30;
             initHandlers(panel);
             return panel;
@@ -148,6 +151,7 @@ namespace Misp.Planification.Tranformation.InstructionControls
                 if (child != null && child.isBlock())
                 {
                     BlockPanel panel = new BlockPanel();
+                    panel.IsReadOnly = this.IsReadOnly;
                     panel.Display(child);
                     initHandlers(panel);
                     return panel;
@@ -155,6 +159,7 @@ namespace Misp.Planification.Tranformation.InstructionControls
                 else
                 {
                     ThenOrElseItemPanel panel = new ThenOrElseItemPanel();
+                    panel.SetReadOnly(this.IsReadOnly);
                     panel.Display(child);
                     panel.Height = 30;
                     initHandlers(panel);

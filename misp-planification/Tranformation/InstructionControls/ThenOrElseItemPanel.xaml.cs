@@ -71,6 +71,11 @@ namespace Misp.Planification.Tranformation.InstructionControls
         {
             this.ActionComboBox.IsEnabled = !readOnly;
             this.LoopComboBox.IsEnabled = !readOnly;
+            this.AddButton.Visibility = readOnly ? Visibility.Collapsed : Visibility.Visible;
+            this.DeleteButton.Visibility = readOnly ? Visibility.Collapsed : Visibility.Visible;
+            this.CommentTextBlock.IsReadOnly = readOnly;
+            this.EditButton.Visibility = readOnly ? Visibility.Collapsed : Visibility.Visible;
+            this.NoCommentButton.ToolTip = readOnly ? "View comments" : "Edit comments";
         }
 
         public Instruction Fill()

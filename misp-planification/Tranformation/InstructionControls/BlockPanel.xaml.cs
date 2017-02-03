@@ -45,6 +45,8 @@ namespace Misp.Planification.Tranformation.InstructionControls
 
         public static string ActionReportName { get; set; }
 
+        public bool IsReadOnly { get; set; }
+
         public static ObservableCollection<Kernel.Domain.Browser.InputTableBrowserData> listeTotalReport { get; set; }
 
         public static TransformationTreeItem LoopByName(String name)
@@ -71,6 +73,7 @@ namespace Misp.Planification.Tranformation.InstructionControls
 
         public virtual void SetReadOnly(bool readOnly)
         {
+            this.IsReadOnly = readOnly;
             this.IfInstructionPanel.SetReadOnly(readOnly);
             this.ThenInstructionPanel.SetReadOnly(readOnly);
             this.ElseInstructionPanel.SetReadOnly(readOnly);
@@ -103,8 +106,14 @@ namespace Misp.Planification.Tranformation.InstructionControls
                 Reset();
                 return;
             }
+            
+            this.IfInstructionPanel.IsReadOnly = this.IsReadOnly;
             this.IfInstructionPanel.Display(block.getIfInstruction());
+            
+            this.ThenInstructionPanel.IsReadOnly = this.IsReadOnly;
             this.ThenInstructionPanel.Display(block.getThenInstruction());
+
+            this.ElseInstructionPanel.IsReadOnly = this.IsReadOnly;
             this.ElseInstructionPanel.Display(block.getElseInstruction());
             trow = true;
         }
