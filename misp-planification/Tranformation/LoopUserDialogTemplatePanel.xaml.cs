@@ -26,6 +26,8 @@ namespace Misp.Planification.Tranformation
 
         public String conditions { get; set; }
 
+        public bool IsReadOnly { get; set; }
+
         public ChangeEventHandler Changed;
 
         public TransformationTreeItem Loop { get; set; }
@@ -102,12 +104,20 @@ namespace Misp.Planification.Tranformation
             {
                 resetComponent();
             }
+            if (this.IsReadOnly) SetReadOnly(this.IsReadOnly);
             this.LoopConditionsPanel.TransformationTreeService = this.TransformationTreeService;
             this.LoopConditionsPanel.DisplayLoopCondition();
             trow = false;
         }
 
-
+        public void SetReadOnly(bool readOnly) 
+        {
+            this.ActiveCheckbox.IsEnabled = !readOnly;
+            this.OnePossibleChoiceCheckbox.IsEnabled = !readOnly;
+            this.EditMessageTextBox.IsEnabled = !readOnly;
+            this.HelpMessageTextBox.IsEnabled = !readOnly;
+            this.LoopConditionsPanel.IsReadOnly = readOnly;
+        }
 
         public void Fill()
         {

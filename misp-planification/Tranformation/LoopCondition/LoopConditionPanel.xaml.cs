@@ -31,6 +31,8 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         public TransformationTreeItem Loop { get; set; }
 
+        public bool IsReadOnly { get; set; }
+
         public LoopUserDialogTemplate LoopUserTemplate { get; set; }
 
         public Kernel.Service.TransformationTreeService TransformationTreeService { get; set; }
@@ -90,7 +92,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
             LoopConditionItemPanel panel = new LoopConditionItemPanel();
             panel.Margin = new Thickness(0, 0, 0, 10);
             panel.Background = new SolidColorBrush();
-            panel.Display(item);
+            panel.Display(item,this.IsReadOnly);
             //panel.Height = 250;
             initLoopConditionHandlers(panel);
             return panel;
@@ -138,7 +140,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
         public void OnAddConditionItem(object item)
         {
             LoopConditionItemPanel panel = GetNewConditionItemPanel(null);
-
+            panel.SetReadOnly(this.IsReadOnly);
             int countContainerChildren = this.LoopConditionsPanel.Children.Count + 1;
             panel.Index = countContainerChildren;
 
@@ -198,6 +200,15 @@ namespace Misp.Planification.Tranformation.LoopCondition
                 this.ActiveLoopConditionItemPanel = (LoopConditionItemPanel)this.LoopConditionsPanel.Children[0];
             }
             this.ActiveLoopConditionItemPanel.setValue(value);
+        }
+
+        public void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+            foreach (UIElement child in this.LoopConditionsPanel.Children)
+            {
+                if (child is LoopConditionItemPanel) ((LoopConditionItemPanel)child).SetReadOnly(readOnly);
+            }
         }
     }
 }

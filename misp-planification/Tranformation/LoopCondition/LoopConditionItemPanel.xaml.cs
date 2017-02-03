@@ -33,6 +33,8 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
         public Kernel.Domain.LoopCondition LoopCondition { get; set; }
 
+        public bool IsReadOnly { get; set; }
+
         public bool trow = false;
 
         private bool isViewDetailsHided { get; set; }
@@ -76,12 +78,12 @@ namespace Misp.Planification.Tranformation.LoopCondition
         }
 
 
-        public void Display(object item)
+        public void Display(object item,bool readOnly =false)
         {
             if(item != null && item is Kernel.Domain.LoopCondition)
             {
                 this.LoopCondition = (Kernel.Domain.LoopCondition)item;
-                DisplayLoopCondition(this.LoopCondition);
+                DisplayLoopCondition(this.LoopCondition,readOnly);
 
             }
             else
@@ -101,6 +103,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
 
             this.CommentTextBlock.Text = "";
             refreshCommentIcon();
+            if (this.IsReadOnly) this.SetReadOnly(this.IsReadOnly);
             trow = true;
         }
 
@@ -199,7 +202,7 @@ namespace Misp.Planification.Tranformation.LoopCondition
             if (isViewDetailsHided) HideDetailsView(false);
         }
 
-        private void DisplayLoopCondition(Kernel.Domain.LoopCondition loopCondition)
+        private void DisplayLoopCondition(Kernel.Domain.LoopCondition loopCondition,bool readOnly=false)
         {
             trow = false;
             this.CommentTextBlock.Text = loopCondition.comment;
@@ -207,16 +210,19 @@ namespace Misp.Planification.Tranformation.LoopCondition
             this.OpenBracketComboBox.SelectedItem = loopCondition.openBracket;
             this.CloseBracketComboBox.SelectedItem = loopCondition.closeBracket;
             this.Index = loopCondition.position +1;
+
+            if (readOnly) SetMainPanelReadOnly(readOnly);
             CellProperty cell = loopCondition.cellProperty;
             if (cell == null) cell = new CellProperty();
             this.LoopCalutedValue.ChangeEventHandler += onChange;
-            this.LoopCalutedValue.periodPanel.DisplayPeriod(cell.period);
-            this.LoopCalutedValue.filterScopePanel.DisplayScope(cell.cellScope);
-            this.LoopCalutedValue.CellMeasurePanel.Display(cell.cellMeasure);
+            this.LoopCalutedValue.periodPanel.DisplayPeriod(cell.period, false, readOnly);
+            this.LoopCalutedValue.filterScopePanel.DisplayScope(cell.cellScope, false, readOnly);
+            this.LoopCalutedValue.CellMeasurePanel.Display(cell.cellMeasure, readOnly);
             if (!string.IsNullOrEmpty(loopCondition.conditions)) 
             {
-                this.LoopCalutedValue.DisplayInstructions(loopCondition.instructions);
+                this.LoopCalutedValue.DisplayInstructions(loopCondition.instructions,readOnly);
             }
+            
             trow = true;
         }
 
@@ -482,6 +488,29 @@ namespace Misp.Planification.Tranformation.LoopCondition
             scope.targetType = Target.TargetType.COMBINED.ToString();
             scope.type = Target.Type.OBJECT_VC.ToString();
             return scope;
+        }
+
+        public void SetMainPanelReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+            this.OpenBracketComboBox.IsEnabled = !readOnly;
+            this.CloseBracketComboBox.IsEnabled = !readOnly;
+            this.OperatorComboBox.IsEnabled = !readOnly;
+            this.AddButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.DeleteButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.CommentTextBlock.IsReadOnly = readOnly;
+            string toolTipText = ShowDetailsButton.ToolTip.ToString();
+            ShowDetailsButton.ToolTip = readOnly ? "Show Conditions" : "Edit Conditions";
+            HideDetailsButton.ToolTip = readOnly ? "Hide Conditions" : "Edit Conditions";
+        }
+
+        public void SetReadOnly(bool readOnly) 
+        {
+            SetMainPanelReadOnly(readOnly);
+            if (this.LoopCalutedValue != null)
+            {
+                this.LoopCalutedValue.SetReadOnly(readOnly);
+            }
         }
 
 

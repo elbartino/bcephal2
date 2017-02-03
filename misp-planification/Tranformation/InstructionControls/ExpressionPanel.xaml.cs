@@ -28,6 +28,8 @@ namespace Misp.Planification.Tranformation.InstructionControls
         
         public bool trow = false;
 
+        public bool IsReadOnly { get; set; }
+
         public ExpressionPanel()
         {
             InitializeComponent();
@@ -41,11 +43,16 @@ namespace Misp.Planification.Tranformation.InstructionControls
 
         public virtual void SetReadOnly(bool readOnly)
         {
+            this.IsReadOnly = readOnly;
             this.OperatorComboBox.IsEnabled = OperatorComboBox.IsEnabled && !readOnly;
             this.SignComboBox.IsEnabled = !readOnly;
             this.OpenBracketComboBox.IsEnabled = !readOnly;
             this.CloseBracketComboBox.IsEnabled = !readOnly;
             this.OperatorComboBox.IsEnabled = !readOnly;
+            this.AddButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.DeleteButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.Arg2TextBox.IsEnabled = !readOnly;
+            this.CommentTextBlock.IsEnabled = !readOnly;
         }
 
         public ConditionItem Fill()
@@ -97,6 +104,7 @@ namespace Misp.Planification.Tranformation.InstructionControls
             this.Arg2TextBox.Text = condition.arg2 != null ? condition.arg2 : "";
             this.CommentTextBlock.Text = String.IsNullOrWhiteSpace(condition.comment) ? "" : condition.comment.Trim();
             refreshCommentIcon();
+            if (IsReadOnly) SetReadOnly(IsReadOnly);
             trow = true;
         }
 
