@@ -111,6 +111,7 @@ namespace Misp.Sourcing.Table
             this.Period = period;
             this.panel.Children.Clear();
             if(forAutomaticSourcing) this.tagFormula.Visibility = System.Windows.Visibility.Collapsed;
+            if (readOnly) this.NewPeriodTextBlock.Visibility = System.Windows.Visibility.Collapsed;
             if (period == null || period.itemListChangeHandler.Items.Count <= 0)
             {
                 if (DefaultPeriodName != null) this.ActiveNamePanel = new RPeriodNamePanel(DefaultPeriodName.name);

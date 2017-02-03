@@ -456,6 +456,7 @@ namespace Misp.Sourcing.Table
             this.FormulaTextBox.IsReadOnly = readOnly;
             this.numberValueTextBox.IsReadOnly = readOnly;
             this.operationComboBox.IsEnabled = !readOnly;
+            this.ValueDatePicker.IsEnabled = !readOnly;
             this.Button.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
         }
     }
