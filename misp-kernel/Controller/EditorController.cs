@@ -566,6 +566,11 @@ namespace Misp.Kernel.Controller
         /// <param name="page"></param>
         public virtual void OnPageSelected(EditorItem<T> page)
         {
+            CustomizeSideBarToolbarAndContexMenu(page);
+        }
+
+        public virtual void CustomizeSideBarToolbarAndContexMenu(EditorItem<T> page)
+        {
             if (page != null)
             {
                 if (this.ToolBar != null) this.ToolBar.SetReadOnly(page.IsReadOnly);
