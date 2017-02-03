@@ -30,6 +30,9 @@ namespace Misp.Initiation.Archives
         public SimpleArchiveDialog()
         {
             InitializeComponent();
+            this.archiveRepo.Visibility = Visibility.Collapsed;
+            this.browser.Visibility = Visibility.Collapsed;
+            this.archiveLabel.Visibility = Visibility.Collapsed;
             this.buttonOk.Click += onValidateConfig;
             this.buttonCancel.Click += onCancelConfig;
             this.browser.Click += onBrowserClick;
@@ -118,7 +121,7 @@ namespace Misp.Initiation.Archives
             
             Kernel.Domain.SimpleArchive simpleArchive = new Kernel.Domain.SimpleArchive();
             simpleArchive.name = this.archiveName.Text;
-            simpleArchive.repository = this.archiveRepo.Text;
+            simpleArchive.repository = null; // this.archiveRepo.Text;
             simpleArchive.comments = this.archiveComments.Text;
             Kernel.Util.UserPreferencesUtil.SetArchiveRepository(this.archiveRepo.Text);
             if (this.fileService.saveSimpleArchive(simpleArchive))
