@@ -99,23 +99,21 @@ namespace Misp.Planification.Tranformation
                 return OperationState.STOP;
             }
 
-            bool isOk = true;
+            bool isReadonly = false;
             if (tree.oid.HasValue)
             {
-                isOk = GetTransformationTreeService().locked(ApplicationManager.File.oid.Value, tree.oid.Value);
+                bool isOk = GetTransformationTreeService().locked(ApplicationManager.File.oid.Value, tree.oid.Value);
                 if (!isOk)
                 {
                     MessageBoxResult response = MessageDisplayer.DisplayYesNoQuestion("Tree Locked", "Tree '" + tree.name + "' is locked by another user!\n"
                         + "You cannot edit the tree until the tree is open by another user.\n"
                         + "Do you want to switch in read only mode ?");
                     if (MessageBoxResult.Yes != response) return OperationState.STOP;
+                    else isReadonly = true;
                 }
             }
-
-            //tree.RefreshItems();
-            //List<TransformationTreeItem> roots = tree.GetRoots();
             ((TransformationTreeSideBar)SideBar).TransformationTreeGroup.TransformationTreeTreeview.AddTransformationTreeIfNatExist(tree);
-            TransformationTreeEditorItem page = (TransformationTreeEditorItem)getTransformationTreeEditor().addOrSelectPage(tree);
+            TransformationTreeEditorItem page = (TransformationTreeEditorItem)getTransformationTreeEditor().addOrSelectPage(tree, isReadonly);
             page.GetTransformationTreeForm().TransformationTreeService = this.GetTransformationTreeService();
             initializePageHandlers(page);
             getEditor().ListChangeHandler.AddNew(tree);
@@ -532,6 +530,7 @@ namespace Misp.Planification.Tranformation
         public override void OnPageSelected(EditorItem<Kernel.Domain.TransformationTree> page)
         {
             if (page == null) return;
+            base.OnPageSelected(page);
             TransformationTreeForm form = ((TransformationTreeEditorItem)page).GetTransformationTreeForm();
             if (form.TransformationTreePropertiePanel != null)
                 ((TransformationTreePropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.TransformationTreePropertiePanel;

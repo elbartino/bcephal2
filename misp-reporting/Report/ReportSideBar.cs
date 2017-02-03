@@ -34,6 +34,12 @@ namespace Misp.Reporting.Report
 
         #region Initialization
 
+        public override void SetReadOnly(bool readOnly)
+        {
+            base.SetReadOnly(readOnly);
+            CalculatedMeasureGroup.Visibility = readOnly ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+        }
+
         /// <summary>
         /// 
         /// </summary>

@@ -148,6 +148,7 @@ namespace Misp.Kernel.Controller
         {
             foreach (EditorItem<T> page in getEditor().getPages())
             {
+                if (page.IsReadOnly) continue;
                 if (page.IsModify && !page.validateEdition()) return OperationState.STOP;
             }
             SavePages();
@@ -161,6 +162,7 @@ namespace Misp.Kernel.Controller
             saveSuccess = true;
             foreach (EditorItem<T> page in getEditor().getPages())
             {
+                if (page.IsReadOnly) continue;
                 OperationState resultSave =  Save(page);
                 if (resultSave == OperationState.STOP) saveSuccess = false;
             }
@@ -175,7 +177,7 @@ namespace Misp.Kernel.Controller
         /// </returns>
         public virtual OperationState Save(EditorItem<T> page)
         {
-            if (page.IsModify)
+            if (!page.IsReadOnly && page.IsModify)
             {
                 if (!page.validateEdition()) return OperationState.STOP;
                 page.fillObject();
@@ -280,7 +282,7 @@ namespace Misp.Kernel.Controller
         public override OperationState Rename()
         {
             EditorItem<T> page = getEditor().getActivePage();
-            if (page == null) return OperationState.STOP;
+            if (page == null || page.IsReadOnly) return OperationState.STOP;
             page.InitializeRenameField();
             page.RenameTextBox.Text = page.Title;           
             if (page.RenameDialog.ShowCenteredToMouse().Value)
@@ -564,7 +566,22 @@ namespace Misp.Kernel.Controller
         /// <param name="page"></param>
         public virtual void OnPageSelected(EditorItem<T> page)
         {
-            
+            if (page != null)
+            {
+                if (this.ToolBar != null) this.ToolBar.SetReadOnly(page.IsReadOnly);
+                if (this.SideBar != null) this.SideBar.SetReadOnly(page.IsReadOnly);
+                SetContextMenuReadOnly(page.IsReadOnly);
+            }
+        }
+
+        public virtual void SetContextMenuReadOnly(bool isReadOnly)
+        {
+            RefreshMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
+            DeleteMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
+            SaveAsMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
+            SaveMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
+            RenameMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
+            NewMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
         }
 
         #endregion

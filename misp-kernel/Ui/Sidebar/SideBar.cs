@@ -37,10 +37,7 @@ namespace Misp.Kernel.Ui.Sidebar
 
         public virtual void SetReadOnly(bool readOnly)
         {
-            foreach (UIElement child in this.MainPanel.Children)
-            {
-                if (child is Expander && child != StatusGroup) child.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
-            }
+            
         }
 
         public void AddGroup(Expander group, int position)

@@ -160,6 +160,7 @@ namespace Misp.Kernel.Ui.Base
         public virtual void InitializeRenameField()
         {
             RenameDialog = new Util.Dialog();
+            RenameDialog.Owner = Application.ApplicationManager.Instance.MainWindow;
             RenameTextBox = new TextBox();
             RenameDialog.Content = RenameTextBox;
             RenameDialog.Height = 23;
@@ -175,6 +176,7 @@ namespace Misp.Kernel.Ui.Base
             namePanel = new NamePanel();
             namePanel.Height =30;
             CustomDialog = new Util.Dialog(title, namePanel);
+            CustomDialog.Owner = Application.ApplicationManager.Instance.MainWindow;
             CustomDialog.buttonPanel.Visibility = Visibility.Visible;
             CustomDialog.Height = 140;
             CustomDialog.Width = 300;
