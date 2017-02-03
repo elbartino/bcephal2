@@ -21,6 +21,16 @@ namespace Misp.Planification.Tranformation
         public Button RunButton { get { return runButton; } }
         public Button ClearButton { get { return clearButton; } }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public override void SetReadOnly(bool readOnly)
+        {
+            base.SetReadOnly(readOnly);
+            RunButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+            ClearButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+        }
+
         protected override List<System.Windows.Controls.Control> getAllControls()
         {
             List<System.Windows.Controls.Control> controls = new List<System.Windows.Controls.Control>(0);

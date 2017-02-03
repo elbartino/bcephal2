@@ -91,10 +91,10 @@ namespace Misp.Kernel.Ui.Base
         /// Si la page n'existe pas, on la crée, on la rajoute aà l'éditeur et on la selectionne.
         /// </summary>
         /// <param name="anObject">L'objet dont la page doit être créée ou selectionnée</param>
-        public EditorItem<T> addOrSelectPage(T anObject) 
+        public EditorItem<T> addOrSelectPage(T anObject, bool readOnly = false) 
         {
             EditorItem<T> page = getPage(anObject);
-            if (page == null) page = addPage(anObject);
+            if (page == null) page = addPage(anObject, readOnly);
             selectePage(page);
             return page;
         }
@@ -251,10 +251,10 @@ namespace Misp.Kernel.Ui.Base
         /// </summary>
         /// <param name="anObject">L'objet dont la page doit être rejoutée</param>
         /// <returns>La page créée</returns>
-        protected virtual EditorItem<T> addPage(T anObject)
-        {
-            
+        protected virtual EditorItem<T> addPage(T anObject, bool readOnly = false)
+        {            
            EditorItem<T> page = getNewPage();
+           if (readOnly) page.SetReadOnly(readOnly);
            page.ChangeEventHandler = this.ChangeEventHandler;
            page.EditedObject = anObject;
            page.Title = anObject != null ? anObject.ToString() : "";

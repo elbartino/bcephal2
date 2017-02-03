@@ -38,6 +38,20 @@ namespace Misp.Sourcing.Table
         public System.Windows.Controls.Button AllFunctonnalityButton { get { return auditButton; } }
         public System.Windows.Controls.CheckBox ApplyToAllCheckBox { get { return applyToAllCheckBox; } }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override void SetReadOnly(bool readOnly)
+        {
+            base.SetReadOnly(readOnly);
+            SaveClearRunButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+            applyToAllCheckBox.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+            RunButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+            ClearButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+            SaveAsButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
+        }
+
         protected override List<System.Windows.Controls.Control> getAllControls()
         {
             List<System.Windows.Controls.Control> controls = new List<System.Windows.Controls.Control>(0);

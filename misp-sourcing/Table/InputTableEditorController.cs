@@ -217,10 +217,10 @@ namespace Misp.Sourcing.Table
         /// </returns>
         public override OperationState Open(InputTable table)
         {
-            bool isOk = true;
+            bool isReadonly = false;
             if (table.oid.HasValue)
             {
-                isOk = GetInputTableService().locked(ApplicationManager.File.oid.Value, table.oid.Value);
+                bool isOk = GetInputTableService().locked(ApplicationManager.File.oid.Value, table.oid.Value);
                 if (!isOk)
                 {
                     String entity = "Table";
@@ -229,7 +229,7 @@ namespace Misp.Sourcing.Table
                         + "You cannot edit the " + entity + " until the " + entity + " is open by another user.\n"
                         + "Do you want to switch in read only mode ?");
                     if (MessageBoxResult.Yes != response) return OperationState.STOP;
-                    else return OpenInReadOnlyMode(table);
+                    else isReadonly = true;
                 }
             }
 
@@ -240,7 +240,7 @@ namespace Misp.Sourcing.Table
             filePath = tempPath + table.name + SheetConst.EXCEL_EXT;
 
             ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.AddInputTableIfNatExist(table);
-            EditorItem<InputTable> page = getEditor().addOrSelectPage(table);
+            EditorItem<InputTable> page = getEditor().addOrSelectPage(table, isReadonly);
             ((InputTableEditorItem)page).getInputTableForm().SpreadSheet.Open(filePath);
             ((InputTableEditorItem)page).getInputTableForm().InputTableService = (InputTableService)this.Service;
             UpdateStatusBar(null);
@@ -248,10 +248,10 @@ namespace Misp.Sourcing.Table
             initializePageHandlers(page);
             getEditor().ListChangeHandler.AddNew(table);
             GetInputTableService().createTable(table);
-            Parameter parameter = new Parameter(table.name);
 
-            if (table.tranformationTreeOid == null && this.treeOid != null)
+            if (!isReadonly && table.tranformationTreeOid == null && this.treeOid != null)
             {
+                Parameter parameter = new Parameter(table.name);
                 parameter.setTransformationTree(this.treeOid.Value);
                 GetInputTableService().parametrizeTable(parameter);
             }
@@ -283,6 +283,7 @@ namespace Misp.Sourcing.Table
             GetInputTableService().createTable(table);
             page.SetReadOnly(true);
             page.IsModify = false;
+            base.OnPageSelected(page);
             return OperationState.CONTINUE;
         }
 
@@ -1268,6 +1269,7 @@ namespace Misp.Sourcing.Table
         public override void OnPageSelected(EditorItem<InputTable> page)
         {
             if (page == null) return;
+            base.OnPageSelected(page);
             InputTableForm form = ((InputTableEditorItem)page).getInputTableForm();
             if (!isReport())
             {
