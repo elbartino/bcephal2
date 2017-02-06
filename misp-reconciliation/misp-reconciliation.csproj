@@ -127,6 +127,12 @@
     <Compile Include="ReconciliationContext\ReconciliationContextForm.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextToolBar.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextPropertyBar.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateBrowser.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateBrowserController.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateEditor.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateEditorController.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateEditorItem.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateForm.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

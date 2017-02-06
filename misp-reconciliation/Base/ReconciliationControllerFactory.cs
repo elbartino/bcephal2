@@ -14,6 +14,7 @@ using Misp.Kernel.Administration.Profil;
 using Misp.Reconciliation.ReconciliationContext;
 using Misp.Reconciliation.RecoGrid;
 using Misp.Reconciliation.Filter;
+using Misp.Reconciliation.Reco;
 
 namespace Misp.Reconciliation.Base
 {
@@ -37,6 +38,18 @@ namespace Misp.Reconciliation.Base
         /// <returns></returns>
         public override Controllable GetController(string fonctionality, ViewType? viewType = null, EditionMode? editionMode = null)
         {
+
+            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
+            {
+                ReconciliationFilterTemplateBrowserController controller = new ReconciliationFilterTemplateBrowserController();
+                controller.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                controller.FunctionalityCode = fonctionality;
+                controller.ApplicationManager = this.ApplicationManager;
+                controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterService();
+                return controller;
+            }
+
+
 
             if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
