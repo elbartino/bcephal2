@@ -54,6 +54,7 @@ namespace Misp.Kernel.Service
         /// </summary>
         public FileService FileService { get; set; }
 
+
         public static bool ValidateResponse(RestResponse response) 
         {
             if(response == null) return false;

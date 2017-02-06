@@ -87,7 +87,10 @@ namespace Misp.Kernel.Service
         public static string RECONCILIATION_RESOURCE_PATH = "reconciliation";
         public static string RECONCILIATION_GRID_RESOURCE_PATH = "reconciliation-grid";
         public static string RECONCILIATON_FILTER_RESOURCE_PATH = "reconciliation-filter";
-        
+
+
+        public static string RECONCILIATON_FILTER_TEMPLATE_RESOURCE_PATH = "/reconciliation-filter-template";
+
 
         public static string RECONCILIATON_POSTING_RESOURCE_PATH = RECONCILIATION_RESOURCE_PATH + "/posting";
         
