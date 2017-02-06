@@ -342,6 +342,9 @@
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\Value.cs" />
     <Compile Include="Domain\WriteOffConfiguration.cs" />
+    <Compile Include="Domain\WriteOffField.cs" />
+    <Compile Include="Domain\WriteOffFieldType.cs" />
+    <Compile Include="Domain\WriteOffFieldValue.cs" />
     <Compile Include="Resources\Styles\SidebarTreeStyle.xaml.cs">
       <DependentUpon>SidebarTreeStyle.xaml</DependentUpon>
     </Compile>
@@ -351,6 +354,7 @@
     <Compile Include="Service\CombineTransformationTreeService.cs" />
     <Compile Include="Service\AutomaticPostingGridService.cs" />
     <Compile Include="Service\EnrichmentTableService.cs" />
+    <Compile Include="Service\ReconciliationFilterTemplateService.cs" />
     <Compile Include="Service\RelationShipService.cs" />
     <Compile Include="Service\RightService.cs" />
     <Compile Include="Service\FileTransferService.cs" />
