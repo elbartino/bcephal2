@@ -8,5 +8,12 @@ namespace Misp.Kernel.Domain
 {
     public class WriteOffConfiguration : Persistent
     {
+        public PersistentListChangeHandler<WriteOffField> fieldListChangeHandler;
+
+   
+        public WriteOffConfiguration()
+        {
+            fieldListChangeHandler = new PersistentListChangeHandler<WriteOffField>();
+        }
     }
 }
