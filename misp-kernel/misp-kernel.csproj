@@ -263,12 +263,14 @@
     <Compile Include="Domain\AutomaticGridAction.cs" />
     <Compile Include="Domain\AutomaticGridData.cs" />
     <Compile Include="Domain\AutomaticSourcingColumnItem.cs" />
+    <Compile Include="Domain\BalanceFormula.cs" />
     <Compile Include="Domain\Browser\BrowserDataFilter.cs" />
     <Compile Include="Domain\Browser\BrowserDataFilterItem.cs" />
     <Compile Include="Domain\Browser\BrowserDataPage.cs" />
     <Compile Include="Domain\Browser\RoleBrowserData.cs" />
     <Compile Include="Domain\Browser\ProfilBrowserData.cs" />
     <Compile Include="Domain\Browser\UserBrowserData.cs" />
+    <Compile Include="Domain\DebitCreditFormula.cs" />
     <Compile Include="Domain\EnrichmentTable.cs" />
     <Compile Include="Domain\EnrichmentTableData.cs" />
     <Compile Include="Domain\GrilleColumnFilter.cs" />
@@ -287,6 +289,7 @@
     <Compile Include="Domain\NotifyPropertyChanged.cs" />
     <Compile Include="Domain\ReconciliationContext.cs" />
     <Compile Include="Domain\ReconciliationFilter.cs" />
+    <Compile Include="Domain\ReconciliationFilterTemplate.cs" />
     <Compile Include="Domain\RightType.cs" />
     <Compile Include="Domain\UserAction.cs" />
     <Compile Include="Domain\AllocationRunBrowserDataPage.cs" />
@@ -338,6 +341,7 @@
     <Compile Include="Domain\TransformationTree.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\Value.cs" />
+    <Compile Include="Domain\WriteOffConfiguration.cs" />
     <Compile Include="Resources\Styles\SidebarTreeStyle.xaml.cs">
       <DependentUpon>SidebarTreeStyle.xaml</DependentUpon>
     </Compile>

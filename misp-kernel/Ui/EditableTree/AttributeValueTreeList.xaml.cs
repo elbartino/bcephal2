@@ -790,7 +790,7 @@ namespace Misp.Kernel.Ui.EditableTree
             {
                 Kernel.Domain.AttributeValue m = (Domain.AttributeValue)Root.GetChildByName(attribute.name);
                 int i = 1;
-                while (m != null) ;
+                while (m != null)
                 {
                     attribute.name = name + i++;
                     m = (Domain.AttributeValue)Root.GetChildByName(attribute.name);
