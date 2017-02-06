@@ -1,0 +1,13 @@
+﻿<Grid x:Class="Misp.Reconciliation.WriteOffConfig.WriteOffElements.WriteOffFieldValuePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:item="clr-namespace:Misp.Reconciliation.WriteOffConfig.WriteOffElements"
+             mc:Ignorable="d" >
+    <StackPanel x:Name="FieldValuePanel">
+        <item:WriteOffValueItem x:Name="item1"  />
+        <item:WriteOffValueItem x:Name="item2" />
+    </StackPanel>
+</Grid>
+

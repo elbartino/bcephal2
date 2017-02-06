@@ -1,0 +1,17 @@
+﻿<Grid x:Class="Misp.Reconciliation.WriteOffConfig.WriteOffFieldPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:field="clr-namespace:Misp.Reconciliation.WriteOffConfig.WriteOffElements"
+             xmlns:values="clr-namespace:Misp.Reconciliation.WriteOffConfig"
+             mc:Ignorable="d"  Margin ="0 10 0 0">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <field:FieldsValues x:Name="fieldsValue"  Grid.Column="0"  />
+    <field:MandatoryValue x:Name="MandatoryValue" Grid.Column="1" />
+    <field:WriteOffFieldValuePanel x:Name="FieldValuePanel" Grid.Column="2"/>
+ </Grid>

@@ -127,6 +127,34 @@
     <Compile Include="ReconciliationContext\ReconciliationContextForm.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextToolBar.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextPropertyBar.cs" />
+    <Compile Include="WriteOffConfig\ReconciliationFilterTemplateEditor.cs" />
+    <Compile Include="WriteOffConfig\ReconciliationFilterTemplateEditorController.cs" />
+    <Compile Include="WriteOffConfig\ReconciliationFilterTemplateEditorItem.cs" />
+    <Compile Include="WriteOffConfig\ReconciliationFilterTemplateForm.cs" />
+    <Compile Include="WriteOffConfig\WriteOffConfigPanel.xaml.cs">
+      <DependentUpon>WriteOffConfigPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WriteOffConfig\WriteOffElements\DefaultValues.xaml.cs">
+      <DependentUpon>DefaultValues.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WriteOffConfig\WriteOffElements\FieldsValues.xaml.cs">
+      <DependentUpon>FieldsValues.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WriteOffConfig\WriteOffElements\MandatoryValue.xaml.cs">
+      <DependentUpon>MandatoryValue.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WriteOffConfig\WriteOffElements\PossibleValues.xaml.cs">
+      <DependentUpon>PossibleValues.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WriteOffConfig\WriteOffElements\WriteOffFieldValuePanel.xaml.cs">
+      <DependentUpon>WriteOffFieldValuePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WriteOffConfig\WriteOffElements\WriteOffValueItem.xaml.cs">
+      <DependentUpon>WriteOffValueItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WriteOffConfig\WriteOffFieldPanel.xaml.cs">
+      <DependentUpon>WriteOffFieldPanel.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -182,6 +210,38 @@
     <Page Include="Resources\Stencils\MispStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WriteOffConfig\WriteOffConfigPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WriteOffConfig\WriteOffElements\DefaultValues.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WriteOffConfig\WriteOffElements\FieldsValues.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WriteOffConfig\WriteOffElements\MandatoryValue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WriteOffConfig\WriteOffElements\PossibleValues.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WriteOffConfig\WriteOffElements\WriteOffFieldValuePanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WriteOffConfig\WriteOffElements\WriteOffValueItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WriteOffConfig\WriteOffFieldPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

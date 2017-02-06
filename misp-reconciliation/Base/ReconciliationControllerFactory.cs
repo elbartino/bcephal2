@@ -14,6 +14,7 @@ using Misp.Kernel.Administration.Profil;
 using Misp.Reconciliation.ReconciliationContext;
 using Misp.Reconciliation.RecoGrid;
 using Misp.Reconciliation.Filter;
+using Misp.Reconciliation.WriteOffConfig;
 
 namespace Misp.Reconciliation.Base
 {
@@ -121,6 +122,16 @@ namespace Misp.Reconciliation.Base
                 controller.FunctionalityCode = fonctionality;
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationContextService();
+                return controller;
+            }
+
+            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_TEMPLATE_CONFIGURATION)
+            {
+                ReconciliationFilterTemplateEditorController controller = new ReconciliationFilterTemplateEditorController();
+                controller.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                controller.FunctionalityCode = fonctionality;
+                controller.ApplicationManager = this.ApplicationManager;
+                controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterTemplateService();
                 return controller;
             }
 
