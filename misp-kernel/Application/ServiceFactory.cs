@@ -47,6 +47,8 @@ namespace Misp.Kernel.Application
 
         private EnrichmentTableService enrichmentTableService;
 
+        private ReconciliationFilterTemplateService reconciliationFilterTemplateServcie;
+
         /// <summary>
         /// Build a new instance of ServiceFactory.
         /// </summary>
@@ -416,6 +418,23 @@ namespace Misp.Kernel.Application
                 configureService(reconciliationContextService);
             }
             return reconciliationContextService;
+        }
+
+
+        public ReconciliationFilterTemplateService GetReconciliationFilterTemplateService()
+        {
+            if (reconciliationFilterTemplateServcie == null) 
+            {
+                reconciliationFilterTemplateServcie = new ReconciliationFilterTemplateService();
+                reconciliationFilterTemplateServcie.ResourcePath = ResourcePath.RECONCILIATON_FILTER_TEMPLATE_RESOURCE_PATH;
+                reconciliationFilterTemplateServcie.FileService = GetFileService();
+                reconciliationFilterTemplateServcie.ModelService = GetModelService();
+                reconciliationFilterTemplateServcie.MeasureService = GetMeasureService();
+                reconciliationFilterTemplateServcie.PeriodicityService = GetPeriodicityService();
+                reconciliationFilterTemplateServcie.TargetService = GetTargetService();
+                configureService(reconciliationFilterTemplateServcie);
+            }
+            return reconciliationFilterTemplateServcie;
         }
         
         /// <summary>
