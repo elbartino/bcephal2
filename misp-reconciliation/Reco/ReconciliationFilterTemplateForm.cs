@@ -8,5 +8,6 @@ namespace Misp.Reconciliation.Reco
 {
     public class ReconciliationFilterTemplateForm
     {
+
     }
 }

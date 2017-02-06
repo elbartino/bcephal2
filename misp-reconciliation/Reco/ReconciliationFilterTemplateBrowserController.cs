@@ -16,13 +16,13 @@ namespace Misp.Reconciliation.Reco
 
         public ReconciliationFilterTemplateBrowserController() 
         {
-            ModuleName = PlugIn.MODULE_NAME;
+            ModuleName = PlugIn.MODULE_NAME; 
         }
 
         /// <summary>
         /// L'éditeur.
         /// </summary>
-        public override string GetEditorFuntionality() { return FunctionalitiesCode.RECONCILIATION_FILTER_EDIT ; }
+        public override string GetEditorFuntionality() { return FunctionalitiesCode.RECONCILIATION_FILTER_EDIT; }
         
         /// <summary>
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.

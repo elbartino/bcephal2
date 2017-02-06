@@ -45,7 +45,7 @@ namespace Misp.Reconciliation.Base
                 controller.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
                 controller.FunctionalityCode = fonctionality;
                 controller.ApplicationManager = this.ApplicationManager;
-                controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterService();
+                controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterTemplateService();
                 return controller;
             }
 

@@ -23,7 +23,7 @@ namespace Misp.Reconciliation.Reco
         
         protected override string getTitle()
         {
-            return "Reconciliation Filters";
+            return "Reconciliation Filters"; 
         }
 
         /// <summary>
