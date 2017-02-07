@@ -127,6 +127,7 @@
     <Compile Include="ReconciliationContext\ReconciliationContextForm.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextToolBar.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextPropertyBar.cs" />
+    <Compile Include="WriteOffConfig\ReconciliationFilterTemplateSideBar.cs" />
     <Compile Include="WriteOffConfig\ReconciliationFilterTemplateEditor.cs" />
     <Compile Include="WriteOffConfig\ReconciliationFilterTemplateEditorController.cs" />
     <Compile Include="WriteOffConfig\ReconciliationFilterTemplateEditorItem.cs" />

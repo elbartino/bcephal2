@@ -28,15 +28,21 @@ namespace Misp.Reconciliation.WriteOffConfig
         public event AddEventHandler OnAddField;
         public event DeleteEventHandler OnDeleteField;
 
+        public event ActivateEventHandler ActivateFieldPanel;
+
         public int nbreLigne = 0;
         
         public Kernel.Domain.WriteOffConfiguration writeOffConfig { get; set; }
 
-        public PersistentListChangeHandler<WriteOffField> fieldListChangeHandler { get; set; } 
+        public PersistentListChangeHandler<WriteOffField> fieldListChangeHandler { get; set; }
+
+
+        public WriteOffFieldPanel ActiveFieldPanel { get; set; }
 
         public WriteOffConfigPanel()
         {
             InitializeComponent();
+            getActiveFieldPanel();
         }
 
         public void display(Kernel.Domain.WriteOffConfiguration writeOffConfig)
@@ -85,12 +91,26 @@ namespace Misp.Reconciliation.WriteOffConfig
         private WriteOffFieldPanel getFieldPanel() 
         {
             WriteOffFieldPanel wpanel = new WriteOffFieldPanel();
+            wpanel.GotFocus += OnActivate;
+            wpanel.ActivateFieldPanel += OnActivateFields;
             wpanel.OnAddFieldValue += OnAddFielddValue;
             wpanel.OnDeleteFieldValue += OnDeleteFieldsValue;
-
             wpanel.OnAddField += OnAddFields;
             wpanel.OnDeleteField += OnDeleteFields;
             return wpanel;
+        }
+
+        private void OnActivateFields(object item)
+        {
+            if (ActivateFieldPanel != null) ActivateFieldPanel(item);
+        }
+
+        private void OnActivate(object sender, RoutedEventArgs e)
+        {
+            if (sender is WriteOffFieldPanel)
+            {
+                if (ActivateFieldPanel != null) ActivateFieldPanel((WriteOffFieldPanel)sender);
+            }
         }
 
         private void DeleteAction(WriteOffFieldPanel item) 
@@ -150,6 +170,12 @@ namespace Misp.Reconciliation.WriteOffConfig
             //list.Add(writeOffAccountPanel);
             //list.Add(amountMeasurePanel);
             return list;
+        }
+
+        public WriteOffFieldPanel getActiveFieldPanel()
+        {
+            if (this.ActiveFieldPanel == null) this.ActiveFieldPanel = this.configPanel.Children[0] as WriteOffFieldPanel;
+            return this.ActiveFieldPanel;
         }
     }
 }

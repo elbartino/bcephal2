@@ -30,6 +30,10 @@ namespace Misp.Reconciliation.WriteOffConfig
         public event AddEventHandler OnAddField;
         public event DeleteEventHandler OnDeleteField;
 
+        public event ActivateEventHandler ActivateFieldPanel;
+
+        public WriteOffFieldPanel ActiveFieldPanel;
+
         public WriteOffField writeOffField;
 
         public WriteOffConfigPanel parent { get; set; }
@@ -102,12 +106,14 @@ namespace Misp.Reconciliation.WriteOffConfig
         public void InitializeHandlers() 
         {
             RemoveHandlers();
+
+            this.fieldsPanel.ActivateFieldPanel += OnActivateFieldsValue;
             this.fieldsPanel.OnAddField += OnAddFields;
             this.fieldsPanel.OnDeleteField += OnDeleteFields;
 
             this.FieldValuePanel.OnAddFieldValue += OnAddFieldsValue;
             this.FieldValuePanel.OnDeleteFieldValue += OnDeleteFieldsValue;
-
+            this.FieldValuePanel.getActiveItem();
             this.FieldValuePanel.writeParent = this;
         }
 
@@ -115,9 +121,14 @@ namespace Misp.Reconciliation.WriteOffConfig
         {
             this.fieldsPanel.OnAddField -= OnAddFields;
             this.fieldsPanel.OnDeleteField -= OnDeleteFields;
-
+            this.fieldsPanel.ActivateFieldPanel -= OnActivateFieldsValue;
             this.FieldValuePanel.OnAddFieldValue -= OnAddFieldsValue;
             this.FieldValuePanel.OnDeleteFieldValue -= OnDeleteFieldsValue;
+        }
+
+        private void OnActivateFieldsValue(object item)
+        {
+            if (ActivateFieldPanel != null) ActivateFieldPanel(this);
         }
 
         public WriteOffField FillWriteOffField()
@@ -125,5 +136,21 @@ namespace Misp.Reconciliation.WriteOffConfig
             return new WriteOffField();
         }
 
+
+        public void setAttribute(Kernel.Domain.Attribute attribute)
+        {
+            this.fieldsPanel.setAttribute(attribute);
+        }
+
+        public void setMeasure(Kernel.Domain.Measure measure)
+        {
+            this.fieldsPanel.setMeasure(measure);
+        }
+
+        public void setPeriodName(PeriodName periodName)
+        {
+            this.fieldsPanel.setPeriodName(periodName);
+        }
+                
     }
 }

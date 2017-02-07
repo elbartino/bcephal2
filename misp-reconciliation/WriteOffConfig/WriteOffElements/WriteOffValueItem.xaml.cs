@@ -23,6 +23,8 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
     {
         public event AddEventHandler OnAddFieldValue;
         public event DeleteEventHandler OnDeleteFieldValue;
+        public event ActivateEventHandler ActivateFiedValue;
+
         public Kernel.Domain.WriteOffFieldValue WriteOffFieldValue { get; set; }
 
         public int Index { get; set; }
@@ -62,6 +64,12 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         {
             this.PossibleValues.OnAddFieldValue += OnAddFieldsValue;
             this.PossibleValues.OnDeleteFieldValue += OnDeleteFieldsValue;
+            this.PossibleValues.ActivateFiedValue += OnActivateFieldsValue;
+        }
+
+        private void OnActivateFieldsValue(object item)
+        {
+            if (ActivateFiedValue != null) ActivateFiedValue(this);
         }
 
         private void OnAddFieldsValue(object item)

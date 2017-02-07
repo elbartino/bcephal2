@@ -28,6 +28,27 @@ namespace Misp.Kernel.Domain
             valueListChangeHandler = new PersistentListChangeHandler<WriteOffFieldValue>();
         }
 
+        public void setMeasure(Measure measure)
+        {
+            this.measureField = measure;
+            this.attributeField = null;
+            this.periodField = null;
+        }
+
+        public void setAttribute(Kernel.Domain.Attribute attribute)
+        {
+            this.measureField = null;
+            this.attributeField = attribute;
+            this.periodField = null;
+        }
+
+        public void setPeriodName(Kernel.Domain.PeriodName periodName)
+        {
+            this.measureField = null;
+            this.attributeField = null;
+            this.periodField = periodName;
+        }
+
         public void AddFieldValue(WriteOffFieldValue fieldValue) 
         {
             fieldValue.position = valueListChangeHandler.Items.Count;
@@ -59,7 +80,7 @@ namespace Misp.Kernel.Domain
             }
             fieldValue.position = -1;
         }
-
+        
 
         public override int CompareTo(object obj)
         {

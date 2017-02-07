@@ -27,6 +27,8 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public event DeleteEventHandler OnDeleteFieldValue;
 
+        public event ActivateEventHandler ActivateFiedValue;
+
         public PossibleValues()
         {
             InitializeComponent();
@@ -51,6 +53,16 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         {
             this.NewButton.Click += OnHandingButton;
             this.DeleteButton.Click += OnHandingButton;
+            this.NewButton.GotFocus += OnGotFocus;
+            this.NewButton.MouseLeftButtonDown += OnGotFocus;
+
+            this.DeleteButton.GotFocus += OnGotFocus;
+            this.DeleteButton.MouseLeftButtonDown += OnGotFocus;
+        }
+
+        private void OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (ActivateFiedValue != null) ActivateFiedValue(null);
         }
 
         private void OnHandingButton(object sender, RoutedEventArgs e)

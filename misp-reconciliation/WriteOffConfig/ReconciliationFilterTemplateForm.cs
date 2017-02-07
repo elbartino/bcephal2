@@ -80,19 +80,27 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         public void setAttribute(Kernel.Domain.Attribute attribute)
         {
-            //this.WriteOffConfigPanel.setAttribute(attribute);
+            this.WriteOffConfigPanel.ActiveFieldPanel.setAttribute(attribute);
         }
 
         public void setValue(Kernel.Domain.AttributeValue value)
         {
-           // if (this.ModelService == null) return;
-//this.ReconciliationContextPanel.ModelService = this.ModelService;
-            //this.ReconciliationContextPanel.setAttributeValue(value);
+            //this.WriteOffConfigPanel.ActiveFieldPanel.setAttribute(attribute);
         }
 
         public void setMeasure(Kernel.Domain.Measure measure) 
         {
-            //this.ReconciliationContextPanel.setMeasure(measure);
+            this.WriteOffConfigPanel.ActiveFieldPanel.setMeasure(measure);
+        }
+
+        public void setPeriodName(Kernel.Domain.PeriodName periodName)
+        {
+            this.WriteOffConfigPanel.ActiveFieldPanel.setPeriodName(periodName);
+        }
+
+        public void setPeriodInterval(Kernel.Domain.PeriodInterval periodInterval)
+        {
+
         }
 
         #endregion
@@ -217,5 +225,7 @@ namespace Misp.Reconciliation.WriteOffConfig
        
 
         #endregion
+
+        
     }
 }

@@ -29,6 +29,9 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public event AddEventHandler OnAddField;
         public event DeleteEventHandler OnDeleteField;
 
+         public event ActivateEventHandler ActivateFiedValue;
+        
+
         public PersistentListChangeHandler<WriteOffFieldValue> fieldValueListChangeHandler { get; set; }
 
         public WriteOffValueItem ActiveItem { get; set; }
@@ -130,7 +133,17 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             WriteOffValueItem witem = new WriteOffValueItem();
             witem.OnAddFieldValue += OnAddValueField;
             witem.OnDeleteFieldValue += OnDeleteValueField;
+            witem.ActivateFiedValue += OnActivateValueField;
             return witem;
+        }
+
+        private void OnActivateValueField(object item)
+        {
+            if (ActivateFiedValue != null && item is WriteOffValueItem)
+            {
+                this.ActiveItem = (WriteOffValueItem)item;
+                ActivateFiedValue(item);
+            }
         }
 
         public void AddValueItem(WriteOffValueItem valueItem, bool isFirst= false)
@@ -160,6 +173,12 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                 }
 
             }
+        }
+
+        public WriteOffValueItem getActiveItem()
+        {
+            if (this.ActiveItem == null) this.ActiveItem = this.FieldValuePanel.Children[0] as WriteOffValueItem;
+            return this.ActiveItem;
         }
     }
 }
