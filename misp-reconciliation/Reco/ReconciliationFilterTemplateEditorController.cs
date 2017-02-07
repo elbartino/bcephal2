@@ -169,7 +169,7 @@ namespace Misp.Reconciliation.Reco
 
         protected override SideBar getNewSideBar() { return new ReconciliationFilterTemplateSideBar(); }
 
-        protected override PropertyBar getNewPropertyBar() { return null; }
+        protected override PropertyBar getNewPropertyBar() { return new ReconciliationFilterTemplatePropertyBar(); }
 
         protected virtual ReconciliationFilterTemplate GetNewTemplate()
         {

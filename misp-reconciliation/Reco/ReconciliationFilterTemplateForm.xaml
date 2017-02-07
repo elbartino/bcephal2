@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:gr="clr-namespace:Misp.Sourcing.GridViews;assembly=Misp.Sourcing" 
+             xmlns:gr="clr-namespace:Misp.Sourcing.InputGrid;assembly=Misp.Sourcing" 
              xmlns:reco="clr-namespace:Misp.Reconciliation.Reco" 
              mc:Ignorable="d" 
              TabStripPlacement="Bottom"
@@ -34,13 +34,13 @@
         
     </TabItem>
     <TabItem x:FieldModifier="public" x:Name="LeftTabItem" Header="Left">
-        <gr:GrilleBrowserForm/>
+        
     </TabItem>
     <TabItem x:FieldModifier="public" x:Name="RightTabItem" Header="Right">
-        <gr:GrilleBrowserForm/>
+        
     </TabItem>
     <TabItem x:FieldModifier="public" x:Name="BottomTabItem" Header="Bottom">
-        <gr:GrilleBrowserForm/>
+        
     </TabItem>
 
 </TabControl>
