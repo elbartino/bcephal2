@@ -68,6 +68,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                     WriteOffValueItem item =getPanel();
                     item.WriteOffFieldValue = field;
                     item.Index = i;
+                    item.display(field);
                     
                     if (!showLabel) item.showRowLabel(false);
                     else

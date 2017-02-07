@@ -44,6 +44,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                 writeOffValueField.attributeValue != null ? writeOffValueField.attributeValue.name :
                 writeOffValueField.period != null ? writeOffValueField.period.name : "";
             this.ValueTypeTextBox.Text = name;
+            
         }
 
         public void InitializeHandlers()

@@ -13,7 +13,7 @@ namespace Misp.Kernel.Domain
 	
 	    public int position;
         
-	    public Boolean mandatory;
+	    public bool mandatory;
 	
 	    public Attribute attributeField;
 	
@@ -27,6 +27,12 @@ namespace Misp.Kernel.Domain
         public WriteOffField() 
         {
             valueListChangeHandler = new PersistentListChangeHandler<WriteOffFieldValue>();
+        }
+
+        public override int CompareTo(object obj)
+        {
+            if (obj == null || !(obj is WriteOffField)) return 1;
+            return this.position.CompareTo(((WriteOffField)obj).position);
         }
 
     }

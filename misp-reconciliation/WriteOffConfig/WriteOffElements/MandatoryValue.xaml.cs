@@ -20,6 +20,9 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
     /// </summary>
     public partial class MandatoryValue : StackPanel
     {
+
+        public bool mandatoryValue { get; set; }
+
         public MandatoryValue()
         {
             InitializeComponent();
@@ -28,6 +31,11 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public void showRowLabel(bool show = false) 
         {
             this.labelRow.Visibility = show ? Visibility.Visible : System.Windows.Visibility.Collapsed;
+        }
+
+        public void display()
+        {
+            this.mandatoryCheckBox.IsChecked = this.mandatoryValue;
         }
     }
 }

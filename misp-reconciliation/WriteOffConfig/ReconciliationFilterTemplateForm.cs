@@ -137,6 +137,61 @@ namespace Misp.Reconciliation.WriteOffConfig
         /// </summary>
         public void displayObject()
         {
+            this.EditedObject = new Kernel.Domain.ReconciliationFilterTemplate();
+            this.EditedObject.writeOffConfig = new Kernel.Domain.WriteOffConfiguration();
+            int index = 0;
+            for (int i = 0; i < 3; i++)
+            {
+               
+                Kernel.Domain.WriteOffField writeOffField = new Kernel.Domain.WriteOffField();
+                writeOffField.position = index;
+                index++;
+                writeOffField.mandatory = true;
+                writeOffField.measureField = new Kernel.Domain.Measure(){
+                    name ="Measure1"
+                };
+
+                for (int v = 0; v < 5; v++)
+                {
+                    Kernel.Domain.WriteOffFieldValue value = new Kernel.Domain.WriteOffFieldValue();
+                    value.position = v;
+                    value.attribute = new Kernel.Domain.Attribute() {name="Attribute1"};
+                    value.defaultValueType = Kernel.Domain.WriteOffFieldValueType.LEFT_SIDE;
+                    writeOffField.valueListChangeHandler.AddNew(value);
+                }
+                
+                this.EditedObject.writeOffConfig.fieldListChangeHandler.AddNew(writeOffField);
+              
+
+                Kernel.Domain.WriteOffField writeOffField1 = new Kernel.Domain.WriteOffField();
+                writeOffField1.position = index;
+                index++;
+                writeOffField1.mandatory = false;
+                writeOffField1.attributeField = new Kernel.Domain.Attribute()
+                {
+                    name ="Attribute1"
+                };
+                             
+
+                this.EditedObject.writeOffConfig.fieldListChangeHandler.AddNew(writeOffField1);
+
+                Kernel.Domain.WriteOffField writeOffField2 = new Kernel.Domain.WriteOffField();
+                writeOffField2.position = index;
+                index++;
+                writeOffField2.mandatory = true;
+                writeOffField2.periodField = new Kernel.Domain.PeriodName("Period1");
+                for (int v = 0; v < 5; v++)
+                {
+                    Kernel.Domain.WriteOffFieldValue value = new Kernel.Domain.WriteOffFieldValue();
+                    value.position = v;
+                    value.period = new Kernel.Domain.PeriodInterval() { name = "PeriodInterval" };
+                    value.defaultValueType = Kernel.Domain.WriteOffFieldValueType.CUSTOM;
+                    writeOffField2.valueListChangeHandler.AddNew(value);
+                }
+
+                this.EditedObject.writeOffConfig.fieldListChangeHandler.AddNew(writeOffField2);
+               
+            }
             if (this.EditedObject == null)
             {
                 this.WriteOffConfigPanel.display(null);

@@ -10,6 +10,6 @@
         <RowDefinition />
     </Grid.RowDefinitions>
     <Label Content="Mandatory" x:Name="labelRow"   Grid.Row="0"/>
-        <CheckBox Grid.Row="1" HorizontalAlignment="Center"  Width="70" Margin="15 5 5 0" />
+        <CheckBox Grid.Row="1"  x:Name="mandatoryCheckBox" HorizontalAlignment="Center"  Width="70" Margin="15 5 5 0" />
 </Grid>
 </StackPanel>

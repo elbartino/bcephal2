@@ -58,13 +58,7 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         private void OnAddFields(object item)
         {
-            AddAction(null);
-            //if (OnAddField != null)
-            //{
-            //    OnAddField(item);
-            //    AddAction();
-            //    //OnAddField(item);
-            //}
+            AddAction(null);         
         }
 
         private void OnDeleteFields(object item)
@@ -136,6 +130,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             WriteOffFieldPanel wpanel = getFieldPanel();
             wpanel.parent = this;
             wpanel.Index = nbreLigne;
+            wpanel.writeOffField = writeofffield;
             wpanel.showRowLabel(nbreLigne == 0);
             wpanel.display();
             nbreLigne++;

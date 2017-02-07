@@ -33,5 +33,12 @@ namespace Misp.Kernel.Domain
 	    public WriteOffFieldValue() {
 	
 	    }
+
+        public override int CompareTo(object obj)
+        {
+            if (obj == null || !(obj is WriteOffFieldValue)) return 1;
+            return this.position.CompareTo(((WriteOffFieldValue)obj).position);
+        }
+
     }
 }

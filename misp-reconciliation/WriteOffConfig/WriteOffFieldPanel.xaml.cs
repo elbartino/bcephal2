@@ -64,6 +64,13 @@ namespace Misp.Reconciliation.WriteOffConfig
             else this.FieldValuePanel.showLabel = false;
 
             if (writeOffField == null) writeOffField = new WriteOffField();
+
+            this.fieldsPanel.writeOffField = this.writeOffField;
+            this.fieldsPanel.display();
+
+            this.MandatoryValue.mandatoryValue = this.writeOffField.mandatory;
+            this.MandatoryValue.display();
+
             InitializeHandlers();
             this.FieldValuePanel.fieldValueListChangeHandler = writeOffField.valueListChangeHandler;
             this.FieldValuePanel.display();
