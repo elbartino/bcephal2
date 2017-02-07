@@ -7,6 +7,7 @@ using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Sidebar;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,7 +68,7 @@ namespace Misp.Reconciliation.Reco
         public override OperationState Create()
         {
             ReconciliationFilterTemplate template = GetNewTemplate();
-            //((ReconciliationFilterTemplateSideBar)SideBar).GrilleGroup.GrilleTreeview.AddGrille(template);
+            ((ReconciliationFilterTemplateSideBar)SideBar).TemplateGroup.TemplateTreeview.AddTemplate(template);
             ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().addOrSelectPage(template);
             initializePageHandlers(page);
             page.Title = template.name;
@@ -111,14 +112,14 @@ namespace Misp.Reconciliation.Reco
 
         protected override void initializeSideBarHandlers()
         {
-            /*((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.SelectionChanged += onSelectGridFromSidebar;
+            ((ReconciliationFilterTemplateSideBar)SideBar).TemplateGroup.TemplateTreeview.SelectionChanged += onSelectTemplateFromSidebar;
 
-            ((InputGridSideBar)SideBar).MeasureGroup.Tree.Click += onSelectMeasureFromSidebar;
-            ((InputGridSideBar)SideBar).EntityGroup.Tree.Click += onSelectTargetFromSidebar;
-            ((InputGridSideBar)SideBar).EntityGroup.Tree.DoubleClick += onDoubleClickSelectTargetFromSidebar;
-            ((InputGridSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
+            ((ReconciliationFilterTemplateSideBar)SideBar).MeasureGroup.Tree.Click += onSelectMeasureFromSidebar;
+            ((ReconciliationFilterTemplateSideBar)SideBar).EntityGroup.Tree.Click += onSelectTargetFromSidebar;
+            ((ReconciliationFilterTemplateSideBar)SideBar).EntityGroup.Tree.DoubleClick += onDoubleClickSelectTargetFromSidebar;
+            ((ReconciliationFilterTemplateSideBar)SideBar).TargetGroup.TargetTreeview.SelectionChanged += onSelectTargetFromSidebar;
 
-            ((InputGridSideBar)SideBar).PeriodGroup.Tree.Click += onSelectPeriodFromSidebar;*/
+            ((ReconciliationFilterTemplateSideBar)SideBar).PeriodGroup.Tree.Click += onSelectPeriodFromSidebar;
         }
 
         /// <summary>
@@ -126,23 +127,20 @@ namespace Misp.Reconciliation.Reco
         /// </summary>
         protected override void initializeSideBarData()
         {
-            /*List<BrowserData> designs = Service.getBrowserDatas();
-            ((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
+            List<BrowserData> designs = Service.getBrowserDatas();
+            ((ReconciliationFilterTemplateSideBar)SideBar).TemplateGroup.TemplateTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
 
-            ((InputGridSideBar)SideBar).EntityGroup.InitializeData();
-            ((InputGridSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
+            ((ReconciliationFilterTemplateSideBar)SideBar).EntityGroup.InitializeData();
+            ((ReconciliationFilterTemplateSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
 
-            ((InputGridSideBar)SideBar).PeriodGroup.InitializeData();
+            ((ReconciliationFilterTemplateSideBar)SideBar).PeriodGroup.InitializeData();
 
-            //PeriodName rootPeriodName = GetInputGridService().PeriodNameService.getRootPeriodName();
-            //((InputGridSideBar)SideBar).PeriodNameGroup.PeriodNameTreeview.DisplayPeriods(rootPeriodName);
-
-            Target targetAll = GetInputGridService().ModelService.getTargetAll();
+            Target targetAll = GetService().ModelService.getTargetAll();
             List<Target> targets = new List<Target>(0);
             targets.Add(targetAll);
-            ((InputGridSideBar)SideBar).TargetGroup.TargetTreeview.DisplayTargets(targets);
+            ((ReconciliationFilterTemplateSideBar)SideBar).TargetGroup.TargetTreeview.DisplayTargets(targets);
 
-            BGroup group = GetInputGridService().GroupService.getDefaultGroup();*/
+            BGroup group = GetService().GroupService.getDefaultGroup();
         }
 
         protected override void initializePropertyBarData() { }
@@ -153,6 +151,91 @@ namespace Misp.Reconciliation.Reco
 
         protected override ToolBarHandlerBuilder getNewToolBarHandlerBuilder() { return new ToolBarHandlerBuilder(this); }
 
+        /// <summary>
+        /// Cette méthode est exécutée lorsqu'on sélectionne une Input Table sur la sidebar.
+        /// Cette opération a pour but d'ouvrir une page pour la table selectionnée dans l'éditeur.
+        /// </summary>
+        /// <param name="sender">La table sélectionnée</param>
+        protected void onSelectTemplateFromSidebar(object sender)
+        {
+            if (sender != null && sender is ReconciliationFilterTemplate)
+            {
+                ReconciliationFilterTemplate grid = (ReconciliationFilterTemplate)sender;
+                EditorItem<ReconciliationFilterTemplate> page = getEditor().getPage(grid.name);
+                if (page != null)
+                {
+                    page.fillObject();
+                    getEditor().selectePage(page);
+                }
+                else if (grid.oid != null && grid.oid.HasValue)
+                {
+                    this.Open(grid.oid.Value);
+
+                }
+                else
+                {
+                    page = getEditor().addOrSelectPage(grid);
+                    initializePageHandlers(page);
+                    page.Title = grid.name;
+
+                    getEditor().ListChangeHandler.AddNew(grid);
+                }
+                ReconciliationFilterTemplateEditorItem pageOpen = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+                
+            }
+        }
+
+        /// <summary>
+        /// Cette méthode est exécutée lorsqu'on sélectionne une mesure sur la sidebar.
+        /// Cette opération a pour but d'assigner la mesure sélectionnée 
+        /// aux cellProperties correspondants à la sélection Excel.
+        /// </summary>
+        /// <param name="sender">La mesure sélectionnée</param>
+        protected void onSelectMeasureFromSidebar(object sender)
+        {
+            if (sender != null && (sender is Measure || sender is CalculatedMeasure))
+            {
+                ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+                if (page == null) return;
+                page.SetMeasure((Measure)sender);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        protected void onSelectPeriodFromSidebar(object sender)
+        {
+            if (sender != null)
+            {
+                ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+                if (page == null) return;
+                page.SetPeriod(sender);
+                OnChange();
+            }
+
+        }
+
+        /// <summary>
+        /// Cette méthode est exécutée lorsqu'on sélectionne une target sur la sidebar.
+        /// Cette opération a pour but de rajouté la target sélectionnée au filtre de la table en édition,
+        /// ou au scope des cellProperties correspondants à la sélection Excel.
+        /// </summary>
+        /// <param name="sender">La target sélectionné</param>
+        protected void onSelectTargetFromSidebar(object target)
+        {
+            ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+            if (page == null) return;
+            page.SetTarget((Target)target);
+            OnChange();
+
+        }
+
+        protected void onDoubleClickSelectTargetFromSidebar(object sender)
+        {
+            onSelectTargetFromSidebar(sender);
+        }
 
         protected virtual void OnSelectedTabChange(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {

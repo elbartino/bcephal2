@@ -141,6 +141,7 @@
     <Compile Include="Reco\ReconciliationFilterTemplateGrid.xaml.cs">
       <DependentUpon>ReconciliationFilterTemplateGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reco\ReconciliationFilterTemplateGroup.cs" />
     <Compile Include="Reco\ReconciliationFilterTemplatePropertyBar.cs" />
     <Compile Include="Reco\ReconciliationFilterTemplateSideBar.cs" />
     <Compile Include="Reco\ReconciliationFilterTemplateToolBar.cs" />

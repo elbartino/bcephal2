@@ -779,6 +779,9 @@
     <Compile Include="Ui\TreeView\PresentationTreeView.xaml.cs">
       <DependentUpon>PresentationTreeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\TreeView\ReconciliationFilterTemplateTreeView.xaml.cs">
+      <DependentUpon>ReconciliationFilterTemplateTreeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\TreeView\ReconciliationTreeview.xaml.cs">
       <DependentUpon>ReconciliationTreeview.xaml</DependentUpon>
     </Compile>
@@ -1199,6 +1202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\TreeView\PresentationTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\TreeView\ReconciliationFilterTemplateTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

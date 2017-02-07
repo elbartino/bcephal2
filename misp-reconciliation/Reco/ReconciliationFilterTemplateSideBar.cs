@@ -20,7 +20,7 @@ namespace Misp.Reconciliation.Reco
 
         #region Properties
 
-        public GrilleGroup GrilleGroup { get; set; }
+        public ReconciliationFilterTemplateGroup TemplateGroup { get; set; }
         public ModelSidebarGroup EntityGroup { get; set; }
         public MeasureSidebarGroup MeasureGroup { get; set; }
         public TargetGroup TargetGroup { get; set; }
@@ -37,21 +37,19 @@ namespace Misp.Reconciliation.Reco
         public override void InitializeGroups()
         {
             base.InitializeGroups();
-            this.GrilleGroup = new GrilleGroup("Filters", true);
+            this.TemplateGroup = new ReconciliationFilterTemplateGroup("Filters", true);
             this.EntityGroup = new ModelSidebarGroup();
             this.TargetGroup = new TargetGroup("Targets", true);
             this.MeasureGroup = new MeasureSidebarGroup();
             this.PeriodGroup = new PeriodSidebarGroup();
-
-
-            this.GrilleGroup.Background = System.Windows.Media.Brushes.LightBlue;
+            
+            this.TemplateGroup.Background = System.Windows.Media.Brushes.LightBlue;
             this.TargetGroup.Background = System.Windows.Media.Brushes.LightBlue;
 
-            this.GrilleGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
+            this.TemplateGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
             this.TargetGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
 
-
-            this.AddGroup(this.GrilleGroup);
+            this.AddGroup(this.TemplateGroup);
             this.AddGroup(this.EntityGroup);
             this.AddGroup(this.MeasureGroup);
             this.AddGroup(this.PeriodGroup);
