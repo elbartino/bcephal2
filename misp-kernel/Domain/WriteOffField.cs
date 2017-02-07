@@ -17,7 +17,6 @@ namespace Misp.Kernel.Domain
 	
 	    public Attribute attributeField;
 	
-	
 	    public PeriodName periodField;
 	
 	    public Measure measureField;
@@ -28,6 +27,39 @@ namespace Misp.Kernel.Domain
         {
             valueListChangeHandler = new PersistentListChangeHandler<WriteOffFieldValue>();
         }
+
+        public void AddFieldValue(WriteOffFieldValue fieldValue) 
+        {
+            fieldValue.position = valueListChangeHandler.Items.Count;
+            valueListChangeHandler.AddNew(fieldValue);
+        }
+
+        public void UpdateFieldValue(WriteOffFieldValue fieldValue)
+        {
+            valueListChangeHandler.AddUpdated(fieldValue);
+        }
+
+        public void DeleteFieldValue(WriteOffFieldValue fieldValue)
+        {
+            fieldValue.position = -1;
+            valueListChangeHandler.AddDeleted(fieldValue);
+            foreach(WriteOffFieldValue fvalue in valueListChangeHandler.Items)
+            {
+                if(fvalue.position > fieldValue.position) fvalue.position = fvalue.position -1;
+            }
+        }
+
+
+        public void ForgetFieldValue(WriteOffFieldValue fieldValue)
+        {
+            valueListChangeHandler.forget(fieldValue);
+            foreach (WriteOffFieldValue fvalue in valueListChangeHandler.Items)
+            {
+                if (fvalue.position > fieldValue.position) fvalue.position = fvalue.position - 1;
+            }
+            fieldValue.position = -1;
+        }
+
 
         public override int CompareTo(object obj)
         {

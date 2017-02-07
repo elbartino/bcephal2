@@ -119,5 +119,11 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.FieldValuePanel.OnAddFieldValue -= OnAddFieldsValue;
             this.FieldValuePanel.OnDeleteFieldValue -= OnDeleteFieldsValue;
         }
+
+        public WriteOffField FillWriteOffField()
+        {
+            return new WriteOffField();
+        }
+
     }
 }

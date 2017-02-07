@@ -73,5 +73,10 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         {
             if (OnDeleteFieldValue != null) OnDeleteFieldValue(this);
         }
+
+        public Kernel.Domain.WriteOffFieldValue FillWriteOffField()
+        {
+            return new Kernel.Domain.WriteOffFieldValue();
+        }
     }
 }
