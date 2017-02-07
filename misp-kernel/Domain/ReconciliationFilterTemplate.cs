@@ -35,12 +35,23 @@ namespace Misp.Kernel.Domain
 	    public WriteOffConfiguration writeOffConfig;
 	
 	
-	    /**
-	        * Default constructor
-	        */
+	    /// <summary>
+	    /// 
+	    /// </summary>
 	    public ReconciliationFilterTemplate() {
 		    this.visibleInShortcut = true;
 		    this.acceptWriteOff = true;
 	    }
+
+        public override string ToString()
+        {
+            return this.name != null ? this.name : base.ToString();
+        }
+
+        public override int CompareTo(object obj)
+        {
+            if (obj == null || !(obj is Grille)) return 1;
+            return this.name.CompareTo(((Grille)obj).name);
+        }
     }
 }
