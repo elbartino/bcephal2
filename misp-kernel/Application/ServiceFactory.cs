@@ -432,6 +432,7 @@ namespace Misp.Kernel.Application
                 reconciliationFilterTemplateServcie.MeasureService = GetMeasureService();
                 reconciliationFilterTemplateServcie.PeriodicityService = GetPeriodicityService();
                 reconciliationFilterTemplateServcie.TargetService = GetTargetService();
+                reconciliationFilterTemplateServcie.GroupService = GetGroupService();
                 configureService(reconciliationFilterTemplateServcie);
             }
             return reconciliationFilterTemplateServcie;

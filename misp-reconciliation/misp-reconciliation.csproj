@@ -41,6 +41,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Data.v16.1.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Mvvm.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.Xpf.Core.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\DevExpress 16.1\Components\Bin\Framework\DevExpress.Xpf.Core.v16.1.dll</HintPath>
@@ -132,7 +135,14 @@
     <Compile Include="Reco\ReconciliationFilterTemplateEditor.cs" />
     <Compile Include="Reco\ReconciliationFilterTemplateEditorController.cs" />
     <Compile Include="Reco\ReconciliationFilterTemplateEditorItem.cs" />
-    <Compile Include="Reco\ReconciliationFilterTemplateForm.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateForm.xaml.cs">
+      <DependentUpon>ReconciliationFilterTemplateForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reco\ReconciliationFilterTemplateGrid.xaml.cs">
+      <DependentUpon>ReconciliationFilterTemplateGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reco\ReconciliationFilterTemplateSideBar.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateToolBar.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -182,6 +192,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReconciliationContext\ReconciliationContextPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reco\ReconciliationFilterTemplateForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reco\ReconciliationFilterTemplateGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

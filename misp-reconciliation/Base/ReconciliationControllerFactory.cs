@@ -48,6 +48,15 @@ namespace Misp.Reconciliation.Base
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterTemplateService();
                 return controller;
             }
+            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_EDIT && editionMode.HasValue)
+            {
+                ReconciliationFilterTemplateEditorController controller = new ReconciliationFilterTemplateEditorController();
+                controller.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
+                controller.FunctionalityCode = fonctionality;
+                controller.ApplicationManager = this.ApplicationManager;
+                controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterTemplateService();
+                return controller;
+            }
 
 
 
