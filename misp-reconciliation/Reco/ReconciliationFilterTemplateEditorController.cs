@@ -105,7 +105,8 @@ namespace Misp.Reconciliation.Reco
         protected override void initializePageHandlers(EditorItem<ReconciliationFilterTemplate> page)
         {
             base.initializePageHandlers(page);
-            ReconciliationFilterTemplateEditorItem editorPage = (ReconciliationFilterTemplateEditorItem)page;            
+            ReconciliationFilterTemplateEditorItem editorPage = (ReconciliationFilterTemplateEditorItem)page;
+            editorPage.getForm().SelectionChanged += OnSelectedTabChange;
         }
 
         protected override void initializeSideBarHandlers()
@@ -152,6 +153,53 @@ namespace Misp.Reconciliation.Reco
 
         protected override ToolBarHandlerBuilder getNewToolBarHandlerBuilder() { return new ToolBarHandlerBuilder(this); }
 
+
+        protected virtual void OnSelectedTabChange(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (sender == null) return;
+            if (e == null) return;
+            if (!(e.Source is ReconciliationFilterTemplateForm)) return;
+            PerformSelectionChange();
+            e.Handled = true;
+        }
+
+        protected virtual void PerformSelectionChange()
+        {
+            ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+            if (page.getForm().SelectedIndex == 0)
+            {
+                ApplicationManager.MainWindow.displayPropertyBar(null);
+                //if (page.getForm().LeftGrid.gridBrowser.RebuildGrid) UpdateGridForm();
+            }
+            else
+            {
+                ApplicationManager.MainWindow.displayPropertyBar(this.PropertyBar);
+                if (page.getForm().SelectedIndex == 1)
+                {
+                    //((ReconciliationFilterTemplatePropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getForm().InputGridSheetForm.InputGridPropertiesPanel;
+                }
+                else if (page.getForm().SelectedIndex == 2)
+                {
+                    ((ReconciliationFilterTemplatePropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getForm().LeftGridProperties.InputGridPropertiesPanel;
+                }
+                else if (page.getForm().SelectedIndex == 3)
+                {
+                    ((ReconciliationFilterTemplatePropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getForm().RightGridProperties.InputGridPropertiesPanel;
+                }
+                else if (page.getForm().SelectedIndex == 4)
+                {
+                    ((ReconciliationFilterTemplatePropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getForm().BottomGridProperties.InputGridPropertiesPanel;
+                }
+            }            
+        }
+
+        protected virtual void UpdateGridForm()
+        {
+            ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+            page.getForm().EditedObject = page.EditedObject;
+            /*page.getForm().displayObjectInGridForm();
+            Search(page.EditedObject.GrilleFilter != null ? page.EditedObject.GrilleFilter.page : 1);*/
+        }
 
         #endregion
 

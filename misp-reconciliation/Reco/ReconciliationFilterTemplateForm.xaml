@@ -34,13 +34,13 @@
         
     </TabItem>
     <TabItem x:FieldModifier="public" x:Name="LeftTabItem" Header="Left">
-        
+        <gr:InputGridSheetForm x:FieldModifier="public"  x:Name="LeftGridProperties"/>
     </TabItem>
     <TabItem x:FieldModifier="public" x:Name="RightTabItem" Header="Right">
-        
+        <gr:InputGridSheetForm x:FieldModifier="public"  x:Name="RightGridProperties"/>
     </TabItem>
     <TabItem x:FieldModifier="public" x:Name="BottomTabItem" Header="Bottom">
-        
+        <gr:InputGridSheetForm x:FieldModifier="public"  x:Name="BottomGridProperties"/>
     </TabItem>
 
 </TabControl>

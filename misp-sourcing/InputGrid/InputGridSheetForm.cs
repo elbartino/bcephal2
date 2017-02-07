@@ -77,8 +77,8 @@ namespace Misp.Sourcing.InputGrid
             this.Background = System.Windows.Media.Brushes.White;
             this.BorderBrush = System.Windows.Media.Brushes.White; 
 
-            Uri rd1 = new Uri("../Resources/Styles/TabControl.xaml", UriKind.Relative);
-            this.Resources.MergedDictionaries.Add(Application.LoadComponent(rd1) as ResourceDictionary);
+            //Uri rd1 = new Uri("../Resources/Styles/TabControl.xaml", UriKind.Relative);
+            //this.Resources.MergedDictionaries.Add(Application.LoadComponent(rd1) as ResourceDictionary);
             this.GridBrowser = new GridBrowser();
             this.Content = this.GridBrowser;
         }
