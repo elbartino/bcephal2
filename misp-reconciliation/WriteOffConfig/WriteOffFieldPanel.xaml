@@ -11,7 +11,7 @@
         <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="Auto"/>
     </Grid.ColumnDefinitions>
-    <field:FieldsValues x:Name="fieldsValue"  Grid.Column="0"  />
+    <field:FieldsValues x:Name="fieldsPanel"  Grid.Column="0"  />
     <field:MandatoryValue x:Name="MandatoryValue" Grid.Column="1" />
     <field:WriteOffFieldValuePanel x:Name="FieldValuePanel" Grid.Column="2"/>
  </Grid>

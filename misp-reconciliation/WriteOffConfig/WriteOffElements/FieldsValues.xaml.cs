@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,40 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public WriteOffField writeOffField { get; set; }
 
+        public event AddEventHandler OnAddField;
+
+        public event DeleteEventHandler OnDeleteField;
+
         public FieldsValues()
         {
             InitializeComponent();
+            InitializeHandlers();
+        }
+
+        private void InitializeHandlers()
+        {
+            this.NewButton.Click += OnHandledButton;
+            this.DeleteButton.Click += OnHandledButton;
+        }
+
+        private void OnHandledButton(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button)
+            {
+                ButtonActions((Button)sender);
+            }
+        }       
+
+        private void ButtonActions(Button button)
+        {
+            if (button == NewButton)
+            {
+                if (OnAddField != null) OnAddField(null);
+            }
+            if (button == DeleteButton)
+            {
+                if (OnDeleteField != null) OnDeleteField(null);
+            }
         }
 
         public void showRowLabel(bool show = false)

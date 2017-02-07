@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Ui.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,23 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
     /// </summary>
     public partial class WriteOffValueItem : Grid
     {
-        public Kernel.Domain.WriteOffFieldValue writeOffValueField { get; set; }
+        public event AddEventHandler OnAddFieldValue;
+        public event DeleteEventHandler OnDeleteFieldValue;
+        public Kernel.Domain.WriteOffFieldValue WriteOffFieldValue { get; set; }
+
+        public int Index { get; set; }
+
         public WriteOffValueItem()
         {
             InitializeComponent();
+            InitializeHandlers();
         }
 
+        public WriteOffValueItem(Kernel.Domain.WriteOffFieldValue valueField) : base()
+        {
+            display(valueField);
+        }
+              
         public void showRowLabel(bool show = true) 
         {
             this.PossibleValues.showRowLabel(show);
@@ -35,6 +47,31 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public void display()
         {
             this.PossibleValues.display();
+        }
+
+        public void display(Kernel.Domain.WriteOffFieldValue valueField)
+        {
+            this.PossibleValues.writeOffValueField = valueField;
+            this.PossibleValues.display();
+
+            this.DefaultValues.writeOffValueField = valueField;
+            this.DefaultValues.display();
+        }
+
+        public void InitializeHandlers()
+        {
+            this.PossibleValues.OnAddFieldValue += OnAddFieldsValue;
+            this.PossibleValues.OnDeleteFieldValue += OnDeleteFieldsValue;
+        }
+
+        private void OnAddFieldsValue(object item)
+        {
+            if (OnAddFieldValue != null) OnAddFieldValue(null);
+        }
+
+        private void OnDeleteFieldsValue(object item)
+        {
+            if (OnDeleteFieldValue != null) OnDeleteFieldValue(this);
         }
     }
 }

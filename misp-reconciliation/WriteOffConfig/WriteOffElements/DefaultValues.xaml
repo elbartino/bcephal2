@@ -9,6 +9,6 @@
         <RowDefinition/>
     </Grid.RowDefinitions>
     <Label Content="Default Values" x:Name="labelRow"  Grid.Row="0"/>
-    <ComboBox Grid.Row="1" Margin="0 5 0 0" Width="100" />
+    <ComboBox x:Name="DefaultValuesCombobox"  Grid.Row="1" Margin="0 5 0 0" Width="100"  />
 </Grid>
 

@@ -49,6 +49,7 @@ namespace Misp.Reconciliation.WriteOffConfig
         public ReconciliationFilterTemplateForm()
         {
             InitializeComponents();
+            InitializeHandlers();
         }
 
         protected virtual void InitializeComponents()
@@ -59,6 +60,22 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.WriteOffConfigPanel = new WriteOffConfigPanel();
             //this.ReconciliationContextPropertyBar = new ReconciliationContextPropertyBar();
             this.Content = WriteOffConfigPanel;
+        }
+
+        protected void InitializeHandlers()
+        {
+            //this.WriteOffConfigPanel.OnAddField += OnAddField;
+            //this.WriteOffConfigPanel.OnDeleteField += OnDeleteField;
+        }
+
+        private void OnDeleteField(object item)
+        {
+
+        }
+
+        private void OnAddField(object item)
+        {
+
         }
 
         public void setAttribute(Kernel.Domain.Attribute attribute)
@@ -120,7 +137,14 @@ namespace Misp.Reconciliation.WriteOffConfig
         /// </summary>
         public void displayObject()
         {
-            this.WriteOffConfigPanel.display(this.EditedObject);            
+            if (this.EditedObject == null)
+            {
+                this.WriteOffConfigPanel.display(null);
+            }
+            else
+            {
+                this.WriteOffConfigPanel.display(this.EditedObject.writeOffConfig);
+            }
         }
 
         public void fillObject()

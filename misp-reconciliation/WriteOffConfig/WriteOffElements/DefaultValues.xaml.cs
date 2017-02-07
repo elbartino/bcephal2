@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +21,40 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
     /// </summary>
     public partial class DefaultValues : Grid
     {
+        public Kernel.Domain.WriteOffFieldValue writeOffValueField { get; set; }
+
         public DefaultValues()
         {
             InitializeComponent();
+            this.DefaultValuesCombobox.ItemsSource = new String[] 
+            {
+                  WriteOffFieldValueType.CUSTOM.ToString(),
+                  WriteOffFieldValueType.LEFT_SIDE.ToString(),
+                  WriteOffFieldValueType.RIGHT_SIDE.ToString(),
+                  ""
+            };
+            InitializeHandlers();
         }
 
         public void showRowLabel(bool show = false)
         {
             this.labelRow.Visibility = show ? Visibility.Visible : System.Windows.Visibility.Collapsed;
+        }
+
+        public void display()
+        {
+            if (this.writeOffValueField == null) return;
+            this.DefaultValuesCombobox.SelectedItem = writeOffValueField.defaultValueType.ToString();
+        }
+
+        public void InitializeHandlers()
+        {
+            this.DefaultValuesCombobox.SelectionChanged += OnChooseDefaultValues;
+        }
+
+        private void OnChooseDefaultValues(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

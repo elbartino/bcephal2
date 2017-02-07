@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,48 +22,142 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
     /// </summary>
     public partial class WriteOffFieldValuePanel : Grid
     {
-        public PersistentListChangeHandler<WriteOffField> fieldListChangeHandler { get; set; }
+
+        public event AddEventHandler OnAddFieldValue;
+        public event DeleteEventHandler OnDeleteFieldValue;
+
+        public event AddEventHandler OnAddField;
+        public event DeleteEventHandler OnDeleteField;
+
+        public PersistentListChangeHandler<WriteOffFieldValue> fieldValueListChangeHandler { get; set; }
 
         public WriteOffValueItem ActiveItem { get; set; }
+
+        public WriteOffFieldPanel writeParent { get; set; }
 
         public WriteOffFieldValuePanel()
         {
             InitializeComponent();
-            FieldValuePanel.Children.Clear();
-           // item2.showRowLabel(false);
         }
-
 
         public void showRowLabel(bool show = false)
         {
-            this.showLabel = show;
+            int i = 0;
+            foreach (UIElement element in this.FieldValuePanel.Children)
+            {
+                if (element is WriteOffValueItem)
+                {
+                    if (show)   show = i == 0;
+                    ((WriteOffValueItem)element).Index = i;
+                    ((WriteOffValueItem)element).showRowLabel(show);
+                    i++;
+                }
+            }
         }
+
         public bool showLabel = true;
+
         public void display()
         {
-            for (int i = 0; i < 10; i++) 
+            FieldValuePanel.Children.Clear();
+            int i = 0;
+            if (fieldValueListChangeHandler != null)
             {
-                WriteOffValueItem item = new WriteOffValueItem();
-                if (!showLabel) item.showRowLabel(false);
-                else
+                foreach (WriteOffFieldValue field in fieldValueListChangeHandler.Items)
                 {
-                    if (i > 0) item.showRowLabel(false);
+                    WriteOffValueItem item =getPanel();
+                    item.WriteOffFieldValue = field;
+                    item.Index = i;
+                    
+                    if (!showLabel) item.showRowLabel(false);
+                    else
+                    {
+                        if (i > 0) item.showRowLabel(false);
+                    }
+
+                    this.FieldValuePanel.Children.Add(item);
+                    i++;
                 }
+            }
+            if (this.FieldValuePanel.Children.Count == 0)
+            {
+                WriteOffValueItem item = getPanel();
+                item.Index = 0;
+                if (!showLabel) item.showRowLabel(showLabel);             
                 this.FieldValuePanel.Children.Add(item);
             }
         }
 
-        public void display(bool isLabelPresent = true)
+        private void OnDeleteValueField(object item)
         {
-            for (int i = 0; i < 10; i++)
+            if (OnDeleteFieldValue != null)
             {
-                WriteOffValueItem item = new WriteOffValueItem();
-                if (!isLabelPresent) item.showRowLabel(false);
-                else
+                if (item is WriteOffValueItem)
                 {
-                    if (i > 0) item.showRowLabel(false);
+                    int lastIndex = ((WriteOffValueItem)item).Index;
+                    RemoveValueItem((WriteOffValueItem)item);
+                    if(this.FieldValuePanel.Children.Count == 0)
+                    {
+                        OnAddValueField(writeParent.Index == 0);
+                    }
+                    else
+                    {
+                        WriteOffValueItem wp = (WriteOffValueItem)this.FieldValuePanel.Children[0];
+                        if (lastIndex == 0 && writeParent.Index == 0)
+                        {
+                            wp.showRowLabel(true);
+                        }
+                    }
                 }
-                this.FieldValuePanel.Children.Add(item);
+                //OnDeleteFieldValue(item);
+            }
+        }
+
+        private void OnAddValueField(object item)
+        {
+            if (OnAddFieldValue != null)
+            {
+                WriteOffValueItem witem = getPanel();
+                if (item is bool) AddValueItem(witem, (bool)item);
+                else AddValueItem(witem);
+                OnAddFieldValue(item);    
+            }
+        }
+
+        private WriteOffValueItem getPanel()
+        {
+            WriteOffValueItem witem = new WriteOffValueItem();
+            witem.OnAddFieldValue += OnAddValueField;
+            witem.OnDeleteFieldValue += OnDeleteValueField;
+            return witem;
+        }
+
+        public void AddValueItem(WriteOffValueItem valueItem, bool isFirst= false)
+        {
+            valueItem.Index = this.FieldValuePanel.Children.Count - 1;
+            if (isFirst)
+            {
+                valueItem.showRowLabel(true);
+            }
+            else 
+            {
+                valueItem.showRowLabel(false);
+            }
+            this.FieldValuePanel.Children.Add(valueItem);
+        }
+
+        public void RemoveValueItem(WriteOffValueItem valueItem)
+        {
+            this.FieldValuePanel.Children.Remove(valueItem);
+            int i = 0;
+            foreach (UIElement writeoff in this.FieldValuePanel.Children) 
+            {
+                if (writeoff is WriteOffValueItem) 
+                {
+                    ((WriteOffValueItem)writeoff).Index = i;
+                    i++;
+                }
+
             }
         }
     }
