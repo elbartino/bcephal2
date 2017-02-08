@@ -6,10 +6,10 @@
              xmlns:gr="clr-namespace:Misp.Sourcing.InputGrid;assembly=Misp.Sourcing" 
              xmlns:reco="clr-namespace:Misp.Reconciliation.Reco" 
              mc:Ignorable="d" 
-             TabStripPlacement="Bottom" Background="White"
+             TabStripPlacement="Bottom"  Background="White"  BorderBrush="White"
              d:DesignHeight="300" d:DesignWidth="700">
 
-    <TabItem x:FieldModifier="public" x:Name="GridTabItem" Header="Filter" BorderBrush="White">
+    <TabItem x:FieldModifier="public" x:Name="GridTabItem" Header="Filter">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
