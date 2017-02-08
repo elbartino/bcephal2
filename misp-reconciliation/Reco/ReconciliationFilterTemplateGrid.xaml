@@ -11,7 +11,6 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
         <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
     <StackPanel Grid.Row="0" Orientation="Horizontal" x:Name="HeaderPanel" Margin="5">
@@ -19,8 +18,7 @@
         <CheckBox x:Name="DebitCheckBox" x:FieldModifier="public" Content="Debit" Margin="5, 0"/>
         <CheckBox x:Name="RecoCheckBox" x:FieldModifier="public" Content="Incl Reco" Margin="5, 0"/>
     </StackPanel>
-    <gr:GridBrowser x:Name="gridBrowser" x:FieldModifier="public" Grid.Row="1"/>
-    <gr:GridBrowserToolbar x:Name="toolBar" x:FieldModifier="public" Grid.Row="2"/>
+    <gr:GrilleBrowserForm x:Name="GrilleBrowserForm" x:FieldModifier="public" Grid.Row="1"/>
 
     <Grid Grid.Row="3" Margin="5">
         <Grid.ColumnDefinitions>

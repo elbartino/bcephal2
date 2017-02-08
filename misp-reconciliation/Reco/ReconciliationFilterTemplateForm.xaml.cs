@@ -23,6 +23,8 @@ namespace Misp.Reconciliation.Reco
     public partial class ReconciliationFilterTemplateForm : TabControl, IEditableView<ReconciliationFilterTemplate>
     {
 
+        #region Properties
+
         public bool IsReadOnly { get; set; }
 
         /// <summary>
@@ -40,12 +42,22 @@ namespace Misp.Reconciliation.Reco
         /// </summary>
         public Misp.Kernel.Ui.Base.ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
 
+        #endregion
+
+
+        #region Contollers
+
         public ReconciliationFilterTemplateForm()
         {
             InitializeComponent();
             UserInit();
-            
+            InitHandlers();
         }
+
+        #endregion
+        
+
+        #region Initializations
 
         private void UserInit()
         {
@@ -60,6 +72,10 @@ namespace Misp.Reconciliation.Reco
             this.BottomGridProperties.InputGridPropertiesPanel.gridEachLoop.Visibility = System.Windows.Visibility.Collapsed;
         }
 
+        #endregion
+
+
+        #region Operations
 
         public virtual void SetReadOnly(bool readOnly)
         {
@@ -69,22 +85,86 @@ namespace Misp.Reconciliation.Reco
 
         public virtual void SetTarget(Target target)
         {
-            //this.GridForm.filterForm.targetFilter.SetTargetValue(target);
+            if (this.SelectedIndex == 0) { }
+            else if (this.SelectedIndex == 1)
+            {
+                //this.ConfigurationPanel.SetTargetValue(target);
+            }
+            else if (this.SelectedIndex == 2)
+            {
+                this.LeftGridProperties.InputGridPropertiesPanel.SetValue(target);
+            }
+            else if (this.SelectedIndex == 3)
+            {
+                this.RightGridProperties.InputGridPropertiesPanel.SetValue(target);
+            }
+            else if (this.SelectedIndex == 4)
+            {
+                this.BottomGridProperties.InputGridPropertiesPanel.SetValue(target);
+            }
         }
 
         public virtual void SetPeriodInterval(PeriodInterval interval)
         {
-            //this.GridForm.filterForm.periodFilter.SetPeriodInterval(interval);
+            if (this.SelectedIndex == 0) { }
+            else if (this.SelectedIndex == 1)
+            {
+                //this.ConfigurationPanel.SetTargetValue(target);
+            }
+            else if (this.SelectedIndex == 2)
+            {
+                this.LeftGridProperties.InputGridPropertiesPanel.SetValue(interval);
+            }
+            else if (this.SelectedIndex == 3)
+            {
+                this.RightGridProperties.InputGridPropertiesPanel.SetValue(interval);
+            }
+            else if (this.SelectedIndex == 4)
+            {
+                this.BottomGridProperties.InputGridPropertiesPanel.SetValue(interval);
+            }
         }
 
         public virtual void SetPeriodName(PeriodName name)
         {
-            //this.GridForm.filterForm.periodFilter.SetPeriodItemName(name);
+            if (this.SelectedIndex == 0) { }
+            else if (this.SelectedIndex == 1)
+            {
+                //this.ConfigurationPanel.SetTargetValue(target);
+            }
+            else if (this.SelectedIndex == 2)
+            {
+                this.LeftGridProperties.InputGridPropertiesPanel.SetValue(name);
+            }
+            else if (this.SelectedIndex == 3)
+            {
+                this.RightGridProperties.InputGridPropertiesPanel.SetValue(name);
+            }
+            else if (this.SelectedIndex == 4)
+            {
+                this.BottomGridProperties.InputGridPropertiesPanel.SetValue(name);
+            }
         }
 
         public virtual void SetMeasure(Measure measure)
         {
-            //this.GridForm.filterForm.periodFilter.SetPeriodItemName(name);
+            if (this.SelectedIndex == 0) { }
+            else if (this.SelectedIndex == 1)
+            {
+                //this.ConfigurationPanel.SetTargetValue(target);
+            }
+            else if (this.SelectedIndex == 2)
+            {
+                this.LeftGridProperties.InputGridPropertiesPanel.SetValue(measure);
+            }
+            else if (this.SelectedIndex == 3)
+            {
+                this.RightGridProperties.InputGridPropertiesPanel.SetValue(measure);
+            }
+            else if (this.SelectedIndex == 4)
+            {
+                this.BottomGridProperties.InputGridPropertiesPanel.SetValue(measure);
+            }
         }
 
         
@@ -134,7 +214,22 @@ namespace Misp.Reconciliation.Reco
         /// </summary>
         public virtual void displayObject()
         {
-            
+            this.LeftGrid.EditedObject = this.EditedObject.leftGrid;
+            this.RightGrid.EditedObject = this.EditedObject.rigthGrid;
+            this.BottomGrid.EditedObject = this.EditedObject.bottomGrid;
+            this.LeftGrid.displayObject();
+            this.RightGrid.displayObject();
+            this.BottomGrid.displayObject();
+
+            //this.ConfigurationPanel.EditedObject = this.EditedObject;
+            //this.ConfigurationPanel.displayObject();
+
+            this.LeftGridProperties.EditedObject = this.EditedObject.leftGrid;
+            this.RightGridProperties.EditedObject = this.EditedObject.rigthGrid;
+            this.BottomGridProperties.EditedObject = this.EditedObject.bottomGrid;
+            this.LeftGridProperties.displayObject();
+            this.RightGridProperties.displayObject();
+            this.BottomGridProperties.displayObject();
         }
 
 
@@ -147,6 +242,37 @@ namespace Misp.Reconciliation.Reco
             return new List<object>(0);
         }
 
+        #endregion
+
+
+        #region Handlers
+
+        private void InitHandlers()
+        {
+            this.LeftGridProperties.InputGridPropertiesPanel.Changed += OnLeftGridPropertiesChange;
+            this.RightGridProperties.InputGridPropertiesPanel.Changed += OnRightGridPropertiesChange;
+            this.BottomGridProperties.InputGridPropertiesPanel.Changed += OnBottomGridPropertiesChange;
+        }
+
+        private void OnBottomGridPropertiesChange(object item)
+        {
+            this.BottomGridProperties.BuildColunms();
+            this.BottomGrid.GrilleBrowserForm.gridBrowser.RebuildGrid = true;
+        }
+
+        private void OnRightGridPropertiesChange(object item)
+        {
+            this.RightGridProperties.BuildColunms();
+            this.RightGrid.GrilleBrowserForm.gridBrowser.RebuildGrid = true;
+        }
+
+        private void OnLeftGridPropertiesChange(object item)
+        {
+            this.LeftGridProperties.BuildColunms();
+            this.LeftGrid.GrilleBrowserForm.gridBrowser.RebuildGrid = true;
+        }
+
+        #endregion
 
     }
 }

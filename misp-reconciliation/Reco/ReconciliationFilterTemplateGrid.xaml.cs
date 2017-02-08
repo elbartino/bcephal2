@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,11 @@ namespace Misp.Reconciliation.Reco
     /// </summary>
     public partial class ReconciliationFilterTemplateGrid : Grid
     {
+        /// <summary>
+        /// Design en édition
+        /// </summary>
+        public Grille EditedObject { get; set; }
+
         public ReconciliationFilterTemplateGrid()
         {
             InitializeComponent();
@@ -33,6 +39,12 @@ namespace Misp.Reconciliation.Reco
         public void HideRecoToolBar()
         {
             this.RecoToolBar.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        public void displayObject()
+        {
+            this.GrilleBrowserForm.EditedObject = this.EditedObject;
+            this.GrilleBrowserForm.displayObject();
         }
 
     }

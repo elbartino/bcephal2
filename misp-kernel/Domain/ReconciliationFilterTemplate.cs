@@ -41,6 +41,12 @@ namespace Misp.Kernel.Domain
 	    public ReconciliationFilterTemplate() {
 		    this.visibleInShortcut = true;
 		    this.acceptWriteOff = true;
+            this.leftGrid = new Grille();            
+            this.rigthGrid = new Grille();
+            this.bottomGrid = new Grille();
+            this.leftGrid.reconciliation = true;
+            this.rigthGrid.reconciliation = true;
+            this.bottomGrid.reconciliation = true;
 	    }
 
         public override string ToString()
