@@ -40,5 +40,32 @@ namespace Misp.Kernel.Domain
             return this.position.CompareTo(((WriteOffFieldValue)obj).position);
         }
 
+
+        public void setValue(AttributeValue value)
+        {
+            this.attribute = null;
+            this.attributeValue = value;
+            this.period = null;
+        }
+
+        public void setAttribute(Attribute attribute)
+        {
+            this.attribute = attribute;
+            this.attributeValue = null;
+            this.period = null;
+        }
+
+        public void setPeriodInterval(PeriodInterval interval)
+        {
+            this.attribute = null;
+            this.attributeValue = null;
+            this.period = interval;
+        }
+
+        public void setDecimalMeasure(decimal decimalMeasure)
+        {
+
+        }
+
     }
 }

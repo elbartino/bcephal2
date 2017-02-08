@@ -1,5 +1,6 @@
 ﻿using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Reconciliation.WriteOffConfig.WriteOffElements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,11 +32,10 @@ namespace Misp.Reconciliation.WriteOffConfig
         public event ActivateEventHandler ActivateFieldPanel;
 
         public int nbreLigne = 0;
-        
-        public Kernel.Domain.WriteOffConfiguration writeOffConfig { get; set; }
-
+                
         public PersistentListChangeHandler<WriteOffField> fieldListChangeHandler { get; set; }
 
+        public WriteOffConfiguration EditedObject { get; set; }
 
         public WriteOffFieldPanel ActiveFieldPanel { get; set; }
 
@@ -104,6 +104,10 @@ namespace Misp.Reconciliation.WriteOffConfig
             if (item is WriteOffFieldPanel)
             {
                 this.setActiveFieldPanel((WriteOffFieldPanel)item);
+            }
+            else if (item is WriteOffFieldValuePanel)
+            {
+                this.setActiveFieldPanel(((WriteOffFieldValuePanel)item).writeParent);
             }
             if (ActivateFieldPanel != null) ActivateFieldPanel(item);
         }
@@ -186,13 +190,46 @@ namespace Misp.Reconciliation.WriteOffConfig
             if (woffieldpanel == null) getActiveFieldPanel();
             else this.ActiveFieldPanel = woffieldpanel;
         }
-
-
-        public WriteOffConfiguration EditedObject { get; set; }
-
+        
         public void displayObject()
         {
             display(EditedObject);
+        }
+
+
+        public void setMeasure(Measure measure) 
+        {
+            this.ActiveFieldPanel.setMeasure(measure);
+        }
+
+        public void setAttribute(Kernel.Domain.Attribute attribte) 
+        {
+            this.ActiveFieldPanel.setAttribute(attribte);
+        }
+
+        public void setPeriodName(PeriodName periodName)
+        {
+            this.ActiveFieldPanel.setPeriodName(periodName);
+        }
+
+        public void setPeriodName(PeriodInterval periodInterval)
+        {
+            this.ActiveFieldPanel.setPeriodInterval(periodInterval);
+        }
+
+        public WriteOffConfiguration FillObject() 
+        {
+            WriteOffConfiguration writeoffConfig = new WriteOffConfiguration();
+            //writeoffConfig.fieldListChangeHandler = this.
+
+            return writeoffConfig;
+        }
+
+        public void SetTarget(Target target)
+        {
+            if (target is Kernel.Domain.Attribute) this.ActiveFieldPanel.setAttribute((Kernel.Domain.Attribute)target);
+            else if (target is Kernel.Domain.AttributeValue) this.ActiveFieldPanel.setAttributeValue((Kernel.Domain.AttributeValue)target);
+
         }
     }
 }

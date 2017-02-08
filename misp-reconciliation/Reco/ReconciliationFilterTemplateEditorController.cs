@@ -288,7 +288,7 @@ namespace Misp.Reconciliation.Reco
             ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
             page.getForm().EditedObject = page.EditedObject;
             grid.GrilleBrowserForm.displayObject();
-            //grid.GrilleBrowserForm.Search();
+            grid.Search(grid.EditedObject.GrilleFilter != null ? grid.EditedObject.GrilleFilter.page : 1);
 
             /*page.getForm().displayObjectInGridForm();
             Search(page.EditedObject.GrilleFilter != null ? page.EditedObject.GrilleFilter.page : 1);*/

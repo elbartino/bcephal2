@@ -62,9 +62,17 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public void InitializeHandlers()
         {
+            this.GotFocus += OnGotFocus;
+            this.MouseLeftButtonDown += OnGotFocus;
             this.PossibleValues.OnAddFieldValue += OnAddFieldsValue;
             this.PossibleValues.OnDeleteFieldValue += OnDeleteFieldsValue;
             this.PossibleValues.ActivateFiedValue += OnActivateFieldsValue;
+            this.DefaultValues.ActivateFiedValue += OnActivateFieldsValue;
+        }
+
+        private void OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (ActivateFiedValue != null) ActivateFiedValue(this);
         }
 
         private void OnActivateFieldsValue(object item)
@@ -85,6 +93,18 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public Kernel.Domain.WriteOffFieldValue FillWriteOffField()
         {
             return new Kernel.Domain.WriteOffFieldValue();
+        }
+
+        public void setPeriodInterval(Kernel.Domain.PeriodInterval periodInterval)
+        {
+            this.WriteOffFieldValue.setPeriodInterval(periodInterval);
+            display();
+        }
+
+        public void setAttributeValue(Kernel.Domain.AttributeValue value)
+        {
+            this.WriteOffFieldValue.setValue(value);
+            display();
         }
     }
 }

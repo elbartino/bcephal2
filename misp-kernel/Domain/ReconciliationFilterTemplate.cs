@@ -44,6 +44,9 @@ namespace Misp.Kernel.Domain
             this.leftGrid = new Grille();            
             this.rigthGrid = new Grille();
             this.bottomGrid = new Grille();
+            this.leftGrid.report = true;
+            this.rigthGrid.report = true;
+            this.bottomGrid.report = true;
             this.leftGrid.reconciliation = true;
             this.rigthGrid.reconciliation = true;
             this.bottomGrid.reconciliation = true;

@@ -88,7 +88,7 @@ namespace Misp.Reconciliation.Reco
             if (this.SelectedIndex == 0) { }
             else if (this.SelectedIndex == 1)
             {
-                //this.ConfigurationPanel.SetTargetValue(target);
+                this.ConfigurationPanel.WriteOffConfigPanel.SetTarget(target);
             }
             else if (this.SelectedIndex == 2)
             {
@@ -109,7 +109,7 @@ namespace Misp.Reconciliation.Reco
             if (this.SelectedIndex == 0) { }
             else if (this.SelectedIndex == 1)
             {
-                //this.ConfigurationPanel.SetTargetValue(target);
+                this.ConfigurationPanel.WriteOffConfigPanel.setPeriodName(interval);
             }
             else if (this.SelectedIndex == 2)
             {
@@ -130,7 +130,7 @@ namespace Misp.Reconciliation.Reco
             if (this.SelectedIndex == 0) { }
             else if (this.SelectedIndex == 1)
             {
-                //this.ConfigurationPanel.SetTargetValue(target);
+                this.ConfigurationPanel.WriteOffConfigPanel.setPeriodName(name);
             }
             else if (this.SelectedIndex == 2)
             {
@@ -151,7 +151,7 @@ namespace Misp.Reconciliation.Reco
             if (this.SelectedIndex == 0) { }
             else if (this.SelectedIndex == 1)
             {
-                //this.ConfigurationPanel.SetTargetValue(target);
+                this.ConfigurationPanel.WriteOffConfigPanel.setMeasure(measure);
             }
             else if (this.SelectedIndex == 2)
             {
