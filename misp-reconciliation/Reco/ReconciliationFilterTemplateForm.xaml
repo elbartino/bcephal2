@@ -6,7 +6,7 @@
              xmlns:gr="clr-namespace:Misp.Sourcing.InputGrid;assembly=Misp.Sourcing" 
              xmlns:reco="clr-namespace:Misp.Reconciliation.Reco" 
              mc:Ignorable="d" 
-             TabStripPlacement="Bottom"
+             TabStripPlacement="Bottom" Background="White"
              d:DesignHeight="300" d:DesignWidth="700">
 
     <TabItem x:FieldModifier="public" x:Name="GridTabItem" Header="Filter" BorderBrush="White">
@@ -31,7 +31,7 @@
         </Grid>        
     </TabItem>
     <TabItem x:FieldModifier="public" x:Name="ConfigTabItem" Header="Configuration">
-        
+        <reco:ReconciliationFilterTemplateConfigPanel x:FieldModifier="public" x:Name="ConfigurationPanel"/>
     </TabItem>
     <TabItem x:FieldModifier="public" x:Name="LeftTabItem" Header="Left">
         <gr:InputGridSheetForm x:FieldModifier="public"  x:Name="LeftGridProperties"/>
