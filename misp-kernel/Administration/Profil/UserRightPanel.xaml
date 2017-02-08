@@ -1,0 +1,59 @@
+﻿<Grid x:Class="Misp.Kernel.Administration.Profil.UserRightPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" Background="White"
+             xmlns:UserRight="clr-namespace:Misp.Kernel.Administration.Profil">            
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition />            
+        <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
+    
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    
+    <Grid Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Profil/User" Margin="0 5 0 0" Grid.Column="0"/>
+        <Label Content="Right" Margin="173 5 0 0" Grid.Column="1"/>
+        <ToggleButton x:Name="NoCommentButton" x:FieldModifier="public" ToolTip="Edit a comment" Margin="45 5 5 0" Width="15" Grid.Column="2">
+            <ToggleButton.Template>
+                <ControlTemplate>
+                    <Image Source="/bcephal;Component/Resources/Images/Icons/NoCommentButton.png"/>
+                </ControlTemplate>
+            </ToggleButton.Template>
+        </ToggleButton >
+    </Grid>
+    <Grid Grid.Row="1" Margin="194 0 0 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="V" Margin="1 0 0 0" Grid.Column="0"/>
+        <Label Content="ET" Margin="1 0 0 0" Grid.Column="1"/>
+        <Label Content="EC" Margin="0 0 0 0" Grid.Column="2"/>
+        <Label Content="EA" Margin="1 0 0 0" Grid.Column="3"/>
+        <Label Content="D" Margin="2 0 0 0" Grid.Column="4"/>
+        <Label Content="L" Margin="6 0 0 0" Grid.Column="5"/>
+        <Label Content="C" Margin="7 0 0 0" Grid.Column="6"/>
+        <Label Content="S" Margin="7 0 0 0" Grid.Column="7"/>
+    </Grid>
+    
+    <UserRight:UserRightItemPanel x:Name="UserRightItemPanel1"  Grid.Row="2"/>
+    <UserRight:UserRightItemPanel x:Name="UserRightItemPanel2"  Grid.Row="3"/>
+</Grid>
