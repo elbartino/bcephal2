@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,10 +23,24 @@ namespace Misp.Reconciliation.Reco
     {
         public ConfigurationPropertiesPanel ConfigurationPropertiesPanel { get; set; }
 
+        /// <summary>
+        /// Design en édition
+        /// </summary>
+        public ReconciliationFilterTemplate EditedObject { get; set; }
+
         public ReconciliationFilterTemplateConfigPanel()
         {
             InitializeComponent();
             this.ConfigurationPropertiesPanel = new ConfigurationPropertiesPanel();
+        }
+
+        public void displayObject()
+        {
+            this.ConfigurationPropertiesPanel.EditedObject = this.EditedObject;
+            this.ConfigurationPropertiesPanel.displayObject();
+
+            //this.WriteOffConfigPanel.EditedObject = this.EditedObject.writeOffConfig;
+            //this.WriteOffConfigPanel.displayObject();
         }
     }
 }

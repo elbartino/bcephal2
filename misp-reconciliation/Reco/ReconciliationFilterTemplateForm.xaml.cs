@@ -221,8 +221,8 @@ namespace Misp.Reconciliation.Reco
             this.RightGrid.displayObject();
             this.BottomGrid.displayObject();
 
-            //this.ConfigurationPanel.EditedObject = this.EditedObject;
-            //this.ConfigurationPanel.displayObject();
+            this.ConfigurationPanel.EditedObject = this.EditedObject;
+            this.ConfigurationPanel.displayObject();
 
             this.LeftGridProperties.EditedObject = this.EditedObject.leftGrid;
             this.RightGridProperties.EditedObject = this.EditedObject.rigthGrid;

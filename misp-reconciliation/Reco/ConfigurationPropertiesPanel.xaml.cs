@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,19 @@ namespace Misp.Reconciliation.Reco
     /// </summary>
     public partial class ConfigurationPropertiesPanel : StackPanel
     {
+        /// <summary>
+        /// Design en édition
+        /// </summary>
+        public ReconciliationFilterTemplate EditedObject { get; set; }
+
         public ConfigurationPropertiesPanel()
         {
             InitializeComponent();
+        }
+
+        public void displayObject()
+        {
+            this.NameTextBox.Text = this.EditedObject.name;
         }
     }
 }
