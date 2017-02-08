@@ -182,7 +182,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             wpanel.showRowLabel(nbreLigne == 0);
             wpanel.display();
             nbreLigne++;
-            this.ActiveFieldPanel = wpanel;
+            this.setActiveFieldPanel(wpanel);
             this.configPanel.Children.Add(wpanel);
         }
 
@@ -201,16 +201,13 @@ namespace Misp.Reconciliation.WriteOffConfig
             return list;
         }
 
-        public WriteOffFieldPanel getActiveFieldPanel()
-        {
-            if (this.ActivePanel == null) this.ActivePanel = this.configPanel.Children[0] as WriteOffFieldPanel;
-            if (this.ActiveFieldPanel == null) this.ActiveFieldPanel = this.configPanel.Children[0] as WriteOffFieldPanel;
-            return this.ActiveFieldPanel;
-        }
-
         public UIElement getActivePanel()
         {
-            if (this.ActivePanel == null) return this.configPanel.Children[0] as WriteOffConfigPanel;
+            if (this.ActivePanel == null)
+            {
+                int index =  this.configPanel.Children.Count <  0 ? 0 : this.configPanel.Children.Count - 1;
+                return this.configPanel.Children[index] as WriteOffFieldPanel;
+            }
             return this.ActivePanel;
         }
 

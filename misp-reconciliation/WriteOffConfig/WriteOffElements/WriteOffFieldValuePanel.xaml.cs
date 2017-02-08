@@ -171,6 +171,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             {
                 valueItem.showRowLabel(false);
             }
+            OnActivateValueField(valueItem);
             this.FieldValuePanel.Children.Add(valueItem);
         }
 
