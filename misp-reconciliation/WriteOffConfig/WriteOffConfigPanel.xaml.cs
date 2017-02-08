@@ -41,8 +41,7 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         public WriteOffConfigPanel()
         {
-            InitializeComponent();
-            getActiveFieldPanel();
+            InitializeComponent();          
         }
 
         public void display(Kernel.Domain.WriteOffConfiguration writeOffConfig)

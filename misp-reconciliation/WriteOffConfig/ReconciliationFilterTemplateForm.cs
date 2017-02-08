@@ -207,6 +207,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             else
             {
                 this.WriteOffConfigPanel.display(this.EditedObject.writeOffConfig);
+                this.WriteOffConfigPanel.getActiveFieldPanel();
             }
         }
 

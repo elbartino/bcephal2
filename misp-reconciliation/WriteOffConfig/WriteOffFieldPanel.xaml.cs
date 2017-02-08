@@ -140,16 +140,22 @@ namespace Misp.Reconciliation.WriteOffConfig
         public void setAttribute(Kernel.Domain.Attribute attribute)
         {
             this.fieldsPanel.setAttribute(attribute);
+            this.FieldValuePanel.fieldValueListChangeHandler = null;
+            this.FieldValuePanel.display();
         }
 
         public void setMeasure(Kernel.Domain.Measure measure)
         {
             this.fieldsPanel.setMeasure(measure);
+            this.FieldValuePanel.fieldValueListChangeHandler = null;
+            this.FieldValuePanel.display();
         }
 
         public void setPeriodName(PeriodName periodName)
         {
             this.fieldsPanel.setPeriodName(periodName);
+            this.FieldValuePanel.fieldValueListChangeHandler = null;
+            this.FieldValuePanel.display();
         }
                 
     }
