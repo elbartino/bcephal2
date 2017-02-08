@@ -88,6 +88,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.writeOffField.setAttribute(attribute);
             display();
         }
+              
 
         public void setPeriodName(Kernel.Domain.PeriodName PeriodName)
         {

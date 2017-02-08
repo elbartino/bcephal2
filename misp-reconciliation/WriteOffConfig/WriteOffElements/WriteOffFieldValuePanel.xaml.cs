@@ -139,10 +139,10 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         private void OnActivateValueField(object item)
         {
-            if (ActivateFiedValue != null && item is WriteOffValueItem)
+            if (ActivateFiedValue != null)
             {
-                this.ActiveItem = (WriteOffValueItem)item;
-                ActivateFiedValue(item);
+               this.ActiveItem = item as WriteOffValueItem;
+               ActivateFiedValue(this);
             }
         }
 
@@ -179,6 +179,16 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         {
             if (this.ActiveItem == null) this.ActiveItem = this.FieldValuePanel.Children[0] as WriteOffValueItem;
             return this.ActiveItem;
+        }
+
+        public void setAttributeValue(AttributeValue attributeValue)
+        {
+            this.ActiveItem.setAttributeValue(attributeValue);
+        }
+
+        public void setPeriodInterval(PeriodInterval periodInterval)
+        {
+            this.ActiveItem.setPeriodInterval(periodInterval);
         }
     }
 }

@@ -113,6 +113,7 @@ namespace Misp.Reconciliation.WriteOffConfig
 
             this.FieldValuePanel.OnAddFieldValue += OnAddFieldsValue;
             this.FieldValuePanel.OnDeleteFieldValue += OnDeleteFieldsValue;
+            this.FieldValuePanel.ActivateFiedValue += OnActivateFieldsValue;
             this.FieldValuePanel.getActiveItem();
             this.FieldValuePanel.writeParent = this;
         }
@@ -122,13 +123,22 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.fieldsPanel.OnAddField -= OnAddFields;
             this.fieldsPanel.OnDeleteField -= OnDeleteFields;
             this.fieldsPanel.ActivateFieldPanel -= OnActivateFieldsValue;
+            this.FieldValuePanel.ActivateFiedValue -= OnActivateFieldsValue;
             this.FieldValuePanel.OnAddFieldValue -= OnAddFieldsValue;
             this.FieldValuePanel.OnDeleteFieldValue -= OnDeleteFieldsValue;
         }
 
         private void OnActivateFieldsValue(object item)
         {
-            if (ActivateFieldPanel != null) ActivateFieldPanel(this);
+            if (ActivateFieldPanel != null)
+            {
+                if (item is WriteOffFieldValuePanel)
+                {
+                    ActivateFieldPanel(item);
+                }
+                else
+                ActivateFieldPanel(this);
+            }
         }
 
         public WriteOffField FillWriteOffField()
@@ -142,6 +152,12 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.fieldsPanel.setAttribute(attribute);
             this.FieldValuePanel.fieldValueListChangeHandler = null;
             this.FieldValuePanel.display();
+        }
+
+
+        public void setAttributeValue(Kernel.Domain.AttributeValue attributeValue)
+        {
+            this.FieldValuePanel.setAttributeValue(attributeValue);
         }
 
         public void setMeasure(Kernel.Domain.Measure measure)
@@ -160,7 +176,7 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         public void setPeriodInterval(PeriodInterval periodInterval) 
         {
-            this.ActiveFieldItemPanel.setPeriodInterval(periodInterval);
+            this.FieldValuePanel.setPeriodInterval(periodInterval);
         }
                 
     }
