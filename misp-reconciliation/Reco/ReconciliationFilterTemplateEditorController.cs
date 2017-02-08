@@ -257,21 +257,27 @@ namespace Misp.Reconciliation.Reco
             else
             {
                 ApplicationManager.MainWindow.displayPropertyBar(this.PropertyBar);
+                ReconciliationFilterTemplatePropertyBar bar = (ReconciliationFilterTemplatePropertyBar)this.PropertyBar;
                 if (page.getForm().SelectedIndex == 1)
                 {
-                    //((ReconciliationFilterTemplatePropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getForm().InputGridSheetForm.InputGridPropertiesPanel;
+                    //bar.DesignLayoutAnchorable.Content = page.getForm().InputGridSheetForm.InputGridPropertiesPanel;
+                    bar.DesignLayoutAnchorable.Content = null;
+                    bar.DesignLayoutAnchorable.Title = "Filter Properties";
                 }
                 else if (page.getForm().SelectedIndex == 2)
                 {
-                    ((ReconciliationFilterTemplatePropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getForm().LeftGridProperties.InputGridPropertiesPanel;
+                    bar.DesignLayoutAnchorable.Content = page.getForm().LeftGridProperties.InputGridPropertiesPanel;
+                    bar.DesignLayoutAnchorable.Title = "Left Grid Properties";
                 }
                 else if (page.getForm().SelectedIndex == 3)
                 {
-                    ((ReconciliationFilterTemplatePropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getForm().RightGridProperties.InputGridPropertiesPanel;
+                    bar.DesignLayoutAnchorable.Content = page.getForm().RightGridProperties.InputGridPropertiesPanel;
+                    bar.DesignLayoutAnchorable.Title = "Right Grid Properties";
                 }
                 else if (page.getForm().SelectedIndex == 4)
                 {
-                    ((ReconciliationFilterTemplatePropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = page.getForm().BottomGridProperties.InputGridPropertiesPanel;
+                    bar.DesignLayoutAnchorable.Content = page.getForm().BottomGridProperties.InputGridPropertiesPanel;
+                    bar.DesignLayoutAnchorable.Title = "Bottom Grid Properties";
                 }
             }            
         }

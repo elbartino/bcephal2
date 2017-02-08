@@ -43,9 +43,21 @@ namespace Misp.Reconciliation.Reco
         public ReconciliationFilterTemplateForm()
         {
             InitializeComponent();
+            UserInit();
+            
+        }
+
+        private void UserInit()
+        {
             this.LeftGrid.HideRecoToolBar();
             this.RightGrid.HideRecoToolBar();
             this.BottomGrid.HideHeaderPanel();
+            this.LeftGridProperties.InputGridPropertiesPanel.GroupPanel.Visibility = System.Windows.Visibility.Collapsed;
+            this.LeftGridProperties.InputGridPropertiesPanel.gridEachLoop.Visibility = System.Windows.Visibility.Collapsed;
+            this.RightGridProperties.InputGridPropertiesPanel.GroupPanel.Visibility = System.Windows.Visibility.Collapsed;
+            this.RightGridProperties.InputGridPropertiesPanel.gridEachLoop.Visibility = System.Windows.Visibility.Collapsed;
+            this.BottomGridProperties.InputGridPropertiesPanel.GroupPanel.Visibility = System.Windows.Visibility.Collapsed;
+            this.BottomGridProperties.InputGridPropertiesPanel.gridEachLoop.Visibility = System.Windows.Visibility.Collapsed;
         }
 
 

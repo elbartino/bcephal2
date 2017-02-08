@@ -28,7 +28,7 @@
                 <Label x:Name="nameLabel" Grid.Column="0" Content="Name" />
                 <TextBox x:Name="NameTextBox" x:FieldModifier="public" Grid.Column="1" TextWrapping="NoWrap"/>
             </Grid>
-            <Grid Margin="5,5,5,0">
+            <Grid Margin="5,5,5,0" x:Name="GroupPanel" x:FieldModifier="public">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="27"/>
                 </Grid.RowDefinitions>
