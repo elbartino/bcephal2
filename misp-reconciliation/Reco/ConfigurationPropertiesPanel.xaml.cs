@@ -16,16 +16,13 @@ using System.Windows.Shapes;
 namespace Misp.Reconciliation.Reco
 {
     /// <summary>
-    /// Interaction logic for ReconciliationFilterTemplateConfigPanel.xaml
+    /// Interaction logic for ConfigurationPropertiesPanel.xaml
     /// </summary>
-    public partial class ReconciliationFilterTemplateConfigPanel : Grid
+    public partial class ConfigurationPropertiesPanel : StackPanel
     {
-        public ConfigurationPropertiesPanel ConfigurationPropertiesPanel { get; set; }
-
-        public ReconciliationFilterTemplateConfigPanel()
+        public ConfigurationPropertiesPanel()
         {
             InitializeComponent();
-            this.ConfigurationPropertiesPanel = new ConfigurationPropertiesPanel();
         }
     }
 }

@@ -260,7 +260,7 @@ namespace Misp.Reconciliation.Reco
                 ReconciliationFilterTemplatePropertyBar bar = (ReconciliationFilterTemplatePropertyBar)this.PropertyBar;
                 if (page.getForm().SelectedIndex == 1)
                 {
-                    //bar.DesignLayoutAnchorable.Content = page.getForm().InputGridSheetForm.InputGridPropertiesPanel;
+                    bar.DesignLayoutAnchorable.Content = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel;
                     bar.DesignLayoutAnchorable.Content = null;
                     bar.DesignLayoutAnchorable.Title = "Filter Properties";
                 }
