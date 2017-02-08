@@ -151,7 +151,7 @@ namespace Misp.Reconciliation.WriteOffConfig
         {
             this.fieldsPanel.setAttribute(attribute);
             this.FieldValuePanel.fieldValueListChangeHandler = null;
-            this.FieldValuePanel.display();
+            //this.FieldValuePanel.display();
         }
 
 
@@ -164,14 +164,14 @@ namespace Misp.Reconciliation.WriteOffConfig
         {
             this.fieldsPanel.setMeasure(measure);
             this.FieldValuePanel.fieldValueListChangeHandler = null;
-            this.FieldValuePanel.display();
+            //this.FieldValuePanel.display();
         }
 
         public void setPeriodName(PeriodName periodName)
         {
             this.fieldsPanel.setPeriodName(periodName);
             this.FieldValuePanel.fieldValueListChangeHandler = null;
-            this.FieldValuePanel.display();
+            //this.FieldValuePanel.display();
         }
 
         public void setPeriodInterval(PeriodInterval periodInterval) 

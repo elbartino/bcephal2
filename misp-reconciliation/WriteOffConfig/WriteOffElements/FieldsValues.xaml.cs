@@ -43,6 +43,10 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.DeleteButton.Click += OnHandledButton;
             this.NewButton.GotFocus += OnGotFocus;
             this.DeleteButton.GotFocus += OnGotFocus;
+            this.ValueTypeTextBox.GotFocus += OnGotFocus;
+            this.ValueTypeTextBox.MouseLeftButtonDown += OnGotFocus;
+            this.DeleteButton.MouseLeftButtonDown += OnGotFocus;
+            this.NewButton.MouseLeftButtonDown += OnGotFocus;
         }
 
         private void OnGotFocus(object sender, RoutedEventArgs e)

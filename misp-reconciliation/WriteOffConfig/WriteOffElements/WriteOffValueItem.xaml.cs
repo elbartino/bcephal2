@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Ui.Base;
+﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -97,14 +98,22 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public void setPeriodInterval(Kernel.Domain.PeriodInterval periodInterval)
         {
-            this.WriteOffFieldValue.setPeriodInterval(periodInterval);
+            this.getCurrentFieldValue().setPeriodInterval(periodInterval);
             display();
         }
 
         public void setAttributeValue(Kernel.Domain.AttributeValue value)
         {
-            this.WriteOffFieldValue.setValue(value);
+            this.getCurrentFieldValue().setValue(value);
             display();
+        }
+
+        public WriteOffFieldValue getCurrentFieldValue() 
+        {
+            if (this.WriteOffFieldValue == null) this.WriteOffFieldValue = new WriteOffFieldValue();
+            this.PossibleValues.writeOffValueField = this.WriteOffFieldValue;
+            return this.WriteOffFieldValue;
+                
         }
     }
 }

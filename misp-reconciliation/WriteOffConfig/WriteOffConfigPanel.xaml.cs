@@ -145,9 +145,9 @@ namespace Misp.Reconciliation.WriteOffConfig
                
                 if (lastIndex == 0)
                 {
-
-                     ((WriteOffFieldPanel)this.configPanel.Children[0]).showRowLabel(true);
+                   ((WriteOffFieldPanel)this.configPanel.Children[0]).showRowLabel(true);
                 }
+                this.ActiveFieldPanel = null;
             }
             
         }
@@ -161,6 +161,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             wpanel.showRowLabel(nbreLigne == 0);
             wpanel.display();
             nbreLigne++;
+            this.ActiveFieldPanel = wpanel;
             this.configPanel.Children.Add(wpanel);
         }
 
