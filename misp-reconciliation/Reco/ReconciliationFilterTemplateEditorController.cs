@@ -261,7 +261,6 @@ namespace Misp.Reconciliation.Reco
                 if (page.getForm().SelectedIndex == 1)
                 {
                     bar.DesignLayoutAnchorable.Content = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel;
-                    bar.DesignLayoutAnchorable.Content = null;
                     bar.DesignLayoutAnchorable.Title = "Filter Properties";
                 }
                 else if (page.getForm().SelectedIndex == 2)
