@@ -66,6 +66,7 @@ namespace Misp.Reconciliation.WriteOffConfig
         {
             //this.WriteOffConfigPanel.OnAddField += OnAddField;
             //this.WriteOffConfigPanel.OnDeleteField += OnDeleteField;
+
         }
 
         private void OnDeleteField(object item)

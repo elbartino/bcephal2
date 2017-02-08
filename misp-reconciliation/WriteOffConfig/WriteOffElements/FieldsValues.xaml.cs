@@ -41,6 +41,13 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         {
             this.NewButton.Click += OnHandledButton;
             this.DeleteButton.Click += OnHandledButton;
+            this.NewButton.GotFocus += OnGotFocus;
+            this.DeleteButton.GotFocus += OnGotFocus;
+        }
+
+        private void OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (ActivateFieldPanel != null) ActivateFieldPanel(null);
         }
 
         private void OnHandledButton(object sender, RoutedEventArgs e)

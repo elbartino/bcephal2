@@ -101,6 +101,10 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         private void OnActivateFields(object item)
         {
+            if (item is WriteOffFieldPanel)
+            {
+                this.setActiveFieldPanel((WriteOffFieldPanel)item);
+            }
             if (ActivateFieldPanel != null) ActivateFieldPanel(item);
         }
 
@@ -176,5 +180,12 @@ namespace Misp.Reconciliation.WriteOffConfig
             if (this.ActiveFieldPanel == null) this.ActiveFieldPanel = this.configPanel.Children[0] as WriteOffFieldPanel;
             return this.ActiveFieldPanel;
         }
+
+        public void setActiveFieldPanel(WriteOffFieldPanel woffieldpanel)
+        {
+            if (woffieldpanel == null) getActiveFieldPanel();
+            else this.ActiveFieldPanel = woffieldpanel;
+        }
+
     }
 }
