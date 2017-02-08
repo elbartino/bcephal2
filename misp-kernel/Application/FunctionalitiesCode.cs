@@ -197,6 +197,7 @@ namespace Misp.Kernel.Application
         public static string RECONCILIATION_RUN = "functionality.reconciliation.run";
         public static string RECONCILIATION_CLEAR = "functionality.reconciliation.clear";
 
+        public static string RECONCILIATION_FILTER_TEMPLATE_CONFIGURATION = "functionality.reconciliation.filtertemplate";
         
 
 

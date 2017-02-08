@@ -49,6 +49,62 @@ namespace Misp.Kernel.Domain
             this.bottomGrid.reconciliation = true;
 	    }
 
+        public void setWriteOffConfiguration(WriteOffConfiguration writeoffconfig)
+        {
+            this.writeOffConfig = writeoffconfig;
+        }
+
+        public void setDebitCreditFormula(DebitCreditFormula debCredFor) 
+        {
+            this.debitCreditFormula = debCredFor;
+        }
+
+        public void setMeasure(Measure measure)
+        {
+            this.amountMeasure = measure;
+        }
+
+        public void setReconciliationType(Domain.Attribute attribute)
+        {
+            this.reconciliationType = attribute;
+        }
+
+        public void setBalanceFormula(BalanceFormula balanceFor) 
+        {
+            this.balanceFormula = balanceFor;
+        }
+
+        public void setGroup(BGroup groupe)
+        {
+            this.group = groupe;
+        }
+
+        public void setVisibleInShorcut(bool visibleinShortc) 
+        {
+            this.visibleInShortcut = visibleinShortc;
+        }
+
+        public void setLeftGrid(Grille leftgrid) 
+        {
+            this.leftGrid = leftgrid;
+        }
+
+        public void setRigthGrid(Grille rigthgrid)
+        {
+            this.rigthGrid = rigthgrid;
+        }
+
+        public void setBottomGrid(Grille bottomgrid)
+        {
+            this.bottomGrid = bottomgrid;
+        }
+
+        public void setAcceptWriteOff(bool accept)
+        {
+            this.acceptWriteOff = accept;
+        }
+
+
         public override string ToString()
         {
             return this.name != null ? this.name : base.ToString();
@@ -58,6 +114,5 @@ namespace Misp.Kernel.Domain
         {
             if (obj == null || !(obj is Grille)) return 1;
             return this.name.CompareTo(((Grille)obj).name);
-        }
-    }
+        }    }
 }

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:WriteOff="clr-namespace:Misp.Reconciliation.WriteOffConfig"
              mc:Ignorable="d" Background="White"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid.RowDefinitions>
@@ -10,5 +11,5 @@
         <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
     <CheckBox x:FieldModifier="public" x:Name="AllowWriteOffCheckBox" Content="Allow write off" IsChecked="True" Grid.Row="0"/>
-    
+    <WriteOff:WriteOffConfigPanel x:FieldModifier="public" x:Name="WriteOffConfigPanel" Grid.Row="1" />
 </Grid>
