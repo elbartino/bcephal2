@@ -98,8 +98,10 @@ namespace Misp.Reporting.Report
             toolBar.RunButton.ToolTip = "Run Report";
             toolBar.SaveButton.ToolTip = "Save Report";
             toolBar.CloseButton.ToolTip = "Exit Report Editor";
-            toolBar.ClearButton.Visibility = System.Windows.Visibility.Collapsed;
-            toolBar.SaveClearRunButton.Visibility = System.Windows.Visibility.Collapsed;
+
+            toolBar.Children.Remove(toolBar.ClearButton);
+            toolBar.Children.Remove(toolBar.SaveClearRunButton);
+            toolBar.Children.Remove(toolBar.ApplyToAllCheckBox);
             return toolBar; 
         }
         
