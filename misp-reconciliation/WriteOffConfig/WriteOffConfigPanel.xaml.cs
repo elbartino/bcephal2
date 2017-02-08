@@ -31,11 +31,10 @@ namespace Misp.Reconciliation.WriteOffConfig
         public event ActivateEventHandler ActivateFieldPanel;
 
         public int nbreLigne = 0;
-        
-        public Kernel.Domain.WriteOffConfiguration writeOffConfig { get; set; }
-
+                
         public PersistentListChangeHandler<WriteOffField> fieldListChangeHandler { get; set; }
 
+        public WriteOffConfiguration EditedObject { get; set; }
 
         public WriteOffFieldPanel ActiveFieldPanel { get; set; }
 
@@ -186,13 +185,34 @@ namespace Misp.Reconciliation.WriteOffConfig
             if (woffieldpanel == null) getActiveFieldPanel();
             else this.ActiveFieldPanel = woffieldpanel;
         }
-
-
-        public WriteOffConfiguration EditedObject { get; set; }
-
+        
         public void displayObject()
         {
             display(EditedObject);
+        }
+
+
+        public void setMeasure(Measure measure) 
+        {
+            this.ActiveFieldPanel.setMeasure(measure);
+        }
+
+        public void setAttribute(Kernel.Domain.Attribute attribte) 
+        {
+            this.ActiveFieldPanel.setAttribute(attribte);
+        }
+
+        public void setPeriodName(PeriodName periodName)
+        {
+            this.ActiveFieldPanel.setPeriodName(periodName);
+        }
+
+        public WriteOffConfiguration FillObject() 
+        {
+            WriteOffConfiguration writeoffConfig = new WriteOffConfiguration();
+            //writeoffConfig.fieldListChangeHandler = this.
+
+            return writeoffConfig;
         }
     }
 }

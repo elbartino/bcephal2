@@ -32,7 +32,7 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         public event ActivateEventHandler ActivateFieldPanel;
 
-        public WriteOffFieldPanel ActiveFieldPanel;
+        public WriteOffValueItem ActiveFieldItemPanel;
 
         public WriteOffField writeOffField;
 
@@ -156,6 +156,11 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.fieldsPanel.setPeriodName(periodName);
             this.FieldValuePanel.fieldValueListChangeHandler = null;
             this.FieldValuePanel.display();
+        }
+
+        public void setPeriodInterval(PeriodInterval periodInterval) 
+        {
+            this.ActiveFieldItemPanel.setPeriodInterval(periodInterval);
         }
                 
     }
