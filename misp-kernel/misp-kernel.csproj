@@ -178,6 +178,15 @@
     <Compile Include="Administration\FunctionnalityViews\FunctionnalityView.xaml.cs">
       <DependentUpon>FunctionnalityView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Administration\Profil\UserRightValuePanel.xaml.cs">
+      <DependentUpon>UserRightValuePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\Profil\UserRightItemPanel.xaml.cs">
+      <DependentUpon>UserRightItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\Profil\UserRightPanel.xaml.cs">
+      <DependentUpon>UserRightPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Administration\Profil\ProfilBrowser.cs" />
     <Compile Include="Administration\Profil\ProfilBrowserController.cs" />
     <Compile Include="Administration\Profil\ProfilEditor.cs" />
@@ -857,6 +866,18 @@
     <Page Include="Administration\FunctionnalityViews\FunctionnalityView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administration\Profil\UserRightValuePanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Administration\Profil\UserRightItemPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Administration\Profil\UserRightPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Administration\Profil\RightGroup.xaml">
       <SubType>Designer</SubType>
