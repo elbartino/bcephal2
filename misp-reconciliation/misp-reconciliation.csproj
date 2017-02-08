@@ -130,6 +130,27 @@
     <Compile Include="ReconciliationContext\ReconciliationContextForm.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextToolBar.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextPropertyBar.cs" />
+    <Compile Include="Reco\ConfigurationPropertiesPanel.xaml.cs">
+      <DependentUpon>ConfigurationPropertiesPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reco\ReconciliationFilterTemplateBrowser.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateBrowserController.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateConfigPanel.xaml.cs">
+      <DependentUpon>ReconciliationFilterTemplateConfigPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reco\ReconciliationFilterTemplateEditor.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateEditorController.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateEditorItem.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateForm.xaml.cs">
+      <DependentUpon>ReconciliationFilterTemplateForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reco\ReconciliationFilterTemplateGrid.xaml.cs">
+      <DependentUpon>ReconciliationFilterTemplateGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reco\ReconciliationFilterTemplateGroup.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplatePropertyBar.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateSideBar.cs" />
+    <Compile Include="Reco\ReconciliationFilterTemplateToolBar.cs" />
     <Compile Include="WriteOffConfig\WriteOffConfigPanel.xaml.cs">
       <DependentUpon>WriteOffConfigPanel.xaml</DependentUpon>
     </Compile>
@@ -203,6 +224,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReconciliationContext\ReconciliationContextPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reco\ConfigurationPropertiesPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reco\ReconciliationFilterTemplateConfigPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reco\ReconciliationFilterTemplateForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reco\ReconciliationFilterTemplateGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

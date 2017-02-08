@@ -8,42 +8,36 @@ namespace Misp.Kernel.Domain
 {
     public class ReconciliationFilterTemplate : Persistent
     {
-	    public Grille leftGrid;
 
-	
-	    public Grille rigthGrid;
-	
-	
-	    public Grille bottomGrid;
-	
-	
-	    public Boolean visibleInShortcut;
-	
-	
-	    public BGroup group;
-	
+        public String name { get; set; }
 
-	    public Attribute reconciliationType;
-	
-	
-	    public Measure amountMeasure;
-	
+        public Grille leftGrid { get; set; }
 
-	    public BalanceFormula balanceFormula;
-	
+        public Grille rigthGrid { get; set; }
 
-	    public DebitCreditFormula debitCreditFormula;
-	
+        public Grille bottomGrid { get; set; }
 
-	    public bool acceptWriteOff;
+        public Boolean visibleInShortcut { get; set; }
+
+        public BGroup group { get; set; }
+
+        public Attribute reconciliationType { get; set; }
+
+        public Measure amountMeasure { get; set; }
+
+        public BalanceFormula balanceFormula { get; set; }
+
+        public DebitCreditFormula debitCreditFormula { get; set; }
+
+        public bool acceptWriteOff { get; set; }
 	
 	
 	    public WriteOffConfiguration writeOffConfig;
 	
 	
-	    /**
-	        * Default constructor
-	        */
+	    /// <summary>
+	    /// 
+	    /// </summary>
 	    public ReconciliationFilterTemplate() {
 		    this.visibleInShortcut = true;
 		    this.acceptWriteOff = true;
@@ -104,5 +98,15 @@ namespace Misp.Kernel.Domain
             this.acceptWriteOff = accept;
         }
 
-    }
+
+        public override string ToString()
+        {
+            return this.name != null ? this.name : base.ToString();
+        }
+
+        public override int CompareTo(object obj)
+        {
+            if (obj == null || !(obj is Grille)) return 1;
+            return this.name.CompareTo(((Grille)obj).name);
+        }    }
 }

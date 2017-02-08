@@ -5,8 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
             xmlns:ConfigValue="clr-namespace:Misp.Reconciliation.WriteOffConfig"
              mc:Ignorable="d" >
-    <StackPanel x:Name="configPanel">
-        <ConfigValue:WriteOffFieldPanel x:Name="item1"  />
-        <ConfigValue:WriteOffFieldPanel x:Name="item2" />
-    </StackPanel>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" >
+        <StackPanel x:Name="configPanel" >
+            <ConfigValue:WriteOffFieldPanel x:Name="item1"  />
+            <ConfigValue:WriteOffFieldPanel x:Name="item2" />
+        </StackPanel>
+   </ScrollViewer>
 </Grid>

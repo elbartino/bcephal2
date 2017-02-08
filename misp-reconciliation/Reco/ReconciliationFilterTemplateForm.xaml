@@ -1,0 +1,46 @@
+﻿<TabControl x:Class="Misp.Reconciliation.Reco.ReconciliationFilterTemplateForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:gr="clr-namespace:Misp.Sourcing.InputGrid;assembly=Misp.Sourcing" 
+             xmlns:reco="clr-namespace:Misp.Reconciliation.Reco" 
+             mc:Ignorable="d" 
+             TabStripPlacement="Bottom"  Background="White"  BorderBrush="White"
+             d:DesignHeight="300" d:DesignWidth="700">
+
+    <TabItem x:FieldModifier="public" x:Name="GridTabItem" Header="Filter">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <reco:ReconciliationFilterTemplateGrid x:FieldModifier="public" x:Name="LeftGrid" Grid.Column="0"/>
+                <GridSplitter x:Name="splitter" Width="5" ResizeDirection="Columns" Background="LightGray" x:FieldModifier="public"
+                          VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.Column="1"/>
+                <reco:ReconciliationFilterTemplateGrid x:FieldModifier="public" x:Name="RightGrid" Grid.Column="1"/>
+            </Grid>
+            <GridSplitter x:Name="splitter1" Height="5" ResizeDirection="Rows" Background="LightGray" x:FieldModifier="public"
+                          VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="1"/>
+            <reco:ReconciliationFilterTemplateGrid x:FieldModifier="public" x:Name="BottomGrid" Grid.Row="1"/>
+        </Grid>        
+    </TabItem>
+    <TabItem x:FieldModifier="public" x:Name="ConfigTabItem" Header="Configuration">
+        <reco:ReconciliationFilterTemplateConfigPanel x:FieldModifier="public" x:Name="ConfigurationPanel"/>
+    </TabItem>
+    <TabItem x:FieldModifier="public" x:Name="LeftTabItem" Header="Left">
+        <gr:InputGridSheetForm x:FieldModifier="public"  x:Name="LeftGridProperties"/>
+    </TabItem>
+    <TabItem x:FieldModifier="public" x:Name="RightTabItem" Header="Right">
+        <gr:InputGridSheetForm x:FieldModifier="public"  x:Name="RightGridProperties"/>
+    </TabItem>
+    <TabItem x:FieldModifier="public" x:Name="BottomTabItem" Header="Bottom">
+        <gr:InputGridSheetForm x:FieldModifier="public"  x:Name="BottomGridProperties"/>
+    </TabItem>
+
+</TabControl>
