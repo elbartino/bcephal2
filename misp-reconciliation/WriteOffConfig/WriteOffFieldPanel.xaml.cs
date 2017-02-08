@@ -76,7 +76,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.MandatoryValue.display();
 
             InitializeHandlers();
-            this.FieldValuePanel.fieldValueListChangeHandler = writeOffField.valueListChangeHandler;
+            this.FieldValuePanel.fieldValueListChangeHandler = writeOffField.writeOffFieldValueListChangeHandler;
             this.FieldValuePanel.display();
         }
 

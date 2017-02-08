@@ -21,11 +21,11 @@ namespace Misp.Kernel.Domain
 	
 	    public Measure measureField;
 
-        public PersistentListChangeHandler<WriteOffFieldValue> valueListChangeHandler;
+        public PersistentListChangeHandler<WriteOffFieldValue> writeOffFieldValueListChangeHandler;
 
         public WriteOffField() 
         {
-            valueListChangeHandler = new PersistentListChangeHandler<WriteOffFieldValue>();
+            writeOffFieldValueListChangeHandler = new PersistentListChangeHandler<WriteOffFieldValue>();
         }
 
         public void setMeasure(Measure measure)
@@ -51,20 +51,20 @@ namespace Misp.Kernel.Domain
 
         public void AddFieldValue(WriteOffFieldValue fieldValue) 
         {
-            fieldValue.position = valueListChangeHandler.Items.Count;
-            valueListChangeHandler.AddNew(fieldValue);
+            fieldValue.position = writeOffFieldValueListChangeHandler.Items.Count;
+            writeOffFieldValueListChangeHandler.AddNew(fieldValue);
         }
 
         public void UpdateFieldValue(WriteOffFieldValue fieldValue)
         {
-            valueListChangeHandler.AddUpdated(fieldValue);
+            writeOffFieldValueListChangeHandler.AddUpdated(fieldValue);
         }
 
         public void DeleteFieldValue(WriteOffFieldValue fieldValue)
         {
             fieldValue.position = -1;
-            valueListChangeHandler.AddDeleted(fieldValue);
-            foreach(WriteOffFieldValue fvalue in valueListChangeHandler.Items)
+            writeOffFieldValueListChangeHandler.AddDeleted(fieldValue);
+            foreach(WriteOffFieldValue fvalue in writeOffFieldValueListChangeHandler.Items)
             {
                 if(fvalue.position > fieldValue.position) fvalue.position = fvalue.position -1;
             }
@@ -73,8 +73,8 @@ namespace Misp.Kernel.Domain
 
         public void ForgetFieldValue(WriteOffFieldValue fieldValue)
         {
-            valueListChangeHandler.forget(fieldValue);
-            foreach (WriteOffFieldValue fvalue in valueListChangeHandler.Items)
+            writeOffFieldValueListChangeHandler.forget(fieldValue);
+            foreach (WriteOffFieldValue fvalue in writeOffFieldValueListChangeHandler.Items)
             {
                 if (fvalue.position > fieldValue.position) fvalue.position = fvalue.position - 1;
             }
