@@ -41,6 +41,7 @@ namespace Misp.Reconciliation.Reco
         public ReconciliationFilterTemplateGrid()
         {
             InitializeComponent();
+            InitializeHandlers();
         }
 
         #endregion
@@ -78,6 +79,28 @@ namespace Misp.Reconciliation.Reco
                 rows.rows = new List<object[]>(0);
                 this.GrilleBrowserForm.displayPage(rows);
             }
+        }
+
+        #endregion
+
+
+        #region Handlers
+
+        protected void InitializeHandlers()
+        {
+            this.GrilleBrowserForm.filterForm.ChangeHandler += OnFilterChange;
+            this.GrilleBrowserForm.toolBar.ChangeHandler += OnPageChange;
+
+        }
+
+        private void OnFilterChange()
+        {
+            Search();
+        }
+
+        private void OnPageChange(object item)
+        {
+            Search((int)item);
         }
 
         #endregion
