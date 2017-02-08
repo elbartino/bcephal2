@@ -39,8 +39,8 @@ namespace Misp.Reconciliation.Reco
             this.ConfigurationPropertiesPanel.EditedObject = this.EditedObject;
             this.ConfigurationPropertiesPanel.displayObject();
 
-            //this.WriteOffConfigPanel.EditedObject = this.EditedObject.writeOffConfig;
-            //this.WriteOffConfigPanel.displayObject();
+            this.WriteOffConfigPanel.EditedObject = this.EditedObject.writeOffConfig;
+            this.WriteOffConfigPanel.displayObject();
         }
     }
 }

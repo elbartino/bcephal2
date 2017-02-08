@@ -42,7 +42,6 @@ namespace Misp.Reconciliation.WriteOffConfig
         public WriteOffConfigPanel()
         {
             InitializeComponent();
-            display(null);
         }
 
         public void display(Kernel.Domain.WriteOffConfiguration writeOffConfig)
@@ -188,5 +187,12 @@ namespace Misp.Reconciliation.WriteOffConfig
             else this.ActiveFieldPanel = woffieldpanel;
         }
 
+
+        public WriteOffConfiguration EditedObject { get; set; }
+
+        public void displayObject()
+        {
+            display(EditedObject);
+        }
     }
 }
