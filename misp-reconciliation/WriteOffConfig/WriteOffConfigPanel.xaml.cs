@@ -39,6 +39,8 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         public WriteOffFieldPanel ActiveFieldPanel { get; set; }
 
+        public UIElement ActivePanel { get; set; }
+
         public WriteOffConfigPanel()
         {
             InitializeComponent();
@@ -69,12 +71,7 @@ namespace Misp.Reconciliation.WriteOffConfig
         private void OnDeleteFields(object item)
         {
             if (!(item is WriteOffFieldPanel)) return;
-            DeleteAction((WriteOffFieldPanel)item);
-
-            if (OnDeleteField != null)
-            {
-               
-            }
+            DeleteAction((WriteOffFieldPanel)item);            
         }
 
         private void OnDeleteFieldsValue(object item)
@@ -96,7 +93,27 @@ namespace Misp.Reconciliation.WriteOffConfig
             wpanel.OnDeleteFieldValue += OnDeleteFieldsValue;
             wpanel.OnAddField += OnAddFields;
             wpanel.OnDeleteField += OnDeleteFields;
+            wpanel.ItemChanged += OnWriteOffConfigChanged;
             return wpanel;
+        }
+
+        private void OnWriteOffConfigChanged(object item)
+        {
+            if (item is Kernel.Domain.WriteOffField)
+            {
+                if (this.EditedObject == null) this.EditedObject = new WriteOffConfiguration();
+                WriteOffField fieldToUpdate = this.EditedObject.SynchronizeWriteOffField((Kernel.Domain.WriteOffField)item);
+                UpdateWriteOffField(fieldToUpdate);
+            }
+        }
+
+        private void UpdateWriteOffField(WriteOffField writeOffField)
+        {
+            UIElement apanel = getActivePanel();
+            if (apanel is WriteOffFieldPanel)
+            {
+                ((WriteOffFieldPanel)apanel).UpdateObject(writeOffField);
+            }
         }
 
         private void OnActivateFields(object item)
@@ -107,7 +124,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             }
             else if (item is WriteOffFieldValuePanel)
             {
-                this.setActiveFieldPanel(((WriteOffFieldValuePanel)item).writeParent);
+                this.setActiveFieldPanel(((WriteOffFieldValuePanel)item));
             }
             if (ActivateFieldPanel != null) ActivateFieldPanel(item);
         }
@@ -147,7 +164,11 @@ namespace Misp.Reconciliation.WriteOffConfig
                 {
                    ((WriteOffFieldPanel)this.configPanel.Children[0]).showRowLabel(true);
                 }
-                this.ActiveFieldPanel = null;
+
+                if (((WriteOffFieldPanel)item).writeOffField != null)
+                {
+                    this.EditedObject.SynchronizeDeleteWriteOffField(((WriteOffFieldPanel)item).writeOffField);
+                }
             }
             
         }
@@ -182,14 +203,21 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         public WriteOffFieldPanel getActiveFieldPanel()
         {
+            if (this.ActivePanel == null) this.ActivePanel = this.configPanel.Children[0] as WriteOffFieldPanel;
             if (this.ActiveFieldPanel == null) this.ActiveFieldPanel = this.configPanel.Children[0] as WriteOffFieldPanel;
             return this.ActiveFieldPanel;
         }
 
-        public void setActiveFieldPanel(WriteOffFieldPanel woffieldpanel)
+        public UIElement getActivePanel()
         {
-            if (woffieldpanel == null) getActiveFieldPanel();
-            else this.ActiveFieldPanel = woffieldpanel;
+            if (this.ActivePanel == null) return this.configPanel.Children[0] as WriteOffConfigPanel;
+            return this.ActivePanel;
+        }
+
+        public void setActiveFieldPanel(UIElement woffieldpanel)
+        {
+            if (woffieldpanel == null) this.ActivePanel = this.configPanel.Children[0] as WriteOffFieldPanel;
+            else this.ActivePanel = woffieldpanel;
         }
         
         public void displayObject()
@@ -198,39 +226,66 @@ namespace Misp.Reconciliation.WriteOffConfig
         }
 
 
-        public void setMeasure(Measure measure) 
+        public WriteOffConfiguration fillObject() 
         {
-            this.ActiveFieldPanel.setMeasure(measure);
+            return this.EditedObject;
         }
 
-        public void setAttribute(Kernel.Domain.Attribute attribte) 
+        public void setMeasure(Measure measure) 
         {
-            this.ActiveFieldPanel.setAttribute(attribte);
+            UIElement apanel = getActivePanel();
+            if (apanel is WriteOffFieldPanel)
+            {
+                ((WriteOffFieldPanel)apanel).setMeasure(measure);
+            }
+        }
+
+        public void setAttribute(Kernel.Domain.Attribute attribute) 
+        {
+            UIElement apanel = getActivePanel();
+            if (apanel is WriteOffFieldPanel)
+            {
+                ((WriteOffFieldPanel)apanel).setAttribute(attribute);
+            }
+            else if (apanel is WriteOffValueItem)
+            {
+                ((WriteOffValueItem)apanel).setAttribute(attribute);
+            }
         }
 
         public void setPeriodName(PeriodName periodName)
         {
-            this.ActiveFieldPanel.setPeriodName(periodName);
+            UIElement apanel = getActivePanel();
+            if (apanel is WriteOffFieldPanel)
+            {
+                ((WriteOffFieldPanel)apanel).setPeriodName(periodName);
+            }
         }
 
         public void setPeriodName(PeriodInterval periodInterval)
         {
-            this.ActiveFieldPanel.setPeriodInterval(periodInterval);
-        }
-
-        public WriteOffConfiguration FillObject() 
-        {
-            WriteOffConfiguration writeoffConfig = new WriteOffConfiguration();
-            //writeoffConfig.fieldListChangeHandler = this.
-
-            return writeoffConfig;
-        }
+            UIElement apanel = getActivePanel();
+            if (apanel is WriteOffFieldValuePanel)
+            {
+                ((WriteOffFieldValuePanel)apanel).setPeriodInterval(periodInterval);
+            }
+        }        
 
         public void SetTarget(Target target)
         {
-            if (target is Kernel.Domain.Attribute) this.ActiveFieldPanel.setAttribute((Kernel.Domain.Attribute)target);
-            else if (target is Kernel.Domain.AttributeValue) this.ActiveFieldPanel.setAttributeValue((Kernel.Domain.AttributeValue)target);
+            UIElement apanel = getActivePanel();
+            if (apanel is WriteOffFieldPanel)
+            {
+                if (target is Kernel.Domain.Attribute)
+                ((WriteOffFieldPanel)apanel).setAttribute((Kernel.Domain.Attribute)target);
+            }
+            else if (apanel is WriteOffFieldValuePanel)
+            {
+                if (target is Kernel.Domain.Attribute)
+                    ((WriteOffFieldValuePanel)apanel).setAttribute((Kernel.Domain.Attribute)target);
+                else if (target is Kernel.Domain.AttributeValue) ((WriteOffFieldValuePanel)apanel).setAttributeValue((Kernel.Domain.AttributeValue)target);
+            }
+        }    
 
-        }
     }
 }

@@ -22,7 +22,7 @@ namespace Misp.Kernel.Domain
             fieldListChangeHandler.AddNew(field);
         }
 
-        public void UpdateField(WriteOffField fieldValue)
+        public void UpdateFieldValue(WriteOffField fieldValue)
         {
             fieldListChangeHandler.AddUpdated(fieldValue);
         }
@@ -47,6 +47,89 @@ namespace Misp.Kernel.Domain
             }
             field.position = -1;
         }
+
+        public void SynchronizeDeleteWriteOffField(WriteOffField writeOffField)
+        {
+            WriteOffField foundItem = this.GetWriteOffField(writeOffField.position);
+            if (foundItem == null) return;
+            DeleteFieldValue(foundItem);
+            this.isModified = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scope"></param>
+        public void SynchronizeDeleteWriteOffConfiguration(WriteOffConfiguration writeOffConfig)
+        {
+            foreach (WriteOffField item in fieldListChangeHandler.Items)
+            {
+                WriteOffField foundItem = writeOffConfig.GetWriteOffField(item.position);
+                if (foundItem == null) { DeleteFieldValue(item); return; }
+                AddFieldValue(item);
+            }
+            foreach (WriteOffField item in writeOffConfig.fieldListChangeHandler.Items)
+            {
+                WriteOffField foundItem = this.GetWriteOffField(item.position);
+                if (foundItem == null)
+                {
+                    foundItem = new WriteOffField();
+                    foundItem.position = item.position;
+                    AddFieldValue(foundItem);
+                }
+            }
+            this.isModified = true;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scope"></param>
+        public WriteOffField  SynchronizeWriteOffField(WriteOffField writeOffField)
+        {
+            WriteOffField foundItem = this.GetWriteOffField(writeOffField.position);
+            if (foundItem == null)
+            {
+                foundItem = new WriteOffField();
+                foundItem.mandatory = writeOffField.mandatory;
+                foundItem.attributeField = writeOffField.attributeField;
+                foundItem.periodField = writeOffField.periodField;
+                foundItem.measureField = writeOffField.measureField;
+                foundItem.writeOffFieldType = writeOffField.writeOffFieldType;
+                foundItem.writeOffFieldValueListChangeHandler = writeOffField.writeOffFieldValueListChangeHandler;
+                AddFieldValue(foundItem);
+            }
+            else
+            {
+                foundItem.position = writeOffField.position;
+                foundItem.mandatory = writeOffField.mandatory;
+                foundItem.attributeField = writeOffField.attributeField;
+                foundItem.periodField = writeOffField.periodField;
+                foundItem.measureField = writeOffField.measureField;
+                foundItem.writeOffFieldType = writeOffField.writeOffFieldType;
+                foundItem.writeOffFieldValueListChangeHandler = writeOffField.writeOffFieldValueListChangeHandler;
+                UpdateFieldValue(foundItem);
+            }
+            this.isModified = true;
+            return foundItem;
+        }
+
+        /// <summary>
+        /// Retourne l'item à la position spécifiée.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public WriteOffField GetWriteOffField(int position)
+        {
+            foreach (WriteOffField item in fieldListChangeHandler.Items)
+            {
+                if (item.position == position) return item;
+            }
+            return null;
+        }
+
+
 
     }
 }

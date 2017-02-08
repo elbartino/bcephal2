@@ -26,6 +26,8 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public event ActivateEventHandler ActivateFiedValue;
 
+        public event ChangeItemEventHandler ItemChanged;
+
         public DefaultValues()
         {
             InitializeComponent();
@@ -64,7 +66,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         private void OnChooseDefaultValues(object sender, SelectionChangedEventArgs e)
         {
-
+            if (ItemChanged != null) ItemChanged(DefaultValuesCombobox.SelectedItem);
         }
     }
 }

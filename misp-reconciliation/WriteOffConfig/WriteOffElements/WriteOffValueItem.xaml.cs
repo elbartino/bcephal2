@@ -26,6 +26,10 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public event DeleteEventHandler OnDeleteFieldValue;
         public event ActivateEventHandler ActivateFiedValue;
 
+        public event ChangeItemEventHandler ItemChanged;
+
+        public event DeleteEventHandler ItemDeleted;
+
         public Kernel.Domain.WriteOffFieldValue WriteOffFieldValue { get; set; }
 
         public int Index { get; set; }
@@ -69,6 +73,13 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.PossibleValues.OnDeleteFieldValue += OnDeleteFieldsValue;
             this.PossibleValues.ActivateFiedValue += OnActivateFieldsValue;
             this.DefaultValues.ActivateFiedValue += OnActivateFieldsValue;
+            this.DefaultValues.ItemChanged += OnDefaultValuesChanged;
+        }
+
+        private void OnDefaultValuesChanged(object item)
+        {
+            getCurrentFieldValue().setDefaultValue(item);
+            if (ItemChanged != null) ItemChanged(this.WriteOffFieldValue);
         }
 
         private void OnGotFocus(object sender, RoutedEventArgs e)
@@ -99,18 +110,31 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public void setPeriodInterval(Kernel.Domain.PeriodInterval periodInterval)
         {
             this.getCurrentFieldValue().setPeriodInterval(periodInterval);
+            if (ItemChanged != null) ItemChanged(this.WriteOffFieldValue);
+            display();
+        }
+
+        public void setAttribute(Kernel.Domain.Attribute attribute)
+        {
+            this.getCurrentFieldValue().setAttribute(attribute);
+            if (ItemChanged != null) ItemChanged(this.WriteOffFieldValue);
             display();
         }
 
         public void setAttributeValue(Kernel.Domain.AttributeValue value)
         {
             this.getCurrentFieldValue().setValue(value);
+            if (ItemChanged != null) ItemChanged(this.WriteOffFieldValue);
             display();
         }
 
         public WriteOffFieldValue getCurrentFieldValue() 
         {
-            if (this.WriteOffFieldValue == null) this.WriteOffFieldValue = new WriteOffFieldValue();
+            if (this.WriteOffFieldValue == null)
+            {
+                this.WriteOffFieldValue = new WriteOffFieldValue();
+                this.WriteOffFieldValue.position = -1;
+            }
             this.PossibleValues.writeOffValueField = this.WriteOffFieldValue;
             return this.WriteOffFieldValue;
                 

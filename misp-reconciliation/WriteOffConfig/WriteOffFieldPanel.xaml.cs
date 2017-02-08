@@ -32,6 +32,10 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         public event ActivateEventHandler ActivateFieldPanel;
 
+        public event ChangeItemEventHandler ItemChanged;
+
+        public event DeleteEventHandler ItemDeleted;
+
         public WriteOffValueItem ActiveFieldItemPanel;
 
         public WriteOffField writeOffField;
@@ -67,7 +71,11 @@ namespace Misp.Reconciliation.WriteOffConfig
                 this.FieldValuePanel.showLabel = true;
             else this.FieldValuePanel.showLabel = false;
 
-            if (writeOffField == null) writeOffField = new WriteOffField();
+            if (writeOffField == null)
+            {
+                writeOffField = new WriteOffField();
+                writeOffField.position = -1;
+            }
 
             this.fieldsPanel.writeOffField = this.writeOffField;
             this.fieldsPanel.display();
@@ -95,7 +103,14 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         private void OnDeleteFieldsValue(object item)
         {
-            if (OnDeleteFieldValue != null) OnDeleteFieldValue(item);
+            if (OnDeleteFieldValue != null)
+            {
+                if (item is Kernel.Domain.WriteOffFieldValue)
+                {
+                    this.writeOffField.SynchronizeDeleteWriteOffFieldValue((Kernel.Domain.WriteOffFieldValue)item);
+                    if (ItemChanged != null) ItemChanged(this.writeOffField);
+                }
+            }
         }
 
         private void OnAddFieldsValue(object item)
@@ -110,12 +125,27 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.fieldsPanel.ActivateFieldPanel += OnActivateFieldsValue;
             this.fieldsPanel.OnAddField += OnAddFields;
             this.fieldsPanel.OnDeleteField += OnDeleteFields;
+            this.fieldsPanel.ItemChanged += OnFieldsPanelChanged;
 
             this.FieldValuePanel.OnAddFieldValue += OnAddFieldsValue;
             this.FieldValuePanel.OnDeleteFieldValue += OnDeleteFieldsValue;
             this.FieldValuePanel.ActivateFiedValue += OnActivateFieldsValue;
+            this.FieldValuePanel.ItemChanged += OnFieldValueChanged;
             this.FieldValuePanel.getActiveItem();
             this.FieldValuePanel.writeParent = this;
+        }
+
+        private void OnFieldValueChanged(object item)
+        {
+            if (ItemChanged != null)
+            {
+                if (item is Kernel.Domain.WriteOffFieldValue)
+                {
+                    WriteOffFieldValue valueToUpdate =  this.writeOffField.SynchronizeWriteOffFieldValue((Kernel.Domain.WriteOffFieldValue)item);
+                    this.FieldValuePanel.updateObject(valueToUpdate);
+                    if (ItemChanged != null) ItemChanged(this.writeOffField);                    
+                }
+            }
         }
 
         private void RemoveHandlers()
@@ -123,9 +153,17 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.fieldsPanel.OnAddField -= OnAddFields;
             this.fieldsPanel.OnDeleteField -= OnDeleteFields;
             this.fieldsPanel.ActivateFieldPanel -= OnActivateFieldsValue;
+            this.fieldsPanel.ItemChanged -= OnFieldsPanelChanged;
+
             this.FieldValuePanel.ActivateFiedValue -= OnActivateFieldsValue;
+            this.FieldValuePanel.ItemChanged -= OnFieldValueChanged;
             this.FieldValuePanel.OnAddFieldValue -= OnAddFieldsValue;
             this.FieldValuePanel.OnDeleteFieldValue -= OnDeleteFieldsValue;
+        }
+
+        private void OnFieldsPanelChanged(object item)
+        {
+            if (ItemChanged != null) ItemChanged(this.writeOffField);
         }
 
         private void OnActivateFieldsValue(object item)
@@ -145,16 +183,12 @@ namespace Misp.Reconciliation.WriteOffConfig
         {
             return new WriteOffField();
         }
-
-
+        
         public void setAttribute(Kernel.Domain.Attribute attribute)
         {
             this.fieldsPanel.setAttribute(attribute);
-            this.FieldValuePanel.fieldValueListChangeHandler = null;
-            //this.FieldValuePanel.display();
         }
-
-
+        
         public void setAttributeValue(Kernel.Domain.AttributeValue attributeValue)
         {
             this.FieldValuePanel.setAttributeValue(attributeValue);
@@ -162,21 +196,22 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         public void setMeasure(Kernel.Domain.Measure measure)
         {
-            this.fieldsPanel.setMeasure(measure);
-            this.FieldValuePanel.fieldValueListChangeHandler = null;
-            //this.FieldValuePanel.display();
+            this.fieldsPanel.setMeasure(measure);;
         }
 
         public void setPeriodName(PeriodName periodName)
         {
             this.fieldsPanel.setPeriodName(periodName);
-            this.FieldValuePanel.fieldValueListChangeHandler = null;
-            //this.FieldValuePanel.display();
         }
 
         public void setPeriodInterval(PeriodInterval periodInterval) 
         {
             this.FieldValuePanel.setPeriodInterval(periodInterval);
+        }
+
+        public void UpdateObject(WriteOffField writeOffField) 
+        {
+            this.writeOffField = writeOffField;
         }
                 
     }

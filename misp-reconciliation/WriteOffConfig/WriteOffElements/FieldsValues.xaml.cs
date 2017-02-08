@@ -31,6 +31,8 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public event ActivateEventHandler ActivateFieldPanel;
 
+        public event ChangeItemEventHandler ItemChanged;
+
         public FieldsValues()
         {
             InitializeComponent();
@@ -90,6 +92,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public void setAttribute(Kernel.Domain.Attribute attribute)
         {
             this.writeOffField.setAttribute(attribute);
+            if (ItemChanged != null) ItemChanged(this.writeOffField);
             display();
         }
               
@@ -97,12 +100,14 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public void setPeriodName(Kernel.Domain.PeriodName PeriodName)
         {
             this.writeOffField.setPeriodName(PeriodName);
+            if (ItemChanged != null) ItemChanged(this.writeOffField);
             display();
         }
 
         public void setMeasure(Kernel.Domain.Measure measure)
         {
             this.writeOffField.setMeasure(measure);
+            if (ItemChanged != null) ItemChanged(this.writeOffField);
             display();
         }
 

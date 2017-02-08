@@ -33,6 +33,7 @@ namespace Misp.Kernel.Domain
             this.measureField = measure;
             this.attributeField = null;
             this.periodField = null;
+            this.writeOffFieldType = WriteOffFieldType.MEASURE;
         }
 
         public void setAttribute(Kernel.Domain.Attribute attribute)
@@ -40,6 +41,7 @@ namespace Misp.Kernel.Domain
             this.measureField = null;
             this.attributeField = attribute;
             this.periodField = null;
+            this.writeOffFieldType = WriteOffFieldType.ATTRIBUTE;
         }
 
         public void setPeriodName(Kernel.Domain.PeriodName periodName)
@@ -47,6 +49,7 @@ namespace Misp.Kernel.Domain
             this.measureField = null;
             this.attributeField = null;
             this.periodField = periodName;
+            this.writeOffFieldType = WriteOffFieldType.PERIOD;
         }
 
         public void AddFieldValue(WriteOffFieldValue fieldValue) 
@@ -87,6 +90,59 @@ namespace Misp.Kernel.Domain
             if (obj == null || !(obj is WriteOffField)) return 1;
             return this.position.CompareTo(((WriteOffField)obj).position);
         }
+                
 
+        public void SynchronizeDeleteWriteOffFieldValue(WriteOffFieldValue writeOffFieldValue)
+        {
+            WriteOffFieldValue foundItem = this.GetWriteOffFieldValue(writeOffFieldValue.position);
+            if (foundItem == null) return;
+            DeleteFieldValue(foundItem);
+            this.isModified = true;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scope"></param>
+        public WriteOffFieldValue SynchronizeWriteOffFieldValue(WriteOffFieldValue writeOffField)
+        {
+            WriteOffFieldValue foundItem = this.GetWriteOffFieldValue(writeOffField.position);
+            if (foundItem == null)
+            {
+                foundItem = new WriteOffFieldValue();
+                foundItem.attribute = writeOffField.attribute;
+                foundItem.measure = writeOffField.measure;
+                foundItem.attributeValue = writeOffField.attributeValue;
+                foundItem.defaultValueType = writeOffField.defaultValueType;
+                AddFieldValue(foundItem);
+            }
+            else
+            {
+                foundItem.position = writeOffField.position;
+                foundItem.attribute = writeOffField.attribute;
+                foundItem.measure = writeOffField.measure;
+                foundItem.attributeValue = writeOffField.attributeValue;
+                foundItem.defaultValueType = writeOffField.defaultValueType;
+                UpdateFieldValue(foundItem);
+            }
+            this.isModified = true;
+            return foundItem;
+        }
+
+        /// <summary>
+        /// Retourne l'item à la position spécifiée.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public WriteOffFieldValue GetWriteOffFieldValue(int position)
+        {
+            foreach (WriteOffFieldValue item in writeOffFieldValueListChangeHandler.Items)
+            {
+                if (item.position == position) return item;
+            }
+            return null;
+        }
+        
     }
 }

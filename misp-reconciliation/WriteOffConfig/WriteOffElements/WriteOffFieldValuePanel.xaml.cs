@@ -30,7 +30,10 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public event DeleteEventHandler OnDeleteField;
 
          public event ActivateEventHandler ActivateFiedValue;
-        
+
+         public event ChangeItemEventHandler ItemChanged;
+
+         public event DeleteEventHandler ItemDeleted;
 
         public PersistentListChangeHandler<WriteOffFieldValue> fieldValueListChangeHandler { get; set; }
 
@@ -112,6 +115,8 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                             wp.showRowLabel(true);
                         }
                     }
+
+                    if (OnDeleteFieldValue != null) OnDeleteFieldValue(((WriteOffValueItem)item).WriteOffFieldValue);
                 }
                 //OnDeleteFieldValue(item);
             }
@@ -134,9 +139,18 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             witem.OnAddFieldValue += OnAddValueField;
             witem.OnDeleteFieldValue += OnDeleteValueField;
             witem.ActivateFiedValue += OnActivateValueField;
+            witem.ItemChanged += OnWriteOffValueChanged;
             return witem;
         }
 
+        private void OnWriteOffValueChanged(object item)
+        {
+            if (ItemChanged != null) 
+            {
+                ItemChanged(item); 
+            }
+        }
+                
         private void OnActivateValueField(object item)
         {
             if (ActivateFiedValue != null)
@@ -186,9 +200,19 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.ActiveItem.setAttributeValue(attributeValue);
         }
 
+        public void setAttribute(Kernel.Domain.Attribute attribute)
+        {
+            this.ActiveItem.setAttribute(attribute);
+        }
+
         public void setPeriodInterval(PeriodInterval periodInterval)
         {
             this.ActiveItem.setPeriodInterval(periodInterval);
+        }
+
+        public void updateObject(WriteOffFieldValue writeOffFieldValue) 
+        {
+            this.ActiveItem.WriteOffFieldValue = writeOffFieldValue;
         }
     }
 }
