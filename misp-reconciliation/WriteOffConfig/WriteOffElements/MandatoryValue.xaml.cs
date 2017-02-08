@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Ui.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
     {
 
         public bool mandatoryValue { get; set; }
+        public event ActivateEventHandler ActivateFiedValue;
+
 
         public MandatoryValue()
         {
@@ -37,5 +40,18 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         {
             this.mandatoryCheckBox.IsChecked = this.mandatoryValue;
         }
+
+        public void InitializeHandlers() 
+        {
+            this.mandatoryCheckBox.GotFocus += OnGotFocus;
+            this.mandatoryCheckBox.MouseLeftButtonDown += OnGotFocus;
+        }
+
+        private void OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (ActivateFiedValue != null) ActivateFiedValue(null);
+        }
+
+
     }
 }

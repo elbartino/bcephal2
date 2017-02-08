@@ -17,7 +17,7 @@ namespace Misp.Reconciliation.Base
         public ApplicationMenu ReconciliationFiltersListMenu { get; private set; }
         public ApplicationMenu ReconciliationPostingMenu { get; private set; }
         public ApplicationMenu ReconciliationContextMenu { get; private set; }
-        public ApplicationMenu ReconciliationFilterTemplatetMenu { get; private set; }
+       
 
 
         /// <summary>
@@ -31,7 +31,6 @@ namespace Misp.Reconciliation.Base
             menus.Add(ReconciliationFiltersMenu);
             menus.Add(ReconciliationFiltersListMenu);
             menus.Add(ReconciliationContextMenu);
-            menus.Add(ReconciliationFilterTemplatetMenu);
             return menus;
         }
 
@@ -46,7 +45,6 @@ namespace Misp.Reconciliation.Base
             ReconciliationFiltersListMenu = BuildMenu(FunctionalitiesCode.RECONCILIATION, FunctionalitiesLabel.LIST_RECONCILIATION_FILTERS_LABEL, NavigationToken.GetSearchViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_LIST), Kernel.Domain.RightType.VIEW);
             ReconciliationPostingMenu = BuildMenu(FunctionalitiesCode.RECONCILIATION, FunctionalitiesLabel.RECONCILIATION_POSTING_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_POSTINGS));
             ReconciliationContextMenu = BuildMenu(FunctionalitiesCode.RECONCILIATION, FunctionalitiesLabel.RECONCILIATION_CONFIGURATION_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_CONFIGURATION));
-            ReconciliationFilterTemplatetMenu = BuildMenu(FunctionalitiesCode.RECONCILIATION, FunctionalitiesLabel.RECONCILIATION_CONFIGURATION_LABEL, NavigationToken.GetCreateViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_TEMPLATE_CONFIGURATION));        
-        }
+         }
     }
 }

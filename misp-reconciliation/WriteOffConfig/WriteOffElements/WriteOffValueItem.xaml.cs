@@ -86,5 +86,17 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         {
             return new Kernel.Domain.WriteOffFieldValue();
         }
+
+        public void setPeriodInterval(Kernel.Domain.PeriodInterval periodInterval)
+        {
+            this.WriteOffFieldValue.setPeriodInterval(periodInterval);
+            display();
+        }
+
+        public void setAttributeValue(Kernel.Domain.AttributeValue value)
+        {
+            this.WriteOffFieldValue.setValue(value);
+            display();
+        }
     }
 }

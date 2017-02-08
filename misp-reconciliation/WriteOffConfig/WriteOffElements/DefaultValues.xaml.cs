@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
     public partial class DefaultValues : Grid
     {
         public Kernel.Domain.WriteOffFieldValue writeOffValueField { get; set; }
+
+        public event ActivateEventHandler ActivateFiedValue;
 
         public DefaultValues()
         {
@@ -50,6 +53,13 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public void InitializeHandlers()
         {
             this.DefaultValuesCombobox.SelectionChanged += OnChooseDefaultValues;
+            this.DefaultValuesCombobox.GotFocus += OnGotFocus;
+            this.DefaultValuesCombobox.MouseLeftButtonDown += OnGotFocus;
+        }
+
+        private void OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (ActivateFiedValue != null) ActivateFiedValue(null);
         }
 
         private void OnChooseDefaultValues(object sender, SelectionChangedEventArgs e)
