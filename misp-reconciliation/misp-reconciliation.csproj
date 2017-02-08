@@ -41,6 +41,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Data.v16.1.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Mvvm.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.Xpf.Core.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\DevExpress 16.1\Components\Bin\Framework\DevExpress.Xpf.Core.v16.1.dll</HintPath>
@@ -127,11 +130,6 @@
     <Compile Include="ReconciliationContext\ReconciliationContextForm.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextToolBar.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextPropertyBar.cs" />
-    <Compile Include="WriteOffConfig\ReconciliationFilterTemplateSideBar.cs" />
-    <Compile Include="WriteOffConfig\ReconciliationFilterTemplateEditor.cs" />
-    <Compile Include="WriteOffConfig\ReconciliationFilterTemplateEditorController.cs" />
-    <Compile Include="WriteOffConfig\ReconciliationFilterTemplateEditorItem.cs" />
-    <Compile Include="WriteOffConfig\ReconciliationFilterTemplateForm.cs" />
     <Compile Include="WriteOffConfig\WriteOffConfigPanel.xaml.cs">
       <DependentUpon>WriteOffConfigPanel.xaml</DependentUpon>
     </Compile>
