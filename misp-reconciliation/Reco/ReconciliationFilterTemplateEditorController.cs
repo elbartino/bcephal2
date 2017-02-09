@@ -129,8 +129,8 @@ namespace Misp.Reconciliation.Reco
                 ReconciliationFilterTemplate recoFilterTemplate = (ReconciliationFilterTemplate)item;
                 page.EditedObject.group = recoFilterTemplate.group;
                 page.EditedObject.visibleInShortcut = recoFilterTemplate.visibleInShortcut;
-                page.EditedObject.setBalanceFormula(recoFilterTemplate.balanceFormula);
-                page.EditedObject.setDebitCreditFormula(recoFilterTemplate.debitCreditFormula);
+                page.EditedObject.balanceFormulaEnum = recoFilterTemplate.balanceFormulaEnum;
+                page.EditedObject.debitCreditFormulaEnum = recoFilterTemplate.debitCreditFormulaEnum;
             }
             OnChange();
         }

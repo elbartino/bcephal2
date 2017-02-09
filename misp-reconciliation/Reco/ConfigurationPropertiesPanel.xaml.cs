@@ -56,13 +56,13 @@ namespace Misp.Reconciliation.Reco
 
         private void OnChooseBalanceFormula(object sender, SelectionChangedEventArgs e)
         {
-            this.EditedObject.setBalanceFormula(BalanceFormula.getByLabel(this.BalanceFormulaComboBox.SelectedItem.ToString()));
+            this.EditedObject.balanceFormulaEnum = BalanceFormula.getByLabel(this.BalanceFormulaComboBox.SelectedItem.ToString());
             if (ItemChanged != null) ItemChanged(this.EditedObject);
         }
 
         private void OnChooseDCForumula(object sender, SelectionChangedEventArgs e)
         {
-            this.EditedObject.setDebitCreditFormula(DebitCreditFormula.getByLabel(this.DCFormulaComboBox.SelectedItem.ToString()));
+            this.EditedObject.debitCreditFormulaEnum = DebitCreditFormula.getByLabel(this.DCFormulaComboBox.SelectedItem.ToString());
             if (ItemChanged != null) ItemChanged(this.EditedObject);
         }
 
@@ -77,8 +77,8 @@ namespace Misp.Reconciliation.Reco
         {
             this.NameTextBox.Text = this.EditedObject.name;
             this.groupField.Group = this.EditedObject.group;
-            this.BalanceFormulaComboBox.SelectedItem = this.EditedObject.balanceFormula != null ?  this.EditedObject.balanceFormula.label : "";
-            this.DCFormulaComboBox.SelectedItem = this.EditedObject.debitCreditFormula != null ? this.EditedObject.debitCreditFormula.label : "";
+            this.BalanceFormulaComboBox.SelectedItem = this.EditedObject.balanceFormulaEnum != null ?  this.EditedObject.balanceFormulaEnum.label : "";
+            this.DCFormulaComboBox.SelectedItem = this.EditedObject.debitCreditFormulaEnum != null ? this.EditedObject.debitCreditFormulaEnum.label : "";
 
             if (this.ReconciliationFilterTemplateService == null) return;
             this.groupField.GroupService = this.ReconciliationFilterTemplateService.GroupService;

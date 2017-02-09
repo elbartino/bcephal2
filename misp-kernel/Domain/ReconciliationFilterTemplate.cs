@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Domain
 {
@@ -25,15 +26,29 @@ namespace Misp.Kernel.Domain
 
         public Measure amountMeasure { get; set; }
 
-        public BalanceFormula balanceFormula { get; set; }
+        public String balanceFormula 
+        {
+            get { return this.balanceFormulaEnum != null ? this.balanceFormulaEnum.name : null; }
+            set { this.balanceFormulaEnum = BalanceFormula.getByName(value); }
+        }
 
-        public DebitCreditFormula debitCreditFormula { get; set; }
+        public String debitCreditFormula
+        {
+            get { return this.debitCreditFormulaEnum != null ? this.debitCreditFormulaEnum.name : null; }
+            set { this.debitCreditFormulaEnum = DebitCreditFormula.getByName(value); }
+        }
+        
 
         public bool acceptWriteOff { get; set; }
 	
-	
 	    public WriteOffConfiguration writeOffConfig;
-	
+
+        [ScriptIgnore]
+        public BalanceFormula balanceFormulaEnum { get; set; }
+
+        [ScriptIgnore]
+        public DebitCreditFormula debitCreditFormulaEnum { get; set; }
+
 	
 	    /// <summary>
 	    /// 
@@ -44,6 +59,9 @@ namespace Misp.Kernel.Domain
             this.leftGrid = new Grille();            
             this.rigthGrid = new Grille();
             this.bottomGrid = new Grille();
+            this.leftGrid.name = "Left";
+            this.rigthGrid.name = "Right";
+            this.bottomGrid.name = "Bottom";
             this.leftGrid.report = true;
             this.rigthGrid.report = true;
             this.bottomGrid.report = true;
@@ -51,63 +69,7 @@ namespace Misp.Kernel.Domain
             this.rigthGrid.reconciliation = true;
             this.bottomGrid.reconciliation = true;
 	    }
-
-        public void setWriteOffConfiguration(WriteOffConfiguration writeoffconfig)
-        {
-            this.writeOffConfig = writeoffconfig;
-        }
-
-        public void setDebitCreditFormula(DebitCreditFormula debCredFor) 
-        {
-            this.debitCreditFormula = debCredFor;
-        }
-
-        public void setMeasure(Measure measure)
-        {
-            this.amountMeasure = measure;
-        }
-
-        public void setReconciliationType(Domain.Attribute attribute)
-        {
-            this.reconciliationType = attribute;
-        }
-
-        public void setBalanceFormula(BalanceFormula balanceFor) 
-        {
-            this.balanceFormula = balanceFor;
-        }
-
-        public void setGroup(BGroup groupe)
-        {
-            this.group = groupe;
-        }
-
-        public void setVisibleInShorcut(bool visibleinShortc) 
-        {
-            this.visibleInShortcut = visibleinShortc;
-        }
-
-        public void setLeftGrid(Grille leftgrid) 
-        {
-            this.leftGrid = leftgrid;
-        }
-
-        public void setRigthGrid(Grille rigthgrid)
-        {
-            this.rigthGrid = rigthgrid;
-        }
-
-        public void setBottomGrid(Grille bottomgrid)
-        {
-            this.bottomGrid = bottomgrid;
-        }
-
-        public void setAcceptWriteOff(bool accept)
-        {
-            this.acceptWriteOff = accept;
-        }
-
-
+        
         public override string ToString()
         {
             return this.name != null ? this.name : base.ToString();
@@ -117,5 +79,8 @@ namespace Misp.Kernel.Domain
         {
             if (obj == null || !(obj is Grille)) return 1;
             return this.name.CompareTo(((Grille)obj).name);
-        }    }
+        }    
+    
+    }
+
 }
