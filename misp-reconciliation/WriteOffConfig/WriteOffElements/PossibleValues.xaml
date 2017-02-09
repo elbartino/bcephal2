@@ -17,7 +17,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBox x:Name="ValueTypeTextBox" IsReadOnly="true" Grid.Column="0" Width="200" Margin="0 5 0 0" />
-        <Button x:Name="NewButton"  Grid.Column="1" Margin="0 5 5 0" >
+        <Button x:Name="NewButton"  Grid.Column="1" Margin="5 5 5 0" >
             <Button.Template>
                 <ControlTemplate>
                     <Image Source="/bcephal;Component/Resources/Images/Icons/New.png"/>
