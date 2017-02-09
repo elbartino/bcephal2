@@ -109,6 +109,7 @@ namespace Misp.Kernel.Domain
             if (GRID.label.Equals(label)) return GRID;
             if (INPUT_GRID.label.Equals(label)) return INPUT_GRID;
             if (REPORT_GRID.label.Equals(label)) return REPORT_GRID;
+            if (RECONCILIATION_FILTER.label.Equals(label)) return RECONCILIATION_FILTER;
             return null;
         }
 
@@ -138,6 +139,7 @@ namespace Misp.Kernel.Domain
             types.Add(RECONCILIATION);
             types.Add(USER);
             types.Add(PROFIL);
+            types.Add(RECONCILIATION_FILTER);
             types.Add(ROLE);
             return types;
         }

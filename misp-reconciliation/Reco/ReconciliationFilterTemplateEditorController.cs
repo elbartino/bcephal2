@@ -79,6 +79,13 @@ namespace Misp.Reconciliation.Reco
 
         public override Misp.Kernel.Domain.SubjectType SubjectTypeFound()
         {
+            ReconciliationFilterTemplateEditorItem editorPage = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+            if (editorPage == null) return Misp.Kernel.Domain.SubjectType.INPUT_GRID;
+            if (editorPage.getForm().SelectedIndex == 0) { }
+            else if (editorPage.getForm().SelectedIndex == 1)
+            {
+                return Misp.Kernel.Domain.SubjectType.RECONCILIATION_FILTER;
+            }
             return Misp.Kernel.Domain.SubjectType.INPUT_GRID;
         }
 
@@ -107,7 +114,19 @@ namespace Misp.Reconciliation.Reco
         {
             base.initializePageHandlers(page);
             ReconciliationFilterTemplateEditorItem editorPage = (ReconciliationFilterTemplateEditorItem)page;
+            editorPage.getForm().ReconciliationFilterTemplateService = GetService();
             editorPage.getForm().SelectionChanged += OnSelectedTabChange;
+            editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.GroupService = GetService().GroupService;
+            editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.subjectType = SubjectTypeFound();
+            editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.Changed += onGroupFieldChange;
+        }
+
+        protected void onGroupFieldChange()
+        {
+            ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+            string name = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.textBox.Text;
+            BGroup group = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.Group;
+            page.EditedObject.group = group;
         }
 
         protected override void initializeSideBarHandlers()
@@ -249,6 +268,7 @@ namespace Misp.Reconciliation.Reco
         protected virtual void PerformSelectionChange()
         {
             ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+            page.getForm().ReconciliationFilterTemplateService = GetService();
             if (page.getForm().SelectedIndex == 0)
             {
                 ApplicationManager.MainWindow.displayPropertyBar(null);
@@ -262,6 +282,9 @@ namespace Misp.Reconciliation.Reco
                 ReconciliationFilterTemplatePropertyBar bar = (ReconciliationFilterTemplatePropertyBar)this.PropertyBar;
                 if (page.getForm().SelectedIndex == 1)
                 {
+                    ConfigurationPropertiesPanel configPane = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel;
+                    configPane.ReconciliationFilterTemplateService = GetService();
+                    configPane.displayObject();
                     bar.DesignLayoutAnchorable.Content = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel;
                     bar.DesignLayoutAnchorable.Title = "Filter Properties";
                 }
@@ -325,6 +348,7 @@ namespace Misp.Reconciliation.Reco
             template.name = getNewPageName("Filter");
             template.group = GetService().GroupService.getDefaultGroup();
             template.visibleInShortcut = true;
+            
             return template;
         }
 

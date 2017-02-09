@@ -6,10 +6,32 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Domain
 {
-    public enum DebitCreditFormula 
+ public class DebitCreditFormula
     {
-        DEBIT_NEGATIVE,
+        public static DebitCreditFormula DEBIT_NEGATIVE = new DebitCreditFormula("Debit Negative");
 
-	    DEBIT_NOT_NEGATIVE
+        public static DebitCreditFormula DEBIT_NOT_NEGATIVE = new DebitCreditFormula("Debit not negative");
+
+        public String label { get; set; }
+
+        private DebitCreditFormula(String label)
+        {
+            this.label = label;
+        }
+
+        public override string ToString()
+        {
+            return label;
+        }
+
+        public static DebitCreditFormula getByLabel(String label)
+        {
+            if (string.IsNullOrEmpty(label)) return null;
+            if (DEBIT_NEGATIVE.label.Equals(label)) return DEBIT_NEGATIVE;
+            if (DEBIT_NOT_NEGATIVE.label.Equals(label)) return DEBIT_NOT_NEGATIVE;
+            return null;
+        }
+
+       
     }
 }
