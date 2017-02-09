@@ -26,13 +26,13 @@ namespace Misp.Kernel.Administration.Profil
                 
         public ChangeEventHandler ChangeEventHandler;
 
-        public bool IsReadOnly { get; set; }
+        public bool IsReadOnly { get; set; }        
 
         private bool trow;
         public UserRightValuePanel()
         {
             InitializeComponent();
-         
+            initHandlers();
         }
 
         public void DisplayRightValue(Domain.Profil profil, bool readOnly)
@@ -51,9 +51,81 @@ namespace Misp.Kernel.Administration.Profil
             
         }
 
+        public Domain.Profil FillRights(Domain.Profil profil)
+        {
+            profil.rightsListChangeHandler.resetOriginalList();
+            if (V.IsChecked == true)
+            {
+                Right v = new Right("V");
+                profil.AddRight(v);
+            }
+            if (ET.IsChecked == true)
+            {
+                Right et = new Right("Edit Table");
+                profil.AddRight(et);
+            }
+            if (EC.IsChecked == true)
+            {
+                Right ec = new Right("Edit Cell");
+                profil.AddRight(ec);
+            }
+            if (EA.IsChecked == true)
+            {
+                Right ea = new Right("Edit All");
+                profil.AddRight(ea);
+            }
+            if (D.IsChecked == true)
+            {
+                Right d = new Right("Delete");
+                profil.AddRight(d);
+            }
+            if (L.IsChecked == true)
+            {
+                Right l = new Right("Load");
+                profil.AddRight(l);
+            }
+            if (C.IsChecked == true)
+            {
+                Right c = new Right("Clear");
+                profil.AddRight(c);
+            }
+            if (S.IsChecked == true)
+            {
+                Right s = new Right("Save As");
+                profil.AddRight(s);
+            }
+            return profil;
+        }
+
+        protected void initHandlers()
+        {
+            this.V.GotFocus += OnGotFocus;
+            this.V.MouseDown += OnMouseDown;
+
+            this.ET.GotFocus += OnGotFocus;
+            this.ET.MouseDown += OnMouseDown;
+
+            this.EC.GotFocus += OnGotFocus;
+            this.EC.MouseDown += OnMouseDown;
+
+            this.EA.GotFocus += OnGotFocus;
+            this.EA.MouseDown += OnMouseDown;
+
+            this.L.GotFocus += OnGotFocus;
+            this.L.MouseDown += OnMouseDown;
+
+            this.C.GotFocus += OnGotFocus;
+            this.C.MouseDown += OnMouseDown;
+
+            this.S.GotFocus += OnGotFocus;
+            this.S.MouseDown += OnMouseDown;
+
+            this.D.GotFocus += OnGotFocus;
+            this.D.MouseDown += OnMouseDown;
+        }
+
         public void SetReadOnly(bool readOnly)
         {
-            this.IsReadOnly = readOnly;
             this.V.IsEnabled = readOnly;
             this.ET.IsEnabled = readOnly;
             this.EC.IsEnabled = readOnly;
@@ -64,5 +136,22 @@ namespace Misp.Kernel.Administration.Profil
             this.S.IsEnabled = readOnly;
         }
 
+        private void OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Activated != null) Activated(this);
+            OnChange();
+        }
+
+        private void OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (Activated != null) Activated(this);
+            OnChange();
+        }
+
+        private void OnChange()
+        {
+            if (ChangeEventHandler != null) ChangeEventHandler();
+        }
+        
     }
 }

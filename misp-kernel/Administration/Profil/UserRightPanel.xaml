@@ -13,8 +13,7 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
+        <!--<RowDefinition Height="Auto"/> -->
     </Grid.RowDefinitions>
     
     <Grid Grid.Row="0">
@@ -52,8 +51,7 @@
         <Label Content="L" Margin="6 0 0 0" Grid.Column="5"/>
         <Label Content="C" Margin="7 0 0 0" Grid.Column="6"/>
         <Label Content="S" Margin="7 0 0 0" Grid.Column="7"/>
-    </Grid>
-    
+    </Grid>    
     <UserRight:UserRightItemPanel x:Name="UserRightItemPanel1"  Grid.Row="2"/>
-    <UserRight:UserRightItemPanel x:Name="UserRightItemPanel2"  Grid.Row="3"/>
+  <!--  <UserRight:UserRightItemPanel x:Name="UserRightItemPanel2"  Grid.Row="3"/> -->
 </Grid>

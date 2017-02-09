@@ -30,6 +30,8 @@ namespace Misp.Kernel.Administration.Profil
 
         public Kernel.Domain.Profil profil { get; set; }
 
+        public UserRightValuePanel ActiveUserRightValuePanel;
+
         public bool IsReadOnly { get; set; }
 
         public bool trow = false;
@@ -57,7 +59,10 @@ namespace Misp.Kernel.Administration.Profil
             trow = true;
         }
 
-        
+        public Kernel.Domain.Profil FillRight()
+        {
+            return this.UserRightValuePanel.FillRights(this.profil);
+        }
 
         public void Reset()
         {
@@ -83,17 +88,6 @@ namespace Misp.Kernel.Administration.Profil
 
             this.UserRightValuePanel.Activated += OnActivate;
             this.UserRightValuePanel.ChangeEventHandler += onChange;
-
-            //this.UserRightValuePanel.V.Checked += onViewChecked;
-            //this.UserRightValuePanel.ET.Checked += onEditTableChecked;
-            //this.UserRightValuePanel.EC.Checked += onEditCellChecked;
-            //this.UserRightValuePanel.EA.Checked += onEditAllChecked;
-            //this.UserRightValuePanel.D.Checked += onDeleteChecked;
-            //this.UserRightValuePanel.L.Checked += onLoadChecked;
-            //this.UserRightValuePanel.C.Checked += onClearChecked;
-            //this.UserRightValuePanel.S.Checked += onSaveAsChecked;
-
-
         }
 
         private void onChange()
@@ -113,10 +107,10 @@ namespace Misp.Kernel.Administration.Profil
         {
             if (Activated != null)
             {
-                //if (item is LoopCalculatedValuePanel)
-                //{
-                //    this.ActiveLoopCalucatedValue = (LoopCalculatedValuePanel)item;
-                //}
+                if (item is UserRightValuePanel)
+                {
+                    this.ActiveUserRightValuePanel = (UserRightValuePanel)item;
+                }
                 Activated(this);
             }
         }
