@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,10 +29,19 @@ namespace Misp.Reconciliation.Reco
         /// </summary>
         public ReconciliationFilterTemplate EditedObject { get; set; }
 
+
+        public event ChangeItemEventHandler ItemChanged;
+
         public ReconciliationFilterTemplateConfigPanel()
         {
             InitializeComponent();
             this.ConfigurationPropertiesPanel = new ConfigurationPropertiesPanel();
+            this.ConfigurationPropertiesPanel.ItemChanged += OnItemChanged;
+        }
+
+        private void OnItemChanged(object item)
+        {
+            if (ItemChanged != null) ItemChanged(item);
         }
 
         public void displayObject()

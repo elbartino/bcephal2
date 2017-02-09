@@ -118,7 +118,18 @@ namespace Misp.Reconciliation.Reco
             editorPage.getForm().SelectionChanged += OnSelectedTabChange;
             editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.GroupService = GetService().GroupService;
             editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.subjectType = SubjectTypeFound();
-            editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.Changed += onGroupFieldChange;
+            editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.ItemChanged += OnConfigurationChanged;
+        }
+
+        private void OnConfigurationChanged(object item)
+        {
+            if (item is ReconciliationFilterTemplate)
+            {
+                ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+                page.EditedObject.group = ((ReconciliationFilterTemplate)item).group;
+                page.EditedObject.visibleInShortcut = ((ReconciliationFilterTemplate)item).visibleInShortcut;
+            }
+            OnChange();
         }
 
         protected void onGroupFieldChange()
@@ -127,6 +138,7 @@ namespace Misp.Reconciliation.Reco
             string name = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.textBox.Text;
             BGroup group = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.Group;
             page.EditedObject.group = group;
+            OnChange();
         }
 
         protected override void initializeSideBarHandlers()

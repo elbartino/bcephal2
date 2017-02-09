@@ -1,5 +1,6 @@
 ﻿using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,8 @@ namespace Misp.Reconciliation.Reco
         /// </summary>
         public ReconciliationFilterTemplate EditedObject { get; set; }
 
+        public event ChangeItemEventHandler ItemChanged;
+
         public ConfigurationPropertiesPanel()
         {
             InitializeComponent();
@@ -43,6 +46,14 @@ namespace Misp.Reconciliation.Reco
                 BalanceFormula.LEFT_PLUS_RIGHT.label
             };
             this.visibleInShortcutCheckbox.IsChecked = true;
+
+            this.visibleInShortcutCheckbox.Unchecked += OnChooseVisibilityOptions;
+            this.visibleInShortcutCheckbox.Checked += OnChooseVisibilityOptions;
+        }
+
+        private void OnChooseVisibilityOptions(object sender, RoutedEventArgs e)
+        {
+        //    if(ItemChanged!=null) ItemChanged(
         }
 
         public void displayObject()
@@ -55,16 +66,15 @@ namespace Misp.Reconciliation.Reco
             this.groupField.Changed += onGroupFieldChange;
         }
 
-        private void onGroupFieldChange()
-        {
-            string name =this.groupField.textBox.Text;
-            BGroup group = groupField.Group;
-            this.EditedObject.isModified = true;
-        }
 
-        public  Misp.Kernel.Domain.SubjectType SubjectTypeFound()
+
+        protected void onGroupFieldChange()
         {
-            return Misp.Kernel.Domain.SubjectType.INPUT_TABLE;
-        }
+            string name = groupField.textBox.Text;
+            BGroup group = groupField.Group;
+            this.EditedObject.group = group;
+            if (ItemChanged != null) ItemChanged(this.EditedObject);
+        }      
+
     }
 }

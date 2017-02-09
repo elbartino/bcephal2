@@ -253,6 +253,8 @@ namespace Misp.Reconciliation.Reco
             this.BottomGridProperties.InputGridPropertiesPanel.Changed += OnBottomGridPropertiesChange;
         }
 
+        
+
         private void OnBottomGridPropertiesChange(object item)
         {
             this.BottomGridProperties.BuildColunms();
