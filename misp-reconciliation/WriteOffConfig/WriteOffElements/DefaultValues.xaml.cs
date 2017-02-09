@@ -33,9 +33,9 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             InitializeComponent();
             this.DefaultValuesCombobox.ItemsSource = new String[] 
             {
-                  WriteOffFieldValueType.CUSTOM.ToString(),
-                  WriteOffFieldValueType.LEFT_SIDE.ToString(),
-                  WriteOffFieldValueType.RIGHT_SIDE.ToString(),
+                  WriteOffFieldValueType.CUSTOM.label,
+                  WriteOffFieldValueType.LEFT_SIDE.label,
+                  WriteOffFieldValueType.RIGHT_SIDE.label,
                   ""
             };
             InitializeHandlers();

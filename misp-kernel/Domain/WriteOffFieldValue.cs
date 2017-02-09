@@ -70,12 +70,7 @@ namespace Misp.Kernel.Domain
 
         public void setDefaultValue(object item)
         {
-            WriteOffFieldValueType defaultValue = WriteOffFieldValueType.CUSTOM;
-            string it = item.ToString();
-            if (it.Equals(WriteOffFieldValueType.LEFT_SIDE.ToString())) defaultValue = WriteOffFieldValueType.LEFT_SIDE;
-            if (it.Equals(WriteOffFieldValueType.RIGHT_SIDE.ToString())) defaultValue = WriteOffFieldValueType.RIGHT_SIDE;
-            if (it.Equals(WriteOffFieldValueType.CUSTOM.ToString())) defaultValue = WriteOffFieldValueType.CUSTOM;
-            this.defaultValueType = defaultValue;
+            this.defaultValueType = WriteOffFieldValueType.getByLabel(item.ToString());
         }
     }
 }

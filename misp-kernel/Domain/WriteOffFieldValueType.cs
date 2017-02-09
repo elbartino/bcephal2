@@ -5,12 +5,31 @@ using System.Text;
 
 namespace Misp.Kernel.Domain
 {
-    public enum WriteOffFieldValueType
+    public class WriteOffFieldValueType
     {
-        LEFT_SIDE,
+        public static WriteOffFieldValueType LEFT_SIDE = new WriteOffFieldValueType("Left Side");
+        public static WriteOffFieldValueType RIGHT_SIDE = new WriteOffFieldValueType("Right Side");
+        public static WriteOffFieldValueType CUSTOM = new WriteOffFieldValueType("Custom");
+        
+        public String label { get; set; }
 
-        RIGHT_SIDE,
+        private WriteOffFieldValueType(String label)
+        {
+            this.label = label;
+        }
 
-        CUSTOM
+        public override string ToString()
+        {
+            return label;
+        }
+
+        public static WriteOffFieldValueType getByLabel(String label)
+        {
+            if (string.IsNullOrEmpty(label)) return null;
+            if (LEFT_SIDE.label.Equals(label)) return LEFT_SIDE;
+            if (RIGHT_SIDE.label.Equals(label)) return RIGHT_SIDE;
+            if (CUSTOM.label.Equals(label)) return CUSTOM;
+            return null;
+        }
     }
 }
