@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:gr="clr-namespace:Misp.Sourcing.InputGrid;assembly=Misp.Sourcing" 
+             xmlns:br="clr-namespace:Misp.Sourcing.GridViews;assembly=Misp.Sourcing" 
              xmlns:reco="clr-namespace:Misp.Reconciliation.Reco" 
              mc:Ignorable="d" 
              TabStripPlacement="Bottom"  Background="White"  BorderBrush="White"
@@ -27,7 +28,7 @@
             </Grid>
             <GridSplitter x:Name="splitter1" Height="5" ResizeDirection="Rows" Background="LightGray" x:FieldModifier="public"
                           VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="1"/>
-            <reco:ReconciliationFilterTemplateGrid x:FieldModifier="public" x:Name="BottomGrid" Grid.Row="1" Margin="0 5 0 0"/>
+            <reco:ReconciliationFilterTemplateBottomGrid x:FieldModifier="public" x:Name="BottomGrid" Grid.Row="1" Margin="0 5 0 0"/>
         </Grid>        
     </TabItem>
     <TabItem x:FieldModifier="public" x:Name="ConfigTabItem" Header="Configuration">

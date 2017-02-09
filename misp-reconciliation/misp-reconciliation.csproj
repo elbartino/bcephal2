@@ -133,6 +133,9 @@
     <Compile Include="Reco\ConfigurationPropertiesPanel.xaml.cs">
       <DependentUpon>ConfigurationPropertiesPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reco\ReconciliationFilterTemplateBottomGrid.xaml.cs">
+      <DependentUpon>ReconciliationFilterTemplateBottomGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Reco\ReconciliationFilterTemplateBrowser.cs" />
     <Compile Include="Reco\ReconciliationFilterTemplateBrowserController.cs" />
     <Compile Include="Reco\ReconciliationFilterTemplateConfigPanel.xaml.cs">
@@ -228,6 +231,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Reco\ConfigurationPropertiesPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reco\ReconciliationFilterTemplateBottomGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

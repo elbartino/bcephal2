@@ -112,12 +112,7 @@ namespace Misp.Reconciliation.Reco
         {
             this.HeaderPanel.Visibility = System.Windows.Visibility.Collapsed;
         }
-
-        public void HideRecoToolBar()
-        {
-            this.RecoToolBar.Visibility = System.Windows.Visibility.Collapsed;
-        }
-
+        
         #endregion
         
     }
