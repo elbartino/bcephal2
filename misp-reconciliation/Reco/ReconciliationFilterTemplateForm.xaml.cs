@@ -211,6 +211,9 @@ namespace Misp.Reconciliation.Reco
         /// </summary>
         public virtual void displayObject()
         {
+            this.LeftGrid.Template = this.EditedObject;
+            this.RightGrid.Template = this.EditedObject;
+
             this.LeftGrid.EditedObject = this.EditedObject.leftGrid;
             this.RightGrid.EditedObject = this.EditedObject.rigthGrid;
             this.BottomGrid.EditedObject = this.EditedObject.bottomGrid;

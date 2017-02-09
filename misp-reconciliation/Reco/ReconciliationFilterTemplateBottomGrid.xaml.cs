@@ -33,7 +33,7 @@ namespace Misp.Reconciliation.Reco
         /// </summary>
         public Grille EditedObject { get; set; }
 
-        public ReconciliationFilterService Service { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationFilterService(); } }
+        public ReconciliationFilterTemplateService Service { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationFilterTemplateService(); } }
 
         #endregion
 

@@ -31,7 +31,9 @@ namespace Misp.Reconciliation.Reco
         /// </summary>
         public Grille EditedObject { get; set; }
 
-        public ReconciliationFilterService Service { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationFilterService(); } }
+        public ReconciliationFilterTemplate Template { get; set; }
+
+        public ReconciliationFilterTemplateService Service { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationFilterTemplateService(); } }
 
         #endregion
 
@@ -60,6 +62,14 @@ namespace Misp.Reconciliation.Reco
             try
             {
                 GrilleFilter filter = this.GrilleBrowserForm.filterForm.Fill();
+                filter.creditChecked = this.CreditCheckBox.IsChecked.Value;
+                filter.debitChecked = this.DebitCheckBox.IsChecked.Value;
+                filter.includeRecoChecked = this.RecoCheckBox.IsChecked.Value;
+                if (this.Template != null && this.Template.reconciliationType != null)
+                {
+                    filter.recoType = this.Template.reconciliationType;
+                }
+                else filter.recoType = null;
                 filter.grid = new Grille();
                 filter.grid.code = this.EditedObject.code;
                 filter.grid.columnListChangeHandler = this.EditedObject.columnListChangeHandler;
@@ -91,6 +101,17 @@ namespace Misp.Reconciliation.Reco
             this.GrilleBrowserForm.filterForm.ChangeHandler += OnFilterChange;
             this.GrilleBrowserForm.toolBar.ChangeHandler += OnPageChange;
 
+            this.CreditCheckBox.Checked += OnChecked;
+            this.CreditCheckBox.Unchecked += OnChecked;
+            this.DebitCheckBox.Checked += OnChecked;
+            this.DebitCheckBox.Unchecked += OnChecked;
+            this.RecoCheckBox.Checked += OnChecked;
+            this.RecoCheckBox.Unchecked += OnChecked;
+        }
+
+        private void OnChecked(object sender, RoutedEventArgs e)
+        {
+            OnFilterChange();
         }
 
         private void OnFilterChange()

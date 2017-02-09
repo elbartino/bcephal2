@@ -32,8 +32,27 @@ namespace Misp.Kernel.Service
         public TargetService TargetService { get; set; }
 
 
-        public GroupService GroupService { get; set; }
-        
+        public GrillePage getGridRows(GrilleFilter filter)
+        {
+            try
+            {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                var request = new RestRequest(ResourcePath + "/rows", Method.POST);
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = serializer.Serialize(filter);
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
+
+                var response = RestClient.ExecuteTaskAsync(request);
+                RestResponse queryResult = (RestResponse)response.Result;
+                GrillePage objects = RestSharp.SimpleJson.DeserializeObject<GrillePage>(queryResult.Content);
+                return objects;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve grid rows.", e);
+                throw new ServiceExecption("Unable to retrieve grid rows.", e);
+            }
+        }
 
         /// <summary>
         /// save ReconciliationFilterTemplate
