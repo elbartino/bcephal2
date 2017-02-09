@@ -63,9 +63,6 @@ namespace Misp.Reconciliation.Reco
 
         private void UserInit()
         {
-            this.LeftGrid.HideRecoToolBar();
-            this.RightGrid.HideRecoToolBar();
-            this.BottomGrid.HideHeaderPanel();
             this.LeftGridProperties.InputGridPropertiesPanel.GroupPanel.Visibility = System.Windows.Visibility.Collapsed;
             this.LeftGridProperties.InputGridPropertiesPanel.gridEachLoop.Visibility = System.Windows.Visibility.Collapsed;
             this.RightGridProperties.InputGridPropertiesPanel.GroupPanel.Visibility = System.Windows.Visibility.Collapsed;
@@ -259,7 +256,7 @@ namespace Misp.Reconciliation.Reco
         private void OnBottomGridPropertiesChange(object item)
         {
             this.BottomGridProperties.BuildColunms();
-            this.BottomGrid.GrilleBrowserForm.gridBrowser.RebuildGrid = true;
+            this.BottomGrid.GridBrowser.RebuildGrid = true;
         }
 
         private void OnRightGridPropertiesChange(object item)

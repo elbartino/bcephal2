@@ -289,7 +289,7 @@ namespace Misp.Reconciliation.Reco
                 ApplicationManager.MainWindow.displayPropertyBar(null);
                 if (page.getForm().LeftGrid.GrilleBrowserForm.gridBrowser.RebuildGrid) UpdateGridForm(page.getForm().LeftGrid);
                 if (page.getForm().RightGrid.GrilleBrowserForm.gridBrowser.RebuildGrid) UpdateGridForm(page.getForm().RightGrid);
-                if (page.getForm().BottomGrid.GrilleBrowserForm.gridBrowser.RebuildGrid) UpdateGridForm(page.getForm().BottomGrid);
+                if (page.getForm().BottomGrid.GridBrowser.RebuildGrid) UpdateGridForm(page.getForm().BottomGrid);
             }
             else
             {
@@ -330,6 +330,13 @@ namespace Misp.Reconciliation.Reco
 
             /*page.getForm().displayObjectInGridForm();
             Search(page.EditedObject.GrilleFilter != null ? page.EditedObject.GrilleFilter.page : 1);*/
+        }
+
+        protected virtual void UpdateGridForm(ReconciliationFilterTemplateBottomGrid grid)
+        {
+            ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+            page.getForm().EditedObject = page.EditedObject;
+            grid.displayObject();
         }
 
         #endregion
