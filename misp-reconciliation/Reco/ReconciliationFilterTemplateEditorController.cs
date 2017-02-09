@@ -127,8 +127,6 @@ namespace Misp.Reconciliation.Reco
             string name = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.textBox.Text;
             BGroup group = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.Group;
             page.EditedObject.group = group;
-            page.getForm().ConfigurationPanel.EditedObject = page.EditedObject;
-            page.getForm().ConfigurationPanel.displayObject();
         }
 
         protected override void initializeSideBarHandlers()
