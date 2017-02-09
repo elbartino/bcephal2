@@ -47,19 +47,39 @@ namespace Misp.Reconciliation.Reco
             };
             this.visibleInShortcutCheckbox.IsChecked = true;
 
-            this.visibleInShortcutCheckbox.Unchecked += OnChooseVisibilityOptions;
-            this.visibleInShortcutCheckbox.Checked += OnChooseVisibilityOptions;
+            this.visibleInShortcutCheckbox.Unchecked += OnChooseVisibility;
+            this.visibleInShortcutCheckbox.Checked += OnChooseVisibility;
+
+            this.DCFormulaComboBox.SelectionChanged += OnChooseDCForumula;
+            this.BalanceFormulaComboBox.SelectionChanged += OnChooseBalanceFormula;
         }
 
-        private void OnChooseVisibilityOptions(object sender, RoutedEventArgs e)
+        private void OnChooseBalanceFormula(object sender, SelectionChangedEventArgs e)
         {
-        //    if(ItemChanged!=null) ItemChanged(
+            this.EditedObject.setBalanceFormula(BalanceFormula.getByLabel(this.BalanceFormulaComboBox.SelectedItem.ToString()));
+            if (ItemChanged != null) ItemChanged(this.EditedObject);
+        }
+
+        private void OnChooseDCForumula(object sender, SelectionChangedEventArgs e)
+        {
+            this.EditedObject.setDebitCreditFormula(DebitCreditFormula.getByLabel(this.DCFormulaComboBox.SelectedItem.ToString()));
+            if (ItemChanged != null) ItemChanged(this.EditedObject);
+        }
+
+
+        private void OnChooseVisibility(object sender, RoutedEventArgs e)
+        {
+            this.EditedObject.visibleInShortcut = this.visibleInShortcutCheckbox.IsChecked.Value;
+            if (ItemChanged != null) ItemChanged(this.EditedObject);
         }
 
         public void displayObject()
         {
             this.NameTextBox.Text = this.EditedObject.name;
             this.groupField.Group = this.EditedObject.group;
+            this.BalanceFormulaComboBox.SelectedItem = this.EditedObject.balanceFormula != null ?  this.EditedObject.balanceFormula.label : "";
+            this.DCFormulaComboBox.SelectedItem = this.EditedObject.debitCreditFormula != null ? this.EditedObject.debitCreditFormula.label : "";
+
             if (this.ReconciliationFilterTemplateService == null) return;
             this.groupField.GroupService = this.ReconciliationFilterTemplateService.GroupService;
             this.groupField.subjectType = SubjectType.RECONCILIATION_FILTER;
