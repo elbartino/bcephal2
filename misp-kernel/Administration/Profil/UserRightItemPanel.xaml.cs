@@ -124,6 +124,7 @@ namespace Misp.Kernel.Administration.Profil
         {
             if (Activated != null) Activated(this);
         }
+        #endregion
 
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
