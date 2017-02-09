@@ -156,7 +156,7 @@ namespace Misp.Kernel.Domain
 
         public GrilleColumn GetRecoNbrColumn(ReconciliationContext context)
         {
-            return GetColumn(ParameterType.SCOPE.ToString(), context.recoNbreAttribute.oid.Value);
+            return null;// GetColumn(ParameterType.SCOPE.ToString(), context.recoNbreAttribute.oid.Value);
         }
 
         public GrilleColumn GetDCColumn(ReconciliationContext context)
