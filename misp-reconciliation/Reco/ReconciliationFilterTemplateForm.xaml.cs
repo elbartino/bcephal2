@@ -36,6 +36,8 @@ namespace Misp.Reconciliation.Reco
         /// L'objet en édition
         /// </summary>
         public ReconciliationFilterTemplate EditedObject { get; set; }
+        
+        public Kernel.Service.ReconciliationFilterTemplateService ReconciliationFilterTemplateService { get; set; }
 
         /// <summary>
         /// Spécifie la méthode à exécuter lorsqu'un changement survient sur la vue.
@@ -166,9 +168,7 @@ namespace Misp.Reconciliation.Reco
                 this.BottomGridProperties.InputGridPropertiesPanel.SetValue(measure);
             }
         }
-
-        
-
+                
         /// <summary>
         /// Une nouvelle instance de l'objet éditable.
         /// Cette méthode est appelée par fillObject() si l'objet en édition est null;
@@ -220,7 +220,6 @@ namespace Misp.Reconciliation.Reco
             this.LeftGrid.displayObject();
             this.RightGrid.displayObject();
             this.BottomGrid.displayObject();
-
             this.ConfigurationPanel.EditedObject = this.EditedObject;
             this.ConfigurationPanel.displayObject();
 

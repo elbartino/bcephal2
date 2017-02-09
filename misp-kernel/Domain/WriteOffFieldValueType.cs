@@ -7,9 +7,9 @@ namespace Misp.Kernel.Domain
 {
     public class WriteOffFieldValueType
     {
-        public static WriteOffFieldValueType LEFT_SIDE = new WriteOffFieldValueType("Left Side");
-        public static WriteOffFieldValueType RIGHT_SIDE = new WriteOffFieldValueType("Right Side");
-        public static WriteOffFieldValueType CUSTOM = new WriteOffFieldValueType("Custom");
+        public static WriteOffFieldValueType LEFT_SIDE = new WriteOffFieldValueType("Left Side Value");
+        public static WriteOffFieldValueType RIGHT_SIDE = new WriteOffFieldValueType("Right Side Value");
+        public static WriteOffFieldValueType CUSTOM = new WriteOffFieldValueType("Custom Value");
         
         public String label { get; set; }
 

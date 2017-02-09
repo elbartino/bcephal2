@@ -31,6 +31,8 @@ namespace Misp.Kernel.Service
         /// </summary>
         public TargetService TargetService { get; set; }
 
+
+        public GroupService GroupService { get; set; }
         
 
         /// <summary>

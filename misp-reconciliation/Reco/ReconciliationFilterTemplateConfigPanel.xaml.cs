@@ -42,5 +42,7 @@ namespace Misp.Reconciliation.Reco
             this.WriteOffConfigPanel.EditedObject = this.EditedObject.writeOffConfig;
             this.WriteOffConfigPanel.displayObject();
         }
+
+        
     }
 }

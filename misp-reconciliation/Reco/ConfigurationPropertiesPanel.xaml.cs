@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace Misp.Reconciliation.Reco
     /// </summary>
     public partial class ConfigurationPropertiesPanel : StackPanel
     {
+
+        public ReconciliationFilterTemplateService ReconciliationFilterTemplateService { get; set;}
         /// <summary>
         /// Design en édition
         /// </summary>
@@ -29,11 +32,39 @@ namespace Misp.Reconciliation.Reco
         public ConfigurationPropertiesPanel()
         {
             InitializeComponent();
+            this.DCFormulaComboBox.ItemsSource = new String[] 
+            {
+                DebitCreditFormula.DEBIT_NEGATIVE.label,
+                DebitCreditFormula.DEBIT_NOT_NEGATIVE.label
+            };
+            this.BalanceFormulaComboBox.ItemsSource = new String[]
+            {
+                BalanceFormula.LEFT_MINUS_RIGHT.label,
+                BalanceFormula.LEFT_PLUS_RIGHT.label
+            };
+            this.visibleInShortcutCheckbox.IsChecked = true;
         }
 
         public void displayObject()
         {
             this.NameTextBox.Text = this.EditedObject.name;
+            this.groupField.Group = this.EditedObject.group;
+            if (this.ReconciliationFilterTemplateService == null) return;
+            this.groupField.GroupService = this.ReconciliationFilterTemplateService.GroupService;
+            this.groupField.subjectType = SubjectType.RECONCILIATION_FILTER;
+            this.groupField.Changed += onGroupFieldChange;
+        }
+
+        private void onGroupFieldChange()
+        {
+            string name =this.groupField.textBox.Text;
+            BGroup group = groupField.Group;
+            this.EditedObject.isModified = true;
+        }
+
+        public  Misp.Kernel.Domain.SubjectType SubjectTypeFound()
+        {
+            return Misp.Kernel.Domain.SubjectType.INPUT_TABLE;
         }
     }
 }
