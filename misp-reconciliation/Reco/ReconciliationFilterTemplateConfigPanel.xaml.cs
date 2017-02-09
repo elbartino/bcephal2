@@ -36,12 +36,6 @@ namespace Misp.Reconciliation.Reco
         {
             InitializeComponent();
             this.ConfigurationPropertiesPanel = new ConfigurationPropertiesPanel();
-            this.ConfigurationPropertiesPanel.ItemChanged += OnItemChanged;
-        }
-
-        private void OnItemChanged(object item)
-        {
-            if (ItemChanged != null) ItemChanged(item);
         }
 
         public void displayObject()

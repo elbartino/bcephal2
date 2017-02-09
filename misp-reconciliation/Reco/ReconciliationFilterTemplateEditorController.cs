@@ -126,8 +126,11 @@ namespace Misp.Reconciliation.Reco
             if (item is ReconciliationFilterTemplate)
             {
                 ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
-                page.EditedObject.group = ((ReconciliationFilterTemplate)item).group;
-                page.EditedObject.visibleInShortcut = ((ReconciliationFilterTemplate)item).visibleInShortcut;
+                ReconciliationFilterTemplate recoFilterTemplate = (ReconciliationFilterTemplate)item;
+                page.EditedObject.group = recoFilterTemplate.group;
+                page.EditedObject.visibleInShortcut = recoFilterTemplate.visibleInShortcut;
+                page.EditedObject.setBalanceFormula(recoFilterTemplate.balanceFormula);
+                page.EditedObject.setDebitCreditFormula(recoFilterTemplate.debitCreditFormula);
             }
             OnChange();
         }

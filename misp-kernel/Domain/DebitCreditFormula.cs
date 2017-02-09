@@ -8,9 +8,9 @@ namespace Misp.Kernel.Domain
 {
  public class DebitCreditFormula
     {
-        public static DebitCreditFormula DEBIT_NEGATIVE = new DebitCreditFormula("Debit Negative");
+        public static DebitCreditFormula DEBIT_NEGATIVE = new DebitCreditFormula("(-) Debit");
 
-        public static DebitCreditFormula DEBIT_NOT_NEGATIVE = new DebitCreditFormula("Debit not negative");
+        public static DebitCreditFormula DEBIT_NOT_NEGATIVE = new DebitCreditFormula("(+) Debit");
 
         public String label { get; set; }
 
