@@ -78,6 +78,11 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.ReconciliationContextPanel.setAttribute(attribute);
         }
 
+        public void setEntity(Kernel.Domain.Entity entity)
+        {
+            this.ReconciliationContextPanel.setEntity(entity);
+        }
+
         public void setValue(Kernel.Domain.AttributeValue value)
         {
             if (this.ModelService == null) return;

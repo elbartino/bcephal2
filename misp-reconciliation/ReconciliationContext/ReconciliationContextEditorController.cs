@@ -294,6 +294,10 @@ namespace Misp.Reconciliation.ReconciliationContext
             {
                 page.getReconciliationContextForm().setValue((Kernel.Domain.AttributeValue)sender);
             }
+            else if (sender is Kernel.Domain.Entity)
+            {
+                page.getReconciliationContextForm().setEntity((Kernel.Domain.Entity)sender);
+            }
         }
 
         private void onSelectMeasureFromSidebar(object sender)

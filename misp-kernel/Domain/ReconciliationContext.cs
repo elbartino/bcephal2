@@ -16,7 +16,7 @@ namespace Misp.Kernel.Domain
 
         public Attribute accountNameAttribute { get; set; }
 
-        public Attribute recoNbreAttribute { get; set; }
+        public Entity recoTypeEntity { get; set; }
 
         public Attribute dcNbreAttribute { get; set; }
 
@@ -50,8 +50,8 @@ namespace Misp.Kernel.Domain
                 (column.type.Equals(ParameterType.SCOPE.ToString()) 
                     && accountNameAttribute != null && column.valueOid.Value == accountNameAttribute.oid.Value) ||                    
                     
-                (column.type.Equals(ParameterType.SCOPE.ToString()) 
-                    && recoNbreAttribute != null && column.valueOid.Value == recoNbreAttribute.oid.Value) ||
+                /*(column.type.Equals(ParameterType.SCOPE.ToString())
+                    && recoTypeEntity != null && column.valueOid.Value == recoTypeEntity.oid.Value) ||*/
                     
                 (column.type.Equals(ParameterType.SCOPE.ToString()) 
                     && dcNbreAttribute != null && column.valueOid.Value == dcNbreAttribute.oid.Value)
