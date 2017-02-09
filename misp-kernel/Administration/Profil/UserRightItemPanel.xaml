@@ -16,7 +16,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <ComboBox x:Name="OperatorComboBox" x:FieldModifier="public" VerticalAlignment="Center" Grid.Column="0" Margin="0,7,64,5" Grid.ColumnSpan="3"/>
+        <ComboBox x:Name="ProfilComboBox" x:FieldModifier="public" VerticalAlignment="Center" Grid.Column="0" Margin="0,7,64,5" Grid.ColumnSpan="3"/>
         <Button x:Name="AddButton" x:FieldModifier="public" ToolTip="Add new line" Margin="70,10,0,0" Width="15" Grid.Column="1">
             <Button.Template>
                 <ControlTemplate>
