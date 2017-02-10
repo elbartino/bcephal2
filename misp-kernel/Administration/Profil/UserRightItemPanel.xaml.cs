@@ -22,11 +22,17 @@ namespace Misp.Kernel.Administration.Profil
     /// </summary>
     public partial class UserRightItemPanel : Grid
     {
+        #region Events
         public ChangeEventHandler ChangeEventHandler;
-        public Kernel.Ui.Base.ChangeItemEventHandler Deleted;
-        public Kernel.Ui.Base.ChangeItemEventHandler Added;
-        public Kernel.Ui.Base.ChangeItemEventHandler Updated;
+
+        public event DeleteEventHandler Deleted;
+
+        public event AddEventHandler Added;
+
+        public event UpdateEventHandler Updated;
+
         public ActivateEventHandler Activated;
+        #endregion
 
         public Kernel.Domain.Profil profil { get; set; }
 
@@ -34,29 +40,64 @@ namespace Misp.Kernel.Administration.Profil
 
         public bool IsReadOnly { get; set; }
 
-        public bool trow = false;
+        //public bool trow = false;
 
+        #region Contructor
         public UserRightItemPanel()
         {
             InitializeComponent();
-            this.ProfilComboBox.ItemsSource = null;
             initHandlers();
         }
 
-
-        public void Display(object item, bool readOnly = false)
+        /// <summary>
+        /// Construit une nouvelle instance de right
+        /// </summary>
+        /// <param name="index">Index du panel</param>
+        /// <param name="item">right à afficher</param>
+        public UserRightItemPanel(Kernel.Domain.Profil item): this()
         {
-            if (item != null && item is Kernel.Domain.Profil)
+            Display(item);
+        }
+
+        public UserRightItemPanel(int index)
+            : this()
+        {
+            this.Index = index;
+        }
+
+        #endregion
+
+        #region Operations
+        bool update = true;
+        bool added = false;
+        bool delete = false;
+        private int index;
+
+
+        public int Index
+        {
+            get { return index; }
+            set
             {
-                this.profil = (Kernel.Domain.Profil)item;
-                this.UserRightValuePanel.DisplayRightValue(this.profil, readOnly);
+                index = value;
+            }
+        }
+
+        public void Display(Kernel.Domain.Profil item, bool readOnly = false)
+        {
+            if (item != null)
+            {
+                update = false;
+                this.profil = item;
+                this.ProfilComboBox.SelectedItem = item;
+                this.UserRightValuePanel.DisplayRightValue(item, readOnly);
+                update = true;
             }
             else
             {
                 Reset();
                 return;
             }
-            trow = true;
         }
 
         public Kernel.Domain.Profil FillRight()
@@ -66,17 +107,17 @@ namespace Misp.Kernel.Administration.Profil
 
         public void Reset()
         {
-            trow = false;            
             if (this.IsReadOnly) this.SetReadOnly(this.IsReadOnly);
-            trow = true;
         }
+        #endregion
 
+        #region Handlers
         protected void initHandlers()
         {
             this.AddButton.Click += OnAddButtonClick;
             this.DeleteButton.Click += OnDeleteButtonClick;
 
-            this.ProfilComboBox.SelectionChanged += onChange;
+            this.ProfilComboBox.SelectionChanged += onProfilChange;
 
             this.AddButton.GotFocus += OnGotFocus;
             this.DeleteButton.GotFocus += OnGotFocus;
@@ -87,22 +128,60 @@ namespace Misp.Kernel.Administration.Profil
             this.ProfilComboBox.MouseDown += OnMouseDown;
 
             this.UserRightValuePanel.Activated += OnActivate;
-            this.UserRightValuePanel.ChangeEventHandler += onChange;
+            this.UserRightValuePanel.ChangeEventHandler += onUserRightValueChange;
         }
 
-        private void onChange()
+        
+
+        private void onProfilChange(object sender, SelectionChangedEventArgs e)
         {
-            if (trow && ChangeEventHandler != null)
+            if (Updated != null && update)
             {
-                if (!isDeleted)
-                {
-                    //FillLoopProperties(null);
-                }
-                ChangeEventHandler();
+                if (setProfilRight())
+                    Updated(this);
             }
         }
 
-        #region Activation Method
+        /// <summary>
+        /// validate selection and set selected operator
+        /// </summary>
+        /// <returns></returns>
+        private bool setProfilRight()
+        {
+            added = false;
+            if (this.profil == null)
+            {
+                this.profil = new Kernel.Domain.Profil();
+                added = true;
+            }
+
+            this.profil = (Kernel.Domain.Profil)this.ProfilComboBox.SelectedItem;
+
+            bool add = this.added == true ? true : false;
+            if (Added != null && added) Added(this);
+            updateProfilRight();
+
+            if (Updated != null && !added) Updated(this);
+            return add;
+
+        }
+
+        private void updateProfilRight()
+        {
+            if (this.ProfilComboBox.SelectedItem != null )
+            {
+                Domain.Profil profil = (Domain.Profil)this.ProfilComboBox.SelectedItem;
+                this.UserRightValuePanel.DisplayRightValue(profil, false);
+            }
+            else { }
+        }
+
+        private void onUserRightValueChange()
+        {
+
+        }
+
+
         private void ActivateComponent(object item)
         {
             if (Activated != null)
@@ -124,7 +203,7 @@ namespace Misp.Kernel.Administration.Profil
         {
             if (Activated != null) Activated(this);
         }
-        #endregion
+        
 
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -136,31 +215,25 @@ namespace Misp.Kernel.Administration.Profil
             ActiveHandler();
         }
 
-        private void onChange(object sender, SelectionChangedEventArgs e)
-        {
-            if (trow)
-            {
-                //FillLoopProperties(getBrackets());
-                onChange();
-            }
-        }
+        
 
         private bool isDeleted = false;
         private void OnDeleteButtonClick(object sender, RoutedEventArgs e)
         {
-            if (trow && Deleted != null)
+            if (Deleted != null)
             {
                 isDeleted = true;
                 Deleted(this);
             }
-            onChange();
+            onUserRightValueChange();
             isDeleted = false;
         }
 
         private void OnAddButtonClick(object sender, RoutedEventArgs e)
         {
-            if (trow && Added != null) Added(this);
+            if (Added != null) Added(this);
         }
+        #endregion
 
         public void SetItemPanelReadOnly(bool readOnly)
         {
@@ -178,6 +251,11 @@ namespace Misp.Kernel.Administration.Profil
             {
                 this.UserRightValuePanel.SetReadOnly(readOnly);
             }
+        }
+
+        public void FillProfil(List<Domain.Profil> list)
+        {
+            this.ProfilComboBox.ItemsSource = list;
         }
 
     }

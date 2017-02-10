@@ -17,20 +17,20 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <ComboBox x:Name="ProfilComboBox" x:FieldModifier="public" VerticalAlignment="Center" Grid.Column="0" Margin="0,7,64,5" Grid.ColumnSpan="3"/>
-        <Button x:Name="AddButton" x:FieldModifier="public" ToolTip="Add new line" Margin="70,10,0,0" Width="15" Grid.Column="1">
+        <Button x:Name="AddButton" x:FieldModifier="public" ToolTip="Add new line" Margin="70,1,0,0" Width="15" Grid.Column="1">
             <Button.Template>
                 <ControlTemplate>
                     <Image Source="/bcephal;Component/Resources/Images/Icons/New.png"/>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="DeleteButton" x:FieldModifier="public" ToolTip="Delete line" Margin="10,10,0,0" Width="15" Grid.Column="2">
+        <Button x:Name="DeleteButton" x:FieldModifier="public" ToolTip="Delete line" Margin="10,1,0,0" Width="15" Grid.Column="2">
             <Button.Template>
                 <ControlTemplate>
                     <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <UserRight:UserRightValuePanel x:Name="UserRightValuePanel" Margin="10,3,0,0" Grid.Column="3"/>
+        <UserRight:UserRightValuePanel x:Name="UserRightValuePanel" Margin="10,1,0,0" Grid.Column="3"/>
     </Grid>
 </Grid>
