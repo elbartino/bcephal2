@@ -151,6 +151,7 @@ namespace Misp.Sourcing.InputGrid
             NameTextBox.Text = this.Grid.name;
             groupField.Group = this.Grid.group;
             visibleInShortcutCheckbox.IsChecked = grid.visibleInShortcut;
+            CommentTextBlock.Text = this.Grid.comment;
             this.ColumnsListBox.ItemsSource = new ObservableCollection<GrilleColumn>(this.Grid.columnListChangeHandler.Items);
             ColumnForms.Grid = this.Grid;
             throwEvent = true;
@@ -167,6 +168,7 @@ namespace Misp.Sourcing.InputGrid
             grid.visibleInShortcut = visibleInShortcutCheckbox.IsChecked.Value;
             groupField.Group.subjectType = Kernel.Domain.SubjectType.STRUCTURED_REPORT.label;
             grid.group = groupField.Group;
+            grid.comment = CommentTextBlock.Text.Trim();
             FillActiveColumn();
         }
 
