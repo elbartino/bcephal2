@@ -17,6 +17,9 @@ namespace Misp.Kernel.Domain
             this.columnListChangeHandler = new PersistentListChangeHandler<GrilleColumn>();
             this.visibleInShortcut = true;
             this.loaded = true;
+            this.debitChecked = false;
+            this.creditChecked = false;
+            this.includeRecoChecked = false;
         }
 
         public Target filterScope { get; set; }
@@ -42,6 +45,14 @@ namespace Misp.Kernel.Domain
         public int? tableOid { get; set; }
 
         public int? cellOid { get; set; }
+
+        public bool? creditChecked { get; set; }
+        
+        public bool? debitChecked { get; set; }
+        
+        public bool? includeRecoChecked { get; set; }
+
+        public String comment { get; set; }
 
         public GrilleRelationship relationship { get; set; }
 

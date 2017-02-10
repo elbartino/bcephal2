@@ -13,11 +13,26 @@
         <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
-    <StackPanel Grid.Row="0" Orientation="Horizontal" x:Name="HeaderPanel" Margin="5">
-        <CheckBox x:Name="CreditCheckBox" x:FieldModifier="public" Content="Credit" Margin="5, 0"/>
-        <CheckBox x:Name="DebitCheckBox" x:FieldModifier="public" Content="Debit" Margin="5, 0"/>
-        <CheckBox x:Name="RecoCheckBox" x:FieldModifier="public" Content="Incl Reco" Margin="5, 0"/>
-    </StackPanel>
+    <Grid Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Horizontal" x:Name="HeaderPanel" Margin="5">
+            <TextBox x:Name="NameTextBox" x:FieldModifier="public" IsEnabled="False" Width="150" Margin="5, 0" Visibility="Collapsed"/>
+            <CheckBox x:Name="CreditCheckBox" x:FieldModifier="public" Content="Credit" Margin="5, 0"/>
+            <CheckBox x:Name="DebitCheckBox" x:FieldModifier="public" Content="Debit" Margin="5, 0"/>
+            <CheckBox x:Name="RecoCheckBox" x:FieldModifier="public" Content="Incl Reco" Margin="5, 0"/>
+        </StackPanel>
+        <ToggleButton x:Name="CommentButton" x:FieldModifier="public" ToolTip="Description" Grid.Column="1" Width="15" HorizontalAlignment="Right" Margin="5 0" Visibility="Collapsed">
+            <ToggleButton.Template>
+                <ControlTemplate>
+                    <Image Source="/bcephal;Component/Resources/Images/Icons/NoCommentButton.png"/>
+                </ControlTemplate>
+            </ToggleButton.Template>
+        </ToggleButton >
+    </Grid>
+
     <gr:GrilleBrowserForm x:Name="GrilleBrowserForm" x:FieldModifier="public" Grid.Row="1"/>
 
     <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">

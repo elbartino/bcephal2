@@ -42,7 +42,9 @@ namespace Misp.Reconciliation.Reco
         /// <summary>
         /// Spécifie la méthode à exécuter lorsqu'un changement survient sur la vue.
         /// </summary>
-        public Misp.Kernel.Ui.Base.ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
+        public ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
+        
+        public ChangeEventHandler Changed { get; set; }
 
         #endregion
 
@@ -251,11 +253,11 @@ namespace Misp.Reconciliation.Reco
             this.LeftGridProperties.InputGridPropertiesPanel.Changed += OnLeftGridPropertiesChange;
             this.RightGridProperties.InputGridPropertiesPanel.Changed += OnRightGridPropertiesChange;
             this.BottomGridProperties.InputGridPropertiesPanel.Changed += OnBottomGridPropertiesChange;
+
+            this.LeftGrid.Changed += OnChange;
+            this.RightGrid.Changed += OnChange;
         }
         
-
-        
-
         private void OnBottomGridPropertiesChange(object item)
         {
             this.BottomGridProperties.BuildColunms();
@@ -272,6 +274,11 @@ namespace Misp.Reconciliation.Reco
         {
             this.LeftGridProperties.BuildColunms();
             this.LeftGrid.GrilleBrowserForm.gridBrowser.RebuildGrid = true;
+        }
+
+        public void OnChange()
+        {
+            if (Changed != null) Changed();
         }
 
         #endregion

@@ -1,6 +1,7 @@
 ﻿using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,10 @@ namespace Misp.Reconciliation.Reco
 
         public ReconciliationFilterTemplateService Service { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationFilterTemplateService(); } }
 
+        protected bool throwHandler = true;
+
+        public ChangeEventHandler Changed { get; set; }
+
         #endregion
 
 
@@ -53,8 +58,13 @@ namespace Misp.Reconciliation.Reco
 
         public void displayObject()
         {
+            throwHandler = false;
             this.GrilleBrowserForm.EditedObject = this.EditedObject;
             this.GrilleBrowserForm.displayObject();
+            this.CreditCheckBox.IsChecked = this.EditedObject != null ? this.EditedObject.creditChecked : false;
+            this.DebitCheckBox.IsChecked = this.EditedObject != null ? this.EditedObject.debitChecked : false;
+            this.RecoCheckBox.IsChecked = this.EditedObject != null ? this.EditedObject.includeRecoChecked : false;
+            throwHandler = true;
         }
 
         public virtual void Search(int currentPage = 0)
@@ -71,6 +81,9 @@ namespace Misp.Reconciliation.Reco
                 }
                 else filter.recoType = null;
                 filter.grid = new Grille();
+                filter.grid.creditChecked = this.CreditCheckBox.IsChecked.Value;
+                filter.grid.debitChecked = this.DebitCheckBox.IsChecked.Value;
+                filter.grid.includeRecoChecked = this.RecoCheckBox.IsChecked.Value;
                 filter.grid.code = this.EditedObject.code;
                 filter.grid.columnListChangeHandler = this.EditedObject.columnListChangeHandler;
                 filter.grid.report = this.EditedObject.report;
@@ -90,7 +103,7 @@ namespace Misp.Reconciliation.Reco
                 this.GrilleBrowserForm.displayPage(rows);
             }
         }
-
+        
         #endregion
 
 
@@ -111,18 +124,31 @@ namespace Misp.Reconciliation.Reco
 
         private void OnChecked(object sender, RoutedEventArgs e)
         {
+            if (throwHandler && this.EditedObject != null)
+            {
+                this.EditedObject.creditChecked = this.CreditCheckBox.IsChecked;
+                this.EditedObject.debitChecked = this.DebitCheckBox.IsChecked;
+                this.EditedObject.includeRecoChecked = this.RecoCheckBox.IsChecked;
+                OnChange();
+            }
             OnFilterChange();
         }
 
         private void OnFilterChange()
         {
-            Search();
+            if(throwHandler) Search();
         }
 
         private void OnPageChange(object item)
         {
-            Search((int)item);
+            if (throwHandler) Search((int)item);
         }
+
+        public void OnChange()
+        {
+            if (throwHandler && Changed != null) Changed();
+        }
+
 
         #endregion
 
