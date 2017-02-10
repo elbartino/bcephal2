@@ -205,7 +205,7 @@ namespace Misp.Reconciliation.WriteOffConfig
         {
             if (this.ActivePanel == null)
             {
-                int index =  this.configPanel.Children.Count <  0 ? 0 : this.configPanel.Children.Count - 1;
+                int index =  this.configPanel.Children.Count <=  0 ? 0 : this.configPanel.Children.Count - 1;
                 return this.configPanel.Children[index] as WriteOffFieldPanel;
             }
             return this.ActivePanel;

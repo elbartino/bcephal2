@@ -49,7 +49,8 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public void display()
         {
             if (this.writeOffValueField == null) return;
-            this.DefaultValuesCombobox.SelectedItem = writeOffValueField.defaultValueType.ToString();
+            this.DefaultValuesCombobox.SelectedItem = writeOffValueField.defaultValueTypeEnum != null ?
+                writeOffValueField.defaultValueTypeEnum.ToString() : "";
         }
 
         public void InitializeHandlers()

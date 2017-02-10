@@ -114,7 +114,7 @@ namespace Misp.Kernel.Domain
                 foundItem.attribute = writeOffField.attribute;
                 foundItem.measure = writeOffField.measure;
                 foundItem.attributeValue = writeOffField.attributeValue;
-                foundItem.defaultValueType = writeOffField.defaultValueType;
+                foundItem.defaultValueTypeEnum = writeOffField.defaultValueTypeEnum;
                 AddFieldValue(foundItem);
             }
             else
@@ -123,7 +123,7 @@ namespace Misp.Kernel.Domain
                 foundItem.attribute = writeOffField.attribute;
                 foundItem.measure = writeOffField.measure;
                 foundItem.attributeValue = writeOffField.attributeValue;
-                foundItem.defaultValueType = writeOffField.defaultValueType;
+                foundItem.defaultValueTypeEnum = writeOffField.defaultValueTypeEnum;
                 UpdateFieldValue(foundItem);
             }
             this.isModified = true;
