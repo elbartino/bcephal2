@@ -205,6 +205,8 @@ namespace Misp.Reconciliation.Reco
         {
             //this.GridForm.fillObject();
             //this.InputGridSheetForm.fillObject();
+            if (this.EditedObject == null) this.EditedObject = new ReconciliationFilterTemplate();
+            this.EditedObject.writeOffConfig = ConfigurationPanel.WriteOffConfigPanel.fillObject();
         }
 
         /// <summary>
