@@ -109,16 +109,19 @@ namespace Misp.Reconciliation.Reco
 
 
         #region Handles
-
+        
         protected override void initializePageHandlers(EditorItem<ReconciliationFilterTemplate> page)
         {
             base.initializePageHandlers(page);
             ReconciliationFilterTemplateEditorItem editorPage = (ReconciliationFilterTemplateEditorItem)page;
             editorPage.getForm().ReconciliationFilterTemplateService = GetService();
             editorPage.getForm().SelectionChanged += OnSelectedTabChange;
-            editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.GroupService = GetService().GroupService;
-            editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.subjectType = SubjectTypeFound();
-            editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.ItemChanged += OnConfigurationChanged;
+            if (ApplicationManager.User != null && ApplicationManager.User.IsAdmin())
+            {                
+                editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.GroupService = GetService().GroupService;
+                editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.subjectType = SubjectTypeFound();
+                editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.ItemChanged += OnConfigurationChanged;
+            }
         }
 
         private void OnConfigurationChanged(object item)
