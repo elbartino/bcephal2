@@ -61,7 +61,36 @@ namespace Misp.Reconciliation.Reco
             }
             throwHandler = true;
         }
-        
+
+        public void AddLines(List<long> oids, bool fromLeftGrid = true)
+        {
+            Search(oids);
+        }
+
+        private void Search(List<long> oids)
+        {
+            try
+            {
+                GrilleFilter filter = new GrilleFilter();
+                filter.grid = new Grille();
+                filter.grid.columnListChangeHandler = this.EditedObject.columnListChangeHandler;
+                filter.grid.report = this.EditedObject.report;
+                filter.grid.reconciliation = this.EditedObject.reconciliation;
+                filter.oids = oids;
+                filter.page = 1;
+                filter.pageSize = int.MaxValue;
+                filter.showAll = true;
+                GrillePage rows = this.Service.getGridRows(filter);
+                this.GridBrowser.displayPage(rows);
+            }
+            catch (ServiceExecption)
+            {
+                GrillePage rows = new GrillePage();
+                rows.rows = new List<object[]>(0);
+                this.GridBrowser.displayPage(rows);
+            }
+        }
+
         #endregion
 
 

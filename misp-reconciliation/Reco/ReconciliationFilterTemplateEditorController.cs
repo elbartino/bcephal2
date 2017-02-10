@@ -114,7 +114,6 @@ namespace Misp.Reconciliation.Reco
         {
             base.initializePageHandlers(page);
             ReconciliationFilterTemplateEditorItem editorPage = (ReconciliationFilterTemplateEditorItem)page;
-            editorPage.getForm().ReconciliationFilterTemplateService = GetService();
             editorPage.getForm().SelectionChanged += OnSelectedTabChange;
             if (ApplicationManager.User != null && ApplicationManager.User.IsAdmin())
             {                
@@ -286,7 +285,6 @@ namespace Misp.Reconciliation.Reco
         protected virtual void PerformSelectionChange()
         {
             ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
-            page.getForm().ReconciliationFilterTemplateService = GetService();
             if (page.getForm().SelectedIndex == 0)
             {
                 ApplicationManager.MainWindow.displayPropertyBar(null);

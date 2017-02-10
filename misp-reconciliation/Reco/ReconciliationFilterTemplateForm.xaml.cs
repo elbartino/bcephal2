@@ -1,5 +1,6 @@
 ﻿using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
@@ -37,8 +38,8 @@ namespace Misp.Reconciliation.Reco
         /// L'objet en édition
         /// </summary>
         public ReconciliationFilterTemplate EditedObject { get; set; }
-        
-        public Kernel.Service.ReconciliationFilterTemplateService ReconciliationFilterTemplateService { get; set; }
+
+        public ReconciliationFilterTemplateService Service { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationFilterTemplateService(); } }
 
         /// <summary>
         /// Spécifie la méthode à exécuter lorsqu'un changement survient sur la vue.
@@ -285,6 +286,27 @@ namespace Misp.Reconciliation.Reco
 
             this.LeftGrid.Changed += OnChange;
             this.RightGrid.Changed += OnChange;
+
+            this.LeftGrid.GrilleBrowserForm.gridBrowser.ChangeHandler += OnLeftGridSelectionChange;
+            this.RightGrid.GrilleBrowserForm.gridBrowser.ChangeHandler += OnRightGridSelectionChange;
+            this.BottomGrid.GridBrowser.ChangeHandler += OnBottomGridSelectionChange;
+        }
+
+        private void OnLeftGridSelectionChange()
+        {
+            List<long> oids = this.LeftGrid.GrilleBrowserForm.gridBrowser.GetSelectedOis();
+            this.BottomGrid.AddLines(oids);
+        }
+
+        private void OnRightGridSelectionChange()
+        {
+            List<long> oids = this.RightGrid.GrilleBrowserForm.gridBrowser.GetSelectedOis();
+            this.BottomGrid.AddLines(oids, false);
+        }
+
+        private void OnBottomGridSelectionChange()
+        {
+            
         }
         
         private void OnBottomGridPropertiesChange(object item)
