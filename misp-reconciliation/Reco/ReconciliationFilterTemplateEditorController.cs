@@ -120,19 +120,25 @@ namespace Misp.Reconciliation.Reco
                 editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.GroupService = GetService().GroupService;
                 editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.subjectType = SubjectTypeFound();
                 editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.ItemChanged += OnConfigurationChanged;
+                editorPage.getForm().ConfigurationPanel.WriteOffConfigPanel.ItemChanged += OnConfigurationChanged;
             }
         }
 
         private void OnConfigurationChanged(object item)
         {
+            ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+            if (page == null) return;
             if (item is ReconciliationFilterTemplate)
             {
-                ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
                 ReconciliationFilterTemplate recoFilterTemplate = (ReconciliationFilterTemplate)item;
                 page.EditedObject.group = recoFilterTemplate.group;
                 page.EditedObject.visibleInShortcut = recoFilterTemplate.visibleInShortcut;
                 page.EditedObject.balanceFormulaEnum = recoFilterTemplate.balanceFormulaEnum;
                 page.EditedObject.debitCreditFormulaEnum = recoFilterTemplate.debitCreditFormulaEnum;
+            }
+            else if (item is WriteOffConfiguration) 
+            {
+                page.EditedObject.writeOffConfig = (WriteOffConfiguration)item;
             }
             OnChange();
         }
@@ -340,6 +346,29 @@ namespace Misp.Reconciliation.Reco
             grid.displayObject();
         }
 
+
+        public override OperationState Save(EditorItem<ReconciliationFilterTemplate> page)
+        {
+            if (!page.IsReadOnly && page.IsModify)
+            {
+                if (!page.validateEdition()) return OperationState.STOP;
+                page.fillObject();
+                ReconciliationFilterTemplate editedObject = page.EditedObject;
+                try
+                {
+                    editedObject = GetService().Save(editedObject);
+                    page.EditedObject = GetService().getByOid(editedObject.oid.Value);
+                    ((ReconciliationFilterTemplateEditorItem)page).getForm().updateObject(page.EditedObject);
+                    page.IsModify = false;
+                }
+                catch (Misp.Kernel.Domain.BcephalException)
+                {
+                    DisplayError("Unable to save item", "Unable to save : " + editedObject.ToString());
+                    return OperationState.STOP;
+                }
+            }
+            return OperationState.CONTINUE;
+        }
         #endregion
 
 

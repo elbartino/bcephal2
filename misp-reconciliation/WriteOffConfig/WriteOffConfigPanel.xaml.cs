@@ -31,6 +31,8 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         public event ActivateEventHandler ActivateFieldPanel;
 
+        public event ChangeItemEventHandler ItemChanged;
+
         public int nbreLigne = 0;
                 
         public PersistentListChangeHandler<WriteOffField> fieldListChangeHandler { get; set; }
@@ -49,8 +51,11 @@ namespace Misp.Reconciliation.WriteOffConfig
         public void display(Kernel.Domain.WriteOffConfiguration writeOffConfig)
         {
             this.configPanel.Children.Clear();
+            bool AddDefault = writeOffConfig == null ? true : writeOffConfig != null ?
+                writeOffConfig.fieldListChangeHandler == null ? 
+                true : writeOffConfig.fieldListChangeHandler.Items.Count == 0 ? true : false : false;
 
-            if (writeOffConfig == null)
+            if (AddDefault)
             {
                 AddAction(null);
             }
@@ -71,7 +76,9 @@ namespace Misp.Reconciliation.WriteOffConfig
         private void OnDeleteFields(object item)
         {
             if (!(item is WriteOffFieldPanel)) return;
-            DeleteAction((WriteOffFieldPanel)item);            
+            WriteOffFieldPanel wPanel = (WriteOffFieldPanel)item;
+            DeleteAction(wPanel);
+            if (ItemChanged != null && wPanel.writeOffField != null) ItemChanged(null);
         }
 
         private void OnDeleteFieldsValue(object item)
@@ -104,6 +111,7 @@ namespace Misp.Reconciliation.WriteOffConfig
                 if (this.EditedObject == null) this.EditedObject = new WriteOffConfiguration();
                 WriteOffField fieldToUpdate = this.EditedObject.SynchronizeWriteOffField((Kernel.Domain.WriteOffField)item);
                 UpdateWriteOffField(fieldToUpdate);
+                if (ItemChanged != null) ItemChanged(this.EditedObject);
             }
         }
 
@@ -141,17 +149,24 @@ namespace Misp.Reconciliation.WriteOffConfig
         {
             if (item is WriteOffFieldPanel)
             {
-                int lastIndex = ((WriteOffFieldPanel)item).Index;
-                this.configPanel.Children.Remove((WriteOffFieldPanel)item);
+                WriteOffFieldPanel panel = (WriteOffFieldPanel)item;
+
+                int lastIndex = panel.Index;
+                this.configPanel.Children.Remove(panel);
                 nbreLigne = 0;
                 foreach (UIElement writeoff in this.configPanel.Children)
                 {
                     if (writeoff is WriteOffFieldPanel)
                     {
-                        ((WriteOffFieldPanel)writeoff).Index = nbreLigne;
-                        ((WriteOffFieldPanel)writeoff).showRowLabel(nbreLigne == 0);
+                        panel.Index = nbreLigne;
+                        panel.showRowLabel(nbreLigne == 0);
                         nbreLigne++;
                     }
+                }
+
+                if (panel.writeOffField != null)
+                {
+                    this.EditedObject.SynchronizeDeleteWriteOffField(panel.writeOffField);
                 }
                               
                 if (this.configPanel.Children.Count == 0)
@@ -165,10 +180,7 @@ namespace Misp.Reconciliation.WriteOffConfig
                    ((WriteOffFieldPanel)this.configPanel.Children[0]).showRowLabel(true);
                 }
 
-                if (((WriteOffFieldPanel)item).writeOffField != null)
-                {
-                    this.EditedObject.SynchronizeDeleteWriteOffField(((WriteOffFieldPanel)item).writeOffField);
-                }
+               
             }
             
         }
@@ -282,7 +294,33 @@ namespace Misp.Reconciliation.WriteOffConfig
                     ((WriteOffFieldValuePanel)apanel).setAttribute((Kernel.Domain.Attribute)target);
                 else if (target is Kernel.Domain.AttributeValue) ((WriteOffFieldValuePanel)apanel).setAttributeValue((Kernel.Domain.AttributeValue)target);
             }
-        }    
+        }
 
+
+        public void updateObject(WriteOffConfiguration writeOffConfiguration)
+        {
+            if (writeOffConfiguration.fieldListChangeHandler == null) return;
+            foreach (WriteOffField writeofffield in writeOffConfiguration.fieldListChangeHandler.Items)
+            {
+                if (writeofffield == null) continue;
+                foreach (UIElement writeoff in this.configPanel.Children)
+                {
+                    if (writeoff is WriteOffFieldPanel)
+                    {
+                        WriteOffFieldPanel writeoffPanel = (WriteOffFieldPanel)writeoff;
+                        if (writeoffPanel.writeOffField == null) continue;
+                        if (writeoffPanel.writeOffField.position == writeofffield.position)
+                        {
+                            writeoffPanel.UpdateObject(writeofffield);
+                            writeoffPanel.UpdateValues(writeofffield);
+                            break;
+                        }
+                    }
+                }    
+            }
+            
+        }
+
+     
     }
 }

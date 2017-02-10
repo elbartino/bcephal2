@@ -42,11 +42,14 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public void display()
         {
+            RemoveHandlers();
+            
             string name = writeOffValueField.attribute != null ? writeOffValueField.attribute.name : 
                 writeOffValueField.attributeValue != null ? writeOffValueField.attributeValue.name :
                 writeOffValueField.period != null ? writeOffValueField.period.name : "";
             this.ValueTypeTextBox.Text = name;
-            
+
+            InitializeHandlers();
         }
 
         public void InitializeHandlers()
@@ -61,6 +64,21 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
             this.ValueTypeTextBox.GotFocus += OnGotFocus;
             this.ValueTypeTextBox.MouseLeftButtonDown += OnGotFocus;
+
+        }
+
+        public void RemoveHandlers()
+        {
+            this.NewButton.Click -= OnHandingButton;
+            this.DeleteButton.Click -= OnHandingButton;
+            this.NewButton.GotFocus -= OnGotFocus;
+            this.NewButton.MouseLeftButtonDown -= OnGotFocus;
+
+            this.DeleteButton.GotFocus -= OnGotFocus;
+            this.DeleteButton.MouseLeftButtonDown -= OnGotFocus;
+
+            this.ValueTypeTextBox.GotFocus -= OnGotFocus;
+            this.ValueTypeTextBox.MouseLeftButtonDown -= OnGotFocus;
 
         }
 

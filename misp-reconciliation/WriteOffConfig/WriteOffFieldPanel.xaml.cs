@@ -70,21 +70,16 @@ namespace Misp.Reconciliation.WriteOffConfig
             if (parent.nbreLigne == 0)
                 this.FieldValuePanel.showLabel = true;
             else this.FieldValuePanel.showLabel = false;
-
-            if (writeOffField == null)
-            {
-                writeOffField = new WriteOffField();
-                writeOffField.position = -1;
-            }
+                      
 
             this.fieldsPanel.writeOffField = this.writeOffField;
             this.fieldsPanel.display();
 
-            this.MandatoryValue.mandatoryValue = this.writeOffField.mandatory;
+            this.MandatoryValue.mandatoryValue = this.writeOffField != null ? this.writeOffField.mandatory : false;
             this.MandatoryValue.display();
 
             InitializeHandlers();
-            this.FieldValuePanel.fieldValueListChangeHandler = writeOffField.writeOffFieldValueListChangeHandler;
+            this.FieldValuePanel.fieldValueListChangeHandler = this.writeOffField != null ? writeOffField.writeOffFieldValueListChangeHandler : null;
             this.FieldValuePanel.display();
         }
 
@@ -141,7 +136,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             {
                 if (item is Kernel.Domain.WriteOffFieldValue)
                 {
-                    WriteOffFieldValue valueToUpdate =  this.writeOffField.SynchronizeWriteOffFieldValue((Kernel.Domain.WriteOffFieldValue)item);
+                    WriteOffFieldValue valueToUpdate =  this.getActiveWriteOffField().SynchronizeWriteOffFieldValue((Kernel.Domain.WriteOffFieldValue)item);
                     this.FieldValuePanel.updateObject(valueToUpdate);
                     if (ItemChanged != null) ItemChanged(this.writeOffField);                    
                 }
@@ -163,6 +158,7 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         private void OnFieldsPanelChanged(object item)
         {
+            if (item is WriteOffField) this.writeOffField = (WriteOffField)item;
             if (ItemChanged != null) ItemChanged(this.writeOffField);
         }
 
@@ -213,6 +209,21 @@ namespace Misp.Reconciliation.WriteOffConfig
         {
             this.writeOffField = writeOffField;
         }
-                
+
+
+        public void UpdateValues(WriteOffField writeofffield)
+        {
+            this.FieldValuePanel.updateValue(writeOffField);
+        }
+
+        WriteOffField getActiveWriteOffField()
+        {
+            if (this.writeOffField == null)
+            {
+                this.writeOffField = new WriteOffField();
+                this.writeOffField.position = -1;
+            }
+            return this.writeOffField;
+        }
     }
 }

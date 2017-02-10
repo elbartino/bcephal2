@@ -136,8 +136,12 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                 this.WriteOffFieldValue.position = -1;
             }
             this.PossibleValues.writeOffValueField = this.WriteOffFieldValue;
-            return this.WriteOffFieldValue;
-                
+            return this.WriteOffFieldValue;                
+        }
+
+        public void UpdateObject(WriteOffFieldValue fieldValue)
+        {
+            this.WriteOffFieldValue = fieldValue;
         }
     }
 }

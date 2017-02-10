@@ -48,9 +48,11 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public void display()
         {
+            RemoveHandlers();
             if (this.writeOffValueField == null) return;
             this.DefaultValuesCombobox.SelectedItem = writeOffValueField.defaultValueTypeEnum != null ?
                 writeOffValueField.defaultValueTypeEnum.ToString() : "";
+            InitializeHandlers();
         }
 
         public void InitializeHandlers()
@@ -58,6 +60,13 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.DefaultValuesCombobox.SelectionChanged += OnChooseDefaultValues;
             this.DefaultValuesCombobox.GotFocus += OnGotFocus;
             this.DefaultValuesCombobox.MouseLeftButtonDown += OnGotFocus;
+        }
+
+        public void RemoveHandlers()
+        {
+            this.DefaultValuesCombobox.SelectionChanged -= OnChooseDefaultValues;
+            this.DefaultValuesCombobox.GotFocus -= OnGotFocus;
+            this.DefaultValuesCombobox.MouseLeftButtonDown -= OnGotFocus;
         }
 
         private void OnGotFocus(object sender, RoutedEventArgs e)

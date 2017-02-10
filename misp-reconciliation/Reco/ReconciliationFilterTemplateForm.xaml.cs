@@ -290,6 +290,7 @@ namespace Misp.Reconciliation.Reco
             this.LeftGrid.GrilleBrowserForm.gridBrowser.ChangeHandler += OnLeftGridSelectionChange;
             this.RightGrid.GrilleBrowserForm.gridBrowser.ChangeHandler += OnRightGridSelectionChange;
             this.BottomGrid.GridBrowser.ChangeHandler += OnBottomGridSelectionChange;
+        
         }
 
         private void OnLeftGridSelectionChange()
@@ -334,5 +335,10 @@ namespace Misp.Reconciliation.Reco
 
         #endregion
 
+
+        public void updateObject(ReconciliationFilterTemplate reconciliationFilterTemplate)
+        {
+            this.ConfigurationPanel.updateObjetct(reconciliationFilterTemplate.writeOffConfig);
+        }
     }
 }

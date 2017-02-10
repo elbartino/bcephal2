@@ -67,25 +67,30 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         {
             FieldValuePanel.Children.Clear();
             int i = 0;
-            if (fieldValueListChangeHandler != null)
+            if (fieldValueListChangeHandler == null)
             {
-                foreach (WriteOffFieldValue field in fieldValueListChangeHandler.Items)
-                {
-                    WriteOffValueItem item =getPanel();
-                    item.WriteOffFieldValue = field;
-                    item.Index = i;
-                    item.display(field);
-                    
-                    if (!showLabel) item.showRowLabel(false);
-                    else
-                    {
-                        if (i > 0) item.showRowLabel(false);
-                    }
-
-                    this.FieldValuePanel.Children.Add(item);
-                    i++;
-                }
+                WriteOffValueItem item = getPanel();
+                bool isFirst = !showLabel ? showLabel : true;
+                AddValueItem(item, isFirst);
+                return;
             }
+            foreach (WriteOffFieldValue field in fieldValueListChangeHandler.Items)
+            {
+                WriteOffValueItem item =getPanel();
+                item.WriteOffFieldValue = field;
+                item.Index = i;
+                item.display(field);
+                    
+                if (!showLabel) item.showRowLabel(false);
+                else
+                {
+                    if (i > 0) item.showRowLabel(false);
+                }
+
+                this.FieldValuePanel.Children.Add(item);
+                i++;
+            }
+            
             if (this.FieldValuePanel.Children.Count == 0)
             {
                 WriteOffValueItem item = getPanel();
@@ -162,7 +167,8 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public void AddValueItem(WriteOffValueItem valueItem, bool isFirst= false)
         {
-            valueItem.Index = this.FieldValuePanel.Children.Count - 1;
+            int index = this.FieldValuePanel.Children.Count;
+            valueItem.Index = index == 0 ? index : index-1;
             if (isFirst)
             {
                 valueItem.showRowLabel(true);
@@ -214,6 +220,27 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public void updateObject(WriteOffFieldValue writeOffFieldValue) 
         {
             this.ActiveItem.WriteOffFieldValue = writeOffFieldValue;
+        }
+
+        public void updateValue(WriteOffField writeOffField) 
+        {
+            foreach (WriteOffFieldValue fieldValue in writeOffField.writeOffFieldValueListChangeHandler.Items)
+            {
+                if (fieldValue == null) continue;
+                foreach (UIElement writeoffFieldValue in this.FieldValuePanel.Children)
+                {
+                    if (writeoffFieldValue is WriteOffValueItem)
+                    {
+                        WriteOffValueItem writeOffValue = (WriteOffValueItem)writeoffFieldValue;
+                        if (writeOffValue.WriteOffFieldValue == null) continue;
+                        if (writeOffValue.WriteOffFieldValue.position == fieldValue.position)
+                        {
+                            writeOffValue.UpdateObject(fieldValue);
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

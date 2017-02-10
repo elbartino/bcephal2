@@ -72,7 +72,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             }
             if (button == DeleteButton)
             {
-                if (OnDeleteField != null) OnDeleteField(null);
+                if (OnDeleteField != null) OnDeleteField(this.writeOffField);
             }
         }
 
@@ -83,15 +83,16 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public void display()
         {
-             string name = writeOffField.attributeField != null ? writeOffField.attributeField.name :
+             string name = writeOffField == null ? "" : writeOffField.attributeField != null ? writeOffField.attributeField.name :
                  writeOffField.periodField != null ? writeOffField.periodField.name :
                  writeOffField.measureField != null ? writeOffField.measureField.name :"" ;
+
              this.ValueTypeTextBox.Text = name;       
         }
 
         public void setAttribute(Kernel.Domain.Attribute attribute)
         {
-            this.writeOffField.setAttribute(attribute);
+            this.getActiveWriteOffField().setAttribute(attribute);
             if (ItemChanged != null) ItemChanged(this.writeOffField);
             display();
         }
@@ -99,16 +100,26 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public void setPeriodName(Kernel.Domain.PeriodName PeriodName)
         {
-            this.writeOffField.setPeriodName(PeriodName);
+            this.getActiveWriteOffField().setPeriodName(PeriodName);
             if (ItemChanged != null) ItemChanged(this.writeOffField);
             display();
         }
 
         public void setMeasure(Kernel.Domain.Measure measure)
         {
-            this.writeOffField.setMeasure(measure);
+            this.getActiveWriteOffField().setMeasure(measure);
             if (ItemChanged != null) ItemChanged(this.writeOffField);
             display();
+        }
+
+        WriteOffField getActiveWriteOffField() 
+        {
+            if (this.writeOffField == null)
+            {
+                this.writeOffField = new WriteOffField();
+                this.writeOffField.position = -1;
+            }            
+            return this.writeOffField;
         }
 
     }

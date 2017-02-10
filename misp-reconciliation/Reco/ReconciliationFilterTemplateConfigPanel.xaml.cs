@@ -47,6 +47,11 @@ namespace Misp.Reconciliation.Reco
             this.WriteOffConfigPanel.displayObject();
         }
 
-        
+
+
+        public void updateObjetct(WriteOffConfiguration writeOffConfiguration)
+        {
+            this.WriteOffConfigPanel.updateObject(writeOffConfiguration);
+        }
     }
 }
