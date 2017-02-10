@@ -39,9 +39,11 @@ namespace Misp.Kernel.Domain
 
         public GrilleColumnFilter filter { get; set; }
 
+        public List<long> oids { get; set; }
 
         public GrilleFilter()
         {
+            oids = new List<long>(0);
             creditChecked = false;
             debitChecked = false;
             includeRecoChecked = false;

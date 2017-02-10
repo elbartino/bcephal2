@@ -13,7 +13,7 @@ namespace Misp.Kernel.Domain
         [ScriptIgnore]
         public WriteOffFieldValueType defaultValueTypeEnum { get; set; }
 
-        public String balanceFormula
+        public String defaultValueType
         {
             get { return this.defaultValueTypeEnum != null ? this.defaultValueTypeEnum.name : null; }
             set { this.defaultValueTypeEnum = WriteOffFieldValueType.getByName(value); }

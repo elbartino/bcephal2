@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Application;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,10 @@ namespace Misp.Reconciliation.Reco
         protected override List<System.Windows.Controls.Control> getAllControls()
         {
             List<System.Windows.Controls.Control> controls = new List<System.Windows.Controls.Control>(0);
-            controls.Add(SaveButton);
+            if (ApplicationManager.Instance.User != null && ApplicationManager.Instance.User.IsAdmin())
+            {
+                controls.Add(SaveButton);
+            }
             controls.Add(CloseButton);
             return controls;
         }

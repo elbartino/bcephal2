@@ -64,6 +64,11 @@ namespace Misp.Reconciliation.Reco
             this.CreditCheckBox.IsChecked = this.EditedObject != null ? this.EditedObject.creditChecked : false;
             this.DebitCheckBox.IsChecked = this.EditedObject != null ? this.EditedObject.debitChecked : false;
             this.RecoCheckBox.IsChecked = this.EditedObject != null ? this.EditedObject.includeRecoChecked : false;
+            if (ApplicationManager.Instance.User != null && !ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.NameTextBox.Text = this.EditedObject != null ? this.EditedObject.name : "";
+                this.CommentTextBlock.Text = this.EditedObject != null ? this.EditedObject.comment : "";
+            }
             throwHandler = true;
         }
 
@@ -113,13 +118,24 @@ namespace Misp.Reconciliation.Reco
         {
             this.GrilleBrowserForm.filterForm.ChangeHandler += OnFilterChange;
             this.GrilleBrowserForm.toolBar.ChangeHandler += OnPageChange;
-
-            this.CreditCheckBox.Checked += OnChecked;
-            this.CreditCheckBox.Unchecked += OnChecked;
-            this.DebitCheckBox.Checked += OnChecked;
-            this.DebitCheckBox.Unchecked += OnChecked;
             this.RecoCheckBox.Checked += OnChecked;
             this.RecoCheckBox.Unchecked += OnChecked;
+            if (ApplicationManager.Instance.User != null && ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.CreditCheckBox.Checked += OnChecked;
+                this.CreditCheckBox.Unchecked += OnChecked;
+                this.DebitCheckBox.Checked += OnChecked;
+                this.DebitCheckBox.Unchecked += OnChecked;
+            }
+            else
+            {
+                this.CommentButton.Checked += OnComment;
+            }
+        }
+
+        private void OnComment(object sender, RoutedEventArgs e)
+        {
+            this.CommentPopup.IsOpen = true;
         }
 
         private void OnChecked(object sender, RoutedEventArgs e)

@@ -1,4 +1,6 @@
-﻿using Misp.Kernel.Domain;
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
+using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
@@ -36,8 +38,8 @@ namespace Misp.Reconciliation.Reco
         /// L'objet en édition
         /// </summary>
         public ReconciliationFilterTemplate EditedObject { get; set; }
-        
-        public Kernel.Service.ReconciliationFilterTemplateService ReconciliationFilterTemplateService { get; set; }
+
+        public ReconciliationFilterTemplateService Service { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationFilterTemplateService(); } }
 
         /// <summary>
         /// Spécifie la méthode à exécuter lorsqu'un changement survient sur la vue.
@@ -65,12 +67,32 @@ namespace Misp.Reconciliation.Reco
 
         private void UserInit()
         {
-            this.LeftGridProperties.InputGridPropertiesPanel.GroupPanel.Visibility = System.Windows.Visibility.Collapsed;
-            this.LeftGridProperties.InputGridPropertiesPanel.gridEachLoop.Visibility = System.Windows.Visibility.Collapsed;
-            this.RightGridProperties.InputGridPropertiesPanel.GroupPanel.Visibility = System.Windows.Visibility.Collapsed;
-            this.RightGridProperties.InputGridPropertiesPanel.gridEachLoop.Visibility = System.Windows.Visibility.Collapsed;
-            this.BottomGridProperties.InputGridPropertiesPanel.GroupPanel.Visibility = System.Windows.Visibility.Collapsed;
-            this.BottomGridProperties.InputGridPropertiesPanel.gridEachLoop.Visibility = System.Windows.Visibility.Collapsed;
+            if (ApplicationManager.Instance.User != null && !ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.Items.Remove(this.ConfigTabItem);
+                this.Items.Remove(this.LeftTabItem);
+                this.Items.Remove(this.RightTabItem);
+                this.Items.Remove(this.BottomTabItem);
+
+                this.LeftGrid.NameTextBox.Visibility = Visibility.Visible;
+                this.LeftGrid.CommentButton.Visibility = Visibility.Visible;
+                this.LeftGrid.DebitCheckBox.Visibility = Visibility.Collapsed;
+                this.LeftGrid.CreditCheckBox.Visibility = Visibility.Collapsed;
+
+                this.RightGrid.NameTextBox.Visibility = Visibility.Visible;
+                this.RightGrid.CommentButton.Visibility = Visibility.Visible;
+                this.RightGrid.DebitCheckBox.Visibility = Visibility.Collapsed;
+                this.RightGrid.CreditCheckBox.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                this.LeftGridProperties.InputGridPropertiesPanel.GroupPanel.Visibility = System.Windows.Visibility.Collapsed;
+                this.LeftGridProperties.InputGridPropertiesPanel.gridEachLoop.Visibility = System.Windows.Visibility.Collapsed;
+                this.RightGridProperties.InputGridPropertiesPanel.GroupPanel.Visibility = System.Windows.Visibility.Collapsed;
+                this.RightGridProperties.InputGridPropertiesPanel.gridEachLoop.Visibility = System.Windows.Visibility.Collapsed;
+                this.BottomGridProperties.InputGridPropertiesPanel.GroupPanel.Visibility = System.Windows.Visibility.Collapsed;
+                this.BottomGridProperties.InputGridPropertiesPanel.gridEachLoop.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }
 
         #endregion
@@ -185,7 +207,6 @@ namespace Misp.Reconciliation.Reco
         public virtual void SetChangeEventHandler(Misp.Kernel.Ui.Base.ChangeEventHandlerBuilder ChangeEventHandler)
         {
             this.ChangeEventHandler = ChangeEventHandler;
-            //this.InputGridSheetForm.SetChangeEventHandler(ChangeEventHandler);
         }
 
         /// <summary>
@@ -203,10 +224,11 @@ namespace Misp.Reconciliation.Reco
         /// </summary>
         public virtual void fillObject()
         {
-            //this.GridForm.fillObject();
-            //this.InputGridSheetForm.fillObject();
             if (this.EditedObject == null) this.EditedObject = new ReconciliationFilterTemplate();
-            this.EditedObject.writeOffConfig = ConfigurationPanel.WriteOffConfigPanel.fillObject();
+            if (ApplicationManager.Instance.User != null && ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.EditedObject.writeOffConfig = ConfigurationPanel.WriteOffConfigPanel.fillObject();
+            }
         }
 
         /// <summary>
@@ -224,15 +246,18 @@ namespace Misp.Reconciliation.Reco
             this.LeftGrid.displayObject();
             this.RightGrid.displayObject();
             this.BottomGrid.displayObject();
-            this.ConfigurationPanel.EditedObject = this.EditedObject;
-            this.ConfigurationPanel.displayObject();
 
-            this.LeftGridProperties.EditedObject = this.EditedObject != null ? this.EditedObject.leftGrid : null ;
-            this.RightGridProperties.EditedObject = this.EditedObject != null ? this.EditedObject.rigthGrid : null;
-            this.BottomGridProperties.EditedObject = this.EditedObject != null ? this.EditedObject.bottomGrid : null;
-            this.LeftGridProperties.displayObject();
-            this.RightGridProperties.displayObject();
-            this.BottomGridProperties.displayObject();
+            if (ApplicationManager.Instance.User != null && ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.ConfigurationPanel.EditedObject = this.EditedObject;
+                this.ConfigurationPanel.displayObject();
+                this.LeftGridProperties.EditedObject = this.EditedObject.leftGrid;
+                this.RightGridProperties.EditedObject = this.EditedObject.rigthGrid;
+                this.BottomGridProperties.EditedObject = this.EditedObject.bottomGrid;
+                this.LeftGridProperties.displayObject();
+                this.RightGridProperties.displayObject();
+                this.BottomGridProperties.displayObject();
+            }
         }
 
 
@@ -252,12 +277,36 @@ namespace Misp.Reconciliation.Reco
 
         private void InitHandlers()
         {
-            this.LeftGridProperties.InputGridPropertiesPanel.Changed += OnLeftGridPropertiesChange;
-            this.RightGridProperties.InputGridPropertiesPanel.Changed += OnRightGridPropertiesChange;
-            this.BottomGridProperties.InputGridPropertiesPanel.Changed += OnBottomGridPropertiesChange;
+            if (ApplicationManager.Instance.User != null && ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.LeftGridProperties.InputGridPropertiesPanel.Changed += OnLeftGridPropertiesChange;
+                this.RightGridProperties.InputGridPropertiesPanel.Changed += OnRightGridPropertiesChange;
+                this.BottomGridProperties.InputGridPropertiesPanel.Changed += OnBottomGridPropertiesChange;
+            }
 
             this.LeftGrid.Changed += OnChange;
             this.RightGrid.Changed += OnChange;
+
+            this.LeftGrid.GrilleBrowserForm.gridBrowser.ChangeHandler += OnLeftGridSelectionChange;
+            this.RightGrid.GrilleBrowserForm.gridBrowser.ChangeHandler += OnRightGridSelectionChange;
+            this.BottomGrid.GridBrowser.ChangeHandler += OnBottomGridSelectionChange;
+        }
+
+        private void OnLeftGridSelectionChange()
+        {
+            List<long> oids = this.LeftGrid.GrilleBrowserForm.gridBrowser.GetSelectedOis();
+            this.BottomGrid.AddLines(oids);
+        }
+
+        private void OnRightGridSelectionChange()
+        {
+            List<long> oids = this.RightGrid.GrilleBrowserForm.gridBrowser.GetSelectedOis();
+            this.BottomGrid.AddLines(oids, false);
+        }
+
+        private void OnBottomGridSelectionChange()
+        {
+            
         }
         
         private void OnBottomGridPropertiesChange(object item)

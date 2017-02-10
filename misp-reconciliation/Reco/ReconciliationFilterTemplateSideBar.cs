@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Ui.Base;
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Sidebar;
 using Misp.Sourcing.GridViews;
 using System;
@@ -50,9 +51,12 @@ namespace Misp.Reconciliation.Reco
             this.TargetGroup.BorderBrush = System.Windows.Media.Brushes.LightBlue;
 
             this.AddGroup(this.TemplateGroup);
-            this.AddGroup(this.EntityGroup);
-            this.AddGroup(this.MeasureGroup);
-            this.AddGroup(this.PeriodGroup);
+            if (ApplicationManager.Instance.User != null && ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.AddGroup(this.EntityGroup);
+                this.AddGroup(this.MeasureGroup);
+                this.AddGroup(this.PeriodGroup);
+            }
         }
 
 
