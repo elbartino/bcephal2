@@ -7,20 +7,36 @@ namespace Misp.Kernel.Domain
 {
     public class WriteOffFieldValueType
     {
-        public static WriteOffFieldValueType LEFT_SIDE = new WriteOffFieldValueType("Left Side Value");
-        public static WriteOffFieldValueType RIGHT_SIDE = new WriteOffFieldValueType("Right Side Value");
-        public static WriteOffFieldValueType CUSTOM = new WriteOffFieldValueType("Custom Value");
+        public static String LEFT_SIDE_NAME = "LEFT_SIDE";
+        public static String RIGHT_SIDE_NAME = "RIGHT_SIDE";
+        public static String CUSTOM_NAME = "CUSTOM";
+        
+        public static WriteOffFieldValueType LEFT_SIDE = new WriteOffFieldValueType(LEFT_SIDE_NAME, "Left Side Value");
+        public static WriteOffFieldValueType RIGHT_SIDE = new WriteOffFieldValueType(RIGHT_SIDE_NAME, "Right Side Value");
+        public static WriteOffFieldValueType CUSTOM = new WriteOffFieldValueType(CUSTOM_NAME, "Custom Value");
         
         public String label { get; set; }
 
-        private WriteOffFieldValueType(String label)
+        public String name { get; set; }
+
+        private WriteOffFieldValueType(String name, String label)
         {
+            this.name = name;
             this.label = label;
         }
 
         public override string ToString()
         {
             return label;
+        }
+
+        public static WriteOffFieldValueType getByName(String name)
+        {
+            if (string.IsNullOrEmpty(name)) return null;
+            if (LEFT_SIDE.name.Equals(name)) return LEFT_SIDE;
+            if (RIGHT_SIDE.name.Equals(name)) return RIGHT_SIDE;
+            if (CUSTOM.name.Equals(name)) return CUSTOM;
+            return null;
         }
 
         public static WriteOffFieldValueType getByLabel(String label)

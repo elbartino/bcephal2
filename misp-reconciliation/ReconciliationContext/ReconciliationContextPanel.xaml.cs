@@ -36,6 +36,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             InitializeComponent();
             this.postingAttributePanel.setContextItemContent("Posting Nbr Attribute");
             this.recoTypeEntityPanel.setContextItemContent("Reco Type Block");
+            this.defaultRecoTypeAttributePanel.setContextItemContent("Default Reco Type");
             this.dcAttributePanel.setContextItemContent("Debit/Credit Attribute");
             this.creditValuePanel.setContextItemContent("Credit Value");
             this.debitValuePanel.setContextItemContent("Debit Value");
@@ -53,6 +54,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.reconciliationContext = reconciliationcontext;
             this.postingAttributePanel.setValue(reconciliationContext.postingNbreAttribute);
             this.recoTypeEntityPanel.setValue(reconciliationContext.recoTypeEntity);
+            this.defaultRecoTypeAttributePanel.setValue(reconciliationContext.defaultRecoTypeAttribute);
             this.dcAttributePanel.setValue(reconciliationContext.dcNbreAttribute);
             this.creditValuePanel.setValue(reconciliationContext.creditAttributeValue);
             this.debitValuePanel.setValue(reconciliationContext.debitAttributeValue);
@@ -71,6 +73,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.debitValuePanel.ActivatedItem += OnActivateitem;
             this.amountMeasurePanel.ActivatedItem += OnActivateitem;
             this.recoTypeEntityPanel.ActivatedItem += OnActivateitem;
+            this.defaultRecoTypeAttributePanel.ActivatedItem += OnActivateitem;
 
             //this.writeOffAccountPanel.ActivatedItem += OnActivateitem;            
             //this.accountNbrAttributePanel.ActivatedItem += OnActivateitem;
@@ -82,6 +85,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             this.debitValuePanel.Changed += OnChange;
             this.amountMeasurePanel.Changed += OnChange;
             this.recoTypeEntityPanel.Changed += OnChange;
+            this.defaultRecoTypeAttributePanel.Changed += OnChange;
 
             //this.writeOffAccountPanel.Changed += OnChange;            
             //this.accountNbrAttributePanel.Changed += OnChange;
@@ -127,6 +131,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             if (reconciliationContext == null) reconciliationContext = new Kernel.Domain.ReconciliationContext();
             if (ActiveItem == postingAttributePanel) reconciliationContext.postingNbreAttribute = attribute;
             else if (ActiveItem == dcAttributePanel) reconciliationContext.dcNbreAttribute = attribute;
+            else if (ActiveItem == defaultRecoTypeAttributePanel) reconciliationContext.defaultRecoTypeAttribute = attribute;
             this.ActiveItem.setValue(attribute);
         }
 
@@ -160,7 +165,7 @@ namespace Misp.Reconciliation.ReconciliationContext
             List<object> list = new List<object>();
             list.Add(postingAttributePanel);
             list.Add(recoTypeEntityPanel);
-            //list.Add(accountNbrAttributePanel);
+            list.Add(defaultRecoTypeAttributePanel);
             //list.Add(accountNameAttributePanel);
             list.Add(dcAttributePanel);
             list.Add(debitValuePanel);

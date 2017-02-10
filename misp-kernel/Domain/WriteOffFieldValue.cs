@@ -3,28 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Domain
 {
     public class WriteOffFieldValue : Persistent
     {
-   
-	    public WriteOffFieldValueType defaultValueType;
-	
 
-	    public int position;
-	
-	
-	    public Attribute attribute;
-	
-	
-	    public AttributeValue attributeValue;
-	
-	
-	    public PeriodInterval period;
-	
-	    public decimal measure;
-	
+        [ScriptIgnore]
+        public WriteOffFieldValueType defaultValueTypeEnum { get; set; }
+
+        public String defaultValueType
+        {
+            get { return this.defaultValueTypeEnum != null ? this.defaultValueTypeEnum.name : null; }
+            set { this.defaultValueTypeEnum = WriteOffFieldValueType.getByName(value); }
+        }
+
+
+        public int position { get; set; }
+
+
+        public Attribute attribute { get; set; }
+
+
+        public AttributeValue attributeValue { get; set; }
+
+
+        public PeriodInterval period { get; set; }
+
+        public decimal measure { get; set; }
 	
 	
 	    /**
@@ -70,7 +77,7 @@ namespace Misp.Kernel.Domain
 
         public void setDefaultValue(object item)
         {
-            this.defaultValueType = WriteOffFieldValueType.getByLabel(item.ToString());
+            this.defaultValueTypeEnum = WriteOffFieldValueType.getByLabel(item.ToString());
         }
     }
 }

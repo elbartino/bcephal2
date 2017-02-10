@@ -12,6 +12,7 @@
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
@@ -45,9 +46,26 @@
                     
                 </StackPanel>
             </Grid>
+            <Grid Margin="5,5,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="nameLabel1" Grid.Column="0" Content="Comment" VerticalAlignment="Center"/>
+                <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <TextBox x:FieldModifier="public" x:Name="CommentTextBlock" TextWrapping="NoWrap" AcceptsReturn="True" AcceptsTab="True"/>
+                </ScrollViewer>
+            </Grid>
         </StackPanel>
 
-        <GroupBox x:Name="AllocationGroupBox" Header="Columns" Margin="5,5,5,0" Grid.Row="1">
+        <!--GroupBox Background="White" BorderBrush="LightGray" Header="Description" Grid.Row="1" Margin="5,5" >
+            <TextBlock x:FieldModifier="public" x:Name="CommentTextBlock" MinHeight="60" Text="Comment..." Grid.Row="1"/>
+        </GroupBox-->
+            
+        <GroupBox x:Name="AllocationGroupBox" Header="Columns" Margin="5,5,5,0" Grid.Row="2">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <ListBox SelectionMode="Extended" x:Name="ColumnsListBox" x:FieldModifier="public">
                     <ListBox.ContextMenu>
@@ -59,7 +77,7 @@
             </ScrollViewer>
         </GroupBox>
 
-        <GroupBox Grid.Row="2" Background="White" BorderBrush="LightGray" x:Name="columnGroupBox" Header="Column Propertiies" Margin="5,10,5,10" MinHeight="20">
+        <GroupBox Grid.Row="3" Background="White" BorderBrush="LightGray" x:Name="columnGroupBox" Header="Column Propertiies" Margin="5,10,5,10" MinHeight="20">
             <src:InputGridColumnForm x:Name="ColumnForms" x:FieldModifier="public"/>
         </GroupBox>
 

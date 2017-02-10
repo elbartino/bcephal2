@@ -18,6 +18,8 @@ namespace Misp.Kernel.Domain
 
         public Entity recoTypeEntity { get; set; }
 
+        public Attribute defaultRecoTypeAttribute { get; set; }
+
         public Attribute dcNbreAttribute { get; set; }
 
         public AttributeValue debitAttributeValue { get; set; }
