@@ -218,18 +218,18 @@ namespace Misp.Reconciliation.Reco
             this.LeftGrid.Template = this.EditedObject;
             this.RightGrid.Template = this.EditedObject;
 
-            this.LeftGrid.EditedObject = this.EditedObject.leftGrid;
-            this.RightGrid.EditedObject = this.EditedObject.rigthGrid;
-            this.BottomGrid.EditedObject = this.EditedObject.bottomGrid;
+            this.LeftGrid.EditedObject = this.EditedObject != null ? this.EditedObject.leftGrid : null;
+            this.RightGrid.EditedObject = this.EditedObject != null ? this.EditedObject.rigthGrid : null;
+            this.BottomGrid.EditedObject = this.EditedObject != null ? this.EditedObject.bottomGrid : null;
             this.LeftGrid.displayObject();
             this.RightGrid.displayObject();
             this.BottomGrid.displayObject();
             this.ConfigurationPanel.EditedObject = this.EditedObject;
             this.ConfigurationPanel.displayObject();
 
-            this.LeftGridProperties.EditedObject = this.EditedObject.leftGrid;
-            this.RightGridProperties.EditedObject = this.EditedObject.rigthGrid;
-            this.BottomGridProperties.EditedObject = this.EditedObject.bottomGrid;
+            this.LeftGridProperties.EditedObject = this.EditedObject != null ? this.EditedObject.leftGrid : null ;
+            this.RightGridProperties.EditedObject = this.EditedObject != null ? this.EditedObject.rigthGrid : null;
+            this.BottomGridProperties.EditedObject = this.EditedObject != null ? this.EditedObject.bottomGrid : null;
             this.LeftGridProperties.displayObject();
             this.RightGridProperties.displayObject();
             this.BottomGridProperties.displayObject();
