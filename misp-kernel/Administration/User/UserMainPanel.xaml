@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:src="clr-namespace:Misp.Kernel.Administration.User"
             xmlns:relation="clr-namespace:Misp.Kernel.Administration.UserRelations"
+            xmlns:right="clr-namespace:Misp.Kernel.Administration.Profil"
              mc:Ignorable="d" Background="White"
              >
     <Border Grid.Row="0"  Height="Auto" Width="Auto" >
         <Grid  Margin="0" >
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -123,8 +125,8 @@
                     <relation:UserRelationPanel Width="350" x:Name="RelationPanel" Grid.Row="1" />
                 </Grid>
             </Grid>
-
-            <TextBlock x:Name="Console" Grid.Row="11" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
+            <right:UserRightPanel  x:Name="RightPanel" Grid.Row="9" />
+            <TextBlock x:Name="Console" Grid.Row="10" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
         </Grid>
     </Border>
 </Grid>

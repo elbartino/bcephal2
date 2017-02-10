@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Service;
+﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Service;
 using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,7 @@ namespace Misp.Kernel.Administration.User
         {
             InitializeComponent();
             IntializeHandlers();
+            RightPanel.Visibility = Visibility.Collapsed;
         }
 
         public List<object> getEditableControls()
@@ -65,7 +67,7 @@ namespace Misp.Kernel.Administration.User
             {
                 profilcomboBox.SelectedItem = user.profil.name;
             }
-            RelationPanel.DisplayUserRelations(user);
+            RelationPanel.DisplayUserRelations(user);            
         }
 
         public void Fill(Domain.User user)
@@ -108,6 +110,9 @@ namespace Misp.Kernel.Administration.User
             List<string> profils = profilService.getProfilsRelation();
             this.profilcomboBox.ItemsSource = profils;
             //this.profilcomboBox.SelectedIndex = 0;
+
+            //RightPanel.allProfils = profilService.getAll();
+            //RightPanel.Display(new PersistentListChangeHandler<Domain.Profil>());
         }
 
         public void InitRelationPanel() 

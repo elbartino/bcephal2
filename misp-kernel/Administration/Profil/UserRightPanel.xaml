@@ -13,7 +13,6 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
-        <!--<RowDefinition Height="Auto"/> -->
     </Grid.RowDefinitions>
     
     <Grid Grid.Row="0">
@@ -23,7 +22,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Content="Profil/User" Margin="0 5 0 0" Grid.Column="0"/>
-        <Label Content="Right" Margin="173 5 0 0" Grid.Column="1"/>
+        <Label Content="Right" Margin="220 5 0 0" Grid.Column="1"/>
         <ToggleButton x:Name="NoCommentButton" x:FieldModifier="public" ToolTip="Edit a comment" Margin="45 5 5 0" Width="15" Grid.Column="2">
             <ToggleButton.Template>
                 <ControlTemplate>
@@ -49,9 +48,19 @@
         <Label Content="EA" Margin="1 0 0 0" Grid.Column="3"/>
         <Label Content="D" Margin="2 0 0 0" Grid.Column="4"/>
         <Label Content="L" Margin="6 0 0 0" Grid.Column="5"/>
-        <Label Content="C" Margin="7 0 0 0" Grid.Column="6"/>
-        <Label Content="S" Margin="7 0 0 0" Grid.Column="7"/>
-    </Grid>    
-    <UserRight:UserRightItemPanel x:Name="UserRightItemPanel1"  Grid.Row="2"/>
-  <!--  <UserRight:UserRightItemPanel x:Name="UserRightItemPanel2"  Grid.Row="3"/> -->
+        <Label Content="C" Margin="11 0 0 0" Grid.Column="6"/>
+        <Label Content="S" Margin="11 0 0 0" Grid.Column="7"/>
+    </Grid>
+    <StackPanel x:Name="panel" Grid.Row="2" >
+        <UserRight:UserRightItemPanel HorizontalAlignment="Center"/>
+        <UserRight:UserRightItemPanel HorizontalAlignment="Center"/>
+    </StackPanel>
+    <Popup x:Name="CommentPopup" x:FieldModifier="public"            
+           StaysOpen="False" Placement="Mouse" PopupAnimation="Slide">
+        <Border BorderThickness="1" BorderBrush="LightBlue" Background="Beige">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <TextBox AcceptsReturn="True" Background="Transparent" x:Name="CommentTextBlock" x:FieldModifier="public" Width="150" Height="150" Text="Enter your comment here..." />
+            </ScrollViewer>
+        </Border>
+    </Popup>
 </Grid>
