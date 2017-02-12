@@ -541,12 +541,12 @@ namespace Misp.Sourcing.GridViews
             RebuildGrid = false;
         }
 
-        public void displayPage(GrillePage page)
+        public void displayPage(GrillePage page, bool add = false)
         {
-            if(page !=null) displayRows(page.rows);
+            if (page != null) displayRows(page.rows, add);
         }
 
-        public void displayRows(List<object[]> rows) 
+        public void displayRows(List<object[]> rows, bool add = false) 
         {
             List<GridItem> items = new List<GridItem>(0);
             List<int> positions = this.Grille.getPeriodColumnPositions();
@@ -560,8 +560,18 @@ namespace Misp.Sourcing.GridViews
             {
                 items.Add(new GridItem(new object[this.gridControl.Columns.Count]));
             }
-           
-            this.gridControl.ItemsSource = items;
+
+            if (!add || this.gridControl.ItemsSource == null)
+            {
+                this.gridControl.ItemsSource = items;
+            }
+            else
+            {
+                List<GridItem> source = new List<GridItem>((List<GridItem>)this.gridControl.ItemsSource);
+                source.AddRange(items);
+                this.gridControl.ItemsSource = source;
+            }
+            
             this.gridControl.View.FocusedRowHandle = GridControl.AutoFilterRowHandle;
             this.gridControl.View.ShowEditor();
         }

@@ -299,7 +299,7 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         public void updateObject(WriteOffConfiguration writeOffConfiguration)
         {
-            if (writeOffConfiguration.fieldListChangeHandler == null) return;
+            if (writeOffConfiguration == null || writeOffConfiguration.fieldListChangeHandler == null) return;
             foreach (WriteOffField writeofffield in writeOffConfiguration.fieldListChangeHandler.Items)
             {
                 if (writeofffield == null) continue;

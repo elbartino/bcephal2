@@ -192,7 +192,7 @@ namespace Misp.Kernel.Domain
 
         public virtual bool IsReadOnly()
         {
-            return this.report && !this.reconciliation;
+            return this.report || this.reconciliation;
         }
 
 

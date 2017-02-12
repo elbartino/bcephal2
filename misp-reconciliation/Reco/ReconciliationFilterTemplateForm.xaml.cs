@@ -2,7 +2,9 @@
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
+using Misp.Sourcing.GridViews;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -287,22 +289,50 @@ namespace Misp.Reconciliation.Reco
             this.LeftGrid.Changed += OnChange;
             this.RightGrid.Changed += OnChange;
 
-            this.LeftGrid.GrilleBrowserForm.gridBrowser.ChangeHandler += OnLeftGridSelectionChange;
-            this.RightGrid.GrilleBrowserForm.gridBrowser.ChangeHandler += OnRightGridSelectionChange;
+            this.LeftGrid.GrilleBrowserForm.gridBrowser.SelectedItemChangedHandler += OnLeftGridSelectionChange;
+            this.RightGrid.GrilleBrowserForm.gridBrowser.SelectedItemChangedHandler += OnRightGridSelectionChange;
             this.BottomGrid.GridBrowser.ChangeHandler += OnBottomGridSelectionChange;
         
         }
 
-        private void OnLeftGridSelectionChange()
+        private void OnLeftGridSelectionChange(Object obj)
         {
-            List<long> oids = this.LeftGrid.GrilleBrowserForm.gridBrowser.GetSelectedOis();
-            this.BottomGrid.AddLines(oids);
+            if (obj != null)
+            {
+                List<long> oids = new List<long>(0);
+                if (obj is GridItem)
+                {
+                    oids.Add(((GridItem)obj).GetOid().Value);
+                }
+                else if (obj is IList)
+                {
+                    foreach (GridItem item in (IList)obj)
+                    {
+                        oids.Add(item.GetOid().Value);
+                    }
+                }
+                this.BottomGrid.AddLines(oids);
+            }            
         }
 
-        private void OnRightGridSelectionChange()
+        private void OnRightGridSelectionChange(Object obj)
         {
-            List<long> oids = this.RightGrid.GrilleBrowserForm.gridBrowser.GetSelectedOis();
-            this.BottomGrid.AddLines(oids, false);
+            if (obj != null)
+            {
+                List<long> oids = new List<long>(0);
+                if (obj is GridItem)
+                {
+                    oids.Add(((GridItem)obj).GetOid().Value);
+                }
+                else if (obj is List<GridItem>)
+                {
+                    foreach (GridItem item in (List<GridItem>)obj)
+                    {
+                        oids.Add(item.GetOid().Value);
+                    }
+                }
+                this.BottomGrid.AddLines(oids, false);
+            } 
         }
 
         private void OnBottomGridSelectionChange()

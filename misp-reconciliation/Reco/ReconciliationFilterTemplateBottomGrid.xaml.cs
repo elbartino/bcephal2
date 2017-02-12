@@ -81,7 +81,7 @@ namespace Misp.Reconciliation.Reco
                 filter.pageSize = int.MaxValue;
                 filter.showAll = true;
                 GrillePage rows = this.Service.getGridRows(filter);
-                this.GridBrowser.displayPage(rows);
+                this.GridBrowser.displayPage(rows, true);
             }
             catch (ServiceExecption)
             {
