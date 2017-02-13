@@ -33,6 +33,8 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         public event ChangeItemEventHandler ItemChanged;
 
+        public event ChangeItemEventHandler ItemPresent;
+
         public int nbreLigne = 0;
                 
         public PersistentListChangeHandler<WriteOffField> fieldListChangeHandler { get; set; }
@@ -42,6 +44,9 @@ namespace Misp.Reconciliation.WriteOffConfig
         public WriteOffFieldPanel ActiveFieldPanel { get; set; }
 
         public UIElement ActivePanel { get; set; }
+
+        private Dictionary<string, Dictionary<string, int>> itemDictionnary;
+
 
         public WriteOffConfigPanel()
         {
@@ -267,8 +272,35 @@ namespace Misp.Reconciliation.WriteOffConfig
             UIElement apanel = getActivePanel();
             if (apanel is WriteOffFieldPanel)
             {
-                ((WriteOffFieldPanel)apanel).setPeriodName(periodName);
+                WriteOffFieldPanel fieldPanel = (WriteOffFieldPanel)apanel;
+                bool isDuplicate = IsDuplicatiLine(fieldPanel, SubjectType.PERIOD, periodName.name);
+                if (isDuplicate && ItemPresent != null) ItemPresent(new object[] { SubjectType.PERIOD, periodName.name });
+                else fieldPanel.setPeriodName(periodName);
             }
+        }
+
+        private bool IsDuplicatiLine(WriteOffFieldPanel fieldPanel,SubjectType subjectType,string name) 
+        {
+            if (itemDictionnary == null) itemDictionnary = new Dictionary<string, Dictionary<string, int>>();
+
+                if (!itemDictionnary.ContainsKey(subjectType.label))
+                {
+                    itemDictionnary.Add(subjectType.label, new Dictionary<string, int>());
+                }
+                Dictionary<string, int> dicolist = null;
+                itemDictionnary.TryGetValue(subjectType.label, out dicolist);
+                if (!dicolist.ContainsKey(name))
+                {
+                   int position = dicolist.Count;
+                   dicolist.Add(name, position);
+                   return false;
+                }
+                else
+                {
+                    int position = -1;
+                    dicolist.TryGetValue(name, out position);
+                    return true;
+                }
         }
 
         public void setPeriodName(PeriodInterval periodInterval)
@@ -286,7 +318,13 @@ namespace Misp.Reconciliation.WriteOffConfig
             if (apanel is WriteOffFieldPanel)
             {
                 if (target is Kernel.Domain.Attribute)
-                ((WriteOffFieldPanel)apanel).setAttribute((Kernel.Domain.Attribute)target);
+                {
+                    Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)target;
+                    WriteOffFieldPanel fieldPanel = (WriteOffFieldPanel)apanel;
+                    bool isDuplicate = IsDuplicatiLine(fieldPanel, SubjectType.ATTRIBUTE, attribute.name);
+                    if (isDuplicate && ItemPresent != null) ItemPresent(new object[] { SubjectType.ATTRIBUTE, attribute.name });
+                    else fieldPanel.setAttribute(attribute);
+                }
             }
             else if (apanel is WriteOffFieldValuePanel)
             {

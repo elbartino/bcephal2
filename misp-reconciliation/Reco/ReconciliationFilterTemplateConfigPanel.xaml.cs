@@ -32,10 +32,24 @@ namespace Misp.Reconciliation.Reco
 
         public event ChangeItemEventHandler ItemChanged;
 
+        public event ChangeItemEventHandler ItemPresent;
+
         public ReconciliationFilterTemplateConfigPanel()
         {
             InitializeComponent();
             this.ConfigurationPropertiesPanel = new ConfigurationPropertiesPanel();
+            this.WriteOffConfigPanel.ItemPresent += OnVerifyIfPresent;
+        }
+
+        private void OnVerifyIfPresent(object item)
+        {
+            if (item is Array) 
+            {
+                object[] tab = (object[])item;
+                string objectType = ((SubjectType)tab[0]).label;
+                string objectName = (string)tab[1];
+                Kernel.Util.MessageDisplayer.DisplayInfo("Write Off Configuration", objectType+ " named " + objectName + " is already present");                
+            }
         }
 
         public void displayObject()

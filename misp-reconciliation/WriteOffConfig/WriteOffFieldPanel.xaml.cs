@@ -216,7 +216,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.FieldValuePanel.updateValue(writeOffField);
         }
 
-        WriteOffField getActiveWriteOffField()
+        public WriteOffField getActiveWriteOffField()
         {
             if (this.writeOffField == null)
             {
