@@ -292,6 +292,11 @@ namespace Misp.Reconciliation.Reco
                 this.LeftGridProperties.InputGridPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
                 this.BottomGridProperties.InputGridPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
 
+                this.BottomGridProperties.InputGridPropertiesPanel.CommentTextBlock.KeyUp += onNameTextChange;
+                this.LeftGridProperties.InputGridPropertiesPanel.CommentTextBlock.KeyUp += onNameTextChange;
+                this.RightGridProperties.InputGridPropertiesPanel.CommentTextBlock.KeyUp += onNameTextChange;
+                //this.BottomGridProperties.InputGridPropertiesPanel.
+
                 //this.RightGridProperties.InputGridPropertiesPanel.ColumnForms.KeyUp += onNameTextChange;
                 //this.LeftGridProperties.InputGridPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
                 //this.BottomGridProperties.InputGridPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
@@ -311,36 +316,88 @@ namespace Misp.Reconciliation.Reco
         {
             if (args.Key == Key.Escape)
             {
-                if (this.SelectedIndex == 2)
-                {
-                    this.LeftGridProperties.EditedObject.name = this.LeftGridProperties.InputGridPropertiesPanel.NameTextBox.Text.Trim();
-                    this.LeftGridProperties.InputGridPropertiesPanel.NameTextBox.Text = this.LeftGridProperties.EditedObject.name;
-                }
-                else if (this.SelectedIndex == 3)
-                {
-                     this.RightGridProperties.InputGridPropertiesPanel.NameTextBox.Text =  this.RightGridProperties.EditedObject.name;
-                }
-                else if (this.SelectedIndex == 4)
-                {
-                    this.BottomGridProperties.InputGridPropertiesPanel.NameTextBox.Text = this.BottomGridProperties.EditedObject.name;
-                }
+                changeEditedObjectName(sender, false);
             }
             else if (args.Key == Key.Enter)
             {
-                if (this.SelectedIndex == 2)
-                {
-                    this.LeftGridProperties.EditedObject.name = this.LeftGridProperties.InputGridPropertiesPanel.NameTextBox.Text.Trim();
-                }
-                else if (this.SelectedIndex == 3)
-                {
-                    this.RightGridProperties.EditedObject.name = this.RightGridProperties.InputGridPropertiesPanel.NameTextBox.Text.Trim();
-                }
-                else if (this.SelectedIndex == 4)
-                {
-                    this.RightGridProperties.EditedObject.name = this.BottomGridProperties.InputGridPropertiesPanel.NameTextBox.Text.Trim();
-                }
-                if (FormChanged != null) FormChanged();
+                changeEditedObjectName(sender, true);
             }
+        }
+
+        private void changeEditedObjectName(object sender, bool change) 
+        {
+            if(!(sender is TextBox)) return;
+            TextBox selectedTextBox = (TextBox)sender;
+            if (this.SelectedIndex == 2)
+            {
+                if (selectedTextBox == this.LeftGridProperties.InputGridPropertiesPanel.CommentTextBlock)
+                {
+                    if(change) this.LeftGridProperties.EditedObject.comment = this.LeftGridProperties.InputGridPropertiesPanel.CommentTextBlock.Text.Trim();
+                    else this.LeftGridProperties.InputGridPropertiesPanel.CommentTextBlock.Text = this.LeftGridProperties.EditedObject.comment;
+                }
+                else
+                {
+                    if (change)
+                    {
+                        string name = this.LeftGridProperties.InputGridPropertiesPanel.NameTextBox.Text.Trim();
+                        if(string.IsNullOrEmpty(name))
+                        {
+                            name ="Left";
+                            this.LeftGridProperties.InputGridPropertiesPanel.NameTextBox.Text = name;
+                        }
+                        this.LeftGridProperties.EditedObject.name = name;
+                    }
+                    else
+                    {
+                        this.LeftGridProperties.InputGridPropertiesPanel.NameTextBox.Text = this.LeftGridProperties.EditedObject.name;
+                    }
+                }
+            }
+            else if (this.SelectedIndex == 3)
+            {
+                if (selectedTextBox == this.RightGridProperties.InputGridPropertiesPanel.CommentTextBlock)
+                {
+                    if (change) this.RightGridProperties.EditedObject.comment = this.RightGridProperties.InputGridPropertiesPanel.CommentTextBlock.Text.Trim();
+                    else this.RightGridProperties.InputGridPropertiesPanel.CommentTextBlock.Text = this.RightGridProperties.EditedObject.comment;
+                }
+                else
+                {
+                    if (change)
+                    {
+                        string name = this.RightGridProperties.InputGridPropertiesPanel.NameTextBox.Text.Trim();
+                        if(string.IsNullOrEmpty(name))
+                        {
+                            name ="Right";
+                            this.RightGridProperties.InputGridPropertiesPanel.NameTextBox.Text = name;
+                        }
+                        this.RightGridProperties.EditedObject.name = name;
+                    }
+                    else this.RightGridProperties.InputGridPropertiesPanel.NameTextBox.Text = this.RightGridProperties.EditedObject.name;
+                }
+            }
+            else if (this.SelectedIndex == 4)
+            {
+                if (selectedTextBox == this.BottomGridProperties.InputGridPropertiesPanel.CommentTextBlock)
+                {
+                    if (change) this.BottomGridProperties.EditedObject.comment = this.BottomGridProperties.InputGridPropertiesPanel.CommentTextBlock.Text.Trim();
+                    else this.BottomGridProperties.InputGridPropertiesPanel.CommentTextBlock.Text = this.BottomGridProperties.EditedObject.comment;
+                }
+                else
+                {
+                    if (change)
+                    {
+                        string name = this.BottomGridProperties.InputGridPropertiesPanel.NameTextBox.Text.Trim();
+                        if (string.IsNullOrEmpty(name))
+                        {
+                            name = "Bottom";
+                            this.BottomGridProperties.InputGridPropertiesPanel.NameTextBox.Text = name;
+                        }
+                        this.BottomGridProperties.EditedObject.name = name;
+                    }
+                    else this.BottomGridProperties.InputGridPropertiesPanel.NameTextBox.Text = this.BottomGridProperties.EditedObject.name;
+                }
+            }
+            if (FormChanged != null && change) FormChanged();
         }
 
         private void OnLeftGridSelectionChange(Object obj)
