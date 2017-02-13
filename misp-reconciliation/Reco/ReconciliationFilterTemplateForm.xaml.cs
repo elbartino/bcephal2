@@ -47,8 +47,11 @@ namespace Misp.Reconciliation.Reco
         /// Spécifie la méthode à exécuter lorsqu'un changement survient sur la vue.
         /// </summary>
         public ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
-        
+
         public ChangeEventHandler Changed { get; set; }
+
+        public event ChangeEventHandler FormChanged;
+                
 
         #endregion
 
@@ -284,6 +287,7 @@ namespace Misp.Reconciliation.Reco
                 this.LeftGridProperties.InputGridPropertiesPanel.Changed += OnLeftGridPropertiesChange;
                 this.RightGridProperties.InputGridPropertiesPanel.Changed += OnRightGridPropertiesChange;
                 this.BottomGridProperties.InputGridPropertiesPanel.Changed += OnBottomGridPropertiesChange;
+                RightGridProperties.InputGridPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
             }
 
             this.LeftGrid.Changed += OnChange;
@@ -293,6 +297,22 @@ namespace Misp.Reconciliation.Reco
             this.RightGrid.GrilleBrowserForm.gridBrowser.SelectedItemChangedHandler += OnRightGridSelectionChange;
             this.BottomGrid.GridBrowser.ChangeHandler += OnBottomGridSelectionChange;
         
+        }
+              
+
+        protected void onNameTextChange(object sender, KeyEventArgs args)
+        {
+          
+            if (args.Key == Key.Escape)
+            {
+          //      page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.NameTextBox.Text = page.Title;
+            }
+            else if (args.Key == Key.Enter)
+            {
+                if (sender == this.LeftGrid) this.LeftGrid.EditedObject.name = "";
+                else if (sender == this.RightGrid) this.RightGrid.EditedObject.name = "";
+                if (FormChanged != null) FormChanged();
+            }
         }
 
         private void OnLeftGridSelectionChange(Object obj)
