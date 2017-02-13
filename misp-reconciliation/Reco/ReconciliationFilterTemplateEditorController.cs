@@ -269,7 +269,7 @@ namespace Misp.Reconciliation.Reco
         {
             ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
             page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.NameTextBox.Text = name;
-            page.EditedObject.name = name;
+            //page.EditedObject.name = name;
             base.Rename(name);
         }
 
@@ -282,7 +282,7 @@ namespace Misp.Reconciliation.Reco
             IsRenameOnDoubleClick = true;
             ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
 
-            return ValidateEditedNewName(page.EditedObject.name);
+            return ValidateEditedNewName(page.Title);
         }
 
 
