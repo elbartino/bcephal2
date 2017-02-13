@@ -287,7 +287,14 @@ namespace Misp.Reconciliation.Reco
                 this.LeftGridProperties.InputGridPropertiesPanel.Changed += OnLeftGridPropertiesChange;
                 this.RightGridProperties.InputGridPropertiesPanel.Changed += OnRightGridPropertiesChange;
                 this.BottomGridProperties.InputGridPropertiesPanel.Changed += OnBottomGridPropertiesChange;
-                RightGridProperties.InputGridPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
+
+                this.RightGridProperties.InputGridPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
+                this.LeftGridProperties.InputGridPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
+                this.BottomGridProperties.InputGridPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
+
+                //this.RightGridProperties.InputGridPropertiesPanel.ColumnForms.KeyUp += onNameTextChange;
+                //this.LeftGridProperties.InputGridPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
+                //this.BottomGridProperties.InputGridPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
             }
 
             this.LeftGrid.Changed += OnChange;
@@ -302,15 +309,36 @@ namespace Misp.Reconciliation.Reco
 
         protected void onNameTextChange(object sender, KeyEventArgs args)
         {
-          
             if (args.Key == Key.Escape)
             {
-          //      page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.NameTextBox.Text = page.Title;
+                if (this.SelectedIndex == 2)
+                {
+                    this.LeftGridProperties.EditedObject.name = this.LeftGridProperties.InputGridPropertiesPanel.NameTextBox.Text.Trim();
+                    this.LeftGridProperties.InputGridPropertiesPanel.NameTextBox.Text = this.LeftGridProperties.EditedObject.name;
+                }
+                else if (this.SelectedIndex == 3)
+                {
+                     this.RightGridProperties.InputGridPropertiesPanel.NameTextBox.Text =  this.RightGridProperties.EditedObject.name;
+                }
+                else if (this.SelectedIndex == 4)
+                {
+                    this.BottomGridProperties.InputGridPropertiesPanel.NameTextBox.Text = this.BottomGridProperties.EditedObject.name;
+                }
             }
             else if (args.Key == Key.Enter)
             {
-                if (sender == this.LeftGrid) this.LeftGrid.EditedObject.name = "";
-                else if (sender == this.RightGrid) this.RightGrid.EditedObject.name = "";
+                if (this.SelectedIndex == 2)
+                {
+                    this.LeftGridProperties.EditedObject.name = this.LeftGridProperties.InputGridPropertiesPanel.NameTextBox.Text.Trim();
+                }
+                else if (this.SelectedIndex == 3)
+                {
+                    this.RightGridProperties.EditedObject.name = this.RightGridProperties.InputGridPropertiesPanel.NameTextBox.Text.Trim();
+                }
+                else if (this.SelectedIndex == 4)
+                {
+                    this.RightGridProperties.EditedObject.name = this.BottomGridProperties.InputGridPropertiesPanel.NameTextBox.Text.Trim();
+                }
                 if (FormChanged != null) FormChanged();
             }
         }
