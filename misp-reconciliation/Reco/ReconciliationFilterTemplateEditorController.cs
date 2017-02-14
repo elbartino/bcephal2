@@ -120,6 +120,7 @@ namespace Misp.Reconciliation.Reco
             {                
                 editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.GroupService = GetService().GroupService;
                 editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.subjectType = SubjectTypeFound();
+                editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.Changed += onGroupFieldChange;
                 editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.ItemChanged += OnConfigurationChanged;
                 editorPage.getForm().ConfigurationPanel.WriteOffConfigPanel.ItemChanged += OnConfigurationChanged;
                 editorPage.getForm().ConfigurationPanel.ItemChanged += OnConfigurationChanged;
@@ -133,6 +134,8 @@ namespace Misp.Reconciliation.Reco
         {
             OnChange();
         }
+
+        
 
         private void onNameTextChange(object sender, KeyEventArgs args)
         {
@@ -172,9 +175,27 @@ namespace Misp.Reconciliation.Reco
             ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
             string name = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.textBox.Text;
             BGroup group = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.Group;
+            ((ReconciliationFilterTemplateSideBar)SideBar).TemplateGroup.TemplateTreeview.updateTemplate(name, page.Title, true);
             page.EditedObject.group = group;
             OnChange();
         }
+
+        //protected void onGroupFieldChange()
+        //{
+        //    InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
+        //    string name = page.getInputTableForm().TablePropertiesPanel.groupField.textBox.Text;
+        //    BGroup group = page.getInputTableForm().TablePropertiesPanel.groupField.Group;
+
+        //    Parameter parameter = new Parameter(page.EditedObject.name);
+        //    parameter.setGroup(group);
+        //    InputTable table = GetInputTableService().parametrizeTable(parameter);
+        //    if (table == null) return;
+        //    ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.updateInputTable(name, page.Title, true);
+        //    page.getInputTableForm().TablePropertiesPanel.displayTable(table);
+        //    page.EditedObject.group = table.group;
+        //    page.EditedObject.isModified = true;
+        //    //OnChange();
+        //}
 
         protected override void initializeSideBarHandlers()
         {
