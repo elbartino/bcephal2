@@ -69,6 +69,7 @@ namespace Misp.Reconciliation.Reco
                 this.NameTextBox.Text = this.EditedObject != null ? this.EditedObject.name : "";
                 this.CommentTextBlock.Text = this.EditedObject != null ? this.EditedObject.comment : "";
             }
+            CustomizeDC();
             throwHandler = true;
         }
 
@@ -107,6 +108,13 @@ namespace Misp.Reconciliation.Reco
                 rows.rows = new List<object[]>(0);
                 this.GrilleBrowserForm.displayPage(rows);
             }
+        }
+
+        public void CustomizeDC()
+        {
+            bool visible = this.Template != null && this.Template.useDebitCredit.HasValue && this.Template.useDebitCredit.Value;
+            this.CreditCheckBox.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+            this.DebitCheckBox.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
         }
         
         #endregion
@@ -170,12 +178,7 @@ namespace Misp.Reconciliation.Reco
 
 
         #region Utils
-
-        public void HideHeaderPanel()
-        {
-            this.HeaderPanel.Visibility = System.Windows.Visibility.Collapsed;
-        }
-        
+                
         #endregion
         
     }

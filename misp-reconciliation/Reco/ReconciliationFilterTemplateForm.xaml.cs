@@ -81,13 +81,9 @@ namespace Misp.Reconciliation.Reco
 
                 this.LeftGrid.NameTextBox.Visibility = Visibility.Visible;
                 this.LeftGrid.CommentButton.Visibility = Visibility.Visible;
-                this.LeftGrid.DebitCheckBox.Visibility = Visibility.Collapsed;
-                this.LeftGrid.CreditCheckBox.Visibility = Visibility.Collapsed;
 
                 this.RightGrid.NameTextBox.Visibility = Visibility.Visible;
                 this.RightGrid.CommentButton.Visibility = Visibility.Visible;
-                this.RightGrid.DebitCheckBox.Visibility = Visibility.Collapsed;
-                this.RightGrid.CreditCheckBox.Visibility = Visibility.Collapsed;
             }
             else
             {

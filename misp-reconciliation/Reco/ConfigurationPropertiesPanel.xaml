@@ -65,8 +65,8 @@
             <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="DCFormulaLabel" Grid.Column="0" Content="D/C" />
-        <ComboBox x:Name="DCFormulaComboBox" x:FieldModifier="public" Grid.Column="1"/>
+        <Label x:Name="MeasureLabel" Grid.Column="0" Content="Measure" />
+        <ComboBox x:Name="MeasureComboBox" x:FieldModifier="public" Grid.Column="1"/>
     </Grid>
 
     <Grid Margin="5,5,5,0">
@@ -77,8 +77,8 @@
             <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="MeasureLabel" Grid.Column="0" Content="Measure" />
-        <ComboBox x:Name="MeasureComboBox" x:FieldModifier="public" Grid.Column="1"/>
+        <Label x:Name="DCFormulaLabel" Grid.Column="0" Content="Use D/C" />
+        <CheckBox x:Name="UseDebitCreditCheckBox" x:FieldModifier="public" Grid.Column="1" IsChecked="False" VerticalAlignment="Center"/>
     </Grid>
-
+    
 </StackPanel>

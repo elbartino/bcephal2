@@ -32,11 +32,7 @@ namespace Misp.Kernel.Domain
             set { this.balanceFormulaEnum = BalanceFormula.getByName(value); }
         }
 
-        public String debitCreditFormula
-        {
-            get { return this.debitCreditFormulaEnum != null ? this.debitCreditFormulaEnum.name : null; }
-            set { this.debitCreditFormulaEnum = DebitCreditFormula.getByName(value); }
-        }
+        public bool? useDebitCredit { get; set; }
         
 
         public bool acceptWriteOff { get; set; }
@@ -45,10 +41,7 @@ namespace Misp.Kernel.Domain
 
         [ScriptIgnore]
         public BalanceFormula balanceFormulaEnum { get; set; }
-
-        [ScriptIgnore]
-        public DebitCreditFormula debitCreditFormulaEnum { get; set; }
-
+        
 	
 	    /// <summary>
 	    /// 

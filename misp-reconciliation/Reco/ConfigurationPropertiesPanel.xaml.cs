@@ -35,11 +35,7 @@ namespace Misp.Reconciliation.Reco
         public ConfigurationPropertiesPanel()
         {
             InitializeComponent();
-            this.DCFormulaComboBox.ItemsSource = new String[] 
-            {
-                DebitCreditFormula.DEBIT_NEGATIVE.label,
-                DebitCreditFormula.DEBIT_NOT_NEGATIVE.label
-            };
+            
             this.BalanceFormulaComboBox.ItemsSource = new String[]
             {
                 BalanceFormula.LEFT_MINUS_RIGHT.label,
@@ -50,8 +46,15 @@ namespace Misp.Reconciliation.Reco
             this.visibleInShortcutCheckbox.Unchecked += OnChooseVisibility;
             this.visibleInShortcutCheckbox.Checked += OnChooseVisibility;
 
-            this.DCFormulaComboBox.SelectionChanged += OnChooseDCForumula;
+            this.UseDebitCreditCheckBox.Checked += OnUseDebitCreditChecked;
+            this.UseDebitCreditCheckBox.Unchecked += OnUseDebitCreditChecked;
             this.BalanceFormulaComboBox.SelectionChanged += OnChooseBalanceFormula;
+        }
+
+        private void OnUseDebitCreditChecked(object sender, RoutedEventArgs e)
+        {
+            this.EditedObject.useDebitCredit = this.UseDebitCreditCheckBox.IsChecked;
+            if (ItemChanged != null) ItemChanged(this.EditedObject);
         }
 
         private void OnChooseBalanceFormula(object sender, SelectionChangedEventArgs e)
@@ -59,13 +62,7 @@ namespace Misp.Reconciliation.Reco
             this.EditedObject.balanceFormulaEnum = BalanceFormula.getByLabel(this.BalanceFormulaComboBox.SelectedItem.ToString());
             if (ItemChanged != null) ItemChanged(this.EditedObject);
         }
-
-        private void OnChooseDCForumula(object sender, SelectionChangedEventArgs e)
-        {
-            this.EditedObject.debitCreditFormulaEnum = DebitCreditFormula.getByLabel(this.DCFormulaComboBox.SelectedItem.ToString());
-            if (ItemChanged != null) ItemChanged(this.EditedObject);
-        }
-
+        
 
         private void OnChooseVisibility(object sender, RoutedEventArgs e)
         {
@@ -78,7 +75,7 @@ namespace Misp.Reconciliation.Reco
             this.NameTextBox.Text = this.EditedObject.name;
             this.groupField.Group = this.EditedObject.group;
             this.BalanceFormulaComboBox.SelectedItem = this.EditedObject.balanceFormulaEnum != null ?  this.EditedObject.balanceFormulaEnum.label : "";
-            this.DCFormulaComboBox.SelectedItem = this.EditedObject.debitCreditFormulaEnum != null ? this.EditedObject.debitCreditFormulaEnum.label : "";
+            this.UseDebitCreditCheckBox.IsChecked = this.EditedObject.useDebitCredit.HasValue && this.EditedObject.useDebitCredit.Value;
 
             if (this.ReconciliationFilterTemplateService == null) return;
             this.groupField.GroupService = this.ReconciliationFilterTemplateService.GroupService;

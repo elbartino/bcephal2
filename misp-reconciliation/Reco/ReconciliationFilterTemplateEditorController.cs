@@ -162,7 +162,7 @@ namespace Misp.Reconciliation.Reco
                 page.EditedObject.group = recoFilterTemplate.group;
                 page.EditedObject.visibleInShortcut = recoFilterTemplate.visibleInShortcut;
                 page.EditedObject.balanceFormulaEnum = recoFilterTemplate.balanceFormulaEnum;
-                page.EditedObject.debitCreditFormulaEnum = recoFilterTemplate.debitCreditFormulaEnum;
+                page.EditedObject.useDebitCredit = recoFilterTemplate.useDebitCredit;
             }
             else if (item is WriteOffConfiguration) 
             {
@@ -380,6 +380,9 @@ namespace Misp.Reconciliation.Reco
                 if (page.getForm().LeftGrid.GrilleBrowserForm.gridBrowser.RebuildGrid) UpdateGridForm(page.getForm().LeftGrid);
                 if (page.getForm().RightGrid.GrilleBrowserForm.gridBrowser.RebuildGrid) UpdateGridForm(page.getForm().RightGrid);
                 if (page.getForm().BottomGrid.GridBrowser.RebuildGrid) UpdateGridForm(page.getForm().BottomGrid);
+
+                page.getForm().LeftGrid.CustomizeDC();
+                page.getForm().RightGrid.CustomizeDC();
             }
             else
             {
