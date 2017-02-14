@@ -313,7 +313,36 @@ namespace Misp.Reconciliation.Reco
 
         private void OnRightGridDeselectionChange(object newSelection)
         {
-            //this.RightGrid.GrilleBrowserForm.gridBrowser.gridControl.SelectedItem
+            /*Decimal credit = 0;
+            Decimal debit = 0;
+
+            GrilleColumn amountColumn = null;
+            GrilleColumn creditDebitColumn = null;
+
+            Measure measure = this.EditedObject.amountMeasure;
+
+            if(measure != null)amountColumn = this.RightGrid.EditedObject.GetColumn(ParameterType.MEASURE.ToString(), measure.oid.Value);
+            //creditDebitColumn = this.RightGrid.EditedObject.GetColumn(ParameterType.SCOPE.ToString(), context.dcNbreAttribute.oid.Value);
+            foreach (object row in this.RightGrid.GrilleBrowserForm.gridBrowser.gridControl.SelectedItems)
+            {
+                if (row is GridItem)
+                {
+                    Object[] datas = ((GridItem)row).Datas;
+                    object item = datas[creditDebitColumn.position];
+                    Boolean isCredit = item != null && item.ToString().Equals("C", StringComparison.OrdinalIgnoreCase);
+                    Boolean isDebit = item != null && item.ToString().Equals("D", StringComparison.OrdinalIgnoreCase);
+                    Decimal amount = 0;
+                    item = datas[amountColumn.position];
+                    try
+                    {
+                        Decimal.TryParse(item.ToString(), out amount);
+                    }
+                    catch (Exception) { }
+                    if (isCredit) credit += amount;
+                    else if (isDebit) debit += amount; 
+                }            
+            }
+            */
         }
 
         private void OnLeftGridDeselectionChange(object newSelection)
