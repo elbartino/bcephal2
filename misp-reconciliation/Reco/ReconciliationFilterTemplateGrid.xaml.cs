@@ -90,8 +90,8 @@ namespace Misp.Reconciliation.Reco
                     }
                     else filter.recoType = null;
                     filter.grid = new Grille();
-                    filter.grid.creditChecked = this.Template.useDebitCredit.Value && this.CreditCheckBox.IsChecked.Value;
-                    filter.grid.debitChecked = this.Template.useDebitCredit.Value && this.DebitCheckBox.IsChecked.Value;
+                    filter.grid.creditChecked = this.Template.useDebitCredit != null && this.Template.useDebitCredit.Value && this.CreditCheckBox.IsChecked.Value;
+                    filter.grid.debitChecked = this.Template.useDebitCredit != null && this.Template.useDebitCredit.Value && this.DebitCheckBox.IsChecked.Value;
                     filter.grid.includeRecoChecked = this.RecoCheckBox.IsChecked.Value;
                     filter.grid.code = this.EditedObject.code;
                     filter.grid.columnListChangeHandler = this.EditedObject.columnListChangeHandler;
