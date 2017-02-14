@@ -38,7 +38,29 @@ namespace Misp.Reconciliation.Reco
         {
             InitializeComponent();
             this.ConfigurationPropertiesPanel = new ConfigurationPropertiesPanel();
+            InitializeHandlers();
+        }
+
+        public void InitializeHandlers() 
+        {
+            this.AllowWriteOffCheckBox.Checked += OnAllowWriteOff;
+            this.AllowWriteOffCheckBox.Unchecked += OnAllowWriteOff;
             this.WriteOffConfigPanel.ItemPresent += OnVerifyIfPresent;
+        }
+
+        public void removeHandlers()
+        {
+            this.AllowWriteOffCheckBox.Checked -= OnAllowWriteOff;
+            this.AllowWriteOffCheckBox.Unchecked -= OnAllowWriteOff;
+            this.WriteOffConfigPanel.ItemPresent -= OnVerifyIfPresent;
+        }
+
+
+        private void OnAllowWriteOff(object sender, RoutedEventArgs e)
+        {
+            if (this.EditedObject == null) this.EditedObject = new ReconciliationFilterTemplate();
+            this.EditedObject.acceptWriteOff = this.AllowWriteOffCheckBox.IsChecked.Value;
+            if (ItemChanged != null) ItemChanged(this.EditedObject);
         }
 
         private void OnVerifyIfPresent(object item)
@@ -54,11 +76,15 @@ namespace Misp.Reconciliation.Reco
 
         public void displayObject()
         {
+            removeHandlers();
+            this.AllowWriteOffCheckBox.IsChecked = this.EditedObject != null ? this.EditedObject.acceptWriteOff : false;
             this.ConfigurationPropertiesPanel.EditedObject = this.EditedObject;
             this.ConfigurationPropertiesPanel.displayObject();
 
             this.WriteOffConfigPanel.EditedObject = this.EditedObject.writeOffConfig;
             this.WriteOffConfigPanel.displayObject();
+
+            InitializeHandlers();
         }
 
 

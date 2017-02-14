@@ -122,16 +122,12 @@ namespace Misp.Reconciliation.Reco
                 editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.subjectType = SubjectTypeFound();
                 editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.ItemChanged += OnConfigurationChanged;
                 editorPage.getForm().ConfigurationPanel.WriteOffConfigPanel.ItemChanged += OnConfigurationChanged;
-                editorPage.getForm().ConfigurationPanel.WriteOffConfigPanel.ItemPresent += OnVerifyPresence;
+                editorPage.getForm().ConfigurationPanel.ItemChanged += OnConfigurationChanged;
                 editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
                 editorPage.getForm().FormChanged += OnFormChanged;
             }
         }
 
-        private void OnVerifyPresence(object item)
-        {
-
-        }
 
         private void OnFormChanged()
         {
