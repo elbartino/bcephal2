@@ -106,5 +106,19 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                 if (OnDeleteFieldValue != null) OnDeleteFieldValue(null);
             }
         }
+
+        public void setDateView() 
+        {
+            this.ValueTypeTextBox.IsEnabled = false;
+            this.NewButton.IsEnabled = false;
+            this.DeleteButton.IsEnabled = false;
+        }
+
+        public void removeDateView()
+        {
+            this.ValueTypeTextBox.IsEnabled = true;
+            this.NewButton.IsEnabled = true;
+            this.DeleteButton.IsEnabled = true;
+        }
     }
 }

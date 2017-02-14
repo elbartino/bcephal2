@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:item="clr-namespace:Misp.Reconciliation.WriteOffConfig.WriteOffElements"
              mc:Ignorable="d">
-        <StackPanel x:Name="FieldValuePanel">
+        <StackPanel x:Name="FieldValuePanel" x:FieldModifier="public">
             <item:WriteOffValueItem x:Name="item1"  />
             <item:WriteOffValueItem x:Name="item2" />
         </StackPanel>
