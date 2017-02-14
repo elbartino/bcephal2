@@ -156,5 +156,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         {
             this.WriteOffFieldValue = fieldValue;
         }
+
+       
     }
 }

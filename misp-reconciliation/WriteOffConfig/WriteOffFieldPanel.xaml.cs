@@ -79,8 +79,8 @@ namespace Misp.Reconciliation.WriteOffConfig
 
             InitializeHandlers();
             this.FieldValuePanel.fieldValueListChangeHandler = this.writeOffField != null ? writeOffField.writeOffFieldValueListChangeHandler : null;
+            this.FieldValuePanel.isDateView = this.writeOffField != null && this.writeOffField.isPeriod();
             this.FieldValuePanel.display();
-            if (this.writeOffField != null && this.writeOffField.isPeriod()) this.FieldValuePanel.setDateView(); 
         }
 
         private void OnDeleteFields(object item)
