@@ -69,37 +69,48 @@ namespace Misp.Reconciliation.Reco
                 this.NameTextBox.Text = this.EditedObject != null ? this.EditedObject.name : "";
                 this.CommentTextBlock.Text = this.EditedObject != null ? this.EditedObject.comment : "";
             }
+            CustomizeDC();
+            Search(this.EditedObject.GrilleFilter != null ? this.EditedObject.GrilleFilter.page : 1);
             throwHandler = true;
         }
 
         public virtual void Search(int currentPage = 0)
-        {
+        {            
             try
             {
-                GrilleFilter filter = this.GrilleBrowserForm.filterForm.Fill();
-                filter.creditChecked = this.CreditCheckBox.IsChecked.Value;
-                filter.debitChecked = this.DebitCheckBox.IsChecked.Value;
-                filter.includeRecoChecked = this.RecoCheckBox.IsChecked.Value;
-                if (this.Template != null && this.Template.reconciliationType != null)
+                if (this.EditedObject.columnListChangeHandler.Items.Count > 0)
                 {
-                    filter.recoType = this.Template.reconciliationType;
+                    GrilleFilter filter = this.GrilleBrowserForm.filterForm.Fill();
+                    filter.creditChecked = this.CreditCheckBox.IsChecked.Value;
+                    filter.debitChecked = this.DebitCheckBox.IsChecked.Value;
+                    filter.includeRecoChecked = this.RecoCheckBox.IsChecked.Value;
+                    if (this.Template != null && this.Template.reconciliationType != null)
+                    {
+                        filter.recoType = this.Template.reconciliationType;
+                    }
+                    else filter.recoType = null;
+                    filter.grid = new Grille();
+                    filter.grid.creditChecked = this.Template.useDebitCredit.Value && this.CreditCheckBox.IsChecked.Value;
+                    filter.grid.debitChecked = this.Template.useDebitCredit.Value && this.DebitCheckBox.IsChecked.Value;
+                    filter.grid.includeRecoChecked = this.RecoCheckBox.IsChecked.Value;
+                    filter.grid.code = this.EditedObject.code;
+                    filter.grid.columnListChangeHandler = this.EditedObject.columnListChangeHandler;
+                    filter.grid.report = this.EditedObject.report;
+                    filter.grid.reconciliation = this.EditedObject.reconciliation;
+                    filter.grid.oid = this.EditedObject.oid;
+                    filter.grid.name = this.EditedObject.name;
+                    filter.page = currentPage;
+                    filter.pageSize = (int)this.GrilleBrowserForm.toolBar.pageSizeComboBox.SelectedItem;
+                    filter.showAll = this.GrilleBrowserForm.toolBar.showAllCheckBox.IsChecked.Value;
+                    GrillePage rows = this.Service.getGridRows(filter);
+                    this.GrilleBrowserForm.displayPage(rows);
                 }
-                else filter.recoType = null;
-                filter.grid = new Grille();
-                filter.grid.creditChecked = this.CreditCheckBox.IsChecked.Value;
-                filter.grid.debitChecked = this.DebitCheckBox.IsChecked.Value;
-                filter.grid.includeRecoChecked = this.RecoCheckBox.IsChecked.Value;
-                filter.grid.code = this.EditedObject.code;
-                filter.grid.columnListChangeHandler = this.EditedObject.columnListChangeHandler;
-                filter.grid.report = this.EditedObject.report;
-                filter.grid.reconciliation = this.EditedObject.reconciliation;
-                filter.grid.oid = this.EditedObject.oid;
-                filter.grid.name = this.EditedObject.name;
-                filter.page = currentPage;
-                filter.pageSize = (int)this.GrilleBrowserForm.toolBar.pageSizeComboBox.SelectedItem;
-                filter.showAll = this.GrilleBrowserForm.toolBar.showAllCheckBox.IsChecked.Value;
-                GrillePage rows = this.Service.getGridRows(filter);
-                this.GrilleBrowserForm.displayPage(rows);                
+                else
+                {
+                    GrillePage rows = new GrillePage();
+                    rows.rows = new List<object[]>(0);
+                    this.GrilleBrowserForm.displayPage(rows);
+                }               
             }
             catch (ServiceExecption)
             {
@@ -107,6 +118,13 @@ namespace Misp.Reconciliation.Reco
                 rows.rows = new List<object[]>(0);
                 this.GrilleBrowserForm.displayPage(rows);
             }
+        }
+
+        public void CustomizeDC()
+        {
+            bool visible = this.Template != null && this.Template.useDebitCredit.HasValue && this.Template.useDebitCredit.Value;
+            this.CreditCheckBox.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+            this.DebitCheckBox.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
         }
         
         #endregion
@@ -170,12 +188,7 @@ namespace Misp.Reconciliation.Reco
 
 
         #region Utils
-
-        public void HideHeaderPanel()
-        {
-            this.HeaderPanel.Visibility = System.Windows.Visibility.Collapsed;
-        }
-        
+                
         #endregion
         
     }
