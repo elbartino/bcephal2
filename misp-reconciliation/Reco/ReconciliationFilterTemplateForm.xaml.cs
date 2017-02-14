@@ -302,11 +302,25 @@ namespace Misp.Reconciliation.Reco
             this.RightGrid.Changed += OnChange;
 
             this.LeftGrid.GrilleBrowserForm.gridBrowser.SelectedItemChangedHandler += OnLeftGridSelectionChange;
+            this.LeftGrid.GrilleBrowserForm.gridBrowser.DeselectedItemChangedHandler += OnLeftGridDeselectionChange;
+
             this.RightGrid.GrilleBrowserForm.gridBrowser.SelectedItemChangedHandler += OnRightGridSelectionChange;
+            this.RightGrid.GrilleBrowserForm.gridBrowser.DeselectedItemChangedHandler += OnRightGridDeselectionChange;
+
             this.BottomGrid.GridBrowser.ChangeHandler += OnBottomGridSelectionChange;
         
         }
-              
+
+        private void OnRightGridDeselectionChange(object newSelection)
+        {
+            //this.RightGrid.GrilleBrowserForm.gridBrowser.gridControl.SelectedItem
+        }
+
+        private void OnLeftGridDeselectionChange(object newSelection)
+        {
+            throw new NotImplementedException();
+        }
+                      
 
         protected void onNameTextChange(object sender, KeyEventArgs args)
         {
