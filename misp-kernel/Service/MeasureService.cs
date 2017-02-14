@@ -14,6 +14,28 @@ namespace Misp.Kernel.Service
     public class MeasureService : Service<Kernel.Domain.Measure, Domain.Browser.BrowserData>
     {
 
+        public List<Kernel.Domain.Measure> getAllLeafts()
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/leafts", Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                try
+                {
+                    List<Kernel.Domain.Measure> measures = RestSharp.SimpleJson.DeserializeObject<List<Kernel.Domain.Measure>>(queryResult.Content);
+                    return measures;
+                }
+                catch (Exception)
+                {
+                    return new List<Kernel.Domain.Measure>(0);
+                }
+            }
+            catch (Exception)
+            {
+                return new List<Kernel.Domain.Measure>(0);
+            }
+        }
+
         /// <summary>
         /// Retoune la liste de mesures du fichier ouvert.
         /// </summary>
