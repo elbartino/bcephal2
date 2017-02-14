@@ -77,7 +77,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                     }
                     else
                     {
-                        ((WriteOffValueItem)element).Visibility = Visibility.Hidden;
+                        ((WriteOffValueItem)element).Visibility = Visibility.Collapsed;
                     }
                     i++;
                 }

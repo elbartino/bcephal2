@@ -112,10 +112,18 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.ValueTypeTextBox.IsEnabled = false;
             this.NewButton.IsEnabled = false;
             this.DeleteButton.IsEnabled = false;
+
+            this.ValueTypeTextBox.Visibility = System.Windows.Visibility.Hidden;
+            this.DeleteButton.Visibility = System.Windows.Visibility.Hidden;
+            this.NewButton.Visibility = System.Windows.Visibility.Hidden;
         }
 
         public void removeDateView()
         {
+            this.ValueTypeTextBox.Visibility = System.Windows.Visibility.Visible;
+            this.DeleteButton.Visibility = System.Windows.Visibility.Visible;
+            this.NewButton.Visibility = System.Windows.Visibility.Visible;
+
             this.ValueTypeTextBox.IsEnabled = true;
             this.NewButton.IsEnabled = true;
             this.DeleteButton.IsEnabled = true;
