@@ -61,6 +61,40 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             }
         }
 
+        public void setDateView() 
+        {
+            int i = 0;
+            foreach (UIElement element in this.FieldValuePanel.Children) 
+            {
+                if (element is WriteOffValueItem) 
+                {
+                    if (i == 0)
+                    {
+                        ((WriteOffValueItem)element).setDateView();
+                        ((WriteOffValueItem)element).setDateView();
+                    }
+                    else
+                    {
+                        ((WriteOffValueItem)element).Visibility = Visibility.Hidden;
+                    }
+                    i++;
+                }
+            }
+        }
+
+        public void removeDateView()
+        {
+            int i = 0;
+            foreach (UIElement element in this.FieldValuePanel.Children)
+            {
+                if (element is WriteOffValueItem)
+                {
+                    ((WriteOffValueItem)element).Visibility = System.Windows.Visibility.Visible;
+                    if (i == 0) ((WriteOffValueItem)element).removeDateView();
+                }
+            }
+        }
+
         public bool showLabel = true;
 
         public void display()

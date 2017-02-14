@@ -78,5 +78,26 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         {
             if (ItemChanged != null) ItemChanged(DefaultValuesCombobox.SelectedItem);
         }
+
+        public void setDateView()
+        {
+            RemoveHandlers();
+            this.DefaultValuesCombobox.ItemsSource = new String[] { WriteOffFieldValueType.CUSTOM_DATE.label,
+                  WriteOffFieldValueType.TODAY.label,"", };
+            InitializeHandlers();
+        }
+
+        public void removeDateView()
+        {
+            RemoveHandlers();
+            this.DefaultValuesCombobox.ItemsSource = new String[] 
+            {
+                  WriteOffFieldValueType.LEFT_SIDE.label,
+                  WriteOffFieldValueType.RIGHT_SIDE.label,
+                  WriteOffFieldValueType.CUSTOM.label,
+                  ""
+            };
+            InitializeHandlers();
+        }
     }
 }

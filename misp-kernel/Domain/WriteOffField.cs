@@ -143,6 +143,11 @@ namespace Misp.Kernel.Domain
             }
             return null;
         }
-        
+
+
+        public bool isPeriod()
+        {
+            return this.periodField != null;
+        }
     }
 }
