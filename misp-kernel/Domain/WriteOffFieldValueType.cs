@@ -10,8 +10,8 @@ namespace Misp.Kernel.Domain
         public static String LEFT_SIDE_NAME = "LEFT_SIDE";
         public static String RIGHT_SIDE_NAME = "RIGHT_SIDE";
         public static String CUSTOM_NAME = "CUSTOM";
-        public static String CUSTOM_DATE_NAME = "CUSTOM";
-        public static String TODAY_NAME = "CUSTOM";
+        public static String CUSTOM_DATE_NAME = "CUSTOM_DATE";
+        public static String TODAY_NAME = "TODAY";
         
         public static WriteOffFieldValueType LEFT_SIDE = new WriteOffFieldValueType(LEFT_SIDE_NAME, "Left Side Value");
         public static WriteOffFieldValueType RIGHT_SIDE = new WriteOffFieldValueType(RIGHT_SIDE_NAME, "Right Side Value");

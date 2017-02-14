@@ -35,6 +35,8 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
          public event DeleteEventHandler ItemDeleted;
 
+         public bool isDateView;
+
         public PersistentListChangeHandler<WriteOffFieldValue> fieldValueListChangeHandler { get; set; }
 
         public WriteOffValueItem ActiveItem { get; set; }
@@ -113,6 +115,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                 WriteOffValueItem item =getPanel();
                 item.WriteOffFieldValue = field;
                 item.Index = i;
+                if (this.isDateView) item.setDateView();
                 item.display(field);
                     
                 if (!showLabel) item.showRowLabel(false);
