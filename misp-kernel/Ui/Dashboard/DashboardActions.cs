@@ -1147,6 +1147,11 @@ namespace Misp.Kernel.Ui.Dashboard
             Delete(ResourcePath.RECONCILIATON_FILTER_RESOURCE_PATH, oids, block);
         }
 
+        public void DeleteReconciliationFiltersTemplate(List<int> oids, DashboardBlock block)
+        {
+            Delete(ResourcePath.RECONCILIATON_FILTER_TEMPLATE_RESOURCE_PATH, oids, block);
+        }
+
         public void DeleteReconciliationPostings(List<int> oids, DashboardBlock block)
         {
             Delete(ResourcePath.RECONCILIATON_POSTING_RESOURCE_PATH, oids, block);
