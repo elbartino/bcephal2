@@ -76,7 +76,7 @@ namespace Misp.Reconciliation.Reco
             this.groupField.Group = this.EditedObject.group;
             this.BalanceFormulaComboBox.SelectedItem = this.EditedObject.balanceFormulaEnum != null ?  this.EditedObject.balanceFormulaEnum.label : "";
             this.UseDebitCreditCheckBox.IsChecked = this.EditedObject.useDebitCredit.HasValue && this.EditedObject.useDebitCredit.Value;
-
+            this.visibleInShortcutCheckbox.IsChecked = this.EditedObject.visibleInShortcut;
             if (this.ReconciliationFilterTemplateService == null) return;
             this.groupField.GroupService = this.ReconciliationFilterTemplateService.GroupService;
             this.groupField.subjectType = SubjectType.RECONCILIATION_FILTER;
