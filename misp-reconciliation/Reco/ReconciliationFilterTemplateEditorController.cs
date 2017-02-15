@@ -179,23 +179,7 @@ namespace Misp.Reconciliation.Reco
             page.EditedObject.group = group;
             OnChange();
         }
-
-        //protected void onGroupFieldChange()
-        //{
-        //    InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
-        //    string name = page.getInputTableForm().TablePropertiesPanel.groupField.textBox.Text;
-        //    BGroup group = page.getInputTableForm().TablePropertiesPanel.groupField.Group;
-
-        //    Parameter parameter = new Parameter(page.EditedObject.name);
-        //    parameter.setGroup(group);
-        //    InputTable table = GetInputTableService().parametrizeTable(parameter);
-        //    if (table == null) return;
-        //    ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.updateInputTable(name, page.Title, true);
-        //    page.getInputTableForm().TablePropertiesPanel.displayTable(table);
-        //    page.EditedObject.group = table.group;
-        //    page.EditedObject.isModified = true;
-        //    //OnChange();
-        //}
+             
 
         protected override void initializeSideBarHandlers()
         {
@@ -508,7 +492,15 @@ namespace Misp.Reconciliation.Reco
             {
                 name = prefix + i;
                 ReconciliationFilterTemplate grid = GetObjectByName(name);
-                if (grid == null) return name;
+                if (grid == null)
+                {
+                   grid = ((ReconciliationFilterTemplateSideBar)getNewSideBar()).TemplateGroup.TemplateTreeview.getTemplateByName(name);
+                   if (grid == null)
+                   {
+                       grid = GetService().getByName(name);
+                       if (grid == null) return name;
+                   }
+                }
                 i++;
             }
             return name;

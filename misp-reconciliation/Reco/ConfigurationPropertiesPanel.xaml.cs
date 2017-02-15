@@ -57,6 +57,8 @@ namespace Misp.Reconciliation.Reco
         {
             this.NameTextBox.Text = this.EditedObject.name;
             this.groupField.Group = this.EditedObject.group;
+            if (this.EditedObject.amountMeasure != null) this.MeasureComboBox.SelectedItem = this.EditedObject.amountMeasure;
+            if (this.EditedObject.reconciliationType != null) this.RecoTypeComboBox.SelectedItem = this.EditedObject.reconciliationType;
             this.BalanceFormulaComboBox.SelectedItem = this.EditedObject.balanceFormulaEnum != null ? this.EditedObject.balanceFormulaEnum.label : "";
             this.UseDebitCreditCheckBox.IsChecked = this.EditedObject.useDebitCredit.HasValue && this.EditedObject.useDebitCredit.Value;
             this.visibleInShortcutCheckbox.IsChecked = this.EditedObject.visibleInShortcut;
@@ -90,36 +92,71 @@ namespace Misp.Reconciliation.Reco
             };
             this.visibleInShortcutCheckbox.IsChecked = true;
 
-            this.visibleInShortcutCheckbox.Unchecked += OnChooseVisibility;
-            this.visibleInShortcutCheckbox.Checked += OnChooseVisibility;
+            this.visibleInShortcutCheckbox.Unchecked += OnHandlingCheckbox;
+            this.visibleInShortcutCheckbox.Checked += OnHandlingCheckbox;
+            this.UseDebitCreditCheckBox.Checked += OnHandlingCheckbox;
+            this.UseDebitCreditCheckBox.Unchecked += OnHandlingCheckbox;
 
-            this.UseDebitCreditCheckBox.Checked += OnUseDebitCreditChecked;
-            this.UseDebitCreditCheckBox.Unchecked += OnUseDebitCreditChecked;
-            this.BalanceFormulaComboBox.SelectionChanged += OnChooseBalanceFormula;
+
+            this.BalanceFormulaComboBox.SelectionChanged += OnHandlingCombobox;
+            this.RecoTypeComboBox.SelectionChanged += OnHandlingCombobox;
+            this.MeasureComboBox.SelectionChanged += OnHandlingCombobox;
         }
 
+       
         #endregion
 
 
         #region Handlers
 
-        private void OnUseDebitCreditChecked(object sender, RoutedEventArgs e)
+        private void OnHandlingCheckbox(object sender, RoutedEventArgs e)
         {
-            this.EditedObject.useDebitCredit = this.UseDebitCreditCheckBox.IsChecked;
+            if (!(sender is CheckBox)) return;
+            CheckBox checkbox = (CheckBox)sender;
+            CheckBoxAction(checkbox);
             if (ItemChanged != null) ItemChanged(this.EditedObject);
         }
 
-        private void OnChooseBalanceFormula(object sender, SelectionChangedEventArgs e)
+        private void OnHandlingCombobox(object sender, SelectionChangedEventArgs e)
         {
-            this.EditedObject.balanceFormulaEnum = BalanceFormula.getByLabel(this.BalanceFormulaComboBox.SelectedItem.ToString());
+            if (!(sender is ComboBox)) return;
+            ComboBox combobox = (ComboBox)sender;
+            ComboboxActions(combobox);
             if (ItemChanged != null) ItemChanged(this.EditedObject);
         }
 
-
-        private void OnChooseVisibility(object sender, RoutedEventArgs e)
+        private void ComboboxActions(ComboBox combobox)
         {
-            this.EditedObject.visibleInShortcut = this.visibleInShortcutCheckbox.IsChecked.Value;
-            if (ItemChanged != null) ItemChanged(this.EditedObject);
+            if (combobox == MeasureComboBox)
+            {
+                if (combobox.SelectedItem is Kernel.Domain.Measure)
+                {
+                    Kernel.Domain.Measure measure = (Kernel.Domain.Measure)combobox.SelectedItem;
+                    this.EditedObject.amountMeasure = measure;
+                }
+            }
+
+            if (combobox == RecoTypeComboBox)
+            {
+                if (combobox.SelectedItem is Kernel.Domain.Attribute)
+                {
+                    Kernel.Domain.Attribute attribut = (Kernel.Domain.Attribute)combobox.SelectedItem;
+                    this.EditedObject.reconciliationType = attribut;
+                }
+            }
+            if (combobox == BalanceFormulaComboBox) this.EditedObject.balanceFormulaEnum = BalanceFormula.getByLabel(combobox.SelectedItem.ToString());
+        }
+
+        private void CheckBoxAction(CheckBox checkBox)
+        {
+            if (checkBox == this.UseDebitCreditCheckBox)
+            {
+                this.EditedObject.useDebitCredit = checkBox.IsChecked.Value;
+            }
+            if (checkBox == this.visibleInShortcutCheckbox)
+            {
+                this.EditedObject.visibleInShortcut = checkBox.IsChecked.Value;
+            }
         }
 
         protected void onGroupFieldChange()
