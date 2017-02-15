@@ -292,5 +292,21 @@ namespace Misp.Kernel.Domain
             if (obj == null || !(obj is Measure)) return 1;
             return this.position.CompareTo(((Measure)obj).position);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (base.Equals(obj)) return true;
+
+            if (obj is Measure)
+            {
+                Measure objm = (Measure)obj;
+                if (objm.oid.HasValue && this.oid.HasValue) 
+                {
+                    if (objm.oid == this.oid) return true;
+                }
+                if (objm.name.Equals(this.name)) return true;
+            }
+            return false;
+        }
     }
 }
