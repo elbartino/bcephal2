@@ -163,8 +163,8 @@ namespace Misp.Reconciliation.WriteOffConfig
                 {
                     if (writeoff is WriteOffFieldPanel)
                     {
-                        panel.Index = nbreLigne;
-                        panel.showRowLabel(nbreLigne == 0);
+                        ((WriteOffFieldPanel)writeoff).Index = nbreLigne;
+                        ((WriteOffFieldPanel)writeoff).showRowLabel(nbreLigne == 0);
                         nbreLigne++;
                     }
                 }
