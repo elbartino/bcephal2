@@ -408,7 +408,6 @@ namespace Misp.Reconciliation.Reco
                 if (page.getForm().SelectedIndex == 1)
                 {
                     ConfigurationPropertiesPanel configPane = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel;
-                    configPane.ReconciliationFilterTemplateService = GetService();
                     configPane.displayObject();
                     bar.DesignLayoutAnchorable.Content = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel;
                     bar.DesignLayoutAnchorable.Title = "Filter Properties";

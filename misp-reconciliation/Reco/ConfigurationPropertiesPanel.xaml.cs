@@ -31,8 +31,8 @@ namespace Misp.Reconciliation.Reco
 
         public MeasureService MeasureService { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetMeasureService(); } }
 
-        public ReconciliationFilterTemplateService ReconciliationFilterTemplateService { get; set;}
-
+        public ReconciliationContextService ContextService { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationContextService(); } }
+        
         public ReconciliationFilterTemplate EditedObject { get; set; }
 
         public event ChangeItemEventHandler ItemChanged;
@@ -60,8 +60,7 @@ namespace Misp.Reconciliation.Reco
             this.BalanceFormulaComboBox.SelectedItem = this.EditedObject.balanceFormulaEnum != null ? this.EditedObject.balanceFormulaEnum.label : "";
             this.UseDebitCreditCheckBox.IsChecked = this.EditedObject.useDebitCredit.HasValue && this.EditedObject.useDebitCredit.Value;
             this.visibleInShortcutCheckbox.IsChecked = this.EditedObject.visibleInShortcut;
-            if (this.ReconciliationFilterTemplateService == null) return;
-            this.groupField.GroupService = this.ReconciliationFilterTemplateService.GroupService;
+            this.groupField.GroupService = this.Service.GroupService;
             this.groupField.subjectType = SubjectType.RECONCILIATION_FILTER;
             this.groupField.Changed += onGroupFieldChange;
         }
@@ -73,8 +72,16 @@ namespace Misp.Reconciliation.Reco
 
         private void UserInitialization()
         {
+            Misp.Kernel.Domain.ReconciliationContext context = this.ContextService.getReconciliationContext();
+
             List<Kernel.Domain.Measure> measures = this.MeasureService.getAllLeafts();
             this.MeasureComboBox.ItemsSource = measures;
+            if (context != null && context.amountMeasure != null) this.MeasureComboBox.SelectedItem = context.amountMeasure;
+
+            List<Kernel.Domain.Attribute> types = this.Service.getReconciliationTypes();
+            this.RecoTypeComboBox.ItemsSource = types;
+            if (context != null && context.defaultRecoTypeAttribute != null) this.RecoTypeComboBox.SelectedItem = context.defaultRecoTypeAttribute;
+            
 
             this.BalanceFormulaComboBox.ItemsSource = new String[]
             {
