@@ -313,43 +313,74 @@ namespace Misp.Reconciliation.Reco
 
         private void OnRightGridDeselectionChange(object newSelection)
         {
-            /*Decimal credit = 0;
+            BuildBalance(this.RightGrid);
+        }
+
+        private void OnLeftGridDeselectionChange(object newSelection)
+        {
+            BuildBalance(this.LeftGrid);
+        }
+        
+        private void BuildBalance(ReconciliationFilterTemplateGrid grid)
+        {
+            Decimal[] balances = BuildBalance(grid.EditedObject, grid.GrilleBrowserForm.gridBrowser);
+            String credit = this.EditedObject.useDebitCredit == true ? "Credit: " : "Positive Amount: ";
+            String debit = this.EditedObject.useDebitCredit == true ? "Debit: " : "Negative Amount: ";
+            String balance = "Balance: ";
+            grid.CreditLabel.Content = credit + balances[0];
+            grid.DebitLabel.Content = debit + balances[1];
+            grid.BalanceLabel.Content = balance + (balances[0] - balances[1]);
+        }
+
+        private Decimal[] BuildBalance(Grille grid, GridBrowser browser)
+        {
+            Decimal credit = 0;
             Decimal debit = 0;
 
             GrilleColumn amountColumn = null;
             GrilleColumn creditDebitColumn = null;
 
+            Misp.Kernel.Domain.ReconciliationContext context = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationContextService().getReconciliationContext();
+
             Measure measure = this.EditedObject.amountMeasure;
-
-            if(measure != null)amountColumn = this.RightGrid.EditedObject.GetColumn(ParameterType.MEASURE.ToString(), measure.oid.Value);
-            //creditDebitColumn = this.RightGrid.EditedObject.GetColumn(ParameterType.SCOPE.ToString(), context.dcNbreAttribute.oid.Value);
-            foreach (object row in this.RightGrid.GrilleBrowserForm.gridBrowser.gridControl.SelectedItems)
+            if (measure == null)
             {
-                if (row is GridItem)
-                {
-                    Object[] datas = ((GridItem)row).Datas;
-                    object item = datas[creditDebitColumn.position];
-                    Boolean isCredit = item != null && item.ToString().Equals("C", StringComparison.OrdinalIgnoreCase);
-                    Boolean isDebit = item != null && item.ToString().Equals("D", StringComparison.OrdinalIgnoreCase);
-                    Decimal amount = 0;
-                    item = datas[amountColumn.position];
-                    try
-                    {
-                        Decimal.TryParse(item.ToString(), out amount);
-                    }
-                    catch (Exception) { }
-                    if (isCredit) credit += amount;
-                    else if (isDebit) debit += amount; 
-                }            
+                measure = context != null ? context.amountMeasure : null;
             }
-            */
+            if (measure != null) amountColumn = grid.GetColumn(ParameterType.MEASURE.ToString(), measure.oid.Value);
+
+            if (amountColumn != null)
+            {
+                if (this.EditedObject.useDebitCredit == true && context != null && context.dcNbreAttribute != null)
+                {
+                    creditDebitColumn = grid.GetColumn(ParameterType.SCOPE.ToString(), context.dcNbreAttribute.oid.Value);
+                }
+
+                foreach (object row in browser.gridControl.SelectedItems)
+                {
+                    if (row is GridItem)
+                    {
+                        Object[] datas = ((GridItem)row).Datas;
+                        object item = datas[creditDebitColumn.position];
+                        Boolean isCredit = item != null && item.ToString().Equals("C", StringComparison.OrdinalIgnoreCase);
+                        Boolean isDebit = item != null && item.ToString().Equals("D", StringComparison.OrdinalIgnoreCase);
+                        Decimal amount = 0;
+                        item = datas[amountColumn.position];
+                        try
+                        {
+                            Decimal.TryParse(item.ToString(), out amount);
+                        }
+                        catch (Exception) { }
+                        if (isCredit) credit += amount;
+                        else if (isDebit) debit += amount;
+                    }
+                }
+            }
+            Decimal[] balances = new Decimal[] { credit, debit };
+            return balances;
         }
 
-        private void OnLeftGridDeselectionChange(object newSelection)
-        {
-            throw new NotImplementedException();
-        }
-                      
+
 
         protected void onNameTextChange(object sender, KeyEventArgs args)
         {
@@ -441,6 +472,7 @@ namespace Misp.Reconciliation.Reco
 
         private void OnLeftGridSelectionChange(Object obj)
         {
+            BuildBalance(this.LeftGrid);
             if (obj != null)
             {
                 List<long> oids = new List<long>(0);
@@ -461,6 +493,7 @@ namespace Misp.Reconciliation.Reco
 
         private void OnRightGridSelectionChange(Object obj)
         {
+            BuildBalance(this.RightGrid);
             if (obj != null)
             {
                 List<long> oids = new List<long>(0);
