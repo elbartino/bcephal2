@@ -492,7 +492,15 @@ namespace Misp.Reconciliation.Reco
             {
                 name = prefix + i;
                 ReconciliationFilterTemplate grid = GetObjectByName(name);
-                if (grid == null) return name;
+                if (grid == null)
+                {
+                   grid = ((ReconciliationFilterTemplateSideBar)getNewSideBar()).TemplateGroup.TemplateTreeview.getTemplateByName(name);
+                   if (grid == null)
+                   {
+                       grid = GetService().getByName(name);
+                       if (grid == null) return name;
+                   }
+                }
                 i++;
             }
             return name;
