@@ -274,7 +274,7 @@ namespace Misp.Sourcing.GridViews
 
         private void OnFilterChanged(object sender, RoutedEventArgs e)
         {
-            if (e is GridEventArgs)
+            if (e is GridEventArgs && this.Grille.GrilleFilter != null)
             {
                 if (this.gridControl.IsFilterEnabled)
                 {
@@ -646,9 +646,9 @@ namespace Misp.Sourcing.GridViews
                 dateSetting.AllowNullInput = true;
                 column.EditSettings = dateSetting;
             }
-            if (grilleColumn.type != null && (grilleColumn.type.Equals(ParameterType.PERIOD.ToString()) 
+            if (grilleColumn.type.Equals(ParameterType.PERIOD.ToString()) 
                 || grilleColumn.type.Equals(ParameterType.MEASURE.ToString())
-                || grilleColumn.type.Equals(ParameterType.SPECIAL_MEASURE.ToString())))
+                || grilleColumn.type.Equals(ParameterType.SPECIAL_MEASURE.ToString()))
             {
                 column.ColumnFilterMode = ColumnFilterMode.Value;
             }

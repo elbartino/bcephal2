@@ -238,6 +238,12 @@ namespace Misp.Reconciliation.Reco
         /// </summary>
         public virtual void displayObject()
         {
+            if (this.EditedObject != null)
+            {
+                if (this.EditedObject.leftGrid.GrilleFilter == null) this.EditedObject.leftGrid.GrilleFilter = new GrilleFilter();
+                if (this.EditedObject.rigthGrid.GrilleFilter == null) this.EditedObject.rigthGrid.GrilleFilter = new GrilleFilter();
+            }
+
             this.LeftGrid.Template = this.EditedObject;
             this.RightGrid.Template = this.EditedObject;
 
