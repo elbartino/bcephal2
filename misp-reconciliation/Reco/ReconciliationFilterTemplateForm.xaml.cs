@@ -2,6 +2,7 @@
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Util;
 using Misp.Sourcing.GridViews;
 using System;
 using System.Collections;
@@ -314,7 +315,24 @@ namespace Misp.Reconciliation.Reco
             this.RightGrid.GrilleBrowserForm.gridBrowser.DeselectedItemChangedHandler += OnRightGridDeselectionChange;
 
             this.BottomGrid.GridBrowser.ChangeHandler += OnBottomGridSelectionChange;
+
+            this.BottomGrid.ReconciliateButton.Click += OnReconciliate;
+            this.BottomGrid.ResetButton.Click += OnResetReconciliation;
         
+        }
+
+        private void OnReconciliate(object sender, RoutedEventArgs e)
+        {
+            if (this.EditedObject.reconciliationType == null)
+            {
+                MessageDisplayer.DisplayWarning("Reconciliation", "The reconciliation type is not specified!");
+                return;
+            }
+        }
+
+        private void OnResetReconciliation(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private void OnRightGridDeselectionChange(object newSelection)
