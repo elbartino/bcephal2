@@ -568,7 +568,17 @@ namespace Misp.Sourcing.GridViews
             else
             {
                 List<GridItem> source = new List<GridItem>((List<GridItem>)this.gridControl.ItemsSource);
-                source.AddRange(items);
+                List<int?> oids = new List<int?>(0);
+                foreach (GridItem elt in source)
+                {
+                    oids.Add(elt.GetOid());
+                }
+
+                foreach (GridItem elt in items)
+                {
+                    if (oids.Contains(elt.GetOid())) continue;
+                    source.Add(elt);
+                }
                 this.gridControl.ItemsSource = source;
             }
             

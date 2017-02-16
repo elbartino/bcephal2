@@ -329,6 +329,10 @@ namespace Misp.Reconciliation.Reco
 
         private void OnBottomGridSelectionChange()
         {
+            bool enable = this.BottomGrid.GridBrowser.gridControl.SelectedItems.Count > 0;
+            this.BottomGrid.ReconciliateButton.IsEnabled = enable;
+            this.BottomGrid.ResetButton.IsEnabled = enable;
+
             Decimal[] balances = BuildBalance(this.BottomGrid.EditedObject, this.BottomGrid.GridBrowser);
             String credit = "Left Amount: ";
             String debit = "Right Amount: ";
@@ -422,8 +426,7 @@ namespace Misp.Reconciliation.Reco
             return balances;
         }
 
-
-
+        
         protected void onNameTextChange(object sender, KeyEventArgs args)
         {
             if (args.Key == Key.Escape)
