@@ -23,13 +23,13 @@
             <Label x:Name="BalanceLabel" x:FieldModifier="public" Content="Balance: 0" Margin="5, 0"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Horizontal" x:Name="RecoToolBar">
-            <Button x:Name="ReconciliateButton" x:FieldModifier="public" Margin="5, 0" Height="25" Width="100">
+            <Button x:Name="ReconciliateButton" x:FieldModifier="public" Margin="5, 0" Height="25" Width="100" IsEnabled="False">
                 <DockPanel VerticalAlignment="Center">
                     <Image Source="/bcephal;Component/Resources/Images/Icons/playRecoButton.png" Height="14"/>
                     <TextBlock VerticalAlignment="center">Reconciliate</TextBlock>
                 </DockPanel>
             </Button>
-            <Button x:Name="ResetButton" x:FieldModifier="public" Margin="5, 0" Height="25" Width="100">
+            <Button x:Name="ResetButton" x:FieldModifier="public" Margin="5, 0" Height="25" Width="100" IsEnabled="False">
                 <DockPanel VerticalAlignment="Center">
                     <Image Source="/bcephal;Component/Resources/Images/Icons/playRed.png" Height="18"/>
                     <TextBlock VerticalAlignment="center">Reset</TextBlock>

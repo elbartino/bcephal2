@@ -274,7 +274,7 @@ namespace Misp.Sourcing.GridViews
 
         private void OnFilterChanged(object sender, RoutedEventArgs e)
         {
-            if (e is GridEventArgs)
+            if (e is GridEventArgs && this.Grille.GrilleFilter != null)
             {
                 if (this.gridControl.IsFilterEnabled)
                 {
@@ -541,12 +541,12 @@ namespace Misp.Sourcing.GridViews
             RebuildGrid = false;
         }
 
-        public void displayPage(GrillePage page, bool add = false)
+        public void displayPage(GrillePage page, bool add = false, String side = null)
         {
-            if (page != null) displayRows(page.rows, add);
+            if (page != null) displayRows(page.rows, add, side);
         }
 
-        public void displayRows(List<object[]> rows, bool add = false) 
+        public void displayRows(List<object[]> rows, bool add = false, String side = null) 
         {
             List<GridItem> items = new List<GridItem>(0);
             List<int> positions = this.Grille.getPeriodColumnPositions();
@@ -554,11 +554,11 @@ namespace Misp.Sourcing.GridViews
             foreach (object[] row in rows)
             {
                 if(count > 0)buildDate(row, positions);
-                items.Add(new GridItem(row));
+                items.Add(new GridItem(row, side));
             }
             if (!this.Grille.IsReadOnly())
             {
-                items.Add(new GridItem(new object[this.gridControl.Columns.Count]));
+                items.Add(new GridItem(new object[this.gridControl.Columns.Count], side));
             }
 
             if (!add || this.gridControl.ItemsSource == null)
@@ -568,7 +568,17 @@ namespace Misp.Sourcing.GridViews
             else
             {
                 List<GridItem> source = new List<GridItem>((List<GridItem>)this.gridControl.ItemsSource);
-                source.AddRange(items);
+                List<int?> oids = new List<int?>(0);
+                foreach (GridItem elt in source)
+                {
+                    oids.Add(elt.GetOid());
+                }
+
+                foreach (GridItem elt in items)
+                {
+                    if (oids.Contains(elt.GetOid())) continue;
+                    source.Add(elt);
+                }
                 this.gridControl.ItemsSource = source;
             }
             
@@ -646,9 +656,9 @@ namespace Misp.Sourcing.GridViews
                 dateSetting.AllowNullInput = true;
                 column.EditSettings = dateSetting;
             }
-            if (grilleColumn.type != null && (grilleColumn.type.Equals(ParameterType.PERIOD.ToString()) 
+            if (grilleColumn.type.Equals(ParameterType.PERIOD.ToString()) 
                 || grilleColumn.type.Equals(ParameterType.MEASURE.ToString())
-                || grilleColumn.type.Equals(ParameterType.SPECIAL_MEASURE.ToString())))
+                || grilleColumn.type.Equals(ParameterType.SPECIAL_MEASURE.ToString()))
             {
                 column.ColumnFilterMode = ColumnFilterMode.Value;
             }
