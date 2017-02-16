@@ -82,6 +82,7 @@ namespace Misp.Reconciliation.Reco
                 filter.showAll = true;
                 GrillePage rows = this.Service.getGridRows(filter);
                 this.GridBrowser.displayPage(rows, true);
+                this.GridBrowser.gridControl.SelectAll();
             }
             catch (ServiceExecption)
             {
