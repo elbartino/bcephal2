@@ -93,6 +93,7 @@ namespace Misp.Sourcing.InputGrid
         private void OnNameTextChanged(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Enter){
+                if (this.Column == null) return;
                 this.Column.name = NameTextBox.Text;
                 OnChanged(true);
             }
@@ -100,6 +101,7 @@ namespace Misp.Sourcing.InputGrid
 
         private void OnShowCheckBoxChecked(object sender, RoutedEventArgs e)
         {
+            if (this.Column == null) return;
             this.Column.show = ShowCheckBox.IsChecked.Value;
             if(throwChange) OnChanged(true);
         }

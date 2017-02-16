@@ -552,18 +552,21 @@ namespace Misp.Reconciliation.Reco
         {
             this.BottomGridProperties.BuildColunms();
             this.BottomGrid.GridBrowser.RebuildGrid = true;
+            if (FormChanged != null) FormChanged();
         }
 
         private void OnRightGridPropertiesChange(object item)
         {
             this.RightGridProperties.BuildColunms();
             this.RightGrid.GrilleBrowserForm.gridBrowser.RebuildGrid = true;
+            if (FormChanged != null) FormChanged();
         }
 
         private void OnLeftGridPropertiesChange(object item)
         {
             this.LeftGridProperties.BuildColunms();
             this.LeftGrid.GrilleBrowserForm.gridBrowser.RebuildGrid = true;
+            if (FormChanged != null) FormChanged();
         }
 
         public void OnChange()
