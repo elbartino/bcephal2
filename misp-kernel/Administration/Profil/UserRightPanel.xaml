@@ -3,11 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" Background="White"
-             xmlns:UserRight="clr-namespace:Misp.Kernel.Administration.Profil">            
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition />            
-        <ColumnDefinition/>
-    </Grid.ColumnDefinitions>
+             xmlns:UserRight="clr-namespace:Misp.Kernel.Administration.Profil">
     
     <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
@@ -59,7 +55,7 @@
            StaysOpen="False" Placement="Mouse" PopupAnimation="Slide">
         <Border BorderThickness="1" BorderBrush="LightBlue" Background="Beige">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <TextBox AcceptsReturn="True" Background="Transparent" x:Name="CommentTextBlock" x:FieldModifier="public" Width="150" Height="150" Text="Enter your comment here..." />
+                <TextBox AcceptsReturn="True" Background="Transparent" x:Name="CommentTextBlock" x:FieldModifier="public" Width="130" Height="150" Text="Enter your comment here..." />
             </ScrollViewer>
         </Border>
     </Popup>

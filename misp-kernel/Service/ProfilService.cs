@@ -21,12 +21,13 @@ namespace Misp.Kernel.Service
         /// </summary>
         /// <param name="profil"></param>
         /// <returns></returns>
-        public override  Profil Save(Profil profil)
+        public override Profil Save(Profil profil)
         {
             try
             {
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                var request = new RestRequest(ResourcePath + "/save", Method.POST);
+                string ressourceP = ResourcePath + "/save";
+                var request = new RestRequest(ressourceP, Method.POST);
                 serializer.MaxJsonLength = int.MaxValue;
                 request.RequestFormat = DataFormat.Json;
                 string json = serializer.Serialize(profil);
@@ -40,6 +41,33 @@ namespace Misp.Kernel.Service
                 return null;
             }
         }
+
+        /// <summary>
+        /// save profil
+        /// </summary>
+        /// <param name="profil"></param>
+        /// <returns></returns>
+        public int Save(PersistentListChangeHandler<Domain.Profil> profilListChangeHandler, int? objectOid)
+        {
+            try
+            {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                if (objectOid == null) return 0;
+                var request = new RestRequest(ResourcePath + "/save/" + objectOid, Method.POST);
+                serializer.MaxJsonLength = int.MaxValue;
+                request.RequestFormat = DataFormat.Json;
+                string json = serializer.Serialize(profilListChangeHandler);
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                int pf = RestSharp.SimpleJson.DeserializeObject<int>(queryResult.Content);
+                return pf;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+       
 
         /// <summary>
         /// get profil by oid
@@ -82,6 +110,7 @@ namespace Misp.Kernel.Service
 
         #region Rights
         #endregion
+
 
     }
 }

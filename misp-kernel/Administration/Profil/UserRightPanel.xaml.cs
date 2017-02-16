@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
@@ -33,12 +34,20 @@ namespace Misp.Kernel.Administration.Profil
         public event DeleteEventHandler ItemDeleted;
 
         #endregion
+
         #region Properties
         public UserRightItemPanel ActiveItemPanel { get; set; }
+
+        public ChangeEventHandler ChangeEventHandler;
 
         public PersistentListChangeHandler<Domain.Profil> profilRightsListChangeHandler { get; set; }
 
         public List<Domain.Profil> allProfils;
+
+        public ProfilService profilService;
+
+        public UserService userService;
+
 
         #endregion
 
@@ -51,36 +60,15 @@ namespace Misp.Kernel.Administration.Profil
         }
         #endregion
 
-
         #region Handlers
         protected void initHandlers()
         {
             this.CommentPopup.Opened += OnCommentPopupOpened;
             this.NoCommentButton.Checked += OnComment;
-
         }
         #endregion
 
-        private void OnComment(object sender, RoutedEventArgs e)
-        {
-            this.CommentPopup.IsOpen = true;
-        }
-
-        private void OnCommentPopupOpened(object sender, EventArgs e)
-        {            
-            string text = "Right\n"
-                          + "V : View\n"
-                          + "ET : Edit Table\n"
-                          + "EC : Edit Cell\n"
-                          + "EA : Edit Allocation\n"
-                          + "D  : Delete\n"
-                          + "L  : Load\n"
-                          + "C  : Clear\n"
-                          + "S  : Save As\n";
-            this.CommentTextBlock.Text = text;
-            this.CommentTextBlock.IsEnabled = false;
-        }
-
+        
         private void refreshCommentIcon()
         {
             bool hasComment = !string.IsNullOrWhiteSpace(this.CommentTextBlock.Text);
@@ -117,6 +105,27 @@ namespace Misp.Kernel.Administration.Profil
             //AddItemPanel(this.ActiveItemPanel);
         }
 
+        public void InitService(ProfilService profilServic)
+        {
+            profilService = profilServic;
+
+            allProfils = profilService.getAll();
+            PersistentListChangeHandler<Domain.Profil> p = new PersistentListChangeHandler<Domain.Profil>(allProfils);
+            Display(p);
+        }
+
+        private List<Domain.Profil> unUseProfilList()
+        {
+            List<Domain.Profil> items = new List<Domain.Profil>();
+            foreach (Domain.Profil item in allProfils)
+            {
+                if (!profilRightsListChangeHandler.getItems().Contains(item)) items.Add(item);
+            }
+            return items;
+        }
+
+
+
         /// <summary>
         /// Définit la valeur du profil en cour d'édition
         /// et affiche cette valeur dans le TextBox
@@ -135,7 +144,11 @@ namespace Misp.Kernel.Administration.Profil
             itemPanel.Updated += OnUpdated;
             itemPanel.Deleted += OnDeleted;
             itemPanel.Activated += OnActivated;
+            //itemPanel.FillProfil(unUseProfilList());
             itemPanel.FillProfil(allProfils);
+            this.ActiveItemPanel = itemPanel;
+            itemPanel.RightSelected += OnRightSelected;
+            itemPanel.ChangeEventHandler += onUserRightValueChange;
             this.panel.Children.Add(itemPanel);
         }
 
@@ -149,6 +162,16 @@ namespace Misp.Kernel.Administration.Profil
             }
         }
 
+        private void OnRightSelected(Right right, bool selected)
+        {
+            if (this.ActiveItemPanel.profil != null)
+            {
+                if (selected) this.ActiveItemPanel.profil.AddRight(right);
+                else this.ActiveItemPanel.profil.RemoveRight(right);
+            }
+            if (Changed != null) Changed();
+        }
+
         private void OnDeleted(object item)
         {
             UserRightItemPanel panel = (UserRightItemPanel)item;
@@ -160,11 +183,9 @@ namespace Misp.Kernel.Administration.Profil
             }
             if (panel.profil != null)
             {
-                if (profilRightsListChangeHandler.Items.Count > 1)
-                {
-                    
-                    if (ItemDeleted != null && panel.profil != null) ItemDeleted(panel.profil);
-
+                if (profilRightsListChangeHandler.getItems().Count > 1)
+                {  
+                    this.profilRightsListChangeHandler.AddDeleted(panel.profil);
 
                     if (this.ActiveItemPanel != null && this.ActiveItemPanel == panel)
                         this.ActiveItemPanel = (UserRightItemPanel)this.panel.Children[this.panel.Children.Count - 1];
@@ -203,8 +224,26 @@ namespace Misp.Kernel.Administration.Profil
             updated = false;
             OnChanged(panel.profil);
         }
+
+
+        public void customiseViewForGrid()
+        {
+            
+        }
+
+        public void customiseViewForTable()
+        {
+            
+        }
+
+        public void customiseViewForTree()
+        {
+
+        }
+
         #endregion
 
+        #region Control
         private void OnChanged(object item)
         {
             int count = this.panel.Children.Count;
@@ -217,7 +256,45 @@ namespace Misp.Kernel.Administration.Profil
             if (ItemChanged != null && item != null) ItemChanged(item);
         }
 
-        
+        private void OnComment(object sender, RoutedEventArgs e)
+        {
+            this.CommentPopup.IsOpen = true;
+        }
+
+        private void OnCommentPopupOpened(object sender, EventArgs e)
+        {
+            string text = "Right\n"
+                          + "V : View\n"
+                          + "ET : Edit Table\n"
+                          + "EC : Edit Cell\n"
+                          + "EA : Edit Allocation\n"
+                          + "D  : Delete\n"
+                          + "L  : Load\n"
+                          + "C  : Clear\n"
+                          + "S  : Save As\n";
+            this.CommentTextBlock.Text = text;
+            this.CommentTextBlock.IsEnabled = false;
+        }
+
+        private void onUserRightValueChange()
+        {
+            if (ChangeEventHandler != null) ChangeEventHandler();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>La liste des controls éditables</returns>
+        public List<object> getEditableControls()
+        {
+            List<object> controls = new List<object>(0);
+
+            return controls;
+
+        }
+
+        #endregion
+
         public void SetReadOnly(bool readOnly) 
         {
             
@@ -238,5 +315,7 @@ namespace Misp.Kernel.Administration.Profil
         {
             
         }
+
+        
     }
 }

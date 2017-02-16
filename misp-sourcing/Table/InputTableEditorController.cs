@@ -3,6 +3,7 @@ using Misp.Kernel.Application;
 using Misp.Kernel.Controller;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Domain.Browser;
+using Misp.Kernel.Service;
 using Misp.Kernel.Task;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Designer;
@@ -197,6 +198,7 @@ namespace Misp.Sourcing.Table
             }
             page.getInputTableForm().EditedObject = table;
             page.getInputTableForm().displayObject();
+            ((InputTableEditorItem)page).getInputTableForm().userRightPanel.InitService(GetInputTableService().ProfilService);
             //OnDisplayActiveCellData();
             return OperationState.CONTINUE;
         }
@@ -256,7 +258,7 @@ namespace Misp.Sourcing.Table
                 GetInputTableService().parametrizeTable(parameter);
             }
             bool isNoAllocation = false;
-            
+            ((InputTableEditorItem)page).getInputTableForm().userRightPanel.InitService(GetInputTableService().ProfilService);
             ((InputTableEditorItem)page).getInputTableForm().TablePropertiesPanel.displayTable(table, isNoAllocation,page.IsReadOnly);
             setActivationTableAction(table, isReadonly);
             setIsTemplateTableAction(table, isReadonly);
@@ -516,6 +518,8 @@ namespace Misp.Sourcing.Table
                     GetInputTableService().SaveTableHandler += UpdateSaveInfo;
                     GetInputTableService().Save(table);
                     //if(closeEditorAfterSave) return OperationState.STOP;
+
+                    saveUserProfilRight(currentPage);
                 }
                 catch (Exception)
                 {
@@ -527,6 +531,15 @@ namespace Misp.Sourcing.Table
                 }
             }
             return OperationState.CONTINUE;
+        }
+
+        protected void saveUserProfilRight(InputTableEditorItem page)
+        {
+            if (page != null && page.EditedObject.oid != null)
+            {
+                ProfilService pService = GetInputTableService().ProfilService;
+                pService.Save(page.getInputTableForm().userRightPanel.profilRightsListChangeHandler, page.EditedObject.oid);
+            }
         }
 
         protected OperationState saveSpreedSheet(EditorItem<InputTable> page, String fileName = null,bool saveAs = false) 
@@ -1295,6 +1308,7 @@ namespace Misp.Sourcing.Table
             ((InputTablePropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.TablePropertiesPanel;
             ((InputTablePropertyBar)this.PropertyBar).ParameterLayoutAnchorable.Content = form.TableCellParameterPanel;
             ((InputTablePropertyBar)this.PropertyBar).MappingLayoutAnchorable.Content = form.TableCellParameterPanel.TableCellMappingPanel;
+            ((InputTablePropertyBar)this.PropertyBar).UserRightLayoutAnchorable.Content = form.userRightPanel;
             OnDisplayActiveCellData();
             setIsTemplateTableAction(page.EditedObject, page.IsReadOnly);
         }

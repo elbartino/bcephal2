@@ -33,6 +33,11 @@ namespace Misp.Sourcing.Table
         public ModelService ModelService { get; set; }
 
         /// <summary>
+        /// Le ProfilService.
+        /// </summary>
+        public ProfilService ProfilService { get; set; }
+
+        /// <summary>
         /// Le PeriodicityService.
         /// </summary>
         public PeriodicityService PeriodicityService { get; set; }

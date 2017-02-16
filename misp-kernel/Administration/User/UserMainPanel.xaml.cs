@@ -36,7 +36,7 @@ namespace Misp.Kernel.Administration.User
         {
             InitializeComponent();
             IntializeHandlers();
-            RightPanel.Visibility = Visibility.Collapsed;
+            //RightPanel.Visibility = Visibility.Collapsed;
         }
 
         public List<object> getEditableControls()

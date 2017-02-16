@@ -80,6 +80,7 @@ namespace Misp.Sourcing.InputGrid
             Grille grid = GetNewGrid();
             ((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.AddGrille(grid);
             InputGridEditorItem page = (InputGridEditorItem)getEditor().addOrSelectPage(grid);
+            page.getInputGridForm().userRightPanel.InitService(GetInputGridService().ProfilService);
             initializePageHandlers(page);
             page.Title = grid.name;
             getEditor().ListChangeHandler.AddNew(grid);
@@ -100,6 +101,7 @@ namespace Misp.Sourcing.InputGrid
         {
             if (getEditor().getPage(grid) == null) grid.loadGrilleFilter();
             InputGridEditorItem page = (InputGridEditorItem)getEditor().addOrSelectPage(grid);
+            page.getInputGridForm().userRightPanel.InitService(GetInputGridService().ProfilService);
             UpdateStatusBar();
             UpdateToolBar(page.EditedObject);
             initializePageHandlers(page);
@@ -168,6 +170,7 @@ namespace Misp.Sourcing.InputGrid
             return name;
         }
 
+        
         /// <summary>
         /// Sauve les objets en cours d'édition sur la page.
         /// </summary>
@@ -182,6 +185,7 @@ namespace Misp.Sourcing.InputGrid
                 InputGridEditorItem currentPage = (InputGridEditorItem)page;
                 currentPage.EditedObject.loadFilters();
                 if (base.Save(page) == OperationState.STOP) return OperationState.STOP;
+                saveUserProfilRight();
                 UpdateGridForm();
             }
             catch (Exception)
@@ -301,6 +305,7 @@ namespace Misp.Sourcing.InputGrid
         {
             if (page == null) return;
             InputGridForm form = ((InputGridEditorItem)page).getInputGridForm();
+            ((InputGridPropertyBar)this.PropertyBar).UserRightLayoutAnchorable.Content = form.userRightPanel;
             //((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = form.InputGridSheetForm.InputGridPropertiesPanel;
             PerformSelectionChange();
         }
@@ -428,10 +433,14 @@ namespace Misp.Sourcing.InputGrid
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.Changed += OnInputGridPropertiesChange;
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.selectionColumnChanged += OnInputGridPropertiesSelectionColumnChange;
 
+            editorPage.getInputGridForm().userRightPanel.ChangeEventHandler += OnChangeEventHandler;
+
             initializeGridFormHandlers(editorPage.getInputGridForm());
 
             editorPage.getInputGridForm().SelectionChanged += OnSelectedTabChange;
         }
+
+        
 
         private void OnLoad(object sender, RoutedEventArgs e)
         {
@@ -476,6 +485,16 @@ namespace Misp.Sourcing.InputGrid
             page.getInputGridForm().EditedObject = page.EditedObject;
             page.getInputGridForm().displayObjectInGridForm();
             Search(page.EditedObject.GrilleFilter != null ? page.EditedObject.GrilleFilter.page : 1);
+        }
+
+        protected  void saveUserProfilRight()
+        {
+            InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
+            if (page != null && page.EditedObject.oid != null)
+            {
+                ProfilService pService = GetInputGridService().ProfilService;
+                pService.Save(page.getInputGridForm().userRightPanel.profilRightsListChangeHandler, page.EditedObject.oid);
+            }
         }
 
         protected virtual void initializeGridFormHandlers(InputGridForm inputGridForm)
@@ -671,9 +690,10 @@ namespace Misp.Sourcing.InputGrid
             Search();
         }
 
-
-
-
+        private void OnChangeEventHandler()
+        {
+            OnChange();
+        }
 
         private void OnSetTableVisible(object item)
         {

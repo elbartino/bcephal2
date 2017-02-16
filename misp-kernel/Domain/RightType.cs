@@ -11,7 +11,12 @@ namespace Misp.Kernel.Domain
         
         VIEW,
         EDIT,
-        CREATE
-
+        CREATE,
+        EDIT_CELL,
+        EDIT_ALLOCATION,
+        DELETE,
+        LOAD,
+        CLEAR,
+        SAVE_AS
     }
 }

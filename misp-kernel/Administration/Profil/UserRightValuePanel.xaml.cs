@@ -26,102 +26,124 @@ namespace Misp.Kernel.Administration.Profil
                 
         public ChangeEventHandler ChangeEventHandler;
 
-        public bool IsReadOnly { get; set; }        
+        public bool IsReadOnly { get; set; }
 
-        private bool trow;
+        public event RightEventHandler RightSelected;
+
         public UserRightValuePanel()
         {
             InitializeComponent();
             initHandlers();
         }
 
-        public void DisplayRightValue(Domain.Profil profil, bool readOnly)
+        public void DisplayRightValue(Domain.Profil pf)
         {
-            foreach (Right right in profil.rightsListChangeHandler.Items)
+            foreach (Right right in pf.rightsListChangeHandler.Items)
             {
-                if (1 == 1) this.V.IsChecked = readOnly;
-                if (1 == 1) this.ET.IsChecked = readOnly;
-                if (1 == 1) this.EC.IsChecked = readOnly;
-                if (1 == 1) this.EA.IsChecked = readOnly;
-                if (1 == 1) this.D.IsChecked = readOnly;
-                if (1 == 1) this.L.IsChecked = readOnly;
-                if (1 == 1) this.C.IsChecked = readOnly;
-                if (1 == 1) this.S.IsChecked = readOnly;
-            }            
-            
-        }
-
-        public Domain.Profil FillRights(Domain.Profil profil)
-        {
-            profil.rightsListChangeHandler.resetOriginalList();
-            if (V.IsChecked == true)
-            {
-                Right v = new Right("V");
-                profil.AddRight(v);
+                if (right.rightType != null)
+                {
+                    if (right.rightType.Equals(RightType.VIEW.ToString())) this.V.IsChecked = true;
+                    else if (right.rightType.Equals(RightType.EDIT.ToString())) this.ET.IsChecked = true;
+                    else if (right.rightType.Equals(RightType.EDIT_CELL.ToString())) this.EC.IsChecked = true;
+                    else if (right.rightType.Equals(RightType.EDIT_ALLOCATION.ToString())) this.EA.IsChecked = true;
+                    else if (right.rightType.Equals(RightType.LOAD.ToString())) this.L.IsChecked = true;
+                    else if (right.rightType.Equals(RightType.CLEAR.ToString())) this.C.IsChecked = true;
+                    else if (right.rightType.Equals(RightType.DELETE.ToString())) this.D.IsChecked = true;
+                    else if (right.rightType.Equals(RightType.SAVE_AS.ToString())) this.S.IsChecked = true;
+                }
             }
-            if (ET.IsChecked == true)
-            {
-                Right et = new Right("Edit Table");
-                profil.AddRight(et);
-            }
-            if (EC.IsChecked == true)
-            {
-                Right ec = new Right("Edit Cell");
-                profil.AddRight(ec);
-            }
-            if (EA.IsChecked == true)
-            {
-                Right ea = new Right("Edit All");
-                profil.AddRight(ea);
-            }
-            if (D.IsChecked == true)
-            {
-                Right d = new Right("Delete");
-                profil.AddRight(d);
-            }
-            if (L.IsChecked == true)
-            {
-                Right l = new Right("Load");
-                profil.AddRight(l);
-            }
-            if (C.IsChecked == true)
-            {
-                Right c = new Right("Clear");
-                profil.AddRight(c);
-            }
-            if (S.IsChecked == true)
-            {
-                Right s = new Right("Save As");
-                profil.AddRight(s);
-            }
-            return profil;
         }
 
         protected void initHandlers()
         {
             this.V.GotFocus += OnGotFocus;
-            this.V.MouseDown += OnMouseDown;
-
             this.ET.GotFocus += OnGotFocus;
-            this.ET.MouseDown += OnMouseDown;
-
             this.EC.GotFocus += OnGotFocus;
-            this.EC.MouseDown += OnMouseDown;
-
             this.EA.GotFocus += OnGotFocus;
-            this.EA.MouseDown += OnMouseDown;
-
             this.L.GotFocus += OnGotFocus;
-            this.L.MouseDown += OnMouseDown;
-
-            this.C.GotFocus += OnGotFocus;
-            this.C.MouseDown += OnMouseDown;
-
             this.S.GotFocus += OnGotFocus;
-            this.S.MouseDown += OnMouseDown;
-
+            this.C.GotFocus += OnGotFocus;
             this.D.GotFocus += OnGotFocus;
+
+            this.V.MouseDown += OnMouseDown;
+            this.ET.MouseDown += OnMouseDown;            
+            this.EC.MouseDown += OnMouseDown;            
+            this.EA.MouseDown += OnMouseDown;
+            this.L.MouseDown += OnMouseDown;
+            this.C.MouseDown += OnMouseDown;
+            this.S.MouseDown += OnMouseDown;
             this.D.MouseDown += OnMouseDown;
+
+            //this.RightSelected += OnRightSelected;
+
+            this.V.Checked += OnChecked;
+            this.ET.Checked += OnChecked;
+            this.EC.Checked += OnChecked;
+            this.EA.Checked += OnChecked;
+            this.L.Checked += OnChecked;
+            this.C.Checked += OnChecked;
+            this.S.Checked += OnChecked;
+            this.D.Checked += OnChecked;
+
+            this.V.Unchecked += OnChecked;
+            this.ET.Unchecked += OnChecked;
+            this.EC.Unchecked += OnChecked;
+            this.EA.Unchecked += OnChecked;
+            this.L.Unchecked += OnChecked;
+            this.C.Unchecked += OnChecked;
+            this.S.Unchecked += OnChecked;
+            this.D.Unchecked += OnChecked;
+        }
+
+        //private void OnRightSelected(Right right, bool selected)
+        //{
+        //    if (RightSelected != null) RightSelected(right, selected);
+        //}
+
+
+        private void OnChecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox box = (CheckBox)sender;
+            bool selected = box.IsChecked.Value;
+            Right right = null;
+
+            if (box.Name == this.V.Name)
+            {
+                right = new Right("V");
+                right.rightType = RightType.VIEW.ToString();
+                
+            }
+            else if (box.Name == this.ET.Name)
+            {
+                right = new Right("ET");
+                right.rightType = RightType.EDIT.ToString();
+            }
+            else if (box.Name == this.EC.Name)
+            {
+                right = new Right("EC");
+                right.rightType = RightType.EDIT_CELL.ToString();
+            }
+            else if (box.Name == this.EA.Name)
+            {
+                right = new Right("EA");
+                right.rightType = RightType.EDIT_ALLOCATION.ToString();
+            }
+            else if (box.Name == this.L.Name)
+            {
+                right = new Right("L");
+                right.rightType = RightType.LOAD.ToString();
+            }
+            else if (box.Name == this.C.Name)
+            {
+                right = new Right("C");
+                right.rightType = RightType.CLEAR.ToString();
+            }
+            else if (box.Name == this.S.Name)
+            {
+                right = new Right("S");
+                right.rightType = RightType.SAVE_AS.ToString();
+            }
+            if(right != null) RightSelected(right, selected);
         }
 
         public void SetReadOnly(bool readOnly)
