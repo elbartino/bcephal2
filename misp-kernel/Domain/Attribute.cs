@@ -399,7 +399,7 @@ namespace Misp.Kernel.Domain
                 {
                     if (objm.oid == this.oid) return true;
                 }
-                if (objm.name.Equals(this.name)) return true;
+                if (objm.name != null && objm.name.Equals(this.name)) return true;
             }
             return false;
         }
