@@ -387,5 +387,21 @@ namespace Misp.Kernel.Domain
                 this.Items.Remove(value);
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (base.Equals(obj)) return true;
+
+            if (obj is Kernel.Domain.Attribute)
+            {
+                Kernel.Domain.Attribute objm = (Kernel.Domain.Attribute)obj;
+                if (objm.oid.HasValue && this.oid.HasValue)
+                {
+                    if (objm.oid == this.oid) return true;
+                }
+                if (objm.name != null && objm.name.Equals(this.name)) return true;
+            }
+            return false;
+        }
     }
 }

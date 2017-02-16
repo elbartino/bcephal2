@@ -67,6 +67,10 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType GROUP = new SubjectType("Group");
 
+        public static SubjectType PERIOD = new SubjectType("Period");
+
+        public static SubjectType ATTRIBUTE = new SubjectType("Attribute");
+
         public String label { get; set; }
 
         private SubjectType(String label)

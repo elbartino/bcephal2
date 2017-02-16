@@ -22,7 +22,8 @@ namespace Misp.Reconciliation.Reco
 
         protected System.Windows.Threading.DispatcherTimer runTimer;
         public override void DeleteCommandEnabled(object sender, CanExecuteRoutedEventArgs e) { e.CanExecute = false; }
-                
+        private bool IsRenameOnDoubleClick = false;
+        private object OnChanged;
         #endregion
 
 
@@ -119,8 +120,34 @@ namespace Misp.Reconciliation.Reco
             {                
                 editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.GroupService = GetService().GroupService;
                 editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.subjectType = SubjectTypeFound();
+                editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.Changed += onGroupFieldChange;
                 editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.ItemChanged += OnConfigurationChanged;
                 editorPage.getForm().ConfigurationPanel.WriteOffConfigPanel.ItemChanged += OnConfigurationChanged;
+                editorPage.getForm().ConfigurationPanel.ItemChanged += OnConfigurationChanged;
+                editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
+                editorPage.getForm().FormChanged += OnFormChanged;
+            }
+        }
+
+
+        private void OnFormChanged()
+        {
+            OnChange();
+        }
+
+        
+
+        private void onNameTextChange(object sender, KeyEventArgs args)
+        {
+            ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+            if (args.Key == Key.Escape)
+            {
+                page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.NameTextBox.Text = page.Title;
+            }
+            else if (args.Key == Key.Enter)
+            {
+                ValidateEditedNewName();
+                OnChange();
             }
         }
 
@@ -134,7 +161,7 @@ namespace Misp.Reconciliation.Reco
                 page.EditedObject.group = recoFilterTemplate.group;
                 page.EditedObject.visibleInShortcut = recoFilterTemplate.visibleInShortcut;
                 page.EditedObject.balanceFormulaEnum = recoFilterTemplate.balanceFormulaEnum;
-                page.EditedObject.debitCreditFormulaEnum = recoFilterTemplate.debitCreditFormulaEnum;
+                page.EditedObject.useDebitCredit = recoFilterTemplate.useDebitCredit;
             }
             else if (item is WriteOffConfiguration) 
             {
@@ -148,9 +175,11 @@ namespace Misp.Reconciliation.Reco
             ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
             string name = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.textBox.Text;
             BGroup group = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.Group;
+            ((ReconciliationFilterTemplateSideBar)SideBar).TemplateGroup.TemplateTreeview.updateTemplate(name, page.Title, true);
             page.EditedObject.group = group;
             OnChange();
         }
+             
 
         protected override void initializeSideBarHandlers()
         {
@@ -173,7 +202,7 @@ namespace Misp.Reconciliation.Reco
             ((ReconciliationFilterTemplateSideBar)SideBar).TemplateGroup.TemplateTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
 
             ((ReconciliationFilterTemplateSideBar)SideBar).EntityGroup.InitializeData();
-            ((ReconciliationFilterTemplateSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
+            ((ReconciliationFilterTemplateSideBar)SideBar).MeasureGroup.InitializeMeasure(true);
 
             ((ReconciliationFilterTemplateSideBar)SideBar).PeriodGroup.InitializeData();
 
@@ -243,6 +272,62 @@ namespace Misp.Reconciliation.Reco
             }
         }
 
+        protected override void Rename(string name)
+        {
+            ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+            page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.NameTextBox.Text = name;
+            //page.EditedObject.name = name;
+            base.Rename(name);
+        }
+
+
+        public override OperationState Rename()
+        {
+            if (base.Rename() != OperationState.CONTINUE)
+                return OperationState.STOP;
+
+            IsRenameOnDoubleClick = true;
+            ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+
+            return ValidateEditedNewName(page.Title);
+        }
+
+
+        protected virtual OperationState ValidateEditedNewName(string newName = "")
+        {
+            ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
+            ReconciliationFilterTemplate table = page.EditedObject;
+            if (string.IsNullOrEmpty(newName))
+                newName = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.NameTextBox.Text.Trim();
+            if (string.IsNullOrEmpty(newName))
+            {
+                DisplayError("Empty Name", "The Filter Template name can't be mepty!");
+                page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.NameTextBox.SelectAll();
+                page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.NameTextBox.Focus();
+                return OperationState.STOP;
+            }
+
+
+            foreach (ReconciliationFilterTemplateEditorItem unInputTable in getEditor().getPages())
+            {
+                if (unInputTable != getEditor().getActivePage() && newName == unInputTable.Title)
+                {
+                    DisplayError("Duplicate Name", "There is another Filter Template  named: " + newName);
+                    page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.NameTextBox.Text = page.Title;
+                    page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.NameTextBox.SelectAll();
+                    page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.NameTextBox.Focus();
+                    return OperationState.STOP;
+                }
+            }
+            if (!IsRenameOnDoubleClick)
+                if (table.name.ToUpper().Equals(newName.ToUpper())) return OperationState.CONTINUE;
+
+            ((ReconciliationFilterTemplateSideBar)SideBar).TemplateGroup.TemplateTreeview.updateTemplate(newName, table.name, false);
+            table.name = newName;
+            page.Title = newName;
+            return OperationState.CONTINUE;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -256,7 +341,6 @@ namespace Misp.Reconciliation.Reco
                 page.SetPeriod(sender);
                 OnChange();
             }
-
         }
 
         /// <summary>
@@ -297,6 +381,9 @@ namespace Misp.Reconciliation.Reco
                 if (page.getForm().LeftGrid.GrilleBrowserForm.gridBrowser.RebuildGrid) UpdateGridForm(page.getForm().LeftGrid);
                 if (page.getForm().RightGrid.GrilleBrowserForm.gridBrowser.RebuildGrid) UpdateGridForm(page.getForm().RightGrid);
                 if (page.getForm().BottomGrid.GridBrowser.RebuildGrid) UpdateGridForm(page.getForm().BottomGrid);
+
+                page.getForm().LeftGrid.CustomizeDC();
+                page.getForm().RightGrid.CustomizeDC();
             }
             else
             {
@@ -305,7 +392,6 @@ namespace Misp.Reconciliation.Reco
                 if (page.getForm().SelectedIndex == 1)
                 {
                     ConfigurationPropertiesPanel configPane = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel;
-                    configPane.ReconciliationFilterTemplateService = GetService();
                     configPane.displayObject();
                     bar.DesignLayoutAnchorable.Content = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel;
                     bar.DesignLayoutAnchorable.Title = "Filter Properties";
@@ -406,7 +492,15 @@ namespace Misp.Reconciliation.Reco
             {
                 name = prefix + i;
                 ReconciliationFilterTemplate grid = GetObjectByName(name);
-                if (grid == null) return name;
+                if (grid == null)
+                {
+                   grid = ((ReconciliationFilterTemplateSideBar)getNewSideBar()).TemplateGroup.TemplateTreeview.getTemplateByName(name);
+                   if (grid == null)
+                   {
+                       grid = GetService().getByName(name);
+                       if (grid == null) return name;
+                   }
+                }
                 i++;
             }
             return name;

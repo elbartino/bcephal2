@@ -139,9 +139,24 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             return this.WriteOffFieldValue;                
         }
 
+        public void setDateView() 
+        {
+            this.PossibleValues.setDateView();
+            this.DefaultValues.setDateView();
+        }
+
+        public void removeDateView() 
+        {
+            this.PossibleValues.removeDateView();
+            this.DefaultValues.removeDateView();
+        }
+
+
         public void UpdateObject(WriteOffFieldValue fieldValue)
         {
             this.WriteOffFieldValue = fieldValue;
         }
+
+       
     }
 }

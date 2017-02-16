@@ -229,7 +229,7 @@ namespace Misp.Kernel.Ui.Dashboard
             else if (isCalculatedMeasure()) new DashboardActions().DeleteCalculatedMeasures(oids, this);
             else if (isAutomaticUpload()) new DashboardActions().DeleteAutomaticUploads(oids, this);
             else if (isDesign()) new DashboardActions().DeleteDesigns(oids, this);
-            else if (isReconciliationFilterUpload()) new DashboardActions().DeleteReconciliationFilters(oids, this);
+            else if (isReconciliationFilterUpload()) new DashboardActions().DeleteReconciliationFiltersTemplate(oids, this);
             else if (isReconciliationPostingUpload()) new DashboardActions().DeleteReconciliationPostings(oids, this);
             else if (isTransactionFileTypeUpload()) new DashboardActions().DeleteTransactionFileTypes(oids, this);
             else if (isInputGrid()) new DashboardActions().DeleteInputGrid(oids, this);
@@ -501,6 +501,11 @@ namespace Misp.Kernel.Ui.Dashboard
         }
 
         public Boolean isReconciliationFilterUpload()
+        {
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.RECONCILIATION_FILTER_EDIT);
+        }
+
+        public Boolean isReconciliationFilterTemplate()
         {
             return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.RECONCILIATION_FILTER_EDIT);
         }

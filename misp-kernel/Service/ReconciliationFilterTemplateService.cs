@@ -79,5 +79,26 @@ namespace Misp.Kernel.Service
             }
         }
 
+        public List<Domain.Attribute> getReconciliationTypes()
+        {
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/reco-types", Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                try
+                {
+                    List<Kernel.Domain.Attribute> types = RestSharp.SimpleJson.DeserializeObject<List<Kernel.Domain.Attribute>>(queryResult.Content);
+                    return types;
+                }
+                catch (Exception)
+                {
+                    return new List<Kernel.Domain.Attribute>(0);
+                }
+            }
+            catch (Exception)
+            {
+                return new List<Kernel.Domain.Attribute>(0);
+            }
+        }
     }
 }

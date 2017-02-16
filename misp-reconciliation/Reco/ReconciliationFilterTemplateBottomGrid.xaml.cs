@@ -62,12 +62,12 @@ namespace Misp.Reconciliation.Reco
             throwHandler = true;
         }
 
-        public void AddLines(List<long> oids, bool fromLeftGrid = true)
+        public void AddLines(List<long> oids, String side)
         {
-            Search(oids);
+            Search(oids, side);
         }
 
-        private void Search(List<long> oids)
+        private void Search(List<long> oids, String side)
         {
             try
             {
@@ -81,7 +81,8 @@ namespace Misp.Reconciliation.Reco
                 filter.pageSize = int.MaxValue;
                 filter.showAll = true;
                 GrillePage rows = this.Service.getGridRows(filter);
-                this.GridBrowser.displayPage(rows, true);
+                this.GridBrowser.displayPage(rows, true, side);
+                this.GridBrowser.gridControl.SelectAll();
             }
             catch (ServiceExecption)
             {

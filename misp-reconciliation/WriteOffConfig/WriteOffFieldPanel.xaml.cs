@@ -74,12 +74,12 @@ namespace Misp.Reconciliation.WriteOffConfig
 
             this.fieldsPanel.writeOffField = this.writeOffField;
             this.fieldsPanel.display();
-
             this.MandatoryValue.mandatoryValue = this.writeOffField != null ? this.writeOffField.mandatory : false;
             this.MandatoryValue.display();
 
             InitializeHandlers();
             this.FieldValuePanel.fieldValueListChangeHandler = this.writeOffField != null ? writeOffField.writeOffFieldValueListChangeHandler : null;
+            this.FieldValuePanel.isDateView = this.writeOffField != null && this.writeOffField.isPeriod();
             this.FieldValuePanel.display();
         }
 
@@ -183,6 +183,7 @@ namespace Misp.Reconciliation.WriteOffConfig
         public void setAttribute(Kernel.Domain.Attribute attribute)
         {
             this.fieldsPanel.setAttribute(attribute);
+            this.FieldValuePanel.removeDateView();
         }
         
         public void setAttributeValue(Kernel.Domain.AttributeValue attributeValue)
@@ -192,12 +193,14 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         public void setMeasure(Kernel.Domain.Measure measure)
         {
-            this.fieldsPanel.setMeasure(measure);;
+            this.fieldsPanel.setMeasure(measure);
+            this.FieldValuePanel.removeDateView();
         }
 
         public void setPeriodName(PeriodName periodName)
         {
             this.fieldsPanel.setPeriodName(periodName);
+            this.FieldValuePanel.setDateView();
         }
 
         public void setPeriodInterval(PeriodInterval periodInterval) 
@@ -216,7 +219,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.FieldValuePanel.updateValue(writeOffField);
         }
 
-        WriteOffField getActiveWriteOffField()
+        public WriteOffField getActiveWriteOffField()
         {
             if (this.writeOffField == null)
             {

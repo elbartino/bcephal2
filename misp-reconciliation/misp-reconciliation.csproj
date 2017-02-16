@@ -154,6 +154,9 @@
     <Compile Include="Reco\ReconciliationFilterTemplatePropertyBar.cs" />
     <Compile Include="Reco\ReconciliationFilterTemplateSideBar.cs" />
     <Compile Include="Reco\ReconciliationFilterTemplateToolBar.cs" />
+    <Compile Include="Reco\RecoWriteOffDialog.xaml.cs">
+      <DependentUpon>RecoWriteOffDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WriteOffConfig\WriteOffConfigPanel.xaml.cs">
       <DependentUpon>WriteOffConfigPanel.xaml</DependentUpon>
     </Compile>
@@ -247,6 +250,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Reco\ReconciliationFilterTemplateGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reco\RecoWriteOffDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

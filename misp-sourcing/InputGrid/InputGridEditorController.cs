@@ -984,7 +984,7 @@ namespace Misp.Sourcing.InputGrid
                     page.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.NameTextBox.Focus();
                     return OperationState.STOP;
                 }
-                    }
+            }
             if(!IsRenameOnDoubleClick)
             if (table.name.ToUpper().Equals(newName.ToUpper())) return OperationState.CONTINUE;
 

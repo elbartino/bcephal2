@@ -36,8 +36,8 @@
     <gr:GrilleBrowserForm x:Name="GrilleBrowserForm" x:FieldModifier="public" Grid.Row="1"/>
 
     <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">
-        <Label x:Name="CreditLabel" x:FieldModifier="public" Content="Sum Credit: 0" Margin="5, 0"/>
-        <Label x:Name="DebitLabel" x:FieldModifier="public" Content="Sum Debit: 0" Margin="5, 0"/>
+        <Label x:Name="CreditLabel" x:FieldModifier="public" Content="Credit: 0" Margin="5, 0"/>
+        <Label x:Name="DebitLabel" x:FieldModifier="public" Content="Debit: 0" Margin="5, 0"/>
         <Label x:Name="BalanceLabel" x:FieldModifier="public" Content="Balance: 0" Margin="5, 0"/>
     </StackPanel>
 
