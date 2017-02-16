@@ -541,12 +541,12 @@ namespace Misp.Sourcing.GridViews
             RebuildGrid = false;
         }
 
-        public void displayPage(GrillePage page, bool add = false)
+        public void displayPage(GrillePage page, bool add = false, String side = null)
         {
-            if (page != null) displayRows(page.rows, add);
+            if (page != null) displayRows(page.rows, add, side);
         }
 
-        public void displayRows(List<object[]> rows, bool add = false) 
+        public void displayRows(List<object[]> rows, bool add = false, String side = null) 
         {
             List<GridItem> items = new List<GridItem>(0);
             List<int> positions = this.Grille.getPeriodColumnPositions();
@@ -554,11 +554,11 @@ namespace Misp.Sourcing.GridViews
             foreach (object[] row in rows)
             {
                 if(count > 0)buildDate(row, positions);
-                items.Add(new GridItem(row));
+                items.Add(new GridItem(row, side));
             }
             if (!this.Grille.IsReadOnly())
             {
-                items.Add(new GridItem(new object[this.gridControl.Columns.Count]));
+                items.Add(new GridItem(new object[this.gridControl.Columns.Count], side));
             }
 
             if (!add || this.gridControl.ItemsSource == null)

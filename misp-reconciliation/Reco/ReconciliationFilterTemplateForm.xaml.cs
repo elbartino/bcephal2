@@ -320,6 +320,22 @@ namespace Misp.Reconciliation.Reco
         {
             BuildBalance(this.LeftGrid);
         }
+
+        private void OnBottomGridSelectionChange()
+        {
+            Decimal[] balances = BuildBalance(this.BottomGrid.EditedObject, this.BottomGrid.GridBrowser);
+            String credit = "Left Amount: ";
+            String debit = "Right Amount: ";
+            String balance = "Balance: ";
+            this.BottomGrid.CreditLabel.Content = credit + balances[0];
+            this.BottomGrid.DebitLabel.Content = debit + balances[1];
+            Decimal balanceValue = balances[0] - balances[1];
+            if (this.EditedObject.balanceFormulaEnum != null && this.EditedObject.balanceFormulaEnum == BalanceFormula.LEFT_PLUS_RIGHT)
+            {
+                balanceValue = balances[0] + balances[1];
+            }
+            this.BottomGrid.BalanceLabel.Content = balance + balanceValue;
+        }
         
         private void BuildBalance(ReconciliationFilterTemplateGrid grid)
         {
@@ -356,23 +372,43 @@ namespace Misp.Reconciliation.Reco
                     creditDebitColumn = grid.GetColumn(ParameterType.SCOPE.ToString(), context.dcNbreAttribute.oid.Value);
                 }
 
+                String creditValue = context.creditAttributeValue != null ? context.creditAttributeValue.name : "C";
+                String debitValue = context.debitAttributeValue != null ? context.debitAttributeValue.name : "D";
+
                 foreach (object row in browser.gridControl.SelectedItems)
                 {
                     if (row is GridItem)
                     {
-                        Object[] datas = ((GridItem)row).Datas;
-                        object item = datas[creditDebitColumn.position];
-                        Boolean isCredit = item != null && item.ToString().Equals("C", StringComparison.OrdinalIgnoreCase);
-                        Boolean isDebit = item != null && item.ToString().Equals("D", StringComparison.OrdinalIgnoreCase);
+                        Object[] datas = ((GridItem)row).Datas;                        
                         Decimal amount = 0;
-                        item = datas[amountColumn.position];
+                        object item = datas[amountColumn.position];
                         try
                         {
                             Decimal.TryParse(item.ToString(), out amount);
                         }
                         catch (Exception) { }
-                        if (isCredit) credit += amount;
-                        else if (isDebit) debit += amount;
+
+                        if (this.EditedObject.useDebitCredit == true)
+                        {
+                            if (creditDebitColumn == null) continue;
+                            item = datas[creditDebitColumn.position];
+                            Boolean isCredit = item != null && item.ToString().Equals(creditValue, StringComparison.OrdinalIgnoreCase);
+                            Boolean isDebit = item != null && item.ToString().Equals(debitValue, StringComparison.OrdinalIgnoreCase);
+                            if (isCredit) credit += amount;
+                            else if (isDebit) debit += amount;
+                        }
+                        else if(grid == this.EditedObject.bottomGrid)
+                        {
+                            String side = ((GridItem)row).Side;
+                            if (string.IsNullOrWhiteSpace(side)) continue;
+                            if (side == GridItem.LEFT_SIDE) credit += amount;
+                            else debit += amount;
+                        }
+                        else
+                        {
+                            if (amount > 0) credit += amount;
+                            else debit += amount;
+                        }
                     }
                 }
             }
@@ -487,7 +523,7 @@ namespace Misp.Reconciliation.Reco
                         oids.Add(item.GetOid().Value);
                     }
                 }
-                this.BottomGrid.AddLines(oids);
+                this.BottomGrid.AddLines(oids, GridItem.LEFT_SIDE);
             }            
         }
 
@@ -508,15 +544,10 @@ namespace Misp.Reconciliation.Reco
                         oids.Add(item.GetOid().Value);
                     }
                 }
-                this.BottomGrid.AddLines(oids, false);
+                this.BottomGrid.AddLines(oids, GridItem.RIGHT_SIDE);
             } 
         }
-
-        private void OnBottomGridSelectionChange()
-        {
-            
-        }
-        
+                        
         private void OnBottomGridPropertiesChange(object item)
         {
             this.BottomGridProperties.BuildColunms();
