@@ -1,0 +1,13 @@
+﻿<Window x:Class="Misp.Reconciliation.Reco.RecoWriteOffDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:recogrid="clr-namespace:Misp.Reconciliation.Reco" 
+        Title="RecoWriteOffDialog" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <recogrid:ReconciliationFilterTemplateBottomGrid x:Name="GridBottom" Grid.Row="0"/>
+    </Grid>
+</Window>
