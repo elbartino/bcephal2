@@ -202,7 +202,7 @@ namespace Misp.Reconciliation.Reco
             ((ReconciliationFilterTemplateSideBar)SideBar).TemplateGroup.TemplateTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
 
             ((ReconciliationFilterTemplateSideBar)SideBar).EntityGroup.InitializeData();
-            ((ReconciliationFilterTemplateSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
+            ((ReconciliationFilterTemplateSideBar)SideBar).MeasureGroup.InitializeMeasure(true);
 
             ((ReconciliationFilterTemplateSideBar)SideBar).PeriodGroup.InitializeData();
 
