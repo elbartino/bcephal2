@@ -40,6 +40,7 @@ namespace Misp.Reconciliation.Reco
         {
             InitializeComponent();
             ReconciliationGrid.RecoToolBar.Visibility = Visibility.Collapsed;
+            this.confirmationMessageLabel.Content = "You are about to create a reconciliation for the selected items.\nDo you confirm the operation?";
             InitHandlers();
         }
 

@@ -9,22 +9,25 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <recogrid:ReconciliationFilterTemplateBottomGrid x:Name="ReconciliationGrid" Grid.Row="0"/>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" x:Name="WriteoffPanel"/>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" x:Name="ToolBar" HorizontalAlignment="Right" Margin="15">
+        <Label x:FieldModifier="public" x:Name="confirmationMessageLabel" Grid.Row="2" Content="Do you confirm operation? " Margin="10 0"/>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" x:Name="ToolBar" HorizontalAlignment="Right" Margin="15">
             <Button x:Name="ReconciliateButton" x:FieldModifier="public" Margin="5, 0" Height="25" Width="100">
                 <DockPanel VerticalAlignment="Center">
                     <Image Source="/bcephal;Component/Resources/Images/Icons/playRecoButton.png" Height="14"/>
-                    <TextBlock VerticalAlignment="center">Reconciliate</TextBlock>
+                    <TextBlock VerticalAlignment="center">  Yes</TextBlock>
                 </DockPanel>
             </Button>
             <Button x:Name="CancelButton" x:FieldModifier="public" Margin="5, 0" Height="25" Width="100">
                 <DockPanel VerticalAlignment="Center">
                     <Image Source="/bcephal;Component/Resources/Images/Icons/Delete.png" Height="18"/>
-                    <TextBlock VerticalAlignment="center">Cancel</TextBlock>
+                    <TextBlock VerticalAlignment="center">  No</TextBlock>
                 </DockPanel>
             </Button>
         </StackPanel>
