@@ -90,6 +90,7 @@ namespace Misp.Kernel.Application
                 inputGridService.MeasureService = GetMeasureService();
                 inputGridService.PeriodicityService = GetPeriodicityService();
                 inputGridService.GroupService = GetGroupService();
+                inputGridService.ProfilService = GetProfilService();
                 inputGridService.CalculatedMeasureService = GetCalculatedMeasureService2();
                 inputGridService.PeriodNameService = GetPeriodNameService();
                 configureService(inputGridService);

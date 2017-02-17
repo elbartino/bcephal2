@@ -12,6 +12,10 @@ namespace Misp.Kernel.Domain
 
         public String rightType { get; set; } 
 
+        public int objectOid { get; set; }
+
+        public String projectReference { get; set; }
+
         [ScriptIgnore]
         public Profil profil { get; set;}
 

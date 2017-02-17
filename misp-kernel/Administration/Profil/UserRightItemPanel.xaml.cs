@@ -32,6 +32,8 @@ namespace Misp.Kernel.Administration.Profil
         public event UpdateEventHandler Updated;
 
         public ActivateEventHandler Activated;
+
+        public event RightEventHandler RightSelected;
         #endregion
 
         public Kernel.Domain.Profil profil { get; set; }
@@ -46,6 +48,7 @@ namespace Misp.Kernel.Administration.Profil
         public UserRightItemPanel()
         {
             InitializeComponent();
+            this.UserRightValuePanel.IsEnabled = false;
             initHandlers();
         }
 
@@ -90,7 +93,7 @@ namespace Misp.Kernel.Administration.Profil
                 update = false;
                 this.profil = item;
                 this.ProfilComboBox.SelectedItem = item;
-                this.UserRightValuePanel.DisplayRightValue(item, readOnly);
+                this.UserRightValuePanel.DisplayRightValue(item);
                 update = true;
             }
             else
@@ -100,15 +103,13 @@ namespace Misp.Kernel.Administration.Profil
             }
         }
 
-        public Kernel.Domain.Profil FillRight()
-        {
-            return this.UserRightValuePanel.FillRights(this.profil);
-        }
+        
 
         public void Reset()
         {
             if (this.IsReadOnly) this.SetReadOnly(this.IsReadOnly);
         }
+
         #endregion
 
         #region Handlers
@@ -129,12 +130,32 @@ namespace Misp.Kernel.Administration.Profil
 
             this.UserRightValuePanel.Activated += OnActivate;
             this.UserRightValuePanel.ChangeEventHandler += onUserRightValueChange;
+            this.UserRightValuePanel.RightSelected += OnRightrSelected;
+        }
+
+
+        private void OnRightrSelected(Right right, bool selected)
+        {
+            if (RightSelected != null) RightSelected(right, selected);
         }
 
         
 
         private void onProfilChange(object sender, SelectionChangedEventArgs e)
         {
+            Object selection = this.ProfilComboBox.SelectedItem;
+            if (selection == null)
+            {
+                this.UserRightValuePanel.Visibility = Visibility.Collapsed;
+                this.UserRightValuePanel.IsEnabled = false;
+            }
+            if (selection != null && selection.ToString().Trim() != null)
+            {
+                this.profil = (Domain.Profil)selection;
+                this.UserRightValuePanel.Visibility = Visibility.Visible;
+                this.UserRightValuePanel.IsEnabled = true;
+            }
+
             if (Updated != null && update)
             {
                 if (setProfilRight())
@@ -171,14 +192,14 @@ namespace Misp.Kernel.Administration.Profil
             if (this.ProfilComboBox.SelectedItem != null )
             {
                 Domain.Profil profil = (Domain.Profil)this.ProfilComboBox.SelectedItem;
-                this.UserRightValuePanel.DisplayRightValue(profil, false);
+                this.UserRightValuePanel.DisplayRightValue(profil);
             }
             else { }
         }
 
         private void onUserRightValueChange()
         {
-
+            if (ChangeEventHandler != null) ChangeEventHandler();
         }
 
 
@@ -240,8 +261,7 @@ namespace Misp.Kernel.Administration.Profil
             this.IsReadOnly = readOnly;
             this.ProfilComboBox.IsEnabled = !readOnly;
             this.AddButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
-            this.DeleteButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
-            
+            this.DeleteButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;            
         }
 
         public void SetReadOnly(bool readOnly)

@@ -15,6 +15,8 @@ namespace Misp.Sourcing.InputGrid
 
         public LayoutAnchorablePane Pane { get; set; }
 
+        public LayoutAnchorable UserRightLayoutAnchorable { get; set; }
+
         protected override void UserInitialisation()
         {
             this.DesignLayoutAnchorable = new LayoutAnchorable();
@@ -23,9 +25,17 @@ namespace Misp.Sourcing.InputGrid
             this.DesignLayoutAnchorable.CanFloat = false;
             this.DesignLayoutAnchorable.CanAutoHide = false;
             this.DesignLayoutAnchorable.CanHide = false;
+
+            this.UserRightLayoutAnchorable = new LayoutAnchorable();
+            this.UserRightLayoutAnchorable.Title = "User Profil Properties";
+            this.UserRightLayoutAnchorable.CanAutoHide = false;
+            this.UserRightLayoutAnchorable.CanClose = false;
+            this.UserRightLayoutAnchorable.CanFloat = false;
+            this.UserRightLayoutAnchorable.CanHide = false;
             
             Pane = new LayoutAnchorablePane();
             Pane.Children.Add(DesignLayoutAnchorable);
+            //Pane.Children.Add(UserRightLayoutAnchorable);
             this.Panes.Add(Pane);
 
         }

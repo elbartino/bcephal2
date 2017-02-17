@@ -24,6 +24,7 @@ using Misp.Kernel.Util;
 using Misp.Sourcing.AllocationViews;
 using Misp.Kernel.Ui.Office.DevExpressSheet;
 using DevExpress.Xpf.Core;
+using Misp.Kernel.Administration.Profil;
 namespace Misp.Sourcing.Table
 {
     /// <summary>
@@ -53,7 +54,7 @@ namespace Misp.Sourcing.Table
         {
             ThemeManager.SetThemeName(this, "None");
             InitializeComponents();
-            InitializeExcelMenu();
+            InitializeExcelMenu();            
         }
 
         private void InitializeExcelMenu()
@@ -122,6 +123,8 @@ namespace Misp.Sourcing.Table
             this.Items.Add(auditTabItem);
          
             this.SelectionChanged += onSelectTabChancged;
+
+            this.userRightPanel = new UserRightPanel();
         }
 
 
@@ -242,6 +245,8 @@ namespace Misp.Sourcing.Table
 
         public DESpreadsheet SpreadSheet { get; set; }
 
+        public UserRightPanel userRightPanel { get; set; }
+
         public CellPropertyGrid CellPropertyGrid { get; private set; }
 
         public InputTableService InputTableService { get; set; }
@@ -342,6 +347,7 @@ namespace Misp.Sourcing.Table
             controls.AddRange(TablePropertiesPanel.getEditableControls());
             controls.AddRange(TableCellParameterPanel.getEditableControls());
             controls.AddRange(AllocationPropertiesPanel.getEditableControls());
+            controls.AddRange(userRightPanel.getEditableControls());
             if (this.SpreadSheet != null) controls.Add(this.SpreadSheet);
             return controls;
         }

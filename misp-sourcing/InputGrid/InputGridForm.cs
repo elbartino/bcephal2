@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Domain;
+﻿using Misp.Kernel.Administration.Profil;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
 using Misp.Sourcing.GridViews;
 using System;
@@ -30,6 +31,10 @@ namespace Misp.Sourcing.InputGrid
         public TabItem ConfigurationTabItem;
         public GrilleBrowserForm GridForm;
         public InputGridSheetForm InputGridSheetForm;
+
+        #region Properties
+        public UserRightPanel userRightPanel { get; set; }
+        #endregion
 
         public InputGridForm()
         {
@@ -72,6 +77,9 @@ namespace Misp.Sourcing.InputGrid
             ConfigurationTabItem.Header = "Configuration";
             ConfigurationTabItem.Background = Brushes.White;
             ConfigurationTabItem.Content = InputGridSheetForm;
+
+            this.userRightPanel = new UserRightPanel();
+            
 
             this.Items.Add(AuditTabItem);
             this.Items.Add(ConfigurationTabItem);
@@ -156,7 +164,11 @@ namespace Misp.Sourcing.InputGrid
         /// <returns>La liste des controls éditables</returns>
         public List<object> getEditableControls()
         {
-            return this.InputGridSheetForm.getEditableControls();
+            List<object> controls = new List<object>(0);
+            controls.AddRange(userRightPanel.getEditableControls());
+            controls.AddRange(this.InputGridSheetForm.getEditableControls());
+            return controls;
+
         }
     }
 }

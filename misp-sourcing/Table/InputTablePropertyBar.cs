@@ -16,7 +16,7 @@ namespace Misp.Sourcing.Table
         public LayoutAnchorable TableLayoutAnchorable { get; set; }
         public LayoutAnchorable CellLayoutAnchorable { get; set; }
         public LayoutAnchorable AllocationLayoutAnchorable { get; set; }
-
+        public LayoutAnchorable UserRightLayoutAnchorable { get; set; }
 
         public LayoutAnchorable ParameterLayoutAnchorable { get; set; }
         public LayoutAnchorable MappingLayoutAnchorable { get; set; }
@@ -56,6 +56,13 @@ namespace Misp.Sourcing.Table
             this.ParameterLayoutAnchorable.CanAutoHide = false;
             this.MappingLayoutAnchorable.CanClose = false;
             this.MappingLayoutAnchorable.CanFloat = false;
+
+            this.UserRightLayoutAnchorable = new LayoutAnchorable();
+            this.UserRightLayoutAnchorable.Title = "User Profil Properties";
+            this.UserRightLayoutAnchorable.CanAutoHide = false;
+            this.UserRightLayoutAnchorable.CanClose = false;
+            this.UserRightLayoutAnchorable.CanFloat = false;
+            this.UserRightLayoutAnchorable.CanHide = false;
             
             /** Décommenter pour avoir le mapping et la parametrisation des cells */
             //DockingManager manager = new DockingManager();
@@ -79,6 +86,7 @@ namespace Misp.Sourcing.Table
             Pane.Children.Add(TableLayoutAnchorable);
             Pane.Children.Add(ParameterLayoutAnchorable);
             Pane.Children.Add(AllocationLayoutAnchorable);
+            Pane.Children.Add(UserRightLayoutAnchorable);
             this.Panes.Add(Pane);
 
         }
