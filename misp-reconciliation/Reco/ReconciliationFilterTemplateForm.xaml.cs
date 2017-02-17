@@ -328,6 +328,9 @@ namespace Misp.Reconciliation.Reco
                 MessageDisplayer.DisplayWarning("Reconciliation", "The reconciliation type is not specified!");
                 return;
             }
+            RecoWriteOffDialog dialog = new RecoWriteOffDialog();
+            dialog.Owner = ApplicationManager.Instance.MainWindow;
+            dialog.Show();
         }
 
         private void OnResetReconciliation(object sender, RoutedEventArgs e)
