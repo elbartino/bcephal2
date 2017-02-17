@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
+using Misp.Kernel.Service;
+using Misp.Sourcing.GridViews;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,11 +23,65 @@ namespace Misp.Reconciliation.Reco
     /// </summary>
     public partial class RecoWriteOffDialog : Window
     {
+
+        #region Properties
+
+        public ReconciliationFilterTemplate EditedObject { get; set; }
+
+        public ReconciliationFilterTemplateService Service { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationFilterTemplateService(); } }
+
+        #endregion
+
+
+        #region Constructors
+
         public RecoWriteOffDialog()
         {
             InitializeComponent();
-            GridBottom.ReconciliateButton.Visibility = Visibility.Collapsed;
-            GridBottom.ResetButton.Visibility = Visibility.Collapsed;
+            ReconciliationGrid.RecoToolBar.Visibility = Visibility.Collapsed;
+            InitHandlers();
         }
+
+        #endregion
+
+
+        #region Operations
+
+        public void displayObject(List<GridItem> items)
+        {
+            this.ReconciliationGrid.GridBrowser.RebuildGrid = true;
+            this.ReconciliationGrid.EditedObject = this.EditedObject != null ? this.EditedObject.bottomGrid : null;
+            this.ReconciliationGrid.displayObject();
+
+            this.ReconciliationGrid.GridBrowser.gridControl.ItemsSource = items;
+            this.ReconciliationGrid.GridBrowser.gridControl.SelectAll();
+        }
+
+        #endregion
+
+
+        #region Handlers
+
+        private void InitHandlers()
+        {
+            //this.ReconciliationGrid.GridBrowser.ChangeHandler += OnGridSelectionChange;
+            this.ReconciliateButton.Click += OnReconciliate;
+            this.CancelButton.Click += OnCancel;
+        }
+
+        private void OnReconciliate(object sender, RoutedEventArgs e)
+        {
+
+            this.Close();
+        }
+
+        private void OnCancel(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+
+        #endregion
+
     }
 }

@@ -330,6 +330,8 @@ namespace Misp.Reconciliation.Reco
             }
             RecoWriteOffDialog dialog = new RecoWriteOffDialog();
             dialog.Owner = ApplicationManager.Instance.MainWindow;
+            dialog.EditedObject = this.EditedObject;
+            dialog.displayObject((List<GridItem>)this.BottomGrid.GridBrowser.gridControl.SelectedItems);
             dialog.Show();
         }
 
