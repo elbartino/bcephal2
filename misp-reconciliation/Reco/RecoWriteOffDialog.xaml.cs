@@ -3,6 +3,7 @@ using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Sourcing.GridViews;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,7 +48,7 @@ namespace Misp.Reconciliation.Reco
 
         #region Operations
 
-        public void displayObject(List<GridItem> items)
+        public void displayObject(IList items)
         {
             this.ReconciliationGrid.GridBrowser.RebuildGrid = true;
             this.ReconciliationGrid.EditedObject = this.EditedObject != null ? this.EditedObject.bottomGrid : null;

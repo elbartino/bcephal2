@@ -14,13 +14,13 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" x:Name="WriteoffPanel"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" x:Name="ToolBar" HorizontalAlignment="Right" Margin="15">
-            <Button x:Name="ReconciliateButton" x:FieldModifier="public" Margin="5, 0" Height="25" Width="100" IsEnabled="False">
+            <Button x:Name="ReconciliateButton" x:FieldModifier="public" Margin="5, 0" Height="25" Width="100">
                 <DockPanel VerticalAlignment="Center">
                     <Image Source="/bcephal;Component/Resources/Images/Icons/playRecoButton.png" Height="14"/>
                     <TextBlock VerticalAlignment="center">Reconciliate</TextBlock>
                 </DockPanel>
             </Button>
-            <Button x:Name="CancelButton" x:FieldModifier="public" Margin="5, 0" Height="25" Width="100" IsEnabled="False">
+            <Button x:Name="CancelButton" x:FieldModifier="public" Margin="5, 0" Height="25" Width="100">
                 <DockPanel VerticalAlignment="Center">
                     <Image Source="/bcephal;Component/Resources/Images/Icons/Delete.png" Height="18"/>
                     <TextBlock VerticalAlignment="center">Cancel</TextBlock>

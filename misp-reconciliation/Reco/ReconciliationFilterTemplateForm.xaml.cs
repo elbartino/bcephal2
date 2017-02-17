@@ -326,12 +326,12 @@ namespace Misp.Reconciliation.Reco
             if (this.EditedObject.reconciliationType == null)
             {
                 MessageDisplayer.DisplayWarning("Reconciliation", "The reconciliation type is not specified!");
-                return;
+                //return;
             }
             RecoWriteOffDialog dialog = new RecoWriteOffDialog();
             dialog.Owner = ApplicationManager.Instance.MainWindow;
             dialog.EditedObject = this.EditedObject;
-            dialog.displayObject((List<GridItem>)this.BottomGrid.GridBrowser.gridControl.SelectedItems);
+            dialog.displayObject(this.BottomGrid.GridBrowser.gridControl.SelectedItems);
             dialog.Show();
         }
 
