@@ -8,6 +8,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <recogrid:ReconciliationFilterTemplateBottomGrid x:Name="GridBottom" Grid.Row="0"/>
+        <recogrid:ReconciliationFilterTemplateBottomGrid x:Name="GridBottom" x:FieldModifier="public"  Grid.Row="0"/>
     </Grid>
 </Window>

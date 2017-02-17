@@ -23,7 +23,7 @@ namespace Misp.Reconciliation.Reco
         {
             InitializeComponent();
             GridBottom.ReconciliateButton.Visibility = Visibility.Collapsed;
-            ResetButton.ReconciliateButton.Visibility = Visibility.Collapsed;
+            GridBottom.ResetButton.Visibility = Visibility.Collapsed;
         }
     }
 }
