@@ -1,6 +1,7 @@
 ﻿using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
+using Misp.Sourcing.GridViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,6 +95,11 @@ namespace Misp.Reconciliation.Reco
                 rows.rows = new List<object[]>(0);
                 this.GridBrowser.displayPage(rows);
             }
+        }
+
+        public void Clear()
+        {
+            this.GridBrowser.gridControl.ItemsSource = new List<GridItem>(0);
         }
 
         public void SetBalance(Decimal left, Decimal right, Decimal balance)

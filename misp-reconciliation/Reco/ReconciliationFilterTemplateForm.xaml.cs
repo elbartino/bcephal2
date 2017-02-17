@@ -52,7 +52,8 @@ namespace Misp.Reconciliation.Reco
         public ChangeEventHandler Changed { get; set; }
 
         public event ChangeEventHandler FormChanged;
-                
+
+        public RecoWriteOffDialog dialog { get; set; }
 
         #endregion
 
@@ -278,6 +279,29 @@ namespace Misp.Reconciliation.Reco
             return new List<object>(0);
         }
 
+        public void Reconciliate()
+        {
+            ReconciliationData reco = new ReconciliationData();
+            decimal credit = dialog.ReconciliationGrid.LeftAmount;
+            decimal debit = dialog.ReconciliationGrid.RightAmount;
+            decimal balance = dialog.ReconciliationGrid.BalanceAmount;
+
+            reco.ids = dialog.ReconciliationGrid.GridBrowser.GetSelectedOis();
+            //reco.debitedOrCreditedAccount = dialog.getDebitedOrCreditedAccount();
+
+            bool result = this.Service.reconciliate(reco);
+            if (result)
+            {
+                this.LeftGrid.Search(this.LeftGrid.EditedObject.GrilleFilter != null ? this.LeftGrid.EditedObject.GrilleFilter.page : 1);
+                this.RightGrid.Search(this.RightGrid.EditedObject.GrilleFilter != null ? this.RightGrid.EditedObject.GrilleFilter.page : 1);
+                this.BottomGrid.Clear();
+                dialog.ReconciliateButton.Click -= OnDialogReconciliate;
+                dialog.CancelButton.Click -= OnDialogCancel;
+                this.dialog.Close();
+                dialog = null;
+            }
+        }
+
         #endregion
 
 
@@ -328,13 +352,29 @@ namespace Misp.Reconciliation.Reco
                 MessageDisplayer.DisplayWarning("Reconciliation", "The reconciliation type is not specified!");
                 //return;
             }
-            RecoWriteOffDialog dialog = new RecoWriteOffDialog();
+            dialog = new RecoWriteOffDialog();
             dialog.Owner = ApplicationManager.Instance.MainWindow;
             dialog.EditedObject = this.EditedObject;
             dialog.displayObject(this.BottomGrid.GridBrowser.gridControl.SelectedItems);
             dialog.ReconciliationGrid.SetBalance(this.BottomGrid.LeftAmount, this.BottomGrid.RightAmount, this.BottomGrid.BalanceAmount);
+            dialog.ReconciliateButton.Click += OnDialogReconciliate;
+            dialog.CancelButton.Click += OnDialogCancel;            
             dialog.Show();
         }
+
+        private void OnDialogReconciliate(object sender, RoutedEventArgs e)
+        {
+            Reconciliate();
+        }
+
+        private void OnDialogCancel(object sender, RoutedEventArgs e)
+        {
+            dialog.ReconciliateButton.Click -= OnDialogReconciliate;
+            dialog.CancelButton.Click -= OnDialogCancel;
+            this.dialog.Close();
+            dialog = null;
+        }
+
 
         private void OnResetReconciliation(object sender, RoutedEventArgs e)
         {

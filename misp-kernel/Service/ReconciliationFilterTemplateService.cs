@@ -31,6 +31,27 @@ namespace Misp.Kernel.Service
         /// </summary>
         public TargetService TargetService { get; set; }
 
+        public bool reconciliate(ReconciliationData data)
+        {
+            try
+            {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                var request = new RestRequest(ResourcePath + "/reconciliate", Method.POST);
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = serializer.Serialize(data);
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
+
+                var response = RestClient.ExecuteTaskAsync(request);
+                RestResponse queryResult = (RestResponse)response.Result;
+                bool result = RestSharp.SimpleJson.DeserializeObject<Boolean>(queryResult.Content);
+                return result;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to reconciliate postings.", e);
+                throw new ServiceExecption("Unable to reconciliate postings.", e);
+            }
+        }
 
         public GrillePage getGridRows(GrilleFilter filter)
         {

@@ -68,21 +68,8 @@ namespace Misp.Reconciliation.Reco
         private void InitHandlers()
         {
             //this.ReconciliationGrid.GridBrowser.ChangeHandler += OnGridSelectionChange;
-            this.ReconciliateButton.Click += OnReconciliate;
-            this.CancelButton.Click += OnCancel;
+            
         }
-
-        private void OnReconciliate(object sender, RoutedEventArgs e)
-        {
-
-            this.Close();
-        }
-
-        private void OnCancel(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
 
         #endregion
 
