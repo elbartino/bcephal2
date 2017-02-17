@@ -332,6 +332,7 @@ namespace Misp.Reconciliation.Reco
             dialog.Owner = ApplicationManager.Instance.MainWindow;
             dialog.EditedObject = this.EditedObject;
             dialog.displayObject(this.BottomGrid.GridBrowser.gridControl.SelectedItems);
+            dialog.ReconciliationGrid.SetBalance(this.BottomGrid.LeftAmount, this.BottomGrid.RightAmount, this.BottomGrid.BalanceAmount);
             dialog.Show();
         }
 
@@ -357,17 +358,20 @@ namespace Misp.Reconciliation.Reco
             this.BottomGrid.ResetButton.IsEnabled = enable;
 
             Decimal[] balances = BuildBalance(this.BottomGrid.EditedObject, this.BottomGrid.GridBrowser);
-            String credit = "Left Amount: ";
-            String debit = "Right Amount: ";
-            String balance = "Balance: ";
-            this.BottomGrid.CreditLabel.Content = credit + balances[0];
-            this.BottomGrid.DebitLabel.Content = debit + balances[1];
+            //String credit = "Left Amount: ";
+            //String debit = "Right Amount: ";
+            //String balance = "Balance: ";
             Decimal balanceValue = balances[0] - balances[1];
             if (this.EditedObject.balanceFormulaEnum != null && this.EditedObject.balanceFormulaEnum == BalanceFormula.LEFT_PLUS_RIGHT)
             {
                 balanceValue = balances[0] + balances[1];
             }
-            this.BottomGrid.BalanceLabel.Content = balance + balanceValue;
+
+            //this.BottomGrid.CreditLabel.Content = credit + balances[0];
+            //this.BottomGrid.DebitLabel.Content = debit + balances[1];
+            //this.BottomGrid.BalanceLabel.Content = balance + balanceValue;
+
+            this.BottomGrid.SetBalance(balances[0], balances[1], balanceValue);
         }
         
         private void BuildBalance(ReconciliationFilterTemplateGrid grid)

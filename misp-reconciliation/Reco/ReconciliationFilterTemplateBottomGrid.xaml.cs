@@ -35,6 +35,10 @@ namespace Misp.Reconciliation.Reco
 
         public ReconciliationFilterTemplateService Service { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationFilterTemplateService(); } }
 
+        public Decimal LeftAmount { get; set; }
+        public Decimal RightAmount { get; set; }
+        public Decimal BalanceAmount { get; set; }
+
         #endregion
 
 
@@ -90,6 +94,16 @@ namespace Misp.Reconciliation.Reco
                 rows.rows = new List<object[]>(0);
                 this.GridBrowser.displayPage(rows);
             }
+        }
+
+        public void SetBalance(Decimal left, Decimal right, Decimal balance)
+        {
+            this.LeftAmount = left;
+            this.RightAmount = right;
+            this.BalanceAmount = balance;
+            this.CreditLabel.Content = "Left: " + left;
+            this.DebitLabel.Content = "Right: " + right;
+            this.BalanceLabel.Content = "Balance: " + balance;
         }
 
         #endregion

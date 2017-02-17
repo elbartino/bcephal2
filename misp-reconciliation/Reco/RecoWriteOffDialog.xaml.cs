@@ -53,6 +53,7 @@ namespace Misp.Reconciliation.Reco
             this.ReconciliationGrid.GridBrowser.RebuildGrid = true;
             this.ReconciliationGrid.EditedObject = this.EditedObject != null ? this.EditedObject.bottomGrid : null;
             this.ReconciliationGrid.displayObject();
+            ((GridTableView)this.ReconciliationGrid.GridBrowser.gridControl.View).ShowCheckBoxSelectorColumn = false;
 
             this.ReconciliationGrid.GridBrowser.gridControl.ItemsSource = items;
             this.ReconciliationGrid.GridBrowser.gridControl.SelectAll();
