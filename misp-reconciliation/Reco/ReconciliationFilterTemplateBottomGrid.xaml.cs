@@ -100,6 +100,7 @@ namespace Misp.Reconciliation.Reco
         public void Clear()
         {
             this.GridBrowser.gridControl.ItemsSource = new List<GridItem>(0);
+            SetBalance(0, 0, 0);
         }
 
         public void SetBalance(Decimal left, Decimal right, Decimal balance)
