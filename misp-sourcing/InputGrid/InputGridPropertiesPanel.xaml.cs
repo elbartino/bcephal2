@@ -69,6 +69,7 @@ namespace Misp.Sourcing.InputGrid
         {
             ColumnForms.Changed += OnColumnChanged;
             ColumnsListBox.SelectionChanged += OnSelectedColumnChanged;
+            ColumnsListBox.ContextMenuOpening += OnContextMenuOpening;
             visibleInShortcutCheckbox.Checked += OnSetVisible;
             visibleInShortcutCheckbox.Unchecked += OnSetVisible;
             RemoveColumnMenuItem.Click += OnRemoveColumn;
@@ -180,8 +181,20 @@ namespace Misp.Sourcing.InputGrid
         {
             ColumnForms.Fill();
         }
+
+        /// <summary>
+        /// Cette méthode permet valider les données éditée.
+        /// </summary>
+        /// <returns>true si les données sont valides</returns>
+        public bool validateEdition()
+        {
+            return true;
+        }
         
         #endregion
+
+
+        #region Handlers
 
         private void OnSelectedColumnChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -205,13 +218,70 @@ namespace Misp.Sourcing.InputGrid
             OnChanged((bool)rebuild);
         }
 
+
+        private void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            int count = ColumnsListBox.Items.Count;
+            bool canMoveUp = ColumnsListBox.SelectedIndex > 0;
+            bool canMoveDown = ColumnsListBox.SelectedIndex > -1 && ColumnsListBox.SelectedIndex < count - 1;
+            bool canDelete = ColumnsListBox.SelectedIndex > -1;
+
+            foreach (Object column in ColumnsListBox.SelectedItems)
+            {
+                int index = ColumnsListBox.Items.IndexOf(column);
+                if (canMoveUp && index <= 0) canMoveUp = false;
+                if (canMoveDown && index > count - 1) canMoveUp = false;
+                if (canDelete && index <= 0) canDelete = false;
+            }
+
+            this.MoveColumnUpMenuItem.IsEnabled = canMoveUp;
+            this.MoveColumnDownMenuItem.IsEnabled = canMoveDown;
+            this.RemoveColumnMenuItem.IsEnabled = canDelete;
+        }
+
+        private void OnMoveUpColumn(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            OnMove(true);
+        }
+
+        private void OnMoveDownColumn(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            OnMove(false);
+        }
+
+        private void OnMove(bool up)
+        {
+            List<GrilleColumn> columns = new List<GrilleColumn>(0);
+            foreach (GrilleColumn column in ColumnsListBox.SelectedItems)
+            {
+                columns.Add(column);
+            }
+            if (columns.Count == 0) return;
+            if (up) columns.BubbleSort();
+            else columns.BubbleSortDesc();
+            foreach (GrilleColumn column in columns)
+            {
+                int position = column.position + (up ? -1 : 1);
+                GrilleColumn child = this.Grid.GetColumn(position);
+                if (child != null)
+                {
+                    child.position = column.position;
+                    this.Grid.UpdateColumn(child);
+                    column.position = position;
+                    this.Grid.UpdateColumn(column);
+                }
+            }            
+            this.ColumnsListBox.ItemsSource = new ObservableCollection<GrilleColumn>(this.Grid.columnListChangeHandler.Items);
+            OnChanged(true);
+        }
+
         private void OnRemoveColumn(object sender, RoutedEventArgs e)
         {
             if(ColumnsListBox.SelectedIndex == -1) return;
-
             e.Handled = true;
             if (!canRemoveColumn(ColumnsListBox.SelectedItems)) return;
-
             foreach (Object column in ColumnsListBox.SelectedItems)
             {
                 this.Grid.RemoveColumn((GrilleColumn)column);
@@ -230,17 +300,9 @@ namespace Misp.Sourcing.InputGrid
         {
             if (throwEvent && Changed != null) Changed(rebuild);
         }
+        
+        #endregion
 
 
-        /// <summary>
-        /// Cette méthode permet valider les données éditée.
-        /// </summary>
-        /// <returns>true si les données sont valides</returns>
-        public bool validateEdition()
-        {
-            return true;
-        }
-
-                
     }
 }
