@@ -38,6 +38,17 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                 name = this.writeOffField.attributeField.name;
                 this.valueDatePicker.Visibility = System.Windows.Visibility.Collapsed;
                 this.valueCombobox.Visibility = System.Windows.Visibility.Visible;
+                bool hasMany = this.writeOffField.writeOffFieldValueListChangeHandler.Items.Count > 0;
+                if (hasMany)
+                {
+                    this.valueCombobox.ItemsSource = this.writeOffField.writeOffFieldValueListChangeHandler.Items.ToList();
+                    if (this.writeOffField.writeOffFieldValueListChangeHandler.Items.Count == 1)
+                    {
+                       this.valueCombobox.ItemsSource = this.writeOffField.writeOffFieldValueListChangeHandler.Items.ToList();
+                       this.valueCombobox.SelectedItem = this.writeOffField.writeOffFieldValueListChangeHandler.Items[0];
+                       this.valueCombobox.IsEnabled = false;
+                    }
+                }
             }
             else if (writeOffField.isPeriod())
             {
@@ -47,9 +58,16 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                 {
                     if (this.writeOffField.writeOffFieldValueListChangeHandler.Items.Count > 0)
                     {
-                        this.writeOffField.writeOffFieldValueListChangeHandler.Items[0].defaultValueType = WriteOffFieldValueType.TODAY.label;
-                        this.valueDatePicker.SelectedDate = DateTime.Now;
-                        this.valueDatePicker.IsEnabled = false;
+                        foreach (WriteOffFieldValue value in this.writeOffField.writeOffFieldValueListChangeHandler.Items) 
+                        {
+                            if (value.defaultValueTypeEnum != null && value.defaultValueTypeEnum == WriteOffFieldValueType.TODAY)
+                            {
+                                this.valueDatePicker.SelectedDate = DateTime.Now;
+                                this.valueDatePicker.IsEnabled = false;
+                            }
+                            else
+                                this.valueDatePicker.SelectedDate = DateTime.Now;
+                        }
                     }
                 }
                 this.valueCombobox.Visibility = System.Windows.Visibility.Collapsed;

@@ -79,5 +79,11 @@ namespace Misp.Kernel.Domain
         {
             this.defaultValueTypeEnum = WriteOffFieldValueType.getByLabel(item.ToString());
         }
+
+        public override string ToString()
+        {
+            if (this.attributeValue != null) return this.attributeValue.name;
+            return "";
+        }
     }
 }
