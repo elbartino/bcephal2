@@ -49,7 +49,6 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public void display() 
         {
             this.Children.Clear();
-            this.WriteOffConfiguration = null;
             bool displayLines = this.WriteOffConfiguration != null &&
                 this.WriteOffConfiguration.fieldListChangeHandler != null && 
                 this.WriteOffConfiguration.fieldListChangeHandler.Items.Count > 0;

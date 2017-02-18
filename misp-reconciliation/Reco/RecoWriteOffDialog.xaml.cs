@@ -59,13 +59,7 @@ namespace Misp.Reconciliation.Reco
             this.ReconciliationGrid.GridBrowser.gridControl.ItemsSource = items;
             this.ReconciliationGrid.GridBrowser.gridControl.SelectAll();
         }
-
-        public void displayConfig(WriteOffConfiguration writeOffConfiguration)
-        {
-            this.WriteOffBlock.WriteOffConfiguration = writeOffConfiguration;
-            this.WriteOffBlock.display();
-        }
-
+        
         #endregion
 
 
