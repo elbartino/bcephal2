@@ -305,6 +305,16 @@ namespace Misp.Reconciliation.Reco
             }
         }
 
+        public void ResetReconciliate()
+        {
+            bool result = this.Service.resetReconciliate(this.EditedObject.reconciliationType.oid.Value, this.BottomGrid.GridBrowser.GetSelectedOis());
+            if (result)
+            {
+                this.LeftGrid.Search(this.LeftGrid.EditedObject.GrilleFilter != null ? this.LeftGrid.EditedObject.GrilleFilter.page : 1);
+                this.RightGrid.Search(this.RightGrid.EditedObject.GrilleFilter != null ? this.RightGrid.EditedObject.GrilleFilter.page : 1);
+            }
+        }
+
         #endregion
 
 
@@ -360,6 +370,11 @@ namespace Misp.Reconciliation.Reco
                 MessageDisplayer.DisplayWarning("Reconciliation", "The amount measure is not specified!");
                 return;
             }
+            if (ContentsReconciliatedItems())
+            {
+                MessageDisplayer.DisplayWarning("Reconciliation", "You can't create a new reconciliation with this selction.\nThere is at least one reconciliated item in selection!");
+                return;
+            }
 
             dialog = new RecoWriteOffDialog();
             dialog.Owner = ApplicationManager.Instance.MainWindow;
@@ -387,7 +402,27 @@ namespace Misp.Reconciliation.Reco
 
         private void OnResetReconciliation(object sender, RoutedEventArgs e)
         {
-            
+            if (this.EditedObject.reconciliationType == null)
+            {
+                MessageDisplayer.DisplayWarning("Reset Reconciliation", "The reconciliation type is not specified!");
+                return;
+            }
+            if (!ContentsReconciliatedItems())
+            {
+                MessageDisplayer.DisplayWarning("Reset Reconciliation", "There is no reconciliated item in selection!");
+                return;
+            }
+
+            MessageBoxResult result = MessageDisplayer.DisplayYesNoQuestion("Reset Reconciliation", "You're about to reset reconciliation.\nDou You want to continue?");
+            if (result == MessageBoxResult.Yes)
+            {
+                ResetReconciliate();
+            }
+        }
+
+        protected bool ContentsReconciliatedItems()
+        {
+            return this.Service.ContainsReconciliatedItems(this.EditedObject.reconciliationType.oid.Value, this.BottomGrid.GridBrowser.GetSelectedOis());
         }
 
         private void OnRightGridDeselectionChange(object newSelection)
