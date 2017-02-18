@@ -376,11 +376,23 @@ namespace Misp.Reconciliation.Reco
                 return;
             }
 
+            if (this.BottomGrid.BalanceAmount != 0)
+            {
+                MessageDisplayer.DisplayWarning("Reconciliation", "You can't create a new reconciliation with this selction.\nWrite off is not allowed!");
+                return;
+            }
+
             dialog = new RecoWriteOffDialog();
             dialog.Owner = ApplicationManager.Instance.MainWindow;
             dialog.EditedObject = this.EditedObject;
             dialog.displayObject(this.BottomGrid.GridBrowser.gridControl.SelectedItems);
             dialog.ReconciliationGrid.SetBalance(this.BottomGrid.LeftAmount, this.BottomGrid.RightAmount, this.BottomGrid.BalanceAmount);
+            if (this.BottomGrid.BalanceAmount != 0)
+            {
+                dialog.WriteOffBlock.WriteOffConfiguration = this.EditedObject.writeOffConfig;
+                dialog.WriteOffBlock.display();
+            } 
+            
             dialog.ReconciliateButton.Click += OnDialogReconciliate;
             dialog.CancelButton.Click += OnDialogCancel;            
             dialog.Show();
