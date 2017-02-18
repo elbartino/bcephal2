@@ -91,12 +91,12 @@ namespace Misp.Reconciliation.Reco
             List<Kernel.Domain.Attribute> types = this.Service.getReconciliationTypes();
             this.RecoTypeComboBox.ItemsSource = types;
             if (context != null && context.defaultRecoTypeAttribute != null) this.RecoTypeComboBox.SelectedItem = context.defaultRecoTypeAttribute;
-            
 
-            this.BalanceFormulaComboBox.ItemsSource = new String[]
+
+            this.BalanceFormulaComboBox.ItemsSource = new BalanceFormula[]
             {
-                BalanceFormula.LEFT_MINUS_RIGHT.label,
-                BalanceFormula.LEFT_PLUS_RIGHT.label
+                BalanceFormula.LEFT_MINUS_RIGHT,
+                BalanceFormula.LEFT_PLUS_RIGHT
             };
             this.visibleInShortcutCheckbox.IsChecked = true;
 
@@ -152,7 +152,7 @@ namespace Misp.Reconciliation.Reco
                     this.EditedObject.reconciliationType = attribut;
                 }
             }
-            if (combobox == BalanceFormulaComboBox) this.EditedObject.balanceFormulaEnum = BalanceFormula.getByLabel(combobox.SelectedItem.ToString());
+            if (combobox == BalanceFormulaComboBox) this.EditedObject.balanceFormulaEnum = (BalanceFormula)combobox.SelectedItem;
         }
 
         private void CheckBoxAction(CheckBox checkBox)
