@@ -60,6 +60,12 @@ namespace Misp.Reconciliation.Reco
             this.ReconciliationGrid.GridBrowser.gridControl.SelectAll();
         }
 
+        public void displayConfig(WriteOffConfiguration writeOffConfiguration)
+        {
+            this.WriteOffBlock.WriteOffConfiguration = writeOffConfiguration;
+            this.WriteOffBlock.display();
+        }
+
         #endregion
 
 
@@ -73,5 +79,7 @@ namespace Misp.Reconciliation.Reco
 
         #endregion
 
+
+        
     }
 }

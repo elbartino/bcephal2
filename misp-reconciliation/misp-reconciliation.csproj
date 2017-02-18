@@ -311,7 +311,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Styles\" />
-    <Folder Include="WriteOffConfig\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

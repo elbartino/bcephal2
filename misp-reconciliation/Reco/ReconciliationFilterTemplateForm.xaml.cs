@@ -385,6 +385,7 @@ namespace Misp.Reconciliation.Reco
             dialog = new RecoWriteOffDialog();
             dialog.Owner = ApplicationManager.Instance.MainWindow;
             dialog.EditedObject = this.EditedObject;
+            dialog.displayConfig(this.EditedObject.writeOffConfig);
             dialog.displayObject(this.BottomGrid.GridBrowser.gridControl.SelectedItems);
             dialog.ReconciliationGrid.SetBalance(this.BottomGrid.LeftAmount, this.BottomGrid.RightAmount, this.BottomGrid.BalanceAmount);
             if (this.BottomGrid.BalanceAmount != 0)
