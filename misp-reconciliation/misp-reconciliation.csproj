@@ -173,8 +173,14 @@
     <Compile Include="WriteOffConfig\WriteOffElements\PossibleValues.xaml.cs">
       <DependentUpon>PossibleValues.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WriteOffConfig\WriteOffElements\WriteOffBlock.xaml.cs">
+      <DependentUpon>WriteOffBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WriteOffConfig\WriteOffElements\WriteOffFieldValuePanel.xaml.cs">
       <DependentUpon>WriteOffFieldValuePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WriteOffConfig\WriteOffElements\WriteOffLine.xaml.cs">
+      <DependentUpon>WriteOffLine.xaml</DependentUpon>
     </Compile>
     <Compile Include="WriteOffConfig\WriteOffElements\WriteOffValueItem.xaml.cs">
       <DependentUpon>WriteOffValueItem.xaml</DependentUpon>
@@ -282,9 +288,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WriteOffConfig\WriteOffElements\WriteOffBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WriteOffConfig\WriteOffElements\WriteOffFieldValuePanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WriteOffConfig\WriteOffElements\WriteOffLine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WriteOffConfig\WriteOffElements\WriteOffValueItem.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -297,6 +311,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Styles\" />
+    <Folder Include="WriteOffConfig\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
