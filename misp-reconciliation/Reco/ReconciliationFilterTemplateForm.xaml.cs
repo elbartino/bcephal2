@@ -389,9 +389,14 @@ namespace Misp.Reconciliation.Reco
             dialog.ReconciliationGrid.SetBalance(this.BottomGrid.LeftAmount, this.BottomGrid.RightAmount, this.BottomGrid.BalanceAmount);
             if (this.BottomGrid.BalanceAmount != 0)
             {
+                dialog.WriteOffBlock.Visibility = Visibility.Visible;
                 dialog.WriteOffBlock.WriteOffConfiguration = this.EditedObject.writeOffConfig;
                 dialog.WriteOffBlock.display();
-            } 
+            }
+            else
+            {
+                dialog.WriteOffBlock.Visibility = Visibility.Collapsed;
+            }
             
             dialog.ReconciliateButton.Click += OnDialogReconciliate;
             dialog.CancelButton.Click += OnDialogCancel;            
