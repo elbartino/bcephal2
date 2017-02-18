@@ -376,7 +376,7 @@ namespace Misp.Reconciliation.Reco
                 return;
             }
 
-            if (this.BottomGrid.BalanceAmount != 0)
+            if (this.BottomGrid.BalanceAmount != 0 && !this.EditedObject.acceptWriteOff)
             {
                 MessageDisplayer.DisplayWarning("Reconciliation", "You can't create a new reconciliation with this selction.\nWrite off is not allowed!");
                 return;
