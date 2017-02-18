@@ -49,6 +49,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.mandatoryCheckBox.GotFocus += OnGotFocus;
             this.mandatoryCheckBox.MouseLeftButtonDown += OnGotFocus;
             this.mandatoryCheckBox.Checked += OnCheckMandatory;
+            this.mandatoryCheckBox.Unchecked += OnCheckMandatory;
         }
 
         public void RemoveHandlers()
@@ -56,6 +57,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.mandatoryCheckBox.GotFocus -= OnGotFocus;
             this.mandatoryCheckBox.MouseLeftButtonDown -= OnGotFocus;
             this.mandatoryCheckBox.Checked -= OnCheckMandatory;
+            this.mandatoryCheckBox.Unchecked -= OnCheckMandatory;
         }
 
         private void OnCheckMandatory(object sender, RoutedEventArgs e)
