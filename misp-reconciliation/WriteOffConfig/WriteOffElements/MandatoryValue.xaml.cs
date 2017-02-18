@@ -24,11 +24,12 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public bool mandatoryValue { get; set; }
         public event ActivateEventHandler ActivateFiedValue;
-
+        public event ChangeItemEventHandler ItemChanged;
 
         public MandatoryValue()
         {
             InitializeComponent();
+            InitializeHandlers();
         }
 
         public void showRowLabel(bool show = false) 
@@ -38,13 +39,28 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public void display()
         {
+            RemoveHandlers();
             this.mandatoryCheckBox.IsChecked = this.mandatoryValue;
+            InitializeHandlers();
         }
 
         public void InitializeHandlers() 
         {
             this.mandatoryCheckBox.GotFocus += OnGotFocus;
             this.mandatoryCheckBox.MouseLeftButtonDown += OnGotFocus;
+            this.mandatoryCheckBox.Checked += OnCheckMandatory;
+        }
+
+        public void RemoveHandlers()
+        {
+            this.mandatoryCheckBox.GotFocus -= OnGotFocus;
+            this.mandatoryCheckBox.MouseLeftButtonDown -= OnGotFocus;
+            this.mandatoryCheckBox.Checked -= OnCheckMandatory;
+        }
+
+        private void OnCheckMandatory(object sender, RoutedEventArgs e)
+        {
+            if (ItemChanged != null) ItemChanged(this.mandatoryCheckBox.IsChecked.Value);
         }
 
         private void OnGotFocus(object sender, RoutedEventArgs e)
