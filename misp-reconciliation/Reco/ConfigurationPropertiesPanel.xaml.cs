@@ -57,9 +57,17 @@ namespace Misp.Reconciliation.Reco
         {
             this.NameTextBox.Text = this.EditedObject.name;
             this.groupField.Group = this.EditedObject.group;
+            
             if (this.EditedObject.amountMeasure != null) this.MeasureComboBox.SelectedItem = this.EditedObject.amountMeasure;
+            else this.EditedObject.amountMeasure = (Measure)this.MeasureComboBox.SelectedItem;
+            
             if (this.EditedObject.reconciliationType != null) this.RecoTypeComboBox.SelectedItem = this.EditedObject.reconciliationType;
-            this.BalanceFormulaComboBox.SelectedItem = this.EditedObject.balanceFormulaEnum != null ? this.EditedObject.balanceFormulaEnum.label : "";
+            else this.EditedObject.reconciliationType = (Kernel.Domain.Attribute)this.RecoTypeComboBox.SelectedItem;
+
+            if (this.EditedObject.balanceFormulaEnum != null) this.BalanceFormulaComboBox.SelectedItem = this.EditedObject.balanceFormulaEnum;
+            else this.EditedObject.balanceFormulaEnum = (BalanceFormula)this.BalanceFormulaComboBox.SelectedItem;
+
+            //this.BalanceFormulaComboBox.SelectedItem = this.EditedObject.balanceFormulaEnum != null ? this.EditedObject.balanceFormulaEnum.label : "";
             this.UseDebitCreditCheckBox.IsChecked = this.EditedObject.useDebitCredit.HasValue && this.EditedObject.useDebitCredit.Value;
             this.visibleInShortcutCheckbox.IsChecked = this.EditedObject.visibleInShortcut;
             this.groupField.GroupService = this.Service.GroupService;

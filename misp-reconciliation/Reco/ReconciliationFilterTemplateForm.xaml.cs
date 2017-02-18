@@ -350,7 +350,7 @@ namespace Misp.Reconciliation.Reco
             if (this.EditedObject.reconciliationType == null)
             {
                 MessageDisplayer.DisplayWarning("Reconciliation", "The reconciliation type is not specified!");
-                //return;
+                return;
             }
             dialog = new RecoWriteOffDialog();
             dialog.Owner = ApplicationManager.Instance.MainWindow;

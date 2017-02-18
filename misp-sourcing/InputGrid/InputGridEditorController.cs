@@ -101,7 +101,7 @@ namespace Misp.Sourcing.InputGrid
         {
             if (getEditor().getPage(grid) == null) grid.loadGrilleFilter();
             InputGridEditorItem page = (InputGridEditorItem)getEditor().addOrSelectPage(grid);
-            page.getInputGridForm().userRightPanel.InitService(GetInputGridService().ProfilService);
+            page.getInputGridForm().userRightPanel.InitService(ApplicationManager.ControllerFactory.ServiceFactory.GetProfilService());
             UpdateStatusBar();
             UpdateToolBar(page.EditedObject);
             initializePageHandlers(page);
