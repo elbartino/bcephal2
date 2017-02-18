@@ -287,6 +287,7 @@ namespace Misp.Reconciliation.Reco
             decimal balance = dialog.ReconciliationGrid.BalanceAmount;
 
             reco.ids = dialog.ReconciliationGrid.GridBrowser.GetSelectedOis();
+            reco.recoType = this.EditedObject.reconciliationType;
             //reco.debitedOrCreditedAccount = dialog.getDebitedOrCreditedAccount();
 
             bool result = this.Service.reconciliate(reco);
