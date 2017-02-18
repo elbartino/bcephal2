@@ -70,7 +70,21 @@
                 <ListBox SelectionMode="Extended" x:Name="ColumnsListBox" x:FieldModifier="public">
                     <ListBox.ContextMenu>
                         <ContextMenu>
-                            <MenuItem x:Name="RemoveColumnMenuItem" x:FieldModifier="public" Header="Remove" Click="OnRemoveColumn"/>
+                            <MenuItem x:Name="MoveColumnUpMenuItem" x:FieldModifier="public" Header="Move up" Click="OnMoveUpColumn">
+                                <MenuItem.Icon>
+                                    <Image Source="/bcephal;Component/Resources/Images/Icons/Moveup.png" Width="16"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem x:Name="MoveColumnDownMenuItem" x:FieldModifier="public" Header="Move down" Click="OnMoveDownColumn">
+                                <MenuItem.Icon>
+                                    <Image Source="/bcephal;Component/Resources/Images/Icons/Movedown.png" Width="16"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem x:Name="RemoveColumnMenuItem" x:FieldModifier="public" Header="Remove" Click="OnRemoveColumn">
+                                <MenuItem.Icon>
+                                    <Image Source="/bcephal;Component/Resources/Images/Icons/Delete.png" Width="16"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
                         </ContextMenu>
                     </ListBox.ContextMenu>
                 </ListBox>
