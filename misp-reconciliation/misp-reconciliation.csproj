@@ -44,6 +44,7 @@
     <Reference Include="DevExpress.Mvvm.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Core.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\DevExpress 16.1\Components\Bin\Framework\DevExpress.Xpf.Core.v16.1.dll</HintPath>
@@ -172,8 +173,14 @@
     <Compile Include="WriteOffConfig\WriteOffElements\PossibleValues.xaml.cs">
       <DependentUpon>PossibleValues.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WriteOffConfig\WriteOffElements\WriteOffBlock.xaml.cs">
+      <DependentUpon>WriteOffBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WriteOffConfig\WriteOffElements\WriteOffFieldValuePanel.xaml.cs">
       <DependentUpon>WriteOffFieldValuePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WriteOffConfig\WriteOffElements\WriteOffLine.xaml.cs">
+      <DependentUpon>WriteOffLine.xaml</DependentUpon>
     </Compile>
     <Compile Include="WriteOffConfig\WriteOffElements\WriteOffValueItem.xaml.cs">
       <DependentUpon>WriteOffValueItem.xaml</DependentUpon>
@@ -281,9 +288,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WriteOffConfig\WriteOffElements\WriteOffBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WriteOffConfig\WriteOffElements\WriteOffFieldValuePanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WriteOffConfig\WriteOffElements\WriteOffLine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WriteOffConfig\WriteOffElements\WriteOffValueItem.xaml">
       <Generator>MSBuild:Compile</Generator>

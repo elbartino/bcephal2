@@ -57,9 +57,17 @@ namespace Misp.Reconciliation.Reco
         {
             this.NameTextBox.Text = this.EditedObject.name;
             this.groupField.Group = this.EditedObject.group;
+            
             if (this.EditedObject.amountMeasure != null) this.MeasureComboBox.SelectedItem = this.EditedObject.amountMeasure;
+            else this.EditedObject.amountMeasure = (Measure)this.MeasureComboBox.SelectedItem;
+            
             if (this.EditedObject.reconciliationType != null) this.RecoTypeComboBox.SelectedItem = this.EditedObject.reconciliationType;
-            this.BalanceFormulaComboBox.SelectedItem = this.EditedObject.balanceFormulaEnum != null ? this.EditedObject.balanceFormulaEnum.label : "";
+            else this.EditedObject.reconciliationType = (Kernel.Domain.Attribute)this.RecoTypeComboBox.SelectedItem;
+
+            if (this.EditedObject.balanceFormulaEnum != null) this.BalanceFormulaComboBox.SelectedItem = this.EditedObject.balanceFormulaEnum;
+            else this.EditedObject.balanceFormulaEnum = (BalanceFormula)this.BalanceFormulaComboBox.SelectedItem;
+
+            //this.BalanceFormulaComboBox.SelectedItem = this.EditedObject.balanceFormulaEnum != null ? this.EditedObject.balanceFormulaEnum.label : "";
             this.UseDebitCreditCheckBox.IsChecked = this.EditedObject.useDebitCredit.HasValue && this.EditedObject.useDebitCredit.Value;
             this.visibleInShortcutCheckbox.IsChecked = this.EditedObject.visibleInShortcut;
             this.groupField.GroupService = this.Service.GroupService;
@@ -83,12 +91,12 @@ namespace Misp.Reconciliation.Reco
             List<Kernel.Domain.Attribute> types = this.Service.getReconciliationTypes();
             this.RecoTypeComboBox.ItemsSource = types;
             if (context != null && context.defaultRecoTypeAttribute != null) this.RecoTypeComboBox.SelectedItem = context.defaultRecoTypeAttribute;
-            
 
-            this.BalanceFormulaComboBox.ItemsSource = new String[]
+
+            this.BalanceFormulaComboBox.ItemsSource = new BalanceFormula[]
             {
-                BalanceFormula.LEFT_MINUS_RIGHT.label,
-                BalanceFormula.LEFT_PLUS_RIGHT.label
+                BalanceFormula.LEFT_MINUS_RIGHT,
+                BalanceFormula.LEFT_PLUS_RIGHT
             };
             this.visibleInShortcutCheckbox.IsChecked = true;
 
@@ -144,7 +152,7 @@ namespace Misp.Reconciliation.Reco
                     this.EditedObject.reconciliationType = attribut;
                 }
             }
-            if (combobox == BalanceFormulaComboBox) this.EditedObject.balanceFormulaEnum = BalanceFormula.getByLabel(combobox.SelectedItem.ToString());
+            if (combobox == BalanceFormulaComboBox) this.EditedObject.balanceFormulaEnum = (BalanceFormula)combobox.SelectedItem;
         }
 
         private void CheckBoxAction(CheckBox checkBox)

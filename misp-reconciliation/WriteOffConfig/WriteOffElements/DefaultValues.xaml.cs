@@ -31,13 +31,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public DefaultValues()
         {
             InitializeComponent();
-            this.DefaultValuesCombobox.ItemsSource = new String[] 
-            {
-                  WriteOffFieldValueType.LEFT_SIDE.label,
-                  WriteOffFieldValueType.RIGHT_SIDE.label,
-                  WriteOffFieldValueType.CUSTOM.label,
-                  ""
-            };
+            setItemsSource();
             InitializeHandlers();
         }
 
@@ -51,7 +45,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             RemoveHandlers();
             if (this.writeOffValueField == null) return;
             this.DefaultValuesCombobox.SelectedItem = writeOffValueField.defaultValueTypeEnum != null ?
-                writeOffValueField.defaultValueTypeEnum.ToString() : "";
+                writeOffValueField.defaultValueTypeEnum.ToString() : WriteOffFieldValueType.CUSTOM.label;
             InitializeHandlers();
         }
 
@@ -82,22 +76,35 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public void setDateView()
         {
             RemoveHandlers();
-            this.DefaultValuesCombobox.ItemsSource = new String[] { WriteOffFieldValueType.CUSTOM_DATE.label,
-                  WriteOffFieldValueType.TODAY.label,"", };
+            setItemsSource(true);
             InitializeHandlers();
         }
 
         public void removeDateView()
         {
             RemoveHandlers();
-            this.DefaultValuesCombobox.ItemsSource = new String[] 
-            {
-                  WriteOffFieldValueType.LEFT_SIDE.label,
-                  WriteOffFieldValueType.RIGHT_SIDE.label,
-                  WriteOffFieldValueType.CUSTOM.label,
-                  ""
-            };
+            setItemsSource();
             InitializeHandlers();
+        }
+        
+        private void setItemsSource(bool isDate=false) 
+        {
+            if (isDate)
+            {
+                this.DefaultValuesCombobox.ItemsSource = new String[] { WriteOffFieldValueType.CUSTOM_DATE.label,
+                  WriteOffFieldValueType.TODAY.label};
+                this.DefaultValuesCombobox.SelectedItem = WriteOffFieldValueType.TODAY.label;
+            }
+            else 
+            {
+                this.DefaultValuesCombobox.ItemsSource = new String[] 
+                {
+                      WriteOffFieldValueType.LEFT_SIDE.label,
+                      WriteOffFieldValueType.RIGHT_SIDE.label,
+                      WriteOffFieldValueType.CUSTOM.label
+                };
+                this.DefaultValuesCombobox.SelectedItem = WriteOffFieldValueType.CUSTOM.label;
+            }
         }
     }
 }

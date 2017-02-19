@@ -40,6 +40,7 @@ namespace Misp.Reconciliation.Reco
         {
             InitializeComponent();
             ReconciliationGrid.RecoToolBar.Visibility = Visibility.Collapsed;
+            this.confirmationMessageLabel.Content = "You are about to create a reconciliation for the selected items.\nDo you confirm the operation?";
             InitHandlers();
         }
 
@@ -53,11 +54,12 @@ namespace Misp.Reconciliation.Reco
             this.ReconciliationGrid.GridBrowser.RebuildGrid = true;
             this.ReconciliationGrid.EditedObject = this.EditedObject != null ? this.EditedObject.bottomGrid : null;
             this.ReconciliationGrid.displayObject();
+            ((GridTableView)this.ReconciliationGrid.GridBrowser.gridControl.View).ShowCheckBoxSelectorColumn = false;
 
             this.ReconciliationGrid.GridBrowser.gridControl.ItemsSource = items;
             this.ReconciliationGrid.GridBrowser.gridControl.SelectAll();
         }
-
+        
         #endregion
 
 
@@ -66,23 +68,12 @@ namespace Misp.Reconciliation.Reco
         private void InitHandlers()
         {
             //this.ReconciliationGrid.GridBrowser.ChangeHandler += OnGridSelectionChange;
-            this.ReconciliateButton.Click += OnReconciliate;
-            this.CancelButton.Click += OnCancel;
+            
         }
-
-        private void OnReconciliate(object sender, RoutedEventArgs e)
-        {
-
-            this.Close();
-        }
-
-        private void OnCancel(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
 
         #endregion
 
+
+        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
+using Misp.Sourcing.GridViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,10 @@ namespace Misp.Reconciliation.Reco
         public Grille EditedObject { get; set; }
 
         public ReconciliationFilterTemplateService Service { get { return ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationFilterTemplateService(); } }
+
+        public Decimal LeftAmount { get; set; }
+        public Decimal RightAmount { get; set; }
+        public Decimal BalanceAmount { get; set; }
 
         #endregion
 
@@ -90,6 +95,22 @@ namespace Misp.Reconciliation.Reco
                 rows.rows = new List<object[]>(0);
                 this.GridBrowser.displayPage(rows);
             }
+        }
+
+        public void Clear()
+        {
+            this.GridBrowser.gridControl.ItemsSource = new List<GridItem>(0);
+            SetBalance(0, 0, 0);
+        }
+
+        public void SetBalance(Decimal left, Decimal right, Decimal balance)
+        {
+            this.LeftAmount = left;
+            this.RightAmount = right;
+            this.BalanceAmount = balance;
+            this.CreditLabel.Content = "Left: " + left;
+            this.DebitLabel.Content = "Right: " + right;
+            this.BalanceLabel.Content = "Balance: " + balance;
         }
 
         #endregion

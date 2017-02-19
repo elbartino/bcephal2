@@ -52,7 +52,8 @@ namespace Misp.Reconciliation.Reco
         public ChangeEventHandler Changed { get; set; }
 
         public event ChangeEventHandler FormChanged;
-                
+
+        public RecoWriteOffDialog dialog { get; set; }
 
         #endregion
 
@@ -278,6 +279,48 @@ namespace Misp.Reconciliation.Reco
             return new List<object>(0);
         }
 
+        public void Reconciliate()
+        {
+            ReconciliationData reco = new ReconciliationData();
+            decimal credit = dialog.ReconciliationGrid.LeftAmount;
+            decimal debit = dialog.ReconciliationGrid.RightAmount;
+            decimal balance = dialog.ReconciliationGrid.BalanceAmount;
+            if (balance != 0)
+            {
+                if (!dialog.WriteOffBlock.Validate()) return;
+                //reco.writeOffData = dialog.WriteOffBlock.Fill();
+                reco.writeOffAmount = balance;
+            }
+                        
+            reco.ids = dialog.ReconciliationGrid.GridBrowser.GetSelectedOis();
+            reco.recoType = this.EditedObject.reconciliationType;
+            //reco.debitedOrCreditedAccount = dialog.getDebitedOrCreditedAccount();
+
+            bool result = this.Service.reconciliate(reco);
+            if (result)
+            {
+                this.LeftGrid.Search(this.LeftGrid.EditedObject.GrilleFilter != null ? this.LeftGrid.EditedObject.GrilleFilter.page : 1);
+                this.RightGrid.Search(this.RightGrid.EditedObject.GrilleFilter != null ? this.RightGrid.EditedObject.GrilleFilter.page : 1);
+                this.BottomGrid.Clear();
+                this.BottomGrid.ReconciliateButton.IsEnabled = false;
+                this.BottomGrid.ResetButton.IsEnabled = false;
+                dialog.ReconciliateButton.Click -= OnDialogReconciliate;
+                dialog.CancelButton.Click -= OnDialogCancel;
+                this.dialog.Close();
+                dialog = null;
+            }
+        }
+
+        public void ResetReconciliate()
+        {
+            bool result = this.Service.resetReconciliate(this.EditedObject.reconciliationType.oid.Value, this.BottomGrid.GridBrowser.GetSelectedOis());
+            if (result)
+            {
+                this.LeftGrid.Search(this.LeftGrid.EditedObject.GrilleFilter != null ? this.LeftGrid.EditedObject.GrilleFilter.page : 1);
+                this.RightGrid.Search(this.RightGrid.EditedObject.GrilleFilter != null ? this.RightGrid.EditedObject.GrilleFilter.page : 1);
+            }
+        }
+
         #endregion
 
 
@@ -326,18 +369,83 @@ namespace Misp.Reconciliation.Reco
             if (this.EditedObject.reconciliationType == null)
             {
                 MessageDisplayer.DisplayWarning("Reconciliation", "The reconciliation type is not specified!");
-                //return;
+                return;
             }
-            RecoWriteOffDialog dialog = new RecoWriteOffDialog();
+            if (this.EditedObject.amountMeasure == null)
+            {
+                MessageDisplayer.DisplayWarning("Reconciliation", "The amount measure is not specified!");
+                return;
+            }
+            if (ContentsReconciliatedItems())
+            {
+                MessageDisplayer.DisplayWarning("Reconciliation", "You can't create a new reconciliation with this selction.\nThere is at least one reconciliated item in selection!");
+                return;
+            }
+
+            if (this.BottomGrid.BalanceAmount != 0 && !this.EditedObject.acceptWriteOff)
+            {
+                MessageDisplayer.DisplayWarning("Reconciliation", "You can't create a new reconciliation with this selction.\nWrite off is not allowed!");
+                return;
+            }
+
+            dialog = new RecoWriteOffDialog();
             dialog.Owner = ApplicationManager.Instance.MainWindow;
             dialog.EditedObject = this.EditedObject;
             dialog.displayObject(this.BottomGrid.GridBrowser.gridControl.SelectedItems);
+            dialog.ReconciliationGrid.SetBalance(this.BottomGrid.LeftAmount, this.BottomGrid.RightAmount, this.BottomGrid.BalanceAmount);
+            if (this.BottomGrid.BalanceAmount != 0)
+            {
+                dialog.WriteOffBlock.Visibility = Visibility.Visible;
+                dialog.WriteOffBlock.WriteOffConfiguration = this.EditedObject.writeOffConfig;
+                dialog.WriteOffBlock.display();
+            }
+            else
+            {
+                dialog.WriteOffBlock.Visibility = Visibility.Collapsed;
+            }
+            
+            dialog.ReconciliateButton.Click += OnDialogReconciliate;
+            dialog.CancelButton.Click += OnDialogCancel;            
             dialog.Show();
         }
 
+        private void OnDialogReconciliate(object sender, RoutedEventArgs e)
+        {
+            Reconciliate();
+        }
+
+        private void OnDialogCancel(object sender, RoutedEventArgs e)
+        {
+            dialog.ReconciliateButton.Click -= OnDialogReconciliate;
+            dialog.CancelButton.Click -= OnDialogCancel;
+            this.dialog.Close();
+            dialog = null;
+        }
+
+
         private void OnResetReconciliation(object sender, RoutedEventArgs e)
         {
-            
+            if (this.EditedObject.reconciliationType == null)
+            {
+                MessageDisplayer.DisplayWarning("Reset Reconciliation", "The reconciliation type is not specified!");
+                return;
+            }
+            if (!ContentsReconciliatedItems())
+            {
+                MessageDisplayer.DisplayWarning("Reset Reconciliation", "There is no reconciliated item in selection!");
+                return;
+            }
+
+            MessageBoxResult result = MessageDisplayer.DisplayYesNoQuestion("Reset Reconciliation", "You're about to reset reconciliation.\nDou You want to continue?");
+            if (result == MessageBoxResult.Yes)
+            {
+                ResetReconciliate();
+            }
+        }
+
+        protected bool ContentsReconciliatedItems()
+        {
+            return this.Service.ContainsReconciliatedItems(this.EditedObject.reconciliationType.oid.Value, this.BottomGrid.GridBrowser.GetSelectedOis());
         }
 
         private void OnRightGridDeselectionChange(object newSelection)
@@ -357,17 +465,12 @@ namespace Misp.Reconciliation.Reco
             this.BottomGrid.ResetButton.IsEnabled = enable;
 
             Decimal[] balances = BuildBalance(this.BottomGrid.EditedObject, this.BottomGrid.GridBrowser);
-            String credit = "Left Amount: ";
-            String debit = "Right Amount: ";
-            String balance = "Balance: ";
-            this.BottomGrid.CreditLabel.Content = credit + balances[0];
-            this.BottomGrid.DebitLabel.Content = debit + balances[1];
             Decimal balanceValue = balances[0] - balances[1];
             if (this.EditedObject.balanceFormulaEnum != null && this.EditedObject.balanceFormulaEnum == BalanceFormula.LEFT_PLUS_RIGHT)
             {
                 balanceValue = balances[0] + balances[1];
             }
-            this.BottomGrid.BalanceLabel.Content = balance + balanceValue;
+            this.BottomGrid.SetBalance(balances[0], balances[1], balanceValue);
         }
         
         private void BuildBalance(ReconciliationFilterTemplateGrid grid)

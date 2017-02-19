@@ -10,6 +10,9 @@ namespace Misp.Kernel.Domain
     public class ReconciliationData
     {
         public List<long> ids { get; set; }
+        public Attribute recoType { get; set; }
+
+
         public decimal writeOffAmount { get; set; }
         public String writeOffDC { get; set; }
         public Account writeOffAccount { get; set; }

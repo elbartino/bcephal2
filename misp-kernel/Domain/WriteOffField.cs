@@ -149,5 +149,10 @@ namespace Misp.Kernel.Domain
         {
             return this.periodField != null;
         }
+
+        public bool isAttribute()
+        {
+            return this.attributeField != null;
+        }
     }
 }

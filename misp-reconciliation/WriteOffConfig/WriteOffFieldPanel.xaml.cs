@@ -122,12 +122,27 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.fieldsPanel.OnDeleteField += OnDeleteFields;
             this.fieldsPanel.ItemChanged += OnFieldsPanelChanged;
 
+            this.MandatoryValue.ItemChanged += OnActivateMandatory;
+
             this.FieldValuePanel.OnAddFieldValue += OnAddFieldsValue;
             this.FieldValuePanel.OnDeleteFieldValue += OnDeleteFieldsValue;
             this.FieldValuePanel.ActivateFiedValue += OnActivateFieldsValue;
             this.FieldValuePanel.ItemChanged += OnFieldValueChanged;
             this.FieldValuePanel.getActiveItem();
             this.FieldValuePanel.writeParent = this;
+        }
+
+        private void OnActivateMandatory(object item)
+        {
+            if (ItemChanged != null) 
+            {
+                if (item is bool) 
+                {
+                    bool value = (bool)item;
+                    this.getActiveWriteOffField().mandatory = value;
+                    if (ItemChanged != null) ItemChanged(this.writeOffField);
+                }
+            }
         }
 
         private void OnFieldValueChanged(object item)
@@ -149,6 +164,8 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.fieldsPanel.OnDeleteField -= OnDeleteFields;
             this.fieldsPanel.ActivateFieldPanel -= OnActivateFieldsValue;
             this.fieldsPanel.ItemChanged -= OnFieldsPanelChanged;
+
+            this.MandatoryValue.ItemChanged -= OnActivateMandatory;
 
             this.FieldValuePanel.ActivateFiedValue -= OnActivateFieldsValue;
             this.FieldValuePanel.ItemChanged -= OnFieldValueChanged;

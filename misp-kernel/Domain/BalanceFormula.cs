@@ -45,5 +45,17 @@ namespace Misp.Kernel.Domain
             if (LEFT_PLUS_RIGHT.label.Equals(label)) return LEFT_PLUS_RIGHT;
             return null;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (base.Equals(obj)) return true;
+            if (obj is BalanceFormula)
+            {
+                BalanceFormula objm = (BalanceFormula)obj;                
+                if (objm.name != null && objm.name.Equals(this.name)) return true;
+            }
+            return false;
+        }
+
     }
 }
