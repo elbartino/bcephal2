@@ -47,24 +47,24 @@ namespace Misp.Kernel.Service
         /// </summary>
         /// <param name="profil"></param>
         /// <returns></returns>
-        public int Save(PersistentListChangeHandler<Domain.Profil> profilListChangeHandler, int? objectOid)
+        public List<Domain.Profil> Save(List<Domain.Profil> profilList, int? objectOid)
         {
             try
             {
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                if (objectOid == null) return 0;
+                if (objectOid == null) return profilList;
                 var request = new RestRequest(ResourcePath + "/save/" + objectOid, Method.POST);
                 serializer.MaxJsonLength = int.MaxValue;
                 request.RequestFormat = DataFormat.Json;
-                string json = serializer.Serialize(profilListChangeHandler);
+                string json = serializer.Serialize(profilList);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
-                int pf = RestSharp.SimpleJson.DeserializeObject<int>(queryResult.Content);
-                return pf;
+                List<Domain.Profil> pfs = RestSharp.SimpleJson.DeserializeObject<List<Domain.Profil>>(queryResult.Content);
+                return pfs;
             }
             catch (Exception)
             {
-                return 0;
+                return new List<Profil>();
             }
         }
        

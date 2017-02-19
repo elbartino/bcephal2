@@ -33,6 +33,8 @@ namespace Misp.Kernel.Administration.Profil
 
         public ActivateEventHandler Activated;
 
+        public int objectOid;
+
         public event RightEventHandler RightSelected;
         #endregion
 
@@ -93,6 +95,7 @@ namespace Misp.Kernel.Administration.Profil
                 update = false;
                 this.profil = item;
                 this.ProfilComboBox.SelectedItem = item;
+                this.UserRightValuePanel.objectOid = objectOid;
                 this.UserRightValuePanel.DisplayRightValue(item);
                 update = true;
             }
@@ -102,8 +105,6 @@ namespace Misp.Kernel.Administration.Profil
                 return;
             }
         }
-
-        
 
         public void Reset()
         {
@@ -127,19 +128,22 @@ namespace Misp.Kernel.Administration.Profil
             this.AddButton.MouseDown += OnMouseDown;
             this.DeleteButton.MouseDown += OnMouseDown;
             this.ProfilComboBox.MouseDown += OnMouseDown;
+            //this.ProfilComboBox. += OnMouseLUDown;
 
             this.UserRightValuePanel.Activated += OnActivate;
             this.UserRightValuePanel.ChangeEventHandler += onUserRightValueChange;
             this.UserRightValuePanel.RightSelected += OnRightrSelected;
         }
 
+        private void OnMouseLUDown(object sender, MouseButtonEventArgs e)
+        {
+            ActivateComponent(sender);
+        }
 
         private void OnRightrSelected(Right right, bool selected)
         {
             if (RightSelected != null) RightSelected(right, selected);
         }
-
-        
 
         private void onProfilChange(object sender, SelectionChangedEventArgs e)
         {
@@ -192,9 +196,51 @@ namespace Misp.Kernel.Administration.Profil
             if (this.ProfilComboBox.SelectedItem != null )
             {
                 Domain.Profil profil = (Domain.Profil)this.ProfilComboBox.SelectedItem;
+                this.UserRightValuePanel.objectOid = objectOid;
                 this.UserRightValuePanel.DisplayRightValue(profil);
             }
             else { }
+        }
+
+        public List<Domain.Right> deleteRightValue(Domain.Profil profil)
+        {
+            List<Domain.Right> deletedRight = new List<Domain.Right>();
+            foreach (Domain.Right r in profil.rightsListChangeHandler.Items)
+            {
+                if (r.objectOid == objectOid && r.rightType == RightType.VIEW.ToString())
+                {
+                    deletedRight.Add(r);
+                }
+                if (r.objectOid == objectOid && r.rightType == RightType.EDIT.ToString())
+                {
+                    deletedRight.Add(r);
+                }
+                if (r.objectOid == objectOid && r.rightType == RightType.EDIT_CELL.ToString())
+                {
+                    deletedRight.Add(r);
+                }
+                if (r.objectOid == objectOid && r.rightType == RightType.EDIT_ALLOCATION.ToString())
+                {
+                    deletedRight.Add(r);
+                }
+                if (r.objectOid == objectOid && r.rightType == RightType.LOAD.ToString())
+                {
+                    deletedRight.Add(r);
+                }
+                if (r.objectOid == objectOid && r.rightType == RightType.DELETE.ToString())
+                {
+                    deletedRight.Add(r);
+                }
+                if (r.objectOid == objectOid && r.rightType == RightType.CLEAR.ToString())
+                {
+                    deletedRight.Add(r);
+                }
+                if (r.objectOid == objectOid && r.rightType == RightType.SAVE_AS.ToString())
+                {
+                    deletedRight.Add(r);
+                }
+            }
+            return deletedRight;
         }
 
         private void onUserRightValueChange()
@@ -235,8 +281,6 @@ namespace Misp.Kernel.Administration.Profil
         {
             ActiveHandler();
         }
-
-        
 
         private bool isDeleted = false;
         private void OnDeleteButtonClick(object sender, RoutedEventArgs e)

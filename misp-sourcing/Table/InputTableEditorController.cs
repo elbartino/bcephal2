@@ -198,7 +198,7 @@ namespace Misp.Sourcing.Table
             }
             page.getInputTableForm().EditedObject = table;
             page.getInputTableForm().displayObject();
-            ((InputTableEditorItem)page).getInputTableForm().userRightPanel.InitService(GetInputTableService().ProfilService);
+            ((InputTableEditorItem)page).getInputTableForm().userRightPanel.InitService(GetInputTableService().ProfilService, page.EditedObject.oid);
             //OnDisplayActiveCellData();
             return OperationState.CONTINUE;
         }
@@ -258,7 +258,7 @@ namespace Misp.Sourcing.Table
                 GetInputTableService().parametrizeTable(parameter);
             }
             bool isNoAllocation = false;
-            ((InputTableEditorItem)page).getInputTableForm().userRightPanel.InitService(GetInputTableService().ProfilService);
+            ((InputTableEditorItem)page).getInputTableForm().userRightPanel.InitService(GetInputTableService().ProfilService, page.EditedObject.oid);
             ((InputTableEditorItem)page).getInputTableForm().TablePropertiesPanel.displayTable(table, isNoAllocation,page.IsReadOnly);
             setActivationTableAction(table, isReadonly);
             setIsTemplateTableAction(table, isReadonly);
@@ -538,7 +538,8 @@ namespace Misp.Sourcing.Table
             if (page != null && page.EditedObject.oid != null)
             {
                 ProfilService pService = GetInputTableService().ProfilService;
-                pService.Save(page.getInputTableForm().userRightPanel.profilRightsListChangeHandler, page.EditedObject.oid);
+                List<Kernel.Domain.Profil> pfs = pService.Save(page.getInputTableForm().userRightPanel.useProfils, page.EditedObject.oid);
+                page.getInputTableForm().userRightPanel.Display(pfs);
             }
         }
 

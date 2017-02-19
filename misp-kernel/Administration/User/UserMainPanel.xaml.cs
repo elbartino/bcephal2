@@ -112,7 +112,7 @@ namespace Misp.Kernel.Administration.User
             //this.profilcomboBox.SelectedIndex = 0;
 
             RightPanel.allProfils = profilService.getAll();
-            RightPanel.Display(new PersistentListChangeHandler<Domain.Profil>());
+            RightPanel.Display(new List<Domain.Profil>());
         }
 
         public void InitRelationPanel() 

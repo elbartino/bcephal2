@@ -28,6 +28,8 @@ namespace Misp.Kernel.Administration.Profil
 
         public bool IsReadOnly { get; set; }
 
+        public int objectOid;
+
         public event RightEventHandler RightSelected;
 
         public UserRightValuePanel()
@@ -38,18 +40,20 @@ namespace Misp.Kernel.Administration.Profil
 
         public void DisplayRightValue(Domain.Profil pf)
         {
-            foreach (Right right in pf.rightsListChangeHandler.Items)
+           // reset();
+            List<Right> rs = new List<Right>(pf.rightsListChangeHandler.Items);
+            foreach (Right right in rs)
             {
-                if (right.rightType != null)
+                if (right.rightType != null && right.objectOid == objectOid)
                 {
-                    if (right.rightType.Equals(RightType.VIEW.ToString())) this.V.IsChecked = true;
-                    else if (right.rightType.Equals(RightType.EDIT.ToString())) this.ET.IsChecked = true;
-                    else if (right.rightType.Equals(RightType.EDIT_CELL.ToString())) this.EC.IsChecked = true;
-                    else if (right.rightType.Equals(RightType.EDIT_ALLOCATION.ToString())) this.EA.IsChecked = true;
-                    else if (right.rightType.Equals(RightType.LOAD.ToString())) this.L.IsChecked = true;
-                    else if (right.rightType.Equals(RightType.CLEAR.ToString())) this.C.IsChecked = true;
-                    else if (right.rightType.Equals(RightType.DELETE.ToString())) this.D.IsChecked = true;
-                    else if (right.rightType.Equals(RightType.SAVE_AS.ToString())) this.S.IsChecked = true;
+                    if (right.rightType.Equals(RightType.VIEW.ToString())) this.V.IsChecked = right.rightType.Equals(RightType.VIEW.ToString());
+                    else if (right.rightType.Equals(RightType.EDIT.ToString())) this.ET.IsChecked = right.rightType.Equals(RightType.EDIT.ToString());
+                    else if (right.rightType.Equals(RightType.EDIT_CELL.ToString())) this.EC.IsChecked = right.rightType.Equals(RightType.EDIT_CELL.ToString());
+                    else if (right.rightType.Equals(RightType.EDIT_ALLOCATION.ToString())) this.EA.IsChecked = right.rightType.Equals(RightType.EDIT_ALLOCATION.ToString());
+                    else if (right.rightType.Equals(RightType.LOAD.ToString())) this.L.IsChecked = right.rightType.Equals(RightType.LOAD.ToString());
+                    else if (right.rightType.Equals(RightType.CLEAR.ToString())) this.C.IsChecked = right.rightType.Equals(RightType.CLEAR.ToString());
+                    else if (right.rightType.Equals(RightType.DELETE.ToString())) this.D.IsChecked = right.rightType.Equals(RightType.DELETE.ToString());
+                    else if (right.rightType.Equals(RightType.SAVE_AS.ToString())) this.S.IsChecked = right.rightType.Equals(RightType.SAVE_AS.ToString());
                 }
             }
         }
@@ -156,6 +160,18 @@ namespace Misp.Kernel.Administration.Profil
             this.L.IsEnabled = readOnly;
             this.C.IsEnabled = readOnly;
             this.S.IsEnabled = readOnly;
+        }
+
+        public void reset()
+        {
+            this.V.IsChecked = false;
+            this.ET.IsChecked = false;
+            this.EC.IsChecked = false;
+            this.EA.IsChecked = false;
+            this.D.IsChecked = false;
+            this.L.IsChecked = false;
+            this.C.IsChecked = false;
+            this.S.IsChecked = false;
         }
 
         private void OnMouseDown(object sender, MouseButtonEventArgs e)

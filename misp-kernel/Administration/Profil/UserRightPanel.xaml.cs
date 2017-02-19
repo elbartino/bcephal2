@@ -39,10 +39,12 @@ namespace Misp.Kernel.Administration.Profil
         public UserRightItemPanel ActiveItemPanel { get; set; }
 
         public ChangeEventHandler ChangeEventHandler;
-
-        public PersistentListChangeHandler<Domain.Profil> profilRightsListChangeHandler { get; set; }
-
+       
         public List<Domain.Profil> allProfils;
+
+        public List<Domain.Profil> useProfils;
+
+        public int objectOid;
 
         public ProfilService profilService;
 
@@ -56,7 +58,6 @@ namespace Misp.Kernel.Administration.Profil
         {
             InitializeComponent();
             initHandlers();
-            profilRightsListChangeHandler = new PersistentListChangeHandler<Domain.Profil>();
         }
         #endregion
 
@@ -80,38 +81,38 @@ namespace Misp.Kernel.Administration.Profil
         /// affiche le UserRightItemPanel en edition
         /// </summary>
         /// <param name="table"></param>
-        public void Display(PersistentListChangeHandler<Domain.Profil> profilList)
+        public void Display(List<Domain.Profil> profilList)
         {
-            profilRightsListChangeHandler = profilList;
+            useProfils = profilList;
             if (this.IsReadOnly) SetReadOnly(this.IsReadOnly);
             this.panel.Children.Clear();
             int index = 1;
-            if (profilRightsListChangeHandler.Items.Count == 0)
+            if (useProfils.Count == 0)
             {
                 this.ActiveItemPanel = new UserRightItemPanel(index);
                 AddItemPanel(this.ActiveItemPanel);
                 return;
             }
-            foreach (Domain.Profil item in profilRightsListChangeHandler.Items)
+            foreach (Domain.Profil item in useProfils)
             {
                 UserRightItemPanel itemPanel = new UserRightItemPanel();
                 itemPanel.Index = index;
                 AddItemPanel(itemPanel);
+                itemPanel.objectOid = objectOid;
                 itemPanel.Display(item);
                 index++;
             }
-
+            
             //this.ActiveItemPanel = new UserRightItemPanel(index);
             //AddItemPanel(this.ActiveItemPanel);
         }
 
-        public void InitService(ProfilService profilServic)
+        public void InitService(ProfilService profilServic, int? objetOid)
         {
             profilService = profilServic;
-
+            if (objetOid != null) objectOid = (int)objetOid;
             allProfils = profilService.getAll();
-            PersistentListChangeHandler<Domain.Profil> p = new PersistentListChangeHandler<Domain.Profil>(allProfils);
-            Display(p);
+            Display(new List<Domain.Profil>());
         }
 
         private List<Domain.Profil> unUseProfilList()
@@ -119,7 +120,7 @@ namespace Misp.Kernel.Administration.Profil
             List<Domain.Profil> items = new List<Domain.Profil>();
             foreach (Domain.Profil item in allProfils)
             {
-                if (!profilRightsListChangeHandler.getItems().Contains(item)) items.Add(item);
+                if (!useProfils.Contains(item)) items.Add(item);
             }
             return items;
         }
@@ -140,12 +141,13 @@ namespace Misp.Kernel.Administration.Profil
 
         protected void AddItemPanel(UserRightItemPanel itemPanel)
         {
+            itemPanel.objectOid = objectOid;
             itemPanel.Added += OnAdded;
             itemPanel.Updated += OnUpdated;
             itemPanel.Deleted += OnDeleted;
             itemPanel.Activated += OnActivated;
-            //itemPanel.FillProfil(unUseProfilList());
-            itemPanel.FillProfil(allProfils);
+            itemPanel.FillProfil(unUseProfilList());
+            //itemPanel.FillProfil(allProfils);
             this.ActiveItemPanel = itemPanel;
             itemPanel.RightSelected += OnRightSelected;
             itemPanel.ChangeEventHandler += onUserRightValueChange;
@@ -158,7 +160,11 @@ namespace Misp.Kernel.Administration.Profil
             if (this.ActiveItemPanel != panel)
             {
                 this.ActiveItemPanel = panel;
+                this.ActiveItemPanel.objectOid = objectOid;
+                List<Domain.Profil> items = unUseProfilList();
+                if (panel.profil != null && panel.profil.oid != null) items.Add(panel.profil);
                 if (ItemChanged != null && panel.profil != null) ItemChanged(panel.profil);
+                this.ActiveItemPanel.FillProfil(items);
             }
         }
 
@@ -176,29 +182,35 @@ namespace Misp.Kernel.Administration.Profil
         {
             UserRightItemPanel panel = (UserRightItemPanel)item;
             this.panel.Children.Remove(panel);
+            if (panel.profil != null)
+            {
+                List<Domain.Right> deletedRight = panel.deleteRightValue(panel.profil);
+                foreach (Domain.Right r in deletedRight)
+                {
+                    panel.profil.RemoveRight(r);
+                }
+                useProfils.Remove(panel.profil);
+            }
+
             if (this.panel.Children.Count == 0)
             {
                 OnAdded(null);
                 return;
             }
-            if (panel.profil != null)
-            {
-                if (profilRightsListChangeHandler.getItems().Count > 1)
-                {  
-                    this.profilRightsListChangeHandler.AddDeleted(panel.profil);
 
-                    if (this.ActiveItemPanel != null && this.ActiveItemPanel == panel)
-                        this.ActiveItemPanel = (UserRightItemPanel)this.panel.Children[this.panel.Children.Count - 1];
-                    int index = 1;
-                    int j = 0;
-                    for (int i = this.panel.Children.Count - 1; i >= 0; i--)
-                    {
-                        UserRightItemPanel pan = this.panel.Children[j] as UserRightItemPanel;
-                        pan.Index = index++;
-                        j++;
-                    }
-                    if (Changed != null) Changed();
+            if (useProfils.Count >= 1)
+            {
+                if (this.ActiveItemPanel != null && this.ActiveItemPanel == panel)
+                    this.ActiveItemPanel = (UserRightItemPanel)this.panel.Children[this.panel.Children.Count - 1];
+                int index = 1;
+                int j = 0;
+                for (int i = this.panel.Children.Count - 1; i >= 0; i--)
+                {
+                    UserRightItemPanel pan = this.panel.Children[j] as UserRightItemPanel;
+                    pan.Index = index++;
+                    j++;
                 }
+                OnChanged(panel.profil);
             }
         }
 
@@ -206,7 +218,13 @@ namespace Misp.Kernel.Administration.Profil
         private void OnUpdated(object item)
         {
             UserRightItemPanel panel = (UserRightItemPanel)item;
-            profilRightsListChangeHandler.AddUpdated(panel.profil);
+            Domain.Profil pf = null;
+            if(panel.ProfilComboBox.SelectionBoxItem is Domain.Profil) pf = (Domain.Profil)panel.ProfilComboBox.SelectionBoxItem;
+            if (panel.profil.oid != null && !useProfils.Contains(panel.profil))
+            {
+                useProfils.Remove(pf);
+                useProfils.Add(panel.profil);
+            }
             updated = true;
             OnChanged(panel.profil); 
         }
@@ -220,7 +238,8 @@ namespace Misp.Kernel.Administration.Profil
                 panel.profil = new Domain.Profil();
                 panel.profil.name = "1";
             }
-            this.profilRightsListChangeHandler.AddNew(panel.profil);
+            panel.objectOid = objectOid;
+            if (panel.profil.oid != null && !useProfils.Contains(panel.profil)) useProfils.Add(panel.profil);
             updated = false;
             OnChanged(panel.profil);
         }

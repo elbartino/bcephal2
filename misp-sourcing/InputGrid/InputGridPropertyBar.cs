@@ -35,7 +35,7 @@ namespace Misp.Sourcing.InputGrid
             
             Pane = new LayoutAnchorablePane();
             Pane.Children.Add(DesignLayoutAnchorable);
-            //Pane.Children.Add(UserRightLayoutAnchorable);
+            Pane.Children.Add(UserRightLayoutAnchorable);
             this.Panes.Add(Pane);
 
         }
