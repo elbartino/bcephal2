@@ -285,7 +285,13 @@ namespace Misp.Reconciliation.Reco
             decimal credit = dialog.ReconciliationGrid.LeftAmount;
             decimal debit = dialog.ReconciliationGrid.RightAmount;
             decimal balance = dialog.ReconciliationGrid.BalanceAmount;
-
+            if (balance != 0)
+            {
+                if (!dialog.WriteOffBlock.Validate()) return;
+                //reco.writeOffData = dialog.WriteOffBlock.Fill();
+                reco.writeOffAmount = balance;
+            }
+                        
             reco.ids = dialog.ReconciliationGrid.GridBrowser.GetSelectedOis();
             reco.recoType = this.EditedObject.reconciliationType;
             //reco.debitedOrCreditedAccount = dialog.getDebitedOrCreditedAccount();

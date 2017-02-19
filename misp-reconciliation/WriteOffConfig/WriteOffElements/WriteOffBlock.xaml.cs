@@ -70,5 +70,15 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             }
         }
 
+
+        public bool Validate()
+        {
+            foreach (UIElement elt in this.Children)
+            {
+                if (elt is WriteOffLine && !((WriteOffLine)elt).Validate()) return false;
+            }
+            return true;
+        }
+
     }
 }

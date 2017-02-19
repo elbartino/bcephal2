@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,5 +76,26 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             bool addStart = this.writeOffField.mandatory;
             this.nameLabel.Content = name + (addStart ? "*" :"") ;
         }
+
+
+        public bool Validate()
+        {
+            if (writeOffField.mandatory)
+            {
+                if (writeOffField.isAttribute() && this.valueCombobox.SelectedItem == null)
+                {
+                    MessageDisplayer.DisplayWarning("Write off", "The field '" + this.writeOffField.attributeField.name  + "' is mandatory!");
+                    return false;
+                }
+                else if (writeOffField.isPeriod() && !this.valueDatePicker.SelectedDate.HasValue)
+                {
+                    MessageDisplayer.DisplayWarning("Write off", "The field '" + this.writeOffField.periodField.name + "' is mandatory!");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
     }
 }
