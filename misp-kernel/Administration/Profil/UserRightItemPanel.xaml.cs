@@ -128,7 +128,6 @@ namespace Misp.Kernel.Administration.Profil
             this.AddButton.MouseDown += OnMouseDown;
             this.DeleteButton.MouseDown += OnMouseDown;
             this.ProfilComboBox.MouseDown += OnMouseDown;
-            //this.ProfilComboBox. += OnMouseLUDown;
 
             this.UserRightValuePanel.Activated += OnActivate;
             this.UserRightValuePanel.ChangeEventHandler += onUserRightValueChange;
@@ -207,40 +206,163 @@ namespace Misp.Kernel.Administration.Profil
             List<Domain.Right> deletedRight = new List<Domain.Right>();
             foreach (Domain.Right r in profil.rightsListChangeHandler.Items)
             {
-                if (r.objectOid == objectOid && r.rightType == RightType.VIEW.ToString())
+                if (r.objectOid == objectOid)
                 {
-                    deletedRight.Add(r);
-                }
-                if (r.objectOid == objectOid && r.rightType == RightType.EDIT.ToString())
-                {
-                    deletedRight.Add(r);
-                }
-                if (r.objectOid == objectOid && r.rightType == RightType.EDIT_CELL.ToString())
-                {
-                    deletedRight.Add(r);
-                }
-                if (r.objectOid == objectOid && r.rightType == RightType.EDIT_ALLOCATION.ToString())
-                {
-                    deletedRight.Add(r);
-                }
-                if (r.objectOid == objectOid && r.rightType == RightType.LOAD.ToString())
-                {
-                    deletedRight.Add(r);
-                }
-                if (r.objectOid == objectOid && r.rightType == RightType.DELETE.ToString())
-                {
-                    deletedRight.Add(r);
-                }
-                if (r.objectOid == objectOid && r.rightType == RightType.CLEAR.ToString())
-                {
-                    deletedRight.Add(r);
-                }
-                if (r.objectOid == objectOid && r.rightType == RightType.SAVE_AS.ToString())
-                {
-                    deletedRight.Add(r);
+                    if (r.objectOid == objectOid && r.rightType == RightType.VIEW.ToString())
+                    {
+                        deletedRight.Add(r);
+                    }
+                    if (r.objectOid == objectOid && r.rightType == RightType.EDIT.ToString())
+                    {
+                        deletedRight.Add(r);
+                    }
+                    if (r.objectOid == objectOid && r.rightType == RightType.EDIT_CELL.ToString())
+                    {
+                        deletedRight.Add(r);
+                    }
+                    if (r.objectOid == objectOid && r.rightType == RightType.EDIT_ALLOCATION.ToString())
+                    {
+                        deletedRight.Add(r);
+                    }
+                    if (r.objectOid == objectOid && r.rightType == RightType.LOAD.ToString())
+                    {
+                        deletedRight.Add(r);
+                    }
+                    if (r.objectOid == objectOid && r.rightType == RightType.DELETE.ToString())
+                    {
+                        deletedRight.Add(r);
+                    }
+                    if (r.objectOid == objectOid && r.rightType == RightType.CLEAR.ToString())
+                    {
+                        deletedRight.Add(r);
+                    }
+                    if (r.objectOid == objectOid && r.rightType == RightType.SAVE_AS.ToString())
+                    {
+                        deletedRight.Add(r);
+                    }
                 }
             }
             return deletedRight;
+        }
+
+        public Domain.Profil fillObject(Domain.Profil pf)
+        {
+            UserRightValuePanel userValuePan = this.UserRightValuePanel;
+            if (userValuePan.V.IsChecked.Value)
+            {
+                Right right = new Right("V");
+                right.rightType = RightType.VIEW.ToString();
+                right.objectOid = objectOid;
+                if (getRightByOidObject(pf, RightType.VIEW) == null) pf.AddRight(right);
+            }
+            else
+            {
+                Right rg = getRightByOidObject(pf, RightType.VIEW);
+                if (rg != null) pf.RemoveRight(rg);
+            }
+
+            if (userValuePan.ET.IsChecked.Value)
+            {
+                Right right = new Right("ET");
+                right.rightType = RightType.EDIT.ToString();
+                right.objectOid = objectOid;
+                if (getRightByOidObject(pf, RightType.EDIT) == null) pf.AddRight(right);
+            }
+            else
+            {
+                Right rg = getRightByOidObject(pf, RightType.EDIT);
+                if (rg != null) pf.RemoveRight(rg);
+            }
+
+            if (userValuePan.EC.IsChecked.Value)
+            {
+                Right right = new Right("EC");
+                right.rightType = RightType.EDIT_CELL.ToString();
+                right.objectOid = objectOid;
+                if (getRightByOidObject(pf, RightType.EDIT_CELL) == null) pf.AddRight(right);
+            }
+            else
+            {
+                Right rg = getRightByOidObject(pf, RightType.EDIT_CELL);
+                if (rg != null) pf.RemoveRight(rg);
+            }
+
+            if (userValuePan.EA.IsChecked.Value)
+            {
+                Right right = new Right("EA");
+                right.rightType = RightType.EDIT_ALLOCATION.ToString();
+                right.objectOid = objectOid;
+                if (getRightByOidObject(pf, RightType.EDIT_ALLOCATION) == null) pf.AddRight(right);
+            }
+            else
+            {
+                Right rg = getRightByOidObject(pf, RightType.EDIT_ALLOCATION);
+                if (rg != null) pf.RemoveRight(rg);
+            }
+
+            if (userValuePan.L.IsChecked.Value)
+            {
+                Right right = new Right("L");
+                right.rightType = RightType.LOAD.ToString();
+                right.objectOid = objectOid;
+                if (getRightByOidObject(pf, RightType.LOAD) == null) pf.AddRight(right);
+            }
+            else
+            {
+                Right rg = getRightByOidObject(pf, RightType.LOAD);
+                if (rg != null) pf.RemoveRight(rg);
+            }
+
+            if (userValuePan.D.IsChecked.Value)
+            {
+                Right right = new Right("D");
+                right.rightType = RightType.DELETE.ToString();
+                right.objectOid = objectOid;
+                if (getRightByOidObject(pf, RightType.DELETE) == null) pf.AddRight(right);
+            }
+            else
+            {
+                Right rg = getRightByOidObject(pf, RightType.DELETE);
+                if (rg != null) pf.RemoveRight(rg);
+            }
+
+            if (userValuePan.C.IsChecked.Value)
+            {
+                Right right = new Right("C");
+                right.rightType = RightType.CLEAR.ToString();
+                right.objectOid = objectOid;
+                if (getRightByOidObject(pf, RightType.CLEAR) == null) pf.AddRight(right);
+            }
+            else
+            {
+                Right rg = getRightByOidObject(pf, RightType.CLEAR);
+                if (rg != null) pf.RemoveRight(rg);
+            }
+
+            if (userValuePan.S.IsChecked.Value)
+            {
+                Right right = new Right("S");
+                right.rightType = RightType.SAVE_AS.ToString();
+                right.objectOid = objectOid;
+                if (getRightByOidObject(pf, RightType.SAVE_AS) == null) pf.AddRight(right);
+            }
+            else
+            {
+                Right rg = getRightByOidObject(pf, RightType.SAVE_AS);
+                if (rg != null) pf.RemoveRight(rg);
+            }
+
+            return pf;
+        }
+
+        private Right getRightByOidObject(Domain.Profil pf, RightType t)
+        {
+            foreach (Right r in pf.rightsListChangeHandler.Items)
+            {
+                if (r.rightType != null && r.rightType.Equals(t.ToString()) 
+                    && r.objectOid == objectOid) return r;
+            }
+            return null;
         }
 
         private void onUserRightValueChange()
@@ -317,7 +439,7 @@ namespace Misp.Kernel.Administration.Profil
             }
         }
 
-        public void FillProfil(List<Domain.Profil> list)
+        public void FillProfilComboBox(List<Domain.Profil> list)
         {
             this.ProfilComboBox.ItemsSource = list;
         }

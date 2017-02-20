@@ -40,7 +40,6 @@ namespace Misp.Kernel.Administration.Profil
 
         public void DisplayRightValue(Domain.Profil pf)
         {
-           // reset();
             List<Right> rs = new List<Right>(pf.rightsListChangeHandler.Items);
             foreach (Right right in rs)
             {
@@ -78,8 +77,6 @@ namespace Misp.Kernel.Administration.Profil
             this.S.MouseDown += OnMouseDown;
             this.D.MouseDown += OnMouseDown;
 
-            //this.RightSelected += OnRightSelected;
-
             this.V.Checked += OnChecked;
             this.ET.Checked += OnChecked;
             this.EC.Checked += OnChecked;
@@ -107,47 +104,63 @@ namespace Misp.Kernel.Administration.Profil
 
         private void OnChecked(object sender, RoutedEventArgs e)
         {
+            
+
             CheckBox box = (CheckBox)sender;
             bool selected = box.IsChecked.Value;
             Right right = null;
+            RightSelected(right, selected);
 
-            if (box.Name == this.V.Name)
-            {
-                right = new Right("V");
-                right.rightType = RightType.VIEW.ToString();
+            //if (box.Name == this.V.Name)
+            //{
+            //    right = new Right("V");
+            //    right.rightType = RightType.VIEW.ToString();
+            //    right.objectOid = objectOid;
                 
-            }
-            else if (box.Name == this.ET.Name)
-            {
-                right = new Right("ET");
-                right.rightType = RightType.EDIT.ToString();
-            }
-            else if (box.Name == this.EC.Name)
-            {
-                right = new Right("EC");
-                right.rightType = RightType.EDIT_CELL.ToString();
-            }
-            else if (box.Name == this.EA.Name)
-            {
-                right = new Right("EA");
-                right.rightType = RightType.EDIT_ALLOCATION.ToString();
-            }
-            else if (box.Name == this.L.Name)
-            {
-                right = new Right("L");
-                right.rightType = RightType.LOAD.ToString();
-            }
-            else if (box.Name == this.C.Name)
-            {
-                right = new Right("C");
-                right.rightType = RightType.CLEAR.ToString();
-            }
-            else if (box.Name == this.S.Name)
-            {
-                right = new Right("S");
-                right.rightType = RightType.SAVE_AS.ToString();
-            }
-            if(right != null) RightSelected(right, selected);
+            //}
+            //else if (box.Name == this.ET.Name)
+            //{
+            //    right = new Right("ET");
+            //    right.rightType = RightType.EDIT.ToString();
+            //    right.objectOid = objectOid;
+            //}
+            //else if (box.Name == this.EC.Name)
+            //{
+            //    right = new Right("EC");
+            //    right.rightType = RightType.EDIT_CELL.ToString();
+            //    right.objectOid = objectOid;
+            //}
+            //else if (box.Name == this.EA.Name)
+            //{
+            //    right = new Right("EA");
+            //    right.rightType = RightType.EDIT_ALLOCATION.ToString();
+            //    right.objectOid = objectOid;
+            //}
+            //else if (box.Name == this.D.Name)
+            //{
+            //    right = new Right("D");
+            //    right.rightType = RightType.DELETE.ToString();
+            //    right.objectOid = objectOid;
+            //}
+            //else if (box.Name == this.L.Name)
+            //{
+            //    right = new Right("L");
+            //    right.rightType = RightType.LOAD.ToString();
+            //    right.objectOid = objectOid;
+            //}
+            //else if (box.Name == this.C.Name)
+            //{
+            //    right = new Right("C");
+            //    right.rightType = RightType.CLEAR.ToString();
+            //    right.objectOid = objectOid;
+            //}
+            //else if (box.Name == this.S.Name)
+            //{
+            //    right = new Right("S");
+            //    right.rightType = RightType.SAVE_AS.ToString();
+            //    right.objectOid = objectOid;
+            //}
+            //if(right != null) RightSelected(right, selected);
         }
 
         public void SetReadOnly(bool readOnly)
@@ -162,17 +175,7 @@ namespace Misp.Kernel.Administration.Profil
             this.S.IsEnabled = readOnly;
         }
 
-        public void reset()
-        {
-            this.V.IsChecked = false;
-            this.ET.IsChecked = false;
-            this.EC.IsChecked = false;
-            this.EA.IsChecked = false;
-            this.D.IsChecked = false;
-            this.L.IsChecked = false;
-            this.C.IsChecked = false;
-            this.S.IsChecked = false;
-        }
+        
 
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {

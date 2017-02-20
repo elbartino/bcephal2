@@ -39,10 +39,14 @@ namespace Misp.Kernel.Administration.Profil
         public UserRightItemPanel ActiveItemPanel { get; set; }
 
         public ChangeEventHandler ChangeEventHandler;
+
+        public ActivateEventHandler Activated;
        
         public List<Domain.Profil> allProfils;
 
         public List<Domain.Profil> useProfils;
+
+        public List<Domain.Profil> updateProfils;
 
         public int objectOid;
 
@@ -84,6 +88,7 @@ namespace Misp.Kernel.Administration.Profil
         public void Display(List<Domain.Profil> profilList)
         {
             useProfils = profilList;
+            updateProfils = new List<Domain.Profil>();
             if (this.IsReadOnly) SetReadOnly(this.IsReadOnly);
             this.panel.Children.Clear();
             int index = 1;
@@ -102,9 +107,6 @@ namespace Misp.Kernel.Administration.Profil
                 itemPanel.Display(item);
                 index++;
             }
-            
-            //this.ActiveItemPanel = new UserRightItemPanel(index);
-            //AddItemPanel(this.ActiveItemPanel);
         }
 
         public void InitService(ProfilService profilServic, int? objetOid)
@@ -125,6 +127,25 @@ namespace Misp.Kernel.Administration.Profil
             return items;
         }
 
+        public List<Domain.Profil> getUpdatedProfil()
+        {
+            fillObject();
+            foreach (Domain.Profil item in updateProfils)
+            {
+                if (!useProfils.Contains(item)) useProfils.Add(item);
+            }
+            return useProfils;
+        }
+
+        public void fillObject()
+        {
+            for (int i = this.panel.Children.Count - 1; i >= 0; i--)
+            {
+                UserRightItemPanel pan = this.panel.Children[i] as UserRightItemPanel;
+                Domain.Profil pf = (Domain.Profil)pan.ProfilComboBox.SelectedItem;
+                if (pf != null) pf = pan.fillObject(pf);
+            }
+        }
 
 
         /// <summary>
@@ -146,8 +167,7 @@ namespace Misp.Kernel.Administration.Profil
             itemPanel.Updated += OnUpdated;
             itemPanel.Deleted += OnDeleted;
             itemPanel.Activated += OnActivated;
-            itemPanel.FillProfil(unUseProfilList());
-            //itemPanel.FillProfil(allProfils);
+            itemPanel.FillProfilComboBox(unUseProfilList());
             this.ActiveItemPanel = itemPanel;
             itemPanel.RightSelected += OnRightSelected;
             itemPanel.ChangeEventHandler += onUserRightValueChange;
@@ -164,17 +184,17 @@ namespace Misp.Kernel.Administration.Profil
                 List<Domain.Profil> items = unUseProfilList();
                 if (panel.profil != null && panel.profil.oid != null) items.Add(panel.profil);
                 if (ItemChanged != null && panel.profil != null) ItemChanged(panel.profil);
-                this.ActiveItemPanel.FillProfil(items);
+                this.ActiveItemPanel.FillProfilComboBox(items);
             }
         }
 
         private void OnRightSelected(Right right, bool selected)
         {
-            if (this.ActiveItemPanel.profil != null)
-            {
-                if (selected) this.ActiveItemPanel.profil.AddRight(right);
-                else this.ActiveItemPanel.profil.RemoveRight(right);
-            }
+            //if (this.ActiveItemPanel.profil != null)
+            //{
+            //    if (selected && right.objectOid == objectOid) this.ActiveItemPanel.profil.AddRight(right);
+            //    else if (right.objectOid == objectOid)  this.ActiveItemPanel.profil.RemoveRight(right);
+            //}
             if (Changed != null) Changed();
         }
 
@@ -182,14 +202,17 @@ namespace Misp.Kernel.Administration.Profil
         {
             UserRightItemPanel panel = (UserRightItemPanel)item;
             this.panel.Children.Remove(panel);
+            bool upd = false;
             if (panel.profil != null)
             {
                 List<Domain.Right> deletedRight = panel.deleteRightValue(panel.profil);
                 foreach (Domain.Right r in deletedRight)
                 {
-                    panel.profil.RemoveRight(r);
+                    if(!upd) upd = true;
+                    if(r.objectOid == objectOid) panel.profil.RemoveRight(r);
                 }
                 useProfils.Remove(panel.profil);
+                if (upd) updateProfils.Add(panel.profil);
             }
 
             if (this.panel.Children.Count == 0)
@@ -243,8 +266,7 @@ namespace Misp.Kernel.Administration.Profil
             updated = false;
             OnChanged(panel.profil);
         }
-
-
+        
         public void customiseViewForGrid()
         {
             
@@ -334,7 +356,5 @@ namespace Misp.Kernel.Administration.Profil
         {
             
         }
-
-        
     }
 }

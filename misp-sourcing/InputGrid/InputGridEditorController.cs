@@ -81,6 +81,7 @@ namespace Misp.Sourcing.InputGrid
             ((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.AddGrille(grid);
             InputGridEditorItem page = (InputGridEditorItem)getEditor().addOrSelectPage(grid);
             page.getInputGridForm().userRightPanel.InitService(GetInputGridService().ProfilService, page.EditedObject.oid);
+            
             initializePageHandlers(page);
             page.Title = grid.name;
             getEditor().ListChangeHandler.AddNew(grid);
@@ -439,8 +440,7 @@ namespace Misp.Sourcing.InputGrid
 
             editorPage.getInputGridForm().SelectionChanged += OnSelectedTabChange;
         }
-
-        
+                
 
         private void OnLoad(object sender, RoutedEventArgs e)
         {
@@ -493,8 +493,7 @@ namespace Misp.Sourcing.InputGrid
             if (page != null && page.EditedObject.oid != null)
             {
                 ProfilService pService = GetInputGridService().ProfilService;
-                List<Kernel.Domain.Profil> pfs = pService.Save(page.getInputGridForm().userRightPanel.useProfils, page.EditedObject.oid);
-                //page.getInputGridForm().userRightPanel.Display(pfs);
+                List<Kernel.Domain.Profil> pfs = pService.Save(page.getInputGridForm().userRightPanel.getUpdatedProfil(), page.EditedObject.oid);
             }
         }
 
