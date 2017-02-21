@@ -185,7 +185,10 @@ namespace Misp.Kernel.Administration.Profil
             if (Added != null && added) Added(this);
             updateProfilRight();
 
-            if (Updated != null && !added) Updated(this);
+            if (Updated != null && !added) {
+                add = true;
+                Updated(this); 
+            }
             return add;
 
         }

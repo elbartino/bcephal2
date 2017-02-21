@@ -40,6 +40,7 @@ namespace Misp.Kernel.Administration.Profil
 
         public void DisplayRightValue(Domain.Profil pf)
         {
+            reset();
             List<Right> rs = new List<Right>(pf.rightsListChangeHandler.Items);
             foreach (Right right in rs)
             {
@@ -101,6 +102,19 @@ namespace Misp.Kernel.Administration.Profil
         //    if (RightSelected != null) RightSelected(right, selected);
         //}
 
+
+
+        protected void reset()
+        {
+            this.V.IsChecked = false;
+            this.ET.IsChecked = false;
+            this.EC.IsChecked = false;
+            this.EA.IsChecked = false;
+            this.L.IsChecked = false;
+            this.S.IsChecked = false;
+            this.C.IsChecked = false;
+            this.D.IsChecked = false;
+        }
 
         private void OnChecked(object sender, RoutedEventArgs e)
         {
