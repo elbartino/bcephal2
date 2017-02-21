@@ -23,55 +23,55 @@
             
             <Grid Grid.Row="1" Margin="0,5">                
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="115"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="NameLabel" Content="Name" Grid.Column="0" VerticalAlignment="Center"/>
+                <Label x:Name="NameLabel" Content="Name *" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="NameTextBox" Grid.Column="1" />                
             </Grid>
 
             <Grid Grid.Row="2" Margin="0,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="115"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="FirstNameLabel" Content="First Name" Grid.Column="0" VerticalAlignment="Center"/>
+                <Label x:Name="FirstNameLabel" Content="First Name *" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="FirstNameTextBox" Grid.Column="1" />
             </Grid>
 
             <Grid Grid.Row="3" Margin="0,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="115"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="EmailLabel" Content="Email" Grid.Column="0" VerticalAlignment="Center"/>
+                <Label x:Name="EmailLabel" Content="Email *" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="EmailTextBox" Grid.Column="1" />
             </Grid>
 
             <Grid Grid.Row="4" Margin="0,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="115"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="LoginLabel" Content="Login" Grid.Column="0" VerticalAlignment="Center"/>
+                <Label x:Name="LoginLabel" Content="Login *" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="LoginTextBox" Grid.Column="1" />
             </Grid>
 
             <Grid Grid.Row="5" Margin="0,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="115"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="PasswordLabel" Content="Password" Grid.Column="0" VerticalAlignment="Center"/>
+                <Label x:Name="PasswordLabel" Content="Password *" Grid.Column="0" VerticalAlignment="Center"/>
                 <PasswordBox x:Name="PasswordTextBox" Grid.Column="1" />
             </Grid>
 
             <Grid Grid.Row="6" Margin="0,5">
                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="115"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="ConfirmPasswordLabel" Content="Confirm Password" Grid.Column="0" VerticalAlignment="Center"/>
+                <Label x:Name="ConfirmPasswordLabel" Content="Confirm Password *" Grid.Column="0" VerticalAlignment="Center"/>
                 <PasswordBox x:Name="ConfirmPasswordTextBox" Grid.Column="1"  />
             </Grid>
 

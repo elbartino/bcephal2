@@ -1507,6 +1507,7 @@ namespace Misp.Sourcing.Table
             table = GetInputTableService().parametrizeTable(parameter);
             if (table == null) table = page.EditedObject;
             OnDisplayActiveCellData();
+            OnChange();
         }
 
         private void OnTableActiveOptionChecked(object sender, RoutedEventArgs e)
@@ -1523,6 +1524,7 @@ namespace Misp.Sourcing.Table
             if (table == null) table = page.EditedObject;
             page.getInputTableForm().TablePropertiesPanel.activeCheckBox.IsChecked = table.active;
             setActivationTableAction(table, page.IsReadOnly);
+            OnChange();
         }
 
         private void OnTableVisibleInShortcutOptionChecked(object sender, RoutedEventArgs e)
@@ -1538,7 +1540,7 @@ namespace Misp.Sourcing.Table
             }
             if (table == null) table = page.EditedObject;
             page.getInputTableForm().TablePropertiesPanel.visibleInShortcutCheckBox.IsChecked = table.visibleInShortcut;
-            //OnChange();
+            OnChange();
         }
 
         
@@ -2050,7 +2052,7 @@ namespace Misp.Sourcing.Table
            page.getInputTableForm().TablePropertiesPanel.displayTable(table);
            page.EditedObject.group = table.group;
            page.EditedObject.isModified = true;
-           //OnChange();
+           OnChange();
         }
         
         private void OnNewPeriodName(object sender, RequestNavigateEventArgs e)
