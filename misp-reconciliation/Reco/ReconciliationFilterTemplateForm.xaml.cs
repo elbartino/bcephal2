@@ -285,10 +285,10 @@ namespace Misp.Reconciliation.Reco
             decimal credit = dialog.ReconciliationGrid.LeftAmount;
             decimal debit = dialog.ReconciliationGrid.RightAmount;
             decimal balance = dialog.ReconciliationGrid.BalanceAmount;
-            if (balance != 0)
+            if (balance != 0 && this.EditedObject.acceptWriteOff)
             {
                 if (!dialog.WriteOffBlock.Validate()) return;
-                //reco.writeOffData = dialog.WriteOffBlock.Fill();
+                reco.writeOffFields = dialog.WriteOffBlock.Fill();
                 reco.writeOffAmount = balance;
             }
                         

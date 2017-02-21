@@ -23,6 +23,9 @@ namespace Misp.Kernel.Domain
 
         public PersistentListChangeHandler<WriteOffFieldValue> writeOffFieldValueListChangeHandler;
 
+        public AttributeValue value;
+        public DateTime date;
+
         public WriteOffField() 
         {
             writeOffFieldValueListChangeHandler = new PersistentListChangeHandler<WriteOffFieldValue>();

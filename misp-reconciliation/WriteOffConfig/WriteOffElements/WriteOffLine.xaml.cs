@@ -77,6 +77,23 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.nameLabel.Content = name + (addStart ? "*" :"") ;
         }
 
+        public WriteOffField Fill()
+        {
+            WriteOffField field = null;
+            if (writeOffField.isAttribute() && this.valueCombobox.SelectedItem != null)
+            {
+                field = new WriteOffField();
+                field.setAttribute(writeOffField.attributeField);
+                field.value = (AttributeValue)this.valueCombobox.SelectedItem;                
+            }
+            else if (writeOffField.isPeriod() && this.valueDatePicker.SelectedDate.HasValue)
+            {
+                field = new WriteOffField();
+                field.setAttribute(writeOffField.attributeField);
+                field.date = this.valueDatePicker.SelectedDate.Value; 
+            }
+            return field;
+        }
 
         public bool Validate()
         {

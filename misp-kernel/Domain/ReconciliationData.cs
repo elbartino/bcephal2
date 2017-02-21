@@ -11,18 +11,13 @@ namespace Misp.Kernel.Domain
     {
         public List<long> ids { get; set; }
         public Attribute recoType { get; set; }
-
-
         public decimal writeOffAmount { get; set; }
-        public String writeOffDC { get; set; }
-        public Account writeOffAccount { get; set; }
-        public Account debitedOrCreditedAccount { get; set; }
+        public List<WriteOffField> writeOffFields { get; set; }
 
         public ReconciliationData()
         {
             ids = new List<long>(0);
             writeOffAmount = 0;
-            writeOffDC = "D";
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -70,6 +71,18 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             }
         }
 
+        public List<WriteOffField> Fill()
+        {
+            List<WriteOffField> fields = new List<WriteOffField>(0);
+            foreach (UIElement elt in this.Children)
+            {
+                if (elt is WriteOffLine){
+                    WriteOffField field = ((WriteOffLine)elt).Fill();
+                    if (field != null) fields.Add(field);
+                }
+            }
+            return fields;
+        }
 
         public bool Validate()
         {

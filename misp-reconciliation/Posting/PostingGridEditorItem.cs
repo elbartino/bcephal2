@@ -89,9 +89,9 @@ namespace Misp.Reconciliation.Posting
             
             reco.ids = this.getInputGridForm().GridForm.gridBrowser.GetSelectedOis();
             reco.writeOffAmount = dialog.getWriteOffAmount();
-            reco.writeOffDC = dialog.getWriteOffDC();
-            reco.writeOffAccount = dialog.getWriteOffAccount();
-            reco.debitedOrCreditedAccount = dialog.getDebitedOrCreditedAccount();
+            //reco.writeOffDC = dialog.getWriteOffDC();
+            //reco.writeOffAccount = dialog.getWriteOffAccount();
+            //reco.debitedOrCreditedAccount = dialog.getDebitedOrCreditedAccount();
 
             bool result = PostingGridService.PostingService.reconciliate(reco);
             if (result)
