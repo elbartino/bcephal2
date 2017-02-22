@@ -61,6 +61,8 @@ namespace Misp.Kernel.Domain
             get;
         }
 
+        public PersistentListChangeHandler<Right> rightsListChangeHandler { get; set; }
+
         public string typeName { get; set; }
 
         public int? oid { get; set; }

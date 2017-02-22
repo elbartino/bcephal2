@@ -27,7 +27,7 @@ namespace Misp.Sourcing.InputGrid
             this.DesignLayoutAnchorable.CanHide = false;
 
             this.UserRightLayoutAnchorable = new LayoutAnchorable();
-            this.UserRightLayoutAnchorable.Title = "Admin Properties";
+            this.UserRightLayoutAnchorable.Title = "Administration";
             this.UserRightLayoutAnchorable.CanAutoHide = false;
             this.UserRightLayoutAnchorable.CanClose = false;
             this.UserRightLayoutAnchorable.CanFloat = false;

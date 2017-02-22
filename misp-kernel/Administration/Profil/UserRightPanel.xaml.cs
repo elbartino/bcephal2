@@ -68,7 +68,6 @@ namespace Misp.Kernel.Administration.Profil
         public UserRightPanel()
         {
             InitializeComponent();
-            Display();
             initHandlers();
         }
 
@@ -137,45 +136,6 @@ namespace Misp.Kernel.Administration.Profil
             }
         }
 
-        public void Display()
-        {
-            this.panel.Children.Clear();
-            //List<Right> listRights = new List<Right>();
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    Right right = new Right();
-            //    if (i % 2 == 0)
-            //    {
-            //        right.profil = new Domain.Profil()
-            //        {
-            //            name = "Profil " + (i + 1)
-            //        };
-            //        right.rightType = RightType.VIEW.ToString();
-            //    }
-            //    else
-            //    {
-            //        right.profil = new Domain.Profil()
-            //        {
-            //            name = "User " + (i + 1)
-            //        };
-            //        right.rightType = RightType.EDIT.ToString();
-            //    }
-
-
-            //    right.projectReference = Application.ApplicationManager.Instance.File.code;
-            //    right.objectType = SubjectType.INPUT_GRID.label;
-
-            //    listRights.Add(right);
-            //}
-            if (listRights == null) return;
-            foreach (Right rig in listRights)
-            {
-                string name = rig.profil != null ? rig.profil.name : rig.user != null ? rig.user.name : "Default" ;
-                RightsGroup rightGroup = new RightsGroup(name,rig.objectType,rig.rightType);
-
-                this.panel.Children.Add(rightGroup);
-            }
-        }
 
         public void InitService(ProfilService profilServic, int? objetOid)
         {

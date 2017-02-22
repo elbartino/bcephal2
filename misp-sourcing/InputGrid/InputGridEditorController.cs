@@ -80,7 +80,6 @@ namespace Misp.Sourcing.InputGrid
             Grille grid = GetNewGrid();
             ((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.AddGrille(grid);
             InputGridEditorItem page = (InputGridEditorItem)getEditor().addOrSelectPage(grid);
-            page.getInputGridForm().userRightPanel.InitService(GetInputGridService().ProfilService, page.EditedObject.oid);
             
             initializePageHandlers(page);
             page.Title = grid.name;
@@ -102,7 +101,6 @@ namespace Misp.Sourcing.InputGrid
         {
             if (getEditor().getPage(grid) == null) grid.loadGrilleFilter();
             InputGridEditorItem page = (InputGridEditorItem)getEditor().addOrSelectPage(grid);
-            page.getInputGridForm().userRightPanel.InitService(GetInputGridService().ProfilService, page.EditedObject.oid);
             UpdateStatusBar();
             UpdateToolBar(page.EditedObject);
             initializePageHandlers(page);
@@ -306,7 +304,7 @@ namespace Misp.Sourcing.InputGrid
         {
             if (page == null) return;
             InputGridForm form = ((InputGridEditorItem)page).getInputGridForm();
-            ((InputGridPropertyBar)this.PropertyBar).UserRightLayoutAnchorable.Content = form.userRightPanel;
+            ((InputGridPropertyBar)this.PropertyBar).UserRightLayoutAnchorable.Content = form.AdministrationBar;
             //((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = form.InputGridSheetForm.InputGridPropertiesPanel;
             PerformSelectionChange();
         }
@@ -434,7 +432,7 @@ namespace Misp.Sourcing.InputGrid
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.Changed += OnInputGridPropertiesChange;
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.selectionColumnChanged += OnInputGridPropertiesSelectionColumnChange;
 
-            editorPage.getInputGridForm().userRightPanel.ChangeEventHandler += OnChangeEventHandler;
+            editorPage.getInputGridForm().AdministrationBar.Changed += OnChangeEventHandler;
 
             initializeGridFormHandlers(editorPage.getInputGridForm());
 
@@ -493,7 +491,6 @@ namespace Misp.Sourcing.InputGrid
             if (page != null && page.EditedObject.oid != null)
             {
                 ProfilService pService = GetInputGridService().ProfilService;
-                List<Kernel.Domain.Profil> pfs = pService.Save(page.getInputGridForm().userRightPanel.getUpdatedProfil(), page.EditedObject.oid);
             }
         }
 

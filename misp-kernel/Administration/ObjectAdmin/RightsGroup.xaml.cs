@@ -1,4 +1,7 @@
-﻿using Misp.Kernel.Domain;
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
+using Misp.Kernel.Service;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +28,13 @@ namespace Misp.Kernel.Administration.ObjectAdmin
         
         #region Properties
 
-        public String ObjectType { get; set; }
+        public RightEventHandler Changed;
 
+        public String ObjectType { get; set; }
+        
         private List<string> labelList = new List<string>();
+
+        private bool throwHandler;
 
         string createLabel = "Create ";
         string editLabel = "Edit ";
@@ -48,37 +55,50 @@ namespace Misp.Kernel.Administration.ObjectAdmin
         /// </summary>
         public RightsGroup()
         {
+            throwHandler = true;
             InitializeComponent();
             Brush color = (Brush)new BrushConverter().ConvertFrom("#FFFAC090");
             this.BorderBrush = color;
             this.Background = color;
             this.Margin =new Thickness(0 ,5 ,0 ,5);
         }
-
+        
         public RightsGroup(String ObjectType) : this()
         {
             this.ObjectType = ObjectType;
             Customize();
         }
 
-        public RightsGroup(String profile,String ObjectType)
+        public RightsGroup(Object profilOrUser, String ObjectType)
             : this(ObjectType)
-        {
-            this.Header = profile;
+        {            
+            this.Header = profilOrUser != null ? profilOrUser.ToString() : "";
+            this.ProfilComboBox.SelectedItem = profilOrUser;
         }
-
-        public RightsGroup(String profile, String ObjectType,String righttype)
-            : this(profile,ObjectType)
-        {
-            if (string.IsNullOrEmpty(righttype)) return;
-            setRight(righttype);
-        }
-
+        
         #endregion
 
 
         #region Operations
 
+        public void Select(Right right)
+        {
+            throwHandler = false;
+            foreach (UIElement check in this.RightsPanel.Children)
+            {
+                if (check is RightCheckBox)
+                {
+                    RightCheckBox box = (RightCheckBox)check;
+                    if (box.RightType.ToString().Equals(right.rightType))
+                    {
+                        box.Right = right;
+                        box.IsChecked = true;
+                        break;
+                    }
+                }
+            }
+            throwHandler = true;
+        }
 
         #endregion
 
@@ -86,7 +106,9 @@ namespace Misp.Kernel.Administration.ObjectAdmin
         #region Initializations
 
         private void Customize()
-        {
+        {            
+            this.ProfilComboBox.SelectionChanged += OnSelectProfil;
+
             if (!string.IsNullOrWhiteSpace(ObjectType))
             {
                
@@ -159,22 +181,9 @@ namespace Misp.Kernel.Administration.ObjectAdmin
 
         private void OnHandlingCheckbox(object sender, RoutedEventArgs e)
         {
-
+            if (throwHandler && sender is RightCheckBox) OnChange((RightCheckBox)sender);
         }
 
-        private void setRight(String right)
-        {
-            foreach (UIElement check in this.RightsPanel.Children) 
-            {
-                if (!(check is RightCheckBox)) continue;
-                RightCheckBox righchec = (RightCheckBox)check;
-                if (righchec.RightType.ToString().Equals(right))
-                {
-                    righchec.IsChecked = true;
-                    break;
-                }
-            }
-        }
 
         private void setTableAdminPanel() { }
 
@@ -188,6 +197,28 @@ namespace Misp.Kernel.Administration.ObjectAdmin
 
         #region Handlers
 
+
+        private void OnSelectProfil(object sender, SelectionChangedEventArgs e)
+        {
+            if (throwHandler && Changed != null) Changed(null, false);
+        }
+
+        protected void OnChange(RightCheckBox box)
+        {
+            if (throwHandler && Changed != null)
+            {
+                if (box.IsChecked.Value && box.Right == null)
+                {
+                    box.Right = new Right();
+                    box.Right.objectType = this.ObjectType;
+                    box.Right.projectReference = ApplicationManager.Instance.File.code;
+                    Object item = this.ProfilComboBox.SelectedItem;
+                    if (item != null && item is Domain.Profil) box.Right.profil = (Domain.Profil)item;
+                    else if (item != null && item is Domain.User) box.Right.user = (Domain.User)item;
+                }
+                Changed(box.Right, box.IsChecked.Value);
+            }
+        }
 
         #endregion
 
