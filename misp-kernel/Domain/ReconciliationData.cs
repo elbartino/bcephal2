@@ -11,6 +11,7 @@ namespace Misp.Kernel.Domain
     {
         public List<long> ids { get; set; }
         public Attribute recoType { get; set; }
+        public Measure measure { get; set; }
         public decimal writeOffAmount { get; set; }
         public List<WriteOffField> writeOffFields { get; set; }
 
