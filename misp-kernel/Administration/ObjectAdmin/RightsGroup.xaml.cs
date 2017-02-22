@@ -92,27 +92,27 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                
                 if (ObjectType.Equals(SubjectType.INPUT_TABLE.label))
                 {
-                    setLabelText(SubjectType.INPUT_TABLE.label);
+                    setLabelText(SubjectType.INPUT_TABLE);
                 }
                 else if (ObjectType.Equals(SubjectType.REPORT.label))
                 {
-                    setLabelText(SubjectType.REPORT.label);
+                    setLabelText(SubjectType.REPORT);
                 }
                 else if (ObjectType.Equals(SubjectType.INPUT_GRID.label))
                 {
-                    setLabelText(SubjectType.INPUT_GRID.label);
+                    setLabelText(SubjectType.INPUT_GRID);
                 }
             }
         }
 
-        private void setLabelText(String subjectType) 
+        private void setLabelText(SubjectType subjectType) 
         {
-            buildLabelList(subjectType);
+            buildLabelList(subjectType.label);
             int j = 0;
             for (int i = this.labelList.Count - 1;i >=0 ; i--)
             {
                 string label = labelList[j];
-                string funct =   label + subjectType;
+                string funct =   label + (!string.IsNullOrEmpty(subjectType.reducedName) ? subjectType.reducedName : subjectType.label);
                 AddCheckBox(new RightCheckBox(funct, getTypeByLabel(label.Trim())));
                 j++;
             }

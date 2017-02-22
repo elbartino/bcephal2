@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Domain
 {
@@ -15,7 +16,7 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType MODEL = new SubjectType("Model");
 
-        public static SubjectType INPUT_TABLE = new SubjectType("Input Table");
+        public static SubjectType INPUT_TABLE = new SubjectType("Input Table","Table");
 
         public static SubjectType REPORT = new SubjectType("Report");
 
@@ -51,7 +52,7 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType GRID = new SubjectType("Grid");
 
-        public static SubjectType INPUT_GRID = new SubjectType("Input Grid");
+        public static SubjectType INPUT_GRID = new SubjectType("Input Grid","Grid");
 
         public static SubjectType REPORT_GRID = new SubjectType("Report Grid");
 
@@ -73,9 +74,17 @@ namespace Misp.Kernel.Domain
 
         public String label { get; set; }
 
+        [ScriptIgnore]
+        public String reducedName { get; set; }
+
         private SubjectType(String label)
         {
             this.label = label;
+        }
+
+        private SubjectType(String label,String redName) :this(label)
+        {
+            this.reducedName = redName;
         }
 
         public override string ToString()

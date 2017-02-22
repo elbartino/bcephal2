@@ -139,7 +139,7 @@ namespace Misp.Kernel.Administration.Profil
 
         public void Display()
         {
-            //this.panel.Children.Clear();
+            this.panel.Children.Clear();
             //List<Right> listRights = new List<Right>();
             //for (int i = 0; i < 10; i++)
             //{
@@ -167,6 +167,7 @@ namespace Misp.Kernel.Administration.Profil
 
             //    listRights.Add(right);
             //}
+            if (listRights == null) return;
             foreach (Right rig in listRights)
             {
                 string name = rig.profil != null ? rig.profil.name : rig.user != null ? rig.user.name : "Default" ;
