@@ -33,10 +33,9 @@ namespace Misp.Kernel.Domain
         }
 
         public bool? useDebitCredit { get; set; }
-        
-
+                
         public bool acceptWriteOff { get; set; }
-	
+                
 	    public WriteOffConfiguration writeOffConfig;
 
         [ScriptIgnore]
@@ -61,6 +60,8 @@ namespace Misp.Kernel.Domain
             this.leftGrid.reconciliation = true;
             this.rigthGrid.reconciliation = true;
             this.bottomGrid.reconciliation = true;
+
+            this.balanceFormulaEnum = BalanceFormula.LEFT_MINUS_RIGHT;
 	    }
         
         public override string ToString()

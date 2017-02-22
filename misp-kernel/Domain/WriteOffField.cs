@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Misp.Kernel.Domain
 {
@@ -24,7 +25,16 @@ namespace Misp.Kernel.Domain
         public PersistentListChangeHandler<WriteOffFieldValue> writeOffFieldValueListChangeHandler;
 
         public AttributeValue value;
-        public DateTime date;
+
+        public String date;
+
+
+        [ScriptIgnore]
+        public DateTime dateTime
+        {
+            get { return !string.IsNullOrEmpty(date) ? DateTime.Parse(date) : new DateTime(); }
+            set { this.date = value.ToShortDateString(); }
+        }
 
         public WriteOffField() 
         {

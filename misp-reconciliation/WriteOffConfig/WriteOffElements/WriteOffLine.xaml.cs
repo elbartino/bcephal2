@@ -90,7 +90,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             {
                 field = new WriteOffField();
                 field.setAttribute(writeOffField.attributeField);
-                field.date = this.valueDatePicker.SelectedDate.Value; 
+                field.dateTime = this.valueDatePicker.SelectedDate.Value; 
             }
             return field;
         }

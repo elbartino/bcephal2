@@ -56,20 +56,9 @@ namespace Misp.Kernel.Controller
                 DoWork = () =>
                 {
                     try
-                    {
-                        DateTime start = DateTime.Now;
-                        DateTime time = DateTime.Now;
+                    {                        
                         T item = Service.getByOid((int)oid);
-                        TimeSpan read = DateTime.Now - time;
-
-                        time = DateTime.Now;
                         System.Windows.Application.Current.Dispatcher.Invoke((Action)(() => Open(item)));
-                        TimeSpan open = DateTime.Now - time;
-                        TimeSpan total = DateTime.Now - start;
-
-                        Console.Out.WriteLine("Read  = " + read);
-                        Console.Out.WriteLine("Open  = " + open);
-                        Console.Out.WriteLine("Total = " + total);
                         return OperationState.CONTINUE;
                     }
                     catch (Kernel.Service.ServiceExecption e)

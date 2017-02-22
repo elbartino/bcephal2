@@ -138,7 +138,7 @@ namespace Misp.Kernel.Service
                 ReconciliationFilterTemplate recoFilterTemplate = RestSharp.SimpleJson.DeserializeObject<ReconciliationFilterTemplate>(queryResult.Content);
                 return recoFilterTemplate;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }
