@@ -217,7 +217,7 @@ namespace Misp.Reconciliation.WriteOffConfig
         public void setPeriodName(PeriodName periodName)
         {
             this.fieldsPanel.setPeriodName(periodName);
-            this.FieldValuePanel.setDateView();
+            this.FieldValuePanel.setPeriodView();
         }
 
         public void setPeriodInterval(PeriodInterval periodInterval) 

@@ -114,6 +114,13 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             display();
         }
 
+        public void setPeriodView()
+        {
+            this.getCurrentFieldValue().setDefaultValue(Kernel.Domain.WriteOffFieldValueType.TODAY);
+            if (ItemChanged != null) ItemChanged(this.WriteOffFieldValue);
+            display();
+        }
+
         public void setAttribute(Kernel.Domain.Attribute attribute)
         {
             this.getCurrentFieldValue().setAttribute(attribute);
