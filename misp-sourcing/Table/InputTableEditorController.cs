@@ -539,7 +539,10 @@ namespace Misp.Sourcing.Table
             {
                 ProfilService pService = GetInputTableService().ProfilService;
                 List<Kernel.Domain.Profil> pfs = pService.Save(page.getInputTableForm().userRightPanel.useProfils, page.EditedObject.oid);
-                page.getInputTableForm().userRightPanel.Display(pfs);
+                page.getInputTableForm().userRightPanel.allProfils = pService.getAll();
+                //page.getInputGridForm().userRightPanel.Display(pfs);
+                page.getInputTableForm().userRightPanel.useProfils = pfs;
+                page.getInputTableForm().userRightPanel.updateUserRightPanel();
             }
         }
 

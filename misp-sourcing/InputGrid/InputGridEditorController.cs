@@ -186,7 +186,7 @@ namespace Misp.Sourcing.InputGrid
                 InputGridEditorItem currentPage = (InputGridEditorItem)page;
                 currentPage.EditedObject.loadFilters();
                 if (base.Save(page) == OperationState.STOP) return OperationState.STOP;
-                saveUserProfilRight();
+                saveUserProfilRight(currentPage);
                 UpdateGridForm();
             }
             catch (Exception)
@@ -487,13 +487,18 @@ namespace Misp.Sourcing.InputGrid
             Search(page.EditedObject.GrilleFilter != null ? page.EditedObject.GrilleFilter.page : 1);
         }
 
-        protected  void saveUserProfilRight()
+        protected void saveUserProfilRight(EditorItem<Grille> pag)
         {
-            InputGridEditorItem page = (InputGridEditorItem)getInputGridEditor().getActivePage();
+            InputGridEditorItem page = (InputGridEditorItem)pag;
+            
             if (page != null && page.EditedObject.oid != null)
             {
                 ProfilService pService = GetInputGridService().ProfilService;
                 List<Kernel.Domain.Profil> pfs = pService.Save(page.getInputGridForm().userRightPanel.getUpdatedProfil(), page.EditedObject.oid);
+                page.getInputGridForm().userRightPanel.allProfils = pService.getAll();
+                //page.getInputGridForm().userRightPanel.Display(pfs);
+                page.getInputGridForm().userRightPanel.useProfils = pfs;
+                page.getInputGridForm().userRightPanel.updateUserRightPanel();
             }
         }
 

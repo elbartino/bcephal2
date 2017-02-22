@@ -94,7 +94,7 @@ namespace Misp.Kernel.Administration.Profil
             {
                 update = false;
                 this.profil = item;
-                this.ProfilComboBox.SelectedItem = item;
+                //this.ProfilComboBox.SelectedItem = item;
                 this.UserRightValuePanel.objectOid = objectOid;
                 this.UserRightValuePanel.DisplayRightValue(item);
                 update = true;
@@ -354,7 +354,7 @@ namespace Misp.Kernel.Administration.Profil
                 Right rg = getRightByOidObject(pf, RightType.SAVE_AS);
                 if (rg != null) pf.RemoveRight(rg);
             }
-
+            this.profil = pf;
             return pf;
         }
 

@@ -87,6 +87,7 @@ namespace Misp.Kernel.Administration.Profil
         /// <param name="table"></param>
         public void Display(List<Domain.Profil> profilList)
         {
+            this.panel.Children.Clear();
             useProfils = profilList;
             updateProfils = new List<Domain.Profil>();
             if (this.IsReadOnly) SetReadOnly(this.IsReadOnly);
@@ -102,9 +103,11 @@ namespace Misp.Kernel.Administration.Profil
             {
                 UserRightItemPanel itemPanel = new UserRightItemPanel();
                 itemPanel.Index = index;
-                AddItemPanel(itemPanel);
+                itemPanel.FillProfilComboBox(unUseProfilList());
+                itemPanel.ProfilComboBox.SelectedItem = item;
                 itemPanel.objectOid = objectOid;
                 itemPanel.Display(item);
+                AddItemPanel(itemPanel);
                 index++;
             }
         }
@@ -142,11 +145,33 @@ namespace Misp.Kernel.Administration.Profil
             for (int i = this.panel.Children.Count - 1; i >= 0; i--)
             {
                 UserRightItemPanel pan = this.panel.Children[i] as UserRightItemPanel;
-                Domain.Profil pf = (Domain.Profil)pan.ProfilComboBox.SelectedItem;
+                //Domain.Profil pf = (Domain.Profil)pan.ProfilComboBox.SelectedItem;
+                Domain.Profil pf = (Domain.Profil)pan.profil;
                 if (pf != null) pf = pan.fillObject(pf);
             }
         }
 
+        public void updateUserRightPanel()
+        {
+            for (int i = this.panel.Children.Count - 1; i >= 0; i--)
+            {
+                UserRightItemPanel pan = this.panel.Children[i] as UserRightItemPanel;
+                Domain.Profil pf = getSameProfil(pan.profil);
+                pan.profil = pf;
+                //List<Domain.Profil> items = unUseProfilList();
+                //items.Add(pf);
+                //if (pf != null) pan.ProfilComboBox.ItemsSource = items;
+            }
+        }
+
+        public Domain.Profil getSameProfil(Domain.Profil p)
+        {
+            foreach (Domain.Profil pf in useProfils)
+            {
+                if (pf.oid == p.oid) return pf;
+            }
+            return null;
+        }
 
         /// <summary>
         /// Définit la valeur du profil en cour d'édition

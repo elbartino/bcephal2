@@ -62,7 +62,7 @@ namespace Misp.Kernel.Service
                 List<Domain.Profil> pfs = RestSharp.SimpleJson.DeserializeObject<List<Domain.Profil>>(queryResult.Content);
                 return pfs;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new List<Profil>();
             }
