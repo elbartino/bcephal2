@@ -249,6 +249,11 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.ActiveItem.setAttribute(attribute);
         }
 
+        public void setPeriodView()
+        {
+            this.ActiveItem.setPeriodView();
+        }
+
         public void setPeriodInterval(PeriodInterval periodInterval)
         {
             this.ActiveItem.setPeriodInterval(periodInterval);

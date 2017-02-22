@@ -102,6 +102,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         {
             this.getActiveWriteOffField().setPeriodName(PeriodName);
             if (ItemChanged != null) ItemChanged(this.writeOffField);
+            
             display();
         }
 
