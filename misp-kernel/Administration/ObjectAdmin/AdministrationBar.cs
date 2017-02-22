@@ -27,8 +27,9 @@ namespace Misp.Kernel.Administration.ObjectAdmin
         /// <summary>
         /// 
         /// </summary>
-        public AdministrationBar()
+        public AdministrationBar(String ObjectType)
         {
+            this.ObjectType = ObjectType;
             InitComponents();
         }
 
