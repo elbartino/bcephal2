@@ -12,6 +12,8 @@ namespace Misp.Kernel.Domain
     public class File : Persistent
     {
 
+        public string code { get; set; }
+
         public string name { get; set; }
 
         public string path { get; set; }

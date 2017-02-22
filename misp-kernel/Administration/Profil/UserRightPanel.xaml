@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" Background="White"
-             xmlns:UserRight="clr-namespace:Misp.Kernel.Administration.Profil">
+             xmlns:UserRight="clr-namespace:Misp.Kernel.Administration.Profil"
+             xmlns:Admin="clr-namespace:Misp.Kernel.Administration.ObjectAdmin">
     
     <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
@@ -11,13 +12,13 @@
         <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
     
-    <Grid Grid.Row="0">
+    <!--<Grid Grid.Row="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Profil/User" Margin="0 5 0 0" Grid.Column="0"/>
+        </Grid.ColumnDefinitions>-->
+        <!--<Label Content="Profil/User" Margin="0 5 0 0" Grid.Column="0"/>
         <Label Content="Right" Margin="220 5 0 0" Grid.Column="1"/>
         <ToggleButton x:Name="NoCommentButton" x:FieldModifier="public" ToolTip="Edit a comment" Margin="45 5 5 0" Width="15" Grid.Column="2">
             <ToggleButton.Template>
@@ -26,8 +27,8 @@
                 </ControlTemplate>
             </ToggleButton.Template>
         </ToggleButton >
-    </Grid>
-    <Grid Grid.Row="1" Margin="194 0 0 0">
+    </Grid>-->
+    <!--<Grid Grid.Row="1" Margin="194 0 0 0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
@@ -46,11 +47,13 @@
         <Label Content="L" Margin="6 0 0 0" Grid.Column="5"/>
         <Label Content="C" Margin="11 0 0 0" Grid.Column="6"/>
         <Label Content="S" Margin="11 0 0 0" Grid.Column="7"/>
-    </Grid>
-    <StackPanel x:Name="panel" Grid.Row="2" >
-        <UserRight:UserRightItemPanel HorizontalAlignment="Center"/>
-        <UserRight:UserRightItemPanel HorizontalAlignment="Center"/>
-    </StackPanel>
+    </Grid>-->
+    <ScrollViewer  VerticalScrollBarVisibility="Auto" Grid.Row="0" >
+        <StackPanel x:Name="panel" >
+            <Admin:RightsGroup HorizontalAlignment="Left"/>
+            <Admin:RightsGroup HorizontalAlignment="Left"/>
+        </StackPanel>
+    </ScrollViewer>
     <Popup x:Name="CommentPopup" x:FieldModifier="public"            
            StaysOpen="False" Placement="Mouse" PopupAnimation="Slide">
         <Border BorderThickness="1" BorderBrush="LightBlue" Background="Beige">

@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Administration.Profil;
+﻿using Misp.Kernel.Administration.ObjectAdmin;
+using Misp.Kernel.Administration.Profil;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
 using Misp.Sourcing.GridViews;
@@ -25,15 +26,17 @@ namespace Misp.Sourcing.InputGrid
     public class InputGridForm : TabControl, IEditableView<Grille>
     {
 
+        #region Properties
+
         public bool IsReadOnly { get; set; }
-        
+
         public TabItem AuditTabItem;
         public TabItem ConfigurationTabItem;
         public GrilleBrowserForm GridForm;
         public InputGridSheetForm InputGridSheetForm;
 
-        #region Properties
-        public UserRightPanel userRightPanel { get; set; }
+        public AdministrationBar AdministrationBar { get; set; }
+
         #endregion
 
         public InputGridForm()
@@ -78,7 +81,7 @@ namespace Misp.Sourcing.InputGrid
             ConfigurationTabItem.Background = Brushes.White;
             ConfigurationTabItem.Content = InputGridSheetForm;
 
-            this.userRightPanel = new UserRightPanel();
+            this.AdministrationBar = new AdministrationBar(SubjectType.INPUT_GRID.ToString());
             
 
             this.Items.Add(AuditTabItem);
@@ -150,6 +153,9 @@ namespace Misp.Sourcing.InputGrid
 
             this.GridForm.EditedObject = this.EditedObject;
             this.GridForm.displayObject();
+
+            this.AdministrationBar.EditedObject = this.EditedObject;
+            this.AdministrationBar.Display();
         }
 
         public virtual void displayObjectInGridForm()
@@ -165,7 +171,7 @@ namespace Misp.Sourcing.InputGrid
         public List<object> getEditableControls()
         {
             List<object> controls = new List<object>(0);
-            controls.AddRange(userRightPanel.getEditableControls());
+            //controls.AddRange(userRightPanel.getEditableControls());
             controls.AddRange(this.InputGridSheetForm.getEditableControls());
             return controls;
 

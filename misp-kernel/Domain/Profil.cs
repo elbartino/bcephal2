@@ -71,6 +71,23 @@ namespace Misp.Kernel.Domain
             return this.name.CompareTo(((Profil)obj).name);
         }
 
+
+        public override bool Equals(object obj)
+        {
+            if (base.Equals(obj)) return true;
+
+            if (obj is Kernel.Domain.Profil)
+            {
+                Kernel.Domain.Profil objm = (Kernel.Domain.Profil)obj;
+                if (objm.oid.HasValue && this.oid.HasValue)
+                {
+                    if (objm.oid == this.oid) return true;
+                }
+                if (objm.name != null && objm.name.Equals(this.name)) return true;
+            }
+            return false;
+        }
+
         
     }
 }

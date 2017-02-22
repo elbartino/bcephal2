@@ -83,7 +83,10 @@ namespace Misp.Reconciliation.WriteOffConfig
             if (!(item is WriteOffFieldPanel)) return;
             WriteOffFieldPanel wPanel = (WriteOffFieldPanel)item;
             DeleteAction(wPanel);
-            if (ItemChanged != null && wPanel.writeOffField != null) ItemChanged(null);
+            if (ItemChanged != null && wPanel.writeOffField != null)
+            {
+                ItemChanged(null);
+            }
         }
 
         private void OnDeleteFieldsValue(object item)

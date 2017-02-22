@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Domain;
+﻿using Misp.Kernel.Administration.ObjectAdmin;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using System;
@@ -23,10 +24,9 @@ namespace Misp.Kernel.Administration.Profil
     /// </summary>
     public partial class UserRightPanel : Grid
     {
-        
-        public bool IsReadOnly { get; set; }
 
         #region Events
+
         public ChangeEventHandler Changed;
 
         public event ChangeItemEventHandler ItemChanged;
@@ -35,7 +35,11 @@ namespace Misp.Kernel.Administration.Profil
 
         #endregion
 
+
         #region Properties
+
+        public bool IsReadOnly { get; set; }
+
         public UserRightItemPanel ActiveItemPanel { get; set; }
 
         public ChangeEventHandler ChangeEventHandler;
@@ -54,33 +58,56 @@ namespace Misp.Kernel.Administration.Profil
 
         public UserService userService;
 
-
+        public List<Right> listRights { get; set; }
+        
         #endregion
 
+
         #region Constructors
+
         public UserRightPanel()
         {
             InitializeComponent();
             initHandlers();
         }
+
         #endregion
 
+
         #region Handlers
+
         protected void initHandlers()
         {
             this.CommentPopup.Opened += OnCommentPopupOpened;
-            this.NoCommentButton.Checked += OnComment;
+            //this.NoCommentButton.Checked += OnComment;
         }
-        #endregion
 
+        #endregion
         
-        private void refreshCommentIcon()
-        {
-            bool hasComment = !string.IsNullOrWhiteSpace(this.CommentTextBlock.Text);
-            this.NoCommentButton.Visibility = hasComment ? Visibility.Hidden : Visibility.Visible;
-        }
 
         #region Operations
+        
+        public void SetReadOnly(bool readOnly)
+        {
+
+        }
+
+        public void Fill()
+        {
+
+
+        }
+
+        public void setValue(object value)
+        {
+
+        }
+
+        public void resetComponent()
+        {
+
+        }
+
         /// <summary>
         /// affiche le UserRightItemPanel en edition
         /// </summary>
@@ -112,12 +139,13 @@ namespace Misp.Kernel.Administration.Profil
             }
         }
 
+
         public void InitService(ProfilService profilServic, int? objetOid)
         {
             profilService = profilServic;
             if (objetOid != null) objectOid = (int)objetOid;
             allProfils = profilService.getAll();
-            Display(new List<Domain.Profil>());
+           // Display(new List<Domain.Profil>());
         }
 
         private List<Domain.Profil> unUseProfilList()
@@ -309,6 +337,7 @@ namespace Misp.Kernel.Administration.Profil
 
         #endregion
 
+
         #region Control
         private void OnChanged(object item)
         {
@@ -361,25 +390,5 @@ namespace Misp.Kernel.Administration.Profil
 
         #endregion
 
-        public void SetReadOnly(bool readOnly) 
-        {
-            
-        }
-
-        public void Fill()
-        {
-            
-            
-        }
-
-        public void setValue(object value)
-        {
-           
-        }
-
-        public void resetComponent()
-        {
-            
-        }
     }
 }
