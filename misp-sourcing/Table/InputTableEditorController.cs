@@ -1129,6 +1129,7 @@ namespace Misp.Sourcing.Table
             editorPage.getInputTableForm().AllocationPropertiesPanel.ResetButton.Click += OnResetCells;
             editorPage.getInputTableForm().TableCellParameterPanel.CellMeasurePanel.ValidateFormula += OnValidateMeasureFormula;
             editorPage.getInputTableForm().AllocationPropertiesPanel.Change += OnAllocationDataChange;
+            editorPage.getInputTableForm().userRightPanel.ChangeEventHandler += OnChangeEventHandler;
             editorPage.Closed += editorPage_Closed;
            // editorPage.getInputTableForm().SpreadSheet.DisableAddingSheet += SpreadSheet_DisableAddingSheet;
             
@@ -1163,6 +1164,11 @@ namespace Misp.Sourcing.Table
         public virtual void SpreadSheet_DisableAddingSheet()
         {
 
+        }
+
+        private void OnChangeEventHandler()
+        {
+            OnChange();
         }
 
         private void OnValidateMeasureFormula(object item)

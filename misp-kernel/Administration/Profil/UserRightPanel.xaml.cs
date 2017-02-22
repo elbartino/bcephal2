@@ -186,9 +186,6 @@ namespace Misp.Kernel.Administration.Profil
                 UserRightItemPanel pan = this.panel.Children[i] as UserRightItemPanel;
                 Domain.Profil pf = getSameProfil(pan.profil);
                 pan.profil = pf;
-                //List<Domain.Profil> items = unUseProfilList();
-                //items.Add(pf);
-                //if (pf != null) pan.ProfilComboBox.ItemsSource = items;
             }
         }
 

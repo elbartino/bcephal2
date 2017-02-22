@@ -11,43 +11,6 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    
-    <!--<Grid Grid.Row="0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>-->
-        <!--<Label Content="Profil/User" Margin="0 5 0 0" Grid.Column="0"/>
-        <Label Content="Right" Margin="220 5 0 0" Grid.Column="1"/>
-        <ToggleButton x:Name="NoCommentButton" x:FieldModifier="public" ToolTip="Edit a comment" Margin="45 5 5 0" Width="15" Grid.Column="2">
-            <ToggleButton.Template>
-                <ControlTemplate>
-                    <Image Source="/bcephal;Component/Resources/Images/Icons/NoCommentButton.png"/>
-                </ControlTemplate>
-            </ToggleButton.Template>
-        </ToggleButton >
-    </Grid>-->
-    <!--<Grid Grid.Row="1" Margin="194 0 0 0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="V" Margin="1 0 0 0" Grid.Column="0"/>
-        <Label Content="ET" Margin="1 0 0 0" Grid.Column="1"/>
-        <Label Content="EC" Margin="0 0 0 0" Grid.Column="2"/>
-        <Label Content="EA" Margin="1 0 0 0" Grid.Column="3"/>
-        <Label Content="D" Margin="2 0 0 0" Grid.Column="4"/>
-        <Label Content="L" Margin="6 0 0 0" Grid.Column="5"/>
-        <Label Content="C" Margin="11 0 0 0" Grid.Column="6"/>
-        <Label Content="S" Margin="11 0 0 0" Grid.Column="7"/>
-    </Grid>-->
     <ScrollViewer  VerticalScrollBarVisibility="Auto" Grid.Row="0" >
         <StackPanel x:Name="panel" >
             <Admin:RightsGroup HorizontalAlignment="Left"/>
