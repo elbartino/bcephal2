@@ -91,6 +91,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
         {
             RightsGroup group1 = new RightsGroup(this.ObjectType);
             group1.ProfilComboBox.ItemsSource = items;
+            group1.IsExpanded = true;
             this.AddGroup(group1);
         }
         

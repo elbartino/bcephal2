@@ -306,7 +306,7 @@ namespace Misp.Sourcing.InputGrid
         {
             if (page == null) return;
             InputGridForm form = ((InputGridEditorItem)page).getInputGridForm();
-            //((InputGridPropertyBar)this.PropertyBar).UserRightLayoutAnchorable.Content = form.userRightPanel;
+            ((InputGridPropertyBar)this.PropertyBar).UserRightLayoutAnchorable.Content = form.AdministrationBar;
             //((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = form.InputGridSheetForm.InputGridPropertiesPanel;
             PerformSelectionChange();
         }
@@ -434,7 +434,7 @@ namespace Misp.Sourcing.InputGrid
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.Changed += OnInputGridPropertiesChange;
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.selectionColumnChanged += OnInputGridPropertiesSelectionColumnChange;
 
-            //editorPage.getInputGridForm().userRightPanel.ChangeEventHandler += OnChangeEventHandler;
+            editorPage.getInputGridForm().AdministrationBar.Changed += OnChangeEventHandler;
 
             initializeGridFormHandlers(editorPage.getInputGridForm());
 

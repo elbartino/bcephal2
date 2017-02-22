@@ -23,7 +23,7 @@
             <ComboBox x:Name="ProfilComboBox" x:FieldModifier="public" Grid.Column="1"/>
         </Grid>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="30,5, 5, 5" Grid.Row="1">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="30,5, 5, 5" Grid.Row="1" Visibility="Collapsed" x:Name="RightsScrollViewer">
             <StackPanel x:Name="RightsPanel">
             </StackPanel>
         </ScrollViewer>

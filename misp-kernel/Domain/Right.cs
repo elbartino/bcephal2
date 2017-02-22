@@ -47,7 +47,9 @@ namespace Misp.Kernel.Domain
         public override int CompareTo(object obj)
         {
             if (obj == null || !(obj is Right)) return 1;
-            return this.functionnality.CompareTo(((Right)obj).functionnality);
+            if (!String.IsNullOrWhiteSpace(this.functionnality))
+                return this.functionnality.CompareTo(((Right)obj).functionnality);
+            return 1;
         }
     }
 }

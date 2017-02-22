@@ -72,7 +72,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
         public RightsGroup(Object profilOrUser, String ObjectType)
             : this(ObjectType)
         {            
-            this.Header = profilOrUser != null ? profilOrUser.ToString() : "";
+            
             this.ProfilComboBox.SelectedItem = profilOrUser;
         }
         
@@ -200,6 +200,8 @@ namespace Misp.Kernel.Administration.ObjectAdmin
 
         private void OnSelectProfil(object sender, SelectionChangedEventArgs e)
         {
+            this.Header = this.ProfilComboBox.SelectedItem != null ? this.ProfilComboBox.SelectedItem.ToString() : "";
+            this.RightsScrollViewer.Visibility = this.ProfilComboBox.SelectedItem != null ? Visibility.Visible : Visibility.Collapsed;
             if (throwHandler && Changed != null) Changed(null, false);
         }
 
