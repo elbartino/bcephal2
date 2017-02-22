@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="200">
+             d:DesignHeight="300" d:DesignWidth="200" >
     
-    <Grid x:Name="MainPanel">
+    <Grid x:Name="MainPanel" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -25,25 +25,6 @@
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="30,5, 5, 5" Grid.Row="1">
             <StackPanel x:Name="RightsPanel">
-                <CheckBox x:Name="CheckBox" x:FieldModifier="public" Margin="0,5"/>
-                <CheckBox x:Name="aCheckBox" x:FieldModifier="public" Margin="0,5"/>
-                <CheckBox x:Name="zCheckBox" x:FieldModifier="public" Margin="0,5"/>
-                <CheckBox x:Name="eCheckBox" x:FieldModifier="public" Margin="0,5"/>
-
-                <CheckBox x:Name="fCheckBox" x:FieldModifier="public" Margin="0,5"/>
-                <CheckBox x:Name="gaCheckBox" x:FieldModifier="public" Margin="0,5"/>
-                <CheckBox x:Name="hzCheckBox" x:FieldModifier="public" Margin="0,5"/>
-                <CheckBox x:Name="deCheckBox" x:FieldModifier="public" Margin="0,5"/>
-
-                <CheckBox x:Name="tCheckBox" x:FieldModifier="public" Margin="0,5"/>
-                <CheckBox x:Name="rgaCheckBox" x:FieldModifier="public" Margin="0,5"/>
-                <CheckBox x:Name="fzCheckBox" x:FieldModifier="public" Margin="0,5"/>
-                <CheckBox x:Name="ceCheckBox" x:FieldModifier="public" Margin="0,5"/>
-
-                <CheckBox x:Name="teCheckBox" x:FieldModifier="public" Margin="0,5"/>
-                <CheckBox x:Name="grgaCheckBox" x:FieldModifier="public" Margin="0,5"/>
-                <CheckBox x:Name="fgzCheckBox" x:FieldModifier="public" Margin="0,5"/>
-                <CheckBox x:Name="cgeCheckBox" x:FieldModifier="public" Margin="0,5"/>
             </StackPanel>
         </ScrollViewer>
 

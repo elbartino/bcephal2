@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Domain;
+﻿using Misp.Kernel.Administration.ObjectAdmin;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using System;
@@ -56,6 +57,8 @@ namespace Misp.Kernel.Administration.Profil
         public ProfilService profilService;
 
         public UserService userService;
+
+        public List<Right> listRights { get; set; }
         
         #endregion
 
@@ -65,6 +68,7 @@ namespace Misp.Kernel.Administration.Profil
         public UserRightPanel()
         {
             InitializeComponent();
+            Display();
             initHandlers();
         }
 
@@ -76,7 +80,7 @@ namespace Misp.Kernel.Administration.Profil
         protected void initHandlers()
         {
             this.CommentPopup.Opened += OnCommentPopupOpened;
-            this.NoCommentButton.Checked += OnComment;
+            //this.NoCommentButton.Checked += OnComment;
         }
 
         #endregion
@@ -133,12 +137,51 @@ namespace Misp.Kernel.Administration.Profil
             }
         }
 
+        public void Display()
+        {
+            //this.panel.Children.Clear();
+            //List<Right> listRights = new List<Right>();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Right right = new Right();
+            //    if (i % 2 == 0)
+            //    {
+            //        right.profil = new Domain.Profil()
+            //        {
+            //            name = "Profil " + (i + 1)
+            //        };
+            //        right.rightType = RightType.VIEW.ToString();
+            //    }
+            //    else
+            //    {
+            //        right.profil = new Domain.Profil()
+            //        {
+            //            name = "User " + (i + 1)
+            //        };
+            //        right.rightType = RightType.EDIT.ToString();
+            //    }
+
+
+            //    right.projectReference = Application.ApplicationManager.Instance.File.code;
+            //    right.objectType = SubjectType.INPUT_GRID.label;
+
+            //    listRights.Add(right);
+            //}
+            foreach (Right rig in listRights)
+            {
+                string name = rig.profil != null ? rig.profil.name : rig.user != null ? rig.user.name : "Default" ;
+                RightsGroup rightGroup = new RightsGroup(name,rig.objectType,rig.rightType);
+
+                this.panel.Children.Add(rightGroup);
+            }
+        }
+
         public void InitService(ProfilService profilServic, int? objetOid)
         {
             profilService = profilServic;
             if (objetOid != null) objectOid = (int)objetOid;
             allProfils = profilService.getAll();
-            Display(new List<Domain.Profil>());
+           // Display(new List<Domain.Profil>());
         }
 
         private List<Domain.Profil> unUseProfilList()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,10 +25,11 @@ namespace Misp.Kernel.Administration.ObjectAdmin
 
         #region Constructors
 
+        
         /// <summary>
         /// 
         /// </summary>
-        public AdministrationBar(String ObjectType)
+        public AdministrationBar(String ObjectType) 
         {
             this.ObjectType = ObjectType;
             InitComponents();
@@ -94,6 +96,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
         public virtual void InitializeGroups()
         {
             
+            AddGroup(null);
         }
         
         #endregion
