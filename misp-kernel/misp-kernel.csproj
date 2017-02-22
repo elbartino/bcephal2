@@ -178,6 +178,11 @@
     <Compile Include="Administration\FunctionnalityViews\FunctionnalityView.xaml.cs">
       <DependentUpon>FunctionnalityView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Administration\ObjectAdmin\AdministrationBar.cs" />
+    <Compile Include="Administration\ObjectAdmin\RightCheckBox.cs" />
+    <Compile Include="Administration\ObjectAdmin\RightsGroup.xaml.cs">
+      <DependentUpon>RightsGroup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Administration\Profil\UserRightValuePanel.xaml.cs">
       <DependentUpon>UserRightValuePanel.xaml</DependentUpon>
     </Compile>
@@ -864,6 +869,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Administration\FunctionnalityViews\FunctionnalityView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administration\ObjectAdmin\RightsGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
