@@ -119,6 +119,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.getCurrentFieldValue().setDefaultValue(Kernel.Domain.WriteOffFieldValueType.TODAY);
             if (ItemChanged != null) ItemChanged(this.WriteOffFieldValue);
             display();
+            setDateView();
         }
 
         public void setAttribute(Kernel.Domain.Attribute attribute)
