@@ -89,7 +89,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
 
         private void AddDefaultGroup(List<Object> items)
         {
-            RightsGroup group1 = new RightsGroup();
+            RightsGroup group1 = new RightsGroup(this.ObjectType);
             group1.ProfilComboBox.ItemsSource = items;
             this.AddGroup(group1);
         }
