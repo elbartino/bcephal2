@@ -89,7 +89,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             else if (writeOffField.isPeriod() && this.valueDatePicker.SelectedDate.HasValue)
             {
                 field = new WriteOffField();
-                field.setAttribute(writeOffField.attributeField);
+                field.setPeriodName(writeOffField.periodField);
                 field.dateTime = this.valueDatePicker.SelectedDate.Value; 
             }
             return field;

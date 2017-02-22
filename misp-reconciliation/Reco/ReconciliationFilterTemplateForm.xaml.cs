@@ -294,7 +294,7 @@ namespace Misp.Reconciliation.Reco
                         
             reco.ids = dialog.ReconciliationGrid.GridBrowser.GetSelectedOis();
             reco.recoType = this.EditedObject.reconciliationType;
-            //reco.debitedOrCreditedAccount = dialog.getDebitedOrCreditedAccount();
+            reco.measure = this.EditedObject.amountMeasure;
 
             bool result = this.Service.reconciliate(reco);
             if (result)
