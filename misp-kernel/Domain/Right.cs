@@ -14,6 +14,8 @@ namespace Misp.Kernel.Domain
 
         public int objectOid { get; set; }
 
+        public String objectType { get; set; }
+
         public String projectReference { get; set; }
 
         [ScriptIgnore]

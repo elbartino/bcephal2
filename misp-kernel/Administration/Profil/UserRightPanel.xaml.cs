@@ -23,10 +23,9 @@ namespace Misp.Kernel.Administration.Profil
     /// </summary>
     public partial class UserRightPanel : Grid
     {
-        
-        public bool IsReadOnly { get; set; }
 
         #region Events
+
         public ChangeEventHandler Changed;
 
         public event ChangeItemEventHandler ItemChanged;
@@ -35,7 +34,11 @@ namespace Misp.Kernel.Administration.Profil
 
         #endregion
 
+
         #region Properties
+
+        public bool IsReadOnly { get; set; }
+
         public UserRightItemPanel ActiveItemPanel { get; set; }
 
         public ChangeEventHandler ChangeEventHandler;
@@ -53,34 +56,55 @@ namespace Misp.Kernel.Administration.Profil
         public ProfilService profilService;
 
         public UserService userService;
-
-
+        
         #endregion
 
+
         #region Constructors
+
         public UserRightPanel()
         {
             InitializeComponent();
             initHandlers();
         }
+
         #endregion
 
+
         #region Handlers
+
         protected void initHandlers()
         {
             this.CommentPopup.Opened += OnCommentPopupOpened;
             this.NoCommentButton.Checked += OnComment;
         }
-        #endregion
 
+        #endregion
         
-        private void refreshCommentIcon()
-        {
-            bool hasComment = !string.IsNullOrWhiteSpace(this.CommentTextBlock.Text);
-            this.NoCommentButton.Visibility = hasComment ? Visibility.Hidden : Visibility.Visible;
-        }
 
         #region Operations
+        
+        public void SetReadOnly(bool readOnly)
+        {
+
+        }
+
+        public void Fill()
+        {
+
+
+        }
+
+        public void setValue(object value)
+        {
+
+        }
+
+        public void resetComponent()
+        {
+
+        }
+
         /// <summary>
         /// affiche le UserRightItemPanel en edition
         /// </summary>
@@ -284,6 +308,7 @@ namespace Misp.Kernel.Administration.Profil
 
         #endregion
 
+
         #region Control
         private void OnChanged(object item)
         {
@@ -336,25 +361,5 @@ namespace Misp.Kernel.Administration.Profil
 
         #endregion
 
-        public void SetReadOnly(bool readOnly) 
-        {
-            
-        }
-
-        public void Fill()
-        {
-            
-            
-        }
-
-        public void setValue(object value)
-        {
-           
-        }
-
-        public void resetComponent()
-        {
-            
-        }
     }
 }
