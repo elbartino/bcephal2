@@ -85,7 +85,14 @@ namespace Misp.Reconciliation.WriteOffConfig
 
         private void OnDeleteFields(object item)
         {
-            if (OnDeleteField != null) OnDeleteField(this);
+            if (OnDeleteField != null)
+            {
+                if (item is Kernel.Domain.WriteOffField)
+                {
+                    this.writeOffField = (Kernel.Domain.WriteOffField)item;
+                    OnDeleteField(this);
+                }
+            }
         }
 
         private void OnAddFields(object item)
