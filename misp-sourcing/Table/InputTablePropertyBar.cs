@@ -86,7 +86,7 @@ namespace Misp.Sourcing.Table
             Pane.Children.Add(TableLayoutAnchorable);
             Pane.Children.Add(ParameterLayoutAnchorable);
             Pane.Children.Add(AllocationLayoutAnchorable);
-            //Pane.Children.Add(UserRightLayoutAnchorable);
+            Pane.Children.Add(UserRightLayoutAnchorable);
             this.Panes.Add(Pane);
 
         }
