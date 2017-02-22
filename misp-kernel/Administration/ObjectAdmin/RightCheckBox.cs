@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace Misp.Kernel.Administration.ObjectAdmin
 {
-    class RightCheckBox : CheckBox
+    public class RightCheckBox : CheckBox
     {
 
         #region Properties
