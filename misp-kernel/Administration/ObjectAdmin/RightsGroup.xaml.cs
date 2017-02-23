@@ -31,7 +31,9 @@ namespace Misp.Kernel.Administration.ObjectAdmin
         public RightEventHandler Changed;
 
         public String ObjectType { get; set; }
-        
+
+        public RightsGroupHeader RightsGroupHeader { get; set; }
+
         private List<string> labelList = new List<string>();
 
         private bool throwHandler;
@@ -57,6 +59,8 @@ namespace Misp.Kernel.Administration.ObjectAdmin
         {
             throwHandler = true;
             InitializeComponent();
+            this.RightsGroupHeader = new RightsGroupHeader();
+            this.Header = this.RightsGroupHeader;
             Brush color = (Brush)new BrushConverter().ConvertFrom("#FFFAC090");
             this.BorderBrush = color;
             this.Background = color;
@@ -200,8 +204,10 @@ namespace Misp.Kernel.Administration.ObjectAdmin
 
         private void OnSelectProfil(object sender, SelectionChangedEventArgs e)
         {
-            this.Header = this.ProfilComboBox.SelectedItem != null ? this.ProfilComboBox.SelectedItem.ToString() : "";
+            //this.Header = this.ProfilComboBox.SelectedItem != null ? this.ProfilComboBox.SelectedItem.ToString() : "";
+            this.RightsGroupHeader.Label.Content = this.ProfilComboBox.SelectedItem != null ? this.ProfilComboBox.SelectedItem.ToString() : "";
             this.RightsScrollViewer.Visibility = this.ProfilComboBox.SelectedItem != null ? Visibility.Visible : Visibility.Collapsed;
+            this.RightsGroupHeader.DeleteButton.Visibility = this.ProfilComboBox.SelectedItem != null ? Visibility.Visible : Visibility.Collapsed;
             if (throwHandler && Changed != null) Changed(null, false);
         }
 
