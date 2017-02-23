@@ -26,25 +26,6 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public WriteOffBlock()
         {
             InitializeComponent();
-            //WriteOffConfiguration = new Kernel.Domain.WriteOffConfiguration();
-            //Kernel.Domain.WriteOffField field = null;
-            //for (int i = 0; i <= 7; i++) 
-            //{
-            //    if (i % 2 == 0)
-            //    {
-            //        field = new Kernel.Domain.WriteOffField();
-            //        field.setPeriodName(new Kernel.Domain.PeriodName("Date" + (i+1)));
-            //        field.mandatory = true;
-            //    }
-            //    else
-            //    {
-            //        field = new Kernel.Domain.WriteOffField();
-            //        Kernel.Domain.Attribute attrib = new Kernel.Domain.Attribute();
-            //        attrib.name = "Attrib" + (i+1);
-            //        field.setAttribute(attrib);
-            //    }
-            //    WriteOffConfiguration.AddFieldValue(field);
-            //}
         }
 
         public void display() 
