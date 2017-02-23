@@ -182,7 +182,6 @@ namespace Misp.Kernel.Ui.Base
         {
             SaveButton.Visibility = Util.RightsUtil.HasRight(Domain.RightType.SAVE,listeRights) ? Visibility.Hidden : Visibility.Visible;
             SaveAllButton.Visibility = Util.RightsUtil.HasRight(Domain.RightType.SAVE, listeRights) ? Visibility.Hidden : Visibility.Visible;
-            RenameButton.Visibility = Util.RightsUtil.HasRight(Domain.RightType.RENAME, listeRights) ? Visibility.Hidden : Visibility.Visible;
             DeleteButton.Visibility = Util.RightsUtil.HasRight(Domain.RightType.DELETE, listeRights) ? Visibility.Hidden : Visibility.Visible;
         }
     }
