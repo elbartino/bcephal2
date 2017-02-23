@@ -183,6 +183,9 @@
     <Compile Include="Administration\ObjectAdmin\RightsGroup.xaml.cs">
       <DependentUpon>RightsGroup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Administration\ObjectAdmin\RightsGroupHeader.xaml.cs">
+      <DependentUpon>RightsGroupHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Administration\Profil\UserRightValuePanel.xaml.cs">
       <DependentUpon>UserRightValuePanel.xaml</DependentUpon>
     </Compile>
@@ -874,6 +877,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Administration\ObjectAdmin\RightsGroup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administration\ObjectAdmin\RightsGroupHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
