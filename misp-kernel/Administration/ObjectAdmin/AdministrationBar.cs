@@ -72,8 +72,9 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                     string name = right.profil != null ? "P-" + right.profil.name : right.user != null ? "U-" + right.user.name : null;
                     if (!map.ContainsKey(name)) 
                     {
-                        RightsGroup group1 = new RightsGroup(profilOrUser, right.objectType);
+                        RightsGroup group1 = new RightsGroup(right.objectType);
                         group1.ProfilComboBox.ItemsSource = items;
+                        group1.ProfilComboBox.SelectedItem = profilOrUser;
                         map.Add(name, group1);
                         this.AddGroup(group1);
                     }

@@ -213,6 +213,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                 {
                     box.Right = new Right();
                     box.Right.objectType = this.ObjectType;
+                    box.Right.rightType = box.RightType.ToString();
                     box.Right.projectReference = ApplicationManager.Instance.File.code;
                     Object item = this.ProfilComboBox.SelectedItem;
                     if (item != null && item is Domain.Profil) box.Right.profil = (Domain.Profil)item;
