@@ -41,10 +41,21 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
         public void display(WriteOffField field)
         {
-            RemoveHandlers();
+           
             if (field == null) return;
-            this.DefaultValuesCombobox.SelectedItem = field.defaultValueTypeEnum != null ?
-                field.defaultValueTypeEnum.ToString() : WriteOffFieldValueType.CUSTOM.label;
+            if (field.isPeriod())
+            {
+                setDateView();
+                RemoveHandlers();
+                this.DefaultValuesCombobox.SelectedItem = field.defaultValueTypeEnum != null ?
+                field.defaultValueTypeEnum : WriteOffFieldValueType.TODAY;
+            }
+            else
+            {
+                removeDateView();
+                this.DefaultValuesCombobox.SelectedItem = field.defaultValueTypeEnum != null ?
+                field.defaultValueTypeEnum : WriteOffFieldValueType.CUSTOM;
+            }
             InitializeHandlers();
         }
 
@@ -90,19 +101,19 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         {
             if (isDate)
             {
-                this.DefaultValuesCombobox.ItemsSource = new String[] { WriteOffFieldValueType.CUSTOM_DATE.label,
-                  WriteOffFieldValueType.TODAY.label};
-                this.DefaultValuesCombobox.SelectedItem = WriteOffFieldValueType.TODAY.label;
+                this.DefaultValuesCombobox.ItemsSource = new WriteOffFieldValueType[] { WriteOffFieldValueType.CUSTOM_DATE,
+                  WriteOffFieldValueType.TODAY};
+                this.DefaultValuesCombobox.SelectedItem = WriteOffFieldValueType.TODAY;
             }
             else 
             {
-                this.DefaultValuesCombobox.ItemsSource = new String[] 
+                this.DefaultValuesCombobox.ItemsSource = new WriteOffFieldValueType[] 
                 {
-                      WriteOffFieldValueType.LEFT_SIDE.label,
-                      WriteOffFieldValueType.RIGHT_SIDE.label,
-                      WriteOffFieldValueType.CUSTOM.label
+                      WriteOffFieldValueType.LEFT_SIDE,
+                      WriteOffFieldValueType.RIGHT_SIDE,
+                      WriteOffFieldValueType.CUSTOM
                 };
-                this.DefaultValuesCombobox.SelectedItem = WriteOffFieldValueType.CUSTOM.label;
+                this.DefaultValuesCombobox.SelectedItem = WriteOffFieldValueType.CUSTOM;
             }
         }
     }

@@ -124,5 +124,10 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             return this.writeOffField;
         }
 
+
+        public void updateObject(WriteOffField writeOffField)
+        {
+            this.writeOffField = writeOffField;
+        }
     }
 }
