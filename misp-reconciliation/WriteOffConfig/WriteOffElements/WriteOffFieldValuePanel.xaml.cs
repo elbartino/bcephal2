@@ -132,7 +132,8 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             {
                 WriteOffValueItem item = getPanel();
                 item.Index = 0;
-                if (!showLabel) item.showRowLabel(showLabel);             
+                if (!showLabel) item.showRowLabel(showLabel);
+                if (this.isDateView) item.setDateView();
                 this.FieldValuePanel.Children.Add(item);
             }
         }

@@ -88,6 +88,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                  writeOffField.measureField != null ? writeOffField.measureField.name :"" ;
 
              this.ValueTypeTextBox.Text = name;       
+            
         }
 
         public void setAttribute(Kernel.Domain.Attribute attribute)
@@ -123,5 +124,10 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             return this.writeOffField;
         }
 
+
+        public void updateObject(WriteOffField writeOffField)
+        {
+            this.writeOffField = writeOffField;
+        }
     }
 }
