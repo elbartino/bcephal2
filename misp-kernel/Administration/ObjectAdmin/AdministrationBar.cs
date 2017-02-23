@@ -180,6 +180,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                 RemoveGroup(group);
             }
             OnChange();
+            TryToAddDefaultGroup();
         }
 
         private void OnProfilChange(object item)
@@ -200,6 +201,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                 }
             }
             OnChange();
+            TryToAddDefaultGroup();
         }
 
         private void OnRightChange(Right right, bool selected)
