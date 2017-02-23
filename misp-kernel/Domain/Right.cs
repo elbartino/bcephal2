@@ -18,10 +18,10 @@ namespace Misp.Kernel.Domain
 
         public String projectReference { get; set; }
 
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public Profil profil { get; set;}
 
-        [ScriptIgnore]
+        //[ScriptIgnore]
         public User user { get; set;}
 
         public Right()
