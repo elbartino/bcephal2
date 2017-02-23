@@ -192,9 +192,6 @@
     <Compile Include="Administration\Profil\UserRightItemPanel.xaml.cs">
       <DependentUpon>UserRightItemPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Administration\Profil\UserRightPanel.xaml.cs">
-      <DependentUpon>UserRightPanel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Administration\Profil\ProfilBrowser.cs" />
     <Compile Include="Administration\Profil\ProfilBrowserController.cs" />
     <Compile Include="Administration\Profil\ProfilEditor.cs" />
@@ -889,10 +886,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Administration\Profil\UserRightItemPanel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Administration\Profil\UserRightPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

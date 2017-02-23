@@ -124,7 +124,6 @@ namespace Misp.Sourcing.Table
          
             this.SelectionChanged += onSelectTabChancged;
 
-            this.userRightPanel = new UserRightPanel();
         }
 
 
@@ -245,7 +244,6 @@ namespace Misp.Sourcing.Table
 
         public DESpreadsheet SpreadSheet { get; set; }
 
-        public UserRightPanel userRightPanel { get; set; }
 
         public CellPropertyGrid CellPropertyGrid { get; private set; }
 
@@ -347,7 +345,6 @@ namespace Misp.Sourcing.Table
             controls.AddRange(TablePropertiesPanel.getEditableControls());
             controls.AddRange(TableCellParameterPanel.getEditableControls());
             controls.AddRange(AllocationPropertiesPanel.getEditableControls());
-            controls.AddRange(userRightPanel.getEditableControls());
             if (this.SpreadSheet != null) controls.Add(this.SpreadSheet);
             return controls;
         }

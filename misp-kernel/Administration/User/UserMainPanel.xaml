@@ -125,7 +125,7 @@
                     <relation:UserRelationPanel Width="350" x:Name="RelationPanel" Grid.Row="1" />
                 </Grid>
             </Grid>
-            <right:UserRightPanel  x:Name="RightPanel" Grid.Row="9" />
+            
             <TextBlock x:Name="Console" Grid.Row="10" Margin="10" Foreground="Red" Visibility="Collapsed" FontSize="11"/>
         </Grid>
     </Border>

@@ -198,7 +198,6 @@ namespace Misp.Sourcing.Table
             }
             page.getInputTableForm().EditedObject = table;
             page.getInputTableForm().displayObject();
-            ((InputTableEditorItem)page).getInputTableForm().userRightPanel.InitService(GetInputTableService().ProfilService, page.EditedObject.oid);
             //OnDisplayActiveCellData();
             return OperationState.CONTINUE;
         }
@@ -258,7 +257,6 @@ namespace Misp.Sourcing.Table
                 GetInputTableService().parametrizeTable(parameter);
             }
             bool isNoAllocation = false;
-            ((InputTableEditorItem)page).getInputTableForm().userRightPanel.InitService(GetInputTableService().ProfilService, page.EditedObject.oid);
             ((InputTableEditorItem)page).getInputTableForm().TablePropertiesPanel.displayTable(table, isNoAllocation,page.IsReadOnly);
             setActivationTableAction(table, isReadonly);
             setIsTemplateTableAction(table, isReadonly);
@@ -519,7 +517,6 @@ namespace Misp.Sourcing.Table
                     GetInputTableService().Save(table);
                     //if(closeEditorAfterSave) return OperationState.STOP;
 
-                    saveUserProfilRight(currentPage);
                 }
                 catch (Exception)
                 {
@@ -532,20 +529,7 @@ namespace Misp.Sourcing.Table
             }
             return OperationState.CONTINUE;
         }
-
-        protected void saveUserProfilRight(InputTableEditorItem page)
-        {
-            if (page != null && page.EditedObject.oid != null)
-            {
-                ProfilService pService = GetInputTableService().ProfilService;
-                List<Kernel.Domain.Profil> pfs = pService.Save(page.getInputTableForm().userRightPanel.useProfils, page.EditedObject.oid);
-                page.getInputTableForm().userRightPanel.allProfils = pService.getAll();
-                //page.getInputGridForm().userRightPanel.Display(pfs);
-                page.getInputTableForm().userRightPanel.useProfils = pfs;
-                page.getInputTableForm().userRightPanel.updateUserRightPanel();
-            }
-        }
-
+        
         protected OperationState saveSpreedSheet(EditorItem<InputTable> page, String fileName = null,bool saveAs = false) 
         {
             InputTableEditorItem currentPage = (InputTableEditorItem)page;
@@ -1129,7 +1113,6 @@ namespace Misp.Sourcing.Table
             editorPage.getInputTableForm().AllocationPropertiesPanel.ResetButton.Click += OnResetCells;
             editorPage.getInputTableForm().TableCellParameterPanel.CellMeasurePanel.ValidateFormula += OnValidateMeasureFormula;
             editorPage.getInputTableForm().AllocationPropertiesPanel.Change += OnAllocationDataChange;
-            editorPage.getInputTableForm().userRightPanel.ChangeEventHandler += OnChangeEventHandler;
             editorPage.Closed += editorPage_Closed;
            // editorPage.getInputTableForm().SpreadSheet.DisableAddingSheet += SpreadSheet_DisableAddingSheet;
             
@@ -1318,7 +1301,6 @@ namespace Misp.Sourcing.Table
             ((InputTablePropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.TablePropertiesPanel;
             ((InputTablePropertyBar)this.PropertyBar).ParameterLayoutAnchorable.Content = form.TableCellParameterPanel;
             ((InputTablePropertyBar)this.PropertyBar).MappingLayoutAnchorable.Content = form.TableCellParameterPanel.TableCellMappingPanel;
-            ((InputTablePropertyBar)this.PropertyBar).UserRightLayoutAnchorable.Content = form.userRightPanel;
             OnDisplayActiveCellData();
             setIsTemplateTableAction(page.EditedObject, page.IsReadOnly);
         }
