@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Ui.Base;
+﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Sidebar;
 using Misp.Sourcing.GridViews;
 using System;
@@ -55,6 +56,13 @@ namespace Misp.Sourcing.InputGrid
             this.AddGroup(this.EntityGroup);
             this.AddGroup(this.MeasureGroup);
             this.AddGroup(this.PeriodGroup);
+        }
+
+        public override void customize(List<Right> listeRights)
+        {
+            this.EntityGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, listeRights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.MeasureGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, listeRights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.PeriodGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, listeRights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
         }
 
 
