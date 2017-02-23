@@ -18,6 +18,7 @@ namespace Misp.Kernel.Domain
         LOAD,
         CLEAR,
         SAVE_AS,
-        SAVE
+        SAVE,
+        RENAME
     }
 }
