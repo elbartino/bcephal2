@@ -30,6 +30,10 @@ namespace Misp.Kernel.Administration.ObjectAdmin
 
         public RightEventHandler Changed;
 
+        public DeleteEventHandler Deleted;
+
+        public ChangeItemEventHandler ProfilChanged;
+
         public String ObjectType { get; set; }
 
         public RightsGroupHeader RightsGroupHeader { get; set; }
@@ -104,6 +108,23 @@ namespace Misp.Kernel.Administration.ObjectAdmin
             throwHandler = true;
         }
 
+        public List<Right> GetCheckRights()
+        {
+            List<Right> rights = new List<Right>(0);
+            foreach (UIElement check in this.RightsPanel.Children)
+            {
+                if (check is RightCheckBox)
+                {
+                    RightCheckBox box = (RightCheckBox)check;
+                    if (box.Right != null && box.IsChecked.Value)
+                    {
+                        rights.Add(box.Right);
+                    }
+                }
+            }
+            return rights;
+        }
+
         #endregion
 
 
@@ -112,6 +133,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
         private void Customize()
         {            
             this.ProfilComboBox.SelectionChanged += OnSelectProfil;
+            this.RightsGroupHeader.DeleteButton.Click += OnDelete;
 
             if (!string.IsNullOrWhiteSpace(ObjectType))
             {
@@ -130,7 +152,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                 }
             }
         }
-
+        
         private void setLabelText(SubjectType subjectType,string name="") 
         {
             buildLabelList(subjectType.label);
@@ -201,13 +223,19 @@ namespace Misp.Kernel.Administration.ObjectAdmin
         #region Handlers
 
 
+        private void OnDelete(object sender, RoutedEventArgs e)
+        {
+            if (throwHandler && Deleted != null) Deleted(this);
+        }
+
         private void OnSelectProfil(object sender, SelectionChangedEventArgs e)
         {
-            //this.Header = this.ProfilComboBox.SelectedItem != null ? this.ProfilComboBox.SelectedItem.ToString() : "";
-            this.RightsGroupHeader.Label.Content = this.ProfilComboBox.SelectedItem != null ? this.ProfilComboBox.SelectedItem.ToString() : "";
+            String name = this.ProfilComboBox.SelectedItem != null ? this.ProfilComboBox.SelectedItem.ToString() : "";
+            this.RightsGroupHeader.Label.Content = name;
             this.RightsScrollViewer.Visibility = this.ProfilComboBox.SelectedItem != null ? Visibility.Visible : Visibility.Collapsed;
             this.RightsGroupHeader.DeleteButton.Visibility = this.ProfilComboBox.SelectedItem != null ? Visibility.Visible : Visibility.Collapsed;
-            if (throwHandler && Changed != null) Changed(null, false);
+            this.RightsGroupHeader.DeleteButton.ToolTip = "Remove " + name + " group";
+            if (throwHandler && ProfilChanged != null) ProfilChanged(this);
         }
 
         protected void OnChange(RightCheckBox box)
@@ -225,6 +253,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                     else if (item != null && item is Domain.User) box.Right.user = (Domain.User)item;
                 }
                 Changed(box.Right, box.IsChecked.Value);
+                if (!box.IsChecked.Value) box.Right = null;
             }
         }
 

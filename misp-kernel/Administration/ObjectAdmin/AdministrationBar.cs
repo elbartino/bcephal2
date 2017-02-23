@@ -57,13 +57,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                     this.EditedObject.rightsListChangeHandler = new PersistentListChangeHandler<Right>();
                 }
 
-                ProfilService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetProfilService();
-                List<Domain.Profil> profils = service.getAll();
-                UserService userservice = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetUserService();
-                List<Domain.User> users = userservice.getAll();
-                List<Object> items = new List<object>(profils);
-                items.AddRange(users);
-             
+                List<Object> items = GetProfilsAndUsers();             
                 Dictionary<String, RightsGroup> map = new Dictionary<String, RightsGroup>(0);
                 foreach (Right right in this.EditedObject.rightsListChangeHandler.Items)
                 {
@@ -104,17 +98,17 @@ namespace Misp.Kernel.Administration.ObjectAdmin
         public void AddGroup(RightsGroup group)
         {
             group.Changed += OnRightChange;
+            group.Deleted += OnGroupDelete;
+            group.ProfilChanged += OnProfilChange;
             group.Margin = new Thickness(5, 10, 10, 20);
             this.MainPanel.Children.Add(group);
         }
-        
-        public void RemoveGroup(int position)
-        {
-            this.MainPanel.Children.RemoveAt(position);
-        }
-        
+   
         public void RemoveGroup(RightsGroup group)
         {
+            group.Changed -= OnRightChange;
+            group.Deleted -= OnGroupDelete;
+            group.ProfilChanged -= OnProfilChange;
             this.MainPanel.Children.Remove(group);
         }
 
@@ -123,21 +117,29 @@ namespace Misp.Kernel.Administration.ObjectAdmin
             this.MainPanel.Children.Clear();
         }
 
-
-        private void OnRightChange(Right right, bool selected)
+        public List<Object> GetProfilsAndUsers()
         {
-            if (right != null && this.EditedObject != null)
-            {
-                if (selected) this.EditedObject.rightsListChangeHandler.AddNew(right);
-                else if (right.oid.HasValue) this.EditedObject.rightsListChangeHandler.AddDeleted(right);
-                else this.EditedObject.rightsListChangeHandler.forget(right);
-            }
-            OnChange();
+            ProfilService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetProfilService();
+            List<Domain.Profil> profils = service.getAll();
+            UserService userservice = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetUserService();
+            List<Domain.User> users = userservice.getAll();
+            List<Object> items = new List<object>(profils);
+            items.AddRange(users);
+            return items;    
         }
 
-        protected void OnChange()
+        public void TryToAddDefaultGroup()
         {
-            if (Changed != null) Changed();
+            int count = this.MainPanel.Children.Count;
+            if (count > 0)
+            {
+                UIElement elt = this.MainPanel.Children[count - 1];
+                if (elt is RightsGroup)
+                {
+                    RightsGroup group = (RightsGroup)elt;
+                    if (group.ProfilComboBox.SelectedItem != null) AddDefaultGroup(GetProfilsAndUsers());
+                }
+            }
         }
 
         #endregion
@@ -157,6 +159,65 @@ namespace Misp.Kernel.Administration.ObjectAdmin
             this.Content = this.MainPanel;
         }
                 
+        #endregion
+
+        
+        #region Handlers
+        
+        private void OnGroupDelete(object item)
+        {
+            if (item != null && item is RightsGroup)
+            {
+                RightsGroup group = (RightsGroup)item;
+                if (this.EditedObject != null)
+                {
+                    foreach (Right right in group.GetCheckRights())
+                    {
+                        if (right.oid.HasValue) this.EditedObject.rightsListChangeHandler.AddDeleted(right);
+                        else this.EditedObject.rightsListChangeHandler.forget(right);
+                    }
+                }
+                RemoveGroup(group);
+            }
+            OnChange();
+        }
+
+        private void OnProfilChange(object item)
+        {
+            if (item != null && item is RightsGroup)
+            {
+                RightsGroup group = (RightsGroup)item;
+                if (this.EditedObject != null)
+                {
+                    Object elt = group.ProfilComboBox.SelectedItem;
+                    bool isProfil = elt != null && elt is Domain.Profil;
+                    foreach (Right right in group.GetCheckRights())
+                    {
+                        if(isProfil) right.profil = (Domain.Profil)elt;
+                        else right.user = (Domain.User)elt;
+                        this.EditedObject.rightsListChangeHandler.AddUpdated(right);
+                    }
+                }
+            }
+            OnChange();
+        }
+
+        private void OnRightChange(Right right, bool selected)
+        {
+            if (right != null && this.EditedObject != null)
+            {
+                if (selected) this.EditedObject.rightsListChangeHandler.AddNew(right);
+                else if (right.oid.HasValue) this.EditedObject.rightsListChangeHandler.AddDeleted(right);
+                else this.EditedObject.rightsListChangeHandler.forget(right);
+            }
+            OnChange();
+        }
+
+        protected void OnChange()
+        {
+            if (Changed != null) Changed();
+        }
+
         #endregion
 
     }
