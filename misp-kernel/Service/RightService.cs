@@ -16,6 +16,23 @@ namespace Misp.Kernel.Service
 
         #region Right
 
+        public virtual List<Right> getUserRights(String objectType, int objectOid)
+        {
+            try
+            {
+                String project = Kernel.Application.ApplicationManager.Instance.File.code;
+                var request1 = new RestRequest(ResourcePath + "/user/" + project + "/" + objectType + "/" + objectOid, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+                List<Right> rights = RestSharp.SimpleJson.DeserializeObject<List<Right>>(queryResult.Content);
+                return rights;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve object from server.", e);
+                throw new ServiceExecption("Unable to retrieve object from server.", e);
+            }
+        }
+
         /// <summary>
         /// Right according to Profil
         /// </summary>
