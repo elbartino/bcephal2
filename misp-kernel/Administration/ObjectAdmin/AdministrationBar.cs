@@ -2,6 +2,7 @@
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -142,6 +143,19 @@ namespace Misp.Kernel.Administration.ObjectAdmin
             }
         }
 
+        public bool IsDuplicateProfil(RightsGroup group)
+        {
+            foreach (UIElement elt in this.MainPanel.Children)
+            {
+                if (elt is RightsGroup && elt != group)
+                {
+                    Object item = ((RightsGroup)elt).ProfilComboBox.SelectedItem;
+                    if (item != null && item.Equals(group.ProfilComboBox.SelectedItem)) return true;
+                }
+            }    
+            return false;
+        }
+
         #endregion
         
 
@@ -183,25 +197,36 @@ namespace Misp.Kernel.Administration.ObjectAdmin
             TryToAddDefaultGroup();
         }
 
-        private void OnProfilChange(object item)
+        private bool OnProfilChange(object item)
         {
             if (item != null && item is RightsGroup)
             {
                 RightsGroup group = (RightsGroup)item;
-                if (this.EditedObject != null)
+                bool duplicate = IsDuplicateProfil(group);
+                if (!duplicate)
                 {
-                    Object elt = group.ProfilComboBox.SelectedItem;
-                    bool isProfil = elt != null && elt is Domain.Profil;
-                    foreach (Right right in group.GetCheckRights())
+                    if (this.EditedObject != null)
                     {
-                        if(isProfil) right.profil = (Domain.Profil)elt;
-                        else right.user = (Domain.User)elt;
-                        this.EditedObject.rightsListChangeHandler.AddUpdated(right);
+                        Object elt = group.ProfilComboBox.SelectedItem;
+                        bool isProfil = elt != null && elt is Domain.Profil;
+                        foreach (Right right in group.GetCheckRights())
+                        {
+                            if (isProfil) right.profil = (Domain.Profil)elt;
+                            else right.user = (Domain.User)elt;
+                            this.EditedObject.rightsListChangeHandler.AddUpdated(right);
+                        }
                     }
+                    OnChange();
+                    TryToAddDefaultGroup();
                 }
+                else
+                {
+                    MessageDisplayer.DisplayWarning("Duplicate Profil or User", 
+                        "Another group whith Profil or User '" + group.ProfilComboBox.SelectedItem + "' already exits!");
+                }
+                return !duplicate;
             }
-            OnChange();
-            TryToAddDefaultGroup();
+            return true;
         }
 
         private void OnRightChange(Right right, bool selected)

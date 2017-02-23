@@ -32,8 +32,8 @@ namespace Misp.Kernel.Administration.ObjectAdmin
 
         public DeleteEventHandler Deleted;
 
-        public ChangeItemEventHandler ProfilChanged;
-
+        public ActionEventHandler ProfilChanged;
+        
         public String ObjectType { get; set; }
 
         public RightsGroupHeader RightsGroupHeader { get; set; }
@@ -230,12 +230,19 @@ namespace Misp.Kernel.Administration.ObjectAdmin
 
         private void OnSelectProfil(object sender, SelectionChangedEventArgs e)
         {
+            bool isOk = true;
+            if (throwHandler && ProfilChanged != null) isOk = ProfilChanged(this);
+            if (!isOk)
+            {
+                throwHandler = false;
+                this.ProfilComboBox.SelectedItem = e.RemovedItems.Count > 0 ? e.RemovedItems[0] : null;
+                throwHandler = true;                
+            }
             String name = this.ProfilComboBox.SelectedItem != null ? this.ProfilComboBox.SelectedItem.ToString() : "";
             this.RightsGroupHeader.Label.Content = name;
             this.RightsScrollViewer.Visibility = this.ProfilComboBox.SelectedItem != null ? Visibility.Visible : Visibility.Collapsed;
             this.RightsGroupHeader.DeleteButton.Visibility = this.ProfilComboBox.SelectedItem != null ? Visibility.Visible : Visibility.Collapsed;
-            this.RightsGroupHeader.DeleteButton.ToolTip = "Remove " + name + " group";
-            if (throwHandler && ProfilChanged != null) ProfilChanged(this);
+            this.RightsGroupHeader.DeleteButton.ToolTip = "Remove " + name + " group";            
         }
 
         protected void OnChange(RightCheckBox box)
