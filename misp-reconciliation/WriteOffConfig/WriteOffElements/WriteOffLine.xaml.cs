@@ -40,7 +40,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             if (writeOffField.isAttribute())
             {
                 name = this.writeOffField.attributeField.name;
-                if (this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.CUSTOM)
+                if (this.writeOffField.defaultValueTypeEnum == null || this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.CUSTOM)
                 {
                     if (this.writeOffField.writeOffFieldValueListChangeHandler != null && this.writeOffField.writeOffFieldValueListChangeHandler.Items.Count > 0)
                     {
@@ -67,7 +67,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             {
                 name = this.writeOffField.periodField.name;                
                 this.valueDatePicker.SelectedDate = DateTime.Now;
-                if (this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.TODAY)
+                if (this.writeOffField.defaultValueTypeEnum == null || this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.TODAY)
                 {
                     this.valueDatePicker.IsEnabled = false;
                 }

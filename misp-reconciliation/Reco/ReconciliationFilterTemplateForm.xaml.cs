@@ -318,6 +318,9 @@ namespace Misp.Reconciliation.Reco
             {
                 this.LeftGrid.Search(this.LeftGrid.EditedObject.GrilleFilter != null ? this.LeftGrid.EditedObject.GrilleFilter.page : 1);
                 this.RightGrid.Search(this.RightGrid.EditedObject.GrilleFilter != null ? this.RightGrid.EditedObject.GrilleFilter.page : 1);
+                this.BottomGrid.Clear();
+                this.BottomGrid.ReconciliateButton.IsEnabled = false;
+                this.BottomGrid.ResetButton.IsEnabled = false;
             }
         }
 
