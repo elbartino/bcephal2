@@ -1,5 +1,6 @@
 ﻿using Misp.Kernel.Application;
 using Misp.Kernel.Controller;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Sidebar;
@@ -17,6 +18,8 @@ namespace Misp.Initiation.Archives
         {
             ModuleName = PlugIn.MODULE_NAME;
         }
+
+        public SubjectType SubjectType { get; set; }
 
         /// <summary>
         /// Assigne ou retourne le nom (ou code) de la fonctionnalité contrôlée. 

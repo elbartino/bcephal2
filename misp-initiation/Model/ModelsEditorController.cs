@@ -31,6 +31,7 @@ namespace Misp.Initiation.Model
         {
             this.InitiationController = InitiationController;
             this.FunctionalityCode = InitiationFunctionalitiesCode.INITIATION_MODEL;
+            this.SubjectType = SubjectType.MODEL;
         }
 
         /// <summary>

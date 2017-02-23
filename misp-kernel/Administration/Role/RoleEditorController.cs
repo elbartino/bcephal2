@@ -16,6 +16,7 @@ namespace Misp.Kernel.Administration.Role
         public RoleEditorController() 
         {
             ModuleName = "Administration";
+            this.SubjectType = Kernel.Domain.SubjectType.ROLE;
         }
 
         /// <summary>

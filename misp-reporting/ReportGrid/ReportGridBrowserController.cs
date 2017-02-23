@@ -12,6 +12,7 @@ namespace Misp.Reporting.ReportGrid
         public ReportGridBrowserController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.REPORT_GRID;
         }
 
         /// <summary>

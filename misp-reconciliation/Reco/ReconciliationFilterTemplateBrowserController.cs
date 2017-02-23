@@ -16,7 +16,8 @@ namespace Misp.Reconciliation.Reco
 
         public ReconciliationFilterTemplateBrowserController() 
         {
-            ModuleName = PlugIn.MODULE_NAME; 
+            ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.RECONCILIATION_FILTER;
         }
 
         /// <summary>

@@ -16,6 +16,7 @@ namespace Misp.Sourcing.CustomizedTarget
         public TargetBrowserController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.TARGET;
         }
 
         /// <summary>

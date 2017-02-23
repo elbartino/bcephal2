@@ -18,6 +18,7 @@ namespace Misp.Kernel.Administration.User
         public UserBrowserController() 
         {
             ModuleName = "Administration"; //PlugIn.MODULE_NAME;
+            this.SubjectType = Domain.SubjectType.USER;
         }
 
         /// <summary>

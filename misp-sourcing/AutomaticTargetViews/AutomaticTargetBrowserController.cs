@@ -13,6 +13,7 @@ namespace Misp.Sourcing.AutomaticTargetViews
         public AutomaticTargetBrowserController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.AUTOMATIC_TARGET;
         }
 
         /// <summary>

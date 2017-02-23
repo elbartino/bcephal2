@@ -26,13 +26,16 @@ namespace Misp.Sourcing.Base
     public class AutomaticSourcingEditorController : EditorController<Misp.Kernel.Domain.AutomaticSourcing, Misp.Kernel.Domain.Browser.BrowserData>
     {
 
+        public AutomaticSourcingEditorController()
+        {
+            ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.AUTOMATIC_SOURCING;
+        }
+
         #region Properties
         private bool refreshMode = false;
         public override void DeleteCommandEnabled(object sender, CanExecuteRoutedEventArgs e) { e.CanExecute = false; }
         #endregion
-
-
-
 
 
         #region Editor and Service

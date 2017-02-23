@@ -10,6 +10,11 @@ namespace Misp.Sourcing.EnrichmentTableViews
 {
     public class AutomaticEnrichmentTableBrowserController : AutomaticSourcingBrowserController
     {
+        public AutomaticEnrichmentTableBrowserController() : base()
+        {
+            this.SubjectType = Kernel.Domain.SubjectType.AUTOMATIC_ENRICHMENT_TABLE;
+        }
+
         /// <summary>
         /// L'éditeur.
         /// </summary>

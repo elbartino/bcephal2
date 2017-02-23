@@ -17,6 +17,7 @@ namespace Misp.Kernel.Ui.Group
         public GroupBrowserController() 
         {
             //ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Domain.SubjectType.GROUP;
         }
 
         /// <summary>

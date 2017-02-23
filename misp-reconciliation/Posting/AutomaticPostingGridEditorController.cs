@@ -12,6 +12,12 @@ namespace Misp.Reconciliation.Posting
     public class AutomaticPostingGridEditorController : AutomaticSourcingGridEditorController
     {
 
+        public AutomaticPostingGridEditorController()
+           : base()
+        {
+            this.SubjectType = Kernel.Domain.SubjectType.AUTOMATIC_POSTING_GRID;
+        }
+
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.
         /// </summary>

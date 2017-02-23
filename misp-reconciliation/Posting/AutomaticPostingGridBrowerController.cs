@@ -10,6 +10,12 @@ namespace Misp.Reconciliation.Posting
     public class AutomaticPostingGridBrowerController : AutomaticSourcingGridBrowerController
     {
 
+        public AutomaticPostingGridBrowerController()
+            : base()
+        {
+            this.SubjectType = Kernel.Domain.SubjectType.AUTOMATIC_POSTING_GRID;
+        }
+
         /// <summary>
         /// L'éditeur.
         /// </summary>

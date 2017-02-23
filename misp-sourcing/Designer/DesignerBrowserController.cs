@@ -16,6 +16,7 @@ namespace Misp.Sourcing.Designer
         public DesignerBrowserController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.DESIGN;
         }
 
         /// <summary>

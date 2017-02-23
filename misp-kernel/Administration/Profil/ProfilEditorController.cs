@@ -26,6 +26,7 @@ namespace Misp.Kernel.Administration.Profil
         public ProfilEditorController()
         {
             ModuleName = "Administration"; // PlugIn.MODULE_NAME;
+            this.SubjectType = SubjectType.PROFIL;
         }
         
 

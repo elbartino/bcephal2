@@ -55,6 +55,7 @@ namespace Misp.Reporting.Report
         public ReportEditorController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.REPORT;
         }
 
         #endregion

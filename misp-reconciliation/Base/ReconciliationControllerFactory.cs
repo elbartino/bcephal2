@@ -13,7 +13,6 @@ using Misp.Kernel.Administration.User;
 using Misp.Kernel.Administration.Profil;
 using Misp.Reconciliation.ReconciliationContext;
 using Misp.Reconciliation.RecoGrid;
-using Misp.Reconciliation.Filter;
 using Misp.Reconciliation.WriteOffConfig;
 using Misp.Reconciliation.Reco;
 
@@ -58,38 +57,10 @@ namespace Misp.Reconciliation.Base
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterTemplateService();
                 return controller;
             }
-
-
-
-            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
-            {
-                ReconciliationFilterBrowserController recoBrowserController = new ReconciliationFilterBrowserController();
-                recoBrowserController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                recoBrowserController.FunctionalityCode = fonctionality;
-                recoBrowserController.ApplicationManager = this.ApplicationManager;
-                recoBrowserController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterService();
-                return recoBrowserController;
-            }
-            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_EDIT && editionMode.HasValue)
-            {
-                ReconciliationFilterEditorController recoEditorController = new ReconciliationFilterEditorController();
-                recoEditorController.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                recoEditorController.FunctionalityCode = fonctionality;
-                recoEditorController.ApplicationManager = this.ApplicationManager;
-                recoEditorController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterService();
-                return recoEditorController;
-            }
-
-            
+                        
             if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_POSTINGS)
             {
-                //PostingBrowserController controller = new PostingBrowserController();
-                //controller.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                //controller.Functionality = fonctionality;
-                //controller.ApplicationManager = this.ApplicationManager;
-                //controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingService();
-                //return controller;
-
+               
                 PostingEditorController controller = new PostingEditorController();
                 controller.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
                 controller.FunctionalityCode = fonctionality;

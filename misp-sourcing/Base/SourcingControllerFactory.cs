@@ -13,7 +13,6 @@ using Misp.Sourcing.MultipleFilesUpload;
 using Misp.Sourcing.AutomaticTargetViews;
 using Misp.Sourcing.GridViews;
 using Misp.Sourcing.InputGrid;
-using Misp.Sourcing.Posting;
 using Misp.Sourcing.EnrichmentTableViews;
 
 namespace Misp.Sourcing.Base

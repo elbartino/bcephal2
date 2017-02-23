@@ -18,6 +18,7 @@ namespace Misp.Sourcing.InputGrid
         public InputGridBrowserController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.INPUT_GRID;
         }
 
         /// <summary>

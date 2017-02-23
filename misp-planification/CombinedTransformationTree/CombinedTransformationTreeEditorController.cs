@@ -33,6 +33,7 @@ namespace Misp.Planification.CombinedTransformationTree
         public CombinedTransformationTreeEditorController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.COMBINED_TRANSFORMATION_TREE;
         }
         
 

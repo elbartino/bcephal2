@@ -32,6 +32,7 @@ namespace Misp.Reconciliation.Reco
         public ReconciliationFilterTemplateEditorController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.RECONCILIATION_FILTER;
         }
 
         #endregion

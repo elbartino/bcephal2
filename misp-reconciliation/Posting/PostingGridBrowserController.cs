@@ -12,6 +12,12 @@ namespace Misp.Reconciliation.Posting
     public class PostingGridBrowserController : InputGridBrowserController
     {
 
+        public PostingGridBrowserController()
+            : base()
+        {
+            this.SubjectType = Kernel.Domain.SubjectType.POSTING_GRID;
+        }
+
         /// <summary>
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>

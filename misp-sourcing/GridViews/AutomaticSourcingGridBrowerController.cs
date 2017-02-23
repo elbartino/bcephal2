@@ -10,6 +10,13 @@ namespace Misp.Sourcing.GridViews
 {
     public class AutomaticSourcingGridBrowerController : AutomaticSourcingBrowserController
     {
+
+        public AutomaticSourcingGridBrowerController()
+            : base()
+        {
+            this.SubjectType = Kernel.Domain.SubjectType.AUTOMATIC_GRID;
+        }
+
         /// <summary>
         /// L'éditeur.
         /// </summary>

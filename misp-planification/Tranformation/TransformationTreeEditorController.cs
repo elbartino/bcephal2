@@ -44,6 +44,7 @@ namespace Misp.Planification.Tranformation
         public TransformationTreeEditorController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.TRANSFORMATION_TREE;
         }
 
         #endregion

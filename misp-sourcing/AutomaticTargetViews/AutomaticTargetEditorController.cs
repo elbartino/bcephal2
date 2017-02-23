@@ -15,6 +15,12 @@ namespace Misp.Sourcing.AutomaticTargetViews
 {
     public class AutomaticTargetEditorController : AutomaticSourcingEditorController
     {
+
+        public AutomaticTargetEditorController() : base()
+        {
+            this.SubjectType = Kernel.Domain.SubjectType.AUTOMATIC_TARGET;
+        }
+
         #region Editor and Service
 
         public override bool isAutomaticTarget()

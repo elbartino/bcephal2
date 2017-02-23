@@ -41,6 +41,7 @@ namespace Misp.Sourcing.InputGrid
         public InputGridEditorController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.INPUT_GRID;
         }
 
         #endregion

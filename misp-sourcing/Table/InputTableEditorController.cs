@@ -130,6 +130,7 @@ namespace Misp.Sourcing.Table
         public InputTableEditorController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.INPUT_TABLE;
         }
 
         #endregion

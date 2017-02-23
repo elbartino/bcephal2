@@ -18,6 +18,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         public AutomaticSourcingBrowserController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.AUTOMATIC_SOURCING;
         }
 
         /// <summary>

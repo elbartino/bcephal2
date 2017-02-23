@@ -14,6 +14,7 @@ namespace Misp.Reporting.ReportGrid
         public ReportGridEditorController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.REPORT_GRID;
         }
 
         protected override Grille GetNewGrid()

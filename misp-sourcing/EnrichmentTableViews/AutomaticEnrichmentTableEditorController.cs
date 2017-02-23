@@ -18,6 +18,12 @@ namespace Misp.Sourcing.EnrichmentTableViews
    public class AutomaticEnrichmentTableEditorController : AutomaticSourcingEditorController
    {
 
+        public AutomaticEnrichmentTableEditorController()
+           : base()
+        {
+            this.SubjectType = Kernel.Domain.SubjectType.AUTOMATIC_ENRICHMENT_TABLE;
+        }
+
 
        #region Editor and Service
 

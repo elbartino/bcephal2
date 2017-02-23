@@ -43,6 +43,7 @@ namespace Misp.Sourcing.Designer
         public DesignerEditorController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.DESIGN;
         }
 
         #endregion

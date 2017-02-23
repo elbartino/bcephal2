@@ -21,6 +21,7 @@ namespace Misp.Reconciliation.Posting
         public PostingGridEditorController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.POSTING_GRID;
         }
 
         /// <summary>

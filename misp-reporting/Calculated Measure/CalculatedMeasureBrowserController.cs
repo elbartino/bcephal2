@@ -16,6 +16,7 @@ namespace Misp.Reporting.Calculated_Measure
         public CalculatedMeasureBrowserController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.CALCULATED_MEASURE;
         }
 
         /// <summary>

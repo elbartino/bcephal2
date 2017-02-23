@@ -16,6 +16,7 @@ namespace Misp.Reporting.Report
         public ReportBrowserController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.REPORT;
         }
 
         /// <summary>

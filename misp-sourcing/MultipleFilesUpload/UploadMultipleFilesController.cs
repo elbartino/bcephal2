@@ -15,20 +15,25 @@ namespace Misp.Sourcing.MultipleFilesUpload
 {
     class UploadMultipleFilesController : Controllable
     {
+
         #region Constructors
 
 
         public event OnNextPageEventHandler OnNextPage;
         public delegate void OnNextPageEventHandler(UploadFilesDialog dialog);
+
         /// <summary>
         /// Construit une nouvelle instance de CalculatedMeasureEditorController.
         /// </summary>
         public UploadMultipleFilesController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+            //this.SubjectType = SubjectType.mu
         }
 
         #endregion
+
+        public SubjectType SubjectType { get; set; }
 
         /// <summary>
         /// Assigne ou retourne le nom (ou code) de la fonctionnalité contrôlée. 

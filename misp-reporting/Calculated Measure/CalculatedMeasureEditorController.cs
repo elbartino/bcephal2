@@ -31,6 +31,7 @@ namespace Misp.Reporting.Calculated_Measure
         public CalculatedMeasureEditorController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.CALCULATED_MEASURE;
         }
 
         #endregion

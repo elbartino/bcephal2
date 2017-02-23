@@ -27,6 +27,7 @@ namespace Misp.Sourcing.CustomizedTarget
         public TargetEditorController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.TARGET;
         }
         
 

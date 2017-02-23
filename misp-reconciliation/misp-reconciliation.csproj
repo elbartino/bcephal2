@@ -80,12 +80,6 @@
     <Compile Include="Base\ReconciliationResourcePath.cs" />
     <Compile Include="Base\ReconciliationServiceFactory.cs" />
     <Compile Include="Base\ReconciliationFunctionality.cs" />
-    <Compile Include="Filter\ReconciliationFilterBrowser.cs" />
-    <Compile Include="Filter\ReconciliationFilterBrowserController.cs" />
-    <Compile Include="Filter\ReconciliationFilterEditor.cs" />
-    <Compile Include="Filter\ReconciliationFilterEditorController.cs" />
-    <Compile Include="Filter\ReconciliationFilterEditorItem.cs" />
-    <Compile Include="Filter\ReconciliationFilterForm.cs" />
     <Compile Include="PlugIn.cs" />
     <Compile Include="Posting\AutomaticPostingGridBrowerController.cs" />
     <Compile Include="Posting\AutomaticPostingGridEditorController.cs" />

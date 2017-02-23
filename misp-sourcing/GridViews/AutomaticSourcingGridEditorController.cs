@@ -16,6 +16,12 @@ namespace Misp.Sourcing.GridViews
 {
     public class AutomaticSourcingGridEditorController : AutomaticSourcingEditorController
     {
+
+        public AutomaticSourcingGridEditorController()
+           : base()
+        {
+            this.SubjectType = Kernel.Domain.SubjectType.AUTOMATIC_GRID;
+        }
       
         #region Editor and Service
 

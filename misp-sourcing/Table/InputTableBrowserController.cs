@@ -16,6 +16,7 @@ namespace Misp.Sourcing.Table
         public InputTableBrowserController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.INPUT_TABLE;
         }
 
         /// <summary>

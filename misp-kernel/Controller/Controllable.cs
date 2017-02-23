@@ -68,6 +68,11 @@ namespace Misp.Kernel.Controller
         ///  qu'une modification est survenue dans la vue liée à la fonctionnalité contrôlée.
         /// </summary>
         bool IsModify { get; set; }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        SubjectType SubjectType { get; set; }
         
         /// <summary>
         /// Effectue l'initialisation

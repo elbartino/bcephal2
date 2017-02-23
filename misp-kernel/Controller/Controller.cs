@@ -76,9 +76,8 @@ namespace Misp.Kernel.Controller
 
         
         #endregion
-
-
-
+        
+        
         #region Attributes
 
         protected readonly ILog logger;
@@ -124,6 +123,8 @@ namespace Misp.Kernel.Controller
 
 
         #region Properties
+
+        public SubjectType SubjectType { get; set; }
 
         /// <summary>
         /// Assigne ou retourne le nom (ou code) de la fonctionnalité contrôlée.
@@ -655,9 +656,6 @@ namespace Misp.Kernel.Controller
 
         #endregion
 
-
-
-        
-       
+               
     }
 }

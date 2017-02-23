@@ -27,6 +27,7 @@ namespace Misp.Kernel.Administration.UserProfile
         public UserProfileEditorController()
         {
             ModuleName = "Administration";//PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.USER;
         }
         
 

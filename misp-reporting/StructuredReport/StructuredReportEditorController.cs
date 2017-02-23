@@ -43,6 +43,7 @@ namespace Misp.Reporting.StructuredReport
         public StructuredReportEditorController()
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.STRUCTURED_REPORT;
         }
 
         #endregion

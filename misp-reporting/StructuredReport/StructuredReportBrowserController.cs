@@ -16,6 +16,7 @@ namespace Misp.Reporting.StructuredReport
         public StructuredReportBrowserController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.STRUCTURED_REPORT;
         }
 
         /// <summary>

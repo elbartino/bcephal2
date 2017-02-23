@@ -18,6 +18,7 @@ namespace Misp.Planification.CombinedTransformationTree
         public CombinedTransformationTreeBrowserController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.COMBINED_TRANSFORMATION_TREE;
         }
 
         /// <summary>

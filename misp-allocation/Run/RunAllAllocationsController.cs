@@ -26,6 +26,8 @@ namespace Misp.Allocation.Run
             ModuleName = PlugIn.MODULE_NAME;
         }
 
+        public SubjectType SubjectType { get; set; }
+
         /// <summary>
         /// Assigne ou retourne le nom (ou code) de la fonctionnalité contrôlée. 
         /// </summary>

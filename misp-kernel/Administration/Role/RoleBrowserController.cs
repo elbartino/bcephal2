@@ -17,34 +17,10 @@ namespace Misp.Kernel.Administration.Role
     {
         public RoleBrowserController() 
         {
-            ModuleName = "Administration"; 
+            ModuleName = "Administration";
+            this.SubjectType = Domain.SubjectType.ROLE;
         }
        
-
-        ///// <summary>
-        ///// effectue la recherche
-        ///// </summary>
-        ///// <returns></returns>
-        //public override OperationState Search()
-        //{
-        //    try
-        //    {
-        //        Kernel.Domain.Role root = getRoleService().getRootRole();
-        //        GetRoleBrowser().form.EditedObject = root;
-        //        GetRoleBrowser().form.ChangeEventHandler = this.ChangeEventHandler;
-        //        GetRoleBrowser().form.displayObject();
-        //        return OperationState.CONTINUE;
-        //    }
-        //    catch (ServiceExecption e)
-        //    {
-        //        DisplayError("error", e.Message);
-        //    }
-
-        //    return OperationState.STOP;
-        //}
-
-        
-
         public RoleBrowser GetRoleBrowser()
         {
             return (RoleBrowser)this.View;
