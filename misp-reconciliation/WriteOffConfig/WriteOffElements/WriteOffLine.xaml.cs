@@ -1,4 +1,7 @@
-﻿using Misp.Kernel.Domain;
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
+using Misp.Kernel.Domain.Browser;
+using Misp.Kernel.Service;
 using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
@@ -45,10 +48,15 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                     this.valueCombobox.ItemsSource = this.writeOffField.writeOffFieldValueListChangeHandler.Items.ToList();
                     if (this.writeOffField.writeOffFieldValueListChangeHandler.Items.Count == 1)
                     {
-                       this.valueCombobox.ItemsSource = this.writeOffField.writeOffFieldValueListChangeHandler.Items.ToList();
-                       this.valueCombobox.SelectedItem = this.writeOffField.writeOffFieldValueListChangeHandler.Items[0];
-                       this.valueCombobox.IsEnabled = false;
+                        this.valueCombobox.ItemsSource = this.writeOffField.writeOffFieldValueListChangeHandler.Items.ToList();
+                        this.valueCombobox.SelectedItem = this.writeOffField.writeOffFieldValueListChangeHandler.Items[0];
+                        this.valueCombobox.IsEnabled = false;
                     }
+                }
+                else
+                {
+                    ModelService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetModelService();
+                    this.valueCombobox.ItemsSource = service.getLeafAttributeValues(this.writeOffField.attributeField.oid.Value);
                 }
             }
             else if (writeOffField.isPeriod())
@@ -84,7 +92,14 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             {
                 field = new WriteOffField();
                 field.setAttribute(writeOffField.attributeField);
-                field.value = (AttributeValue)this.valueCombobox.SelectedItem;                
+                Object value = this.valueCombobox.SelectedItem;
+                if (value != null && value is AttributeValue) field.value = (AttributeValue)value;
+                else if (value != null && value is BrowserData)
+                {
+                    field.value = new AttributeValue();
+                    field.value.oid = ((BrowserData)value).oid;
+                    field.value.name = ((BrowserData)value).name;
+                }
             }
             else if (writeOffField.isPeriod() && this.valueDatePicker.SelectedDate.HasValue)
             {
