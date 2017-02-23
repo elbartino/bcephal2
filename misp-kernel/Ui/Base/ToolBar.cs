@@ -180,8 +180,7 @@ namespace Misp.Kernel.Ui.Base
 
         public virtual void customize(List<Domain.Right> listeRights)
         {
-            SaveButton.Visibility = Util.RightsUtil.HasRight(Domain.RightType.SAVE,listeRights) ? Visibility.Hidden : Visibility.Visible;
-            SaveAllButton.Visibility = Util.RightsUtil.HasRight(Domain.RightType.SAVE, listeRights) ? Visibility.Hidden : Visibility.Visible;
+            SaveButton.Visibility = Util.RightsUtil.HasRight(Domain.RightType.EDIT,listeRights) ? Visibility.Hidden : Visibility.Visible;
             DeleteButton.Visibility = Util.RightsUtil.HasRight(Domain.RightType.DELETE, listeRights) ? Visibility.Hidden : Visibility.Visible;
         }
     }

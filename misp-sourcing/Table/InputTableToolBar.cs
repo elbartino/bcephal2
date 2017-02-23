@@ -6,6 +6,8 @@ using System.Windows.Controls;
 using System.Threading.Tasks;
 using Misp.Kernel.Ui.Base;
 using System.Windows;
+using Misp.Kernel.Util;
+using Misp.Kernel.Domain;
 
 namespace Misp.Sourcing.Table
 {
@@ -106,6 +108,17 @@ namespace Misp.Sourcing.Table
             applyToAllCheckBox.FlowDirection = System.Windows.FlowDirection.LeftToRight;
             applyToAllCheckBox.Margin = new Thickness(5, 10, 5, 0);
 
+        }
+
+        public override void customize(List<Kernel.Domain.Right> listeRights)
+        {
+            base.customize(listeRights);
+            bool hasRight = RightsUtil.HasRight(new Kernel.Domain.RightType[] { Kernel.Domain.RightType.EDIT, Kernel.Domain.RightType.CLEAR, Kernel.Domain.RightType.LOAD }, listeRights);
+            saveClearRunButton.Visibility = hasRight ? Visibility.Visible : Visibility.Hidden;
+            runButton.Visibility = RightsUtil.HasRight(RightType.LOAD, listeRights) ? Visibility.Visible : Visibility.Hidden;
+            clearButton.Visibility = RightsUtil.HasRight(RightType.CLEAR, listeRights) ? Visibility.Visible : Visibility.Hidden;
+            saveAsButton.Visibility = RightsUtil.HasRight(RightType.SAVE_AS, listeRights) ? Visibility.Visible : Visibility.Hidden;
+      
         }
 
     }

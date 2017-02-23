@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Misp.Kernel.Domain;
+using Misp.Kernel.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,6 +67,13 @@ namespace Misp.Sourcing.InputGrid
         {
             LoadButton.IsEnabled = false;
             ClearButton.IsEnabled = false;
+        }
+
+        public override void customize(List<Kernel.Domain.Right> listeRights)
+        {
+            base.customize(listeRights);
+            LoadButton.Visibility = RightsUtil.HasRight(RightType.LOAD, listeRights) ? Visibility.Visible : Visibility.Hidden;
+            ClearButton.Visibility = RightsUtil.HasRight(RightType.CLEAR, listeRights) ? Visibility.Visible : Visibility.Hidden;
         }
 
     }
