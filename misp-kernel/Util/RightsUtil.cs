@@ -16,5 +16,17 @@ namespace Misp.Kernel.Util
             }
             return false;
         }
+
+
+        public static bool HasRight(Domain.RightType[] rightsType, List<Domain.Right> listRights)
+        {
+            bool result = true;
+            foreach (Domain.RightType rightstype in rightsType) 
+            {
+                if(HasRight(rightstype, listRights) && result) result = true;
+                else result = false;
+            }
+            return result;
+        }
     }
 }

@@ -84,6 +84,15 @@ namespace Misp.Sourcing.Table
             this.AddGroup(this.PeriodGroup);
             this.AddGroup(this.DesignerGroup);
         }
+
+        public override void customize(List<Right> listeRights)
+        {
+            this.EntityGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, listeRights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.CustomizedTargetGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, listeRights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.MeasureGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, listeRights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.PeriodGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, listeRights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.DesignerGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, listeRights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+        }
         
         #endregion
 
