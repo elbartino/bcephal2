@@ -8,8 +8,7 @@ using System.Web.Script.Serialization;
 namespace Misp.Kernel.Domain
 {
     public class WriteOffField : Persistent
-    {
-      
+    {      
     	public WriteOffFieldType writeOffFieldType;
 	
 	    public int position;
@@ -28,6 +27,14 @@ namespace Misp.Kernel.Domain
 
         public String date;
 
+        [ScriptIgnore]
+        public WriteOffFieldValueType defaultValueTypeEnum { get; set; }
+
+        public String defaultValueType
+        {
+            get { return this.defaultValueTypeEnum != null ? this.defaultValueTypeEnum.name : null; }
+            set { this.defaultValueTypeEnum = WriteOffFieldValueType.getByName(value); }
+        }
 
         [ScriptIgnore]
         public DateTime dateTime
@@ -127,7 +134,6 @@ namespace Misp.Kernel.Domain
                 foundItem.attribute = writeOffField.attribute;
                 foundItem.measure = writeOffField.measure;
                 foundItem.attributeValue = writeOffField.attributeValue;
-                foundItem.defaultValueTypeEnum = writeOffField.defaultValueTypeEnum;
                 AddFieldValue(foundItem);
             }
             else
@@ -136,7 +142,6 @@ namespace Misp.Kernel.Domain
                 foundItem.attribute = writeOffField.attribute;
                 foundItem.measure = writeOffField.measure;
                 foundItem.attributeValue = writeOffField.attributeValue;
-                foundItem.defaultValueTypeEnum = writeOffField.defaultValueTypeEnum;
                 UpdateFieldValue(foundItem);
             }
             this.isModified = true;
@@ -157,6 +162,10 @@ namespace Misp.Kernel.Domain
             return null;
         }
 
+        public void setDefaultValue(object item)
+        {
+            this.defaultValueTypeEnum = WriteOffFieldValueType.getByLabel(item.ToString());
+        }
 
         public bool isPeriod()
         {

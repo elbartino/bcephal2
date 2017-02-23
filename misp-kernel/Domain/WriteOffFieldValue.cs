@@ -9,17 +9,7 @@ namespace Misp.Kernel.Domain
 {
     public class WriteOffFieldValue : Persistent
     {
-
-        [ScriptIgnore]
-        public WriteOffFieldValueType defaultValueTypeEnum { get; set; }
-
-        public String defaultValueType
-        {
-            get { return this.defaultValueTypeEnum != null ? this.defaultValueTypeEnum.name : null; }
-            set { this.defaultValueTypeEnum = WriteOffFieldValueType.getByName(value); }
-        }
-
-
+        
         public int position { get; set; }
 
 
@@ -72,12 +62,6 @@ namespace Misp.Kernel.Domain
         public void setDecimalMeasure(decimal decimalMeasure)
         {
 
-        }
-
-
-        public void setDefaultValue(object item)
-        {
-            this.defaultValueTypeEnum = WriteOffFieldValueType.getByLabel(item.ToString());
         }
 
         public override string ToString()

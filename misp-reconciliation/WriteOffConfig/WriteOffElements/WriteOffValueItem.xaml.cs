@@ -48,7 +48,6 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public void showRowLabel(bool show = true) 
         {
             this.PossibleValues.showRowLabel(show);
-            this.DefaultValues.showRowLabel(show);
         }
 
         public void display()
@@ -60,9 +59,6 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         {
             this.PossibleValues.writeOffValueField = valueField;
             this.PossibleValues.display();
-
-            this.DefaultValues.writeOffValueField = valueField;
-            this.DefaultValues.display();
         }
 
         public void InitializeHandlers()
@@ -72,14 +68,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.PossibleValues.OnAddFieldValue += OnAddFieldsValue;
             this.PossibleValues.OnDeleteFieldValue += OnDeleteFieldsValue;
             this.PossibleValues.ActivateFiedValue += OnActivateFieldsValue;
-            this.DefaultValues.ActivateFiedValue += OnActivateFieldsValue;
-            this.DefaultValues.ItemChanged += OnDefaultValuesChanged;
-        }
-
-        private void OnDefaultValuesChanged(object item)
-        {
-            getCurrentFieldValue().setDefaultValue(item);
-            if (ItemChanged != null) ItemChanged(this.WriteOffFieldValue);
+            
         }
 
         private void OnGotFocus(object sender, RoutedEventArgs e)
@@ -115,9 +104,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         }
 
         public void setPeriodView()
-        {
-            this.getCurrentFieldValue().setDefaultValue(Kernel.Domain.WriteOffFieldValueType.TODAY);
-            if (ItemChanged != null) ItemChanged(this.WriteOffFieldValue);
+        { 
             display();
             setDateView();
         }
@@ -150,13 +137,11 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public void setDateView() 
         {
             this.PossibleValues.setDateView();
-            this.DefaultValues.setDateView();
         }
 
         public void removeDateView() 
         {
             this.PossibleValues.removeDateView();
-            this.DefaultValues.removeDateView();
         }
 
 

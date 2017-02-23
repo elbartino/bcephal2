@@ -22,7 +22,6 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
     /// </summary>
     public partial class DefaultValues : Grid
     {
-        public Kernel.Domain.WriteOffFieldValue writeOffValueField { get; set; }
 
         public event ActivateEventHandler ActivateFiedValue;
 
@@ -40,12 +39,12 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.labelRow.Visibility = show ? Visibility.Visible : System.Windows.Visibility.Collapsed;
         }
 
-        public void display()
+        public void display(WriteOffField field)
         {
             RemoveHandlers();
-            if (this.writeOffValueField == null) return;
-            this.DefaultValuesCombobox.SelectedItem = writeOffValueField.defaultValueTypeEnum != null ?
-                writeOffValueField.defaultValueTypeEnum.ToString() : WriteOffFieldValueType.CUSTOM.label;
+            if (field == null) return;
+            this.DefaultValuesCombobox.SelectedItem = field.defaultValueTypeEnum != null ?
+                field.defaultValueTypeEnum.ToString() : WriteOffFieldValueType.CUSTOM.label;
             InitializeHandlers();
         }
 

@@ -40,45 +40,38 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             if (writeOffField.isAttribute())
             {
                 name = this.writeOffField.attributeField.name;
-                this.valueDatePicker.Visibility = System.Windows.Visibility.Collapsed;
-                this.valueCombobox.Visibility = System.Windows.Visibility.Visible;
-                bool hasMany = this.writeOffField.writeOffFieldValueListChangeHandler.Items.Count > 0;
-                if (hasMany)
+                if (this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.CUSTOM)
                 {
-                    this.valueCombobox.ItemsSource = this.writeOffField.writeOffFieldValueListChangeHandler.Items.ToList();
-                    if (this.writeOffField.writeOffFieldValueListChangeHandler.Items.Count == 1)
+                    if (this.writeOffField.writeOffFieldValueListChangeHandler != null && this.writeOffField.writeOffFieldValueListChangeHandler.Items.Count > 0)
                     {
-                        this.valueCombobox.ItemsSource = this.writeOffField.writeOffFieldValueListChangeHandler.Items.ToList();
-                        this.valueCombobox.SelectedItem = this.writeOffField.writeOffFieldValueListChangeHandler.Items[0];
-                        this.valueCombobox.IsEnabled = false;
+                        this.valueCombobox.ItemsSource = this.writeOffField.writeOffFieldValueListChangeHandler.Items.ToList();                        
+                    }
+                    else
+                    {
+                        ModelService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetModelService();
+                        this.valueCombobox.ItemsSource = service.getLeafAttributeValues(this.writeOffField.attributeField.oid.Value);
                     }
                 }
-                else
+                else if (this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.LEFT_SIDE)
                 {
-                    ModelService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetModelService();
-                    this.valueCombobox.ItemsSource = service.getLeafAttributeValues(this.writeOffField.attributeField.oid.Value);
+                    this.valueCombobox.IsEnabled = false;
                 }
+                else if (this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.RIGHT_SIDE)
+                {
+                    this.valueCombobox.IsEnabled = false;
+                }
+                this.valueDatePicker.Visibility = System.Windows.Visibility.Collapsed;
+                this.valueCombobox.Visibility = System.Windows.Visibility.Visible;
             }
             else if (writeOffField.isPeriod())
             {
-                name = this.writeOffField.periodField.name;
-                this.valueDatePicker.Visibility = System.Windows.Visibility.Visible;
-                if (this.writeOffField.writeOffFieldValueListChangeHandler != null) 
+                name = this.writeOffField.periodField.name;                
+                this.valueDatePicker.SelectedDate = DateTime.Now;
+                if (this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.TODAY)
                 {
-                    if (this.writeOffField.writeOffFieldValueListChangeHandler.Items.Count > 0)
-                    {
-                        foreach (WriteOffFieldValue value in this.writeOffField.writeOffFieldValueListChangeHandler.Items) 
-                        {
-                            if (value.defaultValueTypeEnum != null && value.defaultValueTypeEnum == WriteOffFieldValueType.TODAY)
-                            {
-                                this.valueDatePicker.SelectedDate = DateTime.Now;
-                                this.valueDatePicker.IsEnabled = false;
-                            }
-                            else
-                                this.valueDatePicker.SelectedDate = DateTime.Now;
-                        }
-                    }
+                    this.valueDatePicker.IsEnabled = false;
                 }
+                this.valueDatePicker.Visibility = System.Windows.Visibility.Visible;
                 this.valueCombobox.Visibility = System.Windows.Visibility.Collapsed;
             }
             bool addStart = this.writeOffField.mandatory;

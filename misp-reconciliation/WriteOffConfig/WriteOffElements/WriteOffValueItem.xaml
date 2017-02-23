@@ -11,5 +11,4 @@
         <ColumnDefinition/>
     </Grid.ColumnDefinitions>
     <element:PossibleValues x:Name="PossibleValues" x:FieldModifier="public"  Grid.Column="0" />
-    <element:DefaultValues x:Name="DefaultValues" x:FieldModifier="public" Grid.Column="1"/>
 </Grid>

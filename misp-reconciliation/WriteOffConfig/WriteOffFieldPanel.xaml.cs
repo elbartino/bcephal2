@@ -81,6 +81,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.FieldValuePanel.fieldValueListChangeHandler = this.writeOffField != null ? writeOffField.writeOffFieldValueListChangeHandler : null;
             this.FieldValuePanel.isDateView = this.writeOffField != null && this.writeOffField.isPeriod();
             this.FieldValuePanel.display();
+            this.DefaultValueCombo.display(this.writeOffField);
         }
 
         private void OnDeleteFields(object item)
@@ -124,6 +125,9 @@ namespace Misp.Reconciliation.WriteOffConfig
         {
             RemoveHandlers();
 
+            this.DefaultValueCombo.ActivateFiedValue += OnActivateFieldsValue;
+            this.DefaultValueCombo.ItemChanged += OnDefaultValuesChanged;
+
             this.fieldsPanel.ActivateFieldPanel += OnActivateFieldsValue;
             this.fieldsPanel.OnAddField += OnAddFields;
             this.fieldsPanel.OnDeleteField += OnDeleteFields;
@@ -137,6 +141,12 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.FieldValuePanel.ItemChanged += OnFieldValueChanged;
             this.FieldValuePanel.getActiveItem();
             this.FieldValuePanel.writeParent = this;
+        }
+
+        private void OnDefaultValuesChanged(object item)
+        {
+            this.writeOffField.setDefaultValue(item);
+            if (ItemChanged != null) ItemChanged(this.writeOffField);
         }
 
         private void OnActivateMandatory(object item)
@@ -231,6 +241,11 @@ namespace Misp.Reconciliation.WriteOffConfig
         {
             this.FieldValuePanel.setPeriodInterval(periodInterval);
         }
+
+
+        
+
+
 
         public void UpdateObject(WriteOffField writeOffField) 
         {

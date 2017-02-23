@@ -10,8 +10,10 @@
         <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="Auto"/>
     </Grid.ColumnDefinitions>
     <field:FieldsValues x:Name="fieldsPanel"  Grid.Column="0"  />
-    <field:MandatoryValue x:Name="MandatoryValue" Grid.Column="1" />
+    <field:MandatoryValue x:Name="MandatoryValue" Grid.Column="1"  VerticalAlignment="Top"/>
     <field:WriteOffFieldValuePanel x:Name="FieldValuePanel" Grid.Column="2"/>
- </Grid>
+    <field:DefaultValues x:Name="DefaultValueCombo" x:FieldModifier="public" Grid.Column="3" VerticalAlignment="Top"/>
+</Grid>
