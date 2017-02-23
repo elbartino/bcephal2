@@ -832,6 +832,7 @@
     <Compile Include="Util\PowerPointExtension.cs" />
     <Compile Include="Util\PowerPointUtil.cs" />
     <Compile Include="Util\RangeUtil.cs" />
+    <Compile Include="Util\RightsUtil.cs" />
     <Compile Include="Util\TagFormulaUtil.cs" />
     <Compile Include="Util\UserPreferencesUtil.cs" />
     <Compile Include="Util\ListUtil.cs" />
