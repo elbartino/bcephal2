@@ -97,6 +97,8 @@ namespace Misp.Kernel.Domain
                 foundItem.periodField = writeOffField.periodField;
                 foundItem.measureField = writeOffField.measureField;
                 foundItem.writeOffFieldType = writeOffField.writeOffFieldType;
+                if (writeOffField.defaultValueTypeEnum == null && foundItem.isPeriod()) foundItem.defaultValueTypeEnum = WriteOffFieldValueType.TODAY;
+                else foundItem.defaultValueTypeEnum = writeOffField.defaultValueTypeEnum;
                 foundItem.writeOffFieldValueListChangeHandler = writeOffField.writeOffFieldValueListChangeHandler;
                 AddFieldValue(foundItem);
             }
@@ -108,6 +110,7 @@ namespace Misp.Kernel.Domain
                 foundItem.periodField = writeOffField.periodField;
                 foundItem.measureField = writeOffField.measureField;
                 foundItem.writeOffFieldType = writeOffField.writeOffFieldType;
+                foundItem.defaultValueTypeEnum = writeOffField.defaultValueTypeEnum;
                 foundItem.writeOffFieldValueListChangeHandler = writeOffField.writeOffFieldValueListChangeHandler;
                 UpdateFieldValue(foundItem);
             }
