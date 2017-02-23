@@ -131,14 +131,14 @@ namespace Misp.Kernel.Administration.ObjectAdmin
             }
         }
 
-        private void setLabelText(SubjectType subjectType) 
+        private void setLabelText(SubjectType subjectType,string name="") 
         {
             buildLabelList(subjectType.label);
             int j = 0;
             for (int i = this.labelList.Count - 1;i >=0 ; i--)
             {
                 string label = labelList[j];
-                string funct =   label + (!string.IsNullOrEmpty(subjectType.reducedName) ? subjectType.reducedName : subjectType.label);
+                string funct =   label + name;
                 AddCheckBox(new RightCheckBox(funct, getTypeByLabel(label.Trim())));
                 j++;
             }
@@ -159,21 +159,20 @@ namespace Misp.Kernel.Administration.ObjectAdmin
 
         private void buildLabelList(String subjectType) 
         {
-            labelList.Add(createLabel);
-            labelList.Add(editLabel);
-            labelList.Add(viewLabel);
-            labelList.Add(saveLabel);
-            labelList.Add(saveAsLabel);
+            if (subjectType.Equals(SubjectType.INPUT_GRID.label) || subjectType.Equals(SubjectType.INPUT_TABLE.label))
+            {
+                labelList.Add(editLabel);
+                labelList.Add(viewLabel);
+                labelList.Add(saveAsLabel);
                 
+            }                
             if (subjectType.Equals(SubjectType.INPUT_GRID.label) || subjectType.Equals(SubjectType.INPUT_TABLE.label)
                 || subjectType.Equals(SubjectType.REPORT.label))
             {
                 labelList.Add(runLabel);
-            }
-            if (subjectType.Equals(SubjectType.INPUT_GRID.label) || subjectType.Equals(SubjectType.INPUT_TABLE.label))
-            {
                 labelList.Add(clearLabel);
             }
+          
         }
 
         protected void AddCheckBox(RightCheckBox checkBox)
