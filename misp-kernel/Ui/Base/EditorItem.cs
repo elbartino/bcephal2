@@ -115,7 +115,7 @@ namespace Misp.Kernel.Ui.Base
             editorItemForm.displayObject();
             AddChangeHandlers();
         }
-
+        
         public virtual void SetReadOnly(bool readOnly)
         {
             this.IsReadOnly = readOnly;

@@ -274,6 +274,25 @@ namespace Misp.Kernel.Service
             }
         }
 
+        public virtual List<Right> getRights(int oid)
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath + "/rights/" + oid, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                List<Right> rights = Serializer.Deserialize<List<Right>>(queryResult.Content);
+                return rights;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve object from server.", e);
+                throw new ServiceExecption("Unable to retrieve object from server.", e);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

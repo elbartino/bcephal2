@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Ui.Base;
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Misp.Sourcing.InputGrid
 
         public LayoutAnchorablePane Pane { get; set; }
 
-        public LayoutAnchorable UserRightLayoutAnchorable { get; set; }
+        public LayoutAnchorable AdministratorLayoutAnchorable { get; set; }
 
         protected override void UserInitialisation()
         {
@@ -26,16 +27,19 @@ namespace Misp.Sourcing.InputGrid
             this.DesignLayoutAnchorable.CanAutoHide = false;
             this.DesignLayoutAnchorable.CanHide = false;
 
-            this.UserRightLayoutAnchorable = new LayoutAnchorable();
-            this.UserRightLayoutAnchorable.Title = "Administration";
-            this.UserRightLayoutAnchorable.CanAutoHide = false;
-            this.UserRightLayoutAnchorable.CanClose = false;
-            this.UserRightLayoutAnchorable.CanFloat = false;
-            this.UserRightLayoutAnchorable.CanHide = false;
+            if (ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.AdministratorLayoutAnchorable = new LayoutAnchorable();
+                this.AdministratorLayoutAnchorable.Title = "Administration";
+                this.AdministratorLayoutAnchorable.CanAutoHide = false;
+                this.AdministratorLayoutAnchorable.CanClose = false;
+                this.AdministratorLayoutAnchorable.CanFloat = false;
+                this.AdministratorLayoutAnchorable.CanHide = false;
+            }
             
             Pane = new LayoutAnchorablePane();
             Pane.Children.Add(DesignLayoutAnchorable);
-            Pane.Children.Add(UserRightLayoutAnchorable);
+            if (AdministratorLayoutAnchorable != null) Pane.Children.Add(AdministratorLayoutAnchorable);
             this.Panes.Add(Pane);
 
         }

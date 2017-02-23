@@ -1,5 +1,6 @@
 ﻿using Misp.Kernel.Administration.ObjectAdmin;
 using Misp.Kernel.Administration.Profil;
+using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
 using Misp.Sourcing.GridViews;
@@ -80,10 +81,10 @@ namespace Misp.Sourcing.InputGrid
             ConfigurationTabItem.Header = "Configuration";
             ConfigurationTabItem.Background = Brushes.White;
             ConfigurationTabItem.Content = InputGridSheetForm;
-
-            this.AdministrationBar = new AdministrationBar(SubjectType.INPUT_GRID.ToString());
-            
-
+            if (ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.AdministrationBar = new AdministrationBar(SubjectType.INPUT_GRID.ToString());
+            }
             this.Items.Add(AuditTabItem);
             this.Items.Add(ConfigurationTabItem);
         }
@@ -154,8 +155,11 @@ namespace Misp.Sourcing.InputGrid
             this.GridForm.EditedObject = this.EditedObject;
             this.GridForm.displayObject();
 
-            this.AdministrationBar.EditedObject = this.EditedObject;
-            this.AdministrationBar.Display();
+            if (this.AdministrationBar != null)
+            {
+                this.AdministrationBar.EditedObject = this.EditedObject;
+                this.AdministrationBar.Display();
+            }
         }
 
         public virtual void displayObjectInGridForm()

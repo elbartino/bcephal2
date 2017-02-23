@@ -186,7 +186,6 @@ namespace Misp.Sourcing.InputGrid
                 InputGridEditorItem currentPage = (InputGridEditorItem)page;
                 currentPage.EditedObject.loadFilters();
                 if (base.Save(page) == OperationState.STOP) return OperationState.STOP;
-                saveUserProfilRight(currentPage);
                 UpdateGridForm();
             }
             catch (Exception)
@@ -306,8 +305,8 @@ namespace Misp.Sourcing.InputGrid
         {
             if (page == null) return;
             InputGridForm form = ((InputGridEditorItem)page).getInputGridForm();
-            ((InputGridPropertyBar)this.PropertyBar).UserRightLayoutAnchorable.Content = form.AdministrationBar;
-            //((InputGridPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = form.InputGridSheetForm.InputGridPropertiesPanel;
+            InputGridPropertyBar bar = (InputGridPropertyBar)this.PropertyBar;
+            if (bar.AdministratorLayoutAnchorable != null) bar.AdministratorLayoutAnchorable.Content = form.AdministrationBar;
             PerformSelectionChange();
         }
         
@@ -434,7 +433,10 @@ namespace Misp.Sourcing.InputGrid
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.Changed += OnInputGridPropertiesChange;
             editorPage.getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.selectionColumnChanged += OnInputGridPropertiesSelectionColumnChange;
 
-            editorPage.getInputGridForm().AdministrationBar.Changed += OnChangeEventHandler;
+            if (editorPage.getInputGridForm().AdministrationBar != null)
+            {
+                editorPage.getInputGridForm().AdministrationBar.Changed += OnChangeEventHandler;
+            }
 
             initializeGridFormHandlers(editorPage.getInputGridForm());
 
@@ -487,19 +489,6 @@ namespace Misp.Sourcing.InputGrid
             Search(page.EditedObject.GrilleFilter != null ? page.EditedObject.GrilleFilter.page : 1);
         }
 
-        protected void saveUserProfilRight(EditorItem<Grille> pag)
-        {
-            InputGridEditorItem page = (InputGridEditorItem)pag;
-            
-            if (page != null && page.EditedObject.oid != null)
-            {
-                ProfilService pService = GetInputGridService().ProfilService;
-                //List<Kernel.Domain.Profil> pfs = pService.Save(page.getInputGridForm().userRightPanel.getUpdatedProfil(), page.EditedObject.oid);
-                //page.getInputGridForm().userRightPanel.allProfils = pService.getAll();
-                //page.getInputGridForm().userRightPanel.useProfils = pfs;
-                //page.getInputGridForm().userRightPanel.updateUserRightPanel();
-            }
-        }
 
         protected virtual void initializeGridFormHandlers(InputGridForm inputGridForm)
         {
