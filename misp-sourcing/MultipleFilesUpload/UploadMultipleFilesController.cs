@@ -28,7 +28,7 @@ namespace Misp.Sourcing.MultipleFilesUpload
         public UploadMultipleFilesController()
         {
             ModuleName = PlugIn.MODULE_NAME;
-            //this.SubjectType = SubjectType.mu
+            this.SubjectType = SubjectType.AUTOMATIC_SOURCING;
         }
 
         #endregion
