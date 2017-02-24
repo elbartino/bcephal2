@@ -67,6 +67,12 @@
                         <Image Source="/Resources/Images/Icons/Outdent.png" Width="16"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator/>
+                <MenuItem x:Name="propertiesMenuItem" Header="Properties" Click="OnPropertiesClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/entity.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </ContextMenu>
         </dxg:TreeListControl.ContextMenu>
 
