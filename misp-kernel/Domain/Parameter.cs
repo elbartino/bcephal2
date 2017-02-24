@@ -69,14 +69,14 @@ namespace Misp.Kernel.Domain
        public bool isVisibleInShortcut { get; set; }
        public bool isRename { get; set; }
        public bool isResetAllCells { get; set; }
-
+       public bool isRight { get; set; }
        public bool isTransformationTree { get; set; }
        public int transformationTreeOid { get; set; }
 
        public CellProperty activeCell { get; set; }
        public int cellCount { get; set; }
        public int cellCountInRange { get; set; }
-
+       public PersistentListChangeHandler<Right> rightsListChangeHandler { get; set; }
 
        public void setVisibleInShortcut(bool active)
        {
@@ -146,6 +146,12 @@ namespace Misp.Kernel.Domain
            this.isTarget = true;
            this.targetItem = targetItem;
            this.removeTargetItem = true;
+       }
+
+       public void setRights(PersistentListChangeHandler<Right> listRights) 
+       {
+           this.isRight = true;
+           this.rightsListChangeHandler = listRights;
        }
 
        public void removePeriod(Kernel.Domain.PeriodItem item)

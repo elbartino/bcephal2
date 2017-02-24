@@ -1158,6 +1158,14 @@ namespace Misp.Sourcing.Table
 
         private void OnChangeEventHandler()
         {
+            InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
+            page.EditedObject.isModified = true;
+            Parameter parameter = new Parameter(page.EditedObject.name);
+            parameter.setRights(page.EditedObject.rightsListChangeHandler);
+
+            InputTable table = null;
+            table = GetInputTableService().parametrizeTable(parameter);
+            if (table == null) table = page.EditedObject;           
             OnChange();
         }
 
