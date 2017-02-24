@@ -188,6 +188,8 @@ namespace Misp.Planification.CombinedTransformationTree
             if (page == null) return;
             CombinedTransformationTreeForm form = ((CombinedTransformationTreeEditorItem)page).getCombineTransformationTreeForm();
             ((CombinedTransformationTreePropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.CombinedTransformationTreePropertiesPanel;
+            CombinedTransformationTreePropertyBar bar = (CombinedTransformationTreePropertyBar)this.PropertyBar;
+            if (bar.AdministratorLayoutAnchorable != null) bar.AdministratorLayoutAnchorable.Content = form.AdministrationBar;
         }
         
         /// <summary>
@@ -417,7 +419,16 @@ namespace Misp.Planification.CombinedTransformationTree
             editorPage.getCombineTransformationTreeForm().CombinedTransformationTreePropertiesPanel.groupField.Changed += onGroupFieldChange;
             editorPage.getCombineTransformationTreeForm().CombinedTransformationTreePanel.Changed += OnCombineTransformationTreePanelChanged;
             editorPage.getCombineTransformationTreeForm().CombinedTransformationTreePanel.ItemDeleted += OnCombineTransformationTreePanelDeleted;
+            if (editorPage.getCombineTransformationTreeForm().AdministrationBar != null)
+            {
+                editorPage.getCombineTransformationTreeForm().AdministrationBar.Changed += OnChangeEventHandler;
+            }
        }
+
+        private void OnChangeEventHandler()
+        {
+            OnChange();
+        }
 
         private void OnCombineTransformationTreePanelChanged()
         {

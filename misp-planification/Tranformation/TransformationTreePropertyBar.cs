@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Ui.Base;
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Misp.Planification.Tranformation
 
         public LayoutAnchorable ParameterLayoutAnchorable { get; set; }
         public LayoutAnchorable MappingLayoutAnchorable { get; set; }
+        public LayoutAnchorable AdministratorLayoutAnchorable { get; set; }
 
         public LayoutAnchorablePane Pane { get; set; }
 
@@ -46,6 +48,15 @@ namespace Misp.Planification.Tranformation
             this.MappingLayoutAnchorable.CanClose = false;
             this.MappingLayoutAnchorable.CanFloat = false;
 
+            if (ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.AdministratorLayoutAnchorable = new LayoutAnchorable();
+                this.AdministratorLayoutAnchorable.Title = "Administration";
+                this.AdministratorLayoutAnchorable.CanAutoHide = false;
+                this.AdministratorLayoutAnchorable.CanClose = false;
+                this.AdministratorLayoutAnchorable.CanFloat = false;
+                this.AdministratorLayoutAnchorable.CanHide = false;
+            }
             /** Décommenter pour avoir le mapping et la parametrisation des cells */
             //DockingManager manager = new DockingManager();
             //LayoutRoot root = new LayoutRoot();
@@ -63,9 +74,8 @@ namespace Misp.Planification.Tranformation
             //this.Panes.Add(pane);
 
             Pane = new LayoutAnchorablePane();
-
-
             Pane.Children.Add(TableLayoutAnchorable);
+            if (AdministratorLayoutAnchorable != null) Pane.Children.Add(AdministratorLayoutAnchorable);
             this.Panes.Add(Pane);
 
         }
