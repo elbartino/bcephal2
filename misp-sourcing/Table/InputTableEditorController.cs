@@ -1116,7 +1116,12 @@ namespace Misp.Sourcing.Table
             editorPage.getInputTableForm().AllocationPropertiesPanel.Change += OnAllocationDataChange;
             editorPage.Closed += editorPage_Closed;
            // editorPage.getInputTableForm().SpreadSheet.DisableAddingSheet += SpreadSheet_DisableAddingSheet;
-            
+
+            if (editorPage.getInputTableForm().AdministrationBar != null)
+            {
+                editorPage.getInputTableForm().AdministrationBar.Changed += OnChangeEventHandler;
+            }
+
             if (editorPage.getInputTableForm().SpreadSheet != null)
             {
                 editorPage.getInputTableForm().SpreadSheet.SelectionChanged += OnSpreadSheetSelectionChanged;
@@ -1144,6 +1149,7 @@ namespace Misp.Sourcing.Table
         {
            
         }
+     
 
         public virtual void SpreadSheet_DisableAddingSheet()
         {
@@ -1298,10 +1304,12 @@ namespace Misp.Sourcing.Table
             {
                 ((InputTablePropertyBar)this.PropertyBar).Pane.Children.Remove(((InputTablePropertyBar)this.PropertyBar).AllocationLayoutAnchorable);
             }
-
+          
             ((InputTablePropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.TablePropertiesPanel;
             ((InputTablePropertyBar)this.PropertyBar).ParameterLayoutAnchorable.Content = form.TableCellParameterPanel;
             ((InputTablePropertyBar)this.PropertyBar).MappingLayoutAnchorable.Content = form.TableCellParameterPanel.TableCellMappingPanel;
+            if (((InputTablePropertyBar)this.PropertyBar).AdministratorLayoutAnchorable != null)
+            ((InputTablePropertyBar)this.PropertyBar).AdministratorLayoutAnchorable.Content = form.AdministrationBar;
             OnDisplayActiveCellData();
             setIsTemplateTableAction(page.EditedObject, page.IsReadOnly);
         }
