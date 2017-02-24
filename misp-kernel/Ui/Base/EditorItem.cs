@@ -229,8 +229,6 @@ namespace Misp.Kernel.Ui.Base
                     else if (control is Measure.MeasureTreeView) ((Measure.MeasureTreeView)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
                     else if (control is TreeView.PeriodicityTreeview) ((TreeView.PeriodicityTreeview)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
               
-                    else if (control is Attribute.AttributeTreeView) ((Attribute.AttributeTreeView)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
-                    else if (control is Attribute.AttributeValueTreeView) ((Attribute.AttributeValueTreeView)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
                     else if (control is Group.GroupTreeView) ((Group.GroupTreeView)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
                     else if (control is Group.GroupField) ((Group.GroupField)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
                     else if (control is Office.ISpreadsheet) ((Office.ISpreadsheet)control).Changed += this.ChangeEventHandler.ChangeEventHandler;
@@ -265,8 +263,6 @@ namespace Misp.Kernel.Ui.Base
                     else if (control is TreeView.EditableTree) ((TreeView.EditableTree)control).Change -= this.ChangeEventHandler.EditableTreeChangeHandler;
                     else if (control is DiagramDesigner.DesignerCanvas) ((DiagramDesigner.DesignerCanvas)control).Changed -= this.ChangeEventHandler.DiagramChange;
                     else if (control is Measure.MeasureTreeView) ((Measure.MeasureTreeView)control).Changed -= this.ChangeEventHandler.ChangeEventHandler;
-                    else if (control is Attribute.AttributeTreeView) ((Attribute.AttributeTreeView)control).Changed -= this.ChangeEventHandler.ChangeEventHandler;
-                    else if (control is Attribute.AttributeValueTreeView) ((Attribute.AttributeValueTreeView)control).Changed -= this.ChangeEventHandler.ChangeEventHandler;
                     else if (control is Group.GroupTreeView) ((Group.GroupTreeView)control).Changed -= this.ChangeEventHandler.ChangeEventHandler;
                     else if (control is Group.GroupField) ((Group.GroupField)control).Changed -= this.ChangeEventHandler.ChangeEventHandler;
                     else if (control is Office.ISpreadsheet) ((Office.ISpreadsheet)control).Changed -= this.ChangeEventHandler.ChangeEventHandler;

@@ -6,7 +6,6 @@
              xmlns:Base="clr-namespace:Misp.Kernel.Ui.Base;assembly=bcephal"
              xmlns:dg="clr-namespace:Misp.Initiation.Diagram"
              xmlns:Model="clr-namespace:Misp.Initiation.Model"
-             xmlns:Tree="clr-namespace:Misp.Kernel.Ui.Attribute;assembly=bcephal"
              xmlns:EditableTree="clr-namespace:Misp.Kernel.Ui.EditableTree;assembly=bcephal"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="600" Background="White">
