@@ -150,6 +150,14 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                 {
                     setLabelText(SubjectType.INPUT_GRID);
                 }
+                else if (ObjectType.Equals(SubjectType.TARGET.label))
+                {
+                    setLabelText(SubjectType.TARGET);
+                }
+                else if (ObjectType.Equals(SubjectType.DESIGN.label))
+                {
+                    setLabelText(SubjectType.DESIGN);
+                }
             }
         }
         
