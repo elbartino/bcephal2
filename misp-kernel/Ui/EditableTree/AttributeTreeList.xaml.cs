@@ -449,6 +449,8 @@ namespace Misp.Kernel.Ui.EditableTree
                 this.moveDownMenuItem.IsEnabled = canMoveDown(selectedItems) && isContiguousSelection && !containsDefault;
                 this.indentMenuItem.IsEnabled = canIndent(selectedItems) && isContiguousSelection && !containsDefault;
                 this.outdentMenuItem.IsEnabled = canOutdent(selectedItems) && isContiguousSelection && !containsDefault;
+
+                this.propertiesMenuItem.IsEnabled = true;
             }
             else this.contextMenu.Visibility = Visibility.Collapsed;
         }
@@ -670,6 +672,18 @@ namespace Misp.Kernel.Ui.EditableTree
             }
             treeList.SelectedItems = attributes;
             if (Changed != null) Changed();
+        }
+        
+        private void OnPropertiesClick(object sender, RoutedEventArgs e)
+        {
+            if (this.treeList.SelectedItem != null && this.treeList.SelectedItem is Domain.Attribute)
+            {
+                Domain.Attribute attribute = (Domain.Attribute)this.treeList.SelectedItem;
+                AttributeDialog dialog = new AttributeDialog();
+                dialog.Owner = Application.ApplicationManager.Instance.MainWindow;
+                dialog.Display(attribute);
+                dialog.Show();
+            }
         }
 
         #endregion

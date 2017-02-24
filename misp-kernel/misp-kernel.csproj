@@ -521,6 +521,9 @@
     <Compile Include="Ui\Base\ProcessPopup.xaml.cs">
       <DependentUpon>ProcessPopup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\EditableTree\AttributeDialog.xaml.cs">
+      <DependentUpon>AttributeDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\EditableTree\AttributeTreeList.xaml.cs">
       <DependentUpon>AttributeTreeList.xaml</DependentUpon>
     </Compile>
@@ -968,6 +971,10 @@
     <Page Include="Ui\Base\ProcessPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\EditableTree\AttributeDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\EditableTree\AttributeTreeList.xaml">
       <SubType>Designer</SubType>

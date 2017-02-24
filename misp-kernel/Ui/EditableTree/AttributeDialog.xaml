@@ -1,0 +1,29 @@
+﻿<Window x:Class="Misp.Kernel.Ui.EditableTree.AttributeDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Properties" Icon="/bcephal;Component/Resources/Images/Logo/bcephal.ico" 
+        WindowStartupLocation="CenterOwner" Height="200" Width="350">
+    <Grid  Margin="5 5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid  Margin="5 5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:FieldModifier="public" x:Name="Label" Content="Attribute name" Grid.Column="0" Margin="0 5 5 5"/>
+            <TextBox x:FieldModifier="public" x:Name="NameTextBox" IsEnabled="False" Grid.Column="1" Margin="0 5"/>
+        </Grid>
+        <CheckBox x:FieldModifier="public" x:Name="CanModifyValuesCheckBox" Content="Values can be modified by user" Grid.Row="1" Margin="95 5 5 5"/>
+        <CheckBox x:FieldModifier="public" x:Name="IncrementalValuesCheckBox" Content="Incremental Values" Grid.Row="2" Margin="95 5 5 5"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" x:Name="ToolBar" HorizontalAlignment="Right" Margin="15">
+            <Button x:Name="OKButton" x:FieldModifier="public" Content="OK" Margin="5, 0" Height="25" Width="70"/>
+            <Button x:Name="CancelButton" x:FieldModifier="public" Content="Cancel" Margin="5, 0" Height="25" Width="70"/>
+        </StackPanel>
+    </Grid>
+</Window>
