@@ -138,7 +138,7 @@ namespace Misp.Sourcing.Designer
         /// OperationState.CONTINUE si l'opération a réussi
         /// OperationState.STOP sinon
         /// </returns>
-        DesignerEditorItem currentPage = new DesignerEditorItem();
+        DesignerEditorItem currentPage = null;
         public DesignWindow DesignWindow { get; set; }
         public override OperationState Save(EditorItem<Design> page)
         {
@@ -322,7 +322,7 @@ namespace Misp.Sourcing.Designer
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new DesignerEditor(); }
+        protected override IView getNewView() { return new DesignerEditor(this.SubjectType); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

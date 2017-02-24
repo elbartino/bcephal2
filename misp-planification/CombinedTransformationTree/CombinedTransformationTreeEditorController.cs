@@ -138,7 +138,7 @@ namespace Misp.Planification.CombinedTransformationTree
         /// OperationState.CONTINUE si l'opération a réussi
         /// OperationState.STOP sinon
         /// </returns>
-        CombinedTransformationTreeEditorItem currentPage = new CombinedTransformationTreeEditorItem();
+        CombinedTransformationTreeEditorItem currentPage = null;
 
         public override OperationState Save(EditorItem<Kernel.Domain.CombinedTransformationTree> page)
         {
@@ -233,7 +233,7 @@ namespace Misp.Planification.CombinedTransformationTree
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new CombinedTransformationTreeEditor(); }
+        protected override IView getNewView() { return new CombinedTransformationTreeEditor(this.SubjectType); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

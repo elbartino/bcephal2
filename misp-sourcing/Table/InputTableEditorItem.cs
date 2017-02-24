@@ -16,6 +16,8 @@ namespace Misp.Sourcing.Table
     {
         public string DEFAULT_NAME;
 
+        public InputTableEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// UNe nouvelle instance de la form.
         /// </summary>
@@ -24,7 +26,7 @@ namespace Misp.Sourcing.Table
         {
             this.CanFloat = false;
           
-            return new InputTableForm();
+            return new InputTableForm(this.SubjectType);
         }
 
         public virtual InputTableForm getInputTableForm()

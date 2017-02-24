@@ -11,11 +11,14 @@ namespace Misp.Sourcing.CustomizedTarget
     public class TargetEditor : Editor<Target>
     {
 
+        
+        public TargetEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<Target> getNewPage() { return new TargetEditorItem(); }
+        protected override EditorItem<Target> getNewPage() { return new TargetEditorItem(this.SubjectType); }
 
         public Kernel.Service.GroupService GroupService { get; set; }
 

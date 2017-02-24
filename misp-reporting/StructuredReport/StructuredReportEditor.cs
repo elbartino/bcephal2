@@ -11,11 +11,13 @@ namespace Misp.Reporting.StructuredReport
     public class StructuredReportEditor : Editor<Misp.Kernel.Domain.StructuredReport>
     {
 
+        public StructuredReportEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<Misp.Kernel.Domain.StructuredReport> getNewPage() { return new StructuredReportEditorItem(); }
+        protected override EditorItem<Misp.Kernel.Domain.StructuredReport> getNewPage() { return new StructuredReportEditorItem(this.SubjectType); }
 
         public Kernel.Service.GroupService GroupService { get; set; }
 

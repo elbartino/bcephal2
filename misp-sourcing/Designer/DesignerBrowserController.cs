@@ -28,7 +28,7 @@ namespace Misp.Sourcing.Designer
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new DesignerBrowser(); }
+        protected override IView getNewView() { return new DesignerBrowser(this.SubjectType); }
         
         /// <summary>
         /// Initialisation des donnée sur la vue.

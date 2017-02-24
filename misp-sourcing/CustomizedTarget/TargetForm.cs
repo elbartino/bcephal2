@@ -29,8 +29,9 @@ namespace Misp.Sourcing.CustomizedTarget
         /// <summary>
         /// Constructeur
         /// </summary>
-        public TargetForm()
+        public TargetForm(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             InitializeComponents();
         }
 
@@ -48,6 +49,8 @@ namespace Misp.Sourcing.CustomizedTarget
 
 
         #region Properties
+
+        public SubjectType SubjectType { get; set; }
 
         public bool IsReadOnly { get; set; }
         

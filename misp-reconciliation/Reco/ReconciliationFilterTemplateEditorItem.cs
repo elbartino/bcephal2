@@ -11,6 +11,8 @@ namespace Misp.Reconciliation.Reco
     public class ReconciliationFilterTemplateEditorItem : EditorItem<ReconciliationFilterTemplate>
     {
 
+        public ReconciliationFilterTemplateEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         public virtual void SetTarget(Target target)
         {
             getForm().SetTarget(target);
@@ -40,7 +42,7 @@ namespace Misp.Reconciliation.Reco
         /// UNe nouvelle instance de la form.
         /// </summary>
         /// <returns></returns>
-        protected override IEditableView<ReconciliationFilterTemplate> getNewEditorItemForm() { return new ReconciliationFilterTemplateForm(); }
+        protected override IEditableView<ReconciliationFilterTemplate> getNewEditorItemForm() { return new ReconciliationFilterTemplateForm(this.SubjectType); }
 
         public virtual ReconciliationFilterTemplateForm getForm()
         {

@@ -12,13 +12,15 @@ namespace Misp.Sourcing.AutomaticTargetViews
     public class AutomaticTargetEditorItem : AutomaticSourcingEditorItem
     {
 
+        public AutomaticTargetEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// UNe nouvelle instance de la form.
         /// </summary>
         /// <returns></returns>
         protected override IEditableView<AutomaticSourcing> getNewEditorItemForm()
         {
-            return new AutomaticTargetForm();
+            return new AutomaticTargetForm(this.SubjectType);
         }
 
         public override AutomaticSourcingForm getAutomaticSourcingForm()

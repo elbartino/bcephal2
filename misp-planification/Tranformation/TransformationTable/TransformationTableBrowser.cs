@@ -9,5 +9,8 @@ namespace Misp.Planification.Tranformation.TransformationTable
 {
     public class TransformationTableBrowser : StructuredReportBrowser
     {
+
+        public TransformationTableBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
     }
 }

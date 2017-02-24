@@ -127,7 +127,7 @@ namespace Misp.Kernel.Administration.Profil
         /// OperationState.CONTINUE si l'opération a réussi
         /// OperationState.STOP sinon
         /// </returns>
-        ProfilEditorItem currentPage = new ProfilEditorItem();
+        ProfilEditorItem currentPage = null;
 
         public override OperationState Save(EditorItem<Domain.Profil> page)
         {
@@ -226,7 +226,7 @@ namespace Misp.Kernel.Administration.Profil
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new ProfilEditor(); }
+        protected override IView getNewView() { return new ProfilEditor(this.SubjectType); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

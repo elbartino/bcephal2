@@ -12,6 +12,8 @@ namespace Misp.Reconciliation.Reco
     public class ReconciliationFilterTemplateBrowser : Browser<BrowserData>
     {
 
+        public ReconciliationFilterTemplateBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Column count
         /// </summary>

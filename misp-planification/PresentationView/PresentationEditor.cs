@@ -13,9 +13,11 @@ namespace Misp.Planification.PresentationView
         public event OnRemoveNewPageEventHandler OnRemoveNewPage;
         public delegate void OnRemoveNewPageEventHandler(bool remove = false);
 
+        public PresentationEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         protected override EditorItem<Presentation> getNewPage()
         {
-            return new PresentationEditorItem();
+            return new PresentationEditorItem(this.SubjectType);
         }
 
         protected override void InitializeNewPage()

@@ -42,8 +42,9 @@ namespace Misp.Sourcing.Designer
         /// <summary>
         /// Constructeur
         /// </summary>
-        public DesignerForm()
+        public DesignerForm(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             InitializeComponents();
         }
         
@@ -70,6 +71,8 @@ namespace Misp.Sourcing.Designer
         #endregion
         
         #region Properties
+
+        public SubjectType SubjectType { get; set; }
 
         public bool IsReadOnly { get; set; }
         

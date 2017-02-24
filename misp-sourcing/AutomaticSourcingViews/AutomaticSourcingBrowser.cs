@@ -12,6 +12,8 @@ namespace Misp.Sourcing.AutomaticSourcingViews
     public class AutomaticSourcingBrowser : Browser<BrowserData>
     {
 
+        public AutomaticSourcingBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Column count
         /// </summary>

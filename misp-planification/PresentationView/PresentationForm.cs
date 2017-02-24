@@ -18,6 +18,8 @@ namespace Misp.Planification.PresentationView
     public class PresentationForm : Grid, IEditableView<Presentation>
     {
 
+        public SubjectType SubjectType { get; set; }
+
         public bool IsReadOnly { get; set; }
         
         public bool IsModify
@@ -39,9 +41,10 @@ namespace Misp.Planification.PresentationView
         public PresentationPropertiesPanel PresentationPropertiesPanel { get; set; }
         WindowsFormsHost windowsFormsHost;
         System.Windows.Controls.Image image;
-        
-        public PresentationForm()
+
+        public PresentationForm(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             InitializeComponents();
         }
 

@@ -9,7 +9,11 @@ namespace Misp.Planification.Tranformation.TransformationTable
 {
     public class TransformationTableForm : StructuredReportForm
     {
+
         #region Constructors
+
+        public TransformationTableForm(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         #endregion
 
 

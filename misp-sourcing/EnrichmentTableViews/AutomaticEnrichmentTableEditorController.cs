@@ -32,7 +32,7 @@ namespace Misp.Sourcing.EnrichmentTableViews
            return true;
        }
 
-       protected override IView getNewView() { return new AutomaticEnrichmentTableEditor(); }
+       protected override IView getNewView() { return new AutomaticEnrichmentTableEditor(this.SubjectType); }
 
        AutomaticEnrichmentTableDataDialog dialog;
        protected override void performRun(AutomaticSourcingEditorItem page)

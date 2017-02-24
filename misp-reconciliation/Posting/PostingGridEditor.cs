@@ -14,13 +14,15 @@ namespace Misp.Reconciliation.Posting
     public class PostingGridEditor : InputGridEditor
     {
 
+        public PostingGridEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Retourne une nouvelle page.Posting
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
         protected override EditorItem<Grille> getNewPage() 
         {
-            PostingGridEditorItem item = new PostingGridEditorItem();
+            PostingGridEditorItem item = new PostingGridEditorItem(this.SubjectType);
             if (this.Service != null)
             {
                 PeriodName name = this.Service.PeriodNameService.getRootPeriodName();

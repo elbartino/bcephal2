@@ -9,11 +9,13 @@ namespace Misp.Kernel.Administration.Profil
 {
     public class ProfilEditor : Editor<Misp.Kernel.Domain.Profil>
     {
+        public ProfilEditor(Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<Misp.Kernel.Domain.Profil> getNewPage() { return new ProfilEditorItem(); }
+        protected override EditorItem<Misp.Kernel.Domain.Profil> getNewPage() { return new ProfilEditorItem(this.SubjectType); }
 
         public Kernel.Service.GroupService GroupService { get; set; }
 

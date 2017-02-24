@@ -50,7 +50,7 @@ namespace Misp.Reconciliation.RecoGrid
         /// <returns>Une nouvelle instance de la vue</returns>
         protected override IView getNewView()
         {
-            PostingEditor editor = new PostingEditor();
+            PostingEditor editor = new PostingEditor(this.SubjectType);
             editor.Service = GetPostingGridService();
             return editor;
         }

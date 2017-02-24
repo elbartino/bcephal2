@@ -12,13 +12,15 @@ namespace Misp.Reconciliation.Reco
     public class ReconciliationFilterTemplateEditor : Editor<ReconciliationFilterTemplate>
     {
 
+        public ReconciliationFilterTemplateEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
         protected override EditorItem<ReconciliationFilterTemplate> getNewPage()
         {
-            ReconciliationFilterTemplateEditorItem item = new ReconciliationFilterTemplateEditorItem();
+            ReconciliationFilterTemplateEditorItem item = new ReconciliationFilterTemplateEditorItem(this.SubjectType);
             if (this.Service != null)
             {
                 //PeriodName name = this.Service.PeriodNameService.getRootPeriodName();

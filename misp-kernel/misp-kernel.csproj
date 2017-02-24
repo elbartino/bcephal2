@@ -673,7 +673,6 @@
     <Compile Include="Ui\Base\EditorItem.cs" />
     <Compile Include="Ui\Base\MenuBar.cs" />
     <Compile Include="Ui\Base\Menu\SettingsMenu.cs" />
-    <Compile Include="Ui\Base\TestBrowser.cs" />
     <Compile Include="Ui\Base\ToolBarContainer.cs" />
     <Compile Include="Ui\Base\IView.cs" />
     <Compile Include="Ui\File\FileToolBar.cs" />

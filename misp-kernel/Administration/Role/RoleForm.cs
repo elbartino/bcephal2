@@ -15,10 +15,10 @@ namespace Misp.Kernel.Administration.Role
         /// <summary>
         /// Constructeur
         /// </summary>
-        public RoleForm()
+        public RoleForm(Domain.SubjectType type) : base()
         {
+            this.SubjectType = type;
             InitializeComponents();
-            //this.Role.Changed += CalculatedMeasureOperationsGrid_Changed;
         }
 
 
@@ -36,6 +36,8 @@ namespace Misp.Kernel.Administration.Role
 
 
         #region Properties
+
+        public Domain.SubjectType SubjectType { get; set; }
 
         public bool IsReadOnly { get; set; }
 

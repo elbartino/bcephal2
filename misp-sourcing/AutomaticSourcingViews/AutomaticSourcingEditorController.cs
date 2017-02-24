@@ -88,7 +88,7 @@ namespace Misp.Sourcing.Base
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
         protected override IView getNewView() {
-            return new AutomaticSourcingEditor();
+            return new AutomaticSourcingEditor(this.SubjectType);
         }
 
         /// <summary>

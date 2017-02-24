@@ -11,13 +11,15 @@ namespace Misp.Planification.CombinedTransformationTree
     public class CombinedTransformationTreeEditorItem : EditorItem<Kernel.Domain.CombinedTransformationTree>
     {
 
+        public CombinedTransformationTreeEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// UNe nouvelle instance de la form.
         /// </summary>
         /// <returns></returns>
         protected override IEditableView<Kernel.Domain.CombinedTransformationTree> getNewEditorItemForm()
         {
-            return new CombinedTransformationTreeForm();
+            return new CombinedTransformationTreeForm(this.SubjectType);
         }
 
         public virtual CombinedTransformationTreeForm getCombineTransformationTreeForm()

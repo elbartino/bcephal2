@@ -63,7 +63,7 @@ namespace Misp.Kernel.Ui.Designer
                 this.panelSheet.Visibility = Visibility.Visible;
                 if (designForm == null)
                 {
-                    designForm = new DesignerForm();
+                    designForm = new DesignerForm(SubjectType.DESIGN);
                     designForm.EditedObject = design;
                     designForm.periodicity = periodicity;
                     designForm.BuildSheetTableWithoutFill();

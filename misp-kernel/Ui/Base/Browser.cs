@@ -12,6 +12,7 @@ using DataGridFilterLibrary;
 using Xceed.Wpf.AvalonDock.Layout;
 using Misp.Kernel.Domain.Browser;
 using DataGridFilterLibrary.Support;
+using Misp.Kernel.Domain;
 
 namespace Misp.Kernel.Ui.Base
 {
@@ -39,8 +40,9 @@ namespace Misp.Kernel.Ui.Base
         /// <summary>
         /// Construit une nouvelle instance de Browser
         /// </summary>
-        public Browser() 
+        public Browser(SubjectType subjectType) 
         {
+            this.SubjectType = subjectType;
             Datas = new ObservableCollection<B>();
             initializeGrid();
         }
@@ -49,6 +51,8 @@ namespace Misp.Kernel.Ui.Base
 
 
         #region Properties
+
+        public SubjectType SubjectType { get; set; }
 
         public bool IsReadOnly { get; set; }
         

@@ -12,11 +12,13 @@ namespace Misp.Reporting.Report
     public class ReportEditor : InputTableEditor
     {
 
+        public ReportEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<InputTable> getNewPage() { return new ReportEditorItem(); }
+        protected override EditorItem<InputTable> getNewPage() { return new ReportEditorItem(this.SubjectType); }
 
     }
 }

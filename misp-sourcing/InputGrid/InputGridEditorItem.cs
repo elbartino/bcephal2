@@ -13,6 +13,8 @@ namespace Misp.Sourcing.InputGrid
     public class InputGridEditorItem : EditorItem<Grille>
     {
 
+        public InputGridEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         public virtual void SetTarget(Target target)
         {
             if (getInputGridForm().SelectedIndex == 1 && target is Kernel.Domain.Attribute)
@@ -50,7 +52,7 @@ namespace Misp.Sourcing.InputGrid
         /// UNe nouvelle instance de la form.
         /// </summary>
         /// <returns></returns>
-        protected override IEditableView<Grille> getNewEditorItemForm() { return new InputGridForm(); }
+        protected override IEditableView<Grille> getNewEditorItemForm() { return new InputGridForm(this.SubjectType); }
 
         public virtual InputGridForm getInputGridForm()
         {

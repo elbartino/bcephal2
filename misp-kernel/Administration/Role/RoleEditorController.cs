@@ -92,7 +92,7 @@ namespace Misp.Kernel.Administration.Role
 
         protected override Ui.Base.IView getNewView()
         {
-            return new RoleEditor();
+            return new RoleEditor(this.SubjectType);
         }
 
 

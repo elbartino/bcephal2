@@ -10,11 +10,13 @@ namespace Misp.Planification.PresentationView
     public class PresentationEditorItem : EditorItem<Presentation>
     {
         public string DEFAULT_NAME;
-        
+
+        public PresentationEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         protected override IEditableView<Presentation> getNewEditorItemForm()
         {
             this.CanFloat = false;
-            return new PresentationForm();
+            return new PresentationForm(this.SubjectType);
         }
 
         public virtual PresentationForm getPresentationForm()

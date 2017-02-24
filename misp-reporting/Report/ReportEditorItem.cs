@@ -12,13 +12,15 @@ namespace Misp.Reporting.Report
     public class ReportEditorItem : InputTableEditorItem
     {
 
+        public ReportEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// UNe nouvelle instance de la form.
         /// </summary>
         /// <returns></returns>
         protected override IEditableView<InputTable> getNewEditorItemForm()
         {
-            return new ReportForm();
+            return new ReportForm(this.SubjectType);
         }
 
         public override InputTableForm getInputTableForm()

@@ -18,12 +18,14 @@ namespace Misp.Sourcing.Table
 
         public event OnRemoveNewPageEventHandler OnRemoveNewPage;
         public delegate void OnRemoveNewPageEventHandler(bool remove = false);
-
+        
+        public InputTableEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<InputTable> getNewPage() { return new InputTableEditorItem(); }
+        protected override EditorItem<InputTable> getNewPage() { return new InputTableEditorItem(this.SubjectType); }
 
         public Kernel.Service.GroupService GroupService { get; set; }
 

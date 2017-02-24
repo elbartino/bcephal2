@@ -13,8 +13,8 @@ namespace Misp.Reconciliation.ReconciliationContext
          /// <summary>
         /// Contruit une nouvelle instance de ReconciliationEditorItem
         /// </summary>
-        public ReconciliationContextEditorItem()
-            : base()
+        public ReconciliationContextEditorItem(Kernel.Domain.SubjectType subjectType)
+            : base(subjectType)
         {
             this.Title = "Reconciliation Configuration";
             this.CanFloat = false;
@@ -26,7 +26,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// <returns></returns>
         protected override IEditableView<Kernel.Domain.ReconciliationContext> getNewEditorItemForm()
         {
-            return new ReconciliationContexForm();
+            return new ReconciliationContexForm(this.SubjectType);
         }
 
         /// <summary>

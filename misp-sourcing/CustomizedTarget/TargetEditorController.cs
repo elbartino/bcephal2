@@ -121,7 +121,7 @@ namespace Misp.Sourcing.CustomizedTarget
         /// OperationState.CONTINUE si l'opération a réussi
         /// OperationState.STOP sinon
         /// </returns>
-        TargetEditorItem currentPage = new TargetEditorItem();
+        TargetEditorItem currentPage = null;
 
         public override OperationState Save(EditorItem<Target> page)
         {
@@ -227,7 +227,7 @@ namespace Misp.Sourcing.CustomizedTarget
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new TargetEditor(); }
+        protected override IView getNewView() { return new TargetEditor(this.SubjectType); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

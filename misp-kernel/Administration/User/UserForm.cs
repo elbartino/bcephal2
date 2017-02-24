@@ -11,7 +11,10 @@ namespace Misp.Kernel.Administration.User
 {
     public class UserForm : UserControl, IEditableView<Kernel.Domain.User>
     {
+
         #region Property
+
+        public Domain.SubjectType SubjectType { get; set; }
 
         public bool IsReadOnly { get; set; }
 
@@ -39,13 +42,15 @@ namespace Misp.Kernel.Administration.User
         
         #endregion
 
+
         #region Constructor
 
         /// <summary>
         /// Constructeur
         /// </summary>
-        public UserForm()
+        public UserForm(Domain.SubjectType type) : base()
         {
+            this.SubjectType = type;
             InitializeComponents();
         }
 
@@ -60,6 +65,7 @@ namespace Misp.Kernel.Administration.User
         }
         
         #endregion
+
 
         #region Methods
 

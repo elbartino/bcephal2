@@ -11,14 +11,15 @@ namespace Misp.Sourcing.CustomizedTarget
     public class TargetEditorItem : EditorItem<Target>
     {
 
+        public TargetEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// UNe nouvelle instance de la form.
         /// </summary>
         /// <returns></returns>
         protected override IEditableView<Target> getNewEditorItemForm()
         {
-
-            return new TargetForm();
+            return new TargetForm(this.SubjectType);
         }
 
         public virtual TargetForm getTargetForm()

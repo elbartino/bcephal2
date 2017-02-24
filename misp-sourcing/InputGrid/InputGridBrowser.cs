@@ -12,6 +12,8 @@ namespace Misp.Sourcing.InputGrid
     public class InputGridBrowser : AutomaticSourcingBrowser
     {
 
+        public InputGridBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         protected override string getTitle()
         {
             return "Input Grids";

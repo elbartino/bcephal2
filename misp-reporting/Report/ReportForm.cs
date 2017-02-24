@@ -14,6 +14,8 @@ namespace Misp.Reporting.Report
 
         #region Constructors
 
+        public ReportForm(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         protected override void InitializeComponents()
         {
             base.InitializeComponents();

@@ -12,6 +12,8 @@ namespace Misp.Sourcing.CustomizedTarget
     public class TargetBrowser : Browser<BrowserData>
     {
 
+        public TargetBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Column count
         /// </summary>

@@ -43,6 +43,12 @@ namespace Misp.Kernel.Administration.ObjectAdmin
             InitComponents();
         }
 
+        public AdministrationBar(SubjectType SubjectType)
+            : this(SubjectType.ToString())
+        {
+            
+        }
+
         #endregion
 
 

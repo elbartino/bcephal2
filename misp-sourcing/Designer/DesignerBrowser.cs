@@ -9,8 +9,10 @@ using System.Windows.Controls;
 
 namespace Misp.Sourcing.Designer
 {
-    class DesignerBrowser : Browser<BrowserData>
+    public class DesignerBrowser : Browser<BrowserData>
     {
+
+        public DesignerBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
 
         /// <summary>
         /// Column count

@@ -10,13 +10,16 @@ namespace Misp.Planification.Tranformation.TransformationTable
 {
     public class TransformationTableEditorItem : StructuredReportEditorItem
     {
+
+        public TransformationTableEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
        /// <summary>
         /// UNe nouvelle instance de la form.
         /// </summary>
         /// <returns></returns>
         protected override IEditableView<StructuredReport> getNewEditorItemForm()
         {
-            return new TransformationTableForm();
+            return new TransformationTableForm(this.SubjectType);
         }
 
         public override StructuredReportForm getStructuredReportForm()

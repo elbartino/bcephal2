@@ -10,6 +10,8 @@ namespace Misp.Sourcing.EnrichmentTableViews
 {
     public class AutomaticEnrichmentTableEditor : AutomaticSourcingEditor
     {
-        protected override EditorItem<Misp.Kernel.Domain.AutomaticSourcing> getNewPage() { return new AutomaticEnrichmentTableEditorItem(); }
+        public AutomaticEnrichmentTableEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
+        protected override EditorItem<Misp.Kernel.Domain.AutomaticSourcing> getNewPage() { return new AutomaticEnrichmentTableEditorItem(this.SubjectType); }
     }
 }

@@ -12,6 +12,8 @@ namespace Misp.Kernel.Administration.Profil
     public class ProfilBrowser : Browser<ProfilBrowserData>
     {
 
+        public ProfilBrowser(Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Column count
         /// </summary>

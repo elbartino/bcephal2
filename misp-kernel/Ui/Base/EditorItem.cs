@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,19 +28,21 @@ namespace Misp.Kernel.Ui.Base
         /// </summary>
         protected IEditableView<T> editorItemForm;
 
-        #endregion
-
-
         public MouseButtonEventHandler PageTabDoubleClick;
 
+        public SubjectType SubjectType { get; set; }
+
+        #endregion
+        
 
         #region Constructors
         
         /// <summary>
         /// Construit une nouvelle instance de EditorItem.
         /// </summary>
-        public EditorItem()
+        public EditorItem(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             this.IsReadOnly = false;
             ListChangeHandler = new Domain.PersistentListChangeHandler<T>();
             initializeForm();            
@@ -50,7 +53,8 @@ namespace Misp.Kernel.Ui.Base
         /// et initialise l'objet à éditer
         /// </summary>
         /// <param name="editedObject">L'objet à éditer</param>
-        public EditorItem(T editedObject) : this()
+        public EditorItem(T editedObject, SubjectType subjectType)
+            : this(subjectType)
         {
             this.EditedObject = editedObject;
             

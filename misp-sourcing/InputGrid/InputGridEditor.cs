@@ -13,13 +13,15 @@ namespace Misp.Sourcing.InputGrid
     public class InputGridEditor : Editor<Grille>
     {
 
+        public InputGridEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
         protected override EditorItem<Grille> getNewPage() 
         { 
-            InputGridEditorItem item = new InputGridEditorItem();
+            InputGridEditorItem item = new InputGridEditorItem(this.SubjectType);
             if (this.Service != null)
             {
                 PeriodName name = this.Service.PeriodNameService.getRootPeriodName();

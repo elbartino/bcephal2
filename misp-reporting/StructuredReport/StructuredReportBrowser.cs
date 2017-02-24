@@ -12,6 +12,8 @@ namespace Misp.Reporting.StructuredReport
     public class StructuredReportBrowser : Browser<BrowserData>
     {
 
+        public StructuredReportBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Column count
         /// </summary>

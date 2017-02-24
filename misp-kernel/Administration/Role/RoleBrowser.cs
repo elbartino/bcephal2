@@ -13,6 +13,8 @@ namespace Misp.Kernel.Administration.Role
     public class RoleBrowser : Browser<BrowserData>
     {
 
+        public RoleBrowser(Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Column count
         /// </summary>
@@ -29,7 +31,7 @@ namespace Misp.Kernel.Administration.Role
             base.initializeGrid();
             this.Children.RemoveAt(this.Children.Count - 1);
 
-            form = new RoleForm();
+            form = new RoleForm(this.SubjectType);
 
             LayoutDocument page = new LayoutDocument();
             page.CanClose = false;

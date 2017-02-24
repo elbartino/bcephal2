@@ -34,7 +34,7 @@ namespace Misp.Kernel.Administration.Profil
         /// <returns>Une nouvelle instance de la vue</returns>
         protected override IView getNewView() 
         {
-            return new ProfilBrowser(); 
+            return new ProfilBrowser(this.SubjectType); 
         }
         
         /// <summary>

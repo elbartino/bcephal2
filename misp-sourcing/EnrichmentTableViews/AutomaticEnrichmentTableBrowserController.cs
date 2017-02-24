@@ -27,7 +27,7 @@ namespace Misp.Sourcing.EnrichmentTableViews
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new AutomaticEnrichmentTableBrowser(); }
+        protected override IView getNewView() { return new AutomaticEnrichmentTableBrowser(this.SubjectType); }
 
         public override Misp.Kernel.Domain.SubjectType SubjectTypeFound()
         {

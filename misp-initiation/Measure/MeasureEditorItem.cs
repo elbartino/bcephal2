@@ -17,7 +17,8 @@ namespace Misp.Initiation.Measure
         /// <summary>
         /// Contruit une nouvelle instance de MeasureEditorItem
         /// </summary>
-        public MeasureEditorItem() : base()
+        public MeasureEditorItem(Kernel.Domain.SubjectType subjectType)
+            : base(subjectType)
         {
             this.Title = "Measures";
             this.CanClose = false;
@@ -30,7 +31,7 @@ namespace Misp.Initiation.Measure
         /// <returns></returns>
         protected override IEditableView<Misp.Kernel.Domain.Measure> getNewEditorItemForm()
         {
-            return new MeasureForm();
+            return new MeasureForm(this.SubjectType);
         }
 
         public MeasureForm getMeasureForm()

@@ -22,7 +22,8 @@ namespace Misp.Initiation.Model
         public MenuItem SaveMenuItem { get; set; }
         public MenuItem SaveAsMenuItem { get; set; }
 
-        public ModelEditor()
+        public ModelEditor(Kernel.Domain.SubjectType subjectType)
+            : base(subjectType)
         {
             initializeLayoutContent();
         }
@@ -90,7 +91,7 @@ namespace Misp.Initiation.Model
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<Misp.Kernel.Domain.Model> getNewPage() { return new ModelEditorItem(); }
+        protected override EditorItem<Misp.Kernel.Domain.Model> getNewPage() { return new ModelEditorItem(this.SubjectType); }
 
         
     }

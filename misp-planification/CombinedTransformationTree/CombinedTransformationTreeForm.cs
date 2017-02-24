@@ -29,8 +29,9 @@ namespace Misp.Planification.CombinedTransformationTree
         /// <summary>
         /// Constructeur
         /// </summary>
-        public CombinedTransformationTreeForm()
+        public CombinedTransformationTreeForm(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             InitializeComponents();      
         }
 
@@ -48,6 +49,8 @@ namespace Misp.Planification.CombinedTransformationTree
 
 
         #region Properties
+
+        public SubjectType SubjectType { get; set; }
 
         public bool IsReadOnly { get; set; }
         

@@ -9,7 +9,9 @@ namespace Misp.Reporting.Calculated_Measure
 {
    public  class CalculatedMeasureEditorItem : EditorItem <CalculatedMeasure>
     {
-       
+
+
+       public CalculatedMeasureEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
 
        /// <summary>
        /// UNe nouvelle instance de la form.
@@ -17,8 +19,7 @@ namespace Misp.Reporting.Calculated_Measure
        /// <returns></returns>
        protected override IEditableView<CalculatedMeasure> getNewEditorItemForm()
        {
-
-           return new CalculatedMeasureForm();
+           return new CalculatedMeasureForm(this.SubjectType);
        }
 
        public virtual CalculatedMeasureForm getCalculatedMeasureForm()

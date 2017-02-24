@@ -17,8 +17,9 @@ namespace Misp.Reporting.Calculated_Measure
         /// <summary>
         /// Constructeur
         /// </summary>
-        public CalculatedMeasureForm()
+        public CalculatedMeasureForm(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             InitializeComponents();
             this.CalculatedMeasurePanel.Changed += CalculatedMeasureOperationsGrid_Changed;
         }
@@ -50,6 +51,8 @@ namespace Misp.Reporting.Calculated_Measure
 
 
         #region Properties
+
+        public SubjectType SubjectType { get; set; }
 
         public bool IsReadOnly { get; set; }
         

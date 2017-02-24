@@ -13,6 +13,8 @@ namespace Misp.Sourcing.Table
     public class InputTableBrowser : Browser<InputTableBrowserData>
     {
 
+        public InputTableBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         protected override void initializeGrid()
         {
             base.initializeGrid();

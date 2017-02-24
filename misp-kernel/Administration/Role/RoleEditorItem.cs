@@ -9,7 +9,9 @@ namespace Misp.Kernel.Administration.Role
 {
    public  class RoleEditorItem : EditorItem <Domain.Role>
     {
-       
+
+
+       public RoleEditorItem(Domain.SubjectType subjectType) : base(subjectType) { }
 
        /// <summary>
        /// UNe nouvelle instance de la form.
@@ -17,7 +19,7 @@ namespace Misp.Kernel.Administration.Role
        /// <returns></returns>
        protected override IEditableView<Domain.Role> getNewEditorItemForm()
        {
-          return new RoleForm();
+          return new RoleForm(this.SubjectType);
        }
 
        public virtual RoleForm getRoleForm()

@@ -26,6 +26,8 @@ namespace Misp.Initiation.Periodicity
     public partial class PeriodNameForm : Grid, IEditableView<Misp.Kernel.Domain.PeriodName>
     {
 
+        public Kernel.Domain.SubjectType SubjectType { get; set; }
+
         public bool IsReadOnly { get; set; }
 
         public Hyperlink hyperLink;
@@ -36,8 +38,9 @@ namespace Misp.Initiation.Periodicity
         /// <summary>
         /// 
         /// </summary>
-        public PeriodNameForm()
+        public PeriodNameForm(Kernel.Domain.SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             selectedPeriodNamePosition = -1;
             InitializeComponent();
             BuildStandardPeriodLink();

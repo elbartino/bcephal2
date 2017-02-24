@@ -11,6 +11,9 @@ namespace Misp.Reconciliation.ReconciliationContext
 {
     public class ReconciliationContextEditor : Editor<Misp.Kernel.Domain.ReconciliationContext>
     {
+
+        public ReconciliationContextEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         protected override void InitializeNewPage()
         {
             //NewPage = getNewPage();
@@ -34,7 +37,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<Misp.Kernel.Domain.ReconciliationContext> getNewPage() { return new ReconciliationContextEditorItem(); }
+        protected override EditorItem<Misp.Kernel.Domain.ReconciliationContext> getNewPage() { return new ReconciliationContextEditorItem(this.SubjectType); }
 
         public Kernel.Service.GroupService GroupService { get; set; }
 

@@ -361,7 +361,7 @@ namespace Misp.Sourcing.InputGrid
         /// <returns>Une nouvelle instance de la vue</returns>
         protected override IView getNewView() 
         {
-            InputGridEditor editor = new InputGridEditor();
+            InputGridEditor editor = new InputGridEditor(this.SubjectType);
             editor.Service = GetInputGridService();
             return editor; 
         }

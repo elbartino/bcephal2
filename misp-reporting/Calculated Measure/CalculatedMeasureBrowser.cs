@@ -13,6 +13,8 @@ namespace Misp.Reporting.Calculated_Measure
     {
 
 
+        public CalculatedMeasureBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Column count
         /// </summary>

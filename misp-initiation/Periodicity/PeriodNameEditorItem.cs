@@ -20,7 +20,8 @@ namespace Misp.Initiation.Periodicity
         /// <summary>
         /// Contruit une nouvelle instance de PeriodicityEditorItem
         /// </summary>
-        public PeriodNameEditorItem() : base()
+        public PeriodNameEditorItem(Kernel.Domain.SubjectType subjectType)
+            : base(subjectType)
         {
             this.Title = "Period";
             this.CanClose = false;
@@ -42,7 +43,7 @@ namespace Misp.Initiation.Periodicity
         /// <returns></returns>
         protected override IEditableView<Misp.Kernel.Domain.PeriodName> getNewEditorItemForm()
         {
-            return new PeriodNameForm();
+            return new PeriodNameForm(this.SubjectType);
         }
 
         public override void displayObject()

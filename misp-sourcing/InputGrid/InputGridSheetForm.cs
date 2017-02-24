@@ -30,6 +30,8 @@ namespace Misp.Sourcing.InputGrid
 
         #region Properties
 
+        public SubjectType SubjectType { get; set; }
+
         public bool IsReadOnly { get; set; }
         
         public static int COLUMNS_COLOR = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightCoral);
@@ -62,11 +64,18 @@ namespace Misp.Sourcing.InputGrid
         
         #region Constructor
 
+        public InputGridSheetForm()
+            : this(SubjectType.INPUT_GRID)
+        {
+
+        }
+
         /// <summary>
         /// Constructeur
         /// </summary>
-        public InputGridSheetForm()
+        public InputGridSheetForm(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             InitializeComponents();
         }
         

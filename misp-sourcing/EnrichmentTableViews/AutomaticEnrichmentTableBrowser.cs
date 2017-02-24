@@ -9,6 +9,8 @@ namespace Misp.Sourcing.EnrichmentTableViews
 {
     public class AutomaticEnrichmentTableBrowser : AutomaticSourcingBrowser
     {
+        public AutomaticEnrichmentTableBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         protected override bool isAutomaticGrid()
         {
             return false;

@@ -14,6 +14,8 @@ namespace Misp.Initiation.Periodicity
     public class PeriodNameEditor : LayoutDocumentPane, IView
     {
 
+        public SubjectType SubjectType { get; set; }
+
         public bool IsReadOnly { get; set; }
 
         /// <summary>
@@ -28,8 +30,9 @@ namespace Misp.Initiation.Periodicity
 
         public PeriodNameEditorItem periodNameEditorItem;
 
-        public PeriodNameEditor()
+        public PeriodNameEditor(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             Initialize();
         }
 
@@ -40,7 +43,7 @@ namespace Misp.Initiation.Periodicity
 
         private void Initialize()
         {
-            this.periodNameEditorItem = new PeriodNameEditorItem();
+            this.periodNameEditorItem = new PeriodNameEditorItem(this.SubjectType);
             this.Children.Add(this.periodNameEditorItem);
         }
 

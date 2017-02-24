@@ -27,12 +27,15 @@ namespace Misp.Initiation.Model
     /// </summary>
     public partial class ModelForm : Grid, IEditableView<Misp.Kernel.Domain.Model>
     {
-        
-        public ModelForm()
+
+        public ModelForm(Kernel.Domain.SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             InitializeComponent();
             InitializeHandlers();
         }
+
+        public Kernel.Domain.SubjectType SubjectType { get; set; }
 
         public bool IsReadOnly { get; set; }
 

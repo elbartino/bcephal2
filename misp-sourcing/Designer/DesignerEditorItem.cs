@@ -11,6 +11,8 @@ namespace Misp.Sourcing.Designer
     public class DesignerEditorItem : EditorItem<Design>
     {
 
+        public DesignerEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// UNe nouvelle instance de la form.
         /// </summary>
@@ -18,7 +20,7 @@ namespace Misp.Sourcing.Designer
         protected override IEditableView<Design> getNewEditorItemForm()
         {
 
-            return new DesignerForm();
+            return new DesignerForm(this.SubjectType);
         }
 
         public virtual DesignerForm getDesignerForm()

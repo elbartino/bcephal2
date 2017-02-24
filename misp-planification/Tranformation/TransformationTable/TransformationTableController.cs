@@ -55,7 +55,7 @@ namespace Misp.Planification.Tranformation.TransformationTable
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new TransformationTableEditor(); }
+        protected override IView getNewView() { return new TransformationTableEditor(this.SubjectType); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la SideBar liée à ce controller.

@@ -31,6 +31,8 @@ namespace Misp.Sourcing.InputGrid
 
         public bool IsReadOnly { get; set; }
 
+        public SubjectType SubjectType { get; set; }
+
         public TabItem AuditTabItem;
         public TabItem ConfigurationTabItem;
         public GrilleBrowserForm GridForm;
@@ -40,8 +42,9 @@ namespace Misp.Sourcing.InputGrid
 
         #endregion
 
-        public InputGridForm()
+        public InputGridForm(SubjectType SubjectType)
         {
+            this.SubjectType = SubjectType;
             InitializeComponent();
         }
 
@@ -71,8 +74,8 @@ namespace Misp.Sourcing.InputGrid
             this.TabStripPlacement = Dock.Bottom;
             AuditTabItem = new TabItem();
             ConfigurationTabItem = new TabItem();
-            GridForm = new GrilleBrowserForm();
-            InputGridSheetForm = new InputGridSheetForm();
+            GridForm = new GrilleBrowserForm(this.SubjectType);
+            InputGridSheetForm = new InputGridSheetForm(this.SubjectType);
 
             AuditTabItem.Header = "Grid";
             AuditTabItem.Background = Brushes.White;
@@ -83,7 +86,7 @@ namespace Misp.Sourcing.InputGrid
             ConfigurationTabItem.Content = InputGridSheetForm;
             if (ApplicationManager.Instance.User.IsAdmin())
             {
-                this.AdministrationBar = new AdministrationBar(SubjectType.INPUT_GRID.ToString());
+                this.AdministrationBar = new AdministrationBar(this.SubjectType);
             }
             this.Items.Add(AuditTabItem);
             this.Items.Add(ConfigurationTabItem);

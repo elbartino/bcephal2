@@ -27,7 +27,8 @@ namespace Misp.Reconciliation.Posting
 
         public PostingGridService PostingGridService { get; set; }
 
-        public PostingGridEditorItem() : base()
+        public PostingGridEditorItem(SubjectType subjectType)
+            : base(subjectType)
         {
             initializePageHandlers();
         }
@@ -39,7 +40,7 @@ namespace Misp.Reconciliation.Posting
         protected override IEditableView<Grille> getNewEditorItemForm() 
         {
             PostingToolBar = new PostingToolBar();
-            InputGridForm form = new InputGridForm();
+            InputGridForm form = new InputGridForm(this.SubjectType);
             form.GridForm.filterForm.RecoPanel.Visibility = Visibility.Visible;
             form.GridForm.otherToolBarPanel.Children.Add(PostingToolBar);
             return form;

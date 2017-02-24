@@ -101,7 +101,7 @@ namespace Misp.Initiation.Measure
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new MeasureEditorItem(); }
+        protected override IView getNewView() { return new MeasureEditorItem(this.SubjectType); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

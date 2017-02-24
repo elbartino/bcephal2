@@ -415,7 +415,7 @@ namespace Misp.Planification.Tranformation
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new TransformationTreeEditor(); }
+        protected override IView getNewView() { return new TransformationTreeEditor(this.SubjectType); }
 
         protected override void initializePageHandlers(EditorItem<TransformationTree> page)
         {

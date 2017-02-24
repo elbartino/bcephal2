@@ -28,7 +28,7 @@ namespace Misp.Sourcing.Table
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new InputTableBrowser(); }
+        protected override IView getNewView() { return new InputTableBrowser(this.SubjectType); }
         
         /// <summary>
         /// Initialisation des donnée sur la vue.

@@ -17,6 +17,7 @@ using Misp.Kernel.Ui.Office;
 using Misp.Kernel.Ui.Office.EDraw;
 using Misp.Sourcing.Table;
 using Misp.Kernel.Service;
+using Misp.Kernel.Domain;
 
 namespace Misp.Reconciliation.ReconciliationContext
 {
@@ -24,6 +25,8 @@ namespace Misp.Reconciliation.ReconciliationContext
     {
 
         #region Properties
+
+        public SubjectType SubjectType { get; set; }
 
         public bool IsReadOnly { get; set; }
         
@@ -58,8 +61,9 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// <summary>
         /// Constructeur
         /// </summary>
-        public ReconciliationContexForm()
+        public ReconciliationContexForm(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             InitializeComponents();
         }
 

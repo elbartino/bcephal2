@@ -35,6 +35,8 @@ namespace Misp.Sourcing.Table
 
         #region Properties
 
+        public SubjectType SubjectType { get; set; }
+
         public bool IsReadOnly { get; set; }
         
         public MenuItem RunMenuItem;
@@ -50,8 +52,9 @@ namespace Misp.Sourcing.Table
         /// <summary>
         /// Constructeur
         /// </summary>
-        public InputTableForm()
+        public InputTableForm(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             ThemeManager.SetThemeName(this, "None");
             InitializeComponents();
             InitializeExcelMenu();            

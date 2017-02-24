@@ -50,7 +50,7 @@ namespace Misp.Kernel.Administration.Role
         /// <returns>Une nouvelle instance de la vue</returns>
         protected override IView getNewView() 
         {
-            return new RoleBrowser(); 
+            return new RoleBrowser(this.SubjectType); 
         }
 
         public override OperationState Save()

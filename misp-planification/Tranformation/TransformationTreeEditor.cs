@@ -21,8 +21,9 @@ namespace Misp.Planification.Tranformation
         public MenuItem SaveMenuItem { get; set; }
         public MenuItem SaveAsMenuItem { get; set; }
 
-        
-        public TransformationTreeEditor()
+
+        public TransformationTreeEditor(Kernel.Domain.SubjectType subjectType)
+            : base(subjectType)
         {
             initializeLayoutContent();
         }
@@ -92,7 +93,7 @@ namespace Misp.Planification.Tranformation
         /// <returns>Une nouvelle instance de EditorItem</returns>
         protected override EditorItem<Misp.Kernel.Domain.TransformationTree> getNewPage() 
         {
-            TransformationTreeEditorItem page = new TransformationTreeEditorItem();
+            TransformationTreeEditorItem page = new TransformationTreeEditorItem(this.SubjectType);
             return page; 
         }
 

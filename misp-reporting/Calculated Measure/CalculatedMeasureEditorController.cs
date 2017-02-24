@@ -235,7 +235,7 @@ namespace Misp.Reporting.Calculated_Measure
         /// OperationState.CONTINUE si l'opération a réussi
         /// OperationState.STOP sinon
         /// </returns>
-        CalculatedMeasureEditorItem currentPage = new CalculatedMeasureEditorItem();
+        CalculatedMeasureEditorItem currentPage = null;
 
         public override OperationState Save(EditorItem<CalculatedMeasure> page)
         {
@@ -373,7 +373,7 @@ namespace Misp.Reporting.Calculated_Measure
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new CalculatedMeasureEditor(); }
+        protected override IView getNewView() { return new CalculatedMeasureEditor(this.SubjectType); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

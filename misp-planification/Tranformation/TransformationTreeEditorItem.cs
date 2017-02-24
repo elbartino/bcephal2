@@ -12,7 +12,8 @@ namespace Misp.Planification.Tranformation
          /// <summary>
         /// Contruit une nouvelle instance de PeriodicityEditorItem
         /// </summary>
-        public TransformationTreeEditorItem() : base()
+        public TransformationTreeEditorItem(Kernel.Domain.SubjectType subjectType)
+            : base(subjectType)
         {
             this.Title = "Transformation Tree";
             this.CanFloat = false;
@@ -24,7 +25,7 @@ namespace Misp.Planification.Tranformation
         /// <returns></returns>
         protected override IEditableView<Misp.Kernel.Domain.TransformationTree> getNewEditorItemForm()
         {
-            return new TransformationTreeForm();
+            return new TransformationTreeForm(this.SubjectType);
         }
 
         /// <summary>

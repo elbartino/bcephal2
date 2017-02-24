@@ -12,8 +12,8 @@ namespace Misp.Kernel.Administration.User
           /// <summary>
         /// Contruit une nouvelle instance de UserEditorItem
         /// </summary>
-        public UserEditorItem()
-            : base()
+        public UserEditorItem(Domain.SubjectType subjectType)
+            : base(subjectType)
         {
             this.Title = "User";
             this.CanFloat = false;
@@ -21,7 +21,7 @@ namespace Misp.Kernel.Administration.User
 
         protected override IEditableView<Domain.User> getNewEditorItemForm()
         {
-            return new UserForm();
+            return new UserForm(this.SubjectType);
         }
 
         /// <summary>

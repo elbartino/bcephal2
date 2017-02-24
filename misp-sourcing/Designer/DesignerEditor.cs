@@ -11,11 +11,13 @@ namespace Misp.Sourcing.Designer
     public class DesignerEditor : Editor<Design>
     {
 
+        public DesignerEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<Design> getNewPage() { return new DesignerEditorItem(); }
+        protected override EditorItem<Design> getNewPage() { return new DesignerEditorItem(this.SubjectType); }
 
         public Kernel.Service.GroupService GroupService { get; set; }
 

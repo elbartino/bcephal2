@@ -11,11 +11,13 @@ namespace Misp.Planification.CombinedTransformationTree
     public class CombinedTransformationTreeEditor : Editor<Kernel.Domain.CombinedTransformationTree>
     {
 
+        public CombinedTransformationTreeEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<Kernel.Domain.CombinedTransformationTree> getNewPage() { return new CombinedTransformationTreeEditorItem(); }
+        protected override EditorItem<Kernel.Domain.CombinedTransformationTree> getNewPage() { return new CombinedTransformationTreeEditorItem(this.SubjectType); }
 
         public Kernel.Service.GroupService GroupService { get; set; }
 

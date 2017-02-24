@@ -9,6 +9,7 @@ using Xceed.Wpf.AvalonDock.Layout;
 using Misp.Kernel.Application;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using Misp.Kernel.Domain;
 
 namespace Misp.Kernel.Ui.Base
 {
@@ -19,9 +20,9 @@ namespace Misp.Kernel.Ui.Base
     /// <typeparam name="T">Le type d'objet manager par cet éditeur</typeparam>
 
     public abstract class Editor<T> : LayoutDocumentPane, IView where T : Domain.Persistent
-    { 
-        //private ContextMenu ContextMenu;
-        //public EditorContextMenu EditorContextMenu = new EditorContextMenu();
+    {
+
+        public SubjectType SubjectType { get; set; }
 
         public bool IsReadOnly { get; set; }
 
@@ -36,8 +37,9 @@ namespace Misp.Kernel.Ui.Base
         /// <summary>
         /// Construit une nouvelle instance de Editor
         /// </summary>
-        public Editor()
+        public Editor(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             ListChangeHandler = new Domain.PersistentListChangeHandler<T>();
             InitializeNewPage();
         }

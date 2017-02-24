@@ -32,7 +32,9 @@ namespace Misp.Reporting.StructuredReport
         public static int COLUMNS_COLOR = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightCoral);
 
         public bool IsReadOnly { get; set; }
-        
+
+        public SubjectType SubjectType { get; set; }
+
         #endregion
         
         #region Constructor
@@ -40,8 +42,9 @@ namespace Misp.Reporting.StructuredReport
         /// <summary>
         /// Constructeur
         /// </summary>
-        public StructuredReportForm()
+        public StructuredReportForm(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             InitializeComponents();
         }
         

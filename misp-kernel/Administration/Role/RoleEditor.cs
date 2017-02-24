@@ -9,11 +9,13 @@ namespace Misp.Kernel.Administration.Role
 {
     public class RoleEditor :Editor<Domain.Role>
     {
+        public RoleEditor(Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<Domain.Role> getNewPage() { return new RoleEditorItem(); }
+        protected override EditorItem<Domain.Role> getNewPage() { return new RoleEditorItem(this.SubjectType); }
 
         public Kernel.Service.GroupService GroupService { get; set; }
 

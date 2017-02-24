@@ -162,7 +162,7 @@ namespace Misp.Initiation.Model
         /// <returns>Une nouvelle instance de la vue</returns>
         protected override IView getNewView() 
         {
-            ModelEditor editor = new ModelEditor();
+            ModelEditor editor = new ModelEditor(this.SubjectType);
             Style LayoutDocumentTabItemStyle = new Style(typeof(LayoutDocumentTabItem));
             LayoutDocumentTabItemStyle.Setters.Add(new EventSetter(LayoutDocumentTabItem.MouseDoubleClickEvent, new MouseButtonEventHandler(OnPageTabDoubleClick)) { });
             LayoutDocumentTabItemStyle.Setters.Add(new EventSetter(LayoutDocumentTabItem.MouseLeftButtonDownEvent, new MouseButtonEventHandler(OnPageTabMouseLeftButtonDown)) { });

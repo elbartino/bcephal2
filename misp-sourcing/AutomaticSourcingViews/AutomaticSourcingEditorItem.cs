@@ -9,9 +9,11 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 {
     public class AutomaticSourcingEditorItem : EditorItem<Misp.Kernel.Domain.AutomaticSourcing>
     {
+        public AutomaticSourcingEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         protected override IEditableView<Misp.Kernel.Domain.AutomaticSourcing> getNewEditorItemForm()
         {
-            return new AutomaticSourcingForm();
+            return new AutomaticSourcingForm(this.SubjectType);
         }
 
         public virtual AutomaticSourcingForm getAutomaticSourcingForm()

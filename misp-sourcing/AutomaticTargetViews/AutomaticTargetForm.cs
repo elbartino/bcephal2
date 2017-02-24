@@ -11,6 +11,8 @@ namespace Misp.Sourcing.AutomaticTargetViews
     {
         #region Constructors
 
+        public AutomaticTargetForm(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         protected override void InitializeComponents()
         {
             base.InitializeComponents();

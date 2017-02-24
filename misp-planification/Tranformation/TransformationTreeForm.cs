@@ -25,6 +25,8 @@ namespace Misp.Planification.Tranformation
 
         #region Properties
 
+        public SubjectType SubjectType { get; set; }
+
         public bool IsReadOnly { get; set; }
         
         public TransformationTree EditedObject { get; set; }
@@ -53,8 +55,9 @@ namespace Misp.Planification.Tranformation
 
         #region Constructor
 
-        public TransformationTreeForm()
+        public TransformationTreeForm(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             InitializeComponents();
             InitializeHandlers();
         }

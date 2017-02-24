@@ -11,10 +11,12 @@ namespace Misp.Planification.Tranformation.TransformationTable
 {
     public class TransformationTableEditor : StructuredReportEditor
     {
+        public TransformationTableEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<StructuredReport> getNewPage() { return new TransformationTableEditorItem(); }
+        protected override EditorItem<StructuredReport> getNewPage() { return new TransformationTableEditorItem(this.SubjectType); }
     }
 }

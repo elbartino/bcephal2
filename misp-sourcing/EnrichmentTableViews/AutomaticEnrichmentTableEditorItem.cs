@@ -12,13 +12,15 @@ namespace Misp.Sourcing.EnrichmentTableViews
     public class AutomaticEnrichmentTableEditorItem : AutomaticSourcingEditorItem
     {
 
+        public AutomaticEnrichmentTableEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// UNe nouvelle instance de la form.
         /// </summary>
         /// <returns></returns>
         protected override IEditableView<AutomaticSourcing> getNewEditorItemForm()
         {
-            return new AutomaticEnrichmentTableForm();
+            return new AutomaticEnrichmentTableForm(this.SubjectType);
         }
 
         public override AutomaticSourcingForm getAutomaticSourcingForm()

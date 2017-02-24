@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Misp.Kernel.Ui.Base
     public interface IEditableView<T> : IView
     {
 
-        
+        SubjectType SubjectType { get; set; }
 
         /// <summary>
         /// Indique si la vue a été modifiée.

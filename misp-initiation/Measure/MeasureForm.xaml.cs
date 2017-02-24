@@ -29,10 +29,13 @@ namespace Misp.Initiation.Measure
         /// <summary>
         /// 
         /// </summary>
-        public MeasureForm()
+        public MeasureForm(Kernel.Domain.SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             InitializeComponent();
         }
+
+        public Kernel.Domain.SubjectType SubjectType { get; set; }
 
         public bool IsReadOnly { get; set; }
 

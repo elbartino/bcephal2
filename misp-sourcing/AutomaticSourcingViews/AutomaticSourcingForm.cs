@@ -28,6 +28,8 @@ namespace Misp.Sourcing.AutomaticSourcingViews
     {
         #region Properties
 
+        public SubjectType SubjectType { get; set; }
+
         public bool IsReadOnly { get; set; }
         
         public MenuItem RunMenuItem;
@@ -44,8 +46,9 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         /// <summary>
         /// Constructeur
         /// </summary>
-        public AutomaticSourcingForm()
+        public AutomaticSourcingForm(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             InitializeComponents();
             InitializeExcelMenu();
       

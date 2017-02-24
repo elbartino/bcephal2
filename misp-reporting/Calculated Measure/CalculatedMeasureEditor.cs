@@ -9,11 +9,13 @@ namespace Misp.Reporting.Calculated_Measure
 {
     public class CalculatedMeasureEditor :Editor<CalculatedMeasure>
     {
+        public CalculatedMeasureEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<CalculatedMeasure> getNewPage() { return new CalculatedMeasureEditorItem(); }
+        protected override EditorItem<CalculatedMeasure> getNewPage() { return new CalculatedMeasureEditorItem(this.SubjectType); }
 
         public Kernel.Service.GroupService GroupService { get; set; }
 

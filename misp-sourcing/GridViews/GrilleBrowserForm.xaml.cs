@@ -25,6 +25,8 @@ namespace Misp.Sourcing.GridViews
         
         protected bool throwHandler = true;
 
+        public SubjectType SubjectType { get; set; }
+
         public bool IsReadOnly { get; set; }
         
         /// <summary>
@@ -50,9 +52,15 @@ namespace Misp.Sourcing.GridViews
 
         public GrilleFilterForm filterForm { get; private set; }
 
-
         public GrilleBrowserForm()
+            : this(SubjectType.INPUT_GRID)
         {
+
+        }
+
+        public GrilleBrowserForm(SubjectType subjectType)
+        {
+            this.SubjectType = subjectType;
             InitializeComponent();
             filterForm = new GrilleFilterForm();
             filterForm.periodFilter.DisplayPeriod(null);

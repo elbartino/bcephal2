@@ -9,6 +9,8 @@ namespace Misp.Sourcing.GridViews
 {
     public class AutomaticSourcingGridBrowser : AutomaticSourcingBrowser
     {
+        public AutomaticSourcingGridBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         protected override bool isAutomaticGrid()
         {
             return true;

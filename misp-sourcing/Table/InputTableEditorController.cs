@@ -1232,7 +1232,7 @@ namespace Misp.Sourcing.Table
 
         private void createDesign(object object_parameters)
         {
-            DesignerForm designForm = new DesignerForm();
+            DesignerForm designForm = new DesignerForm(this.SubjectType);
             DesignWindow designWindow = new DesignWindow();
             NavigationToken token = NavigationToken.GetCreateViewToken(Sourcing.Base.SourcingFunctionalitiesCode.DESIGN_EDIT);
             Controllable page = ApplicationManager.ControllerFactory.GetController(token.Functionality, token.ViewType, token.EditionMode);
@@ -2911,7 +2911,7 @@ namespace Misp.Sourcing.Table
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new InputTableEditor(); }
+        protected override IView getNewView() { return new InputTableEditor(this.SubjectType); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

@@ -13,6 +13,8 @@ namespace Misp.Kernel.Administration.UserProfile
     {
         #region Property
 
+        public Domain.SubjectType SubjectType { get; set; }
+
         public bool IsReadOnly { get; set; }
 
         /// <summary>
@@ -44,8 +46,10 @@ namespace Misp.Kernel.Administration.UserProfile
         /// <summary>
         /// Constructeur
         /// </summary>
-        public UserProfileForm()
+        public UserProfileForm(Domain.SubjectType type)
+            : base()
         {
+            this.SubjectType = type;
             InitializeComponents();
         }
 

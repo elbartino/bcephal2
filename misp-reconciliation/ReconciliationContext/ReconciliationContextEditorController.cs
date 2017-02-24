@@ -125,7 +125,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// OperationState.CONTINUE si l'opération a réussi
         /// OperationState.STOP sinon
         /// </returns>
-        ReconciliationContextEditorItem currentPage = new ReconciliationContextEditorItem();
+        ReconciliationContextEditorItem currentPage = null;
 
         public override OperationState Save(EditorItem<Kernel.Domain.ReconciliationContext> page)
         {
@@ -196,7 +196,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new  ReconciliationContextEditor();  }
+        protected override IView getNewView() { return new ReconciliationContextEditor(this.SubjectType); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

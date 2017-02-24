@@ -19,7 +19,8 @@ namespace Misp.Initiation.Model
         /// <summary>
         /// Contruit une nouvelle instance de PeriodicityEditorItem
         /// </summary>
-        public ModelEditorItem() : base()
+        public ModelEditorItem(Kernel.Domain.SubjectType subjectType)
+            : base(subjectType)
         {
             this.Title = "Model";
             this.CanClose = false;
@@ -32,7 +33,7 @@ namespace Misp.Initiation.Model
         /// <returns></returns>
         protected override IEditableView<Misp.Kernel.Domain.Model> getNewEditorItemForm()
         {
-            return new ModelForm();
+            return new ModelForm(this.SubjectType);
         }
 
         /// <summary>

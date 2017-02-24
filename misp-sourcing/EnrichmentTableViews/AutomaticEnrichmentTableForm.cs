@@ -11,6 +11,8 @@ namespace Misp.Sourcing.EnrichmentTableViews
     {
         #region Constructors
 
+        public AutomaticEnrichmentTableForm(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         protected override void InitializeComponents()
         {
             base.InitializeComponents();

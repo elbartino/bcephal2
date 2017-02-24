@@ -11,11 +11,13 @@ namespace Misp.Reporting.StructuredReport
     public class StructuredReportEditorItem : EditorItem<Misp.Kernel.Domain.StructuredReport>
     {
 
+        public StructuredReportEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// UNe nouvelle instance de la form.
         /// </summary>
         /// <returns></returns>
-        protected override IEditableView<Misp.Kernel.Domain.StructuredReport> getNewEditorItemForm() { return new StructuredReportForm(); }
+        protected override IEditableView<Misp.Kernel.Domain.StructuredReport> getNewEditorItemForm() { return new StructuredReportForm(this.SubjectType); }
 
         public virtual StructuredReportForm getStructuredReportForm()
         {

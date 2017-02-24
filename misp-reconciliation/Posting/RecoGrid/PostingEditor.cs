@@ -14,6 +14,7 @@ namespace Misp.Reconciliation.RecoGrid
 {
     public class PostingEditor : PostingGridEditor
     {
+        public PostingEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
 
         protected override void OnChildrenCollectionChanged()
         {

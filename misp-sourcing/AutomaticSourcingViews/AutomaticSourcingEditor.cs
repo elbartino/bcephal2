@@ -10,11 +10,13 @@ namespace Misp.Sourcing.AutomaticSourcingViews
 {
     public class AutomaticSourcingEditor :  Editor<Misp.Kernel.Domain.AutomaticSourcing>
     {
+        public AutomaticSourcingEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
-        protected override EditorItem<Misp.Kernel.Domain.AutomaticSourcing> getNewPage() { return new AutomaticSourcingEditorItem(); }
+        protected override EditorItem<Misp.Kernel.Domain.AutomaticSourcing> getNewPage() { return new AutomaticSourcingEditorItem(this.SubjectType); }
 
         public Kernel.Service.GroupService GroupService { get; set; }
 

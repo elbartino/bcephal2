@@ -30,6 +30,8 @@ namespace Misp.Reconciliation.Reco
 
         #region Properties
 
+        public SubjectType SubjectType { get; set; }
+
         public bool IsReadOnly { get; set; }
 
         /// <summary>
@@ -60,8 +62,9 @@ namespace Misp.Reconciliation.Reco
 
         #region Contollers
 
-        public ReconciliationFilterTemplateForm()
+        public ReconciliationFilterTemplateForm(SubjectType subjectType)
         {
+            this.SubjectType = subjectType;
             InitializeComponent();
             UserInit();
             InitHandlers();

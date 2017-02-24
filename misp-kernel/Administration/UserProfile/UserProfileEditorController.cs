@@ -121,7 +121,7 @@ namespace Misp.Kernel.Administration.UserProfile
         /// OperationState.CONTINUE si l'opération a réussi
         /// OperationState.STOP sinon
         /// </returns>
-        UserProfileEditorItem currentPage = new UserProfileEditorItem();
+        UserProfileEditorItem currentPage = null;
 
         public override OperationState Save(EditorItem<Domain.User> page)
         {
@@ -221,7 +221,7 @@ namespace Misp.Kernel.Administration.UserProfile
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new UserProfileEditor(); }
+        protected override IView getNewView() { return new UserProfileEditor(this.SubjectType); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

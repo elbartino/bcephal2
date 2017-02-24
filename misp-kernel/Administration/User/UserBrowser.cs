@@ -12,6 +12,8 @@ namespace Misp.Kernel.Administration.User
     public class UserBrowser : Browser<UserBrowserData>
     {
 
+        public UserBrowser(Domain.SubjectType subjectType) : base(subjectType) { }
+
         /// <summary>
         /// Column count
         /// </summary>
