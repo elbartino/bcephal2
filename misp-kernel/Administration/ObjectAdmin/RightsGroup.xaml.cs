@@ -189,7 +189,8 @@ namespace Misp.Kernel.Administration.ObjectAdmin
 
         private void buildLabelList(String subjectType) 
         {
-            if (subjectType.Equals(SubjectType.INPUT_GRID.label) || subjectType.Equals(SubjectType.INPUT_TABLE.label))
+            if (subjectType.Equals(SubjectType.INPUT_GRID.label) || subjectType.Equals(SubjectType.INPUT_TABLE.label)
+               || (subjectType.Equals(SubjectType.DESIGN.label) || (subjectType.Equals(SubjectType.TARGET.label) )
             {
                 labelList.Add(editLabel);
                 labelList.Add(viewLabel);
