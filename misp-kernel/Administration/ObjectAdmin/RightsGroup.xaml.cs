@@ -140,7 +140,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                 else if (ObjectType.Equals(SubjectType.REPORT.label))
                 {
                     AddCheckBox(new RightCheckBox("View", RightType.VIEW));
-                    AddCheckBox(new RightCheckBox("Edit Table", RightType.EDIT));
+                    AddCheckBox(new RightCheckBox("Edit Report", RightType.EDIT));
                     AddCheckBox(new RightCheckBox("Edit Cell", RightType.EDIT_CELL));
                     AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
                     AddCheckBox(new RightCheckBox("Run", RightType.LOAD));

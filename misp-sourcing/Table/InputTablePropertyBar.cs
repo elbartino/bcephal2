@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Misp.Kernel.Ui.Base;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock;
+using Misp.Kernel.Application;
 
 
 namespace Misp.Sourcing.Table
@@ -20,6 +21,8 @@ namespace Misp.Sourcing.Table
 
         public LayoutAnchorable ParameterLayoutAnchorable { get; set; }
         public LayoutAnchorable MappingLayoutAnchorable { get; set; }
+
+        public LayoutAnchorable AdministratorLayoutAnchorable { get; set; }
 
         public LayoutAnchorablePane Pane { get; set; }
 
@@ -81,11 +84,20 @@ namespace Misp.Sourcing.Table
             //this.Panes.Add(pane);
 
             Pane = new LayoutAnchorablePane();
-            
+            if (ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.AdministratorLayoutAnchorable = new LayoutAnchorable();
+                this.AdministratorLayoutAnchorable.Title = "Administration";
+                this.AdministratorLayoutAnchorable.CanAutoHide = false;
+                this.AdministratorLayoutAnchorable.CanClose = false;
+                this.AdministratorLayoutAnchorable.CanFloat = false;
+                this.AdministratorLayoutAnchorable.CanHide = false;
+            }
             
             Pane.Children.Add(TableLayoutAnchorable);
             Pane.Children.Add(ParameterLayoutAnchorable);
             Pane.Children.Add(AllocationLayoutAnchorable);
+            if (AdministratorLayoutAnchorable != null) Pane.Children.Add(AdministratorLayoutAnchorable);
             //Pane.Children.Add(UserRightLayoutAnchorable);
             this.Panes.Add(Pane);
 

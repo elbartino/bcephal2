@@ -25,6 +25,7 @@ using Misp.Sourcing.AllocationViews;
 using Misp.Kernel.Ui.Office.DevExpressSheet;
 using DevExpress.Xpf.Core;
 using Misp.Kernel.Administration.Profil;
+using Misp.Kernel.Administration.ObjectAdmin;
 namespace Misp.Sourcing.Table
 {
     /// <summary>
@@ -44,6 +45,8 @@ namespace Misp.Sourcing.Table
         public CheckBox ApplyToAllMenuItem;
 
         public MenuItem AuditMenuItem;
+
+        public AdministrationBar AdministrationBar { get; set; }
 
         #endregion
         
@@ -113,6 +116,10 @@ namespace Misp.Sourcing.Table
             this.CellPropertyGrid.hideContextMenu();
             try
             {
+                if (Misp.Kernel.Application.ApplicationManager.Instance.User.IsAdmin())
+                {
+                    this.AdministrationBar = new AdministrationBar(this.SubjectType);
+                }
 
                 this.SpreadSheet = new DESpreadsheet();
                 designTabItem.Content = this.SpreadSheet;
@@ -335,6 +342,11 @@ namespace Misp.Sourcing.Table
             //bool isNoAllocation = !isReport() && this.TableCellParameterPanel.allocationPanel.AllocationData.type ==
             //    CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
             //this.TablePropertiesPanel.displayTable(this.EditedObject,isNoAllocation);
+            if (this.AdministrationBar != null)
+            {
+                this.AdministrationBar.EditedObject = this.EditedObject;
+                this.AdministrationBar.Display();
+            }
             this.CellPropertyGrid.ItemsSource = this.EditedObject.cellPropertyListChangeHandler.Items;
         }
 
