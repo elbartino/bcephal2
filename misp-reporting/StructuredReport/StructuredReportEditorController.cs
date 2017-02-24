@@ -340,7 +340,9 @@ namespace Misp.Reporting.StructuredReport
         {
             if (page == null) return;
             StructuredReportForm form = ((StructuredReportEditorItem)page).getStructuredReportForm();
-            ((StructuredReportPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = form.StructuredReportPropertiesPanel;
+            StructuredReportPropertyBar bar = (StructuredReportPropertyBar)this.PropertyBar;
+            bar.DesignLayoutAnchorable.Content = form.StructuredReportPropertiesPanel;
+            if (bar.AdministratorLayoutAnchorable != null) bar.AdministratorLayoutAnchorable.Content = form.AdministrationBar;
         }
 
         /// <summary>
@@ -448,6 +450,15 @@ namespace Misp.Reporting.StructuredReport
             editorPage.getStructuredReportForm().StructuredReportPropertiesPanel.Changed += OnStructuredReportPropertiesChange;
             editorPage.getStructuredReportForm().StructuredReportPropertiesPanel.selectionColumnChanged += OnStructuredReportPropertiesSelectionColumnChange;
             editorPage.getStructuredReportForm().SpreadSheet.SelectionChanged += OnSpreadSheetSelectionChanged;
+            if (editorPage.getStructuredReportForm().AdministrationBar != null)
+            {
+                editorPage.getStructuredReportForm().AdministrationBar.Changed += OnChangeEventHandler;
+            }
+        }
+
+        private void OnChangeEventHandler()
+        {
+            OnChange();
         }
 
         private void OnSetTableVisible(object item)
