@@ -274,7 +274,9 @@ namespace Misp.Sourcing.Designer
         {
             if (page == null) return;
             DesignerForm form = ((DesignerEditorItem)page).getDesignerForm();
-            ((DesignerPropertyBar)this.PropertyBar).DesignLayoutAnchorable.Content = form.DesignerPropertiesPanel;
+            DesignerPropertyBar bar = (DesignerPropertyBar)this.PropertyBar;
+            if (bar.AdministratorLayoutAnchorable != null) bar.AdministratorLayoutAnchorable.Content = form.AdministrationBar;
+            bar.DesignLayoutAnchorable.Content = form.DesignerPropertiesPanel;      
         }
         
         /// <summary>
@@ -375,6 +377,12 @@ namespace Misp.Sourcing.Designer
             editorPage.getDesignerForm().DesignerPropertiesPanel.groupField.Changed += onGroupFieldChange;
 
             editorPage.getDesignerForm().DesignerPropertiesPanel.Changed += OnDesignerPropertiesChange;
+
+            if (editorPage.getDesignerForm().AdministrationBar != null)
+            {
+                editorPage.getDesignerForm().AdministrationBar.Changed += OnChangeEventHandler;
+            }
+
             //editorPage.getDesignerForm().DesignerPropertiesPanel.ColumnsField.ItemDeleted += OnFilterChange;
             //editorPage.getDesignerForm().DesignerPropertiesPanel.RowsField.ItemDeleted += OnFilterDelete;;
             //editorPage.getDesignerForm().DesignerPropertiesPanel.CentralField.ItemDeleted += OnFilterDelete;
@@ -633,7 +641,12 @@ namespace Misp.Sourcing.Designer
             ((DesignerSideBar)SideBar).DesignerGroup.DesignerTreeview.updateDesign(name, page.Title, true);
             OnChange();
         }
-        
+
+        private void OnChangeEventHandler()
+        {
+            OnChange();
+        }
+
         private void OnDesignerPropertiesChange()
         {
             DesignerEditorItem page = (DesignerEditorItem)getDesignerEditor().getActivePage();

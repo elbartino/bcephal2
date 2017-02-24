@@ -20,6 +20,7 @@ using System.Windows.Forms.Integration;
 using System.Collections.ObjectModel;
 using System.Threading;
 using Misp.Kernel.Ui.Office.DevExpressSheet;
+using Misp.Kernel.Administration.ObjectAdmin;
 
 namespace Misp.Sourcing.Designer
 {
@@ -34,6 +35,8 @@ namespace Misp.Sourcing.Designer
         public static int NULL_COLOR = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White);
 
         public static int TOTAL_COLOR = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+
+        public AdministrationBar AdministrationBar { get; set; }
 
         #endregion
         
@@ -60,6 +63,12 @@ namespace Misp.Sourcing.Designer
             
             try
             {
+
+                if (Misp.Kernel.Application.ApplicationManager.Instance.User.IsAdmin())
+                {
+                    this.AdministrationBar = new AdministrationBar(this.SubjectType);
+                }
+               
                 this.SpreadSheet = new DESheetPanel();
                 this.SpreadSheet.CreateNewExcelFile();                
                 this.Content = SpreadSheet;
@@ -159,6 +168,13 @@ namespace Misp.Sourcing.Designer
                 periodicity = Misp.Kernel.Application.ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetPeriodicityService().getPeriodicity();
             }
             this.DesignerPropertiesPanel.Display(this.EditedObject);
+
+            if (this.AdministrationBar != null)
+            {
+                this.AdministrationBar.EditedObject = this.EditedObject;
+                this.AdministrationBar.Display();
+            }
+
             BuildSheetTable();
         }
 
