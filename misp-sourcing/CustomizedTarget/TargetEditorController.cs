@@ -182,6 +182,9 @@ namespace Misp.Sourcing.CustomizedTarget
             if (page == null) return;
             TargetForm form = ((TargetEditorItem)page).getTargetForm();
             ((TargetPropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.TargetPropertiesPanel;
+            TargetPropertyBar bar = (TargetPropertyBar)this.PropertyBar;
+            if (bar.AdministratorLayoutAnchorable != null) bar.AdministratorLayoutAnchorable.Content = form.AdministrationBar;
+            
         }
         
         /// <summary>
@@ -280,7 +283,17 @@ namespace Misp.Sourcing.CustomizedTarget
             editorPage.getTargetForm().TargetPropertiesPanel.groupField.Changed += onGroupFieldChange;
             editorPage.getTargetForm().ScopePanel.Changed += onScopePanelChange;
             editorPage.getTargetForm().ScopePanel.ItemDeleted += onScopeItemDeleted;
+
+            if (editorPage.getTargetForm().AdministrationBar != null)
+            {
+                editorPage.getTargetForm().AdministrationBar.Changed += OnChangeEventHandler;
+            }
        }
+
+        private void OnChangeEventHandler()
+        {
+            OnChange();
+        }
 
         /// <summary>
         /// Initialisation des donnée sur la SideBar.
