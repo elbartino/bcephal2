@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Application;
+﻿using Misp.Kernel.Administration.ObjectAdmin;
+using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
@@ -57,6 +58,8 @@ namespace Misp.Reconciliation.Reco
 
         public RecoWriteOffDialog dialog { get; set; }
 
+        public AdministrationBar AdministrationBar { get; set; }
+
         #endregion
 
 
@@ -88,7 +91,7 @@ namespace Misp.Reconciliation.Reco
                 this.LeftGrid.CommentButton.Visibility = Visibility.Visible;
 
                 this.RightGrid.NameTextBox.Visibility = Visibility.Visible;
-                this.RightGrid.CommentButton.Visibility = Visibility.Visible;
+                this.RightGrid.CommentButton.Visibility = Visibility.Visible;                
             }
             else
             {
@@ -98,6 +101,8 @@ namespace Misp.Reconciliation.Reco
                 this.RightGridProperties.InputGridPropertiesPanel.gridEachLoop.Visibility = System.Windows.Visibility.Collapsed;
                 this.BottomGridProperties.InputGridPropertiesPanel.GroupPanel.Visibility = System.Windows.Visibility.Collapsed;
                 this.BottomGridProperties.InputGridPropertiesPanel.gridEachLoop.Visibility = System.Windows.Visibility.Collapsed;
+
+                this.AdministrationBar = new AdministrationBar(this.SubjectType);
             }
         }
 
@@ -269,6 +274,12 @@ namespace Misp.Reconciliation.Reco
                 this.LeftGridProperties.displayObject();
                 this.RightGridProperties.displayObject();
                 this.BottomGridProperties.displayObject();
+            }
+
+            if (this.AdministrationBar != null)
+            {
+                this.AdministrationBar.EditedObject = this.EditedObject;
+                this.AdministrationBar.Display();
             }
         }
 
