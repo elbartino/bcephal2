@@ -37,20 +37,9 @@ namespace Misp.Kernel.Administration.ObjectAdmin
         public String ObjectType { get; set; }
 
         public RightsGroupHeader RightsGroupHeader { get; set; }
-
-        private List<string> labelList = new List<string>();
-
+        
         private bool throwHandler;
-
-        string createLabel = "Create ";
-        string editLabel = "Edit ";
-        string viewLabel = "View ";
-        string saveLabel = "Save ";
-        string deleteLabel = "Delete ";
-        string saveAsLabel = "Save As ";
-        string clearLabel = "Clear ";
-        string runLabel = "Run ";
-
+        
         #endregion
 
 
@@ -137,75 +126,58 @@ namespace Misp.Kernel.Administration.ObjectAdmin
 
             if (!string.IsNullOrWhiteSpace(ObjectType))
             {
-               
                 if (ObjectType.Equals(SubjectType.INPUT_TABLE.label))
                 {
-                    setLabelText(SubjectType.INPUT_TABLE);
+                    AddCheckBox(new RightCheckBox("View", RightType.VIEW));
+                    AddCheckBox(new RightCheckBox("Edit Table", RightType.EDIT));
+                    AddCheckBox(new RightCheckBox("Edit Cell", RightType.EDIT_CELL));
+                    AddCheckBox(new RightCheckBox("Edit Allocation", RightType.EDIT_ALLOCATION));
+                    AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
+                    AddCheckBox(new RightCheckBox("Load", RightType.LOAD));
+                    AddCheckBox(new RightCheckBox("Clear", RightType.CLEAR));
+                    AddCheckBox(new RightCheckBox("Save as", RightType.SAVE_AS));
                 }
                 else if (ObjectType.Equals(SubjectType.REPORT.label))
                 {
-                    setLabelText(SubjectType.REPORT);
+                    AddCheckBox(new RightCheckBox("View", RightType.VIEW));
+                    AddCheckBox(new RightCheckBox("Edit Table", RightType.EDIT));
+                    AddCheckBox(new RightCheckBox("Edit Cell", RightType.EDIT_CELL));
+                    AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
+                    AddCheckBox(new RightCheckBox("Run", RightType.LOAD));
+                    AddCheckBox(new RightCheckBox("Save as", RightType.SAVE_AS));
                 }
                 else if (ObjectType.Equals(SubjectType.INPUT_GRID.label))
                 {
-                    setLabelText(SubjectType.INPUT_GRID);
+                    AddCheckBox(new RightCheckBox("View", RightType.VIEW));
+                    AddCheckBox(new RightCheckBox("Edit Grid", RightType.EDIT));
+                    AddCheckBox(new RightCheckBox("Edit Line", RightType.EDIT_CELL));
+                    AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
+                    AddCheckBox(new RightCheckBox("Save as", RightType.SAVE_AS));
                 }
                 else if (ObjectType.Equals(SubjectType.TARGET.label))
                 {
-                    setLabelText(SubjectType.TARGET);
+                    AddCheckBox(new RightCheckBox("View", RightType.VIEW));
+                    AddCheckBox(new RightCheckBox("Edit", RightType.EDIT));
+                    AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
+                    AddCheckBox(new RightCheckBox("Save as", RightType.SAVE_AS));
                 }
                 else if (ObjectType.Equals(SubjectType.DESIGN.label))
                 {
-                    setLabelText(SubjectType.DESIGN);
+                    AddCheckBox(new RightCheckBox("View", RightType.VIEW));
+                    AddCheckBox(new RightCheckBox("Edit", RightType.EDIT));
+                    AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
+                    AddCheckBox(new RightCheckBox("Save as", RightType.SAVE_AS));
+                }
+                else
+                {
+                    AddCheckBox(new RightCheckBox("View", RightType.VIEW));
+                    AddCheckBox(new RightCheckBox("Edit", RightType.EDIT));
+                    AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
+                    AddCheckBox(new RightCheckBox("Save as", RightType.SAVE_AS));
                 }
             }
         }
         
-        private void setLabelText(SubjectType subjectType,string name="") 
-        {
-            buildLabelList(subjectType.label);
-            int j = 0;
-            for (int i = this.labelList.Count - 1;i >=0 ; i--)
-            {
-                string label = labelList[j];
-                string funct =   label + name;
-                AddCheckBox(new RightCheckBox(funct, getTypeByLabel(label.Trim())));
-                j++;
-            }
-        }
-
-        private RightType getTypeByLabel(string text) 
-        {
-           if(text.Equals(createLabel.Trim())) return RightType.CREATE;
-           if (text.Equals(editLabel.Trim())) return RightType.EDIT;
-           if (text.Equals(viewLabel.Trim())) return RightType.VIEW;
-           if (text.Equals(deleteLabel.Trim())) return RightType.DELETE;
-           if (text.Equals(runLabel.Trim())) return RightType.LOAD;
-           if (text.Equals(saveAsLabel.Trim())) return RightType.SAVE_AS;
-           if (text.Equals(saveLabel.Trim())) return RightType.SAVE;
-           if (text.Equals(clearLabel.Trim())) return RightType.CLEAR;
-           return RightType.VIEW;
-        }
-
-        private void buildLabelList(String subjectType) 
-        {
-            if (subjectType.Equals(SubjectType.INPUT_GRID.label) || subjectType.Equals(SubjectType.INPUT_TABLE.label)
-               || (subjectType.Equals(SubjectType.DESIGN.label) || (subjectType.Equals(SubjectType.TARGET.label) )))
-            {
-                labelList.Add(editLabel);
-                labelList.Add(viewLabel);
-                labelList.Add(saveAsLabel);
-                
-            }                
-            if (subjectType.Equals(SubjectType.INPUT_GRID.label) || subjectType.Equals(SubjectType.INPUT_TABLE.label)
-                || subjectType.Equals(SubjectType.REPORT.label))
-            {
-                labelList.Add(runLabel);
-                labelList.Add(clearLabel);
-            }
-          
-        }
-
         protected void AddCheckBox(RightCheckBox checkBox)
         {
             checkBox.Checked += OnHandlingCheckbox;
