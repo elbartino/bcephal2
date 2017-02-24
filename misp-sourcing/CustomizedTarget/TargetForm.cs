@@ -18,6 +18,8 @@ using Misp.Kernel.Ui.Office.EDraw;
 using Misp.Kernel.Domain;
 using System.Windows.Forms.Integration;
 using Misp.Sourcing.Table;
+using Misp.Kernel.Administration.ObjectAdmin;
+using Misp.Kernel.Application;
 
 namespace Misp.Sourcing.CustomizedTarget
 {
@@ -43,6 +45,11 @@ namespace Misp.Sourcing.CustomizedTarget
             this.TargetPropertiesPanel = new TargetPropertiesPanel();
             this.ScopePanel = new ScopePanel(true);            
             this.Content = ScopePanel;
+
+            if (ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.AdministrationBar = new AdministrationBar(this.SubjectType);
+            }
         }
         
         #endregion
@@ -57,6 +64,8 @@ namespace Misp.Sourcing.CustomizedTarget
         public TargetPropertiesPanel TargetPropertiesPanel { get; private set; }
 
         public ScopePanel ScopePanel { get; private set; }
+
+        public AdministrationBar AdministrationBar { get; set; }
         
         /// <summary>
         /// Indique si la vue a été modifiée.
@@ -128,6 +137,12 @@ namespace Misp.Sourcing.CustomizedTarget
         {
             this.TargetPropertiesPanel.displayTarget(this.EditedObject);
             this.ScopePanel.DisplayScope(this.EditedObject);
+
+            if (this.AdministrationBar != null)
+            {
+                this.AdministrationBar.EditedObject = this.EditedObject;
+                this.AdministrationBar.Display();
+            }
         }
 
         /// <summary>
