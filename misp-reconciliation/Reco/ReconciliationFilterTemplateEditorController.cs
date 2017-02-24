@@ -128,8 +128,29 @@ namespace Misp.Reconciliation.Reco
                 editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
                 editorPage.getForm().FormChanged += OnFormChanged;
             }
+            if (editorPage.getForm().AdministrationBar != null)
+            {
+                editorPage.getForm().AdministrationBar.Changed += OnChangeEventHandler;
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        public override void OnPageSelected(EditorItem<ReconciliationFilterTemplate> page)
+        {
+            if (page == null) return;
+            ReconciliationFilterTemplateForm form = ((ReconciliationFilterTemplateEditorItem)page).getForm();
+            ReconciliationFilterTemplatePropertyBar bar = (ReconciliationFilterTemplatePropertyBar)this.PropertyBar;
+            if (bar.AdministratorLayoutAnchorable != null) bar.AdministratorLayoutAnchorable.Content = form.AdministrationBar;
+            PerformSelectionChange();
+        }
+
+        private void OnChangeEventHandler()
+        {
+            OnChange();
+        }
 
         private void OnFormChanged()
         {
