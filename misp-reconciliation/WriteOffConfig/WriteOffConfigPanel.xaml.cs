@@ -56,6 +56,7 @@ namespace Misp.Reconciliation.WriteOffConfig
         public void display(Kernel.Domain.WriteOffConfiguration writeOffConfig)
         {
             this.configPanel.Children.Clear();
+            nbreLigne = 0;
             bool AddDefault = writeOffConfig == null ? true : writeOffConfig != null ?
                 writeOffConfig.fieldListChangeHandler == null ? 
                 true : writeOffConfig.fieldListChangeHandler.Items.Count == 0 ? true : false : false;

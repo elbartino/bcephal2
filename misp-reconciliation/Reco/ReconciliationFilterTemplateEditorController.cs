@@ -464,9 +464,9 @@ namespace Misp.Reconciliation.Reco
                 ReconciliationFilterTemplate editedObject = page.EditedObject;
                 try
                 {
-                    editedObject = GetService().Save(editedObject);
-                    page.EditedObject = GetService().getByOid(editedObject.oid.Value);
-                    ((ReconciliationFilterTemplateEditorItem)page).getForm().updateObject(page.EditedObject);
+                    page.EditedObject = GetService().Save(editedObject);
+                    //page.EditedObject = GetService().getByOid(editedObject.oid.Value);
+                    ((ReconciliationFilterTemplateEditorItem)page).getForm().displayObject();
                     page.IsModify = false;
                 }
                 catch (Misp.Kernel.Domain.BcephalException)

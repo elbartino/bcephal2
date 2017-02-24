@@ -135,7 +135,7 @@ namespace Misp.Kernel.Service
                 string json = serializer.Serialize(profil);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
-                ReconciliationFilterTemplate recoFilterTemplate = RestSharp.SimpleJson.DeserializeObject<ReconciliationFilterTemplate>(queryResult.Content);
+                ReconciliationFilterTemplate recoFilterTemplate = serializer.Deserialize<ReconciliationFilterTemplate>(queryResult.Content);
                 return recoFilterTemplate;
             }
             catch (Exception e)
