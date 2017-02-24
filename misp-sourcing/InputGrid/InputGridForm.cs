@@ -178,7 +178,6 @@ namespace Misp.Sourcing.InputGrid
         public List<object> getEditableControls()
         {
             List<object> controls = new List<object>(0);
-            //controls.AddRange(userRightPanel.getEditableControls());
             controls.AddRange(this.InputGridSheetForm.getEditableControls());
             return controls;
 

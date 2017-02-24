@@ -110,6 +110,7 @@ namespace Misp.Kernel.Application
         {
             foreach (Right right in Rights)
             {
+                if (right.functionnality == null) continue;
                 if(right.functionnality.Equals(code)) {
                     if (type.HasValue)
                     {
