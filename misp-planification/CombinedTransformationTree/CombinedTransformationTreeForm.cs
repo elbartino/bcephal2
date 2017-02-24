@@ -18,6 +18,8 @@ using Misp.Kernel.Ui.Office.EDraw;
 using Misp.Kernel.Domain;
 using System.Windows.Forms.Integration;
 using Misp.Sourcing.Table;
+using Misp.Kernel.Administration.ObjectAdmin;
+using Misp.Kernel.Application;
 
 namespace Misp.Planification.CombinedTransformationTree
 {
@@ -43,6 +45,11 @@ namespace Misp.Planification.CombinedTransformationTree
             this.CombinedTransformationTreePropertiesPanel = new CombinedTransformationTreePropertiesPanel();
             this.CombinedTransformationTreePanel = new CombinedTransformationTreePanel();
             this.Content = CombinedTransformationTreePanel;
+
+            if (ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.AdministrationBar = new AdministrationBar(this.SubjectType);
+            }
         }
         
         #endregion
@@ -57,7 +64,9 @@ namespace Misp.Planification.CombinedTransformationTree
         public CombinedTransformationTreePropertiesPanel CombinedTransformationTreePropertiesPanel { get; private set; }
 
         public CombinedTransformationTreePanel CombinedTransformationTreePanel { get; private set; }
-        
+
+        public AdministrationBar AdministrationBar { get; set; }
+
         /// <summary>
         /// Indique si la vue a été modifiée.
         /// </summary>
@@ -130,6 +139,11 @@ namespace Misp.Planification.CombinedTransformationTree
             this.CombinedTransformationTreePropertiesPanel.displayCombinedTransformationTree(this.EditedObject);
             this.CombinedTransformationTreePanel.DisplayTransformationTrees(this.EditedObject);
             
+            if (this.AdministrationBar != null)
+            {
+                this.AdministrationBar.EditedObject = this.EditedObject;
+                this.AdministrationBar.Display();
+            }
         }
 
         public void correctGroup(Kernel.Domain.CombinedTransformationTree combined)

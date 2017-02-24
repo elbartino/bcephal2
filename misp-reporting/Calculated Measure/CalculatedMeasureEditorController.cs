@@ -323,7 +323,10 @@ namespace Misp.Reporting.Calculated_Measure
         {
             if (page == null) return;
             CalculatedMeasureForm form = ((CalculatedMeasureEditorItem)page).getCalculatedMeasureForm();
-           ((CalculatedMeasurePropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.CalculatedMeasurePropertiesPanel;
+
+            CalculatedMeasurePropertyBar bar = (CalculatedMeasurePropertyBar)this.PropertyBar;
+            if (bar.AdministratorLayoutAnchorable != null) bar.AdministratorLayoutAnchorable.Content = form.AdministrationBar;
+            bar.TableLayoutAnchorable.Content = form.CalculatedMeasurePropertiesPanel;
            string expression = page.EditedObject.computeExpression();
           // if (expression.IndexOf("=") < 0)  expression = expression + "=";
            //this.ApplicationManager.MainWindow.StatusBarLabel.Content = String.IsNullOrEmpty(expression) ? "" : "Operation: " + expression;
@@ -433,6 +436,15 @@ namespace Misp.Reporting.Calculated_Measure
             editorPage.getCalculatedMeasureForm().CalculatedMeasurePanel.ItemChanged += onCalculatedMeasurePanelItemChange;
             editorPage.getCalculatedMeasureForm().CalculatedMeasurePanel.ItemCloseParOrEqualSelected += onItemCloseParOrEqualSelected;
             editorPage.getCalculatedMeasureForm().CalculatedMeasurePanel.ItemDeleted += onCalculatedMeasurePanelItemDeleted;
+            if (editorPage.getCalculatedMeasureForm().AdministrationBar != null)
+            {
+                editorPage.getCalculatedMeasureForm().AdministrationBar.Changed += OnChangeEventHandler;
+            }
+        }
+
+        private void OnChangeEventHandler()
+        {
+            OnChange();
         }
 
         private void onCalculatedMeasurePanelItemChange(object item)

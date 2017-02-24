@@ -21,6 +21,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Drawing;
 using Misp.Kernel.Ui.Office.DevExpressSheet;
+using Misp.Kernel.Administration.ObjectAdmin;
 
 namespace Misp.Reporting.StructuredReport
 {
@@ -35,6 +36,7 @@ namespace Misp.Reporting.StructuredReport
 
         public SubjectType SubjectType { get; set; }
 
+        public AdministrationBar AdministrationBar { get; set; }
         #endregion
         
         #region Constructor
@@ -62,6 +64,10 @@ namespace Misp.Reporting.StructuredReport
 
             try
             {
+                if (Misp.Kernel.Application.ApplicationManager.Instance.User.IsAdmin())
+                {
+                    this.AdministrationBar = new AdministrationBar(this.SubjectType);
+                }
                 this.SpreadSheet = new DESheetPanel();
                 this.Content = this.SpreadSheet;
             }
@@ -205,6 +211,11 @@ namespace Misp.Reporting.StructuredReport
         /// </summary>
         public void displayObject()
         {
+            if (this.AdministrationBar != null)
+            {
+                this.AdministrationBar.EditedObject = this.EditedObject;
+                this.AdministrationBar.Display();
+            }
             this.StructuredReportPropertiesPanel.Display(this.EditedObject);
             BuildSheetTable();
         }

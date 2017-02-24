@@ -17,6 +17,7 @@ using Misp.Kernel.Application;
 using System.Collections.ObjectModel;
 using Misp.Kernel.Task;
 using System.Web.Script.Serialization;
+using Misp.Kernel.Administration.ObjectAdmin;
 
 namespace Misp.Planification.Tranformation
 {
@@ -49,6 +50,8 @@ namespace Misp.Planification.Tranformation
 
         public DesignerItem EditedDesignerItem { get; set; }
 
+        public AdministrationBar AdministrationBar { get; set; }
+
         public static ObservableCollection<Kernel.Domain.Browser.InputTableBrowserData> globalListReport;
         #endregion
 
@@ -68,6 +71,10 @@ namespace Misp.Planification.Tranformation
             this.TransformationTreePropertiePanel = new TransformationTreePropertiePanel();
             this.TransformationTreeDiagramView = new TransformationTreeDiagram();
             this.Children.Add(this.TransformationTreeDiagramView);
+            if (ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.AdministrationBar = new AdministrationBar(this.SubjectType);
+            }
         }
 
         #endregion
@@ -516,7 +523,12 @@ namespace Misp.Planification.Tranformation
             foreach (TransformationTreeItem item in this.EditedObject.itemListChangeHandler.Items)
             {
                 refreshItem(item);
-            }            
+            }
+            if (this.AdministrationBar != null)
+            {
+                this.AdministrationBar.EditedObject = this.EditedObject;
+                this.AdministrationBar.Display();
+            }
         }
 
         /// <summary>

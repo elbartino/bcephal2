@@ -1,4 +1,6 @@
-﻿using Misp.Kernel.Domain;
+﻿using Misp.Kernel.Administration.ObjectAdmin;
+using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
 using Misp.Sourcing.Table;
 using System;
@@ -13,6 +15,7 @@ namespace Misp.Reporting.Calculated_Measure
     {
            
         #region Constructor
+
 
         /// <summary>
         /// Constructeur
@@ -42,6 +45,10 @@ namespace Misp.Reporting.Calculated_Measure
         {
             this.Background = null;
             this.BorderBrush = null;
+            if (ApplicationManager.Instance.User.IsAdmin())
+            {
+                this.AdministrationBar = new AdministrationBar(this.SubjectType);
+            }
             this.CalculatedMeasurePropertiesPanel = new CalculatedMeasurePropertiesPanel();
             this.CalculatedMeasurePanel = new CalculatedMeasurePanel();
             this.AddChild(this.CalculatedMeasurePanel);
@@ -51,6 +58,8 @@ namespace Misp.Reporting.Calculated_Measure
 
 
         #region Properties
+
+        public AdministrationBar AdministrationBar { get; set; }
 
         public SubjectType SubjectType { get; set; }
 
@@ -128,6 +137,11 @@ namespace Misp.Reporting.Calculated_Measure
         /// </summary>
         public void displayObject()
         {
+            if (this.AdministrationBar != null)
+            {
+                this.AdministrationBar.EditedObject = this.EditedObject;
+                this.AdministrationBar.Display();
+            }
             this.CalculatedMeasurePropertiesPanel.displayCalculatedMeasureProperties(this.EditedObject);
             this.CalculatedMeasurePanel.DisplayCalculatedMeasure(this.EditedObject);
         }

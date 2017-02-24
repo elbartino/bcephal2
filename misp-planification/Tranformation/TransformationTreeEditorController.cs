@@ -430,6 +430,16 @@ namespace Misp.Planification.Tranformation
             editorPage.GetTransformationTreeForm().TransformationTreeDiagramView.designerCanvas.Editing += OnEditingItem;
 
             editorPage.GetTransformationTreeForm().SaveEventHandler += OnEditingItemEnded;
+
+            if (editorPage.GetTransformationTreeForm().AdministrationBar != null)
+            {
+                editorPage.GetTransformationTreeForm().AdministrationBar.Changed += OnChangeEventHandler;
+            }
+        }
+
+        private void OnChangeEventHandler()
+        {
+            OnChange();
         }
 
         private void OnTableVisibleInShortcutOptionChecked(object sender, RoutedEventArgs e)
@@ -535,6 +545,8 @@ namespace Misp.Planification.Tranformation
             TransformationTreeForm form = ((TransformationTreeEditorItem)page).GetTransformationTreeForm();
             if (form.TransformationTreePropertiePanel != null)
                 ((TransformationTreePropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.TransformationTreePropertiePanel;
+            TransformationTreePropertyBar bar = (TransformationTreePropertyBar)this.PropertyBar;
+            if (bar.AdministratorLayoutAnchorable != null) bar.AdministratorLayoutAnchorable.Content = form.AdministrationBar;
         }
 
         protected override void OnPageClosed(object sender, EventArgs args)
