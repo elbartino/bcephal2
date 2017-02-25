@@ -38,6 +38,7 @@ namespace Misp.Kernel.Application
         private RoleService roleService;
         private UserService userService;
         private ProfilService profilService;
+        private RightService rightService;
 
         private PostingGridService postingGridService;
         private ReconciliationFilterService reconciliationFilterService;
@@ -337,6 +338,20 @@ namespace Misp.Kernel.Application
                 configureService(profilService);
             }
             return profilService;
+        }
+
+        /// <summary>
+        /// Gets RightService
+        /// </summary>
+        public RightService GetRightService()
+        {
+            if (rightService == null)
+            {
+                rightService = new RightService();
+                rightService.ResourcePath = AdministrationResourcePath.SECURITY_RIGHT_RESOURCE_PATH;
+                configureService(rightService);
+            }
+            return rightService;
         }
 
         /// <summary>

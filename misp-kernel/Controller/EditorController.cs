@@ -11,6 +11,8 @@ using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Application;
 using Misp.Kernel.Util;
 using Misp.Kernel.Task;
+using Misp.Kernel.Service;
+using Misp.Kernel.Domain;
 
 namespace Misp.Kernel.Controller
 {
@@ -555,7 +557,22 @@ namespace Misp.Kernel.Controller
         /// <param name="page"></param>
         public virtual void OnPageSelected(EditorItem<T> page)
         {
+            CustomizeForUser(page);
+        }
+
+        public virtual void CustomizeForUser(EditorItem<T> page)
+        {
             CustomizeSideBarToolbarAndContexMenu(page);
+            if (!ApplicationManager.User.IsAdmin() && page.EditedObject != null && page.EditedObject.oid.HasValue)
+            {
+                RightService service = ApplicationManager.ControllerFactory.ServiceFactory.GetRightService();
+                List<Right> rights = service.getUserRights(this.SubjectType.label, page.EditedObject.oid.Value);
+                if (rights != null)
+                {
+                    if (this.ToolBar != null) this.ToolBar.customize(rights);
+                    if (this.SideBar != null) this.SideBar.customize(rights);
+                }
+            }
         }
 
         public virtual void CustomizeSideBarToolbarAndContexMenu(EditorItem<T> page)
