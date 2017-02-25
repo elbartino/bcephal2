@@ -41,7 +41,7 @@ namespace Misp.Kernel.Application
         {
             List<Right> rights = new List<Right>(0);
             foreach(Right right in this.Rights){
-                if(right.functionnality.Equals(code)) rights.Add(right);
+                if (right.functionnality != null && right.functionnality.Equals(code)) rights.Add(right);
             }
             return rights;
         }
