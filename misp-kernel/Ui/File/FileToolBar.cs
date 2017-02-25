@@ -24,10 +24,6 @@ namespace Misp.Kernel.Ui.File
         protected override List<System.Windows.Controls.Control> getAllControls()
         {
             List<System.Windows.Controls.Control> controls = new List<System.Windows.Controls.Control>(0);
-            //controls.Add(NewButton);
-            //controls.Add(OpenButton);
-            //controls.Add(SaveAllButton);
-            //controls.Add(RenameButton);
             controls.Add(CloseButton);
             return controls;
         }
@@ -40,11 +36,7 @@ namespace Misp.Kernel.Ui.File
         protected override void userConfiguration()
         {
             base.userConfiguration();
-            AutomaticButton.ToolTip = "Automatic";
             NewButton.ToolTip = "Create a new file";
-            OpenButton.ToolTip = "Open another file";
-            SaveAllButton.ToolTip = "Save the file as...";
-            RenameButton.ToolTip = "Rename the file";
             CloseButton.ToolTip = "Close the file";
         }
 

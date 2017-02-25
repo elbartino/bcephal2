@@ -85,7 +85,7 @@ namespace Misp.Sourcing.Table
             this.AddGroup(this.DesignerGroup);
         }
 
-        public override void customize(List<Right> listeRights)
+        public override void customize(List<Right> listeRights, bool readOnly = false)
         {
             this.EntityGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, listeRights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
             this.CustomizedTargetGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, listeRights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;

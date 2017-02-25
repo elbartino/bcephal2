@@ -37,7 +37,6 @@ namespace Misp.Initiation.Periodicity
         protected override void userConfiguration()
         {
             base.userConfiguration();
-            AutomaticButton.ToolTip = "Automatic";
             SaveButton.ToolTip = "Save Initiation";
             CloseButton.ToolTip = "Close Initiation View";
 

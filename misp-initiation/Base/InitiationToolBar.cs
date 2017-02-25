@@ -23,21 +23,13 @@ namespace Misp.Initiation.Base
 
         public void DisplayButtons()
         {
-            AutomaticButton.Visibility = System.Windows.Visibility.Visible;
             NewButton.Visibility = System.Windows.Visibility.Visible;
-            OpenButton.Visibility = System.Windows.Visibility.Visible;
-            SaveAllButton.Visibility = System.Windows.Visibility.Visible;
-            RenameButton.Visibility = System.Windows.Visibility.Visible;
             CloseButton.Visibility = System.Windows.Visibility.Visible;
         }
 
         public void CollapseButtons()
         {
-            AutomaticButton.Visibility = System.Windows.Visibility.Collapsed;
             NewButton.Visibility = System.Windows.Visibility.Collapsed;
-            OpenButton.Visibility = System.Windows.Visibility.Collapsed;
-            SaveAllButton.Visibility = System.Windows.Visibility.Collapsed;
-            RenameButton.Visibility = System.Windows.Visibility.Collapsed;
             CloseButton.Visibility = System.Windows.Visibility.Collapsed;
         }
 
@@ -50,19 +42,10 @@ namespace Misp.Initiation.Base
         {            
             CollapseAllControls();           
             
-            AutomaticButton.Visibility = System.Windows.Visibility.Visible;
             NewButton.Visibility = System.Windows.Visibility.Visible;
-            OpenButton.Visibility = System.Windows.Visibility.Visible;
-            SaveAllButton.Visibility = System.Windows.Visibility.Visible;
-            RenameButton.Visibility = System.Windows.Visibility.Visible;
             CloseButton.Visibility = System.Windows.Visibility.Visible;
 
-            //NewButton.Margin = new System.Windows.Thickness(30, 0, 0, 0);
-            AutomaticButton.ToolTip = "Automatic";
             NewButton.ToolTip = "Create a new file";
-            OpenButton.ToolTip = "Open another file";
-            SaveAllButton.ToolTip = "Save the file as...";
-            RenameButton.ToolTip = "Rename the file";
             CloseButton.ToolTip = "Close the file";
         }
 

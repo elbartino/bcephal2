@@ -36,29 +36,12 @@ namespace Misp.Kernel.Controller
         /// </summary>
         public virtual void buildHandlers() 
         {
-            if (ToolBar == null) return;
-            ToolBar.AutomaticButton.Click += new RoutedEventHandler(onAutomaticButtonClic);
-
-            ToolBar.ImportButton.Click += new RoutedEventHandler(onImportButtonClic);
-            ToolBar.ExportButton.Click += new RoutedEventHandler(onExportButtonClic);
-           
+            if (ToolBar == null) return;                       
             ToolBar.NewButton.Click += new RoutedEventHandler(onNewButtonClic);
-            ToolBar.OpenButton.Click += new RoutedEventHandler(onOpenButtonClic);
             ToolBar.SaveButton.Click += new RoutedEventHandler(onSaveButtonClic);
-            ToolBar.SaveAllButton.Click += new RoutedEventHandler(onSaveAllButtonClic);
-            ToolBar.RenameButton.Click += new RoutedEventHandler(onRenameButtonClic);
-            ToolBar.DeleteButton.Click += new RoutedEventHandler(onDeleteButtonClic);
             ToolBar.CloseButton.Click += new RoutedEventHandler(onCloseButtonClic);
         }
-
-
-        /// <summary>
-        /// Methode appelée lorsqu'on clique sur le bouton Automatic de la toolbar.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public virtual void onAutomaticButtonClic(object sender, RoutedEventArgs e) { }
-
+        
         /// <summary>
         /// Methode appelée lorsqu'on clique sur le bouton Import de la toolbar.
         /// </summary>

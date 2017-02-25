@@ -13,15 +13,47 @@ namespace Misp.Sourcing.InputGrid
     public class InputGridToolBar : Misp.Kernel.Ui.Base.ToolBar
     {
 
+        #region Properties
 
         public Button LoadButton { get; protected set; }
         public Button ClearButton { get; protected set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        #endregion
+
+
+        #region Constructors
+
         public InputGridToolBar() { }
-        
+
+        #endregion
+
+
+        #region Operations
+
+        public override void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
+        {
+            base.Customize(rights);
+            LoadButton.Visibility = RightsUtil.HasRight(RightType.LOAD, rights) && !readOnly ? Visibility.Visible : Visibility.Collapsed;
+            ClearButton.Visibility = RightsUtil.HasRight(RightType.CLEAR, rights) && !readOnly ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public void SetLoaded(bool loaded)
+        {
+            LoadButton.IsEnabled = !loaded;
+            ClearButton.IsEnabled = loaded;
+        }
+
+        public void SetNew()
+        {
+            LoadButton.IsEnabled = false;
+            ClearButton.IsEnabled = false;
+        }
+
+        #endregion
+
+
+        #region Initiation
+
         protected override List<System.Windows.Controls.Control> getAllControls()
         {
             List<System.Windows.Controls.Control> controls = new List<System.Windows.Controls.Control>(0);
@@ -57,24 +89,7 @@ namespace Misp.Sourcing.InputGrid
             ClearButton = Misp.Kernel.Ui.Base.ToolBar.BuildButton(null, "Clear", "Clear Grid", "WineButtonStyle", new Thickness(30, 0, 0, 0));            
         }
 
-        public void SetLoaded(bool loaded)
-        {
-            LoadButton.IsEnabled = !loaded;
-            ClearButton.IsEnabled = loaded;
-        }
-
-        public void SetNew()
-        {
-            LoadButton.IsEnabled = false;
-            ClearButton.IsEnabled = false;
-        }
-
-        public override void customize(List<Kernel.Domain.Right> listeRights)
-        {
-            base.customize(listeRights);
-            LoadButton.Visibility = RightsUtil.HasRight(RightType.LOAD, listeRights) ? Visibility.Visible : Visibility.Hidden;
-            ClearButton.Visibility = RightsUtil.HasRight(RightType.CLEAR, listeRights) ? Visibility.Visible : Visibility.Hidden;
-        }
+        #endregion
 
     }
 }

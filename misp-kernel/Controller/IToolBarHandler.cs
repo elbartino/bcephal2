@@ -9,14 +9,7 @@ namespace Misp.Kernel.Controller
 {
     public interface IToolBarHandler
     {
-
-        /// <summary>
-        /// Methode appelée lorsqu'on clique sur le bouton Automatic de la toolbar.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void onAutomaticButtonClic(object sender, RoutedEventArgs e);
-
+        
         /// <summary>
         /// Methode appelée lorsqu'on clique sur le bouton Import de la toolbar.
         /// </summary>

@@ -569,8 +569,8 @@ namespace Misp.Kernel.Controller
                 List<Right> rights = service.getUserRights(this.SubjectType.label, page.EditedObject.oid.Value);
                 if (rights != null)
                 {
-                    if (this.ToolBar != null) this.ToolBar.customize(rights);
-                    if (this.SideBar != null) this.SideBar.customize(rights);
+                    if (this.ToolBar != null) this.ToolBar.Customize(rights, page.IsReadOnly);
+                    if (this.SideBar != null) this.SideBar.customize(rights, page.IsReadOnly);
                 }
             }
         }

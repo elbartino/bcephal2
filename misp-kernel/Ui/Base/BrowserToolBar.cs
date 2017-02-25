@@ -21,8 +21,6 @@ namespace Misp.Kernel.Ui.Base
         {
             List<System.Windows.Controls.Control> controls = new List<System.Windows.Controls.Control>(0);
             controls.Add(NewButton);
-            //controls.Add(OpenButton);
-            //controls.Add(RenameButton);
             controls.Add(SaveButton);
             controls.Add(CloseButton);
             return controls;
@@ -36,15 +34,7 @@ namespace Misp.Kernel.Ui.Base
         protected override void userConfiguration()
         {
             base.userConfiguration();
-            AutomaticButton.ToolTip = "Automatic";
-            OpenButton.ToolTip = "Open selected object";
-            RenameButton.ToolTip = "Rename selected object";
-            DeleteButton.ToolTip = "Delete selected object";
-
             SaveButton.Visibility = System.Windows.Visibility.Hidden;
-            OpenButton.IsEnabled = false;
-            RenameButton.IsEnabled = false;
-            DeleteButton.IsEnabled = false;
             CloseButton.IsEnabled = true;
         }
 

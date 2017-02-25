@@ -23,9 +23,6 @@ namespace Misp.Kernel.Ui.File
         protected override ToolBar getNewToolBar() 
         {
             FileToolBar toolbar = new FileToolBar();
-            toolbar.Children.Remove(toolbar.SaveAllButton);
-            toolbar.Children.Remove(toolbar.RenameButton);
-            //toolbar.Children.Remove(toolbar.CloseButton);
             return toolbar; 
         }
 

@@ -447,17 +447,14 @@ namespace Misp.Kernel.Controller
         {
             bool itemsSelected = this.GetBrowser().Grid.SelectedItems.Count > 0;
             this.ToolBar.NewButton.IsEnabled = true;
-            this.ToolBar.OpenButton.IsEnabled = itemsSelected;
-            this.ToolBar.RenameButton.IsEnabled = this.GetBrowser().Grid.SelectedItems.Count == 1;
-            this.ToolBar.DeleteButton.IsEnabled = itemsSelected;
 
             this.GetBrowser().Grid.BrowserGridContextMenu.NewMenuItem.IsEnabled = this.ToolBar.NewButton.IsEnabled;
-            this.GetBrowser().Grid.BrowserGridContextMenu.OpenMenuItem.IsEnabled = this.ToolBar.OpenButton.IsEnabled;
-            this.GetBrowser().Grid.BrowserGridContextMenu.RenameMenuItem.IsEnabled = this.ToolBar.RenameButton.IsEnabled;
+            this.GetBrowser().Grid.BrowserGridContextMenu.OpenMenuItem.IsEnabled = itemsSelected;
+            this.GetBrowser().Grid.BrowserGridContextMenu.RenameMenuItem.IsEnabled = this.GetBrowser().Grid.SelectedItems.Count == 1;
             this.GetBrowser().Grid.BrowserGridContextMenu.SaveAsMenuItem.IsEnabled = this.GetBrowser().Grid.BrowserGridContextMenu.RenameMenuItem.IsEnabled;
-            this.GetBrowser().Grid.BrowserGridContextMenu.CopyMenuItem.IsEnabled = this.ToolBar.DeleteButton.IsEnabled;
-            this.GetBrowser().Grid.BrowserGridContextMenu.PasteMenuItem.IsEnabled = this.ToolBar.DeleteButton.IsEnabled;
-            this.GetBrowser().Grid.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = this.ToolBar.DeleteButton.IsEnabled;
+            this.GetBrowser().Grid.BrowserGridContextMenu.CopyMenuItem.IsEnabled = itemsSelected;
+            this.GetBrowser().Grid.BrowserGridContextMenu.PasteMenuItem.IsEnabled = itemsSelected;
+            this.GetBrowser().Grid.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = itemsSelected;
 
             customizeContextMenu();
         }

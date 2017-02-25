@@ -38,14 +38,11 @@ namespace Misp.Initiation.Measure
         protected override void userConfiguration()
         {
             base.userConfiguration();
-            AutomaticButton.ToolTip = "Automatic";
             SaveButton.ToolTip = "Save Initiation";
-            DeleteButton.ToolTip = "Delete selected measures";
             CloseButton.ToolTip = "Close Initiation View";
             SaveButton.Margin = new System.Windows.Thickness(30, 0, 0, 0);
 
             SaveButton.IsEnabled = false;
-            DeleteButton.IsEnabled = false;
             CloseButton.IsEnabled = true;
         }
 

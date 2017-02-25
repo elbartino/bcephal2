@@ -1,4 +1,5 @@
 ﻿using DevExpress.Xpf.Core;
+using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,19 +15,25 @@ namespace Misp.Kernel.Ui.Base
     public class ToolBar : WrapPanel
     {
 
-        private Button automaticButton;
+        #region Attributes
 
         private Button newButton;
-        private Button openButton;
         private Button saveButton;
-        private Button saveAllButton;
-        private Button renameButton;
-        private Button deleteButton;
-
-        private Button importButton;
-        private Button exportButton;
-
         private Button closeButton;
+
+        #endregion
+
+
+        #region Properties
+
+        public System.Windows.Controls.Button NewButton { get { return newButton; } }
+        public System.Windows.Controls.Button SaveButton { get { return saveButton; } }
+        public System.Windows.Controls.Button CloseButton { get { return closeButton; } }
+
+        #endregion
+
+
+        #region Constructors
 
         /// <summary>
         /// Construit une nouvelle instance de la classe ToolBar.
@@ -37,19 +44,17 @@ namespace Misp.Kernel.Ui.Base
             userConfiguration();            
         }
 
+        #endregion
 
-        public System.Windows.Controls.Button AutomaticButton { get { return automaticButton; } }
 
-        public System.Windows.Controls.Button ImportButton { get { return importButton; } }
-        public System.Windows.Controls.Button ExportButton { get { return exportButton; } }
+        #region Operations
 
-        public System.Windows.Controls.Button NewButton { get { return newButton; } }
-        public System.Windows.Controls.Button OpenButton { get { return openButton; } }
-        public System.Windows.Controls.Button SaveButton { get { return saveButton; } }
-        public System.Windows.Controls.Button SaveAllButton { get { return saveAllButton; } }
-        public System.Windows.Controls.Button RenameButton { get { return renameButton; } }
-        public System.Windows.Controls.Button DeleteButton { get { return deleteButton; } }
-        public System.Windows.Controls.Button CloseButton { get { return closeButton; } }
+        public virtual void Customize(List<Domain.Right> rights, bool readOnly = false)
+        {
+            bool edit = RightsUtil.HasRight(Domain.RightType.EDIT, rights);
+            SaveButton.Visibility = edit && !readOnly ? Visibility.Visible : Visibility.Collapsed;
+            //NewButton.Visibility = edit && !readOnly ? Visibility.Visible : Visibility.Collapsed;
+        }
 
         /// <summary>
         /// 
@@ -57,58 +62,8 @@ namespace Misp.Kernel.Ui.Base
         public virtual void SetReadOnly(bool readOnly)
         {
             SaveButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
-            SaveAllButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
-            RenameButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
-            DeleteButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
-            ImportButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
-            ExportButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
-            AutomaticButton.Visibility = readOnly ? Visibility.Hidden : Visibility.Visible;
         }
-
-        /// <summary>
-        /// Cette methode permet de configurer la barre pour spécifier les boutons qui doivent être prrésents.
-        /// </summary>
-        protected virtual void userConfiguration()
-        {
-            foreach(Control control in getAllControls())
-            {
-                this.Children.Add(control);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected virtual List<System.Windows.Controls.Control> getAllControls()
-        {
-            List<System.Windows.Controls.Control> controls = new List<System.Windows.Controls.Control>(0);
-            controls.Add(automaticButton);
-            
-            controls.Add(newButton);
-            controls.Add(importButton);
-            controls.Add(exportButton);
-            controls.Add(openButton);
-            controls.Add(saveButton);
-            controls.Add(saveAllButton);
-            controls.Add(renameButton);
-            controls.Add(deleteButton);
-            controls.Add(closeButton);
-
-            return controls;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected virtual void RemoveAllControls()
-        {
-            foreach (System.Windows.Controls.Control control in getAllControls())
-            {
-                this.Children.Remove(control);
-            }
-        }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -128,31 +83,45 @@ namespace Misp.Kernel.Ui.Base
             }
         }
 
+        #endregion
 
-        
+
+        #region Initiation
+
         /// <summary>
         /// 
         /// </summary>
         protected virtual void InitializeComponent()
         {
             ThemeManager.SetThemeName(this, "None");
-
-            automaticButton = ToolBar.BuildButton(null, "Auto", "Automatic", "WineButtonStyle", new Thickness(5,0,0,0));
-
-            importButton = ToolBar.BuildButton("indent-down-white.png", "Auto", "Import", "SalmonButtonStyle", new Thickness(30, 0, 0, 0));
-            exportButton = ToolBar.BuildButton("indent-up-white.png", "Auto", "Export", "SalmonButtonStyle", new Thickness(15, 0, 0, 0));
-            
-            newButton    = ToolBar.BuildButton("blank-file-white.png", "Auto", "New", "BlueButtonStyle", new Thickness(30,0,0,0));
-            openButton   = ToolBar.BuildButton("folder-white.png", "Auto", "Open", "BlueButtonStyle", new Thickness(15,0,0,0));
-            saveButton = ToolBar.BuildButton("save-white.png", "Auto", "save", "SalmonButtonStyle", new Thickness(15, 0, 0, 0));
-            saveAllButton = ToolBar.BuildButton("save-as-white.png", "Auto", "Save All", "SalmonButtonStyle", new Thickness(15, 0, 0, 0));
-            renameButton   = ToolBar.BuildButton("rename-white.png", "Auto", "Rename", "BlueButtonStyle", new Thickness(15,0,0,0));
-            deleteButton   = ToolBar.BuildButton("delete-white.png", "Auto", "Delete", "BlueButtonStyle", new Thickness(15,0,0,0));
-            
-            closeButton = ToolBar.BuildButton("quit-outline-white.png", "Auto", "Close", "WineButtonStyle", new Thickness(30,0,0,0));
-
+            newButton = ToolBar.BuildButton("blank-file-white.png", "Auto", "New", "BlueButtonStyle", new Thickness(30, 0, 0, 0));
+            saveButton = ToolBar.BuildButton("save-white.png", "Auto", "save", "SalmonButtonStyle", new Thickness(15, 0, 0, 0));            
+            closeButton = ToolBar.BuildButton("quit-outline-white.png", "Auto", "Close", "WineButtonStyle", new Thickness(30, 0, 0, 0));
         }
 
+        /// <summary>
+        /// Cette methode permet de configurer la barre pour spécifier les boutons qui doivent être prrésents.
+        /// </summary>
+        protected virtual void userConfiguration()
+        {
+            foreach (Control control in getAllControls())
+            {
+                this.Children.Add(control);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected virtual List<System.Windows.Controls.Control> getAllControls()
+        {
+            List<System.Windows.Controls.Control> controls = new List<System.Windows.Controls.Control>(0);
+            controls.Add(newButton);
+            controls.Add(saveButton);
+            controls.Add(closeButton);
+            return controls;
+        }
 
         /// <summary>
         /// 
@@ -164,24 +133,36 @@ namespace Misp.Kernel.Ui.Base
         public static Button BuildButton(string image, string text, string toolTip, string styleKey, Thickness margin)
         {
             Button button = new Button();
-            if(image != null)
+            if (image != null)
             {
                 var im = new Image();
                 im.Source = new BitmapImage(new Uri(@"..\..\Resources\Images\Icons\" + image, UriKind.Relative));
                 button.Content = im;
-            }else button.Content = text;            
+            }
+            else button.Content = text;
             button.ToolTip = toolTip;
             if (margin != null) button.Margin = margin;
-            
+
             if (styleKey != null) button.Style = System.Windows.Application.Current.FindResource(styleKey) as Style;
             return button;
         }
 
+        #endregion
 
-        public virtual void customize(List<Domain.Right> listeRights)
-        {
-            SaveButton.Visibility = Util.RightsUtil.HasRight(Domain.RightType.EDIT,listeRights) ? Visibility.Hidden : Visibility.Visible;
-            DeleteButton.Visibility = Util.RightsUtil.HasRight(Domain.RightType.DELETE, listeRights) ? Visibility.Hidden : Visibility.Visible;
-        }
+        
+
+        
+
+        
+
+
+        
+        
+
+
+        
+
+
+        
     }
 }

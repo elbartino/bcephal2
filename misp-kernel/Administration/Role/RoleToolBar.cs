@@ -38,15 +38,12 @@ namespace Misp.Kernel.Administration.Role
         protected override void userConfiguration()
         {
             base.userConfiguration();
-            AutomaticButton.ToolTip = "Automatic";
             SaveButton.ToolTip = "Save Role";
-            DeleteButton.ToolTip = "Delete selected Roles";
             CloseButton.ToolTip = "Close Role View";
             SaveButton.Margin = new System.Windows.Thickness(30, 0, 0, 0);
 
             SaveButton.Visibility = System.Windows.Visibility.Visible;
             SaveButton.IsEnabled = false;
-            DeleteButton.IsEnabled = false;
             CloseButton.IsEnabled = true;
         }
 

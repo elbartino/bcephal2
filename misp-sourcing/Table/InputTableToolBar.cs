@@ -110,14 +110,14 @@ namespace Misp.Sourcing.Table
 
         }
 
-        public override void customize(List<Kernel.Domain.Right> listeRights)
+        public override void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
         {
-            base.customize(listeRights);
-            bool hasRight = RightsUtil.HasRight(new Kernel.Domain.RightType[] { Kernel.Domain.RightType.EDIT, Kernel.Domain.RightType.CLEAR, Kernel.Domain.RightType.LOAD }, listeRights);
-            saveClearRunButton.Visibility = hasRight ? Visibility.Visible : Visibility.Hidden;
-            runButton.Visibility = RightsUtil.HasRight(RightType.LOAD, listeRights) ? Visibility.Visible : Visibility.Hidden;
-            clearButton.Visibility = RightsUtil.HasRight(RightType.CLEAR, listeRights) ? Visibility.Visible : Visibility.Hidden;
-            saveAsButton.Visibility = RightsUtil.HasRight(RightType.SAVE_AS, listeRights) ? Visibility.Visible : Visibility.Hidden;
+            base.Customize(rights);
+            bool hasRight = RightsUtil.HasRight(new Kernel.Domain.RightType[] { Kernel.Domain.RightType.EDIT, Kernel.Domain.RightType.CLEAR, Kernel.Domain.RightType.LOAD }, rights);
+            saveClearRunButton.Visibility = hasRight && !readOnly ? Visibility.Visible : Visibility.Hidden;
+            runButton.Visibility = RightsUtil.HasRight(RightType.LOAD, rights) && !readOnly ? Visibility.Visible : Visibility.Hidden;
+            clearButton.Visibility = RightsUtil.HasRight(RightType.CLEAR, rights) && !readOnly ? Visibility.Visible : Visibility.Hidden;
+            saveAsButton.Visibility = RightsUtil.HasRight(RightType.SAVE_AS, rights) && !readOnly ? Visibility.Visible : Visibility.Hidden;
       
         }
 

@@ -42,12 +42,8 @@ namespace Misp.Initiation.Model
         protected override void userConfiguration()
         {
             base.userConfiguration();
-            AutomaticButton.ToolTip = "Automatic";
             NewButton.ToolTip = "Add a new Model";
             SaveButton.ToolTip = "Save Initiation";
-            SaveAllButton.ToolTip = "Save all...";
-            RenameButton.ToolTip = "Rename selected Model";
-            DeleteButton.ToolTip = "Delete selected Model";
             CloseButton.ToolTip = "Close Initiation View";
 
             SaveButton.IsEnabled = false;

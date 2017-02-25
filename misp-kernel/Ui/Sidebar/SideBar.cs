@@ -107,7 +107,7 @@ namespace Misp.Kernel.Ui.Sidebar
             this.AddGroup(StatusGroup);
         }
 
-        public virtual void customize(List<Kernel.Domain.Right> listeRights) 
+        public virtual void customize(List<Kernel.Domain.Right> listeRights, bool readOnly = false) 
         {
         
         }
