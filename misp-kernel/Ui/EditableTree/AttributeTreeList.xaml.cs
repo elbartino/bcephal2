@@ -673,16 +673,31 @@ namespace Misp.Kernel.Ui.EditableTree
             treeList.SelectedItems = attributes;
             if (Changed != null) Changed();
         }
-        
+
+        AttributeDialog dialog;
         private void OnPropertiesClick(object sender, RoutedEventArgs e)
         {
             if (this.treeList.SelectedItem != null && this.treeList.SelectedItem is Domain.Attribute)
             {
                 Domain.Attribute attribute = (Domain.Attribute)this.treeList.SelectedItem;
-                AttributeDialog dialog = new AttributeDialog();
+                dialog = new AttributeDialog();
                 dialog.Owner = Application.ApplicationManager.Instance.MainWindow;
                 dialog.Display(attribute);
+                dialog.Changed += OnAttributeDialogChanged;
                 dialog.Show();
+            }
+        }
+
+        private void OnAttributeDialogChanged()
+        {
+            if (dialog.dirty)
+            {
+                Domain.Attribute attribute = dialog.attribute;
+                ForgetDefaultAttributes(attribute.parent);
+                attribute.parent.UpdateChild(attribute);
+                AddDefaultAttributes(attribute.parent);
+                SetSelectedValue(attribute);
+                if (Changed != null) Changed();
             }
         }
 

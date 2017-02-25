@@ -38,6 +38,14 @@ namespace Misp.Kernel.Domain
         [ScriptIgnore]
         public bool LoadValues { get; set; }
 
+	    public int lastValue { get; set; }
+	
+	    public Boolean canUserModifyValues { get; set; }
+	
+	    public Boolean incremental { get; set; }
+	
+	    public Boolean related { get; set; }
+
         public PersistentListChangeHandler<Attribute> childrenListChangeHandler { get; set; }
 
         public PersistentListChangeHandler<AttributeValue> valueListChangeHandler { get; set; }
@@ -49,6 +57,10 @@ namespace Misp.Kernel.Domain
 
         public Attribute()
         {
+            this.related = false;
+            this.incremental = false;
+            this.canUserModifyValues = true;
+            this.lastValue = 0;
             this.childrenListChangeHandler = new PersistentListChangeHandler<Attribute>();
             this.valueListChangeHandler = new PersistentListChangeHandler<AttributeValue>();
             this.FilterAttributeValues = new List<AttributeValue>(0);
