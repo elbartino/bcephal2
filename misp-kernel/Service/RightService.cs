@@ -29,7 +29,7 @@ namespace Misp.Kernel.Service
             catch (Exception e)
             {
                 logger.Error("Unable to retrieve object from server.", e);
-                throw new ServiceExecption("Unable to retrieve object from server.", e);
+                return new List<Right>(0);
             }
         }
 
