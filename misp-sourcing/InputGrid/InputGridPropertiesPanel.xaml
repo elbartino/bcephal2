@@ -69,7 +69,7 @@
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <ListBox SelectionMode="Extended" x:Name="ColumnsListBox" x:FieldModifier="public">
                     <ListBox.ContextMenu>
-                        <ContextMenu>
+                        <ContextMenu x:Name="ColumnsListBoxContextMenu">
                             <MenuItem x:Name="MoveColumnUpMenuItem" x:FieldModifier="public" Header="Move up" Click="OnMoveUpColumn">
                                 <MenuItem.Icon>
                                     <Image Source="/bcephal;Component/Resources/Images/Icons/Moveup.png" Width="16"/>

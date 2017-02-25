@@ -277,8 +277,8 @@ namespace Misp.Kernel.Ui.Base
             page.ChangeEventHandler = this.ChangeEventHandler;
             page.EditedObject = anObject;
             page.Title = anObject != null ? anObject.ToString() : "";
-            page.displayObject();
             page.Customize(rights, readOnly);
+            page.displayObject();            
             page.IsActiveChanged += ActivePageChangedEventHandler;
             bool canAddNewPage = NewPage != null;
 

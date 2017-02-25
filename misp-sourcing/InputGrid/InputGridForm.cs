@@ -3,6 +3,7 @@ using Misp.Kernel.Administration.Profil;
 using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Util;
 using Misp.Sourcing.GridViews;
 using System;
 using System.Collections.Generic;
@@ -60,7 +61,14 @@ namespace Misp.Sourcing.InputGrid
         /// <param name="readOnly"></param>
         public virtual void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
         {
-
+            bool edit = RightsUtil.HasRight(Kernel.Domain.RightType.EDIT, rights);
+            bool editLine = RightsUtil.HasRight(Kernel.Domain.RightType.EDIT_CELL, rights);
+            if (GridForm != null)
+            {
+                GridForm.SetReadOnly(readOnly || !editLine);
+                GridForm.filterForm.SetReadOnly(readOnly || !edit);
+            }
+            if (InputGridSheetForm != null) InputGridSheetForm.SetReadOnly(readOnly || !edit);
         }
 
         public virtual void SetTarget(Target target)

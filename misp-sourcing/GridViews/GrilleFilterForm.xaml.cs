@@ -172,5 +172,13 @@ namespace Misp.Sourcing.GridViews
             reset();
         }
 
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            targetFilter.DisplayScope(null, false, readOnly);
+            periodFilter.SetReadOnly(readOnly);
+            resetButton.Visibility = readOnly ? Visibility.Collapsed : Visibility.Visible;
+        }
+
     }
 }

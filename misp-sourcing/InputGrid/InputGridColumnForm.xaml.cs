@@ -110,7 +110,14 @@ namespace Misp.Sourcing.InputGrid
         {
             if (Changed != null) Changed((bool)rebuild);
         }
-        
+
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.NameTextBox.IsEnabled = !readOnly;
+            this.ShowCheckBox.IsEnabled = !readOnly;
+        }
+
     }
 }
 

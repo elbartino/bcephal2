@@ -44,6 +44,8 @@ namespace Misp.Sourcing.Table
 
         #region Properties
 
+        public bool IsReadOnly { get; set; }
+
         public Period Period { get; set; }
 
         public RPeriodNamePanel ActiveNamePanel { get; set; }
@@ -101,6 +103,12 @@ namespace Misp.Sourcing.Table
         
 
         #region Operations
+
+        public void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+            if (NewPeriodTextBlockRow != null) NewPeriodTextBlock.Visibility = readOnly ? Visibility.Collapsed : Visibility.Visible;
+        }
 
         /// <summary>
         /// 
@@ -363,9 +371,5 @@ namespace Misp.Sourcing.Table
         #endregion
 
 
-        public void SetReadOnly(bool readOnly)
-        {
-            if (NewPeriodTextBlockRow != null) NewPeriodTextBlock.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
-        }
     }
 }

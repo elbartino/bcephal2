@@ -101,6 +101,7 @@ namespace Misp.Sourcing.InputGrid
         public virtual void SetReadOnly(bool readOnly)
         {
             this.IsReadOnly = readOnly;
+            if(InputGridPropertiesPanel != null) InputGridPropertiesPanel.SetReadOnly(readOnly);
         }
 
         /// <summary>

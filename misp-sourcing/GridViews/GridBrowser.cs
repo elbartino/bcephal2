@@ -52,6 +52,8 @@ namespace Misp.Sourcing.GridViews
 
         public InputGridService Service { get; set; }
 
+        public bool IsReadOnly { get; set; }
+
         public GridBrowser()
         {
             ThemeManager.SetThemeName(this, "Office2016White");
@@ -92,7 +94,7 @@ namespace Misp.Sourcing.GridViews
             gridControl.SelectionMode = MultiSelectMode.MultipleRow;
             gridControl.View = view; 
             view.ShowGroupPanel = Grille.report && !Grille.reconciliation;
-            view.AllowEditing = !Grille.report && !Grille.reconciliation;
+            view.AllowEditing = !this.IsReadOnly && !Grille.report && !Grille.reconciliation;
 
             gridControl.EndSorting += OnEndSorting;
 
@@ -104,7 +106,7 @@ namespace Misp.Sourcing.GridViews
             view.Menu.DeleteItem.ItemClick += OnDelete;
             view.Menu.DuplicateItem.ItemClick += OnDuplicate;
 
-            view.IsRowCellMenuEnabled = !Grille.IsReadOnly();
+            view.IsRowCellMenuEnabled = !this.IsReadOnly && !Grille.IsReadOnly();
         }
 
         private bool allowSort = true;
@@ -556,7 +558,7 @@ namespace Misp.Sourcing.GridViews
                 if(count > 0)buildDate(row, positions);
                 items.Add(new GridItem(row, side));
             }
-            if (!this.Grille.IsReadOnly())
+            if (!this.IsReadOnly && !this.Grille.IsReadOnly())
             {
                 items.Add(new GridItem(new object[this.gridControl.Columns.Count], side));
             }
@@ -627,7 +629,7 @@ namespace Misp.Sourcing.GridViews
             DevExpress.Xpf.Grid.GridColumn column = new DevExpress.Xpf.Grid.GridColumn();
             column.FieldName = grilleColumn.name;
             column.IsSmart = true;
-            column.ReadOnly = this.Grille.IsReadOnly();
+            column.ReadOnly = this.IsReadOnly || this.Grille.IsReadOnly();
             column.ColumnFilterMode = ColumnFilterMode.DisplayText;
             Binding b = new Binding(getBindingName(grilleColumn));
             b.Mode = BindingMode.TwoWay;
@@ -686,6 +688,12 @@ namespace Misp.Sourcing.GridViews
         }
 
 
-        
+
+
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+        }
+
     }
 }

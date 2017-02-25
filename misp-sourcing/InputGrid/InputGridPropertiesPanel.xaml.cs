@@ -304,5 +304,15 @@ namespace Misp.Sourcing.InputGrid
         #endregion
 
 
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.ColumnsListBoxContextMenu.Visibility = readOnly ? Visibility.Collapsed : Visibility.Visible;
+            this.NameTextBox.IsEnabled = !readOnly;
+            this.groupField.SetReadOnly(readOnly);
+            this.visibleInShortcutCheckbox.IsEnabled = !readOnly;
+            this.CommentTextBlock.IsEnabled = !readOnly;
+            this.ColumnForms.SetReadOnly(readOnly);
+        }
+
     }
 }

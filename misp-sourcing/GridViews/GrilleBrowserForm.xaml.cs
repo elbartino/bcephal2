@@ -72,6 +72,7 @@ namespace Misp.Sourcing.GridViews
         public virtual void SetReadOnly(bool readOnly)
         {
             this.IsReadOnly = readOnly;
+            gridBrowser.SetReadOnly(readOnly);
         }
 
         /// <summary>
