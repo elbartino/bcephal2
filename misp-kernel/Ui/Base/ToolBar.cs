@@ -48,7 +48,12 @@ namespace Misp.Kernel.Ui.Base
 
 
         #region Operations
-
+        
+        /// <summary>
+        /// Customize toolbar for connected user
+        /// </summary>
+        /// <param name="rights"></param>
+        /// <param name="readOnly"></param>
         public virtual void Customize(List<Domain.Right> rights, bool readOnly = false)
         {
             bool edit = RightsUtil.HasRight(Domain.RightType.EDIT, rights);

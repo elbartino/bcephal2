@@ -10,6 +10,7 @@ using Misp.Kernel.Application;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Service;
 
 namespace Misp.Kernel.Ui.Base
 {
@@ -47,6 +48,16 @@ namespace Misp.Kernel.Ui.Base
         public virtual void SetReadOnly(bool readOnly)
         {
             this.IsReadOnly = readOnly;
+        }
+
+        /// <summary>
+        /// Customize for connected user
+        /// </summary>
+        /// <param name="rights"></param>
+        /// <param name="readOnly"></param>
+        public virtual void Customize(List<Domain.Right> rights, bool readOnly = false)
+        {
+            
         }
 
         protected virtual void InitializeNewPage()
@@ -93,10 +104,10 @@ namespace Misp.Kernel.Ui.Base
         /// Si la page n'existe pas, on la crée, on la rajoute aà l'éditeur et on la selectionne.
         /// </summary>
         /// <param name="anObject">L'objet dont la page doit être créée ou selectionnée</param>
-        public EditorItem<T> addOrSelectPage(T anObject, bool readOnly = false) 
+        public EditorItem<T> addOrSelectPage(T anObject, bool readOnly = false, List<Domain.Right> rights = null) 
         {
             EditorItem<T> page = getPage(anObject);
-            if (page == null) page = addPage(anObject, readOnly);
+            if (page == null) page = addPage(anObject, readOnly, rights);
             selectePage(page);
             return page;
         }
@@ -253,31 +264,38 @@ namespace Misp.Kernel.Ui.Base
         /// </summary>
         /// <param name="anObject">L'objet dont la page doit être rejoutée</param>
         /// <returns>La page créée</returns>
-        protected virtual EditorItem<T> addPage(T anObject, bool readOnly = false)
-        {            
-           EditorItem<T> page = getNewPage();
-           if (readOnly) page.SetReadOnly(readOnly);
-           page.ChangeEventHandler = this.ChangeEventHandler;
-           page.EditedObject = anObject;
-           page.Title = anObject != null ? anObject.ToString() : "";
-           page.displayObject();
-           page.IsActiveChanged += ActivePageChangedEventHandler;
-           bool canAddNewPage = NewPage != null;
+        protected virtual EditorItem<T> addPage(T anObject, bool readOnly = false, List<Domain.Right> rights = null)
+        {
+            if (!ApplicationManager.Instance.User.IsAdmin() && anObject != null && anObject.oid.HasValue)
+            {
+                RightService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetRightService();
+                rights = service.getUserRights(this.SubjectType.label, anObject.oid.Value);
+            }
 
-           if (canAddNewPage) NewPage.IsActiveChanged -= newPageEventHandler;
-               
-           try
-           {
+            EditorItem<T> page = getNewPage();
+            if (readOnly) page.SetReadOnly(readOnly);
+            page.ChangeEventHandler = this.ChangeEventHandler;
+            page.EditedObject = anObject;
+            page.Title = anObject != null ? anObject.ToString() : "";
+            page.displayObject();
+            page.Customize(rights, readOnly);
+            page.IsActiveChanged += ActivePageChangedEventHandler;
+            bool canAddNewPage = NewPage != null;
+
+            if (canAddNewPage) NewPage.IsActiveChanged -= newPageEventHandler;
+
+            try
+            {
                 if (canAddNewPage) this.Children.Remove(NewPage);
                 this.Children.Add(page);
                 if (canAddNewPage) this.Children.Add(NewPage);
-           }
-           catch (Exception)
-           {
-           }
-           page.IsActive = true;
-           if (canAddNewPage)  NewPage.IsActiveChanged += newPageEventHandler;
-           return page;
+            }
+            catch (Exception)
+            {
+            }
+            page.IsActive = true;
+            if (canAddNewPage) NewPage.IsActiveChanged += newPageEventHandler;
+            return page;           
         }
 
         /// <summary>

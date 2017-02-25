@@ -90,6 +90,16 @@ namespace Misp.Kernel.Ui.Base
             this.IsReadOnly = readOnly;
         }
 
+        /// <summary>
+        /// Customize for connected user
+        /// </summary>
+        /// <param name="rights"></param>
+        /// <param name="readOnly"></param>
+        public virtual void Customize(List<Domain.Right> rights, bool readOnly = false)
+        {
+
+        }
+
         public BrowserDataFilter BuildFilter(int page = 0)
         {
             BrowserDataFilter filter = new BrowserDataFilter();

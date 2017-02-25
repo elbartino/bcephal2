@@ -562,17 +562,16 @@ namespace Misp.Kernel.Controller
 
         public virtual void CustomizeForUser(EditorItem<T> page)
         {
-            CustomizeSideBarToolbarAndContexMenu(page);
-            if (!ApplicationManager.User.IsAdmin() && page.EditedObject != null && page.EditedObject.oid.HasValue)
+            //CustomizeSideBarToolbarAndContexMenu(page);
+            List<Right> rights = null;
+            if (!ApplicationManager.User.IsAdmin() && page.EditedObject.oid.HasValue)
             {
                 RightService service = ApplicationManager.ControllerFactory.ServiceFactory.GetRightService();
-                List<Right> rights = service.getUserRights(this.SubjectType.label, page.EditedObject.oid.Value);
-                if (rights != null)
-                {
-                    if (this.ToolBar != null) this.ToolBar.Customize(rights, page.IsReadOnly);
-                    if (this.SideBar != null) this.SideBar.customize(rights, page.IsReadOnly);
-                }
+                rights = service.getUserRights(this.SubjectType.label, page.EditedObject.oid.Value);                
             }
+            if (this.ToolBar != null) this.ToolBar.Customize(rights, page.IsReadOnly);
+            if (this.SideBar != null) this.SideBar.Customize(rights, page.IsReadOnly);
+            //page.Customize(rights, page.IsReadOnly);
         }
 
         public virtual void CustomizeSideBarToolbarAndContexMenu(EditorItem<T> page)

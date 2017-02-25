@@ -96,6 +96,16 @@ namespace Misp.Reporting.Calculated_Measure
         }
 
         /// <summary>
+        /// Customize for connected user
+        /// </summary>
+        /// <param name="rights"></param>
+        /// <param name="readOnly"></param>
+        public virtual void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
+        {
+
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="ChangeEventHandler"></param>

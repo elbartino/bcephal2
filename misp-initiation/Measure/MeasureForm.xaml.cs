@@ -109,6 +109,16 @@ namespace Misp.Initiation.Measure
         }
 
         /// <summary>
+        /// Customize for connected user
+        /// </summary>
+        /// <param name="rights"></param>
+        /// <param name="readOnly"></param>
+        public virtual void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
+        {
+
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <returns>La liste des controls éditables</returns>

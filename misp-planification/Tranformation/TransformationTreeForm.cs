@@ -365,6 +365,16 @@ namespace Misp.Planification.Tranformation
             if (this.TransformationTreeDiagramView != null) this.TransformationTreeDiagramView.SetReadOnly(readOnly);
         }
 
+        /// <summary>
+        /// Customize for connected user
+        /// </summary>
+        /// <param name="rights"></param>
+        /// <param name="readOnly"></param>
+        public virtual void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
+        {
+
+        }
+
 
         BusyAction action;
         /// <summary>

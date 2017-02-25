@@ -116,6 +116,15 @@ namespace Misp.Reconciliation.Reco
             this.IsReadOnly = readOnly;
         }
 
+        /// <summary>
+        /// Customize for connected user
+        /// </summary>
+        /// <param name="rights"></param>
+        /// <param name="readOnly"></param>
+        public virtual void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
+        {
+
+        }
 
         public virtual void SetTarget(Target target)
         {

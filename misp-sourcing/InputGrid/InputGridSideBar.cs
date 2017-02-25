@@ -58,11 +58,11 @@ namespace Misp.Sourcing.InputGrid
             this.AddGroup(this.PeriodGroup);
         }
 
-        public override void customize(List<Right> listeRights, bool readOnly = false)
+        public override void Customize(List<Right> rights, bool readOnly = false)
         {
-            this.EntityGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, listeRights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
-            this.MeasureGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, listeRights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
-            this.PeriodGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, listeRights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.EntityGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, rights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.MeasureGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, rights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.PeriodGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, rights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
         }
 
 

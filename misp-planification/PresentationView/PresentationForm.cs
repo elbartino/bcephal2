@@ -54,6 +54,15 @@ namespace Misp.Planification.PresentationView
             this.IsReadOnly = readOnly;
         }
 
+        /// <summary>
+        /// Customize for connected user
+        /// </summary>
+        /// <param name="rights"></param>
+        /// <param name="readOnly"></param>
+        public virtual void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
+        {
+
+        }
 
         protected virtual void InitializeComponents()
         {

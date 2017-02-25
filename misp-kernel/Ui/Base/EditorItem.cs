@@ -126,6 +126,16 @@ namespace Misp.Kernel.Ui.Base
             if (editorItemForm != null) editorItemForm.SetReadOnly(readOnly);
         }
 
+        /// <summary>
+        /// Customize for connected user
+        /// </summary>
+        /// <param name="rights"></param>
+        /// <param name="readOnly"></param>
+        public virtual void Customize(List<Domain.Right> rights, bool readOnly = false)
+        {
+            if (editorItemForm != null) editorItemForm.Customize(rights, readOnly);
+        }
+
         #endregion
 
 
@@ -305,5 +315,7 @@ namespace Misp.Kernel.Ui.Base
 
         #endregion
 
+
+        
     }
 }

@@ -41,6 +41,16 @@ namespace Misp.Initiation.Periodicity
             this.IsReadOnly = readOnly;
         }
 
+        /// <summary>
+        /// Customize for connected user
+        /// </summary>
+        /// <param name="rights"></param>
+        /// <param name="readOnly"></param>
+        public virtual void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
+        {
+
+        }
+
         private void Initialize()
         {
             this.periodNameEditorItem = new PeriodNameEditorItem(this.SubjectType);

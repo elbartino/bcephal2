@@ -291,6 +291,16 @@ namespace Misp.Sourcing.Table
             if (SpreadSheet != null) SpreadSheet.SetReadOnly(readOnly);
         }
 
+        /// <summary>
+        /// Customize for connected user
+        /// </summary>
+        /// <param name="rights"></param>
+        /// <param name="readOnly"></param>
+        public virtual void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
+        {
+
+        }
+
         protected virtual bool isReport()
         {
             return false;
