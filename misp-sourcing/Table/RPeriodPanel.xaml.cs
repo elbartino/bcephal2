@@ -138,7 +138,7 @@ namespace Misp.Sourcing.Table
                 return;
             }
 
-            Dictionary<String, List<PeriodItem>> dictionary = period.AsDictionary();
+            Dictionary<String, List<PeriodItem>> dictionary = period != null ? period.AsDictionary() : new Dictionary<String, List<PeriodItem>>(0);
             int index = 0;
             foreach (String name in dictionary.Keys)
             {
