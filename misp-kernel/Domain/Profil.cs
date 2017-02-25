@@ -44,7 +44,7 @@ namespace Misp.Kernel.Domain
         {
             foreach (Right right in rightsListChangeHandler.Items)
             {
-                if (right.functionnality.Equals(aRight.functionnality) && right.rightType == aRight.rightType) return right;
+                if (right.functionnality != null && right.functionnality.Equals(aRight.functionnality) && right.rightType == aRight.rightType) return right;
             }
             return null;
         }

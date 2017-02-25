@@ -305,6 +305,7 @@ namespace Misp.Sourcing.InputGrid
         public override void OnPageSelected(EditorItem<Grille> page)
         {
             if (page == null) return;
+            base.OnPageSelected(page);
             InputGridForm form = ((InputGridEditorItem)page).getInputGridForm();
             InputGridPropertyBar bar = (InputGridPropertyBar)this.PropertyBar;
             if (bar.AdministratorLayoutAnchorable != null) bar.AdministratorLayoutAnchorable.Content = form.AdministrationBar;
