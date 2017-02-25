@@ -94,6 +94,8 @@ namespace Misp.Sourcing.Table
 
         #region Properties
 
+        public bool IsReadOnly { get; set; }
+
         private int index;
         private bool IsNoAllocation;
 
@@ -307,8 +309,10 @@ namespace Misp.Sourcing.Table
 
         public void SetReadOnly(bool readOnly)
         {
+            this.IsReadOnly = readOnly;
             this.button.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
             this.formulaTextBox.IsEnabled = !readOnly;
+            this.valueTextBox.IsEnabled = !readOnly;
         }
     }
 }

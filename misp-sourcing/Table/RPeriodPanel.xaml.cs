@@ -108,6 +108,16 @@ namespace Misp.Sourcing.Table
         {
             this.IsReadOnly = readOnly;
             if (NewPeriodTextBlockRow != null) NewPeriodTextBlock.Visibility = readOnly ? Visibility.Collapsed : Visibility.Visible;
+            if (this.panel.Children.Count > 0)
+            {
+                foreach (UIElement element in this.panel.Children)
+                {
+                    if (element is RPeriodItemPanel) 
+                    {
+                        ((RPeriodItemPanel)element).SetReadOnly(this.IsReadOnly);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -120,11 +130,10 @@ namespace Misp.Sourcing.Table
             this.panel.Children.Clear();
             if(forAutomaticSourcing) this.tagFormula.Visibility = System.Windows.Visibility.Collapsed;
             if (readOnly) this.NewPeriodTextBlock.Visibility = System.Windows.Visibility.Collapsed;
-            if (period == null || period.itemListChangeHandler.Items.Count <= 0)
+            if ((period == null || period.itemListChangeHandler.Items.Count <= 0) && !this.IsReadOnly)
             {
                 if (DefaultPeriodName != null) this.ActiveNamePanel = new RPeriodNamePanel(DefaultPeriodName.name);
                 else this.ActiveNamePanel = new RPeriodNamePanel();
-                this.ActiveNamePanel.SetReadOnly(readOnly);
                 AddNamePanel(this.ActiveNamePanel);
                 return;
             }
@@ -136,12 +145,12 @@ namespace Misp.Sourcing.Table
                 List<PeriodItem> items;
                 dictionary.TryGetValue(name, out items);
                 RPeriodNamePanel itemPanel = new RPeriodNamePanel(name, items);
-                itemPanel.SetReadOnly(readOnly);
+                if(this.IsReadOnly) itemPanel.SetReadOnly(this.IsReadOnly);
                 itemPanel.Index = index;
                 AddNamePanel(itemPanel);
                 index++;
             }
-            if (this.panel.Children.Count == 0)
+            if (this.panel.Children.Count == 0 && !this.IsReadOnly)
             {
                 this.ActiveNamePanel = new RPeriodNamePanel();
                 this.ActiveNamePanel.SetReadOnly(readOnly);

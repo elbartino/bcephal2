@@ -167,6 +167,8 @@ namespace Misp.Sourcing.Table
 
         private int index;
 
+        public bool IsReadOnly { get; set; }
+
         public PeriodItem PeriodItem { get; set; }
 
         public int Index 
@@ -520,13 +522,14 @@ namespace Misp.Sourcing.Table
 
         public void SetReadOnly(bool readOnly)
         {
+            this.IsReadOnly = readOnly;
             this.SignComboBox.IsEnabled = !readOnly;
             this.ValueDatePicker.IsEnabled = !readOnly;
             this.FormulaTextBox.IsEnabled = !readOnly;
             this.operationComboBox.IsEnabled = !readOnly;
             this.numberValueTextBox.IsEnabled = !readOnly;
             this.granulartityComBox.IsEnabled = !readOnly;
-            this.Button.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.Button.Visibility = readOnly ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;           
         }
     }
 }

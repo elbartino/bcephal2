@@ -55,6 +55,8 @@ namespace Misp.Sourcing.Table
 
         protected bool isTableView = false;
 
+        public bool IsReadOnly { get; set; }
+
         #endregion
 
 
@@ -123,9 +125,9 @@ namespace Misp.Sourcing.Table
             this.Period = period;
             this.panel.Children.Clear();
             if(forAutomaticSourcing) this.tagFormula.Visibility = System.Windows.Visibility.Collapsed;
-            if (readOnly) this.NewPeriodTextBlock.Visibility = System.Windows.Visibility.Collapsed;
+            if (this.IsReadOnly) this.NewPeriodTextBlock.Visibility = System.Windows.Visibility.Collapsed;
             int index = 1;
-            if (period == null || period.itemListChangeHandler.Items.Count == 0)
+            if ((period == null || period.itemListChangeHandler.Items.Count == 0) && !this.IsReadOnly)
             {
                 this.ActiveItemPanel = new PeriodItemPanel(index, forReport,forAutomaticSourcing,isTableView);
                 this.ActiveItemPanel.NameTextBox.Text = PeriodName.DEFAULT_DATE_NAME;
@@ -139,7 +141,7 @@ namespace Misp.Sourcing.Table
                 isDefaultDate = item.name.Equals(PeriodName.DEFAULT_DATE_NAME, StringComparison.OrdinalIgnoreCase);
                 isDefaultDate = isDefaultDate && String.IsNullOrEmpty(item.value);
                 PeriodItemPanel itemPanel = new PeriodItemPanel(item, forReport,forAutomaticSourcing,isTableView);
-                itemPanel.SetReadOnly(readOnly);
+                if(this.IsReadOnly)   itemPanel.SetReadOnly(this.IsReadOnly);
                 AddItemPanel(itemPanel);
                 index++;
             }
@@ -371,7 +373,17 @@ namespace Misp.Sourcing.Table
 
         public void SetReadOnly(bool readOnly)
         {
-            
+            this.IsReadOnly = readOnly;
+            if (this.panel.Children.Count > 0)
+            {
+                foreach (UIElement item in this.panel.Children)
+                {
+                    if (item is PeriodItemPanel)
+                    {
+                        ((PeriodItemPanel)item).SetReadOnly(this.IsReadOnly);
+                    }
+                }
+            }
         }
     }
 }

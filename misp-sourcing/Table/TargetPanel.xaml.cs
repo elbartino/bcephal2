@@ -47,7 +47,8 @@ namespace Misp.Sourcing.Table
 
         //public ScopeItemPanel ActiveItemPanel { get; set; }
         public TargetItemPanel ActiveItemPanel { get; set; }
-   
+
+        public bool IsReadOnly { get; set; }
 
         /// <summary>
         /// 
@@ -58,7 +59,7 @@ namespace Misp.Sourcing.Table
             this.Scope = scope;
             this.panel.Children.Clear();
             int index = 1;
-            if (scope == null)
+            if (scope == null && !this.IsReadOnly)
             {
                 this.ActiveItemPanel = new TargetItemPanel(index);
                 this.ActiveItemPanel.SetReadOnly(readOnly);
@@ -69,13 +70,17 @@ namespace Misp.Sourcing.Table
             foreach (TargetItem item in scope.targetItemListChangeHandler.Items)
             {
                 TargetItemPanel itemPanel = new TargetItemPanel(item,isNoAllocation);
-                itemPanel.SetReadOnly(readOnly);
+                if(this.IsReadOnly) itemPanel.SetReadOnly(this.IsReadOnly);
                 AddItemPanel(itemPanel);
                 index++;
             }
-            this.ActiveItemPanel = new TargetItemPanel(index,isNoAllocation);
-            this.ActiveItemPanel.SetReadOnly(readOnly);
-            AddItemPanel(this.ActiveItemPanel);
+
+            if (!this.IsReadOnly)
+            {
+                this.ActiveItemPanel = new TargetItemPanel(index, isNoAllocation);
+                this.ActiveItemPanel.SetReadOnly(readOnly);
+                AddItemPanel(this.ActiveItemPanel);
+            }
         }
 
         public void SetTargetValue(Target value)
@@ -190,6 +195,21 @@ namespace Misp.Sourcing.Table
             else
             {
                 hearderRow.Height = new GridLength(0);
+            }
+        }
+
+        public void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+            if (this.panel.Children.Count > 0) 
+            {
+                foreach (UIElement item in this.panel.Children)
+                {
+                    if (item is TargetItemPanel) 
+                    {
+                        ((TargetItemPanel)item).SetReadOnly(readOnly);
+                    }
+                }
             }
         }
         
