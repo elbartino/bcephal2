@@ -468,20 +468,19 @@ namespace Misp.Kernel.Controller
             bool itemsSelected = count > 0;
             
             bool create = true;
-            bool edit = itemsSelected;
-            bool saveAs = itemsSelected;
-            bool delete = itemsSelected;
+            bool saveAs = count == 1;
+            bool delete = count == 1;
 
-            if(this.GetBrowser().Grid.IsReadOnly)
+            if(count == 1)
             {
+                BrowserData item = (BrowserData)this.GetBrowser().Grid.SelectedItem;
                 List<Right> rights = null;
                 PrivilegeObserver observer = new PrivilegeObserver();
                 if (!ApplicationManager.User.IsAdmin())
                 {
                     RightService service = ApplicationManager.ControllerFactory.ServiceFactory.GetRightService();
-                    //rights = service.getUserRights(this.SubjectType.label);                
+                    rights = service.getUserRights(this.SubjectType.label, item.oid);                
                 }               
-                edit = RightsUtil.HasRight(Domain.RightType.EDIT, rights);
                 saveAs = RightsUtil.HasRight(Domain.RightType.SAVE_AS, rights);
                 delete = RightsUtil.HasRight(Domain.RightType.DELETE, rights);
                 create = observer.hasPrivilege(this.FunctionalityCode, Domain.RightType.CREATE);
