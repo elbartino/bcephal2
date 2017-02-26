@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Kernel.Application;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,8 +35,19 @@ namespace Misp.Kernel.Ui.Base
         protected override void userConfiguration()
         {
             base.userConfiguration();
-            SaveButton.Visibility = System.Windows.Visibility.Hidden;
+            SaveButton.Visibility = System.Windows.Visibility.Collapsed;
             CloseButton.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// Customize toolbar for connected user
+        /// </summary>
+        /// <param name="rights"></param>
+        /// <param name="readOnly"></param>
+        public override void Customize(String fuctionality, PrivilegeObserver observer, List<Domain.Right> rights, bool readOnly = false)
+        {
+            base.Customize(fuctionality, observer, rights, readOnly);
+            SaveButton.Visibility = System.Windows.Visibility.Collapsed;
         }
 
     }

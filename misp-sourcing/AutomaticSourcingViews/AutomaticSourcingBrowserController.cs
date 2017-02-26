@@ -33,7 +33,7 @@ namespace Misp.Sourcing.AutomaticSourcingViews
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new AutomaticSourcingBrowser(this.SubjectType); }
+        protected override IView getNewView() { return new AutomaticSourcingBrowser(this.SubjectType, this.FunctionalityCode); }
         
         /// <summary>
         /// Initialisation des donnée sur la vue.

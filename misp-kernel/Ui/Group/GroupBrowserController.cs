@@ -31,7 +31,7 @@ namespace Misp.Kernel.Ui.Group
         /// <returns>Une nouvelle instance de la vue</returns>
         protected override IView getNewView() 
         {
-            GroupBrowser browser = new GroupBrowser(this.SubjectType);
+            GroupBrowser browser = new GroupBrowser(this.SubjectType, this.FunctionalityCode);
             browser.Grid.BrowserGridContextMenu.Items.Remove(browser.Grid.BrowserGridContextMenu.NewMenuItem);
             browser.Grid.BrowserGridContextMenu.Items.Remove(browser.Grid.BrowserGridContextMenu.SaveAsMenuItem);
             browser.Grid.BrowserGridContextMenu.Items.Remove(browser.Grid.BrowserGridContextMenu.OpenMenuItem);

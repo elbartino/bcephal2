@@ -12,7 +12,7 @@ namespace Misp.Sourcing.InputGrid
     public class InputGridBrowser : AutomaticSourcingBrowser
     {
 
-        public InputGridBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public InputGridBrowser(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         protected override string getTitle()
         {

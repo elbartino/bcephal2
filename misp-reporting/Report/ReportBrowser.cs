@@ -13,7 +13,7 @@ namespace Misp.Reporting.Report
     public class ReportBrowser : InputTableBrowser
     {
 
-        public ReportBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public ReportBrowser(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         protected override string getTitle() { return "Reports"; }
 

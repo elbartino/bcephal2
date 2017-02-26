@@ -40,8 +40,9 @@ namespace Misp.Kernel.Ui.Base
         /// <summary>
         /// Construit une nouvelle instance de Browser
         /// </summary>
-        public Browser(SubjectType subjectType) 
+        public Browser(SubjectType subjectType, String functionality) 
         {
+            this.FunctionalityCode = functionality;
             this.SubjectType = subjectType;
             Datas = new ObservableCollection<B>();
             initializeGrid();
@@ -51,6 +52,8 @@ namespace Misp.Kernel.Ui.Base
 
 
         #region Properties
+
+        public String FunctionalityCode { get; set; }
 
         public SubjectType SubjectType { get; set; }
 
@@ -88,6 +91,7 @@ namespace Misp.Kernel.Ui.Base
         public virtual void SetReadOnly(bool readOnly)
         {
             this.IsReadOnly = readOnly;
+            if (Grid != null) Grid.SetReadOnly(readOnly);
         }
 
         /// <summary>

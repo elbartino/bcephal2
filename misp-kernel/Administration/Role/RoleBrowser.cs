@@ -13,7 +13,7 @@ namespace Misp.Kernel.Administration.Role
     public class RoleBrowser : Browser<BrowserData>
     {
 
-        public RoleBrowser(Domain.SubjectType subjectType) : base(subjectType) { }
+        public RoleBrowser(Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Column count

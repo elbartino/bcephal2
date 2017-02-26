@@ -12,7 +12,7 @@ namespace Misp.Reconciliation.Reco
     public class ReconciliationFilterTemplateBrowser : Browser<BrowserData>
     {
 
-        public ReconciliationFilterTemplateBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public ReconciliationFilterTemplateBrowser(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Column count

@@ -12,7 +12,7 @@ namespace Misp.Kernel.Administration.User
     public class UserBrowser : Browser<UserBrowserData>
     {
 
-        public UserBrowser(Domain.SubjectType subjectType) : base(subjectType) { }
+        public UserBrowser(Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Column count

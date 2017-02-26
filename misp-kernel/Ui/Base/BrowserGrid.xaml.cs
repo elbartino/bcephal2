@@ -66,8 +66,13 @@ namespace Misp.Kernel.Ui.Base
         {
             this.BrowserGridContextMenu.Visibility = System.Windows.Visibility.Collapsed;
         }
-
-
         
+        public virtual void SetReadOnly(bool readOnly)
+        {
+            this.IsReadOnly = readOnly;
+            //if (BrowserGridContextMenu.Visibility == Visibility.Visible && readOnly)
+                //BrowserGridContextMenu.Visibility = Visibility.Collapsed;
+        }
+
     }
 }

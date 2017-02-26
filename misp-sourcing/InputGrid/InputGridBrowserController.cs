@@ -30,7 +30,7 @@ namespace Misp.Sourcing.InputGrid
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new InputGridBrowser(this.SubjectType); }
+        protected override IView getNewView() { return new InputGridBrowser(this.SubjectType, this.FunctionalityCode); }
         
         /// <summary>
         /// Initialisation des donnée sur la vue.

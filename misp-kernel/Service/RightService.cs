@@ -33,6 +33,23 @@ namespace Misp.Kernel.Service
             }
         }
 
+        public virtual List<Right> getUserRights(String objectType)
+        {
+            try
+            {
+                String project = Kernel.Application.ApplicationManager.Instance.File.code;
+                var request1 = new RestRequest(ResourcePath + "/user/" + project + "/" + objectType, Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+                List<Right> rights = RestSharp.SimpleJson.DeserializeObject<List<Right>>(queryResult.Content);
+                return rights;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve object from server.", e);
+                return new List<Right>(0);
+            }
+        }
+
         /// <summary>
         /// Right according to Profil
         /// </summary>

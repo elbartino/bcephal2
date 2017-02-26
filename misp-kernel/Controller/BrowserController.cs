@@ -382,6 +382,25 @@ namespace Misp.Kernel.Controller
         /// <returns>Une nouvelle instance de la SideBar</returns>
         protected override SideBar getNewSideBar() { return new BrowserSideBar(); }
 
+        /// <summary>
+        /// Effectue l'initialisation du controller.
+        /// On initialize la vue et on met this.IsModify = false
+        /// </summary>
+        /// <returns>
+        /// OperationState.CONTINUE si l'opération a réussi
+        /// OperationState.STOP sinon
+        /// </returns>
+        public override OperationState Initialize()
+        {
+            base.Initialize();
+            List<Right> rights = null;
+            PrivilegeObserver observer = new PrivilegeObserver();            
+            if (this.ToolBar != null) this.ToolBar.Customize(this.FunctionalityCode, observer, rights, false);
+            bool edit = observer.hasPrivilege(this.FunctionalityCode, Domain.RightType.CREATE);
+            GetBrowser().SetReadOnly(!edit);
+            return OperationState.CONTINUE;
+        }
+
         #endregion
 
 
@@ -445,16 +464,36 @@ namespace Misp.Kernel.Controller
 
         protected virtual void OnSelectionChange(object sender, SelectionChangedEventArgs args)
         {
-            bool itemsSelected = this.GetBrowser().Grid.SelectedItems.Count > 0;
-            this.ToolBar.NewButton.IsEnabled = true;
+            int count = this.GetBrowser().Grid.SelectedItems.Count;
+            bool itemsSelected = count > 0;
+            
+            bool create = true;
+            bool edit = itemsSelected;
+            bool saveAs = itemsSelected;
+            bool delete = itemsSelected;
 
-            this.GetBrowser().Grid.BrowserGridContextMenu.NewMenuItem.IsEnabled = this.ToolBar.NewButton.IsEnabled;
+            if(this.GetBrowser().Grid.IsReadOnly)
+            {
+                List<Right> rights = null;
+                PrivilegeObserver observer = new PrivilegeObserver();
+                if (!ApplicationManager.User.IsAdmin())
+                {
+                    RightService service = ApplicationManager.ControllerFactory.ServiceFactory.GetRightService();
+                    //rights = service.getUserRights(this.SubjectType.label);                
+                }               
+                edit = RightsUtil.HasRight(Domain.RightType.EDIT, rights);
+                saveAs = RightsUtil.HasRight(Domain.RightType.SAVE_AS, rights);
+                delete = RightsUtil.HasRight(Domain.RightType.DELETE, rights);
+                create = observer.hasPrivilege(this.FunctionalityCode, Domain.RightType.CREATE);
+            }
+
+            this.GetBrowser().Grid.BrowserGridContextMenu.NewMenuItem.IsEnabled = create;
             this.GetBrowser().Grid.BrowserGridContextMenu.OpenMenuItem.IsEnabled = itemsSelected;
-            this.GetBrowser().Grid.BrowserGridContextMenu.RenameMenuItem.IsEnabled = this.GetBrowser().Grid.SelectedItems.Count == 1;
-            this.GetBrowser().Grid.BrowserGridContextMenu.SaveAsMenuItem.IsEnabled = this.GetBrowser().Grid.BrowserGridContextMenu.RenameMenuItem.IsEnabled;
-            this.GetBrowser().Grid.BrowserGridContextMenu.CopyMenuItem.IsEnabled = itemsSelected;
-            this.GetBrowser().Grid.BrowserGridContextMenu.PasteMenuItem.IsEnabled = itemsSelected;
-            this.GetBrowser().Grid.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = itemsSelected;
+            this.GetBrowser().Grid.BrowserGridContextMenu.RenameMenuItem.IsEnabled = saveAs && count == 1;
+            this.GetBrowser().Grid.BrowserGridContextMenu.SaveAsMenuItem.IsEnabled = saveAs && count == 1;
+            this.GetBrowser().Grid.BrowserGridContextMenu.CopyMenuItem.IsEnabled = itemsSelected && create;
+            this.GetBrowser().Grid.BrowserGridContextMenu.PasteMenuItem.IsEnabled = create;
+            this.GetBrowser().Grid.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = itemsSelected && delete;
 
             customizeContextMenu();
         }

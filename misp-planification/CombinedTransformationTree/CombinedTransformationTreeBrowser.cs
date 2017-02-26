@@ -12,7 +12,7 @@ namespace Misp.Planification.CombinedTransformationTree
     public class CombinedTransformationTreeBrowser : Browser<BrowserData>
     {
 
-        public CombinedTransformationTreeBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public CombinedTransformationTreeBrowser(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Column count

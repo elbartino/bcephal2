@@ -13,7 +13,7 @@ namespace Misp.Kernel.Ui.Group
     public class GroupBrowser : Browser<BrowserData>
     {
 
-        public GroupBrowser(Domain.SubjectType subjectType) : base(subjectType) { }
+        public GroupBrowser(Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Column count

@@ -12,7 +12,7 @@ namespace Misp.Sourcing.Designer
     public class DesignerBrowser : Browser<BrowserData>
     {
 
-        public DesignerBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public DesignerBrowser(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Column count

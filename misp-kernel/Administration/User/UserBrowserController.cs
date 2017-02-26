@@ -35,7 +35,7 @@ namespace Misp.Kernel.Administration.User
         /// <returns>Une nouvelle instance de la vue</returns>
         protected override IView getNewView() 
         {
-            return new UserBrowser(this.SubjectType); 
+            return new UserBrowser(this.SubjectType, this.FunctionalityCode); 
         }
         
         /// <summary>

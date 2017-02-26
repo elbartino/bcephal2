@@ -10,7 +10,7 @@ namespace Misp.Reconciliation.Posting
     public class PostingGridBrowser : InputGridBrowser
     {
 
-        public PostingGridBrowser(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public PostingGridBrowser(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         protected override string getTitle()
         {
