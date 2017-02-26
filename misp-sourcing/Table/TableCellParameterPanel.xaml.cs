@@ -105,6 +105,9 @@ namespace Misp.Sourcing.Table
         public  void SetReadOnly(bool readOnly)
         {
             this.ResetButton.Visibility = readOnly ? Visibility.Collapsed : System.Windows.Visibility.Visible;
+            if (CellMeasurePanel != null) CellMeasurePanel.SetReadOnly(readOnly);
+            if (periodPanel != null) periodPanel.SetReadOnly(readOnly);
+            if (filterScopePanel != null) filterScopePanel.SetReadOnly(readOnly);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Misp.Sourcing.Table
     /// <summary>
     /// Interaction logic for CellMeasurePanel.xaml
     /// </summary>
-    public partial class CellMeasurePanel : UserControl
+    public partial class CellMeasurePanel : Grid
     {
 
         #region Events
@@ -61,7 +61,8 @@ namespace Misp.Sourcing.Table
 
         public void CustomizeForLoopCondition()
         {
-            this.formulaGrid.Visibility = System.Windows.Visibility.Collapsed;
+            this.formulalabel.Visibility = Visibility.Collapsed;
+            this.formulaTextBox.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -88,6 +89,11 @@ namespace Misp.Sourcing.Table
 
 
         #region Operations
+
+        public void SetReadOnly(bool readOnly)
+        {
+            this.formulaTextBox.IsReadOnly = readOnly;
+        }
 
         public void Expand(bool expand){
             IsExpanded = expand;
@@ -165,8 +171,6 @@ namespace Misp.Sourcing.Table
        
         
         #endregion
-
-
 
     }
 }

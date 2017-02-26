@@ -50,6 +50,7 @@ namespace Misp.Sourcing.Table
 
         #endregion
         
+
         #region Constructor
 
         /// <summary>
@@ -242,6 +243,7 @@ namespace Misp.Sourcing.Table
 
         #endregion
 
+
         #region Properties
 
         public TablePropertiesPanel TablePropertiesPanel { get; private set; }
@@ -298,7 +300,14 @@ namespace Misp.Sourcing.Table
         /// <param name="readOnly"></param>
         public virtual void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
         {
+            bool edit = RightsUtil.HasRight(Kernel.Domain.RightType.EDIT, rights);
+            bool editCell = RightsUtil.HasRight(Kernel.Domain.RightType.EDIT_CELL, rights);
+            bool editAllocation = RightsUtil.HasRight(Kernel.Domain.RightType.EDIT_ALLOCATION, rights);
 
+            if (TablePropertiesPanel != null) TablePropertiesPanel.SetReadOnly(readOnly || !edit);
+            if (TableCellParameterPanel != null) TableCellParameterPanel.SetReadOnly(readOnly || !editCell);
+            if (AllocationPropertiesPanel != null) AllocationPropertiesPanel.SetReadOnly(readOnly || !editAllocation);
+            if (SpreadSheet != null) SpreadSheet.SetReadOnly(readOnly || !edit);
         }
 
         protected virtual bool isReport()
@@ -375,7 +384,6 @@ namespace Misp.Sourcing.Table
         }
 
         #endregion
-
-
+        
     }
 }

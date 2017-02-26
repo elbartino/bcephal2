@@ -59,12 +59,15 @@ namespace Misp.Sourcing.Table
             this.Scope = scope;
             this.panel.Children.Clear();
             int index = 1;
-            if (scope == null && !this.IsReadOnly)
+            if (scope == null)
             {
+                if (!this.IsReadOnly) 
+                {
                 this.ActiveItemPanel = new TargetItemPanel(index);
                 this.ActiveItemPanel.SetReadOnly(readOnly);
                 //this.ActiveItemPanel = new ScopeItemPanel(index);
                 AddItemPanel(this.ActiveItemPanel);
+                }
                 return;
             }
             foreach (TargetItem item in scope.targetItemListChangeHandler.Items)

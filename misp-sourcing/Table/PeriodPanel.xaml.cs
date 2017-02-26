@@ -127,12 +127,15 @@ namespace Misp.Sourcing.Table
             if(forAutomaticSourcing) this.tagFormula.Visibility = System.Windows.Visibility.Collapsed;
             if (this.IsReadOnly) this.NewPeriodTextBlock.Visibility = System.Windows.Visibility.Collapsed;
             int index = 1;
-            if ((period == null || period.itemListChangeHandler.Items.Count == 0) && !this.IsReadOnly)
+            if (period == null || period.itemListChangeHandler.Items.Count == 0)
             {
-                this.ActiveItemPanel = new PeriodItemPanel(index, forReport,forAutomaticSourcing,isTableView);
-                this.ActiveItemPanel.NameTextBox.Text = PeriodName.DEFAULT_DATE_NAME;
-                this.ActiveItemPanel.SetReadOnly(readOnly);
-                AddItemPanel(this.ActiveItemPanel);
+                if (!this.IsReadOnly)
+                {
+                    this.ActiveItemPanel = new PeriodItemPanel(index, forReport, forAutomaticSourcing, isTableView);
+                    this.ActiveItemPanel.NameTextBox.Text = PeriodName.DEFAULT_DATE_NAME;
+                    this.ActiveItemPanel.SetReadOnly(readOnly);
+                    AddItemPanel(this.ActiveItemPanel);
+                }
                 return;
             }
             bool isDefaultDate = false;

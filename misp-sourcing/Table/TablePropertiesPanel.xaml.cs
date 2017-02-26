@@ -118,8 +118,7 @@ namespace Misp.Sourcing.Table
             if (nameTextBox != null) nameTextBox.IsEnabled = !readOnly;
             if (reportPeriodPanel != null) reportPeriodPanel.SetReadOnly(readOnly);
             if (periodPanel != null) periodPanel.SetReadOnly(readOnly);
-            //if (periodPanel != null) periodPanel.SetReadOnly(readOnly);
-            //if (filterScopePanel != null) filterScopePanel.SetReadOnly(readOnly);
+            if (filterScopePanel != null) filterScopePanel.SetReadOnly(readOnly);
             if (groupField != null) groupField.SetReadOnly(readOnly);
         }
     }
