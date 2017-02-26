@@ -196,7 +196,7 @@ namespace Misp.Planification.PresentationView
 
         protected override Kernel.Ui.Base.IView getNewView()
         {
-            return new PresentationEditor(this.SubjectType);
+            return new PresentationEditor(this.SubjectType, this.FunctionalityCode);
         }
 
         /// <summary>

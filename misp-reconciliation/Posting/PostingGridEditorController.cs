@@ -74,7 +74,7 @@ namespace Misp.Reconciliation.Posting
         /// <returns>Une nouvelle instance de la vue</returns>
         protected override IView getNewView()
         {
-            PostingGridEditor editor = new PostingGridEditor(this.SubjectType);
+            PostingGridEditor editor = new PostingGridEditor(this.SubjectType, this.FunctionalityCode);
             editor.Service = GetPostingGridService();
             return editor;
         }

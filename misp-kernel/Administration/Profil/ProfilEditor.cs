@@ -9,7 +9,7 @@ namespace Misp.Kernel.Administration.Profil
 {
     public class ProfilEditor : Editor<Misp.Kernel.Domain.Profil>
     {
-        public ProfilEditor(Domain.SubjectType subjectType) : base(subjectType) { }
+        public ProfilEditor(Domain.SubjectType subjectType, String fuctionality) : base(subjectType, fuctionality) { }
 
         /// <summary>
         /// Retourne une nouvelle page.

@@ -18,8 +18,8 @@ namespace Misp.Sourcing.Table
 
         public event OnRemoveNewPageEventHandler OnRemoveNewPage;
         public delegate void OnRemoveNewPageEventHandler(bool remove = false);
-        
-        public InputTableEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
+        public InputTableEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
         
         /// <summary>
         /// Retourne une nouvelle page.
@@ -31,10 +31,10 @@ namespace Misp.Sourcing.Table
 
 
 
-        protected override void InitializeNewPage()
+        protected override void InitializeNewPage(String functionality)
         {
-            base.InitializeNewPage();
-            if (((InputTableEditorItem)NewPage).getInputTableForm().SpreadSheet != null)
+            base.InitializeNewPage(functionality);
+            if (NewPage != null && ((InputTableEditorItem)NewPage).getInputTableForm().SpreadSheet != null)
                 ((InputTableEditorItem)NewPage).getInputTableForm().SpreadSheet.Close();
         }
 

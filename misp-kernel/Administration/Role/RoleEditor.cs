@@ -9,7 +9,7 @@ namespace Misp.Kernel.Administration.Role
 {
     public class RoleEditor :Editor<Domain.Role>
     {
-        public RoleEditor(Domain.SubjectType subjectType) : base(subjectType) { }
+        public RoleEditor(Domain.SubjectType subjectType, String fuctionality) : base(subjectType, fuctionality) { }
 
         /// <summary>
         /// Retourne une nouvelle page.
@@ -20,15 +20,8 @@ namespace Misp.Kernel.Administration.Role
         public Kernel.Service.GroupService GroupService { get; set; }
 
 
-        protected override void InitializeNewPage()
+        protected override void InitializeNewPage(String fuctionality)
         {
-            //NewPage = getNewPage();
-            //NewPage.CanClose = false;
-            //NewPage.CanFloat = false;
-            //NewPage.Title = "+";
-
-            //newPageEventHandler = new EventHandler(this.OnNewPageSelected);
-            //NewPage.IsActiveChanged += newPageEventHandler;
 
         }
 

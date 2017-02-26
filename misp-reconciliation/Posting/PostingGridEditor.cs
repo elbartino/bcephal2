@@ -14,7 +14,7 @@ namespace Misp.Reconciliation.Posting
     public class PostingGridEditor : InputGridEditor
     {
 
-        public PostingGridEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public PostingGridEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Retourne une nouvelle page.Posting

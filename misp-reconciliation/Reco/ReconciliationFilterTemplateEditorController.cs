@@ -484,7 +484,7 @@ namespace Misp.Reconciliation.Reco
 
         protected override IView getNewView()
         {
-            ReconciliationFilterTemplateEditor editor = new ReconciliationFilterTemplateEditor(this.SubjectType);
+            ReconciliationFilterTemplateEditor editor = new ReconciliationFilterTemplateEditor(this.SubjectType, this.FunctionalityCode);
             editor.Service = GetService();
             return editor;
         }

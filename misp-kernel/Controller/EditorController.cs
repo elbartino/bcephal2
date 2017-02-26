@@ -273,7 +273,7 @@ namespace Misp.Kernel.Controller
         public override OperationState Rename()
         {
             EditorItem<T> page = getEditor().getActivePage();
-            if (page == null || page.IsReadOnly) return OperationState.STOP;
+            if (page == null || page.IsReadOnly || !page.CanRename) return OperationState.STOP;
             page.InitializeRenameField();
             page.RenameTextBox.Text = page.Title;           
             if (page.RenameDialog.ShowCenteredToMouse().Value)
@@ -377,7 +377,10 @@ namespace Misp.Kernel.Controller
         public override OperationState Initialize()
         {
             base.Initialize();
-            InitializeNewPageHandler();
+            if (getEditor().NewPage != null)
+            {
+                InitializeNewPageHandler();
+            }
             return OperationState.CONTINUE;
         }
 
@@ -418,13 +421,9 @@ namespace Misp.Kernel.Controller
         {
             page.Closing += OnPageClosing;
             page.Closed += OnPageClosed;
-            page.PageTabDoubleClick += this.PageTabDoubleClick;
         }
 
-        public virtual void PageTabDoubleClick(object sender, MouseButtonEventArgs args)
-        { 
-          
-        }
+        
 
 
         protected override void initializePropertyBarData() { }
@@ -562,38 +561,39 @@ namespace Misp.Kernel.Controller
 
         public virtual void CustomizeForUser(EditorItem<T> page)
         {
-            //CustomizeSideBarToolbarAndContexMenu(page);
             List<Right> rights = null;
+            PrivilegeObserver observer = new PrivilegeObserver();
             if (!ApplicationManager.User.IsAdmin() && page.EditedObject.oid.HasValue)
             {
                 RightService service = ApplicationManager.ControllerFactory.ServiceFactory.GetRightService();
                 rights = service.getUserRights(this.SubjectType.label, page.EditedObject.oid.Value);                
             }
-            if (this.ToolBar != null) this.ToolBar.Customize(rights, page.IsReadOnly);
+            if (this.ToolBar != null) this.ToolBar.Customize(this.FunctionalityCode, observer, rights, page.IsReadOnly);
             if (this.SideBar != null) this.SideBar.Customize(rights, page.IsReadOnly);
-            //page.Customize(rights, page.IsReadOnly);
+            CustomizeContexMenu(observer, rights, page);
+
+            bool edit = RightsUtil.HasRight(Domain.RightType.EDIT, rights);
+            page.CanRename = edit && !page.IsReadOnly;
         }
 
-        public virtual void CustomizeSideBarToolbarAndContexMenu(EditorItem<T> page)
+        public virtual void CustomizeContexMenu(PrivilegeObserver observer, List<Right> rights, EditorItem<T> page)
         {
             if (page != null)
             {
-                if (this.ToolBar != null) this.ToolBar.SetReadOnly(page.IsReadOnly);
-                if (this.SideBar != null) this.SideBar.SetReadOnly(page.IsReadOnly);
-                SetContextMenuReadOnly(page.IsReadOnly);
+                bool edit = RightsUtil.HasRight(Domain.RightType.EDIT, rights);
+                bool saveAs = RightsUtil.HasRight(Domain.RightType.SAVE_AS, rights);
+                bool delete = RightsUtil.HasRight(Domain.RightType.DELETE, rights);
+                bool create = observer.hasPrivilege(this.FunctionalityCode, Domain.RightType.CREATE);
+
+                RefreshMenuItem.Visibility = !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                DeleteMenuItem.Visibility = delete && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                SaveAsMenuItem.Visibility = saveAs && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                SaveMenuItem.Visibility = edit && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                RenameMenuItem.Visibility = saveAs && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                NewMenuItem.Visibility = create ? Visibility.Visible : Visibility.Collapsed;
             }
         }
-
-        public virtual void SetContextMenuReadOnly(bool isReadOnly)
-        {
-            RefreshMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
-            DeleteMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
-            SaveAsMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
-            SaveMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
-            RenameMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
-            NewMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
-        }
-
+        
         #endregion
 
 

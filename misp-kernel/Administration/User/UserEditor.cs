@@ -10,7 +10,7 @@ namespace Misp.Kernel.Administration.User
     public class UserEditor : Editor<Misp.Kernel.Domain.User>
     {
 
-        public UserEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public UserEditor(Kernel.Domain.SubjectType subjectType, String fuctionality) : base(subjectType, fuctionality) { }
 
         /// <summary>
         /// Retourne une nouvelle page.

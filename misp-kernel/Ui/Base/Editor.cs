@@ -38,11 +38,11 @@ namespace Misp.Kernel.Ui.Base
         /// <summary>
         /// Construit une nouvelle instance de Editor
         /// </summary>
-        public Editor(SubjectType subjectType)
+        public Editor(SubjectType subjectType, String functionality)
         {
             this.SubjectType = subjectType;
             ListChangeHandler = new Domain.PersistentListChangeHandler<T>();
-            InitializeNewPage();
+            InitializeNewPage(functionality);
         }
 
         public virtual void SetReadOnly(bool readOnly)
@@ -60,16 +60,18 @@ namespace Misp.Kernel.Ui.Base
             
         }
 
-        protected virtual void InitializeNewPage()
+        protected virtual void InitializeNewPage(String functionality)
         {
-            NewPage = getNewPage();
-            NewPage.CanClose = false;
-            NewPage.CanFloat = false;
-            NewPage.Title = "+";
-
-            newPageEventHandler = new EventHandler(this.OnNewPageSelected);
-            NewPage.IsActiveChanged += newPageEventHandler;
-            
+            PrivilegeObserver observer = new PrivilegeObserver();
+            bool create = observer.hasPrivilege(functionality, RightType.CREATE);
+            if (create) { 
+                NewPage = getNewPage();
+                NewPage.CanClose = false;
+                NewPage.CanFloat = false;
+                NewPage.Title = "+";
+                newPageEventHandler = new EventHandler(this.OnNewPageSelected);
+                NewPage.IsActiveChanged += newPageEventHandler;
+            }            
         }
 
         protected virtual void OnNewPageSelected(object sender, EventArgs args)

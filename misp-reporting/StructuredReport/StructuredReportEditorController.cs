@@ -390,7 +390,7 @@ namespace Misp.Reporting.StructuredReport
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new StructuredReportEditor(this.SubjectType); }
+        protected override IView getNewView() { return new StructuredReportEditor(this.SubjectType, this.FunctionalityCode); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

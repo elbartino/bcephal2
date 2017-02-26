@@ -22,8 +22,8 @@ namespace Misp.Initiation.Model
         public MenuItem SaveMenuItem { get; set; }
         public MenuItem SaveAsMenuItem { get; set; }
 
-        public ModelEditor(Kernel.Domain.SubjectType subjectType)
-            : base(subjectType)
+        public ModelEditor(Kernel.Domain.SubjectType subjectType, String functionality)
+            : base(subjectType, functionality)
         {
             initializeLayoutContent();
         }

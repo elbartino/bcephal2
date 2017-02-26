@@ -10,7 +10,7 @@ namespace Misp.Sourcing.AutomaticTargetViews
 {
     public class AutomaticTargetEditor : AutomaticSourcingEditor
     {
-        public AutomaticTargetEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public AutomaticTargetEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         protected override EditorItem<Misp.Kernel.Domain.AutomaticSourcing> getNewPage() { return new AutomaticTargetEditorItem(this.SubjectType); }
 

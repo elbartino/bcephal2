@@ -44,6 +44,7 @@ namespace Misp.Kernel.Ui.Base
         {
             this.SubjectType = subjectType;
             this.IsReadOnly = false;
+            this.CanRename = true;
             ListChangeHandler = new Domain.PersistentListChangeHandler<T>();
             initializeForm();            
         }
@@ -66,6 +67,7 @@ namespace Misp.Kernel.Ui.Base
         #region Properties
 
         public bool IsReadOnly { get; set; }
+        public bool CanRename { get; set; }
 
         public TextBox RenameTextBox { get; set; }
         public Util.Dialog RenameDialog { get; set; }

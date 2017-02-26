@@ -376,7 +376,7 @@ namespace Misp.Reporting.Calculated_Measure
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new CalculatedMeasureEditor(this.SubjectType); }
+        protected override IView getNewView() { return new CalculatedMeasureEditor(this.SubjectType, this.FunctionalityCode); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

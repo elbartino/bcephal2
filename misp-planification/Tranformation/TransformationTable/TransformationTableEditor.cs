@@ -11,7 +11,7 @@ namespace Misp.Planification.Tranformation.TransformationTable
 {
     public class TransformationTableEditor : StructuredReportEditor
     {
-        public TransformationTableEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public TransformationTableEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Retourne une nouvelle page.

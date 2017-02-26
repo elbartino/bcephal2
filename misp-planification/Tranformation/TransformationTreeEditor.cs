@@ -22,8 +22,8 @@ namespace Misp.Planification.Tranformation
         public MenuItem SaveAsMenuItem { get; set; }
 
 
-        public TransformationTreeEditor(Kernel.Domain.SubjectType subjectType)
-            : base(subjectType)
+        public TransformationTreeEditor(Kernel.Domain.SubjectType subjectType, String functionality)
+            : base(subjectType, functionality)
         {
             initializeLayoutContent();
         }

@@ -11,7 +11,7 @@ namespace Misp.Sourcing.Designer
     public class DesignerEditor : Editor<Design>
     {
 
-        public DesignerEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public DesignerEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Retourne une nouvelle page.
@@ -21,10 +21,10 @@ namespace Misp.Sourcing.Designer
 
         public Kernel.Service.GroupService GroupService { get; set; }
 
-        protected override void InitializeNewPage()
+        protected override void InitializeNewPage(String functionality)
         {
-            base.InitializeNewPage();
-            ((DesignerEditorItem)NewPage).getDesignerForm().SpreadSheet.Close();
+            base.InitializeNewPage(functionality);
+            if(NewPage != null)((DesignerEditorItem)NewPage).getDesignerForm().SpreadSheet.Close();
         }
 
         protected override void OnChildrenCollectionChanged()

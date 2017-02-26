@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Domain;
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
@@ -30,9 +31,9 @@ namespace Misp.Sourcing.InputGrid
 
         #region Operations
 
-        public override void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
+        public override void Customize(String fuctionality, PrivilegeObserver observer, List<Kernel.Domain.Right> rights, bool readOnly = false)
         {
-            base.Customize(rights);
+            base.Customize(fuctionality, observer, rights, readOnly);
             LoadButton.Visibility = RightsUtil.HasRight(RightType.LOAD, rights) && !readOnly ? Visibility.Visible : Visibility.Collapsed;
             ClearButton.Visibility = RightsUtil.HasRight(RightType.CLEAR, rights) && !readOnly ? Visibility.Visible : Visibility.Collapsed;
         }

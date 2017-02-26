@@ -9,7 +9,7 @@ namespace Misp.Kernel.Administration.UserProfile
 {
     public class UserProfileEditor : Editor<Misp.Kernel.Domain.User>
     {
-        public UserProfileEditor(Domain.SubjectType subjectType) : base(subjectType) { }
+        public UserProfileEditor(Domain.SubjectType subjectType, String fuctionality) : base(subjectType, fuctionality) { }
 
         /// <summary>
         /// Retourne une nouvelle page.
@@ -30,7 +30,7 @@ namespace Misp.Kernel.Administration.UserProfile
                     this.Children[i].CanClose = true;
         }
 
-        protected override void InitializeNewPage()
+        protected override void InitializeNewPage(String fuctionality)
         {
             
 

@@ -9,7 +9,7 @@ namespace Misp.Reporting.Calculated_Measure
 {
     public class CalculatedMeasureEditor :Editor<CalculatedMeasure>
     {
-        public CalculatedMeasureEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public CalculatedMeasureEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Retourne une nouvelle page.

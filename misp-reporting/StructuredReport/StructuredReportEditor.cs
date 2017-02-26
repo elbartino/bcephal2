@@ -11,7 +11,7 @@ namespace Misp.Reporting.StructuredReport
     public class StructuredReportEditor : Editor<Misp.Kernel.Domain.StructuredReport>
     {
 
-        public StructuredReportEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public StructuredReportEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Retourne une nouvelle page.
@@ -21,9 +21,9 @@ namespace Misp.Reporting.StructuredReport
 
         public Kernel.Service.GroupService GroupService { get; set; }
 
-        protected override void InitializeNewPage()
+        protected override void InitializeNewPage(String functionality)
         {
-            base.InitializeNewPage();
+            base.InitializeNewPage(functionality);
            // ((StructuredReportEditorItem)NewPage).getStructuredReportForm().SpreadSheet.Close();
         }
 

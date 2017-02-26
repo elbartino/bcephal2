@@ -11,8 +11,8 @@ namespace Misp.Sourcing.CustomizedTarget
     public class TargetEditor : Editor<Target>
     {
 
-        
-        public TargetEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+
+        public TargetEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Retourne une nouvelle page.

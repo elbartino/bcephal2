@@ -12,24 +12,15 @@ namespace Misp.Reconciliation.ReconciliationContext
     public class ReconciliationContextEditor : Editor<Misp.Kernel.Domain.ReconciliationContext>
     {
 
-        public ReconciliationContextEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public ReconciliationContextEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
-        protected override void InitializeNewPage()
+        protected override void InitializeNewPage(String functionality)
         {
-            //NewPage = getNewPage();
-            //NewPage.CanClose = false;
-            //NewPage.CanFloat = false;
-            //NewPage.Title = "+";
-
-            //newPageEventHandler = new EventHandler(this.OnNewPageSelected);
-            //NewPage.IsActiveChanged += newPageEventHandler;
-
         }
 
         protected override void OnNewPageSelected(object sender, EventArgs args)
         {
-            //if (NewPageSelected != null) NewPageSelected();
-
+            
         }
 
 

@@ -14,7 +14,7 @@ namespace Misp.Reconciliation.RecoGrid
 {
     public class PostingEditor : PostingGridEditor
     {
-        public PostingEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public PostingEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         protected override void OnChildrenCollectionChanged()
         {
@@ -22,7 +22,7 @@ namespace Misp.Reconciliation.RecoGrid
             this.Children[0].CanClose = false;
         }
 
-        protected override void InitializeNewPage() { }
+        protected override void InitializeNewPage(String functionality) { }
 
     }
 }

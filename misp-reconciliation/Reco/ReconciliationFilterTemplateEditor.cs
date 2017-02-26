@@ -12,7 +12,7 @@ namespace Misp.Reconciliation.Reco
     public class ReconciliationFilterTemplateEditor : Editor<ReconciliationFilterTemplate>
     {
 
-        public ReconciliationFilterTemplateEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public ReconciliationFilterTemplateEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Retourne une nouvelle page.

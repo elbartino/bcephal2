@@ -11,7 +11,7 @@ namespace Misp.Planification.CombinedTransformationTree
     public class CombinedTransformationTreeEditor : Editor<Kernel.Domain.CombinedTransformationTree>
     {
 
-        public CombinedTransformationTreeEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public CombinedTransformationTreeEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Retourne une nouvelle page.

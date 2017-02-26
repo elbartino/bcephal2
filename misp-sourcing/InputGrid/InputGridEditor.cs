@@ -13,7 +13,7 @@ namespace Misp.Sourcing.InputGrid
     public class InputGridEditor : Editor<Grille>
     {
 
-        public InputGridEditor(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public InputGridEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
         /// <summary>
         /// Retourne une nouvelle page.

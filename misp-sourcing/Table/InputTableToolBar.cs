@@ -8,6 +8,7 @@ using Misp.Kernel.Ui.Base;
 using System.Windows;
 using Misp.Kernel.Util;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Application;
 
 namespace Misp.Sourcing.Table
 {
@@ -22,7 +23,6 @@ namespace Misp.Sourcing.Table
         private Button clearButton;
         private Button saveAsButton;
         private CheckBox applyToAllCheckBox;
-        private Button auditButton;
 
         /// <summary>
         /// 
@@ -36,8 +36,6 @@ namespace Misp.Sourcing.Table
         public System.Windows.Controls.Button RunButton { get { return runButton; } }
         public System.Windows.Controls.Button SaveAsButton { get { return saveAsButton; } }
         public System.Windows.Controls.Button ClearButton { get { return clearButton; } }
-        public System.Windows.Controls.Button AuditButton { get { return auditButton; } }
-        public System.Windows.Controls.Button AllFunctonnalityButton { get { return auditButton; } }
         public System.Windows.Controls.CheckBox ApplyToAllCheckBox { get { return applyToAllCheckBox; } }
 
 
@@ -110,15 +108,16 @@ namespace Misp.Sourcing.Table
 
         }
 
-        public override void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
+        public override void Customize(String fuctionality, PrivilegeObserver observer, List<Kernel.Domain.Right> rights, bool readOnly = false)
         {
-            base.Customize(rights);
+            base.Customize(fuctionality, observer, rights, readOnly);
             bool hasRight = RightsUtil.HasRight(new Kernel.Domain.RightType[] { Kernel.Domain.RightType.EDIT, Kernel.Domain.RightType.CLEAR, Kernel.Domain.RightType.LOAD }, rights);
-            saveClearRunButton.Visibility = hasRight && !readOnly ? Visibility.Visible : Visibility.Hidden;
-            runButton.Visibility = RightsUtil.HasRight(RightType.LOAD, rights) && !readOnly ? Visibility.Visible : Visibility.Hidden;
-            clearButton.Visibility = RightsUtil.HasRight(RightType.CLEAR, rights) && !readOnly ? Visibility.Visible : Visibility.Hidden;
-            saveAsButton.Visibility = RightsUtil.HasRight(RightType.SAVE_AS, rights) && !readOnly ? Visibility.Visible : Visibility.Hidden;
-      
+            saveClearRunButton.Visibility = hasRight && !readOnly ? Visibility.Visible : Visibility.Collapsed;
+            runButton.Visibility = RightsUtil.HasRight(RightType.LOAD, rights) && !readOnly ? Visibility.Visible : Visibility.Collapsed;
+            clearButton.Visibility = RightsUtil.HasRight(RightType.CLEAR, rights) && !readOnly ? Visibility.Visible : Visibility.Collapsed;
+            saveAsButton.Visibility = RightsUtil.HasRight(RightType.SAVE_AS, rights) && !readOnly ? Visibility.Visible : Visibility.Collapsed;
+
+            applyToAllCheckBox.Visibility = runButton.Visibility == Visibility.Visible || clearButton.Visibility == Visibility.Visible ? Visibility.Visible : Visibility.Collapsed;
         }
 
     }

@@ -260,7 +260,7 @@ namespace Misp.Sourcing.Table
             bool isNoAllocation = false;
             ((InputTableEditorItem)page).getInputTableForm().TablePropertiesPanel.displayTable(table, isNoAllocation,page.IsReadOnly);
             setActivationTableAction(table, isReadonly);
-            setIsTemplateTableAction(table, isReadonly);
+            //setIsTemplateTableAction(table, isReadonly);
             //OnDisplayActiveCellData();
             page.IsModify = false;
             return OperationState.CONTINUE;
@@ -289,14 +289,31 @@ namespace Misp.Sourcing.Table
             return OperationState.CONTINUE;
         }
 
-        public override void SetContextMenuReadOnly(bool isReadOnly)
+        public override void CustomizeContexMenu(PrivilegeObserver observer, List<Right> rights, EditorItem<InputTable> page)
         {
-            base.SetContextMenuReadOnly(isReadOnly);
-            RunMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
-            ImportMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
-            ExportMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
-            ApplyToAllMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
-            ClearMenuItem.Visibility = isReadOnly ? Visibility.Collapsed : Visibility.Visible;
+            if (page != null)
+            {
+                bool edit = RightsUtil.HasRight(Kernel.Domain.RightType.EDIT, rights);
+                bool saveAs = RightsUtil.HasRight(Kernel.Domain.RightType.SAVE_AS, rights);
+                bool delete = RightsUtil.HasRight(Kernel.Domain.RightType.DELETE, rights);
+                bool load = RightsUtil.HasRight(Kernel.Domain.RightType.LOAD, rights);
+                bool clear = RightsUtil.HasRight(Kernel.Domain.RightType.CLEAR, rights);
+                bool template = page.EditedObject.template;
+
+                RunMenuItem.Visibility = load && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                ClearMenuItem.Visibility = clear && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                ImportMenuItem.Visibility = edit && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                ExportMenuItem.Visibility = !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                ApplyToAllMenuItem.Visibility = (load || clear) && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                
+                RefreshMenuItem.Visibility = !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                DeleteMenuItem.Visibility = delete && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;               
+                RenameMenuItem.Visibility = saveAs && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                NewMenuItem.Visibility = !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+
+                SaveAsMenuItem.Visibility = template && saveAs && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                SaveMenuItem.Visibility = edit && !template && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
 
         /// <summary>
@@ -313,9 +330,10 @@ namespace Misp.Sourcing.Table
         /// met à jour les actions de désactivation et activation des buttons et menu si la table est un template ou pas
         /// </summary>
         /// <param name="table"></param>
-        public void setIsTemplateTableAction(InputTable table, bool isReadOnly = false)
+        public void setIsTemplateTableAction(EditorItem<InputTable> page)
         {
-            bool isTemplate = table.template;
+            base.OnPageSelected(page);
+            /*bool isTemplate = table.template;
             ((InputTableToolBar)this.ToolBar).SaveButton.Visibility = isTemplate || isReadOnly ? Visibility.Collapsed : Visibility.Visible;
             ((InputTableToolBar)this.ToolBar).SaveAsButton.Visibility = isTemplate && !isReadOnly ? Visibility.Visible : Visibility.Collapsed;
             if (isTemplate)
@@ -327,7 +345,7 @@ namespace Misp.Sourcing.Table
             {
                 SaveMenuItem.IsEnabled = IsModify;
                 SaveAsMenuItem.IsEnabled = true;
-            }
+            }*/
             //RemoveMenuCommands();
             //initializeCommands();
         }
@@ -1319,7 +1337,7 @@ namespace Misp.Sourcing.Table
             if (((InputTablePropertyBar)this.PropertyBar).AdministratorLayoutAnchorable != null)
             ((InputTablePropertyBar)this.PropertyBar).AdministratorLayoutAnchorable.Content = form.AdministrationBar;
             OnDisplayActiveCellData();
-            setIsTemplateTableAction(page.EditedObject, page.IsReadOnly);
+            //setIsTemplateTableAction(page.EditedObject, page.IsReadOnly);
         }
 
         /// <summary>
@@ -1499,7 +1517,7 @@ namespace Misp.Sourcing.Table
             }
             if (table == null) return;
             if (Save(page) == OperationState.STOP) return;
-            setIsTemplateTableAction(table, page.IsReadOnly);
+            setIsTemplateTableAction(page);
         }
 
         protected void OnResetAllCells(object sender, RoutedEventArgs arg)
@@ -2927,7 +2945,7 @@ namespace Misp.Sourcing.Table
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
         /// </summary>
         /// <returns>Une nouvelle instance de la vue</returns>
-        protected override IView getNewView() { return new InputTableEditor(this.SubjectType); }
+        protected override IView getNewView() { return new InputTableEditor(this.SubjectType, this.FunctionalityCode); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

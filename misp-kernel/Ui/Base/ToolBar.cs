@@ -1,4 +1,5 @@
 ﻿using DevExpress.Xpf.Core;
+using Misp.Kernel.Application;
 using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
@@ -54,11 +55,12 @@ namespace Misp.Kernel.Ui.Base
         /// </summary>
         /// <param name="rights"></param>
         /// <param name="readOnly"></param>
-        public virtual void Customize(List<Domain.Right> rights, bool readOnly = false)
+        public virtual void Customize(String fuctionality, PrivilegeObserver observer, List<Domain.Right> rights, bool readOnly = false)
         {
+            bool create = observer.hasPrivilege(fuctionality, Domain.RightType.CREATE);
             bool edit = RightsUtil.HasRight(Domain.RightType.EDIT, rights);
             SaveButton.Visibility = edit && !readOnly ? Visibility.Visible : Visibility.Collapsed;
-            //NewButton.Visibility = edit && !readOnly ? Visibility.Visible : Visibility.Collapsed;
+            NewButton.Visibility = create && !readOnly ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>
