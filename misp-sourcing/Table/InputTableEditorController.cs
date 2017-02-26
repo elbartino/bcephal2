@@ -298,6 +298,7 @@ namespace Misp.Sourcing.Table
                 bool delete = RightsUtil.HasRight(Kernel.Domain.RightType.DELETE, rights);
                 bool load = RightsUtil.HasRight(Kernel.Domain.RightType.LOAD, rights);
                 bool clear = RightsUtil.HasRight(Kernel.Domain.RightType.CLEAR, rights);
+                bool create = observer.hasPrivilege(this.FunctionalityCode, Kernel.Domain.RightType.CREATE);
                 bool template = page.EditedObject.template;
 
                 RunMenuItem.Visibility = load && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
@@ -309,7 +310,7 @@ namespace Misp.Sourcing.Table
                 RefreshMenuItem.Visibility = !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
                 DeleteMenuItem.Visibility = delete && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;               
                 RenameMenuItem.Visibility = saveAs && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
-                NewMenuItem.Visibility = !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+                NewMenuItem.Visibility = create ? Visibility.Visible : Visibility.Collapsed;
 
                 SaveAsMenuItem.Visibility = template && saveAs && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
                 SaveMenuItem.Visibility = edit && !template && !page.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
