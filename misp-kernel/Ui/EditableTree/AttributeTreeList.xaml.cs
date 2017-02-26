@@ -466,6 +466,7 @@ namespace Misp.Kernel.Ui.EditableTree
             {
                 ForgetDefaultAttributes(parent);
                 parent.AddChild(attribute);
+                parent.related = true;
                 AddDefaultAttributes(parent);
                 
                 int row = Source.Count;
@@ -514,6 +515,7 @@ namespace Misp.Kernel.Ui.EditableTree
                     ForgetDefaultAttributes(parent);
                     attribute.SetParent(parent);
                     parent.AddChild(attribute);
+                    parent.related = true;
                     AddDefaultAttributes(parent);
                     addToSource(attribute);
                 }
@@ -539,6 +541,7 @@ namespace Misp.Kernel.Ui.EditableTree
                     ForgetDefaultAttributes(parent);
                     if (attribute.oid.HasValue) parent.RemoveChild(attribute);
                     else parent.ForgetChild(attribute);
+                    parent.related = parent.childrenListChangeHandler.Items.Count > 0;
                     AddDefaultAttributes(parent);
                     removeFromSource(attribute);
                 }
@@ -595,7 +598,8 @@ namespace Misp.Kernel.Ui.EditableTree
                 if (brother == null) return;
                 ForgetDefaultAttributes(parent);
                 parent.ForgetChild(attribute);
-                brother.AddChild(attribute);                
+                brother.AddChild(attribute);
+                brother.related = true;
                 brother.IsExpanded = true;
 
                 int row = Source.IndexOf(brother);
@@ -621,7 +625,9 @@ namespace Misp.Kernel.Ui.EditableTree
 
                 ForgetDefaultAttributes(grandParent);
                 parent.ForgetChild(attribute);
-                grandParent.AddChild(attribute);                
+                parent.related = parent.childrenListChangeHandler.Items.Count > 0;
+                grandParent.AddChild(attribute);
+                grandParent.related = true;
                 parent.IsExpanded = true;
 
                 int row = Source.IndexOf(grandParent);
