@@ -204,6 +204,7 @@ namespace Misp.Sourcing.Table
         public void SetReadOnly(bool readOnly)
         {
             this.IsReadOnly = readOnly;
+            this.hearderGrid.Visibility = !readOnly ? Visibility.Visible : Visibility.Collapsed;
             if (this.panel.Children.Count > 0) 
             {
                 foreach (UIElement item in this.panel.Children)

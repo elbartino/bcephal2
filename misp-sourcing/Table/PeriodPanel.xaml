@@ -15,7 +15,7 @@
 
         <TextBlock x:Name="NewPeriodTextBlock" Grid.Row="0" HorizontalAlignment="Center" FontSize="10"/>
 
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="1" x:Name="periodGridHeader">
             <Grid x:Name="grid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition x:Name="col" Width="103"/>
