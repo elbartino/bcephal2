@@ -115,7 +115,7 @@ namespace Misp.Sourcing.Table
             saveClearRunButton.Visibility = hasRight && !readOnly ? Visibility.Visible : Visibility.Collapsed;
             runButton.Visibility = RightsUtil.HasRight(RightType.LOAD, rights) && !readOnly ? Visibility.Visible : Visibility.Collapsed;
             clearButton.Visibility = RightsUtil.HasRight(RightType.CLEAR, rights) && !readOnly ? Visibility.Visible : Visibility.Collapsed;
-            saveAsButton.Visibility = RightsUtil.HasRight(RightType.SAVE_AS, rights) && !readOnly ? Visibility.Visible : Visibility.Collapsed;
+            //saveAsButton.Visibility = RightsUtil.HasRight(RightType.SAVE_AS, rights) && !readOnly ? Visibility.Visible : Visibility.Collapsed;
 
             applyToAllCheckBox.Visibility = runButton.Visibility == Visibility.Visible || clearButton.Visibility == Visibility.Visible ? Visibility.Visible : Visibility.Collapsed;
         }

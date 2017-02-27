@@ -1341,6 +1341,25 @@ namespace Misp.Sourcing.Table
             //setIsTemplateTableAction(page.EditedObject, page.IsReadOnly);
         }
 
+        public override void CustomizeForUser(EditorItem<InputTable> page)
+        {
+            base.CustomizeForUser(page);
+            bool template = ((InputTableEditorItem)page).getInputTableForm().TablePropertiesPanel.templateCheckBox.IsChecked.Value;
+            if (this.ToolBar.SaveButton.Visibility == Visibility.Visible && template)
+            {
+                this.ToolBar.SaveButton.Visibility = Visibility.Collapsed;
+                SaveMenuItem.Visibility = Visibility.Collapsed;
+
+                ((InputTableToolBar)this.ToolBar).SaveAsButton.Visibility = Visibility.Visible;
+                SaveAsMenuItem.Visibility = Visibility.Visible;
+            }
+            if (this.ToolBar.SaveButton.Visibility == Visibility.Visible && !template)
+            {
+                ((InputTableToolBar)this.ToolBar).SaveAsButton.Visibility = Visibility.Collapsed;
+                SaveAsMenuItem.Visibility = Visibility.Collapsed;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
