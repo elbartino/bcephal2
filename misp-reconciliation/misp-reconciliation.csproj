@@ -81,18 +81,6 @@
     <Compile Include="Base\ReconciliationServiceFactory.cs" />
     <Compile Include="Base\ReconciliationFunctionality.cs" />
     <Compile Include="PlugIn.cs" />
-    <Compile Include="Posting\PostingGridEditor.cs" />
-    <Compile Include="Posting\PostingGridEditorItem.cs" />
-    <Compile Include="Posting\PostingGridBrowser.cs" />
-    <Compile Include="Posting\PostingToolBar.xaml.cs">
-      <DependentUpon>PostingToolBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Posting\ReconciliationDialog.xaml.cs">
-      <DependentUpon>ReconciliationDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Posting\WriteOffForm.xaml.cs">
-      <DependentUpon>WriteOffForm.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -106,7 +94,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Posting\RecoGrid\PostingEditor.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextEditorController.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextItem.xaml.cs">
       <DependentUpon>ReconciliationContextItem.xaml</DependentUpon>
@@ -209,18 +196,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Posting\PostingToolBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Posting\ReconciliationDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Posting\WriteOffForm.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ReconciliationContext\ReconciliationContextItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
