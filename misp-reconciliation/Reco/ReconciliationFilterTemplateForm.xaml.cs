@@ -332,6 +332,8 @@ namespace Misp.Reconciliation.Reco
                 dialog.CancelButton.Click -= OnDialogCancel;
                 this.dialog.Close();
                 dialog = null;
+                BuildBalance(this.LeftGrid);
+                BuildBalance(this.RightGrid);
             }
         }
 
@@ -345,6 +347,8 @@ namespace Misp.Reconciliation.Reco
                 this.BottomGrid.Clear();
                 this.BottomGrid.ReconciliateButton.IsEnabled = false;
                 this.BottomGrid.ResetButton.IsEnabled = false;
+                BuildBalance(this.LeftGrid);
+                BuildBalance(this.RightGrid);
             }
         }
 
