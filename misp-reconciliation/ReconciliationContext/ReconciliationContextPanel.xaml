@@ -15,15 +15,15 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <item:ReconciliationContextItem x:Name="postingAttributePanel"  Grid.Row="0" Margin="5 0 0 5"/>
+    <item:ReconciliationContextItem x:Name="postingAttributePanel"  Grid.Row="0" Margin="5 0 0 5" Visibility="Collapsed"/>
     <item:ReconciliationContextItem x:Name="recoTypeEntityPanel"  Grid.Row="1" Margin="5 0 0 5"/>
-    <item:ReconciliationContextItem x:Name="defaultRecoTypeAttributePanel"  Grid.Row="2" Margin="5 0 0 5"/>
+    <item:ReconciliationContextItem x:Name="defaultRecoTypeAttributePanel"  Grid.Row="2" Margin="5 0 0 5" Visibility="Collapsed"/>
     <item:ReconciliationContextItem x:Name="dcAttributePanel"  Grid.Row="3" Margin="5 0 0 5"/>
     <item:ReconciliationContextItem x:Name="debitValuePanel"  Grid.Row="4" Margin="5 0 0 5"/>
     <item:ReconciliationContextItem x:Name="creditValuePanel"  Grid.Row="5" Margin="5 0 0 5"/>
     <!--<item:ReconciliationContextItem x:Name="accountNameAttributePanel"  Grid.Row="3" Margin="5 0 0 5"/>
     <item:ReconciliationContextItem x:Name="accountNbrAttributePanel"  Grid.Row="4" Margin="5 0 0 5"/>
     <item:ReconciliationContextItem x:Name="writeOffAccountPanel"  Grid.Row="5" Margin="5 0 0 5"/>-->
-    <item:ReconciliationContextItem x:Name="amountMeasurePanel"  Grid.Row="6" Margin="5 0 0 5"/>
+    <item:ReconciliationContextItem x:Name="amountMeasurePanel"  Grid.Row="6" Margin="5 0 0 5" Visibility="Collapsed"/>
 
 </Grid>
