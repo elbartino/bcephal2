@@ -683,7 +683,7 @@ namespace Misp.Planification.PresentationView
             List<Kernel.Domain.Browser.BrowserData> datas = this.Service.getBrowserDatas();
             ((PresentationSideBar)SideBar).PresentationGroup.PresentationTreeView.fillTree(new ObservableCollection<Kernel.Domain.Browser.BrowserData>(datas));
 
-            ((PresentationSideBar)SideBar).MeasureGroup.InitializeMeasure(true);
+            ((PresentationSideBar)SideBar).MeasureGroup.InitializeMeasure();
 
             ((PresentationSideBar)SideBar).SpecialGroup.SpecialTreeView.Items.RemoveAt(1);
 

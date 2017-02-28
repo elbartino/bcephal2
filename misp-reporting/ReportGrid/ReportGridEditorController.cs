@@ -42,7 +42,7 @@ namespace Misp.Reporting.ReportGrid
         protected override void initializeSideBarData()
         {
             base.initializeSideBarData();
-            ((InputGridSideBar)SideBar).MeasureGroup.InitializeMeasure(true);
+            ((InputGridSideBar)SideBar).MeasureGroup.InitializeMeasure();
         }
 
     }

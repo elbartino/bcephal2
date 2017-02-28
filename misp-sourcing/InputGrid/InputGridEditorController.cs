@@ -716,7 +716,7 @@ namespace Misp.Sourcing.InputGrid
             ((InputGridSideBar)SideBar).GrilleGroup.GrilleTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
 
             ((InputGridSideBar)SideBar).EntityGroup.InitializeData();            
-            ((InputGridSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
+            ((InputGridSideBar)SideBar).MeasureGroup.InitializeMeasure();
 
             ((InputGridSideBar)SideBar).PeriodGroup.InitializeData();
 

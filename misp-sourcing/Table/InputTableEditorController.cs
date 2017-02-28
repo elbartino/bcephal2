@@ -2149,7 +2149,7 @@ namespace Misp.Sourcing.Table
         {
 
             ((InputTableSideBar)SideBar).EntityGroup.InitializeData();
-            ((InputTableSideBar)SideBar).MeasureGroup.InitializeMeasure(isReport());
+            ((InputTableSideBar)SideBar).MeasureGroup.InitializeMeasure();
             ((InputTableSideBar)SideBar).PeriodGroup.InitializeData();
 
             defaultPeriodName = GetInputTableService().PeriodNameService.getDefaultPeriodName();

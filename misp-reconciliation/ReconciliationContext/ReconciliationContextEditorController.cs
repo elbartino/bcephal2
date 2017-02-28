@@ -268,7 +268,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         protected override void initializeSideBarData()
         {
             ((ReconciliationContextSideBar)SideBar).EntityGroup.InitializeData();
-            ((ReconciliationContextSideBar)SideBar).MeasureGroup.InitializeMeasure(true);
+            ((ReconciliationContextSideBar)SideBar).MeasureGroup.InitializeMeasure();
         }
 
         /// <summary>

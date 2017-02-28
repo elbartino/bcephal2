@@ -399,7 +399,7 @@ namespace Misp.Sourcing.Designer
             ((DesignerSideBar)SideBar).DesignerGroup.DesignerTreeview.fillTree(new ObservableCollection<BrowserData>(designs));
             
             ((DesignerSideBar)SideBar).EntityGroup.InitializeData();
-            ((DesignerSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
+            ((DesignerSideBar)SideBar).MeasureGroup.InitializeMeasure();
 
             ((DesignerSideBar)SideBar).PeriodGroup.InitializeData();
             

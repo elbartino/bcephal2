@@ -578,7 +578,7 @@ namespace Misp.Planification.Tranformation
         protected void initializeSideBarData()
         {
             SideBar.EntityGroup.InitializeData();
-            SideBar.MeasureGroup.InitializeMeasure(false);
+            SideBar.MeasureGroup.InitializeMeasure();
 
             List<Kernel.Domain.CalculatedMeasure> CalculatedMeasures = TransformationTreeService.CalculatedMeasureService.getAllCalculatedMeasure();
             if (CalculatedMeasures != null)

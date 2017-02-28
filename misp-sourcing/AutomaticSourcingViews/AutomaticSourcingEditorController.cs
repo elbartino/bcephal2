@@ -435,7 +435,7 @@ namespace Misp.Sourcing.Base
 
             if (!isAutomaticTarget())
             {
-                ((AutomaticSourcingSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
+                ((AutomaticSourcingSideBar)SideBar).MeasureGroup.InitializeMeasure();
 
                 List<CalculatedMeasure> ListCalculatedMeasure = GetAutomaticSourcingService().CalculatedMeasureService.getAllCalculatedMeasure();
                 ((AutomaticSourcingSideBar)SideBar).CaculatedMeasureGroup.CalculatedMeasureTreeview.fillTree(new ObservableCollection<CalculatedMeasure>(ListCalculatedMeasure));
@@ -555,7 +555,7 @@ namespace Misp.Sourcing.Base
 
         private void refreshMeasureInSideBar(Measure measure)
         {
-            ((AutomaticSourcingSideBar)SideBar).MeasureGroup.InitializeMeasure(false);
+            ((AutomaticSourcingSideBar)SideBar).MeasureGroup.InitializeMeasure();
         }
 
         protected virtual void onGroupFieldChange()

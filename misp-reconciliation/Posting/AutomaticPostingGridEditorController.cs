@@ -59,7 +59,7 @@ namespace Misp.Reconciliation.Posting
         protected override void initializeSideBarData()
         {
             base.initializeSideBarData();
-            ((AutomaticSourcingSideBar)SideBar).MeasureGroup.InitializeMeasure(true);
+            ((AutomaticSourcingSideBar)SideBar).MeasureGroup.InitializeMeasure();
         }
 
     }

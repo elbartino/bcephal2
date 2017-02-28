@@ -518,7 +518,7 @@ namespace Misp.Reporting.StructuredReport
 
             ((StructuredReportSideBar)SideBar).EntityGroup.InitializeData();
             
-            ((StructuredReportSideBar)SideBar).MeasureGroup.InitializeMeasure(true);
+            ((StructuredReportSideBar)SideBar).MeasureGroup.InitializeMeasure();
 
             ((StructuredReportSideBar)SideBar).PeriodGroup.InitializeData();
 
