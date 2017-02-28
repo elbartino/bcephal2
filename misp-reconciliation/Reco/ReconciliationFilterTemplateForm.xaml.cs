@@ -317,7 +317,8 @@ namespace Misp.Reconciliation.Reco
                         
             reco.ids = dialog.ReconciliationGrid.GridBrowser.GetSelectedOis();
             reco.recoType = this.EditedObject.reconciliationType;
-            reco.measure = this.EditedObject.amountMeasure;
+            reco.leftMeasure = this.EditedObject.leftMeasure;
+            reco.rightMeasure = this.EditedObject.rightMeasure;
 
             bool result = this.Service.reconciliate(reco);
             if (result)
@@ -397,9 +398,14 @@ namespace Misp.Reconciliation.Reco
                 MessageDisplayer.DisplayWarning("Reconciliation", "The reconciliation type is not specified!");
                 return;
             }
-            if (this.EditedObject.amountMeasure == null)
+            if (this.EditedObject.leftMeasure == null)
             {
-                MessageDisplayer.DisplayWarning("Reconciliation", "The amount measure is not specified!");
+                MessageDisplayer.DisplayWarning("Reconciliation", "The left measure is not specified!");
+                return;
+            }
+            if (this.EditedObject.rightMeasure == null)
+            {
+                MessageDisplayer.DisplayWarning("Reconciliation", "The right measure is not specified!");
                 return;
             }
             if (ContentsReconciliatedItems())
@@ -490,7 +496,7 @@ namespace Misp.Reconciliation.Reco
             this.BottomGrid.ReconciliateButton.IsEnabled = enable;
             this.BottomGrid.ResetButton.IsEnabled = enable;
 
-            Decimal[] balances = BuildBalance(this.BottomGrid.EditedObject, this.BottomGrid.GridBrowser);
+            Decimal[] balances = BuildBottomBalance(this.BottomGrid.EditedObject, this.BottomGrid.GridBrowser);
             Decimal balanceValue = balances[0] - balances[1];
             if (this.EditedObject.balanceFormulaEnum != null && this.EditedObject.balanceFormulaEnum == BalanceFormula.LEFT_PLUS_RIGHT)
             {
@@ -501,7 +507,8 @@ namespace Misp.Reconciliation.Reco
         
         private void BuildBalance(ReconciliationFilterTemplateGrid grid)
         {
-            Decimal[] balances = BuildBalance(grid.EditedObject, grid.GrilleBrowserForm.gridBrowser);
+            Measure measure = grid.EditedObject == this.EditedObject.leftGrid ? this.EditedObject.leftMeasure : this.EditedObject.rightMeasure;
+            Decimal[] balances = BuildBalance(grid.EditedObject, grid.GrilleBrowserForm.gridBrowser, measure);
             String credit = this.EditedObject.useDebitCredit == true ? "Credit: " : "Positive Amount: ";
             String debit = this.EditedObject.useDebitCredit == true ? "Debit: " : "Negative Amount: ";
             String balance = "Balance: ";
@@ -510,46 +517,41 @@ namespace Misp.Reconciliation.Reco
             grid.BalanceLabel.Content = balance + (balances[0] - balances[1]);
         }
 
-        private Decimal[] BuildBalance(Grille grid, GridBrowser browser)
+        private Decimal[] BuildBalance(Grille grid, GridBrowser browser, Measure measure)
         {
             Decimal credit = 0;
             Decimal debit = 0;
-
             GrilleColumn amountColumn = null;
             GrilleColumn creditDebitColumn = null;
-
-            Misp.Kernel.Domain.ReconciliationContext context = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationContextService().getReconciliationContext();
-
-            Measure measure = this.EditedObject.amountMeasure;
-            if (measure == null)
-            {
-                measure = context != null ? context.amountMeasure : null;
-            }
             if (measure != null) amountColumn = grid.GetColumn(ParameterType.MEASURE.ToString(), measure.oid.Value);
-
+            
             if (amountColumn != null)
             {
-                if (this.EditedObject.useDebitCredit == true && context != null && context.dcNbreAttribute != null)
+                String creditValue = "C";
+                String debitValue = "D";
+                if (this.EditedObject.useDebitCredit == true)
                 {
-                    creditDebitColumn = grid.GetColumn(ParameterType.SCOPE.ToString(), context.dcNbreAttribute.oid.Value);
+                    Misp.Kernel.Domain.ReconciliationContext context = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationContextService().getReconciliationContext();
+                    if (context != null)
+                    {
+                        creditValue = context.creditAttributeValue != null ? context.creditAttributeValue.name : "C";
+                        debitValue = context.debitAttributeValue != null ? context.debitAttributeValue.name : "D";
+                        if (context.dcNbreAttribute != null)
+                            creditDebitColumn = grid.GetColumn(ParameterType.SCOPE.ToString(), context.dcNbreAttribute.oid.Value);
+                    }                    
                 }
-
-                String creditValue = context.creditAttributeValue != null ? context.creditAttributeValue.name : "C";
-                String debitValue = context.debitAttributeValue != null ? context.debitAttributeValue.name : "D";
-
                 foreach (object row in browser.gridControl.SelectedItems)
                 {
                     if (row is GridItem)
                     {
-                        Object[] datas = ((GridItem)row).Datas;                        
+                        Object[] datas = ((GridItem)row).Datas;
                         Decimal amount = 0;
-                        object item = datas[amountColumn.position];
+                        object item = item = datas[amountColumn.position];
                         try
                         {
                             Decimal.TryParse(item.ToString(), out amount);
                         }
                         catch (Exception) { }
-
                         if (this.EditedObject.useDebitCredit == true)
                         {
                             if (creditDebitColumn == null) continue;
@@ -559,16 +561,73 @@ namespace Misp.Reconciliation.Reco
                             if (isCredit) credit += amount;
                             else if (isDebit) debit += amount;
                         }
-                        else if(grid == this.EditedObject.bottomGrid)
-                        {
-                            String side = ((GridItem)row).Side;
-                            if (string.IsNullOrWhiteSpace(side)) continue;
-                            if (side == GridItem.LEFT_SIDE) credit += amount;
-                            else debit += amount;
-                        }
                         else
                         {
                             if (amount > 0) credit += amount;
+                            else debit += amount;
+                        }
+                    }
+                }
+            }
+            Decimal[] balances = new Decimal[] { credit, debit };
+            return balances;
+        }
+
+        private Decimal[] BuildBottomBalance(Grille grid, GridBrowser browser)
+        {
+            Decimal credit = 0;
+            Decimal debit = 0;
+            GrilleColumn leftAmountColumn = null;
+            GrilleColumn rightAmountColumn = null;
+            GrilleColumn creditDebitColumn = null;
+            Measure leftMeasure = this.EditedObject.leftMeasure;
+            Measure rightMeasure = this.EditedObject.rightMeasure;
+
+            if (leftMeasure != null) leftAmountColumn = grid.GetColumn(ParameterType.MEASURE.ToString(), leftMeasure.oid.Value);
+            if (rightMeasure != null) rightAmountColumn = grid.GetColumn(ParameterType.MEASURE.ToString(), rightMeasure.oid.Value);
+            if (leftAmountColumn != null && rightAmountColumn != null)
+            {
+                String creditValue = "C";
+                String debitValue = "D";
+                if (this.EditedObject.useDebitCredit == true)
+                {
+                    Misp.Kernel.Domain.ReconciliationContext context = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationContextService().getReconciliationContext();
+                    if (context != null)
+                    {
+                        creditValue = context.creditAttributeValue != null ? context.creditAttributeValue.name : "C";
+                        debitValue = context.debitAttributeValue != null ? context.debitAttributeValue.name : "D";
+                        if (context.dcNbreAttribute != null)
+                            creditDebitColumn = grid.GetColumn(ParameterType.SCOPE.ToString(), context.dcNbreAttribute.oid.Value);
+                    }
+                }
+                foreach (object row in browser.gridControl.SelectedItems)
+                {
+                    if (row is GridItem)
+                    {
+                        String side = ((GridItem)row).Side;
+                        if (string.IsNullOrWhiteSpace(side)) continue;
+                        GrilleColumn amountColumn = side == GridItem.LEFT_SIDE ? leftAmountColumn : rightAmountColumn;
+                        if (amountColumn == null) continue;
+                        Object[] datas = ((GridItem)row).Datas;                        
+                        Decimal amount = 0;
+                        object item = item = datas[amountColumn.position];
+                        try
+                        {
+                            Decimal.TryParse(item.ToString(), out amount);
+                        }
+                        catch (Exception) { }
+                        if (this.EditedObject.useDebitCredit == true)
+                        {
+                            if (creditDebitColumn == null) continue;
+                            item = datas[creditDebitColumn.position];
+                            Boolean isCredit = item != null && item.ToString().Equals(creditValue, StringComparison.OrdinalIgnoreCase);
+                            Boolean isDebit = item != null && item.ToString().Equals(debitValue, StringComparison.OrdinalIgnoreCase);
+                            if (isCredit) credit += amount;
+                            else if (isDebit) debit += amount;
+                        }
+                        else
+                        {
+                            if (side == GridItem.LEFT_SIDE) credit += amount;
                             else debit += amount;
                         }
                     }

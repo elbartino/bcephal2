@@ -57,9 +57,12 @@ namespace Misp.Reconciliation.Reco
         {
             this.NameTextBox.Text = this.EditedObject.name;
             this.groupField.Group = this.EditedObject.group;
-            
-            if (this.EditedObject.amountMeasure != null) this.MeasureComboBox.SelectedItem = this.EditedObject.amountMeasure;
-            else this.EditedObject.amountMeasure = (Measure)this.MeasureComboBox.SelectedItem;
+
+            if (this.EditedObject.leftMeasure != null) this.LeftMeasureComboBox.SelectedItem = this.EditedObject.leftMeasure;
+            else this.EditedObject.leftMeasure = (Measure)this.LeftMeasureComboBox.SelectedItem;
+
+            if (this.EditedObject.rightMeasure != null) this.RightMeasureComboBox.SelectedItem = this.EditedObject.rightMeasure;
+            else this.EditedObject.rightMeasure = (Measure)this.RightMeasureComboBox.SelectedItem;
             
             if (this.EditedObject.reconciliationType != null) this.RecoTypeComboBox.SelectedItem = this.EditedObject.reconciliationType;
             else this.EditedObject.reconciliationType = (Kernel.Domain.Attribute)this.RecoTypeComboBox.SelectedItem;
@@ -85,8 +88,8 @@ namespace Misp.Reconciliation.Reco
             Misp.Kernel.Domain.ReconciliationContext context = this.ContextService.getReconciliationContext();
 
             List<Kernel.Domain.Measure> measures = this.MeasureService.getAllLeafts();
-            this.MeasureComboBox.ItemsSource = measures;
-            if (context != null && context.amountMeasure != null) this.MeasureComboBox.SelectedItem = context.amountMeasure;
+            this.LeftMeasureComboBox.ItemsSource = measures;
+            this.RightMeasureComboBox.ItemsSource = measures;
 
             List<Kernel.Domain.Attribute> types = this.Service.getReconciliationTypes();
             this.RecoTypeComboBox.ItemsSource = types;
@@ -108,7 +111,8 @@ namespace Misp.Reconciliation.Reco
 
             this.BalanceFormulaComboBox.SelectionChanged += OnHandlingCombobox;
             this.RecoTypeComboBox.SelectionChanged += OnHandlingCombobox;
-            this.MeasureComboBox.SelectionChanged += OnHandlingCombobox;
+            this.LeftMeasureComboBox.SelectionChanged += OnHandlingCombobox;
+            this.RightMeasureComboBox.SelectionChanged += OnHandlingCombobox;
         }
 
        
@@ -135,16 +139,25 @@ namespace Misp.Reconciliation.Reco
 
         private void ComboboxActions(ComboBox combobox)
         {
-            if (combobox == MeasureComboBox)
+            if (combobox == LeftMeasureComboBox)
             {
                 if (combobox.SelectedItem is Kernel.Domain.Measure)
                 {
                     Kernel.Domain.Measure measure = (Kernel.Domain.Measure)combobox.SelectedItem;
-                    this.EditedObject.amountMeasure = measure;
+                    this.EditedObject.leftMeasure = measure;
                 }
             }
 
-            if (combobox == RecoTypeComboBox)
+            else if (combobox == RightMeasureComboBox)
+            {
+                if (combobox.SelectedItem is Kernel.Domain.Measure)
+                {
+                    Kernel.Domain.Measure measure = (Kernel.Domain.Measure)combobox.SelectedItem;
+                    this.EditedObject.rightMeasure = measure;
+                }
+            }
+
+            else if (combobox == RecoTypeComboBox)
             {
                 if (combobox.SelectedItem is Kernel.Domain.Attribute)
                 {
@@ -152,7 +165,7 @@ namespace Misp.Reconciliation.Reco
                     this.EditedObject.reconciliationType = attribut;
                 }
             }
-            if (combobox == BalanceFormulaComboBox) this.EditedObject.balanceFormulaEnum = (BalanceFormula)combobox.SelectedItem;
+            else if (combobox == BalanceFormulaComboBox) this.EditedObject.balanceFormulaEnum = (BalanceFormula)combobox.SelectedItem;
         }
 
         private void CheckBoxAction(CheckBox checkBox)

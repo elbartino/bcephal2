@@ -24,8 +24,10 @@ namespace Misp.Kernel.Domain
 
         public Attribute reconciliationType { get; set; }
 
-        public Measure amountMeasure { get; set; }
+        public Measure leftMeasure { get; set; }
 
+        public Measure rightMeasure { get; set; }
+        
         public String balanceFormula 
         {
             get { return this.balanceFormulaEnum != null ? this.balanceFormulaEnum.name : null; }

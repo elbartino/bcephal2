@@ -65,8 +65,20 @@
             <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="MeasureLabel" Grid.Column="0" Content="Measure" />
-        <ComboBox x:Name="MeasureComboBox" x:FieldModifier="public" Grid.Column="1"/>
+        <Label x:Name="LeftMeasureLabel" Grid.Column="0" Content="Left measure" />
+        <ComboBox x:Name="LeftMeasureComboBox" x:FieldModifier="public" Grid.Column="1"/>
+    </Grid>
+
+    <Grid Margin="5,5,5,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="26"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="RightMeasureLabel" Grid.Column="0" Content="Right measure" />
+        <ComboBox x:Name="RightMeasureComboBox" x:FieldModifier="public" Grid.Column="1"/>
     </Grid>
 
     <Grid Margin="5,5,5,0">
