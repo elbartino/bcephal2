@@ -65,16 +65,6 @@ namespace Misp.Kernel.Application
         //SOURCING
         public static string SOURCING = "functionality.sourcing";
 
-        public static string POSTING_GRID      = "functionality.posting.grid";
-        public static string POSTING_GRID_EDIT = POSTING_GRID;//"functionality.posting.grid.edit";
-        public static string POSTING_GRID_VIEW = POSTING_GRID;//"functionality.posting.grid.view";
-        public static string POSTING_GRID_LIST = POSTING_GRID;//"functionality.posting.grid.list";
-
-        public static string AUTOMATIC_POSTING_GRID = "functionality.automatic.posting.grid";
-        public static string AUTOMATIC_POSTING_GRID_EDIT = AUTOMATIC_POSTING_GRID;//"functionality.automatic.posting.grid.edit";
-        public static string AUTOMATIC_POSTING_GRID_VIEW = AUTOMATIC_POSTING_GRID;//"functionality.automatic.posting.grid.view";
-        public static string AUTOMATIC_POSTING_GRID_LIST = AUTOMATIC_POSTING_GRID;//"functionality.automatic.posting.grid.list";
-
         public static string INPUT_TABLE        = "functionality.input.table";
         public static string INPUT_TABLE_EDIT = INPUT_TABLE;//"functionality.input.table.edit";
         public static string INPUT_TABLE_VIEW = INPUT_TABLE;//"functionality.input.table.view";
@@ -191,7 +181,6 @@ namespace Misp.Kernel.Application
         public static string RECONCILIATION_FILTER_VIEW = RECONCILIATION_FILTER;//"functionality.reconciliation.filter.view";
         public static string RECONCILIATION_FILTER_LIST = RECONCILIATION_FILTER;//"functionality.reconciliation.filter.list";
 
-        public static string RECONCILIATION_POSTINGS = "functionality.reconciliation.postings";
         public static string RECONCILIATION_CONFIGURATION = "functionality.reconciliation.configuration";
 
         public static string RECONCILIATION_RUN = "functionality.reconciliation.run";

@@ -45,16 +45,6 @@ namespace Misp.Kernel.Application
         public static string NEW_INPUT_TABLE_LABEL= "New Input Table";
         public static string LIST_INPUT_TABLE_LABEL = "List Input Tables";
 
-        public static string POSTING_LABEL = "Posting";
-        public static string AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL = "Automatic Sourcing for Posting Grid";
-        public static string POSTING_GRID_DASHBOARD_LABEL = "Posting Grid";
-        public static string NEW_POSTING_GRID_LABEL = "New Posting Grid";
-        public static string LIST_POSTING_GRID_LABEL = "List Posting Grid";
-        public static string NEW_AUTOMATIC_POSTING_GRID_LABEL = "New Automatic Sourcing for Posting Grid";
-        public static string LIST_AUTOMATIC_POSTING_GRID_LABEL = "List Automatic Sourcing for Posting Grid";
-
-        public static string RECENT_POSTING_GRID_LABEL = "Recent Posting Grid";
-        public static string RECENT_AUTOMATIC_POSTING_GRID_LABEL = "Recent Automatic Sourcing for Posting Grid";
 
         public static string TARGET_LABEL = "Target";
         public static string RECENT_TARGET_LABEL = "Recent Targets";
@@ -163,7 +153,6 @@ namespace Misp.Kernel.Application
         public static string NEW_RECONCILIATION_FILTER_LABEL = "New Reconciliation Filter";
         public static string LIST_RECONCILIATION_FILTERS_LABEL = "List Reconciliation Filters ";
 
-        public static string RECONCILIATION_POSTING_LABEL = "Postings";
         public static string TRANSACTION_FILE_TYPES_LABEL = "TRANSACTION_FILE_TYPES_FUNCTIONALITY";
         public static string RECONCILIATION_RUN_CONFIRM_LABEL = "RECONCILIATION_RUN_CONFIRM";
         public static string RECONCILIATION_CONTEXT_LABEL = "RECONCILIATION_CONTEXT_FUNCTIONALITY";

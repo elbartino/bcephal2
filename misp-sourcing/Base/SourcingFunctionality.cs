@@ -20,19 +20,6 @@ namespace Misp.Sourcing.Base
 
         private void buildChildren()
         {
-            Functionality postingGrid = new Functionality(this, FunctionalitiesCode.POSTING_GRID, "Posting Grid", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
-            Functionality autoPostingGrid = new Functionality(this, FunctionalitiesCode.AUTOMATIC_POSTING_GRID, "Automatic Sourcing for Posting Grid", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
-            /*
-            posting.Children.Add(new Functionality(this, FunctionalitiesCode.POSTING_GRID_LIST, "Posting Grid List", true));
-            posting.Children.Add(new Functionality(this, FunctionalitiesCode.POSTING_GRID_VIEW, "Posting Grid View", true));
-            posting.Children.Add(new Functionality(this, FunctionalitiesCode.POSTING_GRID_EDIT, "Posting Grid Edit", true));
-            posting.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_POSTING_GRID_LIST, "Automatic Sourcing for Posting Grid List", true));
-            posting.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_POSTING_GRID_VIEW, "Automatic Sourcing for Posting Grid View", true));
-            posting.Children.Add(new Functionality(this, FunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT, "Automatic Sourcing for Posting Grid Edit", true));
-            */
-            this.Children.Add(postingGrid);
-            this.Children.Add(autoPostingGrid);
-
             Functionality table = new Functionality(this, FunctionalitiesCode.INPUT_TABLE, "Input Table", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
             Functionality autoTable = new Functionality(this, FunctionalitiesCode.AUTOMATIC_SOURCING, "Automatic Sourcing for Table", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
             /*

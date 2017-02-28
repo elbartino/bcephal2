@@ -174,8 +174,6 @@ namespace Misp.Kernel.Administration.FunctionnalityViews
             this.AutomaticTargetGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_TARGET_DASHBOARD_LABEL);
             if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
             {
-                this.PostingGridGroupField = buildGroupField(FunctionalitiesLabel.POSTING_GRID_DASHBOARD_LABEL);
-                this.AutomaticPostingGridGroupField = buildGroupField(FunctionalitiesLabel.AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL);
                 this.ReconciliationFilterGroupField = buildGroupField(FunctionalitiesLabel.RECONCILIATION_FILTER_DASHBOARD_LABEL);
             }
             this.DisplayedGroupField.Add(this.ModelGroupField);

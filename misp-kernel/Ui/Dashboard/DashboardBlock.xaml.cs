@@ -230,13 +230,10 @@ namespace Misp.Kernel.Ui.Dashboard
             else if (isAutomaticUpload()) new DashboardActions().DeleteAutomaticUploads(oids, this);
             else if (isDesign()) new DashboardActions().DeleteDesigns(oids, this);
             else if (isReconciliationFilterUpload()) new DashboardActions().DeleteReconciliationFiltersTemplate(oids, this);
-            else if (isReconciliationPostingUpload()) new DashboardActions().DeleteReconciliationPostings(oids, this);
             else if (isTransactionFileTypeUpload()) new DashboardActions().DeleteTransactionFileTypes(oids, this);
             else if (isInputGrid()) new DashboardActions().DeleteInputGrid(oids, this);
             else if (isReportGrid()) new DashboardActions().DeleteReportGrid(oids, this);
             else if (isAutomaticGrid()) new DashboardActions().DeleteAutomaticGrid(oids, this);
-            else if (isAutomaticPostingGrid()) new DashboardActions().DeleteAutomaticPostingGrid(oids, this);
-            else if (isPostingGrid()) new DashboardActions().DeletePostingGrid(oids, this);
             else if (isAutomaticEnrichmentTable()) new DashboardActions().DeleteAutomaticEnrichmentTable(oids, this);
             else if (isEnrichmentTable()) new DashboardActions().DeleteEnrichmentTable(oids, this);
         }
@@ -258,20 +255,12 @@ namespace Misp.Kernel.Ui.Dashboard
             else if (isDesign()) new DashboardActions().HideDesigns(oids, this);
             else if (isReconciliationFilterUpload()) new DashboardActions().HideReconciliationFilters(oids, this);
             else if (isInputGrid()) new DashboardActions().HideInputGrids(oids, this);
-            else if (isPostingGrid()) new DashboardActions().HidePostingGrids(oids, this);
             else if (isEnrichmentTable()) new DashboardActions().HideEnrichmentTables(oids, this);
             else if (isReportGrid()) new DashboardActions().HideReportGrids(oids, this);
             else if (isAutomaticGrid()) new DashboardActions().HideAutomaticGrids(oids, this);
-            else if (isAutomaticPostingGrid()) new DashboardActions().HideAutomaticPostingGrids(oids, this);
-            else if (isReconciliationPostingUpload()) new DashboardActions().HideReconciliationPostings(oids, this);
             else if (isTransactionFileTypeUpload()) new DashboardActions().HideTransactionFileTypes(oids, this);
             else if (isAutomaticEnrichmentTable()) new DashboardActions().HideAutomaticEnrichmentTables(oids, this);
             
-            //if (string.IsNullOrWhiteSpace(this.FunctionalityCode)) return;
-            //List<int> oids = GetSelectedIds();
-            //if (oids.Count == 0) return;
-            //bool ok = this.DashBoardService.setInvisible(this.FunctionalityCode, oids);
-            //if (ok) RefreshData();
         }
 
         private void OnClear(object sender, RoutedEventArgs e)
@@ -484,17 +473,7 @@ namespace Misp.Kernel.Ui.Dashboard
         {
             return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_EDIT);
         }
-
-        public Boolean isPostingGrid()
-        {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.POSTING_GRID_EDIT);
-        }
-
-        public Boolean isAutomaticPostingGrid()
-        {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT);
-        }
-
+        
         public Boolean isAutomaticTarget() 
         {
             return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.AUTOMATIC_TARGET_EDIT);
@@ -509,12 +488,7 @@ namespace Misp.Kernel.Ui.Dashboard
         {
             return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.RECONCILIATION_FILTER_EDIT);
         }
-
-        public Boolean isReconciliationPostingUpload()
-        {
-            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.RECONCILIATION_POSTINGS);
-        }
-
+        
         public Boolean isTransactionFileTypeUpload()
         {
             return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.TRANSACTION_FILE_TYPES_FUNCTIONALITY);
@@ -543,14 +517,11 @@ namespace Misp.Kernel.Ui.Dashboard
             if (isModel()) return DashBoardService.MODELS;
             if (isStructuredReport()) return DashBoardService.STRUCTURED_REPORTS;
             if (isReconciliationFilterUpload()) return DashBoardService.RECONCILIATION_FILTERS;
-            if (isReconciliationPostingUpload()) return DashBoardService.RECONCILIATION_POSTINGS;
             if (isTransactionFileTypeUpload()) return DashBoardService.TRANSACTION_FILE_TYPES;
             if (isInputGrid()) return DashBoardService.INPUT_GRID;
             if (isReportGrid()) return DashBoardService.REPORT_GRID;
             if (isAutomaticGrid()) return DashBoardService.AUTOMATIC_GRID;
             if (isAutomaticTarget()) return DashBoardService.AUTOMATIC_TARGET;
-            if (isAutomaticPostingGrid()) return DashBoardService.AUTOMATIC_POSTING_GRID;
-            if (isPostingGrid()) return DashBoardService.POSTING_GRID;
             if (isAutomaticEnrichmentTable()) return DashBoardService.AUTOMATIC_ENRICHMENT_TABLE;
             if (isEnrichmentTable()) return DashBoardService.ENRICHMENT_TABLE;
 

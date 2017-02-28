@@ -57,57 +57,7 @@ namespace Misp.Reconciliation.Base
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterTemplateService();
                 return controller;
             }
-                        
-            if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_POSTINGS)
-            {
-               
-                PostingEditorController controller = new PostingEditorController();
-                controller.ModuleName = Misp.Reconciliation.PlugIn.MODULE_NAME;
-                controller.FunctionalityCode = fonctionality;
-                controller.ApplicationManager = this.ApplicationManager;
-                controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationGridService();
-                return controller;
-            }
-
-            if (fonctionality == ReconciliationFunctionalitiesCode.POSTING_GRID_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
-            {
-                PostingGridBrowserController controller = new PostingGridBrowserController();
-                controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                controller.FunctionalityCode = fonctionality;
-                controller.ApplicationManager = this.ApplicationManager;
-                controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingGridService();
-                return controller;
-            }
-            if (fonctionality == ReconciliationFunctionalitiesCode.POSTING_GRID_EDIT && editionMode.HasValue)
-            {
-                PostingGridEditorController controller = new PostingGridEditorController();
-                controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                controller.FunctionalityCode = fonctionality;
-                controller.ApplicationManager = this.ApplicationManager;
-                controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetPostingGridService();
-                return controller;
-            }
-
-            if (fonctionality == ReconciliationFunctionalitiesCode.AUTOMATIC_POSTING_GRID_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
-            {
-                AutomaticPostingGridBrowerController automaticSourcingGridBrowerController = new AutomaticPostingGridBrowerController();
-                automaticSourcingGridBrowerController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                automaticSourcingGridBrowerController.FunctionalityCode = fonctionality;
-                automaticSourcingGridBrowerController.ApplicationManager = this.ApplicationManager;
-                automaticSourcingGridBrowerController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetAutomaticPostingGridService();
-                return automaticSourcingGridBrowerController;
-            }
-            if (fonctionality == ReconciliationFunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT && editionMode.HasValue)
-            {
-                AutomaticPostingGridEditorController automaticSourcingGridController = new AutomaticPostingGridEditorController();
-                automaticSourcingGridController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                automaticSourcingGridController.FunctionalityCode = fonctionality;
-                automaticSourcingGridController.ApplicationManager = this.ApplicationManager;
-                automaticSourcingGridController.Service = ((ReconciliationServiceFactory)ServiceFactory).GetAutomaticPostingGridService();
-                //automaticSourcingGridController.InputTableService = ((ReconciliationServiceFactory)ServiceFactory).GetInputTableService();
-                return automaticSourcingGridController;
-            }
-            
+                                                 
             if (fonctionality == ReconciliationFunctionalitiesCode.RECONCILIATION_CONFIGURATION)
             {
                 ReconciliationContextEditorController controller = new ReconciliationContextEditorController();
@@ -127,8 +77,7 @@ namespace Misp.Reconciliation.Base
                 controller.Service = ((ReconciliationServiceFactory)ServiceFactory).GetReconciliationFilterTemplateService();
                 return controller;
             }
-
-
+            
             return null;
         }
 

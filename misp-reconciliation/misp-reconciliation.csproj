@@ -81,13 +81,9 @@
     <Compile Include="Base\ReconciliationServiceFactory.cs" />
     <Compile Include="Base\ReconciliationFunctionality.cs" />
     <Compile Include="PlugIn.cs" />
-    <Compile Include="Posting\AutomaticPostingGridBrowerController.cs" />
-    <Compile Include="Posting\AutomaticPostingGridEditorController.cs" />
     <Compile Include="Posting\PostingGridEditor.cs" />
     <Compile Include="Posting\PostingGridEditorItem.cs" />
     <Compile Include="Posting\PostingGridBrowser.cs" />
-    <Compile Include="Posting\PostingGridBrowserController.cs" />
-    <Compile Include="Posting\PostingGridEditorController.cs" />
     <Compile Include="Posting\PostingToolBar.xaml.cs">
       <DependentUpon>PostingToolBar.xaml</DependentUpon>
     </Compile>
@@ -111,7 +107,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Posting\RecoGrid\PostingEditor.cs" />
-    <Compile Include="Posting\RecoGrid\PostingEditorController.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextEditorController.cs" />
     <Compile Include="ReconciliationContext\ReconciliationContextItem.xaml.cs">
       <DependentUpon>ReconciliationContextItem.xaml</DependentUpon>

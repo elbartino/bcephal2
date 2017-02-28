@@ -52,10 +52,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public DashboardBlock AutomaticEnrichmentTableBlock { get; set; }
         public DashboardBlock EnrichmentTableBlock { get; set; }
-
-        public DashboardBlock AutomaticPostingGridBlock { get; set; }
-        public DashboardBlock PostingGridBlock { get; set; }
-
+        
         public int? userOid
         { 
             get  
@@ -269,9 +266,6 @@ namespace Misp.Kernel.Ui.Dashboard
             
             if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
             {
-                this.PostingGridBlock = buildBlock(FunctionalitiesLabel.POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_POSTING_GRID_LABEL, FunctionalitiesLabel.RECENT_POSTING_GRID_LABEL, FunctionalitiesCode.POSTING_GRID_EDIT);
-                this.AutomaticPostingGridBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_POSTING_GRID_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_POSTING_GRID_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_POSTING_GRID_LABEL, FunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT);
-
                 this.ReconciliationFilterBlock = buildBlock(FunctionalitiesLabel.RECONCILIATION_FILTER_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_RECONCILIATION_FILTER_LABEL, FunctionalitiesLabel.RECENT_RECONCILIATION_LABEL, FunctionalitiesCode.RECONCILIATION_FILTER_EDIT);
             }
 
@@ -291,8 +285,6 @@ namespace Misp.Kernel.Ui.Dashboard
             if (this.InputGridBlock != null) dico.Add(this.InputGridBlock.TitleLabel.Content.ToString(), this.InputGridBlock);
             if (this.ReportGridBlock != null) dico.Add(this.ReportGridBlock.TitleLabel.Content.ToString(), this.ReportGridBlock);
             if (this.AutomaticTargetBlock != null) dico.Add(this.AutomaticTargetBlock.TitleLabel.Content.ToString(), this.AutomaticTargetBlock);
-            if (this.PostingGridBlock != null) dico.Add(this.PostingGridBlock.TitleLabel.Content.ToString(), this.TreeBlock);
-            if (this.AutomaticPostingGridBlock != null) dico.Add(this.AutomaticPostingGridBlock.TitleLabel.Content.ToString(), this.TreeBlock);
             if (this.ReconciliationFilterBlock != null) dico.Add(this.ReconciliationFilterBlock.TitleLabel.Content.ToString(), this.TreeBlock);
             if (this.AutomaticEnrichmentTableBlock != null) dico.Add(this.AutomaticEnrichmentTableBlock.TitleLabel.Content.ToString(), this.TreeBlock);
             if (this.EnrichmentTableBlock != null) dico.Add(this.EnrichmentTableBlock.TitleLabel.Content.ToString(), this.TreeBlock);
@@ -421,7 +413,6 @@ namespace Misp.Kernel.Ui.Dashboard
             }
             else if (newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_SOURCING_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_EDIT)
-                || newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_TARGET_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT))
             {
@@ -440,7 +431,6 @@ namespace Misp.Kernel.Ui.Dashboard
                 || newFunctionCode.Equals(FunctionalitiesCode.DESIGN_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.TARGET_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.INPUT_TABLE_GRID_EDIT)
-                || newFunctionCode.Equals(FunctionalitiesCode.POSTING_GRID_EDIT)
                 || newFunctionCode.Equals(FunctionalitiesCode.REPORT_GRID_EDIT))
             {
                 block.contextMenu.Items.Add(block.NewMenuItem);
@@ -453,9 +443,7 @@ namespace Misp.Kernel.Ui.Dashboard
                 block.contextMenu.Items.Add(block.OrderByMenuItem);
                 block.contextMenu.Items.Add(block.ConfigurationMenuItem);
             }
-            else if (newFunctionCode.Equals(FunctionalitiesCode.RECONCILIATION_FILTER_EDIT)
-                || newFunctionCode.Equals(FunctionalitiesCode.RECONCILIATION_POSTINGS)
-                || newFunctionCode.Equals(FunctionalitiesCode.TRANSACTION_FILE_TYPES_FUNCTIONALITY))
+            else if (newFunctionCode.Equals(FunctionalitiesCode.RECONCILIATION_FILTER_EDIT))
             {
                 block.contextMenu.Items.Add(block.NewMenuItem);
                 block.contextMenu.Items.Add(block.OpenMenuItem);
@@ -502,8 +490,6 @@ namespace Misp.Kernel.Ui.Dashboard
             if (this.ReportGridBlock != null && this.ReportGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.ReportGridBlock;
             if (this.AutomaticGridBlock != null && this.AutomaticGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticGridBlock;
             if (this.AutomaticTargetBlock != null && this.AutomaticTargetBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticTargetBlock;
-            if (this.AutomaticPostingGridBlock != null && this.AutomaticPostingGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticPostingGridBlock;
-            if (this.PostingGridBlock != null && this.PostingGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.PostingGridBlock;
             if (this.AutomaticEnrichmentTableBlock != null && this.AutomaticEnrichmentTableBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticEnrichmentTableBlock;
             if (this.EnrichmentTableBlock != null && this.EnrichmentTableBlock.TitleLabel.Content.Equals(configuration.name)) return this.EnrichmentTableBlock;
             return null;
@@ -575,8 +561,6 @@ namespace Misp.Kernel.Ui.Dashboard
             if (this.AutomaticGridBlock != null && name.Equals(this.AutomaticGridBlock.TitleLabel.Content)) return this.AutomaticGridBlock;
             if (this.ReconciliationFilterBlock != null && name.Equals(this.ReconciliationFilterBlock.TitleLabel.Content)) return this.ReconciliationFilterBlock;
             if (this.AutomaticTargetBlock != null && name.Equals(this.AutomaticTargetBlock.TitleLabel.Content)) return this.AutomaticTargetBlock;
-            if (this.AutomaticPostingGridBlock != null && name.Equals(this.AutomaticPostingGridBlock.TitleLabel.Content)) return this.AutomaticPostingGridBlock;
-            if (this.PostingGridBlock != null && name.Equals(this.PostingGridBlock.TitleLabel.Content)) return this.PostingGridBlock;
             if (this.AutomaticEnrichmentTableBlock != null && name.Equals(this.AutomaticEnrichmentTableBlock.TitleLabel.Content)) return this.AutomaticEnrichmentTableBlock;
             if (this.EnrichmentTableBlock != null && name.Equals(this.EnrichmentTableBlock.TitleLabel.Content)) return this.EnrichmentTableBlock;
             return null;

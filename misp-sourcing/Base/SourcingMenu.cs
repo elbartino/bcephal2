@@ -46,14 +46,7 @@ namespace Misp.Sourcing.Base
 
         public ApplicationMenu AccessoriesMenu { get; private set; }
         public ApplicationMenu UploadMultipleFileSourcingMenu { get; private set; }
-
-
-        public ApplicationMenu PostingMenu { get; private set; }
-        public ApplicationMenu NewPostingGridMenu { get; private set; }
-        public ApplicationMenu ListPostingGridMenu { get; private set; }
-        public ApplicationMenu NewAutomaticPostingGridMenu { get; private set; }
-        public ApplicationMenu ListAutomaticPostingGridMenu { get; private set; }
-
+        
 
         /// <summary>
         /// Liste des sous menus
@@ -61,11 +54,7 @@ namespace Misp.Sourcing.Base
         /// <returns></returns>
         protected override List<Control> getControls()
         {
-            List<Control> menus = new List<Control>(0);            
-            if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
-            {
-                menus.Add(PostingMenu);
-            }            
+            List<Control> menus = new List<Control>(0); 
             menus.Add(InputTableMenu);
             menus.Add(GridMenu);
             menus.Add(EnrichmentTableMenu);
@@ -82,19 +71,7 @@ namespace Misp.Sourcing.Base
         {
             this.Code = FunctionalitiesCode.SOURCING;
             this.Header = FunctionalitiesLabel.SOURCING_LABEL;
-
-            PostingMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.POSTING_LABEL, FunctionalitiesCode.POSTING_GRID);
-            NewPostingGridMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.NEW_POSTING_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.POSTING_GRID_EDIT), Kernel.Domain.RightType.CREATE);
-            ListPostingGridMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.LIST_POSTING_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.POSTING_GRID_LIST), Kernel.Domain.RightType.VIEW);
-            NewAutomaticPostingGridMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.NEW_AUTOMATIC_POSTING_GRID_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.AUTOMATIC_POSTING_GRID_EDIT), Kernel.Domain.RightType.CREATE);
-            ListAutomaticPostingGridMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.LIST_AUTOMATIC_POSTING_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.AUTOMATIC_POSTING_GRID_LIST), Kernel.Domain.RightType.VIEW);
-
-            PostingMenu.Items.Add(NewPostingGridMenu);
-            PostingMenu.Items.Add(ListPostingGridMenu);
-            PostingMenu.Items.Add(new Separator());
-            PostingMenu.Items.Add(NewAutomaticPostingGridMenu);
-            PostingMenu.Items.Add(ListAutomaticPostingGridMenu);
-
+            
             InputTableMenu = BuildMenu(FunctionalitiesCode.SOURCING, FunctionalitiesLabel.INPUT_TABLE_LABEL, FunctionalitiesCode.INPUT_TABLE);
             NewInputTableMenu = BuildMenu(FunctionalitiesCode.INPUT_TABLE, FunctionalitiesLabel.NEW_INPUT_TABLE_LABEL, NavigationToken.GetCreateViewToken(SourcingFunctionalitiesCode.INPUT_TABLE_EDIT), Kernel.Domain.RightType.CREATE);
             ListInputTableMenu = BuildMenu(FunctionalitiesCode.INPUT_TABLE, FunctionalitiesLabel.LIST_INPUT_TABLE_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.INPUT_TABLE_LIST), Kernel.Domain.RightType.VIEW);

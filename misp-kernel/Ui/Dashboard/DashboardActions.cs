@@ -1132,11 +1132,6 @@ namespace Misp.Kernel.Ui.Dashboard
             Hide(ResourcePath.RECONCILIATON_FILTER_RESOURCE_PATH, oids, block);
         }
 
-        public void HideReconciliationPostings(List<int> oids, DashboardBlock block)
-        {
-            Hide(ResourcePath.RECONCILIATON_POSTING_RESOURCE_PATH, oids, block);
-        }
-
         public void HideTransactionFileTypes(List<int> oids, DashboardBlock block)
         {
             Hide(ResourcePath.TRANSACTION_FILE_TYPE_RESOURCE_PATH, oids, block);
@@ -1151,12 +1146,7 @@ namespace Misp.Kernel.Ui.Dashboard
         {
             Delete(ResourcePath.RECONCILIATON_FILTER_TEMPLATE_RESOURCE_PATH, oids, block);
         }
-
-        public void DeleteReconciliationPostings(List<int> oids, DashboardBlock block)
-        {
-            Delete(ResourcePath.RECONCILIATON_POSTING_RESOURCE_PATH, oids, block);
-        }
-
+        
         public void DeleteTransactionFileTypes(List<int> oids, DashboardBlock block)
         {
             Delete(ResourcePath.TRANSACTION_FILE_TYPE_RESOURCE_PATH, oids, block);
@@ -1199,32 +1189,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #endregion
 
-
-        #region Posting Grid
-
-        public void HidePostingGrids(List<int> oids, DashboardBlock block)
-        {
-            Hide(ResourcePath.POSTING_GRID_RESOURCE_PATH, oids, block);
-        }
-
-        public void HideAutomaticPostingGrids(List<int> oids, DashboardBlock block)
-        {
-            Hide(ResourcePath.AUTOMATIC_POSTING_GRID_RESOURCE_PATH, oids, block);
-        }
-
-        public void DeletePostingGrid(List<int> oids, DashboardBlock block)
-        {
-            Delete(ResourcePath.POSTING_GRID_RESOURCE_PATH, oids, block);
-        }
-
-        public void DeleteAutomaticPostingGrid(List<int> oids, DashboardBlock block)
-        {
-            Delete(ResourcePath.AUTOMATIC_POSTING_GRID_RESOURCE_PATH, oids, block);
-        }
-
-        #endregion
-
-
+        
         #region Enrichment Table
 
         public void HideEnrichmentTables(List<int> oids, DashboardBlock block)
