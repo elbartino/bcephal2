@@ -40,8 +40,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         }
 
         public void display(WriteOffField field)
-        {
-           
+        {            
             if (field == null) return;
             if (field.isPeriod())
             {
@@ -53,6 +52,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             else
             {
                 removeDateView();
+                RemoveHandlers();
                 this.DefaultValuesCombobox.SelectedItem = field.defaultValueTypeEnum != null ?
                 field.defaultValueTypeEnum : WriteOffFieldValueType.CUSTOM;
             }
