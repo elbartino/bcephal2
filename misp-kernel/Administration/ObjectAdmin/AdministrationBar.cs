@@ -228,7 +228,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                 else
                 {
                     MessageDisplayer.DisplayWarning("Duplicate Profil or User", 
-                        "Another group whith Profil or User '" + group.ProfilComboBox.SelectedItem + "' already exits!");
+                        "Another group with Profil or User '" + group.ProfilComboBox.SelectedItem + "' already exits!");
                 }
                 return !duplicate;
             }
