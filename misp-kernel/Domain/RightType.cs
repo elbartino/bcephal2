@@ -18,6 +18,9 @@ namespace Misp.Kernel.Domain
         LOAD,
         CLEAR,
         SAVE_AS,
-        SAVE
+        SAVE,
+        EDIT_EXCEL,
+        EDIT_WRITE_OFF,
+        RESET_WRITE_OFF
     }
 }

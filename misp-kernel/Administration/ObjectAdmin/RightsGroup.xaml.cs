@@ -132,6 +132,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                     AddCheckBox(new RightCheckBox("Edit Table", RightType.EDIT));
                     AddCheckBox(new RightCheckBox("Edit Cell", RightType.EDIT_CELL));
                     AddCheckBox(new RightCheckBox("Edit Allocation", RightType.EDIT_ALLOCATION));
+                    AddCheckBox(new RightCheckBox("Edit Excel only", RightType.EDIT_EXCEL));
                     AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
                     AddCheckBox(new RightCheckBox("Load", RightType.LOAD));
                     AddCheckBox(new RightCheckBox("Clear", RightType.CLEAR));
@@ -142,6 +143,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                     AddCheckBox(new RightCheckBox("View", RightType.VIEW));
                     AddCheckBox(new RightCheckBox("Edit Report", RightType.EDIT));
                     AddCheckBox(new RightCheckBox("Edit Cell", RightType.EDIT_CELL));
+                    AddCheckBox(new RightCheckBox("Edit Excel only", RightType.EDIT_EXCEL));
                     AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
                     AddCheckBox(new RightCheckBox("Run", RightType.LOAD));
                     AddCheckBox(new RightCheckBox("Save as", RightType.SAVE_AS));
@@ -167,6 +169,13 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                     AddCheckBox(new RightCheckBox("Edit", RightType.EDIT));
                     AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
                     AddCheckBox(new RightCheckBox("Save as", RightType.SAVE_AS));
+                }
+                else if (ObjectType.Equals(SubjectType.RECONCILIATION_FILTER.label))
+                {
+                    AddCheckBox(new RightCheckBox("View", RightType.VIEW));
+                    AddCheckBox(new RightCheckBox("Edit write off", RightType.EDIT_WRITE_OFF));
+                    AddCheckBox(new RightCheckBox("Reset write off", RightType.RESET_WRITE_OFF));
+                    AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
                 }
                 else
                 {

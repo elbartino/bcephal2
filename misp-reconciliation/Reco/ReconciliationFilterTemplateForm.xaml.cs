@@ -35,6 +35,12 @@ namespace Misp.Reconciliation.Reco
 
         public bool IsReadOnly { get; set; }
 
+
+        /// <summary>
+        /// Can user write off
+        /// </summary>
+        public bool CanEditWriteOff { get; set; }
+
         /// <summary>
         /// Indique si la vue a été modifiée.
         /// </summary>
@@ -67,6 +73,7 @@ namespace Misp.Reconciliation.Reco
 
         public ReconciliationFilterTemplateForm(SubjectType subjectType)
         {
+            this.CanEditWriteOff = true;
             this.SubjectType = subjectType;
             InitializeComponent();
             UserInit();
@@ -123,7 +130,10 @@ namespace Misp.Reconciliation.Reco
         /// <param name="readOnly"></param>
         public virtual void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
         {
-
+            bool editWriteOff = RightsUtil.HasRight(Kernel.Domain.RightType.EDIT_WRITE_OFF, rights);
+            bool resetWriteOff = RightsUtil.HasRight(Kernel.Domain.RightType.RESET_WRITE_OFF, rights);
+            this.CanEditWriteOff = editWriteOff;
+            this.BottomGrid.ResetButton.Visibility = resetWriteOff ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public virtual void SetTarget(Target target)
@@ -422,6 +432,11 @@ namespace Misp.Reconciliation.Reco
 
             if (this.BottomGrid.BalanceAmount != 0)
             {
+                if (!CanEditWriteOff)
+                {
+                    MessageDisplayer.DisplayWarning("Reconciliation", "You are not allowed to create a write off!");
+                    return;
+                }
                 if(!this.EditedObject.acceptWriteOff)
                 {
                     MessageDisplayer.DisplayWarning("Reconciliation", "You can't create a new reconciliation with this selction.\nWrite off is not allowed!");
