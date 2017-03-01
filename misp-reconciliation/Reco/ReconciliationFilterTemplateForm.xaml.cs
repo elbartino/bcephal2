@@ -317,7 +317,10 @@ namespace Misp.Reconciliation.Reco
                         
             reco.ids = dialog.ReconciliationGrid.GridBrowser.GetSelectedOis();
             reco.recoType = this.EditedObject.reconciliationType;
-            reco.writeOffMeasure = this.EditedObject.leftMeasure;
+            WriteOffFieldValueType type = this.EditedObject.writeoffDefaultMeasureTypeEnum;
+            if (type == WriteOffFieldValueType.CUSTOM) reco.writeOffMeasure = this.EditedObject.writeoffMeasure;
+            else if (type == WriteOffFieldValueType.LEFT_SIDE) reco.writeOffMeasure = this.EditedObject.leftMeasure;
+            else if (type == WriteOffFieldValueType.RIGHT_SIDE) reco.writeOffMeasure = this.EditedObject.rightMeasure;            
 
             bool result = this.Service.reconciliate(reco);
             if (result)
