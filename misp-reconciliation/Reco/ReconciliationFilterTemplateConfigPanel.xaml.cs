@@ -114,7 +114,11 @@ namespace Misp.Reconciliation.Reco
             removeHandlers();
             this.AllowWriteOffCheckBox.IsChecked = this.EditedObject != null ? this.EditedObject.acceptWriteOff : false;
             if (this.EditedObject.writeoffDefaultMeasureTypeEnum != null) this.TypeCombobox.SelectedItem = this.EditedObject.writeoffDefaultMeasureTypeEnum;
-            else this.TypeCombobox.SelectedItem = WriteOffFieldValueType.LEFT_SIDE;
+            else
+            {
+                this.EditedObject.writeoffDefaultMeasureTypeEnum = WriteOffFieldValueType.LEFT_SIDE;
+                this.TypeCombobox.SelectedItem = WriteOffFieldValueType.LEFT_SIDE;
+            }
             this.MeasureCombobox.SelectedItem = this.EditedObject.writeoffMeasure;
             
             this.ConfigurationPropertiesPanel.EditedObject = this.EditedObject;

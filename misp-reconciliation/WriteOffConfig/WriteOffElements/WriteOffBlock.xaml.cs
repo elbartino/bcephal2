@@ -37,9 +37,9 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
 
             if (!displayLines) 
             {
-                WriteOffLine line = new WriteOffLine();
+                /*WriteOffLine line = new WriteOffLine();
                 line.display();
-                this.Children.Add(line);
+                this.Children.Add(line);*/
                 return;
             }
 
