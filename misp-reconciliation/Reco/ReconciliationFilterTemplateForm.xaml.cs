@@ -136,7 +136,7 @@ namespace Misp.Reconciliation.Reco
             this.BottomGrid.ResetButton.Visibility = resetWriteOff ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        public virtual void SetTarget(Target target)
+        public virtual void SetTarget(Target target, bool setToFilter = false)
         {
             if (this.SelectedIndex == 0) { }
             else if (this.SelectedIndex == 1)
@@ -145,13 +145,13 @@ namespace Misp.Reconciliation.Reco
             }
             else if (this.SelectedIndex == 2)
             {
-                //this.LeftGrid.GrilleBrowserForm.filterForm.targetFilter.SetTargetValue(target);
-                if(target is Kernel.Domain.Attribute) this.LeftGridProperties.InputGridPropertiesPanel.SetValue(target);
+                if (setToFilter) this.LeftGrid.GrilleBrowserForm.filterForm.targetFilter.SetTargetValue(target);
+                else if(target is Kernel.Domain.Attribute) this.LeftGridProperties.InputGridPropertiesPanel.SetValue(target);
             }
             else if (this.SelectedIndex == 3)
             {
-                //this.RightGrid.GrilleBrowserForm.filterForm.targetFilter.SetTargetValue(target);
-                if (target is Kernel.Domain.Attribute) this.RightGridProperties.InputGridPropertiesPanel.SetValue(target);
+                if (setToFilter) this.RightGrid.GrilleBrowserForm.filterForm.targetFilter.SetTargetValue(target);
+                else if (target is Kernel.Domain.Attribute) this.RightGridProperties.InputGridPropertiesPanel.SetValue(target);
             }
             else if (this.SelectedIndex == 4)
             {
@@ -159,7 +159,7 @@ namespace Misp.Reconciliation.Reco
             }
         }
 
-        public virtual void SetPeriodInterval(PeriodInterval interval)
+        public virtual void SetPeriodInterval(PeriodInterval interval, bool setToFilter = false)
         {
             if (this.SelectedIndex == 0) { }
             else if (this.SelectedIndex == 1)
@@ -168,13 +168,13 @@ namespace Misp.Reconciliation.Reco
             }
             else if (this.SelectedIndex == 2)
             {
-                //this.LeftGrid.GrilleBrowserForm.filterForm.periodFilter.SetPeriodInterval(interval);
-                this.LeftGridProperties.InputGridPropertiesPanel.SetValue(interval);
+                if (setToFilter) this.LeftGrid.GrilleBrowserForm.filterForm.periodFilter.SetPeriodInterval(interval);
+                else this.LeftGridProperties.InputGridPropertiesPanel.SetValue(interval);
             }
             else if (this.SelectedIndex == 3)
             {
-                //this.RightGrid.GrilleBrowserForm.filterForm.periodFilter.SetPeriodInterval(interval);
-                this.RightGridProperties.InputGridPropertiesPanel.SetValue(interval);
+                if (setToFilter) this.RightGrid.GrilleBrowserForm.filterForm.periodFilter.SetPeriodInterval(interval);
+                else this.RightGridProperties.InputGridPropertiesPanel.SetValue(interval);
             }
             else if (this.SelectedIndex == 4)
             {
@@ -182,7 +182,7 @@ namespace Misp.Reconciliation.Reco
             }
         }
 
-        public virtual void SetPeriodName(PeriodName name)
+        public virtual void SetPeriodName(PeriodName name, bool setToFilter = false)
         {
             if (this.SelectedIndex == 0) { }
             else if (this.SelectedIndex == 1)
@@ -191,13 +191,13 @@ namespace Misp.Reconciliation.Reco
             }
             else if (this.SelectedIndex == 2)
             {
-                //this.LeftGrid.GrilleBrowserForm.filterForm.periodFilter.SetPeriodItemName(name.name);
-                this.LeftGridProperties.InputGridPropertiesPanel.SetValue(name);
+                if (setToFilter) this.LeftGrid.GrilleBrowserForm.filterForm.periodFilter.SetPeriodItemName(name.name);
+                else this.LeftGridProperties.InputGridPropertiesPanel.SetValue(name);
             }
             else if (this.SelectedIndex == 3)
             {
-                //this.RightGrid.GrilleBrowserForm.filterForm.periodFilter.SetPeriodItemName(name.name);
-                this.RightGridProperties.InputGridPropertiesPanel.SetValue(name);
+                if (setToFilter) this.RightGrid.GrilleBrowserForm.filterForm.periodFilter.SetPeriodItemName(name.name);
+                else this.RightGridProperties.InputGridPropertiesPanel.SetValue(name);
             }
             else if (this.SelectedIndex == 4)
             {

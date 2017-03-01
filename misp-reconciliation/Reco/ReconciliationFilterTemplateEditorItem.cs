@@ -13,22 +13,22 @@ namespace Misp.Reconciliation.Reco
 
         public ReconciliationFilterTemplateEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
 
-        public virtual void SetTarget(Target target)
+        public virtual void SetTarget(Target target, bool setToFilter = false)
         {
-            getForm().SetTarget(target);
+            getForm().SetTarget(target, setToFilter);
         }
 
-        public virtual void SetPeriod(object period)
+        public virtual void SetPeriod(object period, bool setToFilter = false)
         {
             if (period is PeriodInterval)
             {
                 PeriodInterval periodInterval = (PeriodInterval)period;
-                getForm().SetPeriodInterval(periodInterval);
+                getForm().SetPeriodInterval(periodInterval, setToFilter);
             }
             else if (period is PeriodName)
             {
                 PeriodName name = (PeriodName)period;
-                getForm().SetPeriodName(name);
+                getForm().SetPeriodName(name, setToFilter);
             }
         }
 

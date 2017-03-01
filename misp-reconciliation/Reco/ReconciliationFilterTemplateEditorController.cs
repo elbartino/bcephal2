@@ -360,8 +360,8 @@ namespace Misp.Reconciliation.Reco
             {
                 ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
                 if (page == null) return;
-                page.SetPeriod(sender);
-                OnChange();
+                ReconciliationFilterTemplatePropertyBar bar = (ReconciliationFilterTemplatePropertyBar)this.PropertyBar;
+                page.SetPeriod(sender, bar.FilterLayoutAnchorable.IsSelected);
             }
         }
 
@@ -375,9 +375,9 @@ namespace Misp.Reconciliation.Reco
         {
             ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
             if (page == null) return;
-            page.SetTarget((Target)target);
-            //OnChange();
-
+            ReconciliationFilterTemplatePropertyBar bar = (ReconciliationFilterTemplatePropertyBar)this.PropertyBar;
+            page.SetTarget((Target)target, bar.FilterLayoutAnchorable.IsSelected);
+            
         }
 
         protected void onDoubleClickSelectTargetFromSidebar(object sender)
