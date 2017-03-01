@@ -5,11 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:WriteOff="clr-namespace:Misp.Reconciliation.WriteOffConfig"
              mc:Ignorable="d" Background="White"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="500">
     <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-    <CheckBox x:FieldModifier="public" x:Name="AllowWriteOffCheckBox" Content="Allow write off" IsChecked="True" Grid.Row="0"/>
-    <WriteOff:WriteOffConfigPanel x:FieldModifier="public" x:Name="WriteOffConfigPanel" Grid.Row="1" />
+
+    <CheckBox x:FieldModifier="public" x:Name="AllowWriteOffCheckBox" Content="Allow write off" IsChecked="True" Grid.Row="0"  Margin="112 10"/>
+
+    <Grid Grid.Row="1" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>            
+        </Grid.ColumnDefinitions>
+        <Label x:Name="MeasureLabel" Content="Write off measure" Grid.Column="0" VerticalAlignment="Center"/>
+        <ComboBox x:Name="TypeCombobox"  Grid.Column="1" Margin="10 0" Width="115" VerticalAlignment="Center"/>
+        <ComboBox x:Name="MeasureCombobox"  Grid.Column="2" Width="200" VerticalAlignment="Center"/>
+    </Grid>
+    
+    <WriteOff:WriteOffConfigPanel x:FieldModifier="public" x:Name="WriteOffConfigPanel" Grid.Row="2" />
 </Grid>

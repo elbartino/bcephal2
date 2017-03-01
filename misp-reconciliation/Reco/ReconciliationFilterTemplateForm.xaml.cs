@@ -417,10 +417,19 @@ namespace Misp.Reconciliation.Reco
                 return;
             }
 
-            if (this.BottomGrid.BalanceAmount != 0 && !this.EditedObject.acceptWriteOff)
+            if (this.BottomGrid.BalanceAmount != 0)
             {
-                MessageDisplayer.DisplayWarning("Reconciliation", "You can't create a new reconciliation with this selction.\nWrite off is not allowed!");
-                return;
+                if(!this.EditedObject.acceptWriteOff)
+                {
+                    MessageDisplayer.DisplayWarning("Reconciliation", "You can't create a new reconciliation with this selction.\nWrite off is not allowed!");
+                    return;
+                }
+                WriteOffFieldValueType type = this.EditedObject.writeoffDefaultMeasureTypeEnum;
+                if (type == WriteOffFieldValueType.CUSTOM && this.EditedObject.writeoffMeasure == null)
+                {
+                    MessageDisplayer.DisplayWarning("Reconciliation", "The write off measure is not specified!");
+                    return;
+                }
             }
 
             dialog = new RecoWriteOffDialog();

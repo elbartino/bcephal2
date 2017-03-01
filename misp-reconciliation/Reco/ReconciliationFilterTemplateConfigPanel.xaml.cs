@@ -1,4 +1,6 @@
-﻿using Misp.Kernel.Domain;
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
+using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
@@ -32,13 +34,23 @@ namespace Misp.Reconciliation.Reco
 
         public event ChangeItemEventHandler ItemChanged;
 
-        public event ChangeItemEventHandler ItemPresent;
 
         public ReconciliationFilterTemplateConfigPanel()
         {
             InitializeComponent();
+            UserInit();
             this.ConfigurationPropertiesPanel = new ConfigurationPropertiesPanel();
             InitializeHandlers();
+        }
+
+        private void UserInit()
+        {
+            this.TypeCombobox.SelectionChanged += OnTypeSelected;
+            this.TypeCombobox.ItemsSource = new WriteOffFieldValueType[]  {
+                      WriteOffFieldValueType.LEFT_SIDE, WriteOffFieldValueType.RIGHT_SIDE, WriteOffFieldValueType.CUSTOM };
+            this.TypeCombobox.SelectedItem = WriteOffFieldValueType.LEFT_SIDE;            
+            MeasureService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetMeasureService();
+            this.MeasureCombobox.ItemsSource = service.getAllLeafts();
         }
 
         public void InitializeHandlers() 
@@ -46,20 +58,43 @@ namespace Misp.Reconciliation.Reco
             this.AllowWriteOffCheckBox.Checked += OnAllowWriteOff;
             this.AllowWriteOffCheckBox.Unchecked += OnAllowWriteOff;
             this.WriteOffConfigPanel.ItemPresent += OnVerifyIfPresent;
+            this.TypeCombobox.SelectionChanged += OnTypeComboboxSelectionChanged;
+            this.MeasureCombobox.SelectionChanged += OnMeasureComboboxSelectionChanged;
         }
-
+        
         public void removeHandlers()
         {
             this.AllowWriteOffCheckBox.Checked -= OnAllowWriteOff;
             this.AllowWriteOffCheckBox.Unchecked -= OnAllowWriteOff;
             this.WriteOffConfigPanel.ItemPresent -= OnVerifyIfPresent;
+            this.TypeCombobox.SelectionChanged -= OnTypeComboboxSelectionChanged;
+            this.MeasureCombobox.SelectionChanged -= OnMeasureComboboxSelectionChanged;
         }
 
+        private void OnTypeSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.TypeCombobox.SelectedItem != null && this.TypeCombobox.SelectedItem is WriteOffFieldValueType)
+            {
+                WriteOffFieldValueType type = (WriteOffFieldValueType)this.TypeCombobox.SelectedItem;
+                this.MeasureCombobox.Visibility = type == WriteOffFieldValueType.CUSTOM ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+        private void OnMeasureComboboxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            fillObject();
+            if (ItemChanged != null) ItemChanged(this.EditedObject);
+        }
+
+        private void OnTypeComboboxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            fillObject();
+            if (ItemChanged != null) ItemChanged(this.EditedObject);
+        }
 
         private void OnAllowWriteOff(object sender, RoutedEventArgs e)
         {
-            if (this.EditedObject == null) this.EditedObject = new ReconciliationFilterTemplate();
-            this.EditedObject.acceptWriteOff = this.AllowWriteOffCheckBox.IsChecked.Value;
+            fillObject();
             if (ItemChanged != null) ItemChanged(this.EditedObject);
         }
 
@@ -78,6 +113,10 @@ namespace Misp.Reconciliation.Reco
         {
             removeHandlers();
             this.AllowWriteOffCheckBox.IsChecked = this.EditedObject != null ? this.EditedObject.acceptWriteOff : false;
+            if (this.EditedObject.writeoffDefaultMeasureTypeEnum != null) this.TypeCombobox.SelectedItem = this.EditedObject.writeoffDefaultMeasureTypeEnum;
+            else this.TypeCombobox.SelectedItem = WriteOffFieldValueType.LEFT_SIDE;
+            this.MeasureCombobox.SelectedItem = this.EditedObject.writeoffMeasure;
+            
             this.ConfigurationPropertiesPanel.EditedObject = this.EditedObject;
             this.ConfigurationPropertiesPanel.displayObject();
 
@@ -87,6 +126,15 @@ namespace Misp.Reconciliation.Reco
             InitializeHandlers();
         }
 
+        public void fillObject()
+        {
+            if (this.EditedObject == null) this.EditedObject = new ReconciliationFilterTemplate();
+            this.EditedObject.acceptWriteOff = this.AllowWriteOffCheckBox.IsChecked.Value;
+            WriteOffFieldValueType type = (WriteOffFieldValueType)this.TypeCombobox.SelectedItem;
+            this.EditedObject.writeoffDefaultMeasureTypeEnum = type;
+            if (type == WriteOffFieldValueType.CUSTOM) this.EditedObject.writeoffMeasure = (Measure)this.MeasureCombobox.SelectedItem;
+            else this.EditedObject.writeoffMeasure = null;
+        }
 
 
         public void updateObjetct(WriteOffConfiguration writeOffConfiguration)
