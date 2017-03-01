@@ -283,14 +283,11 @@ namespace Misp.Sourcing.GridViews
                     if (this.gridControl.FilterCriteria != null)
                     {
                         this.Grille.GrilleFilter.filter = buildColumnFilters(this.gridControl.FilterCriteria);
-                        if (FilterEventHandler != null) FilterEventHandler();
                     }
+                    else this.Grille.ClearColumnFilter();
                 }
-                else
-                {
-                    this.Grille.ClearColumnFilter();
-                    if (FilterEventHandler != null) FilterEventHandler();
-                }
+                else this.Grille.ClearColumnFilter();
+                if (FilterEventHandler != null) FilterEventHandler();
             }
             e.Handled = true;
         }
