@@ -27,6 +27,17 @@ namespace Misp.Kernel.Domain
         public Measure leftMeasure { get; set; }
 
         public Measure rightMeasure { get; set; }
+
+        public Measure writeoffMeasure { get; set; }
+        
+        [ScriptIgnore]
+        public WriteOffFieldValueType writeoffDefaultMeasureTypeEnum { get; set; }
+
+        public String writeoffDefaultMeasureType
+        {
+            get { return this.writeoffDefaultMeasureTypeEnum != null ? this.writeoffDefaultMeasureTypeEnum.name : null; }
+            set { this.writeoffDefaultMeasureTypeEnum = WriteOffFieldValueType.getByName(value); }
+        }
         
         public String balanceFormula 
         {

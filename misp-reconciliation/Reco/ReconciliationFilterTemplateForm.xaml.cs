@@ -317,8 +317,7 @@ namespace Misp.Reconciliation.Reco
                         
             reco.ids = dialog.ReconciliationGrid.GridBrowser.GetSelectedOis();
             reco.recoType = this.EditedObject.reconciliationType;
-            reco.leftMeasure = this.EditedObject.leftMeasure;
-            reco.rightMeasure = this.EditedObject.rightMeasure;
+            reco.writeOffMeasure = this.EditedObject.leftMeasure;
 
             bool result = this.Service.reconciliate(reco);
             if (result)
