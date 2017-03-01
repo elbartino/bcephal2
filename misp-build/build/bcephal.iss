@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{0D0D4FAF-B685-4A2A-B7F2-0CB1E75938CA}
 AppName=B-Cephal Client
-AppVerName=B-Cephal Client 5.0.0-alpha-20160926
+AppVerName=B-Cephal Client 5.0.0-alpha-20160935
 AppPublisher=Moriset & co
 AppPublisherURL=http://www.bcephal.com/
 AppSupportURL=http://www.bcephal.com/support
@@ -15,7 +15,7 @@ AppUpdatesURL=http://www.bcephal.com/update
 DefaultDirName={pf}\Moriset\Bcephal\Client
 DefaultGroupName=Moriset\Bcephal\Client
 OutputDir=..\
-OutputBaseFilename=B-Cephal Client 5.0.0-alpha-20160926
+OutputBaseFilename=B-Cephal Client 5.0.0-alpha-20160935
 Compression=lzma
 SolidCompression=true
 SetupIconFile=bcephal.ico
