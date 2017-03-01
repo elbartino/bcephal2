@@ -227,8 +227,10 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                 }
                 else
                 {
-                    MessageDisplayer.DisplayWarning("Duplicate Profil or User", 
-                        "Another group with Profil or User '" + group.ProfilComboBox.SelectedItem + "' already exits!");
+                    Object elt = group.ProfilComboBox.SelectedItem;
+                    bool isProfil = elt is Domain.Profil;
+                    string profilText = elt is Domain.Profil ? "Profil":"User";
+                    MessageDisplayer.DisplayWarning("Duplicate "+profilText,"Another group with "+profilText+" '" + group.ProfilComboBox.SelectedItem + "' already exits!");
                 }
                 return !duplicate;
             }
