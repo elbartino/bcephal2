@@ -264,6 +264,10 @@ namespace Misp.Reconciliation.Reco
             if (ApplicationManager.Instance.User != null && ApplicationManager.Instance.User.IsAdmin())
             {
                 this.EditedObject.writeOffConfig = ConfigurationPanel.WriteOffConfigPanel.fillObject();
+                this.LeftGrid.GrilleBrowserForm.fillObject();
+                this.LeftGrid.EditedObject.loadFilters();
+                this.RightGrid.GrilleBrowserForm.fillObject();
+                this.RightGrid.EditedObject.loadFilters();
             }
         }
 
@@ -664,7 +668,10 @@ namespace Misp.Reconciliation.Reco
                             Decimal.TryParse(item.ToString(), out amount);
                         }
                         catch (Exception) { }
-                        if (this.EditedObject.useDebitCredit == true)
+                        if (side == GridItem.LEFT_SIDE) credit += amount;
+                        else debit += amount;
+
+                        /*if (this.EditedObject.useDebitCredit == true)
                         {
                             if (creditDebitColumn == null) continue;
                             item = datas[creditDebitColumn.position];
@@ -677,7 +684,7 @@ namespace Misp.Reconciliation.Reco
                         {
                             if (side == GridItem.LEFT_SIDE) credit += amount;
                             else debit += amount;
-                        }
+                        }*/
                     }
                 }
             }
@@ -839,7 +846,7 @@ namespace Misp.Reconciliation.Reco
 
         public void OnChange()
         {
-            if (Changed != null) Changed();
+            if (FormChanged != null) FormChanged();
         }
 
         #endregion

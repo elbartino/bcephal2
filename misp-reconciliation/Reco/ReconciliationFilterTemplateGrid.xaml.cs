@@ -59,6 +59,7 @@ namespace Misp.Reconciliation.Reco
         public void displayObject()
         {
             throwHandler = false;
+            if (this.EditedObject != null) this.EditedObject.loadGrilleFilter();
             this.GrilleBrowserForm.EditedObject = this.EditedObject;
             this.GrilleBrowserForm.displayObject();
             this.CreditCheckBox.IsChecked = this.EditedObject != null ? this.EditedObject.creditChecked : false;
@@ -171,6 +172,7 @@ namespace Misp.Reconciliation.Reco
         private void OnFilterChange()
         {
             if(throwHandler) Search();
+            OnChange();
         }
 
         private void OnPageChange(object item)
