@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="misp_view.Views.Replenishment.newReplenishment"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:misp_view.Views.Replenishment"
+             mc:Ignorable="d" 
+             Width="615" Height="455">
+    <Grid Margin="0,35,0,0">
+        <StackPanel>
+            <Label Margin="65,5,0,0" Content="Select member Bank"></Label>
+        </StackPanel>
+        <StackPanel Margin="0,60,0,0">
+            <Label Margin="50,10,0,0" Content="Replenishment amount"></Label>
+        </StackPanel>
+        <StackPanel Margin="0,120,0,0">
+            <Label Content="Value date" Margin="120,25,0,0"></Label>
+            <Label Content="Message" Margin="130,25,0,0"></Label>
+            <Label Content="Structured message" Margin="70,50,0,0"></Label>
+        </StackPanel>
+        <StackPanel Margin="200,0,0,0">
+            <ComboBox  Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-72,0,172,0">
+                <ComboBoxItem Content="Name"/>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Margin="200,60,0,0">
+            <TextBox x:Name="tbPrefRequest" Text="70000" Margin="-72,10,172,0" PreviewTextInput="tbPrefRequest_PreviewTextInput" Width="200"></TextBox>
+        </StackPanel>
+        <StackPanel Margin="200,120,0,0">
+            <DatePicker x:Name="dpValueDate" Width="200" Margin="-72,25,172,0" SelectedDate="{x:Static sys:DateTime.Now}"></DatePicker>
+            <TextBox x:Name="tbMessage" MaxLines="4" VerticalScrollBarVisibility="Auto" Margin="-14,25,229,0" Width="200" SpellCheck.IsEnabled="True" Language="Fr-FR" TextWrapping="Wrap" AcceptsReturn="True" Height="54"></TextBox>
+            <TextBox x:Name="tbStructured" Width="200" IsHitTestVisible="False" IsReadOnly="True" Margin="-14,20,229,0"></TextBox>
+        </StackPanel>
+        <StackPanel Margin="415,0,0,0">
+            <TextBox x:Name="tbIDMember" Width="200" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID"></TextBox>
+        </StackPanel>
+        <StackPanel Margin="415,60,0,0">
+            <TextBlock>
+                <Hyperlink/>
+            </TextBlock>
+            <ComboBox Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="0,-6,0,0">
+                <ComboBoxItem Content="Debit"/>
+                <ComboBoxItem Content="Credit"/>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Margin="218,350,250,0" Orientation="Horizontal">
+            <Button x:Name="btnOK" Foreground="White" Height="25" Width="70" Content="Ok" Click="btnClick">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#839BBB"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="btnCancel" Foreground="White" Margin="5,0,0,0" Height="25" Width="70" Content="Cancel">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#839BBB"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+
+            </Button>
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>

@@ -4,9 +4,54 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:misp_view"
+        xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:myControls="clr-namespace:misp_view.Views.Review"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        WindowState="Maximized"
+        Title="B-Cephal" Width="Auto" Height="Auto">
+    <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="400*"/>
+            <RowDefinition Height="26"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="toolBarGrid" Background="#FFDEE0E0" Grid.Column="0" Grid.Row="0" Height="70" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="385*"/>
+                <ColumnDefinition Width="173*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Image x:Name="logo" Grid.Column="0" Grid.Row="0" Source="Resources/Images/Logo/bcephal.png" Margin="35,0,35,-59" Width="130" Height="80"/>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Menu Name="spMenu"   HorizontalAlignment="Right" Grid.Row="1" Margin="-500,0,0,-222" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2">
+                <MenuItem Header="Prefunding">
+                    <MenuItem Header="New Prefunding" Click="MenuItem_Click" ></MenuItem>
+                    <MenuItem Header="List Prefunding" Click="MenuItem_Click2" ></MenuItem>
+                </MenuItem>
+                <MenuItem Header="Replenishment">
+                    <MenuItem Header="New Replenishment" Click="MenuItemReplenishment_Click" ></MenuItem>
+                    <MenuItem Header="List Replenishment" Click="MenuItemReplenishment_Click2" ></MenuItem>
+                </MenuItem>
+                <MenuItem Header="Review" Click="MenuItem_Click_1"></MenuItem>
+                
+                <!--<Button x:Name="btnPrefunding" Click="btnPrefunding_Click" Content="Prefunding"></Button>
+                <Button x:Name="btnReview" Click="btnReview_Click" Content="Review"/>
+                <Button x:Name="btnListPrefunding" Click="btnListPrefunding_Click" Content="List Prefunding"/>-->
+            </Menu>
+        </Grid>
+        <Grid x:Name="tbTest" Grid.Row="1">
+
+
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="0" x:Name="gridInfo">
+
+        </Grid>
     </Grid>
 </Window>

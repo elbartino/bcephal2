@@ -1,0 +1,527 @@
+﻿<UserControl
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"        
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid" xmlns:SampleDatabaseDataSet1TableAdapters="clr-namespace:misp_view.SampleDatabaseDataSet1TableAdapters" xmlns:misp_view="clr-namespace:misp_view" x:Class="misp_view.Views.Review.Review"
+    mc:Ignorable="d" Height="605" Width="715" 
+    >
+    <UserControl.Resources>
+        <Thickness x:Key="tbMargin">0,10,0,0</Thickness>
+        <FontWeight x:Key="tblBold">Bold</FontWeight>
+        <Style x:Key="SeparatorStyle1" TargetType="{x:Type Separator}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
+            <Setter Property="Margin" Value="0,2,0,2"/>
+            <Setter Property="Focusable" Value="false"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Separator}">
+                        <Border Height="1" SnapsToDevicePixels="true" 
+              Background="#FFCCD480" BorderBrush="LightBlue" BorderThickness="0,0,0,1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <dx:TypedSimpleSource x:Key="TypedSimpleSource" AdapterType="{x:Type SampleDatabaseDataSet1TableAdapters:CreditTableAdapter}" ContextType="{x:Type misp_view:SampleDatabaseDataSet1}" Path="Credit">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:TypedSimpleSource>
+    </UserControl.Resources>
+    <Grid x:Name="reviewGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="200*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="clientGrid" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Label x:Name="lClient" Content="    Select client" Height="40" VerticalAlignment="Bottom" />
+            </Grid>
+            <Grid Grid.Column="2">
+                <ComboBox x:Name="lName" Height="20" Width="150" SelectedValue="ING">
+                    <ComboBoxItem Content="ING" />
+                    <ComboBoxItem Content="Fortis" />
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Column="1">
+                <TextBox x:Name="tbID" Text="ID" Background="LightGray" Height="25" Width="180" IsReadOnly="True"/>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="tabGrid" Grid.Row="1">
+            <dx:DXTabControl Margin="0,0,-229,-84">
+                <dx:DXTabControl.View>
+                    <dx:TabControlStretchView />
+                </dx:DXTabControl.View>
+
+                <dx:DXTabItem Header="Prefunding Account">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <Grid Background="Transparent" Margin="0,45,0,0">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="195"/>
+                                <ColumnDefinition Width="275"/>
+                                <ColumnDefinition Width="275"/>
+                                <ColumnDefinition Width="285*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0" x:Name="paGrid">
+                                <StackPanel>
+                                    <StackPanel.Resources>
+                                        <Style TargetType="{x:Type Label}">
+                                            <Setter Property="FontWeight" Value="{StaticResource tblBold}"/>
+                                        </Style>
+                                    </StackPanel.Resources>
+                                    <Label x:Name="lEmpty" Content=""  Height="25"/>
+                                    <Label x:Name="lSPrefund" FontWeight="Normal" Height="25" Content="Sent Prefunding " HorizontalAlignment="Right"/>
+                                    <Label x:Name="lSRepenishment" FontWeight="Normal" Height="25" Content="Sent Replenishment  " HorizontalAlignment="Right"/>
+                                    <Label x:Name="lOReceived" Content="Other Received  " FontWeight="Normal" Height="25" HorizontalAlignment="Right"/>
+                                    <Label Content="" Height="5"/>
+                                    <Label x:Name="lTTR" Content="Total to receive  " Height="25" HorizontalAlignment="Right"/>
+                                    <Label x:Name="lEmpty2" Height="25"/>
+                                    <Label Content="" Height="25"/>
+                                    <Label x:Name="lSMAdvisement" Content="Sent Members Advisement  " Height="25" FontWeight="Normal" HorizontalAlignment="Right"/>
+                                    <Label x:Name="lOPaid" Content="Other Paid  " HorizontalAlignment="Right" FontWeight="Normal" Height="25"/>
+                                    <Label Content="" Height="5"/>
+                                    <Label x:Name="lTTPay" Content="Total to Pay  " HorizontalAlignment="Right" Height="25"/>
+                                    <Label Content="" Height="15"/>
+                                    <Label x:Name="lEPFBalance" Content="Expected PF Balance  " HorizontalAlignment="Right" Height="25"/>
+                                    <Label x:Name="lEmpty3" Height="25"/>
+                                    <Label Content="" Height="25"/>
+                                    <Label x:Name="lPFADebit" Content="PF Account Debit  " HorizontalAlignment="Right" Height="25" FontWeight="Normal"/>
+                                    <Label x:Name="lPFACredit" Content="PF Account Credit  " HorizontalAlignment="Right" Height="25" FontWeight="Normal"/>
+                                    <Label Content="" Height="15"/>
+                                    <Label x:Name="lBalance" Content="Balance  " HorizontalAlignment="Right" Height="25"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="1" x:Name="reconciliedGrid">
+                                <StackPanel >
+                                    <StackPanel.Resources>
+                                        <Style TargetType="{x:Type Label}">
+                                            <Setter Property="FontWeight" Value="{StaticResource tblBold}"/>
+                                        </Style>
+                                    </StackPanel.Resources>
+                                    <Label x:Name="lReconcilied" Content="  Reconcilied" Height="25" IsHitTestVisible="False"/>
+                                    <TextBox x:Name="tbSPrefund" Text="100000" Height="25" Width="200" BorderBrush="Transparent"  IsReadOnly="True" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" IsHitTestVisible="False"/>
+                                    <TextBox x:Name="tbSReplenishment" Text="100000" BorderBrush="Transparent" Height="25" Width="200" IsReadOnly="True" HorizontalAlignment="Left" IsHitTestVisible="False"/>
+                                    <TextBox x:Name="tbOReceived" Text="100" BorderBrush="Transparent" Height="25" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" IsHitTestVisible="False"/>
+                                    <Label Content="" Height="5"/>
+                                    <TextBox x:Name="tbTTR" IsHitTestVisible="False" Text="100100" Height="25" Width="200" HorizontalAlignment="Left" BorderBrush="Transparent" IsReadOnly="True" Foreground="White" Background="#839BBB"/>
+                                    <Label Content="" Height="25"/>
+                                    <Label x:Name="lReconcilied2" Content="  Reconcilied" Height="25" IsHitTestVisible="False"/>
+                                    <TextBox x:Name="tbSMAdvisement" Text="100000" Height="25" Width="200" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Foreground="White" Background="#839BBB" HorizontalAlignment="Left"/>
+                                    <TextBox x:Name="tbOPaid" Text="100" HorizontalAlignment="Left" Height="25" Width="200"  IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" IsReadOnly="True" BorderBrush="Transparent"/>
+                                    <Label Content="" Height="5"/>
+                                    <TextBox x:Name="tbTTPay" Text="100100" IsReadOnly="True" IsHitTestVisible="False" Height="25" Width="200" Foreground="White" Background="#839BBB" HorizontalAlignment="Left" BorderBrush="Transparent"/>
+                                    <Label Content="" Height="15"/>
+                                    <TextBox x:Name="tbEPFBalance" Text="0"  IsReadOnly="True" IsHitTestVisible="False" Height="25" Width="200" Foreground="White" Background="#839BBB" HorizontalAlignment="Left" BorderBrush="Transparent"/>
+                                    <Label Content="" Height="25"/>
+                                    <Label x:Name="lReconcilied3" Content="  Reconcilied" Height="25" IsHitTestVisible="False"/>
+                                    <TextBox x:Name="tbPFADebit" Text="100100" BorderBrush="Transparent" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left" Height="25" Width="200" IsReadOnly="True"/>
+                                    <TextBox x:Name="tbPFACredit" Text="100100" BorderBrush="Transparent" IsHitTestVisible="False" HorizontalAlignment="Left" IsReadOnly="True" Height="25" Width="200"/>
+                                    <Label Content="" Height="15"/>
+                                    <TextBox x:Name="tbBalance" Text="5000" IsHitTestVisible="False"  IsReadOnly="True" Height="25" Width="200" Foreground="White" Background="#839BBB" HorizontalAlignment="Left" BorderBrush="Transparent"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="2" x:Name="noReconciliedGrid">
+                                <StackPanel >
+                                    <StackPanel.Resources>
+                                        <Style TargetType="{x:Type Label}">
+                                            <Setter Property="FontWeight" Value="{StaticResource tblBold}"/>
+                                        </Style>
+                                    </StackPanel.Resources>
+                                    <Label x:Name="lNReconcilied" Content="  Not yet Reconcilied" Height="25" IsHitTestVisible="False"/>
+                                    <TextBox x:Name="tbNSPrefund" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"  IsHitTestVisible="False" Text="0" Height="25" Width="200" BorderBrush="Transparent" IsReadOnly="True" HorizontalAlignment="Left"/>
+                                    <TextBox x:Name="tbNSReplenishment" Text="500" Height="25" Width="200" BorderBrush="Transparent" IsHitTestVisible="False" IsReadOnly="True" HorizontalAlignment="Left"/>
+                                    <TextBox x:Name="tbEmpty5" Text="0" Height="25" BorderBrush="Transparent" IsHitTestVisible="False" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left" Width="200"/>
+                                    <Label Content="" Height="5"/>
+                                    <TextBox x:Name="tbNTTR" Text="500" Height="25" IsHitTestVisible="False" Width="200" HorizontalAlignment="Left" BorderBrush="Transparent" IsReadOnly="True"  Foreground="White" Background="#839BBB"/>
+                                    <Label Content="" Height="25"/>
+                                    <Label x:Name="lNReconcilied2" IsHitTestVisible="False" Content="  Not yet Reconcilied" Height="25"/>
+                                    <TextBox x:Name="tbNSMAdvisement" IsHitTestVisible="False" Text="0" Height="25" Width="200" Foreground="White" Background="#839BBB" IsReadOnly="True" BorderBrush="Transparent" HorizontalAlignment="Left"/>
+                                    <TextBox x:Name="tbEmpty6" Text="0" IsHitTestVisible="False" Height="25" BorderBrush="Transparent" FontWeight="Normal" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left" Width="200"/>
+                                    <Label Content="" Height="5"/>
+                                    <TextBox x:Name="tbNTTPay" IsHitTestVisible="False" Text="500" IsReadOnly="True" Height="25" Width="200" Foreground="White" Background="#839BBB" HorizontalAlignment="Left" BorderBrush="Transparent"/>
+                                    <Label Content="" Height="15"/>
+                                    <TextBox x:Name="tbNEPFBalance" IsHitTestVisible="False" Foreground="White" Background="#839BBB" Text="500" Width="200" IsReadOnly="True" Height="25" HorizontalAlignment="Left" BorderBrush="Transparent"/>
+                                    <Label x:Name="lEmpty7" Content="" Height="25"/>
+                                    <Label x:Name="lNReconcilied3" IsHitTestVisible="False" Content="  Not yet Reconcilied" Height="25"/>
+                                    <TextBox x:Name="tbNPFADebit" IsHitTestVisible="False" Text="0" HorizontalAlignment="Left" Height="25" Width="200" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent"/>
+                                    <TextBox x:Name="tbNPFACredit" IsHitTestVisible="False" Text="500" HorizontalAlignment="Left" IsReadOnly="True" Height="25" BorderBrush="Transparent" Width="200"/>
+                                    <Label Content="" Height="15"/>
+                                    <TextBox x:Name="tbNBalance" IsHitTestVisible="False" Text="500"  IsReadOnly="True" Height="25" Width="200" Foreground="White" Background="#839BBB" HorizontalAlignment="Left" BorderBrush="Transparent"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Grid.Column="3">
+                                <StackPanel >
+                                    <StackPanel.Resources>
+                                        <Style TargetType="{x:Type Label}">
+                                            <Setter Property="FontWeight" Value="{StaticResource tblBold}"/>
+                                        </Style>
+                                    </StackPanel.Resources>
+                                    <Label Height="25"/>
+                                    <TextBlock><Hyperlink><InlineUIContainer>
+                                                <TextBlock Height="25" Text="See prefunding advisements issued"/>
+                                            </InlineUIContainer></Hyperlink></TextBlock>
+                                    <TextBlock><Hyperlink><InlineUIContainer>
+                                                <TextBlock Height="25" Text="See replenishment instructions issued"/>
+                                            </InlineUIContainer></Hyperlink></TextBlock>
+                                    <TextBlock><Hyperlink><InlineUIContainer>
+                                                <TextBlock Height="25" Text="See list other received"/>
+                                            </InlineUIContainer></Hyperlink></TextBlock>
+                                    <Label Height="5"/>
+                                    <Label Content="" Height="25"/>
+                                    <Label Content="" Height="25"/>
+                                    <Label Content="" Height="25"/>
+                                    <TextBlock><Hyperlink><InlineUIContainer>
+                                                <TextBlock Height="25" Text="See member advisement issued"/>
+                                            </InlineUIContainer></Hyperlink></TextBlock>
+                                    <Label Height="25"/>
+                                    <Label Height="5"/>
+                                    <Label Height="25"/>
+                                    <Label Height="15"/>
+                                    <Label Height="25"/>
+                                    <Label Height="25"/>
+                                    <Label Height="25"/>
+                                    <TextBlock><Hyperlink><InlineUIContainer>
+                                                <TextBlock Height="25" Text="See PF account debit"/>
+                                            </InlineUIContainer></Hyperlink></TextBlock>
+                                    <TextBlock><Hyperlink><InlineUIContainer>
+                                                <TextBlock Height="25" Text="See PF account credit"/>
+                                            </InlineUIContainer></Hyperlink></TextBlock>
+                                </StackPanel>
+                            </Grid>
+
+                        </Grid>
+                    </ScrollViewer>
+                </dx:DXTabItem>
+                <dx:DXTabItem Header="Settlement Evolution">
+                    <Grid Background="Transparent">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="450"/>
+                            <RowDefinition Height="200*"/>
+                        </Grid.RowDefinitions>
+                        <Grid x:Name="gridControl" Grid.Row="0">
+                            <dxg:GridControl x:Name="gridControl1" EnableSmartColumnsGeneration="True" Margin="0,0,0,87">
+                                <dxg:GridControl.View>
+                                    <dxg:TableView AllowMoveColumnToDropArea="False" AllowColumnMoving="False" AllowResizing="False" AllowBestFit="False" BestFitMode="AllRows"/>
+                                </dxg:GridControl.View>
+                                <dxg:GridColumn AllowResizing="False" Width="50" AllowMoving="False" FieldName="ID">
+                                    <dxg:GridColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type Control}">
+                                            <Setter Property="Background" Value="#839BBB"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Style>
+                                    </dxg:GridColumn.HeaderStyle>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn AllowResizing="False" Width="50" AllowMoving="False" FieldName="Brand">
+                                    <dxg:GridColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type Control}">
+                                            <Setter Property="Background" Value="#839BBB"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Style>
+                                    </dxg:GridColumn.HeaderStyle>
+                                    <dxg:GridColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+                                        </DataTemplate>
+                                    </dxg:GridColumn.HeaderTemplate>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn AllowResizing="False" Width="60" AllowMoving="False" FieldName="Last Year">
+                                    <dxg:GridColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type Control}">
+                                            <Setter Property="Background" Value="#839BBB"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Style>
+                                    </dxg:GridColumn.HeaderStyle>
+                                    <dxg:GridColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+                                        </DataTemplate>
+                                    </dxg:GridColumn.HeaderTemplate>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn AllowResizing="False" Width="60" AllowMoving="False" FieldName="Year to date">
+                                    <dxg:GridColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type Control}">
+                                            <Setter Property="Background" Value="#839BBB"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Style>
+                                    </dxg:GridColumn.HeaderStyle>
+                                    <dxg:GridColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+                                        </DataTemplate>
+                                    </dxg:GridColumn.HeaderTemplate>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn AllowResizing="False" Width="Auto" AllowMoving="False" FieldName="CAGR 3 years">
+                                    <dxg:GridColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type Control}">
+                                            <Setter Property="Background" Value="#839BBB"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Style>
+                                    </dxg:GridColumn.HeaderStyle>
+                                    <dxg:GridColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+                                        </DataTemplate>
+                                    </dxg:GridColumn.HeaderTemplate>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn AllowResizing="False" Width="Auto" AllowMoving="False" FieldName="% year to date">
+                                    <dxg:GridColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type Control}">
+                                            <Setter Property="Background" Value="#839BBB"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Style>
+                                    </dxg:GridColumn.HeaderStyle>
+                                    <dxg:GridColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+                                        </DataTemplate>
+                                    </dxg:GridColumn.HeaderTemplate>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn Width="Auto" AllowResizing="False" AllowMoving="False" FieldName="Average day last 24 month" MinWidth="15">
+                                    <dxg:GridColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type Control}">
+                                            <Setter Property="Background" Value="#839BBB"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Style>
+                                    </dxg:GridColumn.HeaderStyle>
+                                    <dxg:GridColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+                                        </DataTemplate>
+                                    </dxg:GridColumn.HeaderTemplate>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn AllowResizing="False" Width="Auto" AllowMoving="False" FieldName="Average day year to date">
+                                    <dxg:GridColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type Control}">
+                                            <Setter Property="Background" Value="#839BBB"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Style>
+                                    </dxg:GridColumn.HeaderStyle>
+                                    <dxg:GridColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+                                        </DataTemplate>
+                                    </dxg:GridColumn.HeaderTemplate>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn AllowResizing="False" Width="Auto" AllowMoving="False" FieldName="Peak day last 24 month">
+                                    <dxg:GridColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type Control}">
+                                            <Setter Property="Background" Value="#839BBB"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Style>
+                                    </dxg:GridColumn.HeaderStyle>
+                                    <dxg:GridColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+                                        </DataTemplate>
+                                    </dxg:GridColumn.HeaderTemplate>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn AllowResizing="False" Width="Auto" AllowMoving="False" FieldName="  Peak day year to date  " AllowGrouping="False">
+                                    <dxg:GridColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type Control}">
+                                            <Setter Property="Background" Value="#839BBB"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Style>
+                                    </dxg:GridColumn.HeaderStyle>
+                                    <dxg:GridColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+                                        </DataTemplate>
+                                    </dxg:GridColumn.HeaderTemplate>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn AllowResizing="False" Width="Auto" AllowMoving="False" FieldName="Ratio Peak24/Prefunding">
+                                    <dxg:GridColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type Control}">
+                                            <Setter Property="Background" Value="#839BBB"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Style>
+                                    </dxg:GridColumn.HeaderStyle>
+                                    <dxg:GridColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+                                        </DataTemplate>
+                                    </dxg:GridColumn.HeaderTemplate>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn AllowResizing="False" Width="Auto" AllowMoving="False" FieldName="Ratio Peak24/Guarantee">
+                                    <dxg:GridColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type Control}">
+                                            <Setter Property="Background" Value="#839BBB"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Style>
+                                    </dxg:GridColumn.HeaderStyle>
+                                    <dxg:GridColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap"
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+                                        </DataTemplate>
+                                    </dxg:GridColumn.HeaderTemplate>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn AllowResizing="False" Width="70" AllowMoving="False" FieldName="Today multilot">
+                                    <dxg:GridColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type Control}">
+                                            <Setter Property="Background" Value="#839BBB"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Style>
+                                    </dxg:GridColumn.HeaderStyle>
+                                    <dxg:GridColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+                                        </DataTemplate>
+                                    </dxg:GridColumn.HeaderTemplate>
+                                </dxg:GridColumn>
+                            </dxg:GridControl>
+                        </Grid>
+                        <Grid Grid.Row="1" x:Name="gridGraph">
+
+                            <dxc:ChartControl Margin="0,-72,0,0">
+                                <dxc:XYDiagram2D Margin="0,28,0,0">
+                                    <dxc:BarSideBySideSeries2D DisplayName="Series 1"/>
+                                    <dxc:LineSeries2D DisplayName="Series 2">
+                                        <dxc:SeriesPoint Argument="1" Value="6.5"/>
+                                        <dxc:SeriesPoint Argument="2" Value="5.5"/>
+                                        <dxc:SeriesPoint Argument="3" Value="12.5"/>
+                                        <dxc:SeriesPoint Argument="4" Value="11.5"/>
+                                        <dxc:SeriesPoint Argument="5" Value="18.5"/>
+                                        <dxc:SeriesPoint Argument="6" Value="16"/>
+                                        <dxc:SeriesPoint Argument="7" Value="20.5"/>
+                                        <dxc:SeriesPoint Argument="8" Value="5"/>
+                                    </dxc:LineSeries2D>
+                                    <dxc:BarSideBySideSeries2D/>
+                                </dxc:XYDiagram2D>
+                            </dxc:ChartControl>
+
+                        </Grid>
+                    </Grid>
+                </dx:DXTabItem>
+                <dx:DXTabItem Header="Ageing Balance">
+                    <Grid Background="Transparent">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="450*"/>
+                        </Grid.RowDefinitions>
+                        <Grid x:Name="gridAG" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="560"/>
+                                <ColumnDefinition Width="200*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100"/>
+                                <RowDefinition Height="100"/>
+                            </Grid.RowDefinitions>
+                            <Grid x:Name="gridTextBox" Grid.Row="0" Grid.Column="0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox x:Name="tRep" TextWrapping="WrapWithOverflow" Width="100"  IsHitTestVisible="False" Text="Replenishment instruction n°" BorderBrush="Transparent" IsReadOnly="True" Foreground="White" Background="#839BBB" Margin="0,31"/>
+                                    <TextBox x:Name="tSentDate" IsHitTestVisible="False" Width="100" Text="Sent date" BorderBrush="Transparent" Background="#839BBB" Foreground="White"  IsReadOnly="True" Margin="0,31"/>
+                                    <TextBox x:Name="tValueDate" IsHitTestVisible="False"  Text="Value date" Background="#839BBB" BorderBrush="Transparent" Foreground="White"  IsReadOnly="True" Margin="0,31"/>
+                                    <TextBox x:Name="tBankName" IsHitTestVisible="False"  Text="Bank name" Background="#839BBB" BorderBrush="Transparent" Foreground="White"  IsReadOnly="True" Margin="0,31"/>
+                                    <TextBox x:Name="tAmount" IsHitTestVisible="False"  Text="Amount type" Background="#839BBB" BorderBrush="Transparent" Foreground="White"  IsReadOnly="True" Margin="0,31"/>
+                                    <TextBox x:Name="tCollection" IsHitTestVisible="False"  Text="Late collection amount" BorderBrush="Transparent" Background="#839BBB" Foreground="White"  IsReadOnly="True" Margin="0,31"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid x:Name="gridData" Grid.Row="1" Grid.Column="0">
+                                <StackPanel Orientation="Horizontal"/>
+                            </Grid>
+                            <Grid x:Name="gridGrid" Grid.Row="0" Grid.Column="1">
+                                <dxg:GridControl  Height="200" Margin="0,0,0,-103">
+                                    <dxg:GridControl.View>
+                                        <dxg:TableView AllowEditing="False" AllowMoveColumnToDropArea="False" AllowGrouping="False" AllowColumnMoving="False" AllowResizing="True" AllowSorting="False"/>
+                                    </dxg:GridControl.View>
+                                    <dxg:GridColumn FieldName="Not reached" IsSmart="True"/>
+                                    <dxg:GridColumn FieldName="Today" IsSmart="True"/>
+                                    <dxg:GridColumn FieldName="1 day" IsSmart="True"/>
+                                    <dxg:GridColumn FieldName="2 days" IsSmart="True"/>
+                                    <dxg:GridColumn FieldName="3 days" IsSmart="True"/>
+                                    <dxg:GridColumn FieldName="4 days" IsSmart="True"/>
+                                    <dxg:GridColumn FieldName="&gt; 4 days" IsSmart="True"/>
+                                </dxg:GridControl>
+                            </Grid>
+                        </Grid>
+                        <Grid x:Name="gridDetail" Grid.Row="1">
+                            <Grid>
+                                <dxg:GridControl >
+                                    <dxg:GridControl.DetailDescriptor>
+                                        <dxg:TabViewDetailDescriptor/>
+                                    </dxg:GridControl.DetailDescriptor>
+                                    <dxg:GridControl.View>
+                                        <dxg:TableView/>
+                                    </dxg:GridControl.View>
+
+                                    <dxg:GridColumn FieldName="Column1" SortOrder="Ascending" SortIndex="0"/>
+                                    <dxg:GridColumn FieldName="Column2"/>
+                                    <dxg:GridColumn FieldName="Column3"/>
+                                    <dxg:GridColumn FieldName="Column4"/>
+                                    <dxg:GridColumn FieldName="Column5"/>
+                                    <dxg:GridColumn FieldName="Column6"/>
+                                    <dxg:GridColumn FieldName="Column7"/>
+                                    <dxg:GridColumn FieldName="Column8"/>
+
+                                </dxg:GridControl>
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+                </dx:DXTabItem>
+                <dx:DXTabItem Header="Guarantee">
+                    <Grid Background="Transparent" Margin="0,50,0,0">
+                        <StackPanel>
+                            <Label x:Name="lBrand" Content="Select brand" Width="100" Margin="-670,0,0,0"/>
+                            <Label x:Name="lGuarantee" Width="100" Content="Guarantee" Margin="-650,50,0,0"/>
+                            <TextBox x:Name="lRatioGuarantee" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" TextWrapping="Wrap" Width="80" Margin="-695,50,0,0" Text="Ratio guarantee/Peak day 24 month"/>
+                        </StackPanel>
+                        <StackPanel Margin="150,0,0,0">
+                            <ComboBox  Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-550,0,0,0">
+                                <ComboBoxItem x:Name="cbBrand" Content="Name"/>
+                            </ComboBox>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                                <Label Content="Amount"/>
+                                <Label Content="Currency" Margin="55,0,0,0"/>
+                                <Label Content="Type" Margin="55,0,0,0"/>
+                                <Label Content="Last modification" Margin="152,0,0,0"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,7,0,0">
+                                <TextBox x:Name="tbAmount" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent" Width="80" Text="100000"/>
+                                <TextBox x:Name="tbCurrency" Margin="15,0,0,0" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent" Width="80" Text="EUR"/>
+                                <TextBox x:Name="tbType" IsReadOnly="True" Margin="25,0,0,0" Width="150" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent" Text="Pledge Account"/>
+                                <TextBox x:Name="tbModif" IsReadOnly="True" Margin="25,0,0,0" Width="150" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent" Text="01/01/2016"/>
+                                <TextBlock Margin="25,10,0,0"><Hyperlink><InlineUIContainer>
+                                            <TextBlock Text="See guarantee history" Width="Auto"/>
+                                        </InlineUIContainer></Hyperlink></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+
+
+                    </Grid>
+                </dx:DXTabItem>
+                <dx:DXTabItem Header="Credit Rating">
+                    <Grid Background="Transparent" x:Name="gridCredit">
+                        <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" ItemsSource="{Binding Data, Source={StaticResource TypedSimpleSource}}">
+                            <dxg:GridControl.View>
+                                <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" ShowTotalSummary="True" AutoWidth="False" AllowGrouping="False" AllowEditing="False" AllowMoveColumnToDropArea="False" AllowColumnMoving="False" AllowResizing="False" AllowSorting="False" ShowColumnHeaders="True" IsRowCellMenuEnabled="False" IsGroupPanelMenuEnabled="False" IsColumnMenuEnabled="False" IsGroupRowMenuEnabled="False" IsGroupFooterMenuEnabled="False" IsTotalSummaryMenuEnabled="True"/>
+                            </dxg:GridControl.View>
+                        </dxg:GridControl>
+                    </Grid>
+                </dx:DXTabItem>
+            </dx:DXTabControl>
+        </Grid>
+    </Grid>
+</UserControl>
