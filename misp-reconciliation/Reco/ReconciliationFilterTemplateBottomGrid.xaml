@@ -35,6 +35,13 @@
                     <TextBlock VerticalAlignment="center">Reset</TextBlock>
                 </DockPanel>
             </Button>
+
+            <Button x:Name="ClearButton" x:FieldModifier="public" Margin="20 0 5 0" Height="25" Width="100" IsEnabled="False">
+                <DockPanel VerticalAlignment="Center">
+                    <Image Source="/bcephal;Component/Resources/Images/Icons/Delete.png" Height="18"/>
+                    <TextBlock VerticalAlignment="center">Clear Grid</TextBlock>
+                </DockPanel>
+            </Button>
         </StackPanel>
     </Grid>
 </Grid>

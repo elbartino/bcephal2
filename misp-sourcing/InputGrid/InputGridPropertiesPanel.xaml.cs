@@ -231,7 +231,7 @@ namespace Misp.Sourcing.InputGrid
                 int index = ColumnsListBox.Items.IndexOf(column);
                 if (canMoveUp && index <= 0) canMoveUp = false;
                 if (canMoveDown && index > count - 1) canMoveUp = false;
-                if (canDelete && index <= 0) canDelete = false;
+                if (canDelete && index < 0) canDelete = false;
             }
 
             this.MoveColumnUpMenuItem.IsEnabled = canMoveUp;

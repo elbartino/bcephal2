@@ -3,6 +3,7 @@ using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Sourcing.GridViews;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -101,6 +102,16 @@ namespace Misp.Reconciliation.Reco
         {
             this.GridBrowser.gridControl.ItemsSource = new List<GridItem>(0);
             SetBalance(0, 0, 0);
+        }
+
+        public int GetRowCount()
+        {
+            if (this.GridBrowser.gridControl.ItemsSource != null)
+            {
+                if (this.GridBrowser.gridControl.ItemsSource is IList) return ((IList)this.GridBrowser.gridControl.ItemsSource).Count;
+                else if (this.GridBrowser.gridControl.ItemsSource is ICollection) return ((ICollection)this.GridBrowser.gridControl.ItemsSource).Count;
+            }
+            return 0;
         }
 
         public void SetBalance(Decimal left, Decimal right, Decimal balance)

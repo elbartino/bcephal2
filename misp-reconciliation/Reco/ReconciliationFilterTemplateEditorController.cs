@@ -376,7 +376,7 @@ namespace Misp.Reconciliation.Reco
             ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
             if (page == null) return;
             page.SetTarget((Target)target);
-            OnChange();
+            //OnChange();
 
         }
 
@@ -411,6 +411,7 @@ namespace Misp.Reconciliation.Reco
             {
                 ApplicationManager.MainWindow.displayPropertyBar(this.PropertyBar);
                 ReconciliationFilterTemplatePropertyBar bar = (ReconciliationFilterTemplatePropertyBar)this.PropertyBar;
+                bar.Pane.Children.Remove(bar.FilterLayoutAnchorable);
                 if (page.getForm().SelectedIndex == 1)
                 {
                     ConfigurationPropertiesPanel configPane = page.getForm().ConfigurationPanel.ConfigurationPropertiesPanel;
@@ -422,11 +423,19 @@ namespace Misp.Reconciliation.Reco
                 {
                     bar.DesignLayoutAnchorable.Content = page.getForm().LeftGridProperties.InputGridPropertiesPanel;
                     bar.DesignLayoutAnchorable.Title = "Left Grid Properties";
+                    bar.FilterLayoutAnchorable.Content = page.getForm().LeftGrid.GrilleBrowserForm.filterForm;
+                    bar.FilterLayoutAnchorable.Title = "Left Filter Properties";
+
+                    bar.Pane.Children.Insert(1, bar.FilterLayoutAnchorable);
                 }
                 else if (page.getForm().SelectedIndex == 3)
                 {
                     bar.DesignLayoutAnchorable.Content = page.getForm().RightGridProperties.InputGridPropertiesPanel;
                     bar.DesignLayoutAnchorable.Title = "Right Grid Properties";
+                    bar.FilterLayoutAnchorable.Content = page.getForm().RightGrid.GrilleBrowserForm.filterForm;
+                    bar.FilterLayoutAnchorable.Title = "Right Filter Properties";
+
+                    bar.Pane.Children.Insert(1, bar.FilterLayoutAnchorable);
                 }
                 else if (page.getForm().SelectedIndex == 4)
                 {

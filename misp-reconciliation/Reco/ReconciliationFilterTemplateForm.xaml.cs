@@ -145,11 +145,13 @@ namespace Misp.Reconciliation.Reco
             }
             else if (this.SelectedIndex == 2)
             {
-                this.LeftGridProperties.InputGridPropertiesPanel.SetValue(target);
+                //this.LeftGrid.GrilleBrowserForm.filterForm.targetFilter.SetTargetValue(target);
+                if(target is Kernel.Domain.Attribute) this.LeftGridProperties.InputGridPropertiesPanel.SetValue(target);
             }
             else if (this.SelectedIndex == 3)
             {
-                this.RightGridProperties.InputGridPropertiesPanel.SetValue(target);
+                //this.RightGrid.GrilleBrowserForm.filterForm.targetFilter.SetTargetValue(target);
+                if (target is Kernel.Domain.Attribute) this.RightGridProperties.InputGridPropertiesPanel.SetValue(target);
             }
             else if (this.SelectedIndex == 4)
             {
@@ -166,10 +168,12 @@ namespace Misp.Reconciliation.Reco
             }
             else if (this.SelectedIndex == 2)
             {
+                //this.LeftGrid.GrilleBrowserForm.filterForm.periodFilter.SetPeriodInterval(interval);
                 this.LeftGridProperties.InputGridPropertiesPanel.SetValue(interval);
             }
             else if (this.SelectedIndex == 3)
             {
+                //this.RightGrid.GrilleBrowserForm.filterForm.periodFilter.SetPeriodInterval(interval);
                 this.RightGridProperties.InputGridPropertiesPanel.SetValue(interval);
             }
             else if (this.SelectedIndex == 4)
@@ -187,10 +191,12 @@ namespace Misp.Reconciliation.Reco
             }
             else if (this.SelectedIndex == 2)
             {
+                //this.LeftGrid.GrilleBrowserForm.filterForm.periodFilter.SetPeriodItemName(name.name);
                 this.LeftGridProperties.InputGridPropertiesPanel.SetValue(name);
             }
             else if (this.SelectedIndex == 3)
             {
+                //this.RightGrid.GrilleBrowserForm.filterForm.periodFilter.SetPeriodItemName(name.name);
                 this.RightGridProperties.InputGridPropertiesPanel.SetValue(name);
             }
             else if (this.SelectedIndex == 4)
@@ -340,6 +346,7 @@ namespace Misp.Reconciliation.Reco
                 this.BottomGrid.Clear();
                 this.BottomGrid.ReconciliateButton.IsEnabled = false;
                 this.BottomGrid.ResetButton.IsEnabled = false;
+                this.BottomGrid.ClearButton.IsEnabled = false;
                 dialog.ReconciliateButton.Click -= OnDialogReconciliate;
                 dialog.CancelButton.Click -= OnDialogCancel;
                 this.dialog.Close();
@@ -359,6 +366,7 @@ namespace Misp.Reconciliation.Reco
                 this.BottomGrid.Clear();
                 this.BottomGrid.ReconciliateButton.IsEnabled = false;
                 this.BottomGrid.ResetButton.IsEnabled = false;
+                this.BottomGrid.ClearButton.IsEnabled = false;
                 BuildBalance(this.LeftGrid);
                 BuildBalance(this.RightGrid);
             }
@@ -404,7 +412,16 @@ namespace Misp.Reconciliation.Reco
 
             this.BottomGrid.ReconciliateButton.Click += OnReconciliate;
             this.BottomGrid.ResetButton.Click += OnResetReconciliation;
+            this.BottomGrid.ClearButton.Click += OnClearButtonGrid;
         
+        }
+
+        private void OnClearButtonGrid(object sender, RoutedEventArgs e)
+        {
+            this.BottomGrid.Clear();
+            this.BottomGrid.ReconciliateButton.IsEnabled = false;
+            this.BottomGrid.ResetButton.IsEnabled = false;
+            this.BottomGrid.ClearButton.IsEnabled = false;
         }
 
         private void OnReconciliate(object sender, RoutedEventArgs e)
@@ -525,6 +542,7 @@ namespace Misp.Reconciliation.Reco
             bool enable = this.BottomGrid.GridBrowser.gridControl.SelectedItems.Count > 0;
             this.BottomGrid.ReconciliateButton.IsEnabled = enable;
             this.BottomGrid.ResetButton.IsEnabled = enable;
+            this.BottomGrid.ClearButton.IsEnabled = this.BottomGrid.GetRowCount() > 0;
 
             Decimal[] balances = BuildBottomBalance(this.BottomGrid.EditedObject, this.BottomGrid.GridBrowser);
             Decimal balanceValue = balances[0] - balances[1];
@@ -787,9 +805,9 @@ namespace Misp.Reconciliation.Reco
                 {
                     oids.Add(((GridItem)obj).GetOid().Value);
                 }
-                else if (obj is List<GridItem>)
+                else if (obj is IList)
                 {
-                    foreach (GridItem item in (List<GridItem>)obj)
+                    foreach (GridItem item in (IList)obj)
                     {
                         oids.Add(item.GetOid().Value);
                     }

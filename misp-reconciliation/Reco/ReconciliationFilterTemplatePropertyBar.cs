@@ -16,6 +16,8 @@ namespace Misp.Reconciliation.Reco
 
         public LayoutAnchorablePane Pane { get; set; }
 
+        public LayoutAnchorable FilterLayoutAnchorable { get; set; }
+
         public LayoutAnchorable AdministratorLayoutAnchorable { get; set; }
 
         protected override void UserInitialisation()
@@ -26,6 +28,13 @@ namespace Misp.Reconciliation.Reco
             this.DesignLayoutAnchorable.CanFloat = false;
             this.DesignLayoutAnchorable.CanAutoHide = false;
             this.DesignLayoutAnchorable.CanHide = false;
+
+            this.FilterLayoutAnchorable = new LayoutAnchorable();
+            this.FilterLayoutAnchorable.Title = "Filter";
+            this.FilterLayoutAnchorable.CanClose = false;
+            this.FilterLayoutAnchorable.CanFloat = false;
+            this.FilterLayoutAnchorable.CanAutoHide = false;
+            this.FilterLayoutAnchorable.CanHide = false;
 
             if (ApplicationManager.Instance.User.IsAdmin())
             {
@@ -39,6 +48,7 @@ namespace Misp.Reconciliation.Reco
 
             Pane = new LayoutAnchorablePane();
             Pane.Children.Add(DesignLayoutAnchorable);
+            Pane.Children.Add(FilterLayoutAnchorable);
             if (AdministratorLayoutAnchorable != null) Pane.Children.Add(AdministratorLayoutAnchorable);
             this.Panes.Add(Pane);
 

@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Domain;
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
@@ -126,6 +127,12 @@ namespace Misp.Sourcing.Table
         /// <param name="table"></param>
         public void DisplayPeriod(Period period, bool isTableView = false,bool readOnly = false)
         {
+            if (DefaultPeriodName == null)
+            {
+                PeriodName name = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetPeriodNameService().getRootPeriodName();
+                DefaultPeriodName = name.getDefaultPeriodName();
+            }
+
             this.Period = period;
             this.panel.Children.Clear();
             if(forAutomaticSourcing) this.tagFormula.Visibility = System.Windows.Visibility.Collapsed;
