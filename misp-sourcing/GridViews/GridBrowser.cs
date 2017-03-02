@@ -280,7 +280,7 @@ namespace Misp.Sourcing.GridViews
             {
                 if (this.gridControl.IsFilterEnabled)
                 {
-                    if (!this.gridControl.FilterCriteria != null)
+                    if (this.gridControl.FilterCriteria != null)
                     {
                         this.Grille.GrilleFilter.filter = buildColumnFilters(this.gridControl.FilterCriteria);
                     }
