@@ -174,7 +174,7 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                 {
                     AddCheckBox(new RightCheckBox("View", RightType.VIEW));
                     AddCheckBox(new RightCheckBox("Edit write off", RightType.EDIT_WRITE_OFF));
-                    AddCheckBox(new RightCheckBox("Reset write off", RightType.RESET_WRITE_OFF));
+                    AddCheckBox(new RightCheckBox("Reset reconciliation", RightType.RESET_RECONCILIATION));
                     AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
                 }
                 else

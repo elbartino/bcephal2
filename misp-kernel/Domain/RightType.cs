@@ -21,6 +21,6 @@ namespace Misp.Kernel.Domain
         SAVE,
         EDIT_EXCEL,
         EDIT_WRITE_OFF,
-        RESET_WRITE_OFF
+        RESET_RECONCILIATION
     }
 }

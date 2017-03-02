@@ -131,7 +131,7 @@ namespace Misp.Reconciliation.Reco
         public virtual void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
         {
             bool editWriteOff = RightsUtil.HasRight(Kernel.Domain.RightType.EDIT_WRITE_OFF, rights);
-            bool resetWriteOff = RightsUtil.HasRight(Kernel.Domain.RightType.RESET_WRITE_OFF, rights);
+            bool resetWriteOff = RightsUtil.HasRight(Kernel.Domain.RightType.RESET_RECONCILIATION, rights);
             this.CanEditWriteOff = editWriteOff;
             this.BottomGrid.ResetButton.Visibility = resetWriteOff ? Visibility.Visible : Visibility.Collapsed;
         }
