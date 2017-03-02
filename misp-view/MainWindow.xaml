@@ -29,7 +29,7 @@
         </Grid>
 
         <Grid Grid.Row="0" Grid.Column="1">
-            <Menu Name="spMenu"   HorizontalAlignment="Right" Grid.Row="1" Margin="-500,0,0,-222" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2">
+            <Menu Name="spMenu" HorizontalAlignment="Right" Grid.Row="1" Margin="-500,0,0,-222" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2">
                 <MenuItem Header="Prefunding">
                     <MenuItem Header="New Prefunding" Click="MenuItem_Click" ></MenuItem>
                     <MenuItem Header="List Prefunding" Click="MenuItem_Click2" ></MenuItem>
@@ -37,6 +37,10 @@
                 <MenuItem Header="Replenishment">
                     <MenuItem Header="New Replenishment" Click="MenuItemReplenishment_Click" ></MenuItem>
                     <MenuItem Header="List Replenishment" Click="MenuItemReplenishment_Click2" ></MenuItem>
+                </MenuItem>
+                <MenuItem Header="Member">
+                    <MenuItem Header="New Member" Click="MenuItem_Click_newMember"></MenuItem>
+                    <MenuItem Header="List Member" Click="MenuItem_Click_listMember"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Review" Click="MenuItem_Click_1"></MenuItem>
                 

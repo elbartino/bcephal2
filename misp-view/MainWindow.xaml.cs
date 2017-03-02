@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using misp_view.Views.Review;
 using misp_view.Views.Prefunding;
 using misp_view.Views.Replenishment;
+using misp_view.Views.Member;
 
 namespace misp_view
 {
@@ -29,7 +30,8 @@ namespace misp_view
         listPrefunding lp = new listPrefunding();
         newReplenishment rp = new newReplenishment();
         listReplenishment lrp = new listReplenishment();
-
+        newMember m = new newMember();
+        listMember lm= new listMember();
         public MainWindow()
         {
             InitializeComponent();
@@ -84,6 +86,18 @@ namespace misp_view
             gridInfo.Children.Clear();
             // Doesn't work if click more than once -> Has to be fixed   
             gridInfo.Children.Add(r);
+        }
+
+        private void MenuItem_Click_newMember(object sender, RoutedEventArgs e)
+        {
+            gridInfo.Children.Clear();
+            gridInfo.Children.Add(m);
+        }
+
+        private void MenuItem_Click_listMember(object sender, RoutedEventArgs e)
+        {
+            gridInfo.Children.Clear();
+            gridInfo.Children.Add(lm);
         }
     }
 }

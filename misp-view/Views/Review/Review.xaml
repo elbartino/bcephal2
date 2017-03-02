@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"        
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid" xmlns:SampleDatabaseDataSet1TableAdapters="clr-namespace:misp_view.SampleDatabaseDataSet1TableAdapters" xmlns:misp_view="clr-namespace:misp_view" x:Class="misp_view.Views.Review.Review"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid" xmlns:SampleDatabaseDataSet1TableAdapters="clr-namespace:misp_view.SampleDatabaseDataSet1TableAdapters" xmlns:misp_view="clr-namespace:misp_view" xmlns:dxsps="http://schemas.devexpress.com/winfx/2008/xaml/spreadsheet" x:Class="misp_view.Views.Review.Review"
     mc:Ignorable="d" Height="605" Width="715" 
     >
     <UserControl.Resources>
@@ -455,26 +455,9 @@
                                 </dxg:GridControl>
                             </Grid>
                         </Grid>
-                        <Grid x:Name="gridDetail" Grid.Row="1">
+                        <Grid x:Name="gridDetail" Grid.Row="1">                           
                             <Grid>
-                                <dxg:GridControl >
-                                    <dxg:GridControl.DetailDescriptor>
-                                        <dxg:TabViewDetailDescriptor/>
-                                    </dxg:GridControl.DetailDescriptor>
-                                    <dxg:GridControl.View>
-                                        <dxg:TableView/>
-                                    </dxg:GridControl.View>
-
-                                    <dxg:GridColumn FieldName="Column1" SortOrder="Ascending" SortIndex="0"/>
-                                    <dxg:GridColumn FieldName="Column2"/>
-                                    <dxg:GridColumn FieldName="Column3"/>
-                                    <dxg:GridColumn FieldName="Column4"/>
-                                    <dxg:GridColumn FieldName="Column5"/>
-                                    <dxg:GridColumn FieldName="Column6"/>
-                                    <dxg:GridColumn FieldName="Column7"/>
-                                    <dxg:GridColumn FieldName="Column8"/>
-
-                                </dxg:GridControl>
+                                
                             </Grid>
                         </Grid>
 
