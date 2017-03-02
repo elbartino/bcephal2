@@ -280,7 +280,7 @@ namespace Misp.Sourcing.GridViews
             {
                 if (this.gridControl.IsFilterEnabled)
                 {
-                    if (this.gridControl.FilterCriteria != null)
+                    if (!this.gridControl.FilterCriteria != null)
                     {
                         this.Grille.GrilleFilter.filter = buildColumnFilters(this.gridControl.FilterCriteria);
                     }
@@ -315,14 +315,31 @@ namespace Misp.Sourcing.GridViews
                         String value = ((OperandValue)function.Operands[1]).Value.ToString();
                         filter = buildColumnFilter(link, name, operation, value);
                     }
+                    else if (function.Operands.Count == 1)
+                    {
+                        String operation = function.OperatorType.ToString();
+                        String name = ((OperandProperty)function.Operands[0]).PropertyName;
+                        filter = buildColumnFilter(link, name, operation, null);
+                    }
                 }
 
                 if (criteria is UnaryOperator)
                 {
                     UnaryOperator function = (UnaryOperator)criteria;
                     String operation = function.OperatorType.ToString();
-                    String name = ((OperandProperty)function.Operand).PropertyName;
-                    filter = buildColumnFilter(link, name, operation, null);
+                    String name = null;
+                    if (function.Operand is OperandProperty)
+                    {
+                        name = ((OperandProperty)function.Operand).PropertyName;
+                        filter = buildColumnFilter(link, name, operation, null);
+                    }
+                    else if (function.Operand is FunctionOperator)
+                    {
+                        FunctionOperator functionOperator = (FunctionOperator)function.Operand;
+                        String operation2 = functionOperator.OperatorType.ToString();
+                        filter = buildColumnFilters(functionOperator);
+                        filter.filterOperator = operation + filter.filterOperator;
+                    }
                 }
 
                 if (criteria is BinaryOperator)
