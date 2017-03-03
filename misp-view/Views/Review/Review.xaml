@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid" xmlns:SampleDatabaseDataSet1TableAdapters="clr-namespace:misp_view.SampleDatabaseDataSet1TableAdapters" xmlns:misp_view="clr-namespace:misp_view" xmlns:dxsps="http://schemas.devexpress.com/winfx/2008/xaml/spreadsheet" x:Class="misp_view.Views.Review.Review"
-    mc:Ignorable="d" Height="605" Width="715" 
+    mc:Ignorable="d" Height="605" Width="745" 
     >
     <UserControl.Resources>
         <Thickness x:Key="tbMargin">0,10,0,0</Thickness>
@@ -23,6 +23,11 @@
             </Setter>
         </Style>
         <dx:TypedSimpleSource x:Key="TypedSimpleSource" AdapterType="{x:Type SampleDatabaseDataSet1TableAdapters:CreditTableAdapter}" ContextType="{x:Type misp_view:SampleDatabaseDataSet1}" Path="Credit">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:TypedSimpleSource>
+        <dx:TypedSimpleSource x:Key="TypedSimpleSource1" AdapterType="{x:Type SampleDatabaseDataSet1TableAdapters:CreditTableAdapter}" ContextType="{x:Type misp_view:SampleDatabaseDataSet}" Path="Credit">
             <dx:DesignDataManager.DesignData>
                 <dx:DesignDataSettings RowCount="5"/>
             </dx:DesignDataManager.DesignData>
@@ -420,42 +425,66 @@
                         </Grid.RowDefinitions>
                         <Grid x:Name="gridAG" Grid.Row="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="560"/>
+                                <ColumnDefinition Width="600"/>
                                 <ColumnDefinition Width="200*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="100"/>
-                                <RowDefinition Height="100"/>
-                            </Grid.RowDefinitions>
-                            <Grid x:Name="gridTextBox" Grid.Row="0" Grid.Column="0">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBox x:Name="tRep" TextWrapping="WrapWithOverflow" Width="100"  IsHitTestVisible="False" Text="Replenishment instruction n°" BorderBrush="Transparent" IsReadOnly="True" Foreground="White" Background="#839BBB" Margin="0,31"/>
-                                    <TextBox x:Name="tSentDate" IsHitTestVisible="False" Width="100" Text="Sent date" BorderBrush="Transparent" Background="#839BBB" Foreground="White"  IsReadOnly="True" Margin="0,31"/>
-                                    <TextBox x:Name="tValueDate" IsHitTestVisible="False"  Text="Value date" Background="#839BBB" BorderBrush="Transparent" Foreground="White"  IsReadOnly="True" Margin="0,31"/>
-                                    <TextBox x:Name="tBankName" IsHitTestVisible="False"  Text="Bank name" Background="#839BBB" BorderBrush="Transparent" Foreground="White"  IsReadOnly="True" Margin="0,31"/>
-                                    <TextBox x:Name="tAmount" IsHitTestVisible="False"  Text="Amount type" Background="#839BBB" BorderBrush="Transparent" Foreground="White"  IsReadOnly="True" Margin="0,31"/>
-                                    <TextBox x:Name="tCollection" IsHitTestVisible="False"  Text="Late collection amount" BorderBrush="Transparent" Background="#839BBB" Foreground="White"  IsReadOnly="True" Margin="0,31"/>
-                                </StackPanel>
+                            <Grid x:Name="gridTextBox" Grid.Column="0">
+                                <DataGrid AutoGenerateColumns="False" RowHeaderWidth="0" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" Name="DataGridTest" ItemsSource="{Binding TestBinding}" IsReadOnly="True" Margin="0,50,0,0" GridLinesVisibility="None" SelectionUnit="Cell" >
+                                    <DataGrid.ColumnHeaderStyle>
+                                        <Style TargetType="DataGridColumnHeader">
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </DataGrid.ColumnHeaderStyle>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Replenishment Instruction n°" IsReadOnly="True" Binding="{Binding Path=Total}" Width="89" Foreground="Black" FontWeight="Bold"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Sent date" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Value date" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Member bank" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="To receive" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Paid" IsReadOnly="True" Width="60"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Open balance" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Late collection amount" IsReadOnly="True" Width="93"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
                             </Grid>
-                            <Grid x:Name="gridData" Grid.Row="1" Grid.Column="0">
-                                <StackPanel Orientation="Horizontal"/>
+                            <Grid x:Name="gridGrid" Grid.Column="1">
+                                <DataGrid AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False"  CanUserResizeRows="False" Name="DataGridLabel" IsReadOnly="True" Margin="0,26,0,0" GridLinesVisibility="None" SelectionUnit="Cell" >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="                                       Ageing balance" CanUserSort="False" IsReadOnly="True" Width="500"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <DataGrid AutoGenerateColumns="False" RowHeaderWidth="0" CanUserResizeColumns="False" CanUserReorderColumns="False"  CanUserResizeRows="False" Name="DataGridAg" IsReadOnly="True" Margin="0,50,0,0" SelectionUnit="Cell" >
+                                    <DataGrid.ColumnHeaderStyle>
+                                        <Style TargetType="DataGridColumnHeader">
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </DataGrid.ColumnHeaderStyle>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Not reached" CanUserSort="False" IsReadOnly="True" Width="55" Binding="{Binding Path=a}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Today" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=b}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="1 day" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=c}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="2 days" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=d}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="3 days" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=e}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="4 days" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=f}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header=">4 days" IsReadOnly="True" CanUserSort="False" Width="79" Binding="{Binding Path=g}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
                             </Grid>
-                            <Grid x:Name="gridGrid" Grid.Row="0" Grid.Column="1">
-                                <dxg:GridControl  Height="200" Margin="0,0,0,-103">
-                                    <dxg:GridControl.View>
-                                        <dxg:TableView AllowEditing="False" AllowMoveColumnToDropArea="False" AllowGrouping="False" AllowColumnMoving="False" AllowResizing="True" AllowSorting="False"/>
-                                    </dxg:GridControl.View>
-                                    <dxg:GridColumn FieldName="Not reached" IsSmart="True"/>
-                                    <dxg:GridColumn FieldName="Today" IsSmart="True"/>
-                                    <dxg:GridColumn FieldName="1 day" IsSmart="True"/>
-                                    <dxg:GridColumn FieldName="2 days" IsSmart="True"/>
-                                    <dxg:GridColumn FieldName="3 days" IsSmart="True"/>
-                                    <dxg:GridColumn FieldName="4 days" IsSmart="True"/>
-                                    <dxg:GridColumn FieldName="&gt; 4 days" IsSmart="True"/>
-                                </dxg:GridControl>
-                            </Grid>
+
                         </Grid>
-                        <Grid x:Name="gridDetail" Grid.Row="1">                           
+                        <Grid x:Name="gridDetail" Grid.Row="1">
                             <Grid>
                                 
                             </Grid>
@@ -475,13 +504,13 @@
                                 <ComboBoxItem x:Name="cbBrand" Content="Name"/>
                             </ComboBox>
 
-                            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                            <StackPanel Orientation="Horizontal" Margin="25,20,0,0">
                                 <Label Content="Amount"/>
                                 <Label Content="Currency" Margin="55,0,0,0"/>
                                 <Label Content="Type" Margin="55,0,0,0"/>
                                 <Label Content="Last modification" Margin="152,0,0,0"/>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,7,0,0">
+                            <StackPanel Orientation="Horizontal" Margin="25,7,0,0">
                                 <TextBox x:Name="tbAmount" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent" Width="80" Text="100000"/>
                                 <TextBox x:Name="tbCurrency" Margin="15,0,0,0" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent" Width="80" Text="EUR"/>
                                 <TextBox x:Name="tbType" IsReadOnly="True" Margin="25,0,0,0" Width="150" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent" Text="Pledge Account"/>
