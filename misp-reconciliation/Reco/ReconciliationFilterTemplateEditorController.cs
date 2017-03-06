@@ -396,6 +396,7 @@ namespace Misp.Reconciliation.Reco
 
         protected virtual void PerformSelectionChange()
         {
+            ReconciliationFilterTemplatePropertyBar bar = (ReconciliationFilterTemplatePropertyBar)this.PropertyBar;
             ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().getActivePage();
             if (page.getForm().SelectedIndex == 0)
             {
@@ -407,10 +408,12 @@ namespace Misp.Reconciliation.Reco
                 page.getForm().LeftGrid.CustomizeDC();
                 page.getForm().RightGrid.CustomizeDC();
             }
-            else
+            else if (ApplicationManager.Instance.User.IsAdmin())
             {
-                ApplicationManager.MainWindow.displayPropertyBar(this.PropertyBar);
-                ReconciliationFilterTemplatePropertyBar bar = (ReconciliationFilterTemplatePropertyBar)this.PropertyBar;
+               ApplicationManager.MainWindow.displayPropertyBar(this.PropertyBar);
+                //if (!bar.Pane.Children.Contains(bar.DesignLayoutAnchorable)) bar.Pane.Children.Add(bar.DesignLayoutAnchorable);
+                //if (bar.AdministratorLayoutAnchorable != null && !bar.Pane.Children.Contains(bar.AdministratorLayoutAnchorable)) bar.Pane.Children.Add(bar.AdministratorLayoutAnchorable);
+
                 bar.Pane.Children.Remove(bar.FilterLayoutAnchorable);
                 if (page.getForm().SelectedIndex == 1)
                 {
