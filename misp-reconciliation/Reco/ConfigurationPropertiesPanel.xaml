@@ -12,7 +12,7 @@
             <RowDefinition Height="23"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="86"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="nameLabel" Grid.Column="0" Content="Name" />
@@ -24,21 +24,21 @@
             <RowDefinition Height="27"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="86"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="groupLabel" Grid.Column="0" Content="Group" />
         <group:GroupField  x:Name="groupField" x:FieldModifier="public" Grid.Column="1" />
     </Grid>
     
-    <CheckBox x:Name="visibleInShortcutCheckbox"  Margin="85,5,5,0" x:FieldModifier="public"  VerticalAlignment="Center" Content="Visible in shortcut"/>
+    <CheckBox x:Name="visibleInShortcutCheckbox"  Margin="90,5,5,0" x:FieldModifier="public"  VerticalAlignment="Center" Content="Visible in shortcut"/>
 
     <Grid Margin="5,5,5,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="26"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="86"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="RecoTypeLabel" Grid.Column="0" Content="Reco type" />
@@ -50,7 +50,7 @@
             <RowDefinition Height="26"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="86"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="BalanceFormulaLabel" Grid.Column="0" Content="Reco amount" />
@@ -62,7 +62,7 @@
             <RowDefinition Height="26"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="86"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="LeftMeasureLabel" Grid.Column="0" Content="Left measure" />
@@ -74,7 +74,7 @@
             <RowDefinition Height="26"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="86"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="RightMeasureLabel" Grid.Column="0" Content="Right measure" />
@@ -86,7 +86,7 @@
             <RowDefinition Height="26"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="86"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="DCFormulaLabel" Grid.Column="0" Content="Use D/C" />

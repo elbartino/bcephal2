@@ -668,23 +668,30 @@ namespace Misp.Reconciliation.Reco
                             Decimal.TryParse(item.ToString(), out amount);
                         }
                         catch (Exception) { }
-                        if (side == GridItem.LEFT_SIDE) credit += amount;
-                        else debit += amount;
 
-                        /*if (this.EditedObject.useDebitCredit == true)
+                        if (this.EditedObject.useDebitCredit == true)
                         {
                             if (creditDebitColumn == null) continue;
                             item = datas[creditDebitColumn.position];
                             Boolean isCredit = item != null && item.ToString().Equals(creditValue, StringComparison.OrdinalIgnoreCase);
                             Boolean isDebit = item != null && item.ToString().Equals(debitValue, StringComparison.OrdinalIgnoreCase);
-                            if (isCredit) credit += amount;
-                            else if (isDebit) debit += amount;
+
+                            if (side == GridItem.LEFT_SIDE)
+                            {
+                                if (isCredit) credit += amount;
+                                else if (isDebit) credit -= amount;
+                            }
+                            else
+                            {
+                                if (isCredit) debit += amount;
+                                else if (isDebit) debit -= amount;
+                            }
                         }
                         else
                         {
                             if (side == GridItem.LEFT_SIDE) credit += amount;
                             else debit += amount;
-                        }*/
+                        }
                     }
                 }
             }
