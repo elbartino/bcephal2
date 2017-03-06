@@ -65,11 +65,11 @@ namespace Misp.Reconciliation.Reco
             this.CreditCheckBox.IsChecked = this.EditedObject != null ? this.EditedObject.creditChecked : false;
             this.DebitCheckBox.IsChecked = this.EditedObject != null ? this.EditedObject.debitChecked : false;
             this.RecoCheckBox.IsChecked = this.EditedObject != null ? this.EditedObject.includeRecoChecked : false;
-            if (ApplicationManager.Instance.User != null && !ApplicationManager.Instance.User.IsAdmin())
-            {
+            //if (ApplicationManager.Instance.User != null && !ApplicationManager.Instance.User.IsAdmin())
+            //{
                 this.NameTextBox.Text = this.EditedObject != null ? this.EditedObject.name : "";
                 this.CommentTextBlock.Text = this.EditedObject != null ? this.EditedObject.comment : "";
-            }
+            //}
             CustomizeDC();
             Search(this.EditedObject.GrilleFilter != null ? this.EditedObject.GrilleFilter.page : 1);
             throwHandler = true;
@@ -146,14 +146,12 @@ namespace Misp.Reconciliation.Reco
                 this.DebitCheckBox.Checked += OnChecked;
                 this.DebitCheckBox.Unchecked += OnChecked;
             }
-            else
-            {
-                this.CommentButton.Checked += OnComment;
-            }
+            this.CommentButton.Checked += OnComment;
         }
 
         private void OnComment(object sender, RoutedEventArgs e)
         {
+            this.CommentTextBlock.Text = this.EditedObject.comment != null ? this.EditedObject.comment : "";
             this.CommentPopup.IsOpen = true;
         }
 

@@ -97,11 +97,11 @@ namespace Misp.Reconciliation.Reco
                 this.Items.Remove(this.RightTabItem);
                 this.Items.Remove(this.BottomTabItem);
 
-                this.LeftGrid.NameTextBox.Visibility = Visibility.Visible;
-                this.LeftGrid.CommentButton.Visibility = Visibility.Visible;
+                //this.LeftGrid.NameTextBox.IsReadOnly = true;
+                //this.LeftGrid.CommentTextBlock.IsEnabled = false;
 
-                this.RightGrid.NameTextBox.Visibility = Visibility.Visible;
-                this.RightGrid.CommentButton.Visibility = Visibility.Visible;                
+                //this.RightGrid.NameTextBox.IsReadOnly = true;
+                //this.RightGrid.CommentTextBlock.IsEnabled = false;
             }
             else
             {

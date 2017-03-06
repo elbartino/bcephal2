@@ -18,13 +18,13 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Orientation="Horizontal" x:Name="HeaderPanel" Margin="5">
-            <TextBox x:Name="NameTextBox" x:FieldModifier="public" IsEnabled="False" Width="150" Margin="5, 0" Visibility="Collapsed"/>
+        <StackPanel Grid.Column="0" Orientation="Horizontal" x:Name="HeaderPanel" Margin="5" >
+            <TextBox x:Name="NameTextBox" x:FieldModifier="public" IsEnabled="False" Width="150" IsReadOnly="True" Margin="5, 0"/>
             <CheckBox x:Name="CreditCheckBox" x:FieldModifier="public" Content="Credit" Margin="5, 0" VerticalAlignment="Center"/>
             <CheckBox x:Name="DebitCheckBox" x:FieldModifier="public" Content="Debit" Margin="5, 0" VerticalAlignment="Center"/>
             <CheckBox x:Name="RecoCheckBox" x:FieldModifier="public" Content="Incl Reco" Margin="5, 0" VerticalAlignment="Center"/>
         </StackPanel>
-        <ToggleButton x:Name="CommentButton" x:FieldModifier="public" ToolTip="Description" Grid.Column="1" Width="15" HorizontalAlignment="Right" Margin="5 0" Visibility="Collapsed">
+        <ToggleButton x:Name="CommentButton" x:FieldModifier="public" ToolTip="Description" Grid.Column="1" Width="15" HorizontalAlignment="Right" Margin="5 0">
             <ToggleButton.Template>
                 <ControlTemplate>
                     <Image Source="/bcephal;Component/Resources/Images/Icons/NoCommentButton.png"/>
@@ -45,7 +45,8 @@
            StaysOpen="False" Placement="Mouse" PopupAnimation="Slide">
         <Border BorderThickness="1" BorderBrush="LightBlue" Background="Beige">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <TextBlock Background="Transparent" x:Name="CommentTextBlock" x:FieldModifier="public" Width="300" Height="60" Text="Enter your comment here..." />
+                <TextBlock Background="Transparent" x:Name="CommentTextBlock" IsEnabled="False"
+                           x:FieldModifier="public" Width="300" Height="60" Text="Enter your comment here..." />
             </ScrollViewer>
         </Border>
     </Popup>
