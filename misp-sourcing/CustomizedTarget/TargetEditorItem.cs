@@ -11,7 +11,7 @@ namespace Misp.Sourcing.CustomizedTarget
     public class TargetEditorItem : EditorItem<Target>
     {
 
-        public TargetEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public TargetEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { this.CanFloat = false; }
 
         /// <summary>
         /// UNe nouvelle instance de la form.
