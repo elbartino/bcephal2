@@ -347,7 +347,6 @@ namespace Misp.Reconciliation.Reco
                     if (creditDebitColumn != null)
                     {
                         String debitValue = context.debitAttributeValue != null ? context.debitAttributeValue.name : "D";
-                        debitValue = "C";
                         conditions.Add(new FormatCondition()
                         {
                             ApplyToRow = true,

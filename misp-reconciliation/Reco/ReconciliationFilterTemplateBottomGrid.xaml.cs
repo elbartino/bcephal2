@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Application;
+﻿using DevExpress.Xpf.Grid;
+using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using Misp.Sourcing.GridViews;
@@ -65,8 +66,26 @@ namespace Misp.Reconciliation.Reco
             if (this.GridBrowser.RebuildGrid)
             {
                 this.GridBrowser.buildColumns(this.EditedObject);
+                this.GridBrowser.gridControl.Columns.Add(BuildLRColumn());
             }
             throwHandler = true;
+        }
+
+        private GridColumn BuildLRColumn()
+        {
+            GridColumn column = new GridColumn();
+            column.FieldName = "L/R";
+            column.IsSmart = true;
+            column.ReadOnly = true;
+            column.ColumnFilterMode = ColumnFilterMode.DisplayText;
+            Binding b = new Binding("Side");
+            b.Mode = BindingMode.TwoWay;
+            column.Binding = b;
+            column.VisibleIndex = 0;
+            column.Fixed = FixedStyle.Left;
+            column.FixedWidth = true;
+            column.Width = 50.0;
+            return column;
         }
 
         public void AddLines(List<long> oids, String side)
