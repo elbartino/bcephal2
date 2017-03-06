@@ -110,6 +110,20 @@ namespace Misp.Sourcing.Table
             this.panel.Children.Add(itemPanel);
         }
 
+        public void SetReadOnly(bool readOnly) 
+        {
+            if (this.panel.Children.Count > 0)
+            {
+                foreach (UIElement element in this.panel.Children) 
+                {
+                    if (element is ScopeItemPanel) 
+                    {
+                        ((ScopeItemPanel)element).SetReadOnly(readOnly); 
+                    }
+                }
+            }
+        }
+
         #endregion
 
 
