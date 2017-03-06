@@ -20,6 +20,7 @@ using System.Windows.Forms.Integration;
 using Misp.Sourcing.Table;
 using Misp.Kernel.Administration.ObjectAdmin;
 using Misp.Kernel.Application;
+using Misp.Kernel.Util;
 
 namespace Misp.Sourcing.CustomizedTarget
 {
@@ -101,7 +102,9 @@ namespace Misp.Sourcing.CustomizedTarget
         /// <param name="readOnly"></param>
         public virtual void Customize(List<Kernel.Domain.Right> rights, bool readOnly = false)
         {
-
+            bool edit = RightsUtil.HasRight(Kernel.Domain.RightType.EDIT, rights);
+            this.TargetPropertiesPanel.Visibility = edit && !readOnly ? Visibility.Visible : Visibility.Collapsed;
+            //this.ScopePanel.SetReadOnly(readOnly || !edit);
         }
 
         /// <summary>
