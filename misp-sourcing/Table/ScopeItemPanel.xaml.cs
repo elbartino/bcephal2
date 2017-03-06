@@ -53,6 +53,8 @@ namespace Misp.Sourcing.Table
         #endregion
 
         bool isCustomize { get; set; }
+        public bool isReadOnly { get; set; }
+
         #region Constructor
 
         /// <summary>
@@ -192,10 +194,11 @@ namespace Misp.Sourcing.Table
         {
             if (readOnly)
             {
+                this.isReadOnly = readOnly;
                 this.comboBoxBracketClose.IsEnabled = !readOnly;
                 this.comboBoxBracketOpen.IsEnabled = !readOnly;
                 this.button.Visibility = readOnly ? Visibility.Collapsed : Visibility.Visible;
-                this.ComboBoxOpenPar.IsEnabled = !readOnly;
+                this.ComboBox.IsEnabled = !readOnly;
                 this.textBox.IsEnabled = !readOnly;
             }
         }

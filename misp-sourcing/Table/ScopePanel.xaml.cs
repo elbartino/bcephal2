@@ -44,6 +44,8 @@ namespace Misp.Sourcing.Table
         public ScopeItemPanel ActiveItemPanel { get; set; }
 
         public bool isCustomize { get; set; }
+
+        public bool isReadOnly { get; set; }
         #endregion
 
 
@@ -75,16 +77,23 @@ namespace Misp.Sourcing.Table
             int index = 1;
             if (scope == null) 
             {
-                this.ActiveItemPanel = isCustomize  ? new ScopeItemPanel(index,isCustomize) : new ScopeItemPanel(index) ;
-                AddItemPanel(this.ActiveItemPanel);
+                AddDefaultLine(index, isCustomize);
                 return; 
             }
             foreach(TargetItem item in scope.targetItemListChangeHandler.Items)
             {
                 ScopeItemPanel itemPanel = isCustomize ?  new ScopeItemPanel(item,isCustomize) : new ScopeItemPanel(item) ;
+                itemPanel.SetReadOnly(this.isReadOnly);
                 AddItemPanel(itemPanel);
                 index++;
             }
+
+            AddDefaultLine(index, isCustomize);
+        }
+
+        private void AddDefaultLine(int index, bool isCustomize) 
+        {
+            if (this.isReadOnly) return;
             this.ActiveItemPanel = isCustomize ? new ScopeItemPanel(index, isCustomize) : new ScopeItemPanel(index);
             AddItemPanel(this.ActiveItemPanel);
         }
@@ -112,16 +121,7 @@ namespace Misp.Sourcing.Table
 
         public void SetReadOnly(bool readOnly) 
         {
-            if (this.panel.Children.Count > 0)
-            {
-                foreach (UIElement element in this.panel.Children) 
-                {
-                    if (element is ScopeItemPanel) 
-                    {
-                        ((ScopeItemPanel)element).SetReadOnly(readOnly); 
-                    }
-                }
-            }
+            this.isReadOnly = readOnly;
         }
 
         #endregion
