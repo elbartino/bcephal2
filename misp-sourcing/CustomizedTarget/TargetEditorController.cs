@@ -180,9 +180,18 @@ namespace Misp.Sourcing.CustomizedTarget
         public override void OnPageSelected(EditorItem<Target> page)
         {
             if (page == null) return;
+            base.OnPageSelected(page);
             TargetForm form = ((TargetEditorItem)page).getTargetForm();
-            ((TargetPropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.TargetPropertiesPanel;
             TargetPropertyBar bar = (TargetPropertyBar)this.PropertyBar;
+            bar.TableLayoutAnchorable.Content = form.TargetPropertiesPanel;
+            if (form.TargetPropertiesPanel.Visibility != Visibility.Visible)
+            {
+                bar.Pane.Children.Remove(bar.TableLayoutAnchorable);
+            }
+            else if (!bar.Pane.Children.Contains(bar.TableLayoutAnchorable))
+            {
+                bar.Pane.Children.Add(bar.TableLayoutAnchorable);
+            }
             if (bar.AdministratorLayoutAnchorable != null) bar.AdministratorLayoutAnchorable.Content = form.AdministrationBar;
             
         }
