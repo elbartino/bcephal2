@@ -192,13 +192,11 @@ namespace Misp.Sourcing.Table
         {
             if (readOnly)
             {
-                if (isCustomize)
-                {
-                    this.comboBoxBracketClose.IsEnabled = !readOnly;
-                    this.comboBoxBracketOpen.IsEnabled = !readOnly;
-                    this.button.Visibility = readOnly ? Visibility.Collapsed : Visibility.Visible;
-                    this.textBox.IsEnabled = !readOnly;
-                }
+                this.comboBoxBracketClose.IsEnabled = !readOnly;
+                this.comboBoxBracketOpen.IsEnabled = !readOnly;
+                this.button.Visibility = readOnly ? Visibility.Collapsed : Visibility.Visible;
+                this.ComboBoxOpenPar.IsEnabled = !readOnly;
+                this.textBox.IsEnabled = !readOnly;
             }
         }
 

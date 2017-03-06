@@ -104,6 +104,7 @@ namespace Misp.Sourcing.CustomizedTarget
         {
             bool edit = RightsUtil.HasRight(Kernel.Domain.RightType.EDIT, rights);
             this.TargetPropertiesPanel.Visibility = edit && !readOnly ? Visibility.Visible : Visibility.Collapsed;
+            readOnly = true;
             this.ScopePanel.SetReadOnly(readOnly || !edit);
         }
 
