@@ -188,6 +188,19 @@ namespace Misp.Sourcing.Table
             //if (Changed != null) Changed();
         }
 
+        public void SetReadOnly(bool readOnly)
+        {
+            if (readOnly)
+            {
+                if (isCustomize)
+                {
+                    this.comboBoxBracketClose.IsEnabled = !readOnly;
+                    this.comboBoxBracketOpen.IsEnabled = !readOnly;
+                    this.button.Visibility = readOnly ? Visibility.Collapsed : Visibility.Visible;
+                }
+            }
+        }
+
 
         #endregion
 
@@ -264,5 +277,7 @@ namespace Misp.Sourcing.Table
         #endregion
 
 
+
+       
     }
 }
