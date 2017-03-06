@@ -1,4 +1,6 @@
-﻿using Misp.Kernel.Administration.ObjectAdmin;
+﻿using DevExpress.Xpf.Core.ConditionalFormatting;
+using DevExpress.Xpf.Grid;
+using Misp.Kernel.Administration.ObjectAdmin;
 using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
@@ -284,6 +286,10 @@ namespace Misp.Reconciliation.Reco
                 if (this.EditedObject.rigthGrid.GrilleFilter == null) this.EditedObject.rigthGrid.GrilleFilter = new GrilleFilter();
             }
 
+            this.LeftGrid.GrilleBrowserForm.gridBrowser.FormatConditionsEventHandler += BuildLeftFormatConditions;
+            this.RightGrid.GrilleBrowserForm.gridBrowser.FormatConditionsEventHandler += BuildRightFormatConditions;
+            this.BottomGrid.GridBrowser.FormatConditionsEventHandler += BuildBottomFormatConditions;
+            
             this.LeftGrid.Template = this.EditedObject;
             this.RightGrid.Template = this.EditedObject;
 
@@ -311,6 +317,79 @@ namespace Misp.Reconciliation.Reco
                 this.AdministrationBar.EditedObject = this.EditedObject;
                 this.AdministrationBar.Display();
             }
+        }
+
+
+        private List<FormatCondition> BuildLeftFormatConditions()
+        {
+            return BuildFormatConditions(this.LeftGrid.GrilleBrowserForm.gridBrowser, this.EditedObject.leftMeasure, null);
+        }
+
+        private List<FormatCondition> BuildRightFormatConditions()
+        {
+            return BuildFormatConditions(this.RightGrid.GrilleBrowserForm.gridBrowser, null, this.EditedObject.rightMeasure);
+        }
+
+        private List<FormatCondition> BuildBottomFormatConditions()
+        {
+            return BuildFormatConditions(this.BottomGrid.GridBrowser, this.EditedObject.leftMeasure, this.EditedObject.rightMeasure);
+        }
+
+        private List<FormatCondition> BuildFormatConditions(GridBrowser grid, Measure leftMeasure, Measure rightMeasure)
+        {
+            List<FormatCondition> conditions = new List<FormatCondition>(0);
+            if (this.EditedObject.useDebitCredit.Value)
+            {
+                Misp.Kernel.Domain.ReconciliationContext context = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationContextService().getReconciliationContext();
+                if (context != null && context.dcNbreAttribute != null)
+                {
+                    GrilleColumn creditDebitColumn = grid.Grille.GetColumn(ParameterType.SCOPE.ToString(), context.dcNbreAttribute.oid.Value);
+                    if (creditDebitColumn != null)
+                    {
+                        String debitValue = context.debitAttributeValue != null ? context.debitAttributeValue.name : "D";
+                        debitValue = "C";
+                        conditions.Add(new FormatCondition()
+                        {
+                            ApplyToRow = true,
+                            Expression = "[" + creditDebitColumn.name + "] == '" + debitValue + "'",
+                            FieldName = creditDebitColumn.name,
+                            Format = new Format() { Background = Brushes.Red }
+                        });
+                    }
+                }
+            }
+            else
+            {
+                if (leftMeasure != null)
+                {
+                    GrilleColumn amountColumn = grid.Grille.GetColumn(ParameterType.MEASURE.ToString(), leftMeasure.oid.Value);
+                    if (amountColumn != null)
+                    {
+                        conditions.Add(new FormatCondition()
+                        {
+                            ApplyToRow = true,
+                            Expression = "[" + amountColumn.name + "] < 0.0",
+                            FieldName = amountColumn.name,
+                            Format = new Format() { Background = Brushes.Red }
+                        });
+                    }
+                }
+                if (rightMeasure != null)
+                {
+                    GrilleColumn amountColumn = grid.Grille.GetColumn(ParameterType.MEASURE.ToString(), rightMeasure.oid.Value);
+                    if (amountColumn != null)
+                    {
+                        conditions.Add(new FormatCondition()
+                        {
+                            ApplyToRow = true,
+                            Expression = "[" + amountColumn.name + "] < 0.0",
+                            FieldName = amountColumn.name,
+                            Format = new Format() { Background = Brushes.Red }
+                        });
+                    }
+                }
+            }
+            return conditions;
         }
 
 

@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Application;
+﻿using DevExpress.Xpf.Grid;
+using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Office;
 using System;
@@ -47,4 +48,6 @@ namespace Misp.Kernel.Ui.Base
     public delegate bool ActionEventHandler(object item);
 
     public delegate void RightEventHandler(Right right, bool selected);
+
+    public delegate List<FormatCondition> FormatConditions();
 }

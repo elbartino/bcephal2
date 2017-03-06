@@ -22,11 +22,14 @@ using DevExpress.Data.Filtering;
 using DevExpress.Xpf.Editors.Settings;
 using DevExpress.Xpf.Core;
 using System.ComponentModel;
+using DevExpress.Xpf.Core.ConditionalFormatting;
+using System.Windows.Media;
 
 namespace Misp.Sourcing.GridViews
 {
     public class GridBrowser : Grid
     {
+        public FormatConditions FormatConditionsEventHandler;
 
         public ChangeEventHandler FilterEventHandler { get; set; }
 
@@ -105,8 +108,21 @@ namespace Misp.Sourcing.GridViews
             
             view.Menu.DeleteItem.ItemClick += OnDelete;
             view.Menu.DuplicateItem.ItemClick += OnDuplicate;
-
+                        
             view.IsRowCellMenuEnabled = !this.IsReadOnly && !Grille.IsReadOnly();
+
+            if(FormatConditionsEventHandler != null) 
+            {
+                List<FormatCondition> conditions = FormatConditionsEventHandler();
+                if(conditions != null)
+                {
+                    foreach(FormatCondition condition in conditions)
+                    {
+                        view.FormatConditions.Add(condition);
+                    }
+                }
+            }
+
         }
 
         private bool allowSort = true;
@@ -380,152 +396,6 @@ namespace Misp.Sourcing.GridViews
             }
             return null;
         }
-
-
-
-
-        /*
-        private void OnFilterChanged(object sender, RoutedEventArgs e)
-        {
-            if (e is DevExpress.Xpf.Grid.GridEventArgs) 
-            {
-                GridEventArgs filterArgs = (GridEventArgs)e;
-                if (filterArgs.Source is GridControl)
-                {
-                    GridControl filterGrid = (GridControl)filterArgs.Source;
-                    OperandValue[] operand = null;
-                    CriteriaOperator criteria = null;
-                    if (filterGrid.FilterCriteria != null)
-                    {
-                        Object[] criteriaElements = getOperatorType(filterGrid.FilterCriteria);
-                        if (criteriaElements == null) return;
-                        string propertyName = criteriaElements[0].ToString();
-                        string value = criteriaElements[1].ToString();
-                        string valueOperator = criteriaElements[2].ToString();
-                      
-                        GrilleColumn column = this.Grille.GetColumn(propertyName);
-                        if (column != null)
-                        {
-                            if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
-                            {
-                                column.filterValue = null;
-                                column.filterOperator = null;
-                            }
-                            else
-                            {
-                                column.filterValue = value.ToString();
-                                column.filterOperator = valueOperator;
-                            }
-                            if (FilterEventHandler != null) FilterEventHandler();
-                        }
-                    }
-                    else
-                    {
-                        this.Grille.ClearColumnFilter();
-                        if (FilterEventHandler != null) FilterEventHandler();
-                    }
-                    
-                }
-             }
-            e.Handled = true;
-        }
-
-        protected Object[] getOperatorType(CriteriaOperator criteriaOperator) 
-        {
-            CriteriaOperator criteria = null;
-            OperandValue[] operand = null;
-            
-            if (criteria == null)
-            {
-                if (criteriaOperator is FunctionOperator)
-                {
-                    criteria = FunctionOperator.Parse(criteriaOperator.ToString(), out operand) as FunctionOperator;
-                    if (criteria != null) return getOperationItems(criteria as FunctionOperator);
-                }
-
-                if (criteriaOperator is UnaryOperator)
-                {
-                    criteria = UnaryOperator.Parse(criteriaOperator.ToString(), out operand) as UnaryOperator;
-                    if (criteria != null) return getOperationItems(criteria as UnaryOperator);
-                }
-
-                if (criteriaOperator is BinaryOperator)
-                {
-                    criteria = BinaryOperator.Parse(criteriaOperator.ToString(), out operand) as BinaryOperator;
-                    if (criteria != null) return getOperationItems(criteria as BinaryOperator);
-                }
-
-                if (criteriaOperator is GroupOperator)
-                {
-                    criteria = GroupOperator.Parse(criteriaOperator.ToString(), out operand) as GroupOperator;
-                    if (criteria != null) return getOperationItems(criteria as GroupOperator);
-                }
-            }
-             return null;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>A table that contains the column name, the filter value and the operator</returns>
-        protected Object[] getOperationItems(CriteriaOperator criteria) 
-        {
-
-            if (criteria is FunctionOperator)
-            {
-                string colName = "";
-                string value = "";
-                string typeOperator = "";
-                if (((FunctionOperator)criteria).Operands.Count == 3)
-                {
-                   ConstantValue  type = (ConstantValue)((FunctionOperator)criteria).Operands[0];
-                   typeOperator = type.Value.ToString();
-                   OperandProperty col = (OperandProperty)((FunctionOperator)criteria).Operands[1];
-                   colName = col.PropertyName;
-                   ConstantValue val = (ConstantValue)((FunctionOperator)criteria).Operands[2];
-                   value = val.Value.ToString();
-                }
-                if (((FunctionOperator)criteria).Operands.Count == 2) 
-                {
-                    OperandProperty col = (OperandProperty)((FunctionOperator)criteria).Operands[0];
-                    colName = col.PropertyName;
-                    ConstantValue val = (ConstantValue)((FunctionOperator)criteria).Operands[1];
-                    value = val.Value.ToString();
-                    FunctionOperatorType type = ((FunctionOperator)criteria).OperatorType;
-                    typeOperator = type.ToString();
-                }
-
-                return new Object[] { colName, value, typeOperator };
-            }
-            if (criteria is BinaryOperator) 
-            {
-                OperandProperty col = (OperandProperty)((BinaryOperator)criteria).LeftOperand;
-                ConstantValue val = (ConstantValue)((BinaryOperator)criteria).RightOperand;
-                BinaryOperatorType type = ((BinaryOperator)criteria).OperatorType;
-                return new Object[] { col.PropertyName, val.Value, type.ToString() };
-            }
-
-            if (criteria is UnaryOperator) 
-            {
-                Object[] firstOperand = getOperationItems(((UnaryOperator)criteria).Operand);
-                if (firstOperand == null) return null;
-                UnaryOperatorType type = ((UnaryOperator)criteria).OperatorType;
-                string operatorType = type.ToString() + firstOperand[2].ToString();
-                return new Object[] { firstOperand[0],firstOperand[1],operatorType};
-            }
-
-            if (criteria is GroupOperator)
-            {
-                GroupOperator group = (GroupOperator)criteria;
-                foreach(CriteriaOperator op in group.Operands){
-                    Object[] vals = getOperationItems(op);
-                    var l = vals.Length;
-                }
-            }
-
-            return null;
-        }
-        */
 
         protected void Refresh()
         {            
