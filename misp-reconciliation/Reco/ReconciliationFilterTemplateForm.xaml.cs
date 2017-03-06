@@ -8,6 +8,7 @@ using Misp.Sourcing.GridViews;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -403,6 +404,8 @@ namespace Misp.Reconciliation.Reco
                 //this.BottomGridProperties.InputGridPropertiesPanel.NameTextBox.KeyUp += onNameTextChange;
             }
 
+            //this.LeftGrid.GrilleBrowserForm.gridBrowser..RowCellStyle += gridView_RowCellStyle;
+
             this.LeftGrid.Changed += OnChange;
             this.RightGrid.Changed += OnChange;
 
@@ -564,9 +567,9 @@ namespace Misp.Reconciliation.Reco
             String credit = this.EditedObject.useDebitCredit == true ? "Credit: " : "Positive Amount: ";
             String debit = this.EditedObject.useDebitCredit == true ? "Debit: " : "Negative Amount: ";
             String balance = "Balance: ";
-            grid.CreditLabel.Content = credit + balances[0];
-            grid.DebitLabel.Content = debit + balances[1];
-            grid.BalanceLabel.Content = balance + (balances[0] - balances[1]);
+            grid.CreditLabel.Content = credit + balances[0].ToString("N", CultureInfo.InvariantCulture);
+            grid.DebitLabel.Content = debit + balances[1].ToString("N", CultureInfo.InvariantCulture);
+            grid.BalanceLabel.Content = balance + (balances[0] - balances[1]).ToString("N", CultureInfo.InvariantCulture);
         }
 
         private Decimal[] BuildBalance(Grille grid, GridBrowser browser, Measure measure)

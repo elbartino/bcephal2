@@ -5,6 +5,7 @@ using Misp.Sourcing.GridViews;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -119,9 +120,9 @@ namespace Misp.Reconciliation.Reco
             this.LeftAmount = left;
             this.RightAmount = right;
             this.BalanceAmount = balance;
-            this.CreditLabel.Content = "Left: " + left;
-            this.DebitLabel.Content = "Right: " + right;
-            this.BalanceLabel.Content = "Balance: " + balance;
+            this.CreditLabel.Content = "Left: " + left.ToString("N", CultureInfo.InvariantCulture); ;
+            this.DebitLabel.Content = "Right: " + right.ToString("N", CultureInfo.InvariantCulture); ;
+            this.BalanceLabel.Content = "Balance: " + balance.ToString("N", CultureInfo.InvariantCulture); ;
         }
 
         #endregion
