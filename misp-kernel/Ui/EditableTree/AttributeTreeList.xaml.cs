@@ -607,6 +607,7 @@ namespace Misp.Kernel.Ui.EditableTree
                 Source.Insert(row, brother);
                 AddDefaultAttributes(parent);
             }
+            treeList.RefreshData();
             treeList.SelectedItems = attributes;
             if (Changed != null) Changed();
         }
