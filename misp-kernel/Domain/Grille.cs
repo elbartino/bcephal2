@@ -20,6 +20,7 @@ namespace Misp.Kernel.Domain
             this.debitChecked = false;
             this.creditChecked = false;
             this.includeRecoChecked = false;
+            this.showAllRows = false;
         }
 
         public Target filterScope { get; set; }
@@ -37,8 +38,10 @@ namespace Misp.Kernel.Domain
         public bool allocation { get; set; }
 
         public bool loaded { get; set; }
-		
-        public bool? visibleInShortcut {get;set;}
+
+        public bool? visibleInShortcut { get; set; }
+
+        public bool? showAllRows { get; set; }
 	
         public BGroup group { get; set; }
 

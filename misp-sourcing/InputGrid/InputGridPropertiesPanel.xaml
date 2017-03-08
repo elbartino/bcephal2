@@ -46,6 +46,7 @@
                     
                 </StackPanel>
             </Grid>
+            <CheckBox x:Name="showAllRowsCheckbox"  Margin="65,5,5,0" x:FieldModifier="public"  VerticalAlignment="Center" Content="Show all rows by default"/>
             <Grid Margin="5,5,5,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>

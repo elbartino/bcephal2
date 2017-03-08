@@ -169,6 +169,8 @@ namespace Misp.Sourcing.GridViews
                 this.EditedObject.GrilleFilter = filter;
             }
 
+            this.toolBar.showAllCheckBox.IsChecked = this.EditedObject.showAllRows;
+
             this.filterForm.Display(this.EditedObject.GrilleFilter);
             if (this.gridBrowser.RebuildGrid)
             {

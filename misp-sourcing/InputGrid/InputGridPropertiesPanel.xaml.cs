@@ -72,15 +72,11 @@ namespace Misp.Sourcing.InputGrid
             ColumnsListBox.ContextMenuOpening += OnContextMenuOpening;
             visibleInShortcutCheckbox.Checked += OnSetVisible;
             visibleInShortcutCheckbox.Unchecked += OnSetVisible;
+            showAllRowsCheckbox.Checked += OnShowAllRows;
+            showAllRowsCheckbox.Unchecked += OnShowAllRows;
             RemoveColumnMenuItem.Click += OnRemoveColumn;
         }
-
-        private void OnSetVisible(object sender, RoutedEventArgs e)
-        {
-            if (OnSetTableVisible != null) OnSetTableVisible(visibleInShortcutCheckbox.IsChecked.Value);
-        }
-        
-                
+                        
         #endregion
 
 
@@ -152,6 +148,7 @@ namespace Misp.Sourcing.InputGrid
             NameTextBox.Text = this.Grid.name;
             groupField.Group = this.Grid.group;
             visibleInShortcutCheckbox.IsChecked = grid.visibleInShortcut;
+            showAllRowsCheckbox.IsChecked = grid.showAllRows;
             CommentTextBlock.Text = this.Grid.comment;
             this.ColumnsListBox.ItemsSource = new ObservableCollection<GrilleColumn>(this.Grid.columnListChangeHandler.Items);
             ColumnForms.Grid = this.Grid;
@@ -167,6 +164,7 @@ namespace Misp.Sourcing.InputGrid
             if (grid == null) return;
             grid.name = NameTextBox.Text;
             grid.visibleInShortcut = visibleInShortcutCheckbox.IsChecked.Value;
+            grid.showAllRows = showAllRowsCheckbox.IsChecked.Value;
             groupField.Group.subjectType = Kernel.Domain.SubjectType.STRUCTURED_REPORT.label;
             grid.group = groupField.Group;
             grid.comment = CommentTextBlock.Text.Trim();
@@ -206,7 +204,18 @@ namespace Misp.Sourcing.InputGrid
             selectionColumnChanged(column);
           
         }
-                
+
+        private void OnSetVisible(object sender, RoutedEventArgs e)
+        {
+            if (OnSetTableVisible != null) OnSetTableVisible(visibleInShortcutCheckbox.IsChecked.Value);
+        }
+
+        private void OnShowAllRows(object sender, RoutedEventArgs e)
+        {
+            this.Grid.showAllRows = showAllRowsCheckbox.IsChecked.Value;
+            OnChanged(false);
+        }
+
         private void OnColumnChanged(object rebuild)
         {
             if (!ColumnForms.Column.isAdded) this.Grid.AddColumn(ColumnForms.Column);
