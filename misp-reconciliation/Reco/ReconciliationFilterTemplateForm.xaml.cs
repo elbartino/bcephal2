@@ -645,9 +645,9 @@ namespace Misp.Reconciliation.Reco
             String credit = this.EditedObject.useDebitCredit == true ? "Credit: " : "Positive Amount: ";
             String debit = this.EditedObject.useDebitCredit == true ? "Debit: " : "Negative Amount: ";
             String balance = "Balance: ";
-            grid.CreditLabel.Content = credit + balances[0].ToString("N", CultureInfo.CreateSpecificCulture("sv-SE"));
-            grid.DebitLabel.Content = debit + balances[1].ToString("N", CultureInfo.CreateSpecificCulture("sv-SE"));
-            grid.BalanceLabel.Content = balance + (balances[0] - balances[1]).ToString("N", CultureInfo.CreateSpecificCulture("sv-SE"));
+            grid.CreditLabel.Content = credit + balances[0].ToString("N", CultureInfo.CreateSpecificCulture("de-DE"));
+            grid.DebitLabel.Content = debit + balances[1].ToString("N", CultureInfo.CreateSpecificCulture("de-DE"));
+            grid.BalanceLabel.Content = balance + (balances[0] - balances[1]).ToString("N", CultureInfo.CreateSpecificCulture("de-DE"));
         }
 
         private Decimal[] BuildBalance(Grille grid, GridBrowser browser, Measure measure)
