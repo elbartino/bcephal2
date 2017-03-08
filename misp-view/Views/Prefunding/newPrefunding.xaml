@@ -9,18 +9,18 @@
 
     <Grid Margin="0,35,0,0">
         <StackPanel>
-            <Label Margin="65,5,0,0" Content="Select Member Bank"></Label>
-            <Label Margin="100,5,0,0" Content="Select Scheme"></Label>
+            <Label Margin="65,0,0,0" Content="  Select Member Bank"></Label>
+            <Label Margin="100,5,0,0" Content=" Select Scheme"></Label>
         </StackPanel>
         <StackPanel Margin="0,60,0,0">
-            <Label Margin="15,0,0,0" Content="Already requested prefunding"></Label>
-            <Label Margin="45,10,0,0" Content="New prefunding request"></Label>
+            <Label Margin="14,0,0,0" Content="Already Requested Pre-funding"></Label>
+            <Label Margin="45,10,0,0" Content="New Pre-funding Request"></Label>
         </StackPanel>
         <StackPanel Margin="0,120,0,0">
-            <Label Content="New balance" Margin="105,25,0,0"></Label>
-            <Label Content="Value date" Margin="120,25,0,0"></Label>
-            <Label Content="Message" Margin="130,25,0,0"></Label>
-            <Label Content="Structured message" Margin="70,50,0,0"></Label>
+            <Label Content="  New Balance" Margin="105,25,0,0"></Label>
+            <Label Content=" Value Date" Margin="120,25,0,0"></Label>
+            <Label Content=" Message" Margin="130,40,0,0"></Label>
+            <Label Content=" Structured Message" Margin="70,40,0,0"></Label>
         </StackPanel>
         <StackPanel Margin="200,0,0,0">
             <ComboBox  Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-72,0,172,0">

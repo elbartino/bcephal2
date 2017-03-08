@@ -15,6 +15,7 @@ namespace misp_view.Views.Review
             InitializeComponent();
             testFill();
             testFillAg();
+            
         }
 
 
@@ -29,7 +30,9 @@ namespace misp_view.Views.Review
             DataGridTest.Items.Add(data2);
             DataGridTest.Items.Add(data3);
             DataGridTest.Items.Add(data4);
+
         }
+        
         private void testFillAg()
         {
             var data = new TestAg { a = 10000, b = 9000, c = 8000, d = 4000, e = 8000, f = 7000, g = 10500 };

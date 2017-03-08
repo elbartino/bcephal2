@@ -13,7 +13,7 @@
             <dxg:GridControl.View>
                 <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" ShowTotalSummary="True" AllowEditing="False" AllowGrouping="False" AllowColumnMoving="False" AllowResizing="False" AllowSorting="False"/>
             </dxg:GridControl.View>
-            <dxg:GridColumn FieldName="Member advisement n°" Width="150">
+            <dxg:GridColumn FieldName="Member Advisement n°" Width="150">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>
@@ -53,7 +53,7 @@
                     </Style>
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Value date">
+            <dxg:GridColumn FieldName="Value Date">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>

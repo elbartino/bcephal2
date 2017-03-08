@@ -53,7 +53,7 @@
                     </Style>
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Value date">
+            <dxg:GridColumn FieldName="Value Date">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>
