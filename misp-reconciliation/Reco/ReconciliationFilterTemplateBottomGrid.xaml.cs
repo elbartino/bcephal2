@@ -139,9 +139,9 @@ namespace Misp.Reconciliation.Reco
             this.LeftAmount = left;
             this.RightAmount = right;
             this.BalanceAmount = balance;
-            this.CreditLabel.Content = "Left: " + left.ToString("N", CultureInfo.InvariantCulture); ;
-            this.DebitLabel.Content = "Right: " + right.ToString("N", CultureInfo.InvariantCulture); ;
-            this.BalanceLabel.Content = "Balance: " + balance.ToString("N", CultureInfo.InvariantCulture); ;
+            this.CreditLabel.Content = "Left: " + left.ToString("N", CultureInfo.CreateSpecificCulture("sv-SE"));
+            this.DebitLabel.Content = "Right: " + right.ToString("N", CultureInfo.CreateSpecificCulture("sv-SE"));
+            this.BalanceLabel.Content = "Balance: " + balance.ToString("N", CultureInfo.CreateSpecificCulture("sv-SE"));
         }
 
         #endregion

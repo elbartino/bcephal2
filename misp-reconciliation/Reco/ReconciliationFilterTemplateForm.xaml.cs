@@ -352,7 +352,7 @@ namespace Misp.Reconciliation.Reco
                             ApplyToRow = true,
                             Expression = "[" + creditDebitColumn.name + "] == '" + debitValue + "'",
                             FieldName = creditDebitColumn.name,
-                            Format = new Format() { Background = Brushes.Red }
+                            Format = new Format() { Foreground = Brushes.Red }
                         });
                     }
                 }
@@ -645,9 +645,9 @@ namespace Misp.Reconciliation.Reco
             String credit = this.EditedObject.useDebitCredit == true ? "Credit: " : "Positive Amount: ";
             String debit = this.EditedObject.useDebitCredit == true ? "Debit: " : "Negative Amount: ";
             String balance = "Balance: ";
-            grid.CreditLabel.Content = credit + balances[0].ToString("N", CultureInfo.InvariantCulture);
-            grid.DebitLabel.Content = debit + balances[1].ToString("N", CultureInfo.InvariantCulture);
-            grid.BalanceLabel.Content = balance + (balances[0] - balances[1]).ToString("N", CultureInfo.InvariantCulture);
+            grid.CreditLabel.Content = credit + balances[0].ToString("N", CultureInfo.CreateSpecificCulture("sv-SE"));
+            grid.DebitLabel.Content = debit + balances[1].ToString("N", CultureInfo.CreateSpecificCulture("sv-SE"));
+            grid.BalanceLabel.Content = balance + (balances[0] - balances[1]).ToString("N", CultureInfo.CreateSpecificCulture("sv-SE"));
         }
 
         private Decimal[] BuildBalance(Grille grid, GridBrowser browser, Measure measure)
