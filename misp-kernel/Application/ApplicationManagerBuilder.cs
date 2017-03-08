@@ -66,7 +66,11 @@ namespace Misp.Kernel.Application
             LoadPlugin("Misp.Planification");
             LoadPlugin("Misp.Allocation");
             LoadPlugin("Misp.Reporting");
-            if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain()) LoadPlugin("Misp.Reconciliation");
+            if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
+            {
+                LoadPlugin("Misp.Reconciliation");
+                LoadPlugin("Misp.Bfc");
+            }
             if (ApplicationManager.Instance.ApplcationConfiguration.IsMultiuser()) LoadPlugin("Misp.Administration");
 
             ApplicationManager.Instance.Plugins.BubbleSort();
