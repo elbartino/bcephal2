@@ -16,6 +16,7 @@ using misp_view.Views.Review;
 using misp_view.Views.Prefunding;
 using misp_view.Views.Replenishment;
 using misp_view.Views.Member;
+using misp_view.Views.Settlement;
 
 namespace misp_view
 {
@@ -32,6 +33,8 @@ namespace misp_view
         listReplenishment lrp = new listReplenishment();
         newMember m = new newMember();
         listMember lm= new listMember();
+        newSettlement s = new newSettlement();
+        listSettlement ls = new listSettlement();
         public MainWindow()
         {
             InitializeComponent();
@@ -98,6 +101,20 @@ namespace misp_view
         {
             gridInfo.Children.Clear();
             gridInfo.Children.Add(lm);
+        }
+
+        private void MenuItem_ClicknewSettlement(object sender, RoutedEventArgs e)
+        {
+            gridInfo.Children.Clear();
+            gridInfo.Children.Add(s);
+
+        }
+
+        private void MenuItem_ClicklistSettlement(object sender, RoutedEventArgs e)
+        {
+            gridInfo.Children.Clear();
+            gridInfo.Children.Add(ls);
+
         }
     }
 }

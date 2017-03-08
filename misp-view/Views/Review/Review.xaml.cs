@@ -23,10 +23,12 @@ namespace misp_view.Views.Review
         {
             var data = new Test { Total = "Total", Amount = "To receive" };
             var data2 = new Test { Amount = "Paid" };
-            var data3 = new Test { Amount = "Open balance" };
+            var data3 = new Test { Amount = "Pending balance" };
+            var data4 = new Test { Amount = "NRFTX" };
             DataGridTest.Items.Add(data);
             DataGridTest.Items.Add(data2);
             DataGridTest.Items.Add(data3);
+            DataGridTest.Items.Add(data4);
         }
         private void testFillAg()
         {

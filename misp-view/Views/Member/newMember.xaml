@@ -8,13 +8,15 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib" Width="615" Height="455">
     <Grid Margin="0,35,0,0">
         <StackPanel>
-            <Label Margin="65,5,0,0" Content="Select member Bank"></Label>
-            <Label Margin="100,5,0,0" Content="Select scheme"></Label>
+            <Label Margin="65,5,0,0" Content="Select Member Bank"></Label>
+            <Label Margin="100,5,0,0" Content="Select Scheme"></Label>
+            <Label Margin="120,5,0,0" Content="Select PML"></Label>
+            <Label Margin="100,5,0,0" Content="Select Platform"></Label>
         </StackPanel>
         <StackPanel Margin="0,60,0,0">
-            <Label Margin="22,10,0,0" Content="Member advisement amount"></Label>
+            <Label Margin="22,60,0,0" Content="Member advisement amount"></Label>
         </StackPanel>
-        <StackPanel Margin="0,120,0,0">
+        <StackPanel Margin="0,130,0,0">
             <Label Content="Value date" Margin="120,25,0,0"></Label>
             <Label Content="Message" Margin="130,25,0,0"></Label>
             <Label Content="Structured message" Margin="70,50,0,0"></Label>
@@ -26,20 +28,29 @@
             <ComboBox Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-14,5,229,0">
                 <ComboBoxItem Content="Name"></ComboBoxItem>
             </ComboBox>
+            <ComboBox Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-14,5,229,0">
+                <ComboBoxItem Content="Name"></ComboBoxItem>
+            </ComboBox>
+            <ComboBox Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-14,5,229,0">
+                <ComboBoxItem Content="Name"></ComboBoxItem>
+            </ComboBox>
         </StackPanel>
         <StackPanel Margin="200,60,0,0">
-            <TextBox x:Name="tbPrefRequest" Text="70000" Margin="-72,10,172,0" PreviewTextInput="tbPrefRequest_PreviewTextInput" Width="200"></TextBox>
+            <TextBox x:Name="tbPrefRequest" Text="70000" Margin="-72,60,172,0" PreviewTextInput="tbPrefRequest_PreviewTextInput" Width="200"></TextBox>
         </StackPanel>
-        <StackPanel Margin="200,120,0,0">
+        <StackPanel Margin="200,130,0,0">
             <DatePicker x:Name="dpValueDate" Width="200" Margin="-72,25,172,0" SelectedDate="{x:Static sys:DateTime.Now}"></DatePicker>
             <TextBox x:Name="tbMessage" MaxLines="4" VerticalScrollBarVisibility="Auto" Margin="-14,25,229,0" Width="200" SpellCheck.IsEnabled="True" Language="Fr-FR" TextWrapping="Wrap" AcceptsReturn="True" Height="54"></TextBox>
-            <TextBox x:Name="tbStructured" Width="200" IsHitTestVisible="False" IsReadOnly="True" Margin="-14,20,229,0"></TextBox>
+            <TextBox x:Name="tbStructured" Width="200" IsHitTestVisible="False" IsReadOnly="True" Margin="-14,20,229,0">
+            </TextBox>
         </StackPanel>
         <StackPanel Margin="415,0,0,0">
             <TextBox x:Name="tbIDMember" Width="200" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID"></TextBox>
             <TextBox Margin="0,5,0,0" x:Name="tbIDScheme" Width="200" BorderBrush="Transparent" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID"></TextBox>
+            <TextBox Margin="0,5,0,0" x:Name="tbIDPML" Width="200" BorderBrush="Transparent" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID"></TextBox>
+            <TextBox Margin="0,5,0,0" x:Name="tbIDPlatform" Width="200" BorderBrush="Transparent" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID"></TextBox>
         </StackPanel>
-        <StackPanel Margin="415,60,0,0">
+        <StackPanel Margin="415,110,0,0">
             <TextBlock>
                 <Hyperlink/>
             </TextBlock>

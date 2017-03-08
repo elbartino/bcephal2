@@ -164,6 +164,12 @@
     <Compile Include="Views\Review\Review.xaml.cs">
       <DependentUpon>Review.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settlement\listSettlement.xaml.cs">
+      <DependentUpon>listSettlement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settlement\newSettlement.xaml.cs">
+      <DependentUpon>newSettlement.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -203,6 +209,14 @@
     <Page Include="Views\Review\Review.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Settlement\listSettlement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settlement\newSettlement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +275,7 @@
     <Folder Include="ViewModels\PrefundingVModel\" />
     <Folder Include="ViewModels\ReplenishmentVModel\" />
     <Folder Include="ViewModels\ReviewVModel\" />
+    <Folder Include="ViewModels\SettlementModel\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -277,6 +292,9 @@
       <Project>{04A9E6A9-9DC0-4D7B-AE43-D3B2C6DC2A43}</Project>
       <Name>DataGridFilterLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
