@@ -56,12 +56,12 @@
         </Style>
     </ScrollViewer.Resources>
 
-    <Grid Margin="0 10">
+    <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="190"/>
-            <ColumnDefinition Width="275"/>
-            <ColumnDefinition Width="275"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="280"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
                

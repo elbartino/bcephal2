@@ -13,7 +13,7 @@
         <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 15" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 5 0 10" HorizontalAlignment="Center">
         <Label x:Name="MemberBankLabel" Content="Select Member Bank" VerticalAlignment="Bottom"/>
         <ComboBox x:Name="MemberBankComboBox" Height="25" Width="180" SelectedValue="ING"/>
         <TextBox x:Name="MemberBankTextBox" Text="ID" Height="25" Width="180" IsEnabled="False" Margin="10 0 0 0"/>
