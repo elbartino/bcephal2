@@ -21,7 +21,7 @@ namespace misp_view.Views.Review
             testFillAg();
             
             this.DataContext = pf;
-            display(pf);
+            displayPrefundingAccount(pf);
             
         }
 
@@ -51,7 +51,7 @@ namespace misp_view.Views.Review
             DataGridAg.Items.Add(data3);
         }
 
-        public void display(PrefundingAccountData pf)
+        public void displayPrefundingAccount(PrefundingAccountData pf)
         {
             pf.sentPrefundingReconcilied = 158;
             pf.ratioPFPeak = 55;
