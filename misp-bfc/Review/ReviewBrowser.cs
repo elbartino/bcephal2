@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Ui.Base;
+﻿using Misp.Bfc.Model;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +14,27 @@ namespace Misp.Bfc.Review
     public class ReviewBrowser : LayoutDocumentPane, IView
     {
 
+        public ReviewForm Form { get; private set; }
+
         public ReviewBrowser()
         {
             InitializeComponent();
             InitializeHandlers();
         }
 
+        public void Display(PrefundingAccountData data)
+        {
+            this.Form.Display(data);
+        }
+
         public void InitializeComponent()
         {
+            this.Form = new ReviewForm();
             LayoutDocument page = new LayoutDocument();
             page.CanClose = false;
             page.CanFloat = false;
             page.Title = "Review";
-            page.Content = null;
+            page.Content = this.Form;
             this.Children.Add(page);
         }
 

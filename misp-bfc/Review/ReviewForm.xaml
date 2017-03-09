@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Misp.Bfc.Review.ReviewForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  
+             xmlns:src="clr-namespace:Misp.Bfc.Review"
+             mc:Ignorable="d" Background="White"
+             d:DesignHeight="300" d:DesignWidth="700">
+    <Grid  HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 15" HorizontalAlignment="Center">
+        <Label x:Name="MemberBankLabel" Content="Select Member Bank" VerticalAlignment="Bottom"/>
+        <ComboBox x:Name="MemberBankComboBox" Height="25" Width="180" SelectedValue="ING"/>
+        <TextBox x:Name="MemberBankTextBox" Text="ID" Height="25" Width="180" IsEnabled="False" Margin="10 0 0 0"/>
+    </StackPanel>
+
+        <dx:DXTabControl Grid.Row="1" Background="Transparent">
+        <dx:DXTabControl.View>
+            <dx:TabControlStretchView HeaderLocation="Top" HideButtonShowMode="NoWhere" NewButtonShowMode="NoWhere" ShowHeaderMenu="False"/>
+        </dx:DXTabControl.View>
+        
+        <dx:DXTabItem Header="Pre-funding Account">
+            <src:PrefundingAccountForm x:Name="PrefundingAccountForm" x:FieldModifier="public"/>
+        </dx:DXTabItem>
+            
+        <dx:DXTabItem Header="Settlement Evolution" Height="22" VerticalAlignment="Bottom">
+            
+        </dx:DXTabItem>
+            
+        <dx:DXTabItem Header="Ageing Balance">
+            
+        </dx:DXTabItem>
+            
+        <dx:DXTabItem Header="Guarantee">
+            
+        </dx:DXTabItem>
+            
+        <dx:DXTabItem Header="Credit Rating">
+            
+        </dx:DXTabItem>
+
+    </dx:DXTabControl>
+        
+    </Grid>
+    
+</UserControl>
