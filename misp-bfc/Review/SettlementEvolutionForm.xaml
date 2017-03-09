@@ -1,0 +1,99 @@
+﻿<ScrollViewer x:Class="Misp.Bfc.Review.SettlementEvolutionForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+             mc:Ignorable="d" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+             d:DesignHeight="500" d:DesignWidth="900">
+
+
+    <ScrollViewer.Resources>
+        <Style x:Key="GridHeader" TargetType="{x:Type Control}">
+            <Setter Property="Background" Value="#839BBB"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <DataTemplate x:Key="GridHeaderTemplate">
+            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+        </DataTemplate>
+
+        <Style x:Key="GridColumn" TargetType="{x:Type dxg:GridColumn}">
+            <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
+            <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
+            <Setter Property="AllowResizing" Value="False"/>
+            <Setter Property="AllowMoving" Value="False"/>
+        </Style>
+    </ScrollViewer.Resources>
+
+    <Grid HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 5 0 10" HorizontalAlignment="Center">
+            <Label x:Name="SchemeLabel" Content="Select Scheme" VerticalAlignment="Center" Margin=" 0 0 5 0"/>
+            <ComboBox x:Name="SchemeComboBox" Height="25" Width="180"/>
+            <TextBox x:Name="SchemeTextBox" Text="ID" Height="25" Width="180" IsEnabled="False" Margin="10 0 0 0"/>
+        </StackPanel>
+
+        <dxg:GridControl x:Name="Grid" x:FieldModifier="public" EnableSmartColumnsGeneration="True" Grid.Row="1" Margin="0 5" >
+            <dxg:GridControl.View>
+                <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowColumnMoving="False" AllowResizing="False" AllowBestFit="False" BestFitMode="AllRows"/>
+            </dxg:GridControl.View>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="80" FieldName="ID"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="Platform"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="Last Year"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="Year to Date"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="CAGR 3 Years"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="Average Day Last 24 Month"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="Peak Day Last 24 Month"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="Today Multilot"/>
+        </dxg:GridControl>
+
+        <dxc:ChartControl x:Name="Chart" x:FieldModifier="public" Grid.Row="2" Margin="0" MinWidth="500">
+            <dxc:XYDiagram2D Margin="0" HorizontalContentAlignment="Stretch" MinWidth="500">
+                <dxc:BarSideBySideSeries2D DisplayName="Series 1"/>
+                <dxc:LineSeries2D DisplayName="Series 2">
+                    <dxc:SeriesPoint Argument="1" Value="6.5"/>
+                    <dxc:SeriesPoint Argument="2" Value="5.5"/>
+                    <dxc:SeriesPoint Argument="3" Value="12.5"/>
+                    <dxc:SeriesPoint Argument="4" Value="11.5"/>
+                    <dxc:SeriesPoint Argument="5" Value="18.5"/>
+                    <dxc:SeriesPoint Argument="6" Value="16"/>
+                    <dxc:SeriesPoint Argument="7" Value="20.5"/>
+                    <dxc:SeriesPoint Argument="8" Value="5"/>
+                    <dxc:SeriesPoint Argument="9" Value="18"/>
+                    <dxc:SeriesPoint Argument="10" Value="15"/>
+                    <dxc:SeriesPoint Argument="11" Value="12"/>
+                    <dxc:SeriesPoint Argument="12" Value="2"/>
+                    <dxc:SeriesPoint Argument="13" Value="3.5"/>
+                    <dxc:SeriesPoint Argument="14" Value="6"/>
+                    <dxc:SeriesPoint Argument="15" Value="5"/>
+                    <dxc:SeriesPoint Argument="16" Value="20"/>
+                    <dxc:SeriesPoint Argument="17" Value="26.5"/>
+                    <dxc:SeriesPoint Argument="18" Value="5.5"/>
+                    <dxc:SeriesPoint Argument="19" Value="12.5"/>
+                    <dxc:SeriesPoint Argument="20" Value="11.5"/>
+                    <dxc:SeriesPoint Argument="21" Value="18.5"/>
+                    <dxc:SeriesPoint Argument="22" Value="16"/>
+                    <dxc:SeriesPoint Argument="23" Value="2.5"/>
+                    <dxc:SeriesPoint Argument="24" Value="15"/>
+                    <dxc:SeriesPoint Argument="25" Value="16.5"/>
+                    <dxc:SeriesPoint Argument="26" Value="15.5"/>
+                    <dxc:SeriesPoint Argument="27" Value="1.5"/>
+                    <dxc:SeriesPoint Argument="28" Value="11.5"/>
+                    <dxc:SeriesPoint Argument="29" Value="8.5"/>
+                    <dxc:SeriesPoint Argument="30" Value="6"/>
+                    <dxc:SeriesPoint Argument="31" Value="25.5"/>
+                </dxc:LineSeries2D>
+                <dxc:BarSideBySideSeries2D/>
+            </dxc:XYDiagram2D>
+        </dxc:ChartControl>
+
+    </Grid>
+
+</ScrollViewer>
