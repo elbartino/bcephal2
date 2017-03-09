@@ -89,12 +89,15 @@ namespace Misp.Bfc.Review
                       
         protected override Kernel.Ui.Base.ToolBar getNewToolBar()
         {
-            return null;
+            BrowserToolBar toolBar = new BrowserToolBar();
+            toolBar.NewButton.Visibility = System.Windows.Visibility.Collapsed;
+            return toolBar;
         }
 
         protected override ToolBarHandlerBuilder getNewToolBarHandlerBuilder()
         {
-            return null;
+            BrowserToolBarHandlerBuilder toolBarHandler = new BrowserToolBarHandlerBuilder(this);
+            return toolBarHandler;
         }
 
         protected override Kernel.Ui.Sidebar.SideBar getNewSideBar()
