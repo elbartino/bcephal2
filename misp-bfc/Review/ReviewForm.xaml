@@ -19,32 +19,32 @@
         <TextBox x:Name="MemberBankTextBox" Text="ID" Height="25" Width="180" IsEnabled="False" Margin="10 0 0 0"/>
     </StackPanel>
 
-        <dx:DXTabControl Grid.Row="1" Background="Transparent">
-        <dx:DXTabControl.View>
-            <dx:TabControlStretchView HeaderLocation="Top" HideButtonShowMode="NoWhere" NewButtonShowMode="NoWhere" ShowHeaderMenu="False"/>
-        </dx:DXTabControl.View>
+        <dx:DXTabControl Grid.Row="1" x:Name="TabControl" x:FieldModifier="public">
+            <dx:DXTabControl.View>
+                <dx:TabControlStretchView HeaderLocation="Top" HideButtonShowMode="NoWhere" NewButtonShowMode="NoWhere" ShowHeaderMenu="False"/>
+            </dx:DXTabControl.View>
         
-        <dx:DXTabItem Header="Pre-funding Account">
-            <src:PrefundingAccountForm x:Name="PrefundingAccountForm" x:FieldModifier="public"/>
-        </dx:DXTabItem>
+            <dx:DXTabItem Header="Pre-funding Account">
+                <src:PrefundingAccountForm x:Name="PrefundingAccountForm" x:FieldModifier="public"/>
+            </dx:DXTabItem>
             
-        <dx:DXTabItem Header="Settlement Evolution" Height="22" VerticalAlignment="Bottom">
+            <dx:DXTabItem Header="Settlement Evolution" Height="22" VerticalAlignment="Bottom">
             
-        </dx:DXTabItem>
+            </dx:DXTabItem>
             
-        <dx:DXTabItem Header="Ageing Balance">
+            <dx:DXTabItem Header="Ageing Balance">
             
-        </dx:DXTabItem>
+            </dx:DXTabItem>
             
-        <dx:DXTabItem Header="Guarantee">
+            <dx:DXTabItem Header="Guarantee">
             
-        </dx:DXTabItem>
+            </dx:DXTabItem>
             
-        <dx:DXTabItem Header="Credit Rating">
+            <dx:DXTabItem Header="Credit Rating">
             
-        </dx:DXTabItem>
+            </dx:DXTabItem>
 
-    </dx:DXTabControl>
+        </dx:DXTabControl>
         
     </Grid>
     
