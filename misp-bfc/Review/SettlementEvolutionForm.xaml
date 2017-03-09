@@ -30,7 +30,7 @@
     <Grid HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
