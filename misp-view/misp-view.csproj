@@ -134,8 +134,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\AgeingBalanceData.cs" />
+    <Compile Include="Models\creditRatingData.cs" />
     <Compile Include="Models\GuaranteeData.cs" />
+    <Compile Include="Models\ListMemberAdvisementData.cs" />
+    <Compile Include="Models\ListPrefundingAdvisementData.cs" />
+    <Compile Include="Models\ListReplenishmentInstructionData.cs" />
+    <Compile Include="Models\ListSettlementAdvisementData.cs" />
+    <Compile Include="Models\NewMemberAdvismentData.cs" />
     <Compile Include="Models\NewPrefundingAdvisementData.cs" />
+    <Compile Include="Models\NewReplenishmentInstructionData.cs" />
+    <Compile Include="Models\NewSettlementAdvisementData.cs" />
     <Compile Include="Models\PrefundingAccountData.cs" />
     <Compile Include="Models\SettlementEvolutionData.cs" />
     <Compile Include="SampleDatabaseDataSet.Designer.cs">

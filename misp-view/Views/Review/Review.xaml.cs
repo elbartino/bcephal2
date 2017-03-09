@@ -51,16 +51,64 @@ namespace misp_view.Views.Review
             DataGridAg.Items.Add(data3);
         }
 
+
+        
+        public void displayAgeingBalance(AgeingBalanceData ab)
+        {
+
+        }
+        public void displayCreditRating(creditRatingData cr)
+        {
+
+        }
+        public void displayGuarantee(GuaranteeData g)
+        {
+
+        }
+        public void displayListMemberAdvisement(ListMemberAdvisementData lma)
+        {
+
+        }
+        public void displayListPrefundingAdvisement(ListPrefundingAdvisementData lpfa)
+        {
+
+        }
+        public void displayListReplenishmentInstruction(ListReplenishmentInstructionData lri)
+        {
+
+        }
+        public void displayListSettlementAdvisement(ListSettlementAdvisementData lsa)
+        {
+
+        }
+        public void displayNewMemberAdvisement(NewMemberAdvismentData ma)
+        {
+
+        }
+        public void displayNewPrefundingAdvisement(NewPrefundingAdvisementData pfa)
+        {
+
+        }
+        public void displayNewReplenishmentInstruction(NewReplenishmentInstructionData ri)
+        {
+
+        }
+        public void displayNewSettlementAdvisement(NewSettlementAdvisementData sa)
+        {
+
+        }
         public void displayPrefundingAccount(PrefundingAccountData pf)
         {
             pf.sentPrefundingReconcilied = 158;
             pf.ratioPFPeak = 55;
         }
-        public void displaySettlementEvolution()
+        public void displaySettlementEvolution(SettlementEvolutionData se)
         {
 
-        }
+        }              
+        
 
+        
     }
     public class TestAg
     {
