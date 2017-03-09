@@ -82,6 +82,7 @@
     <Compile Include="Base\BfcResourcePath.cs" />
     <Compile Include="Base\BfcServiceFactory.cs" />
     <Compile Include="Model\Advisement.cs" />
+    <Compile Include="Model\BfcItem.cs" />
     <Compile Include="PlugIn.cs" />
     <Compile Include="Model\PrefundingAccountData.cs" />
     <Compile Include="Review\PrefundingAccountForm.xaml.cs">
@@ -93,6 +94,7 @@
       <DependentUpon>ReviewForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Review\ReviewSideBar.cs" />
+    <Compile Include="Service\BfcItemService.cs" />
     <Compile Include="Service\PrefundingAccountService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

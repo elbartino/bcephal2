@@ -1,5 +1,6 @@
 ﻿using Misp.Bfc.Base;
 using Misp.Bfc.Model;
+using Misp.Bfc.Service;
 using Misp.Kernel.Application;
 using Misp.Kernel.Controller;
 using Misp.Kernel.Domain.Browser;
@@ -16,35 +17,38 @@ namespace Misp.Bfc.Review
     public class ReviewBrowserController : Controller<PrefundingAccountData, BrowserData>
     {
 
+        ReviewService reviewService;
+
         public ReviewBrowserController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
             this.SubjectType = Kernel.Domain.SubjectType.REVIEW;
         }
 
-        public override OperationState Save()
+        public ReviewService getReviewService()
         {
-            return OperationState.CONTINUE;
+            if (this.reviewService == null)
+            {
+                BfcServiceFactory factory = new BfcServiceFactory(ApplicationManager);
+                this.reviewService = factory.GetReviewService();
+            }
+            return this.reviewService;
         }
 
-        public override OperationState SaveAll()
-        {
-            return OperationState.CONTINUE;
-        }
 
-        public override OperationState Rename()
+        public override OperationState Search() 
         {
-            return OperationState.CONTINUE;
-        }
+            int oid = 1;
+            if (getReviewBrowser().Form.TabControl.SelectedIndex == 0)
+            {
+                PrefundingAccountData data = getReviewService().PrefundingAccountService.getPrefundingAccountData(oid);
+                getReviewBrowser().Form.Display(data);
+            }
+            else if (getReviewBrowser().Form.TabControl.SelectedIndex == 1)
+            {
 
-        public override OperationState RenameItem(string newName)
-        {
-            return OperationState.CONTINUE;
-        }
-
-        public override OperationState Delete()
-        {
-            return OperationState.CONTINUE;
+            }
+            return OperationState.CONTINUE; 
         }
 
         public override Kernel.Domain.SubjectType SubjectTypeFound()
@@ -52,35 +56,16 @@ namespace Misp.Bfc.Review
             return Kernel.Domain.SubjectType.REVIEW;
         }
 
-        public override OperationState TryToSaveBeforeClose()
-        {
-            return OperationState.CONTINUE;
-        }
-
-        public override OperationState Create()
-        {
-            return OperationState.CONTINUE;
-        }
-
-        public override OperationState Open()
-        {
-            return OperationState.CONTINUE;
-        }
-
-        public override OperationState Open(object oid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override OperationState Search()
-        {
-            return OperationState.CONTINUE;
-        }
-
-        public override OperationState Search(object oid)
-        {
-            return OperationState.CONTINUE;
-        }
+        public override OperationState Save() { return OperationState.CONTINUE; }
+        public override OperationState SaveAll() { return OperationState.CONTINUE; }
+        public override OperationState Rename() { return OperationState.CONTINUE; }
+        public override OperationState RenameItem(string newName) { return OperationState.CONTINUE; }
+        public override OperationState Delete() { return OperationState.CONTINUE; }
+        public override OperationState TryToSaveBeforeClose() { return OperationState.CONTINUE; }
+        public override OperationState Create() { return OperationState.CONTINUE; }
+        public override OperationState Open() { return OperationState.CONTINUE; }
+        public override OperationState Open(object oid) { return OperationState.CONTINUE; }        
+        public override OperationState Search(object oid) { return OperationState.CONTINUE; }
 
         protected override IView getNewView()
         {
@@ -112,34 +97,32 @@ namespace Misp.Bfc.Review
             return null;
         }
 
+        public ReviewBrowser getReviewBrowser()
+        {
+            return (ReviewBrowser)view;
+        }
+
+        protected override void initializeViewHandlers() 
+        {
+            getReviewBrowser().Form.TabControl.SelectionChanged += OnSelectTabChanged;
+        }
+
+        private void OnSelectTabChanged(object sender, DevExpress.Xpf.Core.TabControlSelectionChangedEventArgs e)
+        {
+            Search();
+        }
+
+
         protected override void initializeViewData()
         {
-            
+            List<BfcItem> items = getReviewService().MemberBankService.getAll();
+            getReviewBrowser().Form.MemberBankComboBox.ItemsSource = items;
         }
 
-        protected override void initializeSideBarData()
-        {
-            
-        }
+        protected override void initializeSideBarData() { }
+        protected override void initializePropertyBarData() { }        
+        protected override void initializeSideBarHandlers() { }
+        protected override void initializePropertyBarHandlers() { }
 
-        protected override void initializePropertyBarData()
-        {
-            
-        }
-
-        protected override void initializeViewHandlers()
-        {
-            
-        }
-
-        protected override void initializeSideBarHandlers()
-        {
-            
-        }
-
-        protected override void initializePropertyBarHandlers()
-        {
-            
-        }
     }
 }
