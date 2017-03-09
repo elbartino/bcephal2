@@ -9,9 +9,9 @@ namespace misp_view.Models
     public class AgeingBalanceData
     {
         public decimal replenishmentInstruction;
-        public decimal sentDate;
-        public decimal valueDat;
-        public decimal memberBankName;
+        public string sentDate;
+        public string valueDat;
+        public string memberBankName;
         public decimal toReceive;
         public decimal paid;
         public decimal pendingBalance;

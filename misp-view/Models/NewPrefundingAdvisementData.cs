@@ -9,12 +9,12 @@ namespace misp_view.Models
     public class NewPrefundingAdvisementData
     {
         public decimal schemeID;
-        public decimal schemeName;
+        public string schemeName;
         public decimal alreadyRequestedPrefunding;
         public decimal newPrefundingRequest;
         public string debitCredit;
         public decimal newBalance;
-        public decimal valueDate;
+        public string valueDate;
         public string message;
         public string structuredMessage;
     }

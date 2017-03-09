@@ -56,6 +56,10 @@ namespace misp_view.Views.Review
             pf.sentPrefundingReconcilied = 158;
             pf.ratioPFPeak = 55;
         }
+        public void displaySettlementEvolution()
+        {
+
+        }
 
     }
     public class TestAg
