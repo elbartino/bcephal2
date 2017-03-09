@@ -42,7 +42,7 @@ namespace Misp.Bfc.Review
             this.MemberAdvisementNotRecoTextBox.Text = NumberUtil.setGermanFormatter(data.sentMemberAdvisementNotYetReconcilied);
 
             this.TotalToPayTextBox.Text =NumberUtil.setGermanFormatter(data.totalToPayReconcilied);
-            this.TotalToReceiveNotRecoTextBox.Text = NumberUtil.setGermanFormatter(data.totalToPayNotYetReconcilied);
+            this.TotalToPayNotRecoTextBox.Text = NumberUtil.setGermanFormatter(data.totalToPayNotYetReconcilied);
 
             this.ExpectedPFTextBox.Text = NumberUtil.setGermanFormatter(data.expectedPFBalanceReconcilied);
             this.ExpectedPFNotRecoTextBox.Text = NumberUtil.setGermanFormatter(data.expectedPFBalanceNotYetReconcilied);
