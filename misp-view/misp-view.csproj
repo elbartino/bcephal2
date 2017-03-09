@@ -133,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\AgeingBalanceData.cs" />
+    <Compile Include="Models\NewPrefundingAdvisementData.cs" />
+    <Compile Include="Models\PrefundingAccountData.cs" />
+    <Compile Include="Models\SettlementEvolutionData.cs" />
     <Compile Include="SampleDatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -270,12 +274,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="ViewModels\MemberVModel\" />
     <Folder Include="ViewModels\PrefundingVModel\" />
     <Folder Include="ViewModels\ReplenishmentVModel\" />
     <Folder Include="ViewModels\ReviewVModel\" />
-    <Folder Include="ViewModels\SettlementModel\" />
+    <Folder Include="ViewModels\SettlementVModel\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

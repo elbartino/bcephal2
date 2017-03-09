@@ -112,7 +112,7 @@
                                         </Style>
                                     </StackPanel.Resources>
                                     <Label x:Name="lReconcilied" Content="  Reconcilied" Height="25" IsHitTestVisible="False"/>
-                                    <TextBox x:Name="tbSPrefund" Text="100000" Height="25" Width="200" BorderBrush="Transparent"  IsReadOnly="True" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" IsHitTestVisible="False"/>
+                                    <TextBox x:Name="tbSPrefund" Text="{Binding sentPrefundingReconcilied}"  Height="25" Width="200" BorderBrush="Transparent"  IsReadOnly="True" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" IsHitTestVisible="False"/>
                                     <TextBox x:Name="tbSReplenishment" Text="100000" BorderBrush="Transparent" Height="25" Width="200" IsReadOnly="True" HorizontalAlignment="Left" IsHitTestVisible="False"/>
                                     <Label Content="" Height="5"/>
                                     <TextBox x:Name="tbTTR" IsHitTestVisible="False" Text="100100" Height="25" Width="200" HorizontalAlignment="Left" BorderBrush="Transparent" IsReadOnly="True" Foreground="White" Background="#839BBB"/>
@@ -189,7 +189,7 @@
                                             </InlineUIContainer></Hyperlink></TextBlock>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="150,0,0,0">
-                                    <TextBox x:Name="tbRatio" Text="5,5" TextAlignment="Center" Height="25" Width="50" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="5,-470,0,-0"/>
+                                    <TextBox x:Name="tbRatio" Text="{Binding Path=ratioPFPeak}"  TextAlignment="Center" Height="25" Width="50" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="5,-470,0,-0"/>
                                 </StackPanel>
                             </Grid>
 

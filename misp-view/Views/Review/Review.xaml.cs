@@ -1,4 +1,5 @@
-﻿using System;
+﻿using misp_view.Models;
+using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,14 +11,21 @@ namespace misp_view.Views.Review
     /// </summary>
     public partial class Review : UserControl
     {
+        PrefundingAccountData pf = new PrefundingAccountData();
+        SettlementEvolutionData se = new SettlementEvolutionData();
+
         public Review()
         {
             InitializeComponent();
             testFill();
             testFillAg();
             
+            this.DataContext = pf;
+            display(pf);
+            
         }
 
+       
 
 
         private void testFill()
@@ -43,6 +51,11 @@ namespace misp_view.Views.Review
             DataGridAg.Items.Add(data3);
         }
 
+        public void display(PrefundingAccountData pf)
+        {
+            pf.sentPrefundingReconcilied = 158;
+            pf.ratioPFPeak = 55;
+        }
 
     }
     public class TestAg
@@ -62,5 +75,7 @@ namespace misp_view.Views.Review
         public string Total { get; set; }
         public string Amount { get; set; }
     }
+
+    
 }
 
