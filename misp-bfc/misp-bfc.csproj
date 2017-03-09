@@ -72,6 +72,7 @@
     <Compile Include="Base\AdvisementMenu.cs" />
     <Compile Include="Base\BfcResourcePath.cs" />
     <Compile Include="Base\BfcServiceFactory.cs" />
+    <Compile Include="Model\Advisement.cs" />
     <Compile Include="PlugIn.cs" />
     <Compile Include="Model\PrefundingAccountData.cs" />
     <Compile Include="Review\ReviewBrowser.cs" />
