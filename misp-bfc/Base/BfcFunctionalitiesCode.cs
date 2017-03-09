@@ -16,5 +16,7 @@ namespace Misp.Bfc.Base
         public static string EXCEPTIONAL_ADVISEMENT = "functionality.exceptional.advisement";
         public static string SETTLEMENT_ADVISEMENT = "functionality.settlement.advisement";
 
+        public static string REVIEW = "functionality.review";
+
     }
 }

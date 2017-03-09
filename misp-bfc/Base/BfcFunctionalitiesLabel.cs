@@ -10,6 +10,8 @@ namespace Misp.Bfc.Base
     class BfcFunctionalitiesLabel : FunctionalitiesLabel
     {
 
+        public static string REVIEW_LABEL = "Review";
+
         public static string ADVISEMENT_LABEL = "Advisements";
 
         public static string PREFUNDING_ADVISEMENT_LABEL = "Prefunding advisement";

@@ -1,4 +1,4 @@
-﻿using Misp.Bfc.Prefunding;
+﻿using Misp.Bfc.Service;
 using Misp.Kernel.Application;
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,7 @@ namespace Misp.Bfc.Base
     public class BfcServiceFactory : ServiceFactory
     {
 
+        private ReviewService reviewService;
         private PrefundingAccountService prefundingAccountService;
 
         /// <summary>
@@ -20,6 +21,21 @@ namespace Misp.Bfc.Base
         public BfcServiceFactory(ApplicationManager applicationManager)
             : base(applicationManager) { }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>reviewService</returns>
+        public ReviewService GetReviewService()
+        {
+            if (reviewService == null)
+            {
+                reviewService = new ReviewService();
+                reviewService.ResourcePath = BfcResourcePath.BFC_REVIEW_RESOURCE_PATH;
+                reviewService.RestClient = ApplicationManager.RestClient;
+                reviewService.PrefundingAccountService = GetPrefundingAccountService();
+            }
+            return reviewService;
+        }
 
         /// <summary>
         /// Gets InitiationService

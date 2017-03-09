@@ -23,6 +23,7 @@ namespace Misp.Bfc.Base
             this.Children.Add(new Functionality(this, BfcFunctionalitiesCode.MEMBER_ADVISEMENT, "Member advisement", true, RightType.VIEW, RightType.EDIT, RightType.CREATE));
             this.Children.Add(new Functionality(this, BfcFunctionalitiesCode.EXCEPTIONAL_ADVISEMENT, "Exceptional advisement", true, RightType.VIEW, RightType.EDIT, RightType.CREATE));
             this.Children.Add(new Functionality(this, BfcFunctionalitiesCode.SETTLEMENT_ADVISEMENT, "Settlement advisement", true, RightType.VIEW, RightType.EDIT, RightType.CREATE));
+            this.Children.Add(new Functionality(this, BfcFunctionalitiesCode.REVIEW, "Review", true, RightType.VIEW));
         }
 
 

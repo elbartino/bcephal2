@@ -11,7 +11,8 @@ namespace Misp.Bfc.Base
 {
     public class AdvisementMenu : ApplicationMenu
     {
-        
+        public ApplicationMenu ReviewMenu { get; private set; }
+
         public ApplicationMenu PrefundingAdvisementMenu { get; private set; }
         public ApplicationMenu NewPrefundingAdvisementMenu { get; private set; }
         public ApplicationMenu ListPrefundingAdvisementMenu { get; private set; }
@@ -40,6 +41,7 @@ namespace Misp.Bfc.Base
             menus.Add(MemberAdvisementMenu);
             menus.Add(ExceptionalAdvisementMenu);
             menus.Add(SettlementAdvisementMenu);
+            menus.Add(ReviewMenu);
             return menus;
         }
 
@@ -73,6 +75,9 @@ namespace Misp.Bfc.Base
             ListSettlementAdvisementMenu = BuildMenu(BfcFunctionalitiesCode.SETTLEMENT_ADVISEMENT, BfcFunctionalitiesLabel.LIST_SETTLEMENT_ADVISEMENT_LABEL, NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.SETTLEMENT_ADVISEMENT), Kernel.Domain.RightType.VIEW);
             SettlementAdvisementMenu.Items.Add(NewSettlementAdvisementMenu);
             SettlementAdvisementMenu.Items.Add(ListSettlementAdvisementMenu);
+
+            ReviewMenu = BuildMenu(BfcFunctionalitiesCode.REVIEW, BfcFunctionalitiesLabel.REVIEW_LABEL, NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.REVIEW), Kernel.Domain.RightType.VIEW);
+            
         }
     }
 }
