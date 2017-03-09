@@ -59,6 +59,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\bcephal5\dev\bcephal-clent\misp-build\libs\dotnet\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\BfcControllerFactory.cs" />
@@ -70,6 +74,10 @@
     <Compile Include="Base\BfcServiceFactory.cs" />
     <Compile Include="PlugIn.cs" />
     <Compile Include="Model\PrefundingAccountData.cs" />
+    <Compile Include="Review\ReviewBrowser.cs" />
+    <Compile Include="Review\ReviewBrowserController.cs" />
+    <Compile Include="Review\ReviewSideBar.cs" />
+    <Compile Include="Review\ReviewToolBar.cs" />
     <Compile Include="Service\PrefundingAccountService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
