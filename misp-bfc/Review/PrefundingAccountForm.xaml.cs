@@ -32,7 +32,7 @@ namespace Misp.Bfc.Review
             this.SentPrefundingTextBox.Text = NumberUtil.setGermanFormatter(data.sentPrefundingReconcilied);
             this.SentPrefundingNotRecoTextBox.Text =NumberUtil.setGermanFormatter(data.sentPrefundingNotYetReconcilied);
 
-            this.SentReplenishmentTextBox.Text = NumberUtil.setGermanFormatter(data.sentPrefundingReconcilied);
+            this.SentReplenishmentTextBox.Text = NumberUtil.setGermanFormatter(data.sentReplenishmentReconcilied);
             this.SentReplenishmentNotRecoTextBox.Text = NumberUtil.setGermanFormatter(data.sentReplenishmentNotYetReconcilied);
 
             this.TotalToReceiveTextBox.Text = NumberUtil.setGermanFormatter(data.totalToReceiveReconcilied);
