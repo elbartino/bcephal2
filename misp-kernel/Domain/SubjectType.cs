@@ -72,6 +72,8 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType ATTRIBUTE = new SubjectType("Attribute");
 
+        public static SubjectType REVIEW = new SubjectType("Review");
+
         public String label { get; set; }
 
         [ScriptIgnore]
@@ -123,6 +125,7 @@ namespace Misp.Kernel.Domain
             if (INPUT_GRID.label.Equals(label)) return INPUT_GRID;
             if (REPORT_GRID.label.Equals(label)) return REPORT_GRID;
             if (RECONCILIATION_FILTER.label.Equals(label)) return RECONCILIATION_FILTER;
+            if (REVIEW.Equals(label)) return REVIEW;
             return null;
         }
 
@@ -154,6 +157,7 @@ namespace Misp.Kernel.Domain
             types.Add(PROFIL);
             types.Add(RECONCILIATION_FILTER);
             types.Add(ROLE);
+            types.Add(REVIEW);
             return types;
         }
         
