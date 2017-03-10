@@ -64,9 +64,6 @@ namespace Misp.Bfc.Review
         private void InitializeHandlers()
         {
             this.SchemeComboBox.SelectionChanged += OnselectScheme;
-            //Binding b = new Binding(getBindingName(grilleColumn));
-            //b.Mode = BindingMode.TwoWay;
-            //column.Binding = b;
         }
 
         private void OnselectScheme(object sender, SelectionChangedEventArgs e)
