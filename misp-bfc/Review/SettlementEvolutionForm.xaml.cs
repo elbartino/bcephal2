@@ -55,46 +55,33 @@ namespace Misp.Bfc.Review
         {
             throwHandlers = false;
             this.Grid.ItemsSource = datas;
-            DisplayChart(new List<SettlementEvolutionChartData>());
             throwHandlers = true;
         }
 
         public void DisplayChart(List<SettlementEvolutionChartData> chartDatas) 
         {
             throwHandlers = false;
-            List<List<SettlementEvolutionChartData>> datas = new List<List<SettlementEvolutionChartData>>(0);
-            Random random = new Random();
-            for (int i = 0; i < 5; i++)
-            {
-                List<SettlementEvolutionChartData> values = new List<SettlementEvolutionChartData>(0);
-                datas.Add(values);
-                String platform = "Platform " + i;
-                for (int j = 0; j < 50; j++)
-                {
-                    SettlementEvolutionChartData data = new SettlementEvolutionChartData();
-                    data.platform = platform;
-                    data.value = random.Next(0, 1000);
-                    data.date = DateTime.Now.AddDays(j + 1);
-                    values.Add(data);
-                }
-            }
-
+            Dictionary<String, LineSeries2D> lines = new Dictionary<string, LineSeries2D>(0);
             XYDiagram2D diagram = new XYDiagram2D();
-            for (int i = 0; i < datas.Count; i++) 
+            int i = 0;
+            foreach (SettlementEvolutionChartData data in chartDatas)
             {
-                List<SettlementEvolutionChartData> values = datas[i];
-                LineSeries2D line = new LineSeries2D();
-                line.Name = "platform" + i;
-                line.DisplayName = values[0].platform;
-                for (int j = 0; j < values.Count; j++)
+                LineSeries2D line = null;
+                if (!lines.ContainsKey(data.platform))
                 {
-                    SettlementEvolutionChartData data = values[j];
+                    line = new LineSeries2D();
+                    line.Name = "Platform" + ++i;
+                    line.DisplayName = data.platform;
+                    lines.Add(data.platform, line);
+                    diagram.Series.Add(line);
+                }
+                if (lines.TryGetValue(data.platform, out line))
+                {
                     line.Points.Add(new SeriesPoint(data.date, data.value));
                 }
-                diagram.Series.Add(line);
             }
             this.Chart.Diagram = diagram;
-
+            
             throwHandlers = true;
         }
 

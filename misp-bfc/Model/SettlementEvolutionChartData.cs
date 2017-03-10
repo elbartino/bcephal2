@@ -10,6 +10,6 @@ namespace Misp.Bfc.Model
     {
         public string platform { get; set; }
         public double value { get; set; }
-        public DateTime date { get; set; }
+        public string date { get; set; }
     }
 }
