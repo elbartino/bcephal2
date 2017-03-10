@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGridFilterLibrary", "Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "misp-bfc", "misp-bfc\misp-bfc.csproj", "{BC39B59C-95B0-46CD-9E0F-3FF96EDA7576}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplication2", "WpfApplication2\WpfApplication2.csproj", "{C0E6F0D4-0157-4F8E-9924-6FDA473B20F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{BC39B59C-95B0-46CD-9E0F-3FF96EDA7576}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC39B59C-95B0-46CD-9E0F-3FF96EDA7576}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC39B59C-95B0-46CD-9E0F-3FF96EDA7576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0E6F0D4-0157-4F8E-9924-6FDA473B20F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0E6F0D4-0157-4F8E-9924-6FDA473B20F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0E6F0D4-0157-4F8E-9924-6FDA473B20F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0E6F0D4-0157-4F8E-9924-6FDA473B20F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
