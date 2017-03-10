@@ -59,47 +59,39 @@ namespace Misp.Bfc.Review
 
         public void DisplayChart(List<SettlementEvolutionChartData> chartDatas) 
         {
+            throwHandlers = false;
+            List<List<SettlementEvolutionChartData>> datas = new List<List<SettlementEvolutionChartData>>(0);
+            Random random = new Random();
             for (int i = 0; i < 5; i++)
             {
-                SettlementEvolutionChartData s = new SettlementEvolutionChartData();
-                s.PlatForm = "PlatForm" + (i + 1);
-                s.value = 20000 * (i + 1);
-                s.date = DateTime.Now.AddMonths((i + 1));
-                chartDatas.Add(s);
-            }
-            throwHandlers = false;
-            XYDiagram2D diagram = new XYDiagram2D();
-            for (int i = 0; i < chartDatas.Count; i++) 
-            {
-                SettlementEvolutionChartData s = new SettlementEvolutionChartData();
-                s = chartDatas[i];
-                LineSeries2D line = new LineSeries2D();
-                LineSeries2D line1 = new LineSeries2D();
-                for (int p = 0; p < 5; p++)
+                List<SettlementEvolutionChartData> values = new List<SettlementEvolutionChartData>(0);
+                datas.Add(values);
+                String platform = "Platform " + i;
+                for (int j = 0; j < 50; j++)
                 {
-                    
-                    int j = i + 1;
-                    line.Name ="c"+p+j;
-                    line.Points.Add(new SeriesPoint(s.date.ToShortDateString(), s.value));
-                    line.Points.Add(new SeriesPoint(s.date.ToShortDateString(), s.value));
-                    line1.Points.Add(new SeriesPoint(s.date.ToShortDateString(), s.value));
-                    line1.Points.Add(new SeriesPoint(s.date.ToShortDateString(), s.value));    
+                    SettlementEvolutionChartData data = new SettlementEvolutionChartData();
+                    data.platform = platform;
+                    data.value = random.Next(0, 1000);
+                    data.date = DateTime.Now.AddDays(j + 1);
+                    values.Add(data);
                 }
-                
-
-                diagram.Series.Add(line);
-                diagram.Series.Add(line1);
             }
-            
-          
 
-            //BarSideBySideSeries2D series = new BarSideBySideSeries2D();
-
-
-            
-
+            XYDiagram2D diagram = new XYDiagram2D();
+            for (int i = 0; i < datas.Count; i++) 
+            {
+                List<SettlementEvolutionChartData> values = datas[i];
+                LineSeries2D line = new LineSeries2D();
+                line.Name = "platform" + i;
+                line.DisplayName = values[0].platform;
+                for (int j = 0; j < values.Count; j++)
+                {
+                    SettlementEvolutionChartData data = values[j];
+                    line.Points.Add(new SeriesPoint(data.date, data.value));
+                }
+                diagram.Series.Add(line);
+            }
             this.Chart.Diagram = diagram;
-            //this.Chart.DataSource = chartDatas;
 
             throwHandlers = true;
         }

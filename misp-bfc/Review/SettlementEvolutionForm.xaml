@@ -6,7 +6,7 @@
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
              mc:Ignorable="d" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
-             d:DesignHeight="500" d:DesignWidth="900">
+             d:DesignHeight="500" d:DesignWidth="900" HorizontalAlignment="Stretch">
 
 
     <ScrollViewer.Resources>
@@ -22,12 +22,12 @@
         <Style x:Key="GridColumn" TargetType="{x:Type dxg:GridColumn}">
             <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
             <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
-            <Setter Property="AllowResizing" Value="False"/>
+            <Setter Property="AllowResizing" Value="True"/>
             <Setter Property="AllowMoving" Value="False"/>
         </Style>
     </ScrollViewer.Resources>
 
-    <Grid HorizontalAlignment="Center">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="200"/>
@@ -45,7 +45,7 @@
                 <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowColumnMoving="False" AllowResizing="False" AllowBestFit="False" BestFitMode="AllRows"/>
             </dxg:GridControl.View>
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="80" Header="ID"  FieldName="platformID"  />
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Platform" FieldName="platformName"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="200" Header="Platform" FieldName="platformName"/>
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Last Year" FieldName="lastYear"/>
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Year to Date" FieldName="yearToDate"/>
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="CAGR 3 Years" FieldName="cagr3Years"/>
@@ -54,118 +54,35 @@
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Today Multilot" FieldName="todayMultilot"/>
         </dxg:GridControl>
 
-         <dxc:ChartControl x:Name="Chart" x:FieldModifier="public" Grid.Row="2" Margin="0" MinWidth="500">
-           <!--<dxc:XYDiagram2D Margin="0" HorizontalContentAlignment="Stretch" MinWidth="500">
-                <dxc:BarSideBySideSeries2D DisplayName="Series 1"/>
-                <dxc:LineSeries2D DisplayName="Series 2" x:Name="Series2">
-                    <dxc:SeriesPoint Argument="1" Value="6.5"/>
-                    <dxc:SeriesPoint Argument="2" Value="5.5"/>
-                    <dxc:SeriesPoint Argument="3" Value="12.5"/>
-                    <dxc:SeriesPoint Argument="4" Value="11.5"/>
-                    <dxc:SeriesPoint Argument="5" Value="18.5"/>
-                    <dxc:SeriesPoint Argument="6" Value="16"/>
-                    <dxc:SeriesPoint Argument="7" Value="20.5"/>
-                    <dxc:SeriesPoint Argument="8" Value="5"/>
-                    <dxc:SeriesPoint Argument="9" Value="18"/>
-                    <dxc:SeriesPoint Argument="10" Value="15"/>
-                    <dxc:SeriesPoint Argument="11" Value="12"/>
-                    <dxc:SeriesPoint Argument="12" Value="2"/>
-                    <dxc:SeriesPoint Argument="13" Value="3.5"/>
-                    <dxc:SeriesPoint Argument="14" Value="6"/>
-                    <dxc:SeriesPoint Argument="15" Value="5"/>
-                    <dxc:SeriesPoint Argument="16" Value="20"/>
-                    <dxc:SeriesPoint Argument="17" Value="26.5"/>
-                    <dxc:SeriesPoint Argument="18" Value="5.5"/>
-                    <dxc:SeriesPoint Argument="19" Value="12.5"/>
-                    <dxc:SeriesPoint Argument="20" Value="11.5"/>
-                    <dxc:SeriesPoint Argument="21" Value="18.5"/>
-                    <dxc:SeriesPoint Argument="22" Value="16"/>
-                    <dxc:SeriesPoint Argument="23" Value="2.5"/>
-                    <dxc:SeriesPoint Argument="24" Value="15"/>
-                    <dxc:SeriesPoint Argument="25" Value="16.5"/>
-                    <dxc:SeriesPoint Argument="26" Value="15.5"/>
-                    <dxc:SeriesPoint Argument="27" Value="1.5"/>
-                    <dxc:SeriesPoint Argument="28" Value="11.5"/>
-                    <dxc:SeriesPoint Argument="29" Value="8.5"/>
-                    <dxc:SeriesPoint Argument="30" Value="6"/>
-                    <dxc:SeriesPoint Argument="31" Value="25.5"/>
-                </dxc:LineSeries2D>
-                <dxc:BarSideBySideSeries2D/>
-            </dxc:XYDiagram2D>-->
-        </dxc:ChartControl>
-        <!--<dxc:ChartControl>
-            <dxc:ChartControl.Diagram>
-                <dxc:XYDiagram2D>
-                    <dxc:XYDiagram2D.Series>
-                        <dxc:SplineSeries2D LineTension="0.8" MarkerSize="15"
-                                            MarkerVisible="True">
-                            <dxc:SplineSeries2D.Label>
-                                <dxc:SeriesLabel ConnectorVisible="False"
-                                                 ResolveOverlappingMode="Default"                                                   
-                                                 Visible="True" />
-                            </dxc:SplineSeries2D.Label>
-                            <dxc:SplineSeries2D.Points>
-                                <dxc:SeriesPoint Argument="1/1/2005" Value="138.7" />
-                                <dxc:SeriesPoint Argument="2/1/2005" Value="141.4" />
-                                <dxc:SeriesPoint Argument="3/1/2005" Value="159.5" />
-                                <dxc:SeriesPoint Argument="4/1/2005" Value="160.7" />
-                                <dxc:SeriesPoint Argument="5/1/2005" Value="148.8" />
-                                <dxc:SeriesPoint Argument="6/1/2005" Value="166.6" />
-                            </dxc:SplineSeries2D.Points>
-                        </dxc:SplineSeries2D>
-                    </dxc:XYDiagram2D.Series>
-                    <dxc:XYDiagram2D.AxisX>
-                        <dxc:AxisX2D GridLinesVisible="True"/>
-                    </dxc:XYDiagram2D.AxisX>
-                    <dxc:XYDiagram2D.AxisY>
-                        <dxc:AxisY2D>
-                            <dxc:AxisY2D.Title>
-                                <dxc:AxisTitle Content="Cents per Gallon" />
-                            </dxc:AxisY2D.Title>
-                            <dxc:AxisY2D.WholeRange>
-                                <dxc:Range dxc:AxisY2D.AlwaysShowZeroLevel="False" />
-                            </dxc:AxisY2D.WholeRange>
-                        </dxc:AxisY2D>
-                    </dxc:XYDiagram2D.AxisY>
-                </dxc:XYDiagram2D>
-            </dxc:ChartControl.Diagram>
-            <dxc:ChartControl.Titles>
-                <dxc:Title Dock="Top" HorizontalAlignment="Center" Content="U.S. Fuel Oil Prices" />
-            </dxc:ChartControl.T
-        </dxc:ChartControl> -->
-        <!--<dxc:ChartControl Name="chartControl1">
-            <dxc:ChartControl.Diagram>
-                <dxc:XYDiagram2D>
-                    <dxc:XYDiagram2D.Series>
-                        <dxc:LineSeries2D DisplayName="First Series" MarkerVisible="False">
-                            <dxc:LineSeries2D.LineStyle>
-                                <dxc:LineStyle Thickness="4" />
-                            </dxc:LineSeries2D.LineStyle>
-                            <dxc:LineSeries2D.Points>
-                                <dxc:SeriesPoint Argument="A" Value="1" />
-                                <dxc:SeriesPoint Argument="B" Value="3" />
-                                <dxc:SeriesPoint Argument="C" Value="7" />
-                                <dxc:SeriesPoint Argument="D" Value="4" />
-                            </dxc:LineSeries2D.Points>
-                        </dxc:LineSeries2D>
-                        <dxc:LineSeries2D DisplayName="Second Series" MarkerVisible="False">
-                            <dxc:LineSeries2D.LineStyle>
-                                <dxc:LineStyle Thickness="4" />
-                            </dxc:LineSeries2D.LineStyle>
-                            <dxc:LineSeries2D.Points>
-                                <dxc:SeriesPoint Argument="A" Value="2" />
-                                <dxc:SeriesPoint Argument="B" Value="2" />
-                                <dxc:SeriesPoint Argument="C" Value="5" />
-                                <dxc:SeriesPoint Argument="D" Value="4" />
-                            </dxc:LineSeries2D.Points>
-                        </dxc:LineSeries2D>
-                    </dxc:XYDiagram2D.Series>
-                </dxc:XYDiagram2D>
-            </dxc:ChartControl.Diagram>
-            <dxc:ChartControl.Legend>
-                <dxc:Legend />
-            </dxc:ChartControl.Legend>
-        </dxc:ChartControl>-->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <dxc:ChartControl x:Name="Chart" x:FieldModifier="public" Grid.Column="0" Width="1000">
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend/>
+                </dxc:ChartControl.Legend>
+            </dxc:ChartControl>
+
+            <Grid Grid.Column="1" Margin="0 20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Start" Grid.Column="0" Grid.Row="0" Margin="5"/>
+                <DatePicker Grid.Column="1" Grid.Row="0" Margin="5"/>
+                <Label Content="End" Grid.Column="0" Grid.Row="1" Margin="5"/>
+                <DatePicker Grid.Column="1" Grid.Row="1" Margin="5"/>
+            </Grid>
+            
+        </Grid>
+        
 
     </Grid>
 

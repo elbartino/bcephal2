@@ -8,8 +8,8 @@ namespace Misp.Bfc.Model
 {
     public class SettlementEvolutionChartData
     {
-        public string PlatForm;
-        public double value;
-        public DateTime date;
+        public string platform { get; set; }
+        public double value { get; set; }
+        public DateTime date { get; set; }
     }
 }
