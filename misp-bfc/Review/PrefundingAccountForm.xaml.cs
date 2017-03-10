@@ -58,6 +58,8 @@ namespace Misp.Bfc.Review
 
             this.DeltaTextBox.Text = NumberUtil.setGermanFormatter(data.deltaReconcilied);
             this.DeltaNotRecoTextBox.Text =NumberUtil.setGermanFormatter(data.deltaNotYetReconcilied);
+
+            this.RatioPFPeakDayTextBox.Text = NumberUtil.setGermanFormatter(data.ratioPFPeak);
         }
     }
 }

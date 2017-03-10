@@ -28,6 +28,8 @@ namespace Misp.Bfc.Review
 
         public ChangeEventHandler SchemeChanged { get; set; }
 
+        public ChangeEventHandler PeriodChanged { get; set; }
+
         public BfcItem Scheme { get; private set; }
 
         bool throwHandlers;
@@ -104,6 +106,13 @@ namespace Misp.Bfc.Review
         private void InitializeHandlers()
         {
             this.SchemeComboBox.SelectionChanged += OnselectScheme;
+            this.StartDatePicker.SelectedDateChanged += OnselectPeriod;
+            this.EndDatePicker.SelectedDateChanged += OnselectPeriod;
+        }
+
+        private void OnselectPeriod(object sender, SelectionChangedEventArgs e)
+        {
+            if (throwHandlers && PeriodChanged != null) PeriodChanged();
         }
 
         private void OnselectScheme(object sender, SelectionChangedEventArgs e)

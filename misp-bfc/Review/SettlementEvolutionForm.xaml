@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
              mc:Ignorable="d" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
@@ -18,13 +19,12 @@
             <TextBlock Text="{Binding}" TextWrapping="Wrap" 
                        MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
         </DataTemplate>
-
         <Style x:Key="GridColumn" TargetType="{x:Type dxg:GridColumn}">
             <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
             <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
             <Setter Property="AllowResizing" Value="True"/>
             <Setter Property="AllowMoving" Value="False"/>
-        </Style>
+        </Style>        
     </ScrollViewer.Resources>
 
     <Grid >
@@ -43,15 +43,39 @@
         <dxg:GridControl x:Name="Grid" x:FieldModifier="public" EnableSmartColumnsGeneration="True" Grid.Row="1" Margin="0 5" >
             <dxg:GridControl.View>
                 <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowColumnMoving="False" AllowResizing="False" AllowBestFit="False" BestFitMode="AllRows"/>
-            </dxg:GridControl.View>
+            </dxg:GridControl.View> 
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="80" Header="ID"  FieldName="platformID"  />
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="200" Header="Platform" FieldName="platformName"/>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Last Year" FieldName="lastYear"/>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Year to Date" FieldName="yearToDate"/>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="CAGR 3 Years" FieldName="cagr3Years"/>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Average Day Last 24 Month" FieldName="averageDayLast24Month" />
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Peak Day Last 24 Month"  FieldName="peakDayLast24Month"/>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Today Multilot" FieldName="todayMultilot"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Last Year" FieldName="lastYear">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="N2"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Year to Date" FieldName="yearToDate">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="N2"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="CAGR 3 Years" FieldName="cagr3Years">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="N2"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Average Day Last 24 Month" FieldName="averageDayLast24Month">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="N2"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Peak Day Last 24 Month"  FieldName="peakDayLast24Month">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="N2"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Today Multilot" FieldName="todayMultilot">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="N2"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
         </dxg:GridControl>
 
         <Grid Grid.Row="2">
@@ -76,9 +100,9 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Start" Grid.Column="0" Grid.Row="0" Margin="5"/>
-                <DatePicker Grid.Column="1" Grid.Row="0" Margin="5"/>
+                <DatePicker x:Name="StartDatePicker" x:FieldModifier="public" Grid.Column="1" Grid.Row="0" Margin="5"/>
                 <Label Content="End" Grid.Column="0" Grid.Row="1" Margin="5"/>
-                <DatePicker Grid.Column="1" Grid.Row="1" Margin="5"/>
+                <DatePicker x:Name="EndDatePicker" x:FieldModifier="public" Grid.Column="1" Grid.Row="1" Margin="5"/>
             </Grid>
             
         </Grid>

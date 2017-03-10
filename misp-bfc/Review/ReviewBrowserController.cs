@@ -49,8 +49,19 @@ namespace Misp.Bfc.Review
                 int schemeOid = getReviewBrowser().Form.SettlementEvolutionForm.Scheme != null ? getReviewBrowser().Form.SettlementEvolutionForm.Scheme.oid.Value : -1;
                 List<SettlementEvolutionData> datas = getReviewService().SettlementEvolutionService.getSettlementEvolutionDatas(bankOid, schemeOid);
                 getReviewBrowser().Form.Display(datas);
+                UpdateSettlementEvolutionChart();
             }
             return OperationState.CONTINUE; 
+        }
+        
+        private void UpdateSettlementEvolutionChart()
+        {
+            int bankOid = getReviewBrowser().Form.MemberBank != null ? getReviewBrowser().Form.MemberBank.oid.Value : -1;
+            int schemeOid = getReviewBrowser().Form.SettlementEvolutionForm.Scheme != null ? getReviewBrowser().Form.SettlementEvolutionForm.Scheme.oid.Value : -1;
+            DateTime startDate = DateTime.Now;
+            DateTime endDate = DateTime.Now;
+            //List<SettlementEvolutionChartData> datas = getReviewService().SettlementEvolutionService.getSettlementEvolutionChartDatas(bankOid, schemeOid, startDate, endDate);
+            //getReviewBrowser().Form.SettlementEvolutionForm.DisplayChart(datas);
         }
 
         public override Kernel.Domain.SubjectType SubjectTypeFound()
@@ -108,7 +119,8 @@ namespace Misp.Bfc.Review
         {
             getReviewBrowser().Form.TabControl.SelectionChanged += OnSelectTabChanged;
             getReviewBrowser().Form.MemberBankChanged += OnMemberBankChanged;
-            getReviewBrowser().Form.SettlementEvolutionForm.SchemeChanged += OnSchemeChanged;
+            getReviewBrowser().Form.SettlementEvolutionForm.SchemeChanged += OnSettlementEvolutionSchemeChanged;
+            getReviewBrowser().Form.SettlementEvolutionForm.PeriodChanged += OnSettlementEvolutionPeriodChanged;
         }
 
         private void OnMemberBankChanged()
@@ -116,11 +128,16 @@ namespace Misp.Bfc.Review
             Search();
         }
 
-        private void OnSchemeChanged()
+        private void OnSettlementEvolutionSchemeChanged()
         {
             Search();
         }
 
+        private void OnSettlementEvolutionPeriodChanged()
+        {
+            UpdateSettlementEvolutionChart();
+        }
+        
         private void OnSelectTabChanged(object sender, DevExpress.Xpf.Core.TabControlSelectionChangedEventArgs e)
         {
             Search();
@@ -130,9 +147,11 @@ namespace Misp.Bfc.Review
         protected override void initializeViewData()
         {
             List<BfcItem> banks = getReviewService().MemberBankService.getAll();
+            banks.Add(null);
             getReviewBrowser().Form.MemberBankComboBox.ItemsSource = banks;
 
             List<BfcItem> schemes = getReviewService().SchemeService.getAll();
+            schemes.Add(null);
             getReviewBrowser().Form.SettlementEvolutionForm.SchemeComboBox.ItemsSource = schemes;
         }
 
