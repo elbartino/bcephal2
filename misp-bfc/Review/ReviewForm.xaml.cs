@@ -63,6 +63,13 @@ namespace Misp.Bfc.Review
             throwHandlers = true;
         }
 
+        public void Display(List<AgeingBalanceData> datas)
+        {
+            throwHandlers = false;
+            this.AgeingBalanceForm.Display(datas);
+            throwHandlers = true;
+        }
+
         #endregion
 
 

@@ -102,6 +102,7 @@
     <Compile Include="Base\BfcResourcePath.cs" />
     <Compile Include="Base\BfcServiceFactory.cs" />
     <Compile Include="Model\Advisement.cs" />
+    <Compile Include="Model\AgeingBalanceData.cs" />
     <Compile Include="Model\BfcItem.cs" />
     <Compile Include="Model\SettlementEvolutionData.cs" />
     <Compile Include="PlugIn.cs" />

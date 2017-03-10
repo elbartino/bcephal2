@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Bfc.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,47 @@ namespace Misp.Bfc.Review
     /// </summary>
     public partial class AgeingBalanceForm : ScrollViewer
     {
+        
+        #region Properties
+
+        
+        bool throwHandlers;
+
+        #endregion
+
+
+        #region Constructors
+
         public AgeingBalanceForm()
         {
             InitializeComponent();
+            InitializeHandlers();
+            throwHandlers = true;
         }
+
+        #endregion
+
+
+        #region Operations
+
+        public void Display(List<AgeingBalanceData> datas)
+        {
+            throwHandlers = false;
+            this.Grid.ItemsSource = datas;            
+            throwHandlers = true;
+        }
+
+        #endregion
+
+
+        #region Handlers
+
+        private void InitializeHandlers()
+        {
+            
+        }
+
+        #endregion
+
     }
 }
