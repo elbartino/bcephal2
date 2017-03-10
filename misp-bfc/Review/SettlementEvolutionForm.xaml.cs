@@ -48,7 +48,7 @@ namespace Misp.Bfc.Review
 
         #region Operations
 
-        public void Display()
+        public void Display(List<SettlementEvolutionData> datas)
         {
             throwHandlers = false;
             

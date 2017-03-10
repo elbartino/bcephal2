@@ -99,6 +99,7 @@
     <Compile Include="Base\BfcServiceFactory.cs" />
     <Compile Include="Model\Advisement.cs" />
     <Compile Include="Model\BfcItem.cs" />
+    <Compile Include="Model\SettlementEvolutionData.cs" />
     <Compile Include="PlugIn.cs" />
     <Compile Include="Model\PrefundingAccountData.cs" />
     <Compile Include="Review\PrefundingAccountForm.xaml.cs">

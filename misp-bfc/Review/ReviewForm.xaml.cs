@@ -56,6 +56,13 @@ namespace Misp.Bfc.Review
             throwHandlers = true;
         }
 
+        public void Display(List<SettlementEvolutionData> datas)
+        {
+            throwHandlers = false;
+            this.SettlementEvolutionForm.Display(datas);
+            throwHandlers = true;
+        }
+
         #endregion
 
 
