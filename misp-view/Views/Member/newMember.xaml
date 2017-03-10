@@ -6,7 +6,15 @@
              xmlns:local="clr-namespace:misp_view.Views.Member"
              mc:Ignorable="d" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib" Width="615" Height="455">
-    <Grid Margin="0,35,0,0">
+    <Grid>
+        <Grid.RowDefinitions>
+        <RowDefinition Height="50"></RowDefinition>
+        <RowDefinition Height="350*"></RowDefinition>
+    </Grid.RowDefinitions>
+    <Grid Grid.Row="0">
+        <Label Margin="-35" Content="New Member Advisement" HorizontalAlignment="Center" FontSize="20"></Label>
+    </Grid>
+    <Grid Margin="0,0,0,0" Grid.Row="1" >
         <StackPanel>
             <Label Margin="65,0,0,0" Content="  Select Member Bank"></Label>
             <Label Margin="100,5,0,0" Content=" Select Scheme"></Label>
@@ -59,7 +67,7 @@
                 <ComboBoxItem Content="Credit"></ComboBoxItem>
             </ComboBox>
         </StackPanel>
-        <StackPanel Margin="218,350,250,0" Orientation="Horizontal">
+        <StackPanel Margin="218,350,250,0" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="btnOK" Foreground="White" Height="25" Width="70" Content="Ok" Click="btnClick">
                 <Button.Style>
                     <Style TargetType="Button">
@@ -95,6 +103,6 @@
             </Button>
         </StackPanel>
 
-
+    </Grid>
     </Grid>
 </UserControl>

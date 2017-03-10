@@ -6,8 +6,15 @@
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" x:Class="misp_view.Views.Prefunding.listPrefunding"
              mc:Ignorable="d" Width="1015" Height="430">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="350*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Label Margin="-35" Content="List Pre-funding Advisements" HorizontalAlignment="Center" FontSize="20"></Label>
+        </Grid>
 
-        <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True">
+        <dxg:GridControl Grid.Row="1" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True">
             <dxg:GridControl.View>
                 <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" ShowTotalSummary="True" AllowEditing="False" AllowGrouping="False" AllowColumnMoving="False" AllowResizing="False" AllowSorting="False"/>
             </dxg:GridControl.View>

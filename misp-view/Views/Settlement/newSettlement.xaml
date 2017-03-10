@@ -7,89 +7,97 @@
              mc:Ignorable="d"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              Width="615" Height="455">
-    <Grid Margin="0,35,0,0">
-        <StackPanel>
-            <Label Margin="100,5,0,0" Content=" Select Scheme"></Label>
-            <Label Margin="95,10,0,0" Content="        Select PML"></Label>
-            <Label Margin="95,5,0,0" Content="  Select Platform"></Label>
-        </StackPanel>
-        <StackPanel Margin="0,85,0,0">
-            <Label Margin="10,10,0,0" Content=" Settlement Advisement Amount"></Label>
-        </StackPanel>
-        <StackPanel Margin="0,120,0,0">
-            <Label Content=" Value Date" Margin="120,25,0,0"></Label>
-            <Label Content=" Message" Margin="130,40,0,0"></Label>
-            <Label Content="  Structured Message" Margin="70,40,0,0"></Label>
-        </StackPanel>
-        <StackPanel Margin="200,0,0,0">
-            <ComboBox Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-14,5,229,0">
-                <ComboBoxItem Content="Name"></ComboBoxItem>
-            </ComboBox>
-            <ComboBox  Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-72,10,172,0">
-                <ComboBoxItem Content="Name"/>
-            </ComboBox>
-            <ComboBox  Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-72,10,172,0">
-                <ComboBoxItem Content="Name"/>
-            </ComboBox>
-        </StackPanel>
-        <StackPanel Margin="200,85,0,0">
-            <TextBox x:Name="tbPrefRequest" Text="70000" Margin="-72,10,172,0" PreviewTextInput="tbPrefRequest_PreviewTextInput" Width="200"></TextBox>
-        </StackPanel>
-        <StackPanel Margin="200,120,0,0">
-            <DatePicker x:Name="dpValueDate" Width="200" Margin="-72,25,172,0" SelectedDate="{x:Static sys:DateTime.Now}"></DatePicker>
-            <TextBox x:Name="tbMessage" MaxLines="4" VerticalScrollBarVisibility="Auto" Margin="-14,25,229,0" Width="200" SpellCheck.IsEnabled="True" Language="Fr-FR" TextWrapping="Wrap" AcceptsReturn="True" Height="54"></TextBox>
-            <TextBox x:Name="tbStructured" Width="200" IsHitTestVisible="False" IsReadOnly="True" Margin="-14,20,229,0"></TextBox>
-        </StackPanel>
-        <StackPanel Margin="415,0,0,0">
-            <TextBox Margin="0,5,0,0" x:Name="tbIDScheme" Width="200" BorderBrush="Transparent" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID"></TextBox>
-            <TextBox x:Name="tbIDPML" Width="200" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID" Margin="0,10,0,0"></TextBox>
-            <TextBox x:Name="tbIDPlatform" Width="200" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID" Margin="0,10,0,0"></TextBox>
-        </StackPanel>
-        <StackPanel Margin="415,60,0,0">
-            <TextBlock>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="350*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Label Margin="-35" Content="New Settlement Advisement" HorizontalAlignment="Center" FontSize="20"></Label>
+        </Grid>
+        <Grid Margin="0,0,0,0" Grid.Row="1" >
+            <StackPanel>
+                <Label Margin="100,5,0,0" Content=" Select Scheme"></Label>
+                <Label Margin="95,10,0,0" Content="        Select PML"></Label>
+                <Label Margin="95,5,0,0" Content="  Select Platform"></Label>
+            </StackPanel>
+            <StackPanel Margin="0,85,0,0">
+                <Label Margin="10,10,0,0" Content=" Settlement Advisement Amount"></Label>
+            </StackPanel>
+            <StackPanel Margin="0,120,0,0">
+                <Label Content=" Value Date" Margin="120,25,0,0"></Label>
+                <Label Content=" Message" Margin="130,40,0,0"></Label>
+                <Label Content="  Structured Message" Margin="70,40,0,0"></Label>
+            </StackPanel>
+            <StackPanel Margin="200,0,0,0">
+                <ComboBox Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-14,5,229,0">
+                    <ComboBoxItem Content="Name"></ComboBoxItem>
+                </ComboBox>
+                <ComboBox  Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-72,10,172,0">
+                    <ComboBoxItem Content="Name"/>
+                </ComboBox>
+                <ComboBox  Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-72,10,172,0">
+                    <ComboBoxItem Content="Name"/>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Margin="200,85,0,0">
+                <TextBox x:Name="tbPrefRequest" Text="70000" Margin="-72,10,172,0" PreviewTextInput="tbPrefRequest_PreviewTextInput" Width="200"></TextBox>
+            </StackPanel>
+            <StackPanel Margin="200,120,0,0">
+                <DatePicker x:Name="dpValueDate" Width="200" Margin="-72,25,172,0" SelectedDate="{x:Static sys:DateTime.Now}"></DatePicker>
+                <TextBox x:Name="tbMessage" MaxLines="4" VerticalScrollBarVisibility="Auto" Margin="-14,25,229,0" Width="200" SpellCheck.IsEnabled="True" Language="Fr-FR" TextWrapping="Wrap" AcceptsReturn="True" Height="54"></TextBox>
+                <TextBox x:Name="tbStructured" Width="200" IsHitTestVisible="False" IsReadOnly="True" Margin="-14,20,229,0"></TextBox>
+            </StackPanel>
+            <StackPanel Margin="415,0,0,0">
+                <TextBox Margin="0,5,0,0" x:Name="tbIDScheme" Width="200" BorderBrush="Transparent" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID"></TextBox>
+                <TextBox x:Name="tbIDPML" Width="200" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID" Margin="0,10,0,0"></TextBox>
+                <TextBox x:Name="tbIDPlatform" Width="200" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID" Margin="0,10,0,0"></TextBox>
+            </StackPanel>
+            <StackPanel Margin="415,60,0,0">
+                <TextBlock>
                 <Hyperlink/>
-            </TextBlock>
-            <ComboBox Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="0,-7,0,0">
-                <ComboBoxItem Content="Debit"></ComboBoxItem>
-                <ComboBoxItem Content="Credit"></ComboBoxItem>
-            </ComboBox>
-        </StackPanel>
-        <StackPanel Margin="218,350,250,0" Orientation="Horizontal">
-            <Button x:Name="btnOK" Foreground="White" Height="25" Width="70" Content="Ok" Click="btnClick">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#839BBB"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button x:Name="btnCancel" Foreground="White" Margin="5,0,0,0" Height="25" Width="70" Content="Cancel">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="#839BBB"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
+                </TextBlock>
+                <ComboBox Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="0,-7,0,0">
+                    <ComboBoxItem Content="Debit"></ComboBoxItem>
+                    <ComboBoxItem Content="Credit"></ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Margin="218,350,250,0" Orientation="Horizontal">
+                <Button x:Name="btnOK" Foreground="White" Height="25" Width="70" Content="Ok" Click="btnClick">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#839BBB"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button x:Name="btnCancel" Foreground="White" Margin="5,0,0,0" Height="25" Width="70" Content="Cancel">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#839BBB"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
 
-            </Button>
-        </StackPanel>
+                </Button>
+            </StackPanel>
 
-
+        </Grid>
     </Grid>
 </UserControl>

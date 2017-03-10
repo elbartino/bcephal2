@@ -188,8 +188,14 @@
                                                 <TextBlock Height="25" Text="See PF Account Credit"/>
                                             </InlineUIContainer></Hyperlink></TextBlock>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="150,0,0,0">
-                                    <TextBox x:Name="tbRatio" Text="{Binding Path=ratioPFPeak}"  TextAlignment="Center" Height="25" Width="50" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="5,-470,0,-0"/>
+                                <StackPanel Orientation="Horizontal" Margin="-40,155,66,29" >
+                                    <StackPanel.Resources>
+                                        <Style TargetType="{x:Type Label}">
+                                            <Setter Property="FontWeight" Value="{StaticResource tblBold}"/>
+                                        </Style>
+                                    </StackPanel.Resources>
+                                    <Label Content="Ratio PF/Peak 24 month" />
+                                    <TextBox x:Name="tbRatio" Text="{Binding ratioPFPeak}"  Margin="-120,-285,0,0" TextAlignment="Center" Height="25" Width="50" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
                                 </StackPanel>
                             </Grid>
 
@@ -437,7 +443,7 @@
                         </Grid>
                         <Grid x:Name="gridDetail" Grid.Row="1">
                             <Grid>
-                                
+
                             </Grid>
                         </Grid>
 
@@ -457,7 +463,7 @@
                                 <ComboBoxItem x:Name="cbBrand" Content="Name"/>
                             </ComboBox>
                             <TextBox x:Name="tbGuaranteeSchemeID" Text="ID" Background="LightGray" Height="25" Width="180" IsReadOnly="True" Margin="-50,-24,0,0"/>
-                            
+
 
                             <StackPanel Orientation="Horizontal" Margin="25,20,0,0">
                                 <Label Content="Amount"/>

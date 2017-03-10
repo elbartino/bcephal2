@@ -31,14 +31,14 @@
         <Grid Grid.Row="0" Grid.Column="1">
             <Menu Name="spMenu" HorizontalAlignment="Right" Grid.Row="1" Margin="-500,0,0,-222" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2">
                 <MenuItem Header="Advisements">
-                    <MenuItem Header="New Prefunding Advisement" Click="MenuItem_Click" ></MenuItem>
-                    <MenuItem Header="List Prefunding Advisement" Click="MenuItem_Click2" ></MenuItem>
+                    <MenuItem Header="New Pre-funding Advisements" Click="MenuItem_Click" ></MenuItem>
+                    <MenuItem Header="List Pre-funding Advisements" Click="MenuItem_Click2" ></MenuItem>
                     <MenuItem Header="New Replenishment Instruction Note" Click="MenuItemReplenishment_Click" ></MenuItem>
                     <MenuItem Header="List Replenishment Instruction Note" Click="MenuItemReplenishment_Click2" ></MenuItem>
                     <MenuItem Header="New Member Advisement" Click="MenuItem_Click_newMember"></MenuItem>
-                    <MenuItem Header="List Member Advisement" Click="MenuItem_Click_listMember"></MenuItem>
+                    <MenuItem Header="List Member Advisements" Click="MenuItem_Click_listMember"></MenuItem>
                     <MenuItem Header="New Settlement Advisement" Click="MenuItem_ClicknewSettlement" ></MenuItem>
-                    <MenuItem Header="List Settlement Advisement" Click="MenuItem_ClicklistSettlement" ></MenuItem>
+                    <MenuItem Header="List Settlement Advisements" Click="MenuItem_ClicklistSettlement" ></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Review" Click="MenuItem_Click_1"></MenuItem>
                 
