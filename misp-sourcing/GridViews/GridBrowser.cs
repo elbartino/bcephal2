@@ -570,10 +570,7 @@ namespace Misp.Sourcing.GridViews
             GridColumn col = this.gridControl.Columns[LastColumn];
             this.gridControl.Columns.Remove(col);            
         }
-
-
-
-
+        
         public virtual void SetReadOnly(bool readOnly)
         {
             this.IsReadOnly = readOnly;
