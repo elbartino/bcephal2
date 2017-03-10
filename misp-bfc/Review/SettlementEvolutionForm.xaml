@@ -44,14 +44,14 @@
             <dxg:GridControl.View>
                 <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowColumnMoving="False" AllowResizing="False" AllowBestFit="False" BestFitMode="AllRows"/>
             </dxg:GridControl.View>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="80" FieldName="ID"/>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="Platform"/>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="Last Year"/>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="Year to Date"/>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="CAGR 3 Years"/>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="Average Day Last 24 Month"/>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="Peak Day Last 24 Month"/>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" FieldName="Today Multilot"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="80" Header="ID"  FieldName="platformID"  />
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Platform" FieldName="platformName"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Last Year" FieldName="lastYear"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Year to Date" FieldName="yearToDate"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="CAGR 3 Years" FieldName="cagr3Years"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Average Day Last 24 Month" FieldName="averageDayLast24Month" />
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Peak Day Last 24 Month"  FieldName="peakDayLast24Month"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Today Multilot" FieldName="todayMultilot"/>
         </dxg:GridControl>
 
         <dxc:ChartControl x:Name="Chart" x:FieldModifier="public" Grid.Row="2" Margin="0" MinWidth="500">

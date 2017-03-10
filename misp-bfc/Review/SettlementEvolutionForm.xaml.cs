@@ -51,6 +51,7 @@ namespace Misp.Bfc.Review
         public void Display(List<SettlementEvolutionData> datas)
         {
             throwHandlers = false;
+            this.Grid.ItemsSource = datas;
             
             throwHandlers = true;
         }
@@ -63,7 +64,9 @@ namespace Misp.Bfc.Review
         private void InitializeHandlers()
         {
             this.SchemeComboBox.SelectionChanged += OnselectScheme;
-
+            //Binding b = new Binding(getBindingName(grilleColumn));
+            //b.Mode = BindingMode.TwoWay;
+            //column.Binding = b;
         }
 
         private void OnselectScheme(object sender, SelectionChangedEventArgs e)
