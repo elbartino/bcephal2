@@ -7,7 +7,7 @@
              xmlns:src="clr-namespace:Misp.Bfc.Review"
              mc:Ignorable="d" Background="White"
              d:DesignHeight="300" d:DesignWidth="700">
-    <Grid  HorizontalAlignment="Center">
+    <Grid  HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -33,15 +33,15 @@
             </dx:DXTabItem>
             
             <dx:DXTabItem Header="Ageing Balance">
-            
+                <src:AgeingBalanceForm x:Name="AgeingBalanceForm" x:FieldModifier="public"/>
             </dx:DXTabItem>
             
             <dx:DXTabItem Header="Guarantee">
-            
+                <src:GuaranteeForm x:Name="GuaranteeForm" x:FieldModifier="public"/>
             </dx:DXTabItem>
             
             <dx:DXTabItem Header="Credit Rating">
-            
+                <src:CreditRatingForm x:Name="CreditRatingForm" x:FieldModifier="public"/>
             </dx:DXTabItem>
 
         </dx:DXTabControl>

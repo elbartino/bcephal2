@@ -1,0 +1,18 @@
+﻿<ScrollViewer x:Class="Misp.Bfc.Review.CreditRatingForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <Grid Background="Transparent" x:Name="gridCredit">
+        <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True">
+            <dxg:GridControl.View>
+                <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" ShowTotalSummary="True" AutoWidth="True" AllowGrouping="False" AllowEditing="False" AllowMoveColumnToDropArea="False" AllowColumnMoving="False" AllowResizing="False" AllowSorting="False" ShowColumnHeaders="True" IsRowCellMenuEnabled="False" IsGroupPanelMenuEnabled="False" IsColumnMenuEnabled="False" IsGroupRowMenuEnabled="False" IsGroupFooterMenuEnabled="False" IsTotalSummaryMenuEnabled="True"/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+    </Grid>
+
+</ScrollViewer>
