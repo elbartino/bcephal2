@@ -11,6 +11,7 @@ namespace Misp.Bfc.Service
     {
 
         public PrefundingAccountService PrefundingAccountService { get; set; }
+        public SettlementEvolutionService SettlementEvolutionService { get; set; }
 
         public BfcItemService MemberBankService { get; set; }
 

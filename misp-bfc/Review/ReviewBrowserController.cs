@@ -38,15 +38,17 @@ namespace Misp.Bfc.Review
 
         public override OperationState Search() 
         {
-            int oid = getReviewBrowser().Form.MemberBank != null ? getReviewBrowser().Form.MemberBank.oid.Value : -1;
+            int bankOid = getReviewBrowser().Form.MemberBank != null ? getReviewBrowser().Form.MemberBank.oid.Value : -1;
             if (getReviewBrowser().Form.TabControl.SelectedIndex == 0)
             {
-                PrefundingAccountData data = getReviewService().PrefundingAccountService.getPrefundingAccountData(oid);
+                PrefundingAccountData data = getReviewService().PrefundingAccountService.getPrefundingAccountData(bankOid);
                 getReviewBrowser().Form.Display(data);
             }
             else if (getReviewBrowser().Form.TabControl.SelectedIndex == 1)
             {
-
+                int schemeOid = getReviewBrowser().Form.SettlementEvolutionForm.Scheme != null ? getReviewBrowser().Form.SettlementEvolutionForm.Scheme.oid.Value : -1;
+                List<SettlementEvolutionData> datas = getReviewService().SettlementEvolutionService.getSettlementEvolutionDatas(bankOid, schemeOid);
+                getReviewBrowser().Form.Display(datas);
             }
             return OperationState.CONTINUE; 
         }
