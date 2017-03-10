@@ -201,6 +201,11 @@ namespace Misp.Reconciliation.WriteOffConfig
             wpanel.Index = nbreLigne;
             wpanel.writeOffField = writeofffield;
             wpanel.showRowLabel(nbreLigne == 0);
+            if (writeofffield != null)
+            {
+                string name = writeofffield.isAttribute() ? writeofffield.attributeField.name : writeofffield.periodField.name;
+                IsDuplicatiLine(wpanel, writeofffield.isAttribute() ? SubjectType.ATTRIBUTE : SubjectType.PERIOD, name);
+            }
             wpanel.display();
             nbreLigne++;
             this.setActiveFieldPanel(wpanel);
