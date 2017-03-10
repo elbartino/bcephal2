@@ -37,9 +37,9 @@ namespace Misp.Bfc.Review
         #region Constructors
 
         public ReviewForm()
-        {            
+        {
+            ThemeManager.SetThemeName(this, "Office2016White");
             InitializeComponent();
-            ThemeManager.SetThemeName(this, "None");
             InitializeHandlers();
             throwHandlers = true;
         }
@@ -60,6 +60,13 @@ namespace Misp.Bfc.Review
         {
             throwHandlers = false;
             this.SettlementEvolutionForm.Display(datas);
+            throwHandlers = true;
+        }
+
+        public void Display(List<AgeingBalanceData> datas)
+        {
+            throwHandlers = false;
+            this.AgeingBalanceForm.Display(datas);
             throwHandlers = true;
         }
 

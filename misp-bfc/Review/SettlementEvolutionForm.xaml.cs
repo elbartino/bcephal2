@@ -111,7 +111,7 @@ namespace Misp.Bfc.Review
 
         private void InitializeHandlers()
         {
-            this.SchemeComboBox.SelectionChanged += OnselectScheme;         
+            this.SchemeComboBox.SelectionChanged += OnselectScheme;
         }
 
         private void OnselectScheme(object sender, SelectionChangedEventArgs e)

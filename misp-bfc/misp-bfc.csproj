@@ -102,11 +102,21 @@
     <Compile Include="Base\BfcResourcePath.cs" />
     <Compile Include="Base\BfcServiceFactory.cs" />
     <Compile Include="Model\Advisement.cs" />
+    <Compile Include="Model\AgeingBalanceData.cs" />
     <Compile Include="Model\BfcItem.cs" />
     <Compile Include="Model\SettlementEvolutionChartData.cs" />
     <Compile Include="Model\SettlementEvolutionData.cs" />
     <Compile Include="PlugIn.cs" />
     <Compile Include="Model\PrefundingAccountData.cs" />
+    <Compile Include="Review\AgeingBalanceForm.xaml.cs">
+      <DependentUpon>AgeingBalanceForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Review\CreditRatingForm.xaml.cs">
+      <DependentUpon>CreditRatingForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Review\GuaranteeForm.xaml.cs">
+      <DependentUpon>GuaranteeForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Review\PrefundingAccountForm.xaml.cs">
       <DependentUpon>PrefundingAccountForm.xaml</DependentUpon>
     </Compile>
@@ -156,6 +166,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Review\AgeingBalanceForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Review\CreditRatingForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Review\GuaranteeForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Review\PrefundingAccountForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
