@@ -104,6 +104,7 @@
     <Compile Include="Model\Advisement.cs" />
     <Compile Include="Model\AgeingBalanceData.cs" />
     <Compile Include="Model\BfcItem.cs" />
+    <Compile Include="Model\ReviewFilter.cs" />
     <Compile Include="Model\SettlementEvolutionChartData.cs" />
     <Compile Include="Model\SettlementEvolutionData.cs" />
     <Compile Include="PlugIn.cs" />
@@ -130,7 +131,6 @@
       <DependentUpon>SettlementEvolutionForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Service\BfcItemService.cs" />
-    <Compile Include="Service\PrefundingAccountService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -145,7 +145,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Service\ReviewService.cs" />
-    <Compile Include="Service\SettlementEvolutionService.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

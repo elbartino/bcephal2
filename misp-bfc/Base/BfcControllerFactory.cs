@@ -34,7 +34,7 @@ namespace Misp.Bfc.Base
                 ReviewBrowserController reviewController = new ReviewBrowserController();
                 reviewController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
                 reviewController.ApplicationManager = this.ApplicationManager;
-                reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService().PrefundingAccountService;
+                //reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
                 return reviewController;
             }
             return null;

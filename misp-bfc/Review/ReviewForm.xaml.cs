@@ -70,6 +70,25 @@ namespace Misp.Bfc.Review
             throwHandlers = true;
         }
 
+        public ReviewFilter GetFilter()
+        {
+            ReviewFilter filter = new ReviewFilter();
+            if (this.MemberBank != null)
+            {
+                filter.memberBankIdOids.Add(this.MemberBank.oid.Value);
+            }
+            if (this.TabControl.SelectedIndex == 0) { }
+            else if (this.TabControl.SelectedIndex == 1)
+            {
+                this.SettlementEvolutionForm.FillFilter(filter);
+            }
+            else if (this.TabControl.SelectedIndex == 2)
+            {
+                this.AgeingBalanceForm.FillFilter(filter);
+            }
+            return filter;
+        }
+
         #endregion
 
 

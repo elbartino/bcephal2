@@ -38,30 +38,26 @@ namespace Misp.Bfc.Review
 
         public override OperationState Search() 
         {
-            int bankOid = getReviewBrowser().Form.MemberBank != null ? getReviewBrowser().Form.MemberBank.oid.Value : -1;
+            ReviewFilter filter = getReviewBrowser().Form.GetFilter();
             if (getReviewBrowser().Form.TabControl.SelectedIndex == 0)
             {
-                PrefundingAccountData data = getReviewService().PrefundingAccountService.getPrefundingAccountData(bankOid);
+                PrefundingAccountData data = getReviewService().getPrefundingAccountData(filter);
                 getReviewBrowser().Form.Display(data);
             }
             else if (getReviewBrowser().Form.TabControl.SelectedIndex == 1)
             {
-                int schemeOid = getReviewBrowser().Form.SettlementEvolutionForm.Scheme != null ? getReviewBrowser().Form.SettlementEvolutionForm.Scheme.oid.Value : -1;
-                List<SettlementEvolutionData> datas = getReviewService().SettlementEvolutionService.getSettlementEvolutionDatas(bankOid, schemeOid);
+                List<SettlementEvolutionData> datas = getReviewService().getSettlementEvolutionDatas(filter);
                 getReviewBrowser().Form.Display(datas);
-                UpdateSettlementEvolutionChart();
+                UpdateSettlementEvolutionChart(filter);
             }
             return OperationState.CONTINUE; 
         }
-        
-        private void UpdateSettlementEvolutionChart()
+
+        private void UpdateSettlementEvolutionChart(ReviewFilter filter = null)
         {
-            int bankOid = getReviewBrowser().Form.MemberBank != null ? getReviewBrowser().Form.MemberBank.oid.Value : -1;
-            int schemeOid = getReviewBrowser().Form.SettlementEvolutionForm.Scheme != null ? getReviewBrowser().Form.SettlementEvolutionForm.Scheme.oid.Value : -1;
-            DateTime startDate = DateTime.Now;
-            DateTime endDate = DateTime.Now;
-            //List<SettlementEvolutionChartData> datas = getReviewService().SettlementEvolutionService.getSettlementEvolutionChartDatas(bankOid, schemeOid, startDate, endDate);
-            //getReviewBrowser().Form.SettlementEvolutionForm.DisplayChart(datas);
+            if (filter == null) filter = getReviewBrowser().Form.GetFilter();
+            List<SettlementEvolutionChartData> datas = getReviewService().getSettlementEvolutionChartDatas(filter);
+            getReviewBrowser().Form.SettlementEvolutionForm.DisplayChart(datas);
         }
 
         public override Kernel.Domain.SubjectType SubjectTypeFound()

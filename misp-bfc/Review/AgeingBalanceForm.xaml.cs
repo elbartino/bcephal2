@@ -51,6 +51,17 @@ namespace Misp.Bfc.Review
             throwHandlers = true;
         }
 
+        public void FillFilter(ReviewFilter filter)
+        {
+            if (filter == null) filter = new ReviewFilter();
+            /*if (this.Scheme != null)
+            {
+                filter.schemeIdOids.Add(this.Scheme.oid.Value);
+            }
+            filter.startDateTime = this.StartDatePicker.SelectedDate;
+            filter.endDateTime = this.EndDatePicker.SelectedDate;*/
+        }
+
         #endregion
 
 

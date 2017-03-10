@@ -12,8 +12,6 @@ namespace Misp.Bfc.Base
     {
 
         private ReviewService reviewService;
-        private PrefundingAccountService prefundingAccountService;
-        private SettlementEvolutionService settlementEvolutionService;
         private BfcItemService memberBankService;
         private BfcItemService schemeService;
 
@@ -35,39 +33,12 @@ namespace Misp.Bfc.Base
                 reviewService = new ReviewService();
                 reviewService.ResourcePath = BfcResourcePath.BFC_REVIEW_RESOURCE_PATH;
                 reviewService.RestClient = ApplicationManager.RestClient;
-                reviewService.PrefundingAccountService = GetPrefundingAccountService();
-                reviewService.SettlementEvolutionService = GetSettlementEvolutionService();
                 reviewService.MemberBankService = GetMemberBankService();
                 reviewService.SchemeService = GetSchemeService();
             }
             return reviewService;
         }
-
-        /// <summary>
-        /// Gets InitiationService
-        /// </summary>
-        public PrefundingAccountService GetPrefundingAccountService()
-        {
-            if (prefundingAccountService == null)
-            {
-                prefundingAccountService = new PrefundingAccountService();
-                prefundingAccountService.ResourcePath = BfcResourcePath.BFC_PREFUNDING_ACCOUNT_RESOURCE_PATH;
-                prefundingAccountService.RestClient = ApplicationManager.RestClient;
-            }
-            return prefundingAccountService;
-        }
-
-        public SettlementEvolutionService GetSettlementEvolutionService()
-        {
-            if (settlementEvolutionService == null)
-            {
-                settlementEvolutionService = new SettlementEvolutionService();
-                settlementEvolutionService.ResourcePath = BfcResourcePath.BFC_SETTLEMENT_EVOLUTION_RESOURCE_PATH;
-                settlementEvolutionService.RestClient = ApplicationManager.RestClient;
-            }
-            return settlementEvolutionService;
-        }
-
+        
         /// <summary>
         /// memberBankService
         /// </summary>
