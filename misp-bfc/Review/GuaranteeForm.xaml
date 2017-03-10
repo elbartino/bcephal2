@@ -4,7 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="700">
+
+    <!--<Grid HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 5 0 10" HorizontalAlignment="Center">
+            <Label x:Name="SchemeLabel" Content="Select Scheme" VerticalAlignment="Center" Margin=" 0 0 5 0"/>
+            <ComboBox x:Name="SchemeComboBox" Height="25" Width="180"/>
+            <TextBox x:Name="SchemeTextBox" Text="ID" Height="25" Width="180" IsEnabled="False" Margin="10 0 0 0"/>
+        </StackPanel>
+    </Grid>-->
 
     <Grid Background="Transparent" Margin="0,50,0,0">
         <StackPanel>
