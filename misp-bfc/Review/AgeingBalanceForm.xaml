@@ -25,6 +25,12 @@
             <Setter Property="AllowResizing" Value="True"/>
             <Setter Property="AllowMoving" Value="False"/>
         </Style>
+        <Style x:Key="GridControlBand" TargetType="{x:Type dxg:GridControlBand}">
+            <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
+            <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
+            <Setter Property="AllowResizing" Value="True"/>
+            <Setter Property="AllowMoving" Value="False"/>
+        </Style>
     </ScrollViewer.Resources>
 
 
@@ -42,7 +48,7 @@
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Amount" FieldName="platformID"/>
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Late Collection Amount" FieldName="platformID"/>
                 </dxg:GridControlBand>
-                <dxg:GridControlBand Header="Ageing Balance">
+                <dxg:GridControlBand Header="Ageing Balance" Style="{StaticResource GridControlBand}">
                         <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Not Reached" FieldName="platformID"/>
                         <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Today" FieldName="platformID"/>
                         <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="1 Day" FieldName="platformID"/>
