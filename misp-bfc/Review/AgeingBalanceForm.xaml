@@ -4,10 +4,64 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"             
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="500" d:DesignWidth="700">
 
-    <Grid Background="Transparent">
+    <ScrollViewer.Resources>
+        <Style x:Key="GridHeader" TargetType="{x:Type Control}">
+            <Setter Property="Background" Value="#839BBB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="35"/>
+        </Style>
+        <DataTemplate x:Key="GridHeaderTemplate">
+            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+        </DataTemplate>
+
+        <Style x:Key="GridColumn" TargetType="{x:Type dxg:GridColumn}">
+            <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
+            <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
+            <Setter Property="AllowResizing" Value="True"/>
+            <Setter Property="AllowMoving" Value="False"/>
+        </Style>
+    </ScrollViewer.Resources>
+
+
+    <Grid HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300"/>
+        </Grid.RowDefinitions>
+        <dxg:GridControl x:Name="Grid1" x:FieldModifier="public" EnableSmartColumnsGeneration="True" Grid.Row="0" Margin="0 5" >
+            <dxg:GridControl.View>
+                <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowColumnMoving="False" AllowResizing="False" AllowBestFit="False" BestFitMode="AllRows"/>
+            </dxg:GridControl.View>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Replenishment Instruction n°" FieldName="platformID"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Sent Date" FieldName="platformID"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Value Date" FieldName="platformID"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Member Bank" FieldName="platformID"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Amount" FieldName="platformID"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Late Collection Amount" FieldName="platformID"/>
+
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Not Reached" FieldName="platformID"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Today" FieldName="platformID"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="1 Day" FieldName="platformID"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="2 Days" FieldName="platformID"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="3 Days" FieldName="platformID"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="4 Days" FieldName="platformID"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header=">4 Days" FieldName="platformID"/>
+
+            <dxg:GridControl.DetailDescriptor>
+                <dxg:DataControlDetailDescriptor>
+                    <dxg:GridControl />
+                </dxg:DataControlDetailDescriptor>
+            </dxg:GridControl.DetailDescriptor>
+        </dxg:GridControl>
+    </Grid>
+
+
+
+    <!--<Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="200"/>
             <RowDefinition Height="450*"/>
@@ -78,6 +132,6 @@
             </Grid>
         </Grid>
 
-    </Grid>
+    </Grid>-->
 
 </ScrollViewer>
