@@ -106,9 +106,15 @@ namespace Misp.Bfc.Review
         {
             getReviewBrowser().Form.TabControl.SelectionChanged += OnSelectTabChanged;
             getReviewBrowser().Form.MemberBankChanged += OnMemberBankChanged;
+            getReviewBrowser().Form.SettlementEvolutionForm.SchemeChanged += OnSchemeChanged;
         }
 
         private void OnMemberBankChanged()
+        {
+            Search();
+        }
+
+        private void OnSchemeChanged()
         {
             Search();
         }
@@ -121,8 +127,11 @@ namespace Misp.Bfc.Review
 
         protected override void initializeViewData()
         {
-            List<BfcItem> items = getReviewService().MemberBankService.getAll();
-            getReviewBrowser().Form.MemberBankComboBox.ItemsSource = items;
+            List<BfcItem> banks = getReviewService().MemberBankService.getAll();
+            getReviewBrowser().Form.MemberBankComboBox.ItemsSource = banks;
+
+            List<BfcItem> schemes = getReviewService().SchemeService.getAll();
+            getReviewBrowser().Form.SettlementEvolutionForm.SchemeComboBox.ItemsSource = schemes;
         }
 
         protected override void initializeSideBarData() { }

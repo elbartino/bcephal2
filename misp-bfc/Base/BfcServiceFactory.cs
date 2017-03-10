@@ -14,6 +14,7 @@ namespace Misp.Bfc.Base
         private ReviewService reviewService;
         private PrefundingAccountService prefundingAccountService;
         private BfcItemService memberBankService;
+        private BfcItemService schemeService;
 
         /// <summary>
         /// Build a new instance of InitiationServiceFactory.
@@ -35,6 +36,7 @@ namespace Misp.Bfc.Base
                 reviewService.RestClient = ApplicationManager.RestClient;
                 reviewService.PrefundingAccountService = GetPrefundingAccountService();
                 reviewService.MemberBankService = GetMemberBankService();
+                reviewService.SchemeService = GetSchemeService();
             }
             return reviewService;
         }
@@ -65,6 +67,17 @@ namespace Misp.Bfc.Base
                 memberBankService.RestClient = ApplicationManager.RestClient;
             }
             return memberBankService;
+        }
+
+        public BfcItemService GetSchemeService()
+        {
+            if (schemeService == null)
+            {
+                schemeService = new BfcItemService();
+                schemeService.ResourcePath = BfcResourcePath.BFC_SCHEME_RESOURCE_PATH;
+                schemeService.RestClient = ApplicationManager.RestClient;
+            }
+            return schemeService;
         }
 
 
