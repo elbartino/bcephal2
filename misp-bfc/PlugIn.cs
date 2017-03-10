@@ -14,7 +14,7 @@ namespace Misp.Bfc
     public class PlugIn : AbstractPlugin
     {
 
-        public static string MODULE_NAME = "Reconciliation";
+        public static string MODULE_NAME = "Advisement";
         public static int BFC_PRIORITY = 7;
 
         /// <summary>
