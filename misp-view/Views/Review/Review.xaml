@@ -59,7 +59,7 @@
         </Grid>
 
         <Grid x:Name="tabGrid" Grid.Row="1">
-            <dx:DXTabControl Margin="0,0,-229,-84" >
+            <dx:DXTabControl Margin="0,0,-229,-84" TabContentCacheMode="None" >
                 <dx:DXTabControl.View>
                     <dx:TabControlStretchView HeaderLocation="Top" HideButtonShowMode="NoWhere" NewButtonShowMode="NoWhere" ShowHeaderMenu="False"/>
                 </dx:DXTabControl.View>
@@ -379,7 +379,7 @@
                     <Grid Background="Transparent">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="200"/>
-                            <RowDefinition Height="450*"/>
+                            <RowDefinition Height="370"/>
                         </Grid.RowDefinitions>
                         <Grid x:Name="gridAG" Grid.Row="0">
                             <Grid.ColumnDefinitions>
@@ -441,9 +441,32 @@
                             </Grid>
 
                         </Grid>
-                        <Grid x:Name="gridDetail" Grid.Row="1">
-                            <Grid>
+                        <Grid x:Name="gridD" Grid.Row="1">
+                            <Button Height="25" Width="50" Margin="-896,-345,0,0" FontSize="15" Content="+" Click="Button_Click"/>
+                            <Grid> 
 
+                                <DataGrid Width="600" Margin="0,25,0,0" Visibility="Hidden" AutoGenerateColumns="False" RowHeaderWidth="0" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" Name="DataGridDetail" ItemsSource="{Binding TestBinding}" IsReadOnly="True" HorizontalAlignment="Left" GridLinesVisibility="None" SelectionUnit="Cell" >
+                                    <DataGrid.ColumnHeaderStyle>
+                                        <Style TargetType="DataGridColumnHeader">
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </DataGrid.ColumnHeaderStyle>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Replenishment Instruction n°" IsReadOnly="True" Binding="{Binding Path=Total}" Width="100" Foreground="Black" FontWeight="Bold"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Sent Date" IsReadOnly="True" Width="100"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Value Date" IsReadOnly="True" Width="100"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Member Bank" IsReadOnly="True" Width="100"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Amount" IsReadOnly="True" Width="100" Binding="{Binding Path=Amount}">
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Header="Late Collection Amount" IsReadOnly="True" Width="97"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
                             </Grid>
                         </Grid>
 

@@ -46,9 +46,11 @@ namespace misp_view.Views.Review
             var data = new TestAg { a = 10000, b = 9000, c = 8000, d = 4000, e = 8000, f = 7000, g = 10500 };
             var data2 = new TestAg { a = 0, b = 5000, c = 8000, d = 2000, e = 8000, f = 7000, g = 10500};
             var data3 = new TestAg { a = 10000, b = 4000, c = 0, d = 2000, e = 0, f = 0, g= 0 };
+            var data4 = new TestAg { a = 10500, b = 4200, c = 5000, d = 5000, e = 0, f = 0, g = 0 };
             DataGridAg.Items.Add(data);
             DataGridAg.Items.Add(data2);
             DataGridAg.Items.Add(data3);
+            DataGridAg.Items.Add(data4);
         }
 
 
@@ -105,10 +107,19 @@ namespace misp_view.Views.Review
         public void displaySettlementEvolution(SettlementEvolutionData se)
         {
 
-        }              
-        
+        }
 
-        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataGridDetail.Visibility == Visibility.Hidden)
+            {
+                DataGridDetail.Visibility = Visibility.Visible;
+            }
+            else if(DataGridDetail.Visibility == Visibility.Visible)
+            {
+                DataGridDetail.Visibility = Visibility.Hidden;
+            }
+        }
     }
     public class TestAg
     {
