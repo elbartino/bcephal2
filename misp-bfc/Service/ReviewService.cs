@@ -100,5 +100,32 @@ namespace Misp.Bfc.Service
         }
 
 
+        public List<AgeingBalanceData> getAgeingBalanceDatas(ReviewFilter filter)
+        {
+            if (filter == null) return null;
+            try
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                var request = new RestRequest(ResourcePath + "/ageing-balance", Method.POST);
+                request.RequestFormat = DataFormat.Json;
+                serializer.MaxJsonLength = int.MaxValue;
+                string json = serializer.Serialize(filter);
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
+                var response = RestClient.ExecuteTaskAsync(request);
+                RestResponse queryResult = (RestResponse)response.Result;
+                bool valid = ValidateResponse(queryResult);
+                JavaScriptSerializer Serializer = new JavaScriptSerializer();
+                Serializer.MaxJsonLength = int.MaxValue;
+                List<AgeingBalanceData> datas = Serializer.Deserialize<List<AgeingBalanceData>>(queryResult.Content);
+                return datas;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve Ageing Balance Datas from server.", e);
+                return null;
+            }
+        }
+
+
     }
 }

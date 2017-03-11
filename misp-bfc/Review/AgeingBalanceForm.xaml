@@ -38,28 +38,29 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="600"/>
         </Grid.RowDefinitions>
-        <dxg:GridControl x:Name="Grid" x:FieldModifier="public" EnableSmartColumnsGeneration="True" Grid.Row="0" Margin="0 5" >
+        <dxg:GridControl x:Name="Grid" x:FieldModifier="public" EnableSmartColumnsGeneration="True" Grid.Row="1" Margin="0 5" >
             <dxg:GridControl.Bands>
                 <dxg:GridControlBand>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Replenishment Instruction n°" FieldName="platformID"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Sent Date" FieldName="platformID"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Value Date" FieldName="platformID"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Member Bank" FieldName="platformID"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Amount" FieldName="platformID"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Late Collection Amount" FieldName="platformID"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Replenishment Instruction n°" FieldName="replenishmentInstruction"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Sent Date" FieldName="sentDate"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Value Date" FieldName="valueDate"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Member Bank" FieldName="memberBankName"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Amount" FieldName="toReceive"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Late Collection Amount" FieldName="paid"/>
                 </dxg:GridControlBand>
                 <dxg:GridControlBand Header="Ageing Balance" Style="{StaticResource GridControlBand}">
-                        <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Not Reached" FieldName="platformID"/>
-                        <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Today" FieldName="platformID"/>
-                        <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="1 Day" FieldName="platformID"/>
-                        <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="2 Days" FieldName="platformID"/>
-                        <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="3 Days" FieldName="platformID"/>
-                        <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="4 Days" FieldName="platformID"/>
-                        <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header=">4 Days" FieldName="platformID"/>
-                    </dxg:GridControlBand>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Not Reached" FieldName="pendingBalance"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Today" FieldName="today"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="1 Day" FieldName="oneDay"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="2 Days" FieldName="twoDays"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="3 Days" FieldName="threeDays"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="4 Days" FieldName="fourDays"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header=">4 Days" FieldName="lessThanFourDays"/>
+                </dxg:GridControlBand>
             </dxg:GridControl.Bands>
+            
             <dxg:GridControl.View>
-                <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowColumnMoving="False" AllowResizing="False" AllowBestFit="False" BestFitMode="AllRows"/>
+                <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowColumnMoving="False" AllowResizing="True" AllowBestFit="False" BestFitMode="AllRows"/>
             </dxg:GridControl.View>
 
             <dxg:GridControl.DetailDescriptor>
@@ -69,80 +70,5 @@
             </dxg:GridControl.DetailDescriptor>
         </dxg:GridControl>
     </Grid>
-
-
-
-    <!--<Grid Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="450*"/>
-        </Grid.RowDefinitions>
-        <Grid x:Name="gridAG" Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="600"/>
-                <ColumnDefinition Width="200*"/>
-            </Grid.ColumnDefinitions>
-            <Grid x:Name="gridTextBox" Grid.Column="0">
-                <DataGrid AutoGenerateColumns="False" RowHeaderWidth="0" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False" Name="DataGridTest" ItemsSource="{Binding TestBinding}" IsReadOnly="True" Margin="0,50,0,0" GridLinesVisibility="None" SelectionUnit="Cell" >
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Replenishment Instruction n°" IsReadOnly="True" Binding="{Binding Path=Total}" Width="100" Foreground="Black" FontWeight="Bold"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Sent Date" IsReadOnly="True" Width="100"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Value Date" IsReadOnly="True" Width="100"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Member Bank" IsReadOnly="True" Width="100"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Amount" IsReadOnly="True" Width="100" Binding="{Binding Path=Amount}">
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Late Collection Amount" IsReadOnly="True" Width="97"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
-            <Grid x:Name="gridGrid" Grid.Column="1">
-                <DataGrid AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False"  CanUserResizeRows="False" Name="DataGridLabel" IsReadOnly="True" Margin="0,26,0,0" GridLinesVisibility="None" SelectionUnit="Cell" >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="                                       Ageing Balance" CanUserSort="False" IsReadOnly="True" Width="500"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <DataGrid AutoGenerateColumns="False" RowHeaderWidth="0" CanUserResizeColumns="False" CanUserReorderColumns="False"  CanUserResizeRows="False" Name="DataGridAg" IsReadOnly="True" Margin="0,50,0,0" SelectionUnit="Cell" >
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Not Reached" CanUserSort="False" IsReadOnly="True" Width="55" Binding="{Binding Path=a}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Today" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=b}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="1 Day" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=c}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="2 Days" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=d}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="3 Days" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=e}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="4 Days" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=f}"></DataGridTextColumn>
-                        <DataGridTextColumn Header=">4 Days" IsReadOnly="True" CanUserSort="False" Width="79" Binding="{Binding Path=g}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
-
-        </Grid>
-        <Grid x:Name="gridDetail" Grid.Row="1">
-            <Grid>
-
-            </Grid>
-        </Grid>
-
-    </Grid>-->
 
 </ScrollViewer>

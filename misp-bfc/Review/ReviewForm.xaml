@@ -35,12 +35,12 @@
             <dx:DXTabItem Header="Ageing Balance">
                 <src:AgeingBalanceForm x:Name="AgeingBalanceForm" x:FieldModifier="public"/>
             </dx:DXTabItem>
-            
-            <dx:DXTabItem Header="Guarantee">
+
+            <dx:DXTabItem Header="Guarantee" Visibility="Collapsed">
                 <src:GuaranteeForm x:Name="GuaranteeForm" x:FieldModifier="public"/>
             </dx:DXTabItem>
             
-            <dx:DXTabItem Header="Credit Rating">
+            <dx:DXTabItem Header="Credit Rating" Visibility="Collapsed">
                 <src:CreditRatingForm x:Name="CreditRatingForm" x:FieldModifier="public"/>
             </dx:DXTabItem>
 
