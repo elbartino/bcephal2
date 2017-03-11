@@ -58,21 +58,32 @@ namespace Misp.Bfc.Advisements
 
         public override Kernel.Application.OperationState Create()
         {
-            if (advisementType.ToString().Equals(AdvisementType.PREFUNDING.ToString()))
+            Advisement advisement = new Advisement();
+            advisement.advisementType = advisementType.ToString();
+            try
+            {
+                AdvisementEditorItem page = (AdvisementEditorItem)getAdvisementEditor().addOrSelectPage(advisement);
+                initializePageHandlers(page);
+                page.Title = advisementType.ToString();
+                getAdvisementEditor().ListChangeHandler.AddNew(advisement);
+            }
+            catch (Exception)
+            {
+            }
+            if (advisementType == AdvisementType.PREFUNDING)
             {
 
             }
 
-            if (advisementType.ToString().Equals(AdvisementType.SETTLEMENT.ToString()))
+            else if (advisementType == AdvisementType.SETTLEMENT)
             {
 
             }
-
-            if (advisementType.ToString().Equals(AdvisementType.EXCEPTIONAL.ToString()))
+            else 
             {
 
             }
-
+           
 
             return OperationState.CONTINUE;
         }
