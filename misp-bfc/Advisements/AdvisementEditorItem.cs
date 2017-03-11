@@ -11,9 +11,19 @@ namespace Misp.Bfc.Advisements
 {
     public class AdvisementEditorItem : EditorItem<Advisement>
     {
-        public string DEFAULT_NAME;
+        
+        public AdvisementType AdvisementType { get; set; }
 
-        public AdvisementEditorItem(Kernel.Domain.SubjectType subjectType) : base(subjectType) { }
+        public AdvisementEditorItem(Kernel.Domain.SubjectType subjectType, AdvisementType advisementType)
+            : base(subjectType)
+        {
+            this.AdvisementType = advisementType;
+            if (getAdvisementForm() != null)
+            {
+                getAdvisementForm().AdvisementType = advisementType;
+                getAdvisementForm().CustomizeForType();
+            }
+        }
 
         /// <summary>
         /// UNe nouvelle instance de la form.
@@ -21,12 +31,11 @@ namespace Misp.Bfc.Advisements
         /// <returns></returns>
         protected override IEditableView<Advisement> getNewEditorItemForm()
         {
-            this.CanFloat = false;
-          
-            return new AdvisementForm(this.SubjectType);
+            this.CanFloat = false;          
+            return new AdvisementForm(this.SubjectType, this.AdvisementType);
         }
 
-        public virtual AdvisementForm getInputTableForm()
+        public AdvisementForm getAdvisementForm()
         {
             return (AdvisementForm)editorItemForm;
         }

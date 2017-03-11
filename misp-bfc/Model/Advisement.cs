@@ -15,9 +15,9 @@ namespace Misp.Bfc.Model
         public BfcItem scheme { get; set; }
         public BfcItem pml { get; set; }
         public BfcItem platform { get; set; }
-        public decimal alreadyRequestedAmount { get; set; }
-        public decimal amount { get; set; }
-        public decimal balance { get; set; }
+        public decimal? alreadyRequestedAmount { get; set; }
+        public decimal? amount { get; set; }
+        public decimal? balance { get; set; }
         public string valueDate { get; set; }
         public string message { get; set; }
         public string structuredMessage { get; set; }

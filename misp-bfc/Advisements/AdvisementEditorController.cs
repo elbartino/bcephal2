@@ -14,8 +14,47 @@ namespace Misp.Bfc.Advisements
     {
 
         #region Properties
-            public AdvisementType advisementType { get; set; }
+           
+        public AdvisementType advisementType { get; set; }
+
         #endregion
+
+
+        #region Constructors
+
+        public AdvisementEditorController(AdvisementType advisementType)
+            : base()
+        {
+            this.advisementType = advisementType;
+            ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = SubjectType.ADVISEMENT;
+        }
+
+        #endregion
+
+
+        #region Operations
+
+        public override Kernel.Application.OperationState Create()
+        {
+            Advisement advisement = new Advisement();
+            advisement.advisementType = advisementType.ToString();
+            advisement.creator = ApplicationManager.User.login;
+            try
+            {
+                AdvisementEditorItem page = (AdvisementEditorItem)getAdvisementEditor().addOrSelectPage(advisement);
+                initializePageHandlers(page);
+                page.Title = advisementType.ToString();
+                getAdvisementEditor().ListChangeHandler.AddNew(advisement);
+            }
+            catch (Exception) { }
+            return OperationState.CONTINUE;
+        }
+
+        public override Kernel.Application.OperationState Delete() { return OperationState.CONTINUE; }
+
+        #endregion
+                
 
         #region Editor and Service
 
@@ -27,70 +66,10 @@ namespace Misp.Bfc.Advisements
         {
             return (AdvisementEditor)this.View;
         }
-               
-
-        #endregion
-
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public AdvisementEditorController()
-        {
-            ModuleName = PlugIn.MODULE_NAME;
-            this.SubjectType = SubjectType.ADVISEMENT;
-        }
-
-        public AdvisementEditorController(AdvisementType advisementType) : base()
-        {
-            this.advisementType = advisementType;
-        }
-
-        public override Kernel.Application.OperationState Delete()
-        {
-            return OperationState.CONTINUE;
-        }
-
-        public override SubjectType SubjectTypeFound()
-        {
-            return SubjectType.ADVISEMENT;
-        }
-
-        public override Kernel.Application.OperationState Create()
-        {
-            Advisement advisement = new Advisement();
-            advisement.advisementType = advisementType.ToString();
-            try
-            {
-                AdvisementEditorItem page = (AdvisementEditorItem)getAdvisementEditor().addOrSelectPage(advisement);
-                initializePageHandlers(page);
-                page.Title = advisementType.ToString();
-                getAdvisementEditor().ListChangeHandler.AddNew(advisement);
-            }
-            catch (Exception)
-            {
-            }
-            if (advisementType == AdvisementType.PREFUNDING)
-            {
-
-            }
-
-            else if (advisementType == AdvisementType.SETTLEMENT)
-            {
-
-            }
-            else 
-            {
-
-            }
-           
-
-            return OperationState.CONTINUE;
-        }
 
         protected override Kernel.Ui.Base.IView getNewView()
         {
-             return new AdvisementEditor(this.SubjectType, this.FunctionalityCode); 
+            return new AdvisementEditor(this.SubjectType, this.FunctionalityCode, this.advisementType);
         }
 
         protected override Kernel.Ui.Base.ToolBar getNewToolBar()
@@ -113,6 +92,11 @@ namespace Misp.Bfc.Advisements
             return null;
         }
 
+        #endregion
+
+
+        #region Handlers
+
         protected override void initializeSideBarData()
         {
 
@@ -121,5 +105,13 @@ namespace Misp.Bfc.Advisements
         protected override void initializeSideBarHandlers()
         {
         }
+
+        public override SubjectType SubjectTypeFound()
+        {
+            return SubjectType.ADVISEMENT;
+        }
+
+        #endregion
+
     }
 }

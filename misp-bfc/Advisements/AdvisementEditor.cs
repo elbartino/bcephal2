@@ -10,21 +10,29 @@ namespace Misp.Bfc.Advisements
 {
     public class AdvisementEditor : Editor<Advisement>
     {
+
+        public AdvisementType AdvisementType { get; set; }
+        public event OnRemoveNewPageEventHandler OnRemoveNewPage;
+        public delegate void OnRemoveNewPageEventHandler(bool remove = false);
+        public Kernel.Service.GroupService GroupService { get; set; }
+
+        public AdvisementEditor(Kernel.Domain.SubjectType subjectType, String functionality, AdvisementType advisementType)
+            : base(subjectType, functionality)
+        {
+            this.AdvisementType = advisementType;
+        }
+         
+
         /// <summary>
         /// Retourne une nouvelle page.
         /// </summary>
         /// <returns>Une nouvelle instance de EditorItem</returns>
         protected override EditorItem<Advisement> getNewPage()
         {
-            return new AdvisementEditorItem(this.SubjectType); 
+            return new AdvisementEditorItem(this.SubjectType, this.AdvisementType); 
         }
 
-        public event OnRemoveNewPageEventHandler OnRemoveNewPage;
-        public delegate void OnRemoveNewPageEventHandler(bool remove = false);
-
-        public AdvisementEditor(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
-                
-        public Kernel.Service.GroupService GroupService { get; set; }        
+               
 
         protected override void OnChildrenCollectionChanged()
         {

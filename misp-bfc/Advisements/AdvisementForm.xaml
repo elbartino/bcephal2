@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"       
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              mc:Ignorable="d" HorizontalAlignment="Center" VerticalAlignment="Center"
              d:DesignHeight="500" d:DesignWidth="700" Background="White">
 
@@ -21,25 +22,45 @@
             <Setter Property="Height" Value="25"/>
             <Setter Property="Width" Value="200"/>
         </Style>
-        
-        <Style x:Key="EditableTextBox" TargetType="{x:Type TextBox}">
+
+        <Style x:Key="EditableTextEdit" TargetType="{x:Type dxe:TextEdit}">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="MaskType" Value="Numeric"/>
+            <Setter Property="DisplayFormatString" Value="n2"/>
+        </Style>
+
+        <Style x:Key="ReadonlyTextEdit" TargetType="{x:Type dxe:TextEdit}">
             <Setter Property="Margin" Value="5"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Height" Value="25"/>
             <Setter Property="Width" Value="200"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="IsEnabled" Value="False"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="IsHitTestVisible" Value="False"/>
+            <Setter Property="MaskType" Value="Numeric"/>
+            <Setter Property="DisplayFormatString" Value="n2"/>
+        </Style>
+
+        <Style x:Key="EditableTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
         <Style x:Key="ReadonlyTextBox" TargetType="{x:Type TextBox}">
             <Setter Property="Margin" Value="5"/>
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Height" Value="25"/>
             <Setter Property="Width" Value="200"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="IsEnabled" Value="False"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="IsHitTestVisible" Value="False"/>
-            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>            
         </Style>
     </Grid.Resources>
 
@@ -107,7 +128,11 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Content="Already Requested Pre-funding" Style="{StaticResource label}" Grid.Column="0"/>
-        <TextBox x:Name="AlreadyRequestedPrefundingTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Background="#839BBB" Foreground="White" Grid.Column="1"/>
+        <dxe:TextEdit x:Name="AlreadyRequestedPrefundingTextEdit" x:FieldModifier="public" Style="{StaticResource ReadonlyTextEdit}" Background="#839BBB" Foreground="White" Grid.Column="1"/>
+        
+        <!--<TextBox x:Name="AlreadyRequestedPrefundingTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Background="#839BBB" Foreground="White" Grid.Column="1">
+            
+        </TextBox>-->
         <TextBlock Grid.Column="2" Margin="5" VerticalAlignment="Center">
             <Hyperlink>
                 <InlineUIContainer>
@@ -123,7 +148,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="AmountLabel" Content="New Pre-funding Requested" Style="{StaticResource label}" Grid.Column="0"/>
-        <TextBox x:Name="AmountTextBox" x:FieldModifier="public" Style="{StaticResource EditableTextBox}" Grid.Column="1"/>
+        <dxe:TextEdit x:Name="AmountTextEdit" x:FieldModifier="public" Style="{StaticResource EditableTextEdit}" Grid.Column="1" />
     </Grid>
 
     <Grid Grid.Row="6" x:Name="BalanceGrid">
@@ -132,7 +157,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Content="New Balance" Style="{StaticResource label}" Grid.Column="0"/>
-        <TextBox x:Name="BalanceTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Background="#839BBB" Foreground="White" Grid.Column="1"/>
+        <dxe:TextEdit x:Name="BalanceTextEdit" x:FieldModifier="public" Style="{StaticResource ReadonlyTextEdit}" Background="#839BBB" Foreground="White" Grid.Column="1"/>
     </Grid>
 
     <Grid Grid.Row="7" x:Name="ValueDateGrid">
@@ -150,7 +175,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Content="Message" Style="{StaticResource label}" Grid.Column="0"/>
-        <TextBlock x:Name="MessageTextBlock" x:FieldModifier="public" Width="200" Height="60" Grid.Column="1" Margin="5"/>
+        <TextBox x:Name="MessageTextBlock" x:FieldModifier="public" Style="{StaticResource EditableTextBox}" Height="60" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Grid.Column="1"/>
     </Grid>
 
     <Grid Grid.Row="9" x:Name="StructuredMessageGrid">
