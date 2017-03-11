@@ -73,5 +73,7 @@ namespace Misp.Bfc.Advisements
         {
             
         }
+        
+        public bool IsModify { get; set; }
     }
 }
