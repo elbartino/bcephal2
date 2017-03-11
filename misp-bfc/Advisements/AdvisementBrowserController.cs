@@ -13,10 +13,16 @@ namespace Misp.Bfc.Advisements
     public class AdvisementBrowserController : BrowserController<Advisement, AdvisementBrowserData>
     {
 
+        public AdvisementType advisementType { get; set; }
         public AdvisementBrowserController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
             this.SubjectType = Kernel.Domain.SubjectType.ADVISEMENT;
+        }
+
+        public AdvisementBrowserController(AdvisementType advisementType) :base()
+        {
+            this.advisementType = advisementType;
         }
 
 
@@ -37,7 +43,6 @@ namespace Misp.Bfc.Advisements
 
         protected override void initializeViewData()
         {
-
         }
     }
 }

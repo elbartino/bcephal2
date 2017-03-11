@@ -1,4 +1,5 @@
 ﻿using Misp.Bfc.Advisements;
+using Misp.Bfc.Model;
 using Misp.Bfc.Review;
 using Misp.Kernel.Application;
 using Misp.Kernel.Controller;
@@ -38,14 +39,79 @@ namespace Misp.Bfc.Base
                 //reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
                 return reviewController;
             }
+
+            if (fonctionality == BfcFunctionalitiesCode.PREFUNDING_ADVISEMENT)
+            {
+                AdvisementEditorController advisementEditorController = new AdvisementEditorController(AdvisementType.PREFUNDING);
+                advisementEditorController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
+                advisementEditorController.ApplicationManager = this.ApplicationManager;
+                //reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
+                return advisementEditorController;
+            }
+            if (fonctionality == BfcFunctionalitiesCode.MEMBER_ADVISEMENT)
+            {
+                AdvisementEditorController advisementEditorController = new AdvisementEditorController(AdvisementType.MEMBER);
+                advisementEditorController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
+                advisementEditorController.ApplicationManager = this.ApplicationManager;
+                //reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
+                return advisementEditorController;
+            }
+
+
+            if (fonctionality == BfcFunctionalitiesCode.EXCEPTIONAL_ADVISEMENT)
+            {
+                AdvisementEditorController advisementEditorController = new AdvisementEditorController(AdvisementType.EXCEPTIONAL);
+                advisementEditorController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
+                advisementEditorController.ApplicationManager = this.ApplicationManager;
+                //reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
+                return advisementEditorController;
+            }
+
+            if (fonctionality == BfcFunctionalitiesCode.SETTLEMENT_ADVISEMENT) 
+            {
+                AdvisementEditorController advisementEditorController = new AdvisementEditorController(AdvisementType.SETTLEMENT);
+                advisementEditorController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
+                advisementEditorController.ApplicationManager = this.ApplicationManager;
+                //reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
+                return advisementEditorController;
+            }
+
             if (fonctionality == BfcFunctionalitiesCode.PREFUNDING_ADVISEMENT_LIST)
             {
-                AdvisementBrowserController advisementBrowserController = new AdvisementBrowserController();
+                AdvisementBrowserController advisementBrowserController = new AdvisementBrowserController(AdvisementType.PREFUNDING);
                 advisementBrowserController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
                 advisementBrowserController.ApplicationManager = this.ApplicationManager;
                 //reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
                 return advisementBrowserController;
             }
+
+            if (fonctionality == BfcFunctionalitiesCode.SETTLEMENT_ADVISEMENT_LIST)
+            {
+                AdvisementBrowserController advisementBrowserController = new AdvisementBrowserController(AdvisementType.SETTLEMENT);
+                advisementBrowserController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
+                advisementBrowserController.ApplicationManager = this.ApplicationManager;
+                //reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
+                return advisementBrowserController;
+            }
+
+            if (fonctionality == BfcFunctionalitiesCode.EXCEPTIONAL_ADVISEMENT_LIST)
+            {
+                AdvisementBrowserController advisementBrowserController = new AdvisementBrowserController(AdvisementType.EXCEPTIONAL);
+                advisementBrowserController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
+                advisementBrowserController.ApplicationManager = this.ApplicationManager;
+                //reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
+                return advisementBrowserController;
+            }
+
+            if (fonctionality == BfcFunctionalitiesCode.MEMBER_ADVISEMENT_LIST)
+            {
+                AdvisementBrowserController advisementBrowserController = new AdvisementBrowserController(AdvisementType.MEMBER);
+                advisementBrowserController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
+                advisementBrowserController.ApplicationManager = this.ApplicationManager;
+                //reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
+                return advisementBrowserController;
+            }
+
             return null;
         }
 

@@ -11,17 +11,41 @@ namespace Misp.Bfc.Advisements
 {
     public class AdvisementBrowser : Browser<AdvisementBrowserData>
     {
-        public AdvisementBrowser(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
+       public AdvisementBrowser(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
+
+       public AdvisementType advisementType { get; set; }
+       public AdvisementBrowser(Kernel.Domain.SubjectType subjectType, String functionality, AdvisementType advisementType) : base(subjectType,functionality)
+       {
+           this.advisementType = advisementType;
+       }
 
         protected override string getTitle()
         {
-            { return "Advisement"; }
+            if (advisementType.ToString().Equals(AdvisementType.MEMBER))
+                return "Member Advisement"; 
+
+            if (advisementType.ToString().Equals(AdvisementType.EXCEPTIONAL))
+                return "Exception Advisement"; 
+
+            if (advisementType.ToString().Equals(AdvisementType.SETTLEMENT))
+                return "Settlement Advisement";
+
+            return "Prefunding Advisement"; 
         }
 
         protected override int getColumnCount()
         {
-            return 6;
+            if(advisementType.ToString().Equals(AdvisementType.MEMBER))
+                return 7;
+
+            if (advisementType.ToString().Equals(AdvisementType.EXCEPTIONAL))
+                return 6;
+
+            if (advisementType.ToString().Equals(AdvisementType.SETTLEMENT))
+                return 6;
+
+            return 7;
         }
 
         protected override System.Windows.Controls.DataGridColumn getColumnAt(int index)

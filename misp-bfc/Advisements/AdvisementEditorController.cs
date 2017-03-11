@@ -13,6 +13,10 @@ namespace Misp.Bfc.Advisements
     public class AdvisementEditorController : EditorController<Advisement, AdvisementBrowserData>
     {
 
+        #region Properties
+            public AdvisementType advisementType { get; set; }
+        #endregion
+
         #region Editor and Service
 
         /// <summary>
@@ -37,6 +41,11 @@ namespace Misp.Bfc.Advisements
             this.SubjectType = SubjectType.ADVISEMENT;
         }
 
+        public AdvisementEditorController(AdvisementType advisementType) : base()
+        {
+            this.advisementType = advisementType;
+        }
+
         public override Kernel.Application.OperationState Delete()
         {
             return OperationState.CONTINUE;
@@ -49,6 +58,22 @@ namespace Misp.Bfc.Advisements
 
         public override Kernel.Application.OperationState Create()
         {
+            if (advisementType.ToString().Equals(AdvisementType.PREFUNDING.ToString()))
+            {
+
+            }
+
+            if (advisementType.ToString().Equals(AdvisementType.SETTLEMENT.ToString()))
+            {
+
+            }
+
+            if (advisementType.ToString().Equals(AdvisementType.EXCEPTIONAL.ToString()))
+            {
+
+            }
+
+
             return OperationState.CONTINUE;
         }
 
