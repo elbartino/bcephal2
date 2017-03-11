@@ -42,6 +42,7 @@ namespace Misp.Bfc.Advisements
             Advisement advisement = new Advisement();
             advisement.advisementType = AdvisementType.ToString();
             advisement.creator = ApplicationManager.User.login;
+            advisement.valueDateTime = DateTime.Now;
             try
             {
                 AdvisementEditorItem page = (AdvisementEditorItem)getAdvisementEditor().addOrSelectPage(advisement);

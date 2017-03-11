@@ -102,6 +102,7 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
     <Grid Grid.Row="0" x:Name="MemberBankGrid">
@@ -214,7 +215,16 @@
         <TextBox x:Name="StructuredMessageTextBox" x:FieldModifier="public" Style="{StaticResource EditableTextBox}" Grid.Column="1"/>
     </Grid>
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="10">
+    <Grid Grid.Row="10" x:Name="CreatorGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Creator" Style="{StaticResource label}" Grid.Column="0"/>
+        <TextBox x:Name="CreatorTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="1"/>
+    </Grid>
+
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="11">
         <Button x:Name="OkButton" x:FieldModifier="public" Content="OK" Style="{StaticResource button}"/>
         <Button x:Name="CancelButton" x:FieldModifier="public" Content="Cancel" Style="{StaticResource button}"/>
     </StackPanel>

@@ -234,9 +234,10 @@ namespace Misp.Bfc.Advisements
                     case 0: return "name";
                     case 1: return "creationDateTime";
                     case 2: return "memberBank";
-                    case 3: return "amount";
-                    case 4: return "valueDate";
-                    case 5: return "creator";
+                    case 3: return "scheme";
+                    case 4: return "amount";
+                    case 5: return "valueDate";
+                    case 6: return "creator";
                     default: return "oid";
                 }
             }

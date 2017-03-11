@@ -453,7 +453,7 @@ namespace Misp.Kernel.Controller
         /// </summary>
         protected override void initializeSideBarData()
         {
-            if (this.SideBar != null && this.Service != null)
+            if (this.SideBar != null && this.Service != null && this.Service.GroupService != null)
             {
                 Kernel.Domain.BGroup rootGroup = this.Service.GroupService.getRootGroup(SubjectTypeFound());
                 ((BrowserSideBar)SideBar).GroupGroup.GroupTreeview.DisplayRoot(rootGroup);

@@ -104,6 +104,7 @@ namespace Misp.Bfc.Advisements
                 if (this.EditedObject.valueDateTime.HasValue) this.ValueDatePicker.SelectedDate = this.EditedObject.valueDateTime;
                 this.MessageTextBlock.Text = this.EditedObject.message != null ? this.EditedObject.message : "";
                 this.StructuredMessageTextBox.Text = this.EditedObject.structuredMessage != null ? this.EditedObject.structuredMessage : "";
+                this.CreatorTextBox.Text = this.EditedObject.creator != null ? this.EditedObject.creator : ApplicationManager.Instance.User.login;
 
                 if (this.EditedObject.oid.HasValue)
                 {
@@ -115,9 +116,11 @@ namespace Misp.Bfc.Advisements
                     this.ValueDatePicker.IsEnabled = false;
                     this.MessageTextBlock.IsEnabled = false;
                     this.StructuredMessageTextBox.IsEnabled = false;
+                    this.CreatorGrid.Visibility = Visibility.Visible;
                     this.OkButton.Visibility = Visibility.Collapsed;
                     this.CancelButton.Visibility = Visibility.Collapsed;
                 }
+                else this.CreatorGrid.Visibility = Visibility.Collapsed;
                 this.IsModify = !this.EditedObject.oid.HasValue;
             }
             throwHandlers = true;
