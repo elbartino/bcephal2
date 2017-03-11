@@ -6,6 +6,7 @@ using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,9 +77,9 @@ namespace Misp.Bfc.Advisements
             this.EditedObject.pml = (BfcItem)this.PmlComboBox.SelectedItem;
             this.EditedObject.platform = (BfcItem)this.PlatformComboBox.SelectedItem;
 
-            this.EditedObject.alreadyRequestedAmount = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim());
-            this.EditedObject.amount = decimal.Parse(this.AmountTextEdit.Text.Trim());
-            this.EditedObject.balance = decimal.Parse(this.BalanceTextEdit.Text.Trim());
+            this.EditedObject.alreadyRequestedAmount = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+            this.EditedObject.amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+            this.EditedObject.balance = decimal.Parse(this.BalanceTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
 
             this.EditedObject.valueDateTime = this.ValueDatePicker.SelectedDate;
             this.EditedObject.message = this.MessageTextBlock.Text;
@@ -96,9 +97,9 @@ namespace Misp.Bfc.Advisements
                 this.PlatformComboBox.SelectedItem = this.EditedObject.platform;
                 this.PmlComboBox.SelectedItem = this.EditedObject.pml;
 
-                this.AlreadyRequestedPrefundingTextEdit.Text = this.EditedObject.alreadyRequestedAmount.HasValue ? this.EditedObject.alreadyRequestedAmount.Value.ToString() : "";
-                this.AmountTextEdit.Text = this.EditedObject.amount.HasValue ? this.EditedObject.amount.Value.ToString() : "";
-                this.BalanceTextEdit.Text = this.EditedObject.balance.HasValue ? this.EditedObject.balance.Value.ToString() : "";
+                if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) this.AlreadyRequestedPrefundingTextEdit.Text = this.EditedObject.alreadyRequestedAmount.HasValue ? this.EditedObject.alreadyRequestedAmount.Value.ToString() : "";
+                if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) this.AmountTextEdit.Text = this.EditedObject.amount.HasValue ? this.EditedObject.amount.Value.ToString() : "";
+                if (!string.IsNullOrWhiteSpace(this.BalanceTextEdit.Text)) this.BalanceTextEdit.Text = this.EditedObject.balance.HasValue ? this.EditedObject.balance.Value.ToString() : "";
 
                 if (this.EditedObject.valueDateTime.HasValue) this.ValueDatePicker.SelectedDate = this.EditedObject.valueDateTime;
                 this.MessageTextBlock.Text = this.EditedObject.message != null ? this.EditedObject.message : "";
@@ -114,14 +115,23 @@ namespace Misp.Bfc.Advisements
                     this.ValueDatePicker.IsEnabled = false;
                     this.MessageTextBlock.IsEnabled = false;
                     this.StructuredMessageTextBox.IsEnabled = false;
+                    this.OkButton.Visibility = Visibility.Collapsed;
+                    this.CancelButton.Visibility = Visibility.Collapsed;
                 }
+                this.IsModify = !this.EditedObject.oid.HasValue;
             }
             throwHandlers = true;
         }
 
         public bool validateEdition()
         {
-            decimal amount = decimal.Parse(this.AmountTextEdit.Text.Trim());
+            string amountText = this.AmountTextEdit.Text.Trim();
+            if (string.IsNullOrWhiteSpace(amountText))
+            {
+                MessageDisplayer.DisplayWarning("Wrong " + AmountLabel.Content, AmountLabel.Content + " can't be empty!");
+                return false;
+            }
+            decimal amount = decimal.Parse(amountText, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
             if (amount == 0)
             {
                 MessageDisplayer.DisplayWarning("Wrong " + AmountLabel.Content, AmountLabel.Content + " can't be 0!");
@@ -268,8 +278,14 @@ namespace Misp.Bfc.Advisements
                     this.Pml = item;
                     this.PmlTextBox.Text = item != null ? item.id : "";
                 }
-                if (throwHandlers && SelectionChanged != null) SelectionChanged();
+                OnChange();
+                if (throwHandlers && SelectionChanged != null) SelectionChanged();                
             } 
+        }
+
+        private void OnChange()
+        {
+            if (throwHandlers) this.IsModify = !this.EditedObject.oid.HasValue;
         }
 
         #endregion
