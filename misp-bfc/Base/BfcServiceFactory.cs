@@ -45,8 +45,9 @@ namespace Misp.Bfc.Base
             if (advisementService == null)
             {
                 advisementService = new AdvisementService();
-                advisementService.ResourcePath = BfcResourcePath.BFC_REVIEW_RESOURCE_PATH;
-                advisementService.RestClient = ApplicationManager.RestClient;         
+                advisementService.ResourcePath = BfcResourcePath.BFC_ADVISEMENT_RESOURCE_PATH;
+                advisementService.RestClient = ApplicationManager.RestClient;
+                advisementService.GroupService = GetGroupService();
             }
             return advisementService;
         }

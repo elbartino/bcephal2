@@ -14,21 +14,21 @@ namespace Misp.Bfc.Advisements
        public AdvisementBrowser(Kernel.Domain.SubjectType subjectType, String functionality) : base(subjectType, functionality) { }
 
 
-       public AdvisementType advisementType { get; set; }
+       public AdvisementType AdvisementType { get; set; }
        public AdvisementBrowser(Kernel.Domain.SubjectType subjectType, String functionality, AdvisementType advisementType) : base(subjectType,functionality)
        {
-           this.advisementType = advisementType;
+           this.AdvisementType = advisementType;
        }
 
         protected override string getTitle()
         {
-            if (advisementType.ToString().Equals(AdvisementType.MEMBER))
-                return "Member Advisement"; 
+            if (this.AdvisementType.ToString().Equals(AdvisementType.MEMBER))
+                return "Member Advisement";
 
-            if (advisementType.ToString().Equals(AdvisementType.EXCEPTIONAL))
-                return "Exception Advisement"; 
+            if (this.AdvisementType.ToString().Equals(AdvisementType.EXCEPTIONAL))
+                return "Exception Advisement";
 
-            if (advisementType.ToString().Equals(AdvisementType.SETTLEMENT))
+            if (this.AdvisementType.ToString().Equals(AdvisementType.SETTLEMENT))
                 return "Settlement Advisement";
 
             return "Prefunding Advisement"; 
@@ -36,13 +36,13 @@ namespace Misp.Bfc.Advisements
 
         protected override int getColumnCount()
         {
-            if(advisementType.ToString().Equals(AdvisementType.MEMBER))
+            if (this.AdvisementType.ToString().Equals(AdvisementType.MEMBER))
                 return 7;
 
-            if (advisementType.ToString().Equals(AdvisementType.EXCEPTIONAL))
+            if (this.AdvisementType.ToString().Equals(AdvisementType.EXCEPTIONAL))
                 return 6;
 
-            if (advisementType.ToString().Equals(AdvisementType.SETTLEMENT))
+            if (this.AdvisementType.ToString().Equals(AdvisementType.SETTLEMENT))
                 return 6;
 
             return 7;

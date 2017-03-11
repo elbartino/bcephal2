@@ -23,6 +23,8 @@ namespace Misp.Bfc.Advisements
         public AdvisementBrowserController(AdvisementType advisementType) :base()
         {
             this.advisementType = advisementType;
+            ModuleName = PlugIn.MODULE_NAME;
+            this.SubjectType = Kernel.Domain.SubjectType.ADVISEMENT;
         }
 
 
@@ -38,7 +40,7 @@ namespace Misp.Bfc.Advisements
 
         protected override Kernel.Ui.Base.IView getNewView()
         {
-            return new AdvisementBrowser(this.SubjectType, this.FunctionalityCode); 
+            return new AdvisementBrowser(this.SubjectType, this.FunctionalityCode,advisementType); 
         }
 
         protected override void initializeViewData()
