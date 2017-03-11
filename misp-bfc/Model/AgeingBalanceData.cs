@@ -11,7 +11,7 @@ namespace Misp.Bfc.Model
 
         public string replenishmentInstruction;
         public string sentDate;
-        public string valueDat;
+        public string valueDate;
         public string memberBankName;
         public decimal toReceive;
         public decimal paid;
