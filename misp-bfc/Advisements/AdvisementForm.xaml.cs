@@ -77,9 +77,9 @@ namespace Misp.Bfc.Advisements
             this.EditedObject.pml = (BfcItem)this.PmlComboBox.SelectedItem;
             this.EditedObject.platform = (BfcItem)this.PlatformComboBox.SelectedItem;
 
-            this.EditedObject.alreadyRequestedAmount = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
-            this.EditedObject.amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
-            this.EditedObject.balance = decimal.Parse(this.BalanceTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+            if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) this.EditedObject.alreadyRequestedAmount = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+            if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) this.EditedObject.amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+            if (!string.IsNullOrWhiteSpace(this.BalanceTextEdit.Text)) this.EditedObject.balance = decimal.Parse(this.BalanceTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
 
             this.EditedObject.valueDateTime = this.ValueDatePicker.SelectedDate;
             this.EditedObject.message = this.MessageTextBlock.Text;
@@ -97,9 +97,9 @@ namespace Misp.Bfc.Advisements
                 this.PlatformComboBox.SelectedItem = this.EditedObject.platform;
                 this.PmlComboBox.SelectedItem = this.EditedObject.pml;
 
-                if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) this.AlreadyRequestedPrefundingTextEdit.Text = this.EditedObject.alreadyRequestedAmount.HasValue ? this.EditedObject.alreadyRequestedAmount.Value.ToString() : "";
-                if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) this.AmountTextEdit.Text = this.EditedObject.amount.HasValue ? this.EditedObject.amount.Value.ToString() : "";
-                if (!string.IsNullOrWhiteSpace(this.BalanceTextEdit.Text)) this.BalanceTextEdit.Text = this.EditedObject.balance.HasValue ? this.EditedObject.balance.Value.ToString() : "";
+                this.AlreadyRequestedPrefundingTextEdit.Text = this.EditedObject.alreadyRequestedAmount.HasValue ? this.EditedObject.alreadyRequestedAmount.Value.ToString() : "";
+                this.AmountTextEdit.Text = this.EditedObject.amount.HasValue ? this.EditedObject.amount.Value.ToString() : "";
+                this.BalanceTextEdit.Text = this.EditedObject.balance.HasValue ? this.EditedObject.balance.Value.ToString() : "";
 
                 if (this.EditedObject.valueDateTime.HasValue) this.ValueDatePicker.SelectedDate = this.EditedObject.valueDateTime;
                 this.MessageTextBlock.Text = this.EditedObject.message != null ? this.EditedObject.message : "";
