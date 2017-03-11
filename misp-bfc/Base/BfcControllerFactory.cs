@@ -1,4 +1,5 @@
-﻿using Misp.Bfc.Review;
+﻿using Misp.Bfc.Advisements;
+using Misp.Bfc.Review;
 using Misp.Kernel.Application;
 using Misp.Kernel.Controller;
 using System;
@@ -36,6 +37,14 @@ namespace Misp.Bfc.Base
                 reviewController.ApplicationManager = this.ApplicationManager;
                 //reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
                 return reviewController;
+            }
+            if (fonctionality == BfcFunctionalitiesCode.PREFUNDING_ADVISEMENT_LIST)
+            {
+                AdvisementBrowserController advisementBrowserController = new AdvisementBrowserController();
+                advisementBrowserController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
+                advisementBrowserController.ApplicationManager = this.ApplicationManager;
+                //reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
+                return advisementBrowserController;
             }
             return null;
         }
