@@ -30,6 +30,10 @@ namespace Misp.Bfc.Advisements
 
         public override string GetEditorFuntionality()
         {
+            if (advisementType == AdvisementType.SETTLEMENT) return BfcFunctionalitiesCode.SETTLEMENT_ADVISEMENT;
+            if (advisementType == AdvisementType.MEMBER) return BfcFunctionalitiesCode.MEMBER_ADVISEMENT;
+            if (advisementType == AdvisementType.PREFUNDING) return BfcFunctionalitiesCode.PREFUNDING_ADVISEMENT;
+            if (advisementType == AdvisementType.EXCEPTIONAL) return BfcFunctionalitiesCode.EXCEPTIONAL_ADVISEMENT;
             return BfcFunctionalitiesCode.ADVISEMENT;
         }
 

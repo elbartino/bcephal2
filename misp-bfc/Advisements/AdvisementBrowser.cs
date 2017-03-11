@@ -272,5 +272,34 @@ namespace Misp.Bfc.Advisements
 
             return "";
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        protected override string getBindingStringFormatAt(int index)
+        {
+            if (isSettlement() || isMember())
+            {
+                switch (index)
+                {
+                    case 1: return "{0:dd/MM/yyyy HH:mm:ss}";
+                    case 4: return "{0:dd/MM/yyyy HH:mm:ss}";
+                    default: return null;
+                }
+            }
+            if (isExceptional() ||isPrefunding())
+            {
+                switch (index)
+                {
+                    case 1: return "{0:dd/MM/yyyy HH:mm:ss}";
+                    case 5: return "{0:dd/MM/yyyy HH:mm:ss}";
+                    default: return null;
+                }
+            }
+            
+            return null;
+        }
     }
 }
