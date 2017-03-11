@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Advisements\AdvisementBrowser.cs" />
+    <Compile Include="Advisements\AdvisementBrowserController.cs" />
     <Compile Include="Advisements\AdvisementEditor.cs" />
     <Compile Include="Advisements\AdvisementEditorController.cs" />
     <Compile Include="Advisements\AdvisementEditorItem.cs" />
