@@ -14,7 +14,10 @@ namespace Misp.Bfc.Base
         private ReviewService reviewService;
         private BfcItemService memberBankService;
         private BfcItemService schemeService;
-        private AdvisementService advisementService;
+        private AdvisementService prefundingAdvisementService;
+        private AdvisementService memberAdvisementService;
+        private AdvisementService exceptionalAdvisementService;
+        private AdvisementService settlementAdvisementService;
 
         /// <summary>
         /// Build a new instance of InitiationServiceFactory.
@@ -40,16 +43,52 @@ namespace Misp.Bfc.Base
             return reviewService;
         }
 
-        public AdvisementService GetAdvisementService()
+        public AdvisementService GetPrefundingAdvisementService()
         {
-            if (advisementService == null)
+            if (prefundingAdvisementService == null)
             {
-                advisementService = new AdvisementService();
-                advisementService.ResourcePath = BfcResourcePath.BFC_ADVISEMENT_RESOURCE_PATH;
-                advisementService.RestClient = ApplicationManager.RestClient;
-                advisementService.GroupService = GetGroupService();
+                prefundingAdvisementService = new AdvisementService();
+                prefundingAdvisementService.ResourcePath = BfcResourcePath.BFC_PREFUNDING_ADVISEMENT_RESOURCE_PATH;
+                prefundingAdvisementService.RestClient = ApplicationManager.RestClient;
+                prefundingAdvisementService.GroupService = GetGroupService();
             }
-            return advisementService;
+            return prefundingAdvisementService;
+        }
+
+        public AdvisementService GetMemberAdvisementService()
+        {
+            if (memberAdvisementService == null)
+            {
+                memberAdvisementService = new AdvisementService();
+                memberAdvisementService.ResourcePath = BfcResourcePath.BFC_MEMBER_ADVISEMENT_RESOURCE_PATH;
+                memberAdvisementService.RestClient = ApplicationManager.RestClient;
+                memberAdvisementService.GroupService = GetGroupService();
+            }
+            return memberAdvisementService;
+        }
+
+        public AdvisementService GetExceptionalAdvisementService()
+        {
+            if (exceptionalAdvisementService == null)
+            {
+                exceptionalAdvisementService = new AdvisementService();
+                exceptionalAdvisementService.ResourcePath = BfcResourcePath.BFC_EXCEPTIONAL_ADVISEMENT_RESOURCE_PATH;
+                exceptionalAdvisementService.RestClient = ApplicationManager.RestClient;
+                exceptionalAdvisementService.GroupService = GetGroupService();
+            }
+            return exceptionalAdvisementService;
+        }
+
+        public AdvisementService GetSettlementAdvisementService()
+        {
+            if (settlementAdvisementService == null)
+            {
+                settlementAdvisementService = new AdvisementService();
+                settlementAdvisementService.ResourcePath = BfcResourcePath.BFC_SETTLEMENT_ADVISEMENT_RESOURCE_PATH;
+                settlementAdvisementService.RestClient = ApplicationManager.RestClient;
+                settlementAdvisementService.GroupService = GetGroupService();
+            }
+            return settlementAdvisementService;
         }
 
         /// <summary>
