@@ -141,6 +141,7 @@
     <Compile Include="Review\SettlementEvolutionForm.xaml.cs">
       <DependentUpon>SettlementEvolutionForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Service\AdvisementService.cs" />
     <Compile Include="Service\BfcItemService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

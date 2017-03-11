@@ -53,7 +53,7 @@ namespace Misp.Bfc.Base
                 AdvisementEditorController advisementEditorController = new AdvisementEditorController(AdvisementType.MEMBER);
                 advisementEditorController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
                 advisementEditorController.ApplicationManager = this.ApplicationManager;
-                //advisementEditorController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
+                advisementEditorController.Service = ((BfcServiceFactory)ServiceFactory).GetRe;
                 return advisementEditorController;
             }
 
@@ -63,7 +63,7 @@ namespace Misp.Bfc.Base
                 AdvisementEditorController advisementEditorController = new AdvisementEditorController(AdvisementType.EXCEPTIONAL);
                 advisementEditorController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
                 advisementEditorController.ApplicationManager = this.ApplicationManager;
-                //advisementEditorController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
+                advisementEditorController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
                 return advisementEditorController;
             }
 

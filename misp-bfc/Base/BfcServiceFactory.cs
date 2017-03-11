@@ -14,6 +14,7 @@ namespace Misp.Bfc.Base
         private ReviewService reviewService;
         private BfcItemService memberBankService;
         private BfcItemService schemeService;
+        private AdvisementService advisementService;
 
         /// <summary>
         /// Build a new instance of InitiationServiceFactory.
@@ -38,7 +39,18 @@ namespace Misp.Bfc.Base
             }
             return reviewService;
         }
-        
+
+        public AdvisementService GetAdvisementService()
+        {
+            if (advisementService == null)
+            {
+                advisementService = new AdvisementService();
+                advisementService.ResourcePath = BfcResourcePath.BFC_REVIEW_RESOURCE_PATH;
+                advisementService.RestClient = ApplicationManager.RestClient;         
+            }
+            return advisementService;
+        }
+
         /// <summary>
         /// memberBankService
         /// </summary>
