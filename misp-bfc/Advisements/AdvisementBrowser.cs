@@ -46,7 +46,7 @@ namespace Misp.Bfc.Advisements
             return this.AdvisementType == AdvisementType.PREFUNDING;
         }
 
-        protected bool isMemeber()
+        protected bool isMember()
         {
             return this.AdvisementType == AdvisementType.MEMBER;
         }
@@ -60,12 +60,10 @@ namespace Misp.Bfc.Advisements
         {
             return this.AdvisementType == AdvisementType.SETTLEMENT;
         }
-
-        
-
+                
         protected override string getTitle()
         {
-            if (isMemeber()) return "Member Advisement";
+            if (isMember()) return "Member Advisement";
             else if (isExceptional()) return "Exception Advisement";
             else if (isSettlement()) return "Settlement Advisement";
             return "Prefunding Advisement"; 
@@ -92,6 +90,46 @@ namespace Misp.Bfc.Advisements
                     default: return new DataGridTextColumn();
                 }
             }
+            if (isMember())
+            {
+                switch (index)
+                {
+                    case 0: return new DataGridTextColumn();
+                    case 1: return new DataGridTextColumn();
+                    case 2: return new DataGridTextColumn();
+                    case 3: return new DataGridTextColumn();
+                    case 4: return new DataGridTextColumn();
+                    case 5: return new DataGridTextColumn();
+                    default: return new DataGridTextColumn();
+                }
+            }
+            if (isExceptional())
+            {
+                switch (index)
+                {
+                    case 0: return new DataGridTextColumn();
+                    case 1: return new DataGridTextColumn();
+                    case 2: return new DataGridTextColumn();
+                    case 3: return new DataGridTextColumn();
+                    case 4: return new DataGridTextColumn();
+                    case 5: return new DataGridTextColumn();
+                    default: return new DataGridTextColumn();
+                }
+            }
+
+            if (isSettlement())
+            {
+                switch (index)
+                {
+                    case 0: return new DataGridTextColumn();
+                    case 1: return new DataGridTextColumn();
+                    case 2: return new DataGridTextColumn();
+                    case 3: return new DataGridTextColumn();
+                    case 4: return new DataGridTextColumn();
+                    case 5: return new DataGridTextColumn();
+                    default: return new DataGridTextColumn();
+                }
+            }
             return new DataGridTextColumn();
         }
 
@@ -101,12 +139,57 @@ namespace Misp.Bfc.Advisements
             {
                 switch (index)
                 {
-                    case 0: return "Name";
-                    case 1: return "Group";
-                    case 2: return "Creation Date";
-                    case 3: return "Modification Date";
-                    case 4: return "Active";
-                    case 5: return "Template";
+                   
+                    case 0: return "Pre-funding n°";
+                    case 1: return "Date";
+                    case 2: return "Member Bank";
+                    case 3: return "Scheme";
+                    case 4: return "Amount";
+                    case 5: return "Value date";
+                    case 6: return "Creator";
+                    default: return "";
+                }
+            }
+            if (isMember())
+            {
+                switch (index)
+                {
+                    case 0: return "Repleshment Instruction n°";
+                    case 1: return "Date";
+                    case 2: return "Member Bank";
+                    case 3: return "Scheme";
+                    case 4: return "Amount";
+                    case 5: return "Value Date";
+                    case 6: return "Creator";
+                    default: return "";
+                }
+            }
+
+            if (isExceptional())
+            {
+                switch (index)
+                {
+                    case 0: return "Member Advisement n°";
+                    case 1: return "Date";
+                    case 2: return "Member Bank";
+                    case 3: return "Scheme";
+                    case 4: return "Amount";
+                    case 5: return "Value Date";
+                    case 6: return "Creator";
+                    default: return "";
+                }
+            }
+
+            if (isSettlement())
+            {
+                switch (index)
+                {
+                    case 0: return "Settlement Advisement n°";
+                    case 1: return "Date";
+                    case 2: return "Scheme";
+                    case 3: return "Amount";
+                    case 4: return "Value Date";
+                    case 5: return "Creator";
                     default: return "";
                 }
             }
@@ -135,6 +218,35 @@ namespace Misp.Bfc.Advisements
                 {
                     case 0: return "name";
                     case 1: return "group";
+                    case 2: return "memberBank";
+                    case 3: return "scheme";
+                    case 4: return "amount";
+                    case 5: return "valueDate";
+                    case 6: return "creator";
+                    default: return "oid";
+                }
+            }
+
+            if (isMember())
+            {
+                switch (index)
+                {
+                    case 0: return "name";
+                    case 1: return "group";
+                    case 2: return "memberBank";
+                    case 3: return "amount";
+                    case 4: return "valueDate";
+                    case 5: return "creator";
+                    default: return "oid";
+                }
+            }
+
+            if (isExceptional())
+            {
+                switch (index)
+                {
+                    case 0: return "name";
+                    case 1: return "group";
                     case 2: return "creationDateTime";
                     case 3: return "modificationDateTime";
                     case 4: return "active";
@@ -143,6 +255,21 @@ namespace Misp.Bfc.Advisements
                     default: return "oid";
                 }
             }
+
+            if (isSettlement()) 
+            {
+                switch (index)
+                {
+                    case 0: return "name";
+                    case 1: return "group";
+                    case 2: return "scheme";
+                    case 3: return "amount";
+                    case 4: return "valueDate";
+                    case 5: return "creator";
+                    default: return "oid";
+                }
+            }
+
             return "";
         }
     }
