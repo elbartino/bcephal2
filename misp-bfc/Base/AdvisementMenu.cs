@@ -58,7 +58,7 @@ namespace Misp.Bfc.Base
             PrefundingAdvisementMenu.Items.Add(NewPrefundingAdvisementMenu);
             PrefundingAdvisementMenu.Items.Add(ListPrefundingAdvisementMenu);
 
-            MemberAdvisementMenu = BuildMenu(BfcFunctionalitiesCode.MEMBER_ADVISEMENT, BfcFunctionalitiesLabel.MEMBER_ADVISEMENT_LABEL, BfcFunctionalitiesCode.ADVISEMENT);
+            MemberAdvisementMenu = BuildMenu(BfcFunctionalitiesCode.ADVISEMENT, BfcFunctionalitiesLabel.MEMBER_ADVISEMENT_LABEL, BfcFunctionalitiesCode.ADVISEMENT);
             NewMemberAdvisementMenu = BuildMenu(BfcFunctionalitiesCode.MEMBER_ADVISEMENT, BfcFunctionalitiesLabel.NEW_MEMBER_ADVISEMENT_LABEL, NavigationToken.GetCreateViewToken(BfcFunctionalitiesCode.MEMBER_ADVISEMENT), Kernel.Domain.RightType.CREATE);
             ListMemberAdvisementMenu = BuildMenu(BfcFunctionalitiesCode.MEMBER_ADVISEMENT, BfcFunctionalitiesLabel.LIST_MEMBER_ADVISEMENT_LABEL, NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.MEMBER_ADVISEMENT_LIST), Kernel.Domain.RightType.VIEW);
             MemberAdvisementMenu.Items.Add(NewMemberAdvisementMenu);
