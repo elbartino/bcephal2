@@ -94,6 +94,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Advisements\AdvisementBrowser.cs" />
+    <Compile Include="Advisements\AdvisementEditor.cs" />
+    <Compile Include="Advisements\AdvisementEditorController.cs" />
+    <Compile Include="Advisements\AdvisementEditorItem.cs" />
+    <Compile Include="Advisements\AdvisementForm.xaml.cs">
+      <DependentUpon>AdvisementForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Advisements\AdvisementToolBar.cs" />
     <Compile Include="Base\BfcControllerFactory.cs" />
     <Compile Include="Base\BfcFunctionalitiesCode.cs" />
     <Compile Include="Base\BfcFunctionalitiesLabel.cs" />
@@ -167,6 +175,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Advisements\AdvisementForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Review\AgeingBalanceForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
