@@ -44,7 +44,7 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="IsHitTestVisible" Value="False"/>
             <Setter Property="MaskType" Value="Numeric"/>
-            <Setter Property="DisplayFormatString" Value="n2"/>
+            <Setter Property="DisplayFormatString" Value="n2"/>            
         </Style>
 
         <Style x:Key="EditableTextBox" TargetType="{x:Type TextBox}">
@@ -61,6 +61,7 @@
             <Setter Property="Width" Value="200"/>
             <Setter Property="IsEnabled" Value="False"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
         </Style>
     </Grid.Resources>
 
@@ -79,7 +80,7 @@
 
     <Grid Grid.Row="0" x:Name="MemberBankGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
@@ -90,7 +91,7 @@
 
     <Grid Grid.Row="1" x:Name="SchemeGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
@@ -101,7 +102,7 @@
 
     <Grid Grid.Row="2" x:Name="PmlGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
@@ -112,7 +113,7 @@
 
     <Grid Grid.Row="3" x:Name="PlatformGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
@@ -123,7 +124,7 @@
 
     <Grid Grid.Row="4" x:Name="AlreadyRequestedPrefundingGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
@@ -144,7 +145,7 @@
 
     <Grid Grid.Row="5" x:Name="AmountGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="AmountLabel" Content="New Pre-funding Requested" Style="{StaticResource label}" Grid.Column="0"/>
@@ -153,7 +154,7 @@
 
     <Grid Grid.Row="6" x:Name="BalanceGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Content="New Balance" Style="{StaticResource label}" Grid.Column="0"/>
@@ -162,7 +163,7 @@
 
     <Grid Grid.Row="7" x:Name="ValueDateGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="ValueDateLabel" Content="Value Date" Style="{StaticResource label}" Grid.Column="0"/>
@@ -171,7 +172,7 @@
 
     <Grid Grid.Row="8" x:Name="MessageGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Content="Message" Style="{StaticResource label}" Grid.Column="0"/>
@@ -180,7 +181,7 @@
 
     <Grid Grid.Row="9" x:Name="StructuredMessageGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Content="Structured Message" Style="{StaticResource label}" Grid.Column="0"/>
