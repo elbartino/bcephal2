@@ -150,11 +150,11 @@ namespace Misp.Bfc.Advisements
                     default: return "";
                 }
             }
-            if (isMember())
+            if (isExceptional())
             {
                 switch (index)
                 {
-                    case 0: return "Repleshment Instruction n°";
+                    case 0: return "Replenishment Instruction n°";
                     case 1: return "Date";
                     case 2: return "Member Bank";
                     case 3: return "Scheme";
@@ -165,7 +165,7 @@ namespace Misp.Bfc.Advisements
                 }
             }
 
-            if (isExceptional())
+            if (isMember())
             {
                 switch (index)
                 {
@@ -217,7 +217,7 @@ namespace Misp.Bfc.Advisements
                 switch (index)
                 {
                     case 0: return "name";
-                    case 1: return "group";
+                    case 1: return "creationDateTime";
                     case 2: return "memberBank";
                     case 3: return "scheme";
                     case 4: return "amount";
@@ -232,7 +232,7 @@ namespace Misp.Bfc.Advisements
                 switch (index)
                 {
                     case 0: return "name";
-                    case 1: return "group";
+                    case 1: return "creationDateTime";
                     case 2: return "memberBank";
                     case 3: return "amount";
                     case 4: return "valueDate";
@@ -246,12 +246,12 @@ namespace Misp.Bfc.Advisements
                 switch (index)
                 {
                     case 0: return "name";
-                    case 1: return "group";
-                    case 2: return "creationDateTime";
-                    case 3: return "modificationDateTime";
-                    case 4: return "active";
-                    case 5: return "template";
-                    case 6: return "visibleInShortcut";
+                    case 1: return "creationDateTime";
+                    case 2: return "memberBank";
+                    case 3: return "scheme";
+                    case 4: return "amount";
+                    case 5: return "valueDate";
+                    case 6: return "creator";
                     default: return "oid";
                 }
             }
@@ -261,7 +261,7 @@ namespace Misp.Bfc.Advisements
                 switch (index)
                 {
                     case 0: return "name";
-                    case 1: return "group";
+                    case 1: return "creationDateTime";
                     case 2: return "scheme";
                     case 3: return "amount";
                     case 4: return "valueDate";
