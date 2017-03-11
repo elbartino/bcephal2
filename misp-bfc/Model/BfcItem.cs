@@ -27,5 +27,21 @@ namespace Misp.Bfc.Model
             return this.oid.Value.CompareTo(((BfcItem)obj).oid.Value);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (base.Equals(obj)) return true;
+
+            if (obj is BfcItem)
+            {
+                BfcItem objm = (BfcItem)obj;
+                if (objm.oid.HasValue && this.oid.HasValue)
+                {
+                    if (objm.oid == this.oid) return true;
+                }
+                if (objm.name != null && objm.name.Equals(this.name)) return true;
+            }
+            return false;
+        }
+
     }
 }
