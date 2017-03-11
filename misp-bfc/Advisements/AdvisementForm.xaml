@@ -63,9 +63,35 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
         </Style>
+
+        <Style x:Key="button" TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="10 20"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="27"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#839BBB"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFCFD6E5"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Grid.Resources>
 
     <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
@@ -188,8 +214,9 @@
         <TextBox x:Name="StructuredMessageTextBox" x:FieldModifier="public" Style="{StaticResource EditableTextBox}" Grid.Column="1"/>
     </Grid>
 
-    <StackPanel Grid.Row="10">
-        
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="10">
+        <Button x:Name="OkButton" x:FieldModifier="public" Content="OK" Style="{StaticResource button}"/>
+        <Button x:Name="CancelButton" x:FieldModifier="public" Content="Cancel" Style="{StaticResource button}"/>
     </StackPanel>
     
 </Grid>

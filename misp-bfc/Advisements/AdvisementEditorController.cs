@@ -1,7 +1,9 @@
 ﻿using Misp.Bfc.Model;
+using Misp.Bfc.Service;
 using Misp.Kernel.Application;
 using Misp.Kernel.Controller;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +14,10 @@ namespace Misp.Bfc.Advisements
 {
     public class AdvisementEditorController : EditorController<Advisement, AdvisementBrowserData>
     {
-
+        
         #region Properties
            
-        public AdvisementType advisementType { get; set; }
+        public AdvisementType AdvisementType { get; set; }
 
         #endregion
 
@@ -25,7 +27,7 @@ namespace Misp.Bfc.Advisements
         public AdvisementEditorController(AdvisementType advisementType)
             : base()
         {
-            this.advisementType = advisementType;
+            this.AdvisementType = advisementType;
             ModuleName = PlugIn.MODULE_NAME;
             this.SubjectType = SubjectType.ADVISEMENT;
         }
@@ -38,13 +40,13 @@ namespace Misp.Bfc.Advisements
         public override Kernel.Application.OperationState Create()
         {
             Advisement advisement = new Advisement();
-            advisement.advisementType = advisementType.ToString();
+            advisement.advisementType = AdvisementType.ToString();
             advisement.creator = ApplicationManager.User.login;
             try
             {
                 AdvisementEditorItem page = (AdvisementEditorItem)getAdvisementEditor().addOrSelectPage(advisement);
                 initializePageHandlers(page);
-                page.Title = advisementType.ToString();
+                page.Title = AdvisementType.ToString();
                 getAdvisementEditor().ListChangeHandler.AddNew(advisement);
             }
             catch (Exception) { }
@@ -69,12 +71,12 @@ namespace Misp.Bfc.Advisements
 
         protected override Kernel.Ui.Base.IView getNewView()
         {
-            return new AdvisementEditor(this.SubjectType, this.FunctionalityCode, this.advisementType);
+            return new AdvisementEditor(this.SubjectType, this.FunctionalityCode, this.AdvisementType);
         }
 
         protected override Kernel.Ui.Base.ToolBar getNewToolBar()
         {
-            return new Kernel.Ui.Base.ToolBar();
+            return new AdvisementToolBar();
         }
 
         protected override ToolBarHandlerBuilder getNewToolBarHandlerBuilder()
@@ -92,24 +94,103 @@ namespace Misp.Bfc.Advisements
             return null;
         }
 
+        protected AdvisementService getAdvisementService()
+        {
+            return (AdvisementService)Service;
+        }
+
+        #endregion
+
+
+        #region Initialization
+
+        /// <summary>
+        /// Initialisation des Handlers sur une nouvelle page.
+        /// </summary>
+        protected override void initializePageHandlers(EditorItem<Advisement> item)
+        {
+            AdvisementEditorItem page = (AdvisementEditorItem)item;
+            initializePageData(page);
+            base.initializePageHandlers(page);
+            page.getAdvisementForm().SelectionChanged += OnSelectionChanged;
+            page.getAdvisementForm().OkButton.Click += OnOkClick;
+            page.getAdvisementForm().CancelButton.Click += OnCancelClick;
+        }
+
+        protected void initializePageData(AdvisementEditorItem page)
+        {
+            if (!isSettlement())
+            {
+                List<BfcItem> banks = getAdvisementService().MemberBankService.getAll();
+                page.getAdvisementForm().MemberBankComboBox.ItemsSource = banks;
+            }
+
+            List<BfcItem> schemes = getAdvisementService().SchemeService.getAll();
+            page.getAdvisementForm().SchemeComboBox.ItemsSource = schemes;
+
+            if (isSettlement() || isMember())
+            {
+                List<BfcItem> platforms = getAdvisementService().PlatformService.getAll();
+                page.getAdvisementForm().PlatformComboBox.ItemsSource = platforms;
+            }
+            if (!isPrefunding())
+            {
+                List<BfcItem> pmls = getAdvisementService().PmlService.getAll();
+                page.getAdvisementForm().PmlComboBox.ItemsSource = pmls;
+            }
+        }
+
+        protected override void initializeSideBarData() { }
+        
+        public override SubjectType SubjectTypeFound() { return SubjectType.ADVISEMENT; }
+
+        protected bool isPrefunding()
+        {
+            return this.AdvisementType == AdvisementType.PREFUNDING;
+        }
+
+        protected bool isMember()
+        {
+            return this.AdvisementType == AdvisementType.MEMBER;
+        }
+
+        protected bool isExceptional()
+        {
+            return this.AdvisementType == AdvisementType.EXCEPTIONAL;
+        }
+
+        protected bool isSettlement()
+        {
+            return this.AdvisementType == AdvisementType.SETTLEMENT;
+        }
+
         #endregion
 
 
         #region Handlers
 
-        protected override void initializeSideBarData()
-        {
 
+        private void OnSelectionChanged()
+        {
+            AdvisementEditorItem page = (AdvisementEditorItem)getEditor().getActivePage();
+            if (isPrefunding())
+            {
+                //getAdvisementService().getAlready();
+            }
         }
 
-        protected override void initializeSideBarHandlers()
+        private void OnCancelClick(object sender, System.Windows.RoutedEventArgs e)
         {
+            AdvisementEditorItem page = (AdvisementEditorItem)getEditor().getActivePage();
         }
 
-        public override SubjectType SubjectTypeFound()
+        private void OnOkClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            return SubjectType.ADVISEMENT;
+            AdvisementEditorItem page = (AdvisementEditorItem)getEditor().getActivePage();
+            Save(page);
         }
+        
+        protected override void initializeSideBarHandlers() { }
 
         #endregion
 

@@ -24,6 +24,8 @@ namespace Misp.Bfc.Base
 
         public static string BFC_MEMBER_BANK_RESOURCE_PATH = BFC_RESOURCE_PATH + "/member-bank";
         public static string BFC_SCHEME_RESOURCE_PATH = BFC_RESOURCE_PATH + "/scheme";
+        public static string BFC_PML_RESOURCE_PATH = BFC_RESOURCE_PATH + "/pml";
+        public static string BFC_PLATFORM_RESOURCE_PATH = BFC_RESOURCE_PATH + "/platform";
 
     }
 }

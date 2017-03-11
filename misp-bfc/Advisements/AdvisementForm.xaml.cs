@@ -3,6 +3,7 @@ using Misp.Bfc.Model;
 using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace Misp.Bfc.Advisements
 
         #region Properties
 
+        public ChangeEventHandler SelectionChanged { get; set; }
+
         public AdvisementType AdvisementType { get; set; }
 
         public SubjectType SubjectType { get; set; }
@@ -37,6 +40,14 @@ namespace Misp.Bfc.Advisements
         public Advisement EditedObject { get; set; }
 
         public bool IsModify { get; set; }
+
+        public BfcItem MemberBank { get; private set; }
+        public BfcItem Scheme { get; private set; }
+        public BfcItem Platform { get; private set; }
+        public BfcItem Pml { get; private set; }
+
+
+        bool throwHandlers;
 
         #endregion
 
@@ -49,8 +60,9 @@ namespace Misp.Bfc.Advisements
             this.AdvisementType = advisementType;
             this.SubjectType = subjectType;
             InitializeComponent();
+            throwHandlers = true;
         }
-
+        
         #endregion
 
 
@@ -64,9 +76,10 @@ namespace Misp.Bfc.Advisements
             this.EditedObject.pml = (BfcItem)this.PmlComboBox.SelectedItem;
             this.EditedObject.platform = (BfcItem)this.PlatformComboBox.SelectedItem;
 
-            //this.EditedObject.alreadyRequestedAmount = decimal. this.AlreadyRequestedPrefundingTextBox.Text.Trim();
-            //this.EditedObject.amount;
-            //this.EditedObject.balance;
+            this.EditedObject.alreadyRequestedAmount = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim());
+            this.EditedObject.amount = decimal.Parse(this.AmountTextEdit.Text.Trim());
+            this.EditedObject.balance = decimal.Parse(this.BalanceTextEdit.Text.Trim());
+
             this.EditedObject.valueDateTime = this.ValueDatePicker.SelectedDate;
             this.EditedObject.message = this.MessageTextBlock.Text;
             this.EditedObject.structuredMessage = this.StructuredMessageTextBox.Text;
@@ -75,11 +88,60 @@ namespace Misp.Bfc.Advisements
 
         public void displayObject()
         {
+            throwHandlers = false;
+            if (this.EditedObject != null)
+            {
+                this.MemberBankComboBox.SelectedItem = this.EditedObject.memberBank;
+                this.SchemeComboBox.SelectedItem = this.EditedObject.scheme;
+                this.PlatformComboBox.SelectedItem = this.EditedObject.platform;
+                this.PmlComboBox.SelectedItem = this.EditedObject.pml;
 
+                this.AlreadyRequestedPrefundingTextEdit.Text = this.EditedObject.alreadyRequestedAmount.HasValue ? this.EditedObject.alreadyRequestedAmount.Value.ToString() : "";
+                this.AmountTextEdit.Text = this.EditedObject.amount.HasValue ? this.EditedObject.amount.Value.ToString() : "";
+                this.BalanceTextEdit.Text = this.EditedObject.balance.HasValue ? this.EditedObject.balance.Value.ToString() : "";
+
+                if (this.EditedObject.valueDateTime.HasValue) this.ValueDatePicker.SelectedDate = this.EditedObject.valueDateTime;
+                this.MessageTextBlock.Text = this.EditedObject.message != null ? this.EditedObject.message : "";
+                this.StructuredMessageTextBox.Text = this.EditedObject.structuredMessage != null ? this.EditedObject.structuredMessage : "";
+
+                if (this.EditedObject.oid.HasValue)
+                {
+                    this.MemberBankComboBox.IsEnabled = false;
+                    this.SchemeComboBox.IsEnabled = false;
+                    this.PlatformComboBox.IsEnabled = false;
+                    this.PmlComboBox.IsEnabled = false;
+                    this.AmountTextEdit.IsEnabled = false;                    
+                    this.ValueDatePicker.IsEnabled = false;
+                    this.MessageTextBlock.IsEnabled = false;
+                    this.StructuredMessageTextBox.IsEnabled = false;
+                }
+            }
+            throwHandlers = true;
         }
 
         public bool validateEdition()
         {
+            decimal amount = decimal.Parse(this.AmountTextEdit.Text.Trim());
+            if (amount == 0)
+            {
+                MessageDisplayer.DisplayWarning("Wrong " + AmountLabel.Content, AmountLabel.Content + " can't be 0!");
+                return false;
+            }
+            if (!ValueDatePicker.SelectedDate.HasValue)
+            {
+                MessageDisplayer.DisplayWarning("Wrong Value Date", "Value Date can't be empty!");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(this.MessageTextBlock.Text))
+            {
+                MessageDisplayer.DisplayWarning("Wrong Message", "Message can't be empty!");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(this.StructuredMessageTextBox.Text))
+            {
+                MessageDisplayer.DisplayWarning("Wrong Structured Message", "Structured Message can't be empty!");
+                return false;
+            }
             return true;
         }
 
@@ -104,8 +166,7 @@ namespace Misp.Bfc.Advisements
         #endregion
 
 
-
-        #region Operations
+        #region Initialization
 
         public void CustomizeForType()
         {
@@ -135,6 +196,7 @@ namespace Misp.Bfc.Advisements
                 this.AlreadyRequestedPrefundingGrid.Visibility = Visibility.Collapsed;
                 this.BalanceGrid.Visibility = Visibility.Collapsed;
             }
+            InitializeHandlers();
         }
 
         protected bool isPrefunding()
@@ -155,6 +217,59 @@ namespace Misp.Bfc.Advisements
         protected bool isSettlement()
         {
             return this.AdvisementType == AdvisementType.SETTLEMENT;
+        }
+
+        #endregion
+
+
+        #region Handlers
+
+        private void InitializeHandlers()
+        {
+            if (!isSettlement())
+            {
+                this.MemberBankComboBox.SelectionChanged += OnComboBoxSelectionChanged;
+            }
+
+            this.SchemeComboBox.SelectionChanged += OnComboBoxSelectionChanged;
+
+            if (isSettlement() || isMember())
+            {
+                this.PlatformComboBox.SelectionChanged += OnComboBoxSelectionChanged;
+            }
+            if (!isPrefunding())
+            {
+                this.PmlComboBox.SelectionChanged += OnComboBoxSelectionChanged;
+            }
+        }
+
+        private void OnComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender != null && sender is ComboBox)
+            {
+                BfcItem item = (BfcItem)((ComboBox)sender).SelectedItem;
+                if (sender == this.MemberBankComboBox)
+                {
+                    this.MemberBank = item;
+                    this.MemberBankTextBox.Text = item != null ? item.id : "";
+                }
+                else if (sender == this.SchemeComboBox)
+                {
+                    this.Scheme = item;
+                    this.SchemeTextBox.Text = item != null ? item.id : "";
+                }
+                else if (sender == this.PlatformComboBox)
+                {
+                    this.Platform = item;
+                    this.PlatformTextBox.Text = item != null ? item.id : "";
+                }
+                else if (sender == this.PmlComboBox)
+                {
+                    this.Pml = item;
+                    this.PmlTextBox.Text = item != null ? item.id : "";
+                }
+                if (throwHandlers && SelectionChanged != null) SelectionChanged();
+            } 
         }
 
         #endregion

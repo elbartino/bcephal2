@@ -14,6 +14,9 @@ namespace Misp.Bfc.Base
         private ReviewService reviewService;
         private BfcItemService memberBankService;
         private BfcItemService schemeService;
+        private BfcItemService platformService;
+        private BfcItemService pmlService;
+
         private AdvisementService prefundingAdvisementService;
         private AdvisementService memberAdvisementService;
         private AdvisementService exceptionalAdvisementService;
@@ -50,7 +53,10 @@ namespace Misp.Bfc.Base
                 prefundingAdvisementService = new AdvisementService();
                 prefundingAdvisementService.ResourcePath = BfcResourcePath.BFC_PREFUNDING_ADVISEMENT_RESOURCE_PATH;
                 prefundingAdvisementService.RestClient = ApplicationManager.RestClient;
-                prefundingAdvisementService.GroupService = GetGroupService();
+                prefundingAdvisementService.MemberBankService = GetMemberBankService();
+                prefundingAdvisementService.SchemeService = GetSchemeService();
+                prefundingAdvisementService.PlatformService = GetPlatformService();
+                prefundingAdvisementService.PmlService = GetPmlService();
             }
             return prefundingAdvisementService;
         }
@@ -62,7 +68,10 @@ namespace Misp.Bfc.Base
                 memberAdvisementService = new AdvisementService();
                 memberAdvisementService.ResourcePath = BfcResourcePath.BFC_MEMBER_ADVISEMENT_RESOURCE_PATH;
                 memberAdvisementService.RestClient = ApplicationManager.RestClient;
-                memberAdvisementService.GroupService = GetGroupService();
+                memberAdvisementService.MemberBankService = GetMemberBankService();
+                memberAdvisementService.SchemeService = GetSchemeService();
+                memberAdvisementService.PlatformService = GetPlatformService();
+                memberAdvisementService.PmlService = GetPmlService();
             }
             return memberAdvisementService;
         }
@@ -74,7 +83,10 @@ namespace Misp.Bfc.Base
                 exceptionalAdvisementService = new AdvisementService();
                 exceptionalAdvisementService.ResourcePath = BfcResourcePath.BFC_EXCEPTIONAL_ADVISEMENT_RESOURCE_PATH;
                 exceptionalAdvisementService.RestClient = ApplicationManager.RestClient;
-                exceptionalAdvisementService.GroupService = GetGroupService();
+                exceptionalAdvisementService.MemberBankService = GetMemberBankService();
+                exceptionalAdvisementService.SchemeService = GetSchemeService();
+                exceptionalAdvisementService.PlatformService = GetPlatformService();
+                exceptionalAdvisementService.PmlService = GetPmlService();
             }
             return exceptionalAdvisementService;
         }
@@ -86,7 +98,10 @@ namespace Misp.Bfc.Base
                 settlementAdvisementService = new AdvisementService();
                 settlementAdvisementService.ResourcePath = BfcResourcePath.BFC_SETTLEMENT_ADVISEMENT_RESOURCE_PATH;
                 settlementAdvisementService.RestClient = ApplicationManager.RestClient;
-                settlementAdvisementService.GroupService = GetGroupService();
+                settlementAdvisementService.MemberBankService = GetMemberBankService();
+                settlementAdvisementService.SchemeService = GetSchemeService();
+                settlementAdvisementService.PlatformService = GetPlatformService();
+                settlementAdvisementService.PmlService = GetPmlService();
             }
             return settlementAdvisementService;
         }
@@ -114,6 +129,28 @@ namespace Misp.Bfc.Base
                 schemeService.RestClient = ApplicationManager.RestClient;
             }
             return schemeService;
+        }
+
+        public BfcItemService GetPlatformService()
+        {
+            if (platformService == null)
+            {
+                platformService = new BfcItemService();
+                platformService.ResourcePath = BfcResourcePath.BFC_PLATFORM_RESOURCE_PATH;
+                platformService.RestClient = ApplicationManager.RestClient;
+            }
+            return platformService;
+        }
+
+        public BfcItemService GetPmlService()
+        {
+            if (pmlService == null)
+            {
+                pmlService = new BfcItemService();
+                pmlService.ResourcePath = BfcResourcePath.BFC_PML_RESOURCE_PATH;
+                pmlService.RestClient = ApplicationManager.RestClient;
+            }
+            return pmlService;
         }
 
 

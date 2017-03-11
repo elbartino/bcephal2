@@ -13,17 +13,14 @@ namespace Misp.Bfc.Advisements
         /// <summary>
         /// 
         /// </summary>
-        public AdvisementToolBar()
-        {
-            
-        }
+        public AdvisementToolBar() { }
 
 
         protected override List<System.Windows.Controls.Control> getAllControls()
         {
             List<System.Windows.Controls.Control> controls = new List<System.Windows.Controls.Control>(0);
             
-            controls.Add(SaveButton);
+            //controls.Add(SaveButton);
             controls.Add(CloseButton);
             
             return controls;
