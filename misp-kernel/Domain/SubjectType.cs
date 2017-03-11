@@ -56,6 +56,7 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType REPORT_GRID = new SubjectType("Report Grid");
 
+        public static SubjectType ADVISEMENT = new SubjectType("Advisement");
         
 
         public static SubjectType RECONCILIATION_FILTER = new SubjectType("Reconciliation Filter");

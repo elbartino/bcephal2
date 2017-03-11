@@ -9,7 +9,7 @@ namespace Misp.Bfc.Model
     public enum AdvisementType
     {
         PREFUNDING,
-        MEMEBER,
+        MEMBER,
         EXCEPTIONAL,
         SETTLEMENT
     }
