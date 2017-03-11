@@ -50,6 +50,11 @@ namespace Misp.Bfc.Review
                 getReviewBrowser().Form.Display(datas);
                 UpdateSettlementEvolutionChart(filter);
             }
+            else if (getReviewBrowser().Form.TabControl.SelectedIndex == 2)
+            {
+                List<AgeingBalanceData> datas = getReviewService().getAgeingBalanceDatas(filter);
+                getReviewBrowser().Form.Display(datas);
+            }
             return OperationState.CONTINUE; 
         }
 
