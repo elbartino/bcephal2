@@ -73,7 +73,5 @@ namespace Misp.Bfc.Advisements
         {
             
         }
-
-        public bool IsReadOnly { get; set; }
     }
 }
