@@ -40,25 +40,33 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             if (writeOffField.isAttribute())
             {
                 name = this.writeOffField.attributeField.name;
-                if (this.writeOffField.defaultValueTypeEnum == null || this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.CUSTOM)
-                {
-                    if (this.writeOffField.writeOffFieldValueListChangeHandler != null && this.writeOffField.writeOffFieldValueListChangeHandler.Items.Count > 0)
-                    {
-                        this.valueCombobox.ItemsSource = this.writeOffField.writeOffFieldValueListChangeHandler.Items.ToList();                        
-                    }
-                    else
-                    {
-                        ModelService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetModelService();
-                        this.valueCombobox.ItemsSource = service.getLeafAttributeValues(this.writeOffField.attributeField.oid.Value);
-                    }
-                }
-                else if (this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.LEFT_SIDE)
+                if (this.writeOffField.attributeField.incremental)
                 {
                     this.valueCombobox.IsEnabled = false;
+                    this.valueCombobox.SelectedValue = "Incremental...";
                 }
-                else if (this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.RIGHT_SIDE)
+                else
                 {
-                    this.valueCombobox.IsEnabled = false;
+                    if (this.writeOffField.defaultValueTypeEnum == null || this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.CUSTOM)
+                    {
+                        if (this.writeOffField.writeOffFieldValueListChangeHandler != null && this.writeOffField.writeOffFieldValueListChangeHandler.Items.Count > 0)
+                        {
+                            this.valueCombobox.ItemsSource = this.writeOffField.writeOffFieldValueListChangeHandler.Items.ToList();
+                        }
+                        else
+                        {
+                            ModelService service = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetModelService();
+                            this.valueCombobox.ItemsSource = service.getLeafAttributeValues(this.writeOffField.attributeField.oid.Value);
+                        }
+                    }
+                    else if (this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.LEFT_SIDE)
+                    {
+                        this.valueCombobox.IsEnabled = false;
+                    }
+                    else if (this.writeOffField.defaultValueTypeEnum == WriteOffFieldValueType.RIGHT_SIDE)
+                    {
+                        this.valueCombobox.IsEnabled = false;
+                    }
                 }
                 this.valueDatePicker.Visibility = System.Windows.Visibility.Collapsed;
                 this.valueCombobox.Visibility = System.Windows.Visibility.Visible;
@@ -81,18 +89,26 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public WriteOffField Fill()
         {
             WriteOffField field = null;
-            if (writeOffField.isAttribute() && this.valueCombobox.SelectedItem != null)
+            if (writeOffField.isAttribute())
             {
-                field = new WriteOffField();
-                field.setAttribute(writeOffField.attributeField);
-                Object value = this.valueCombobox.SelectedItem;
-                if (value != null && value is AttributeValue) field.value = (AttributeValue)value;
-                else if (value != null && value is BrowserData)
+                if (this.writeOffField.attributeField.incremental)
                 {
-                    field.value = new AttributeValue();
-                    field.value.oid = ((BrowserData)value).oid;
-                    field.value.name = ((BrowserData)value).name;
+                    field = new WriteOffField();
+                    field.setAttribute(writeOffField.attributeField);                    
                 }
+                else if (this.valueCombobox.SelectedItem != null)
+                {
+                    field = new WriteOffField();
+                    field.setAttribute(writeOffField.attributeField);
+                    Object value = this.valueCombobox.SelectedItem;
+                    if (value != null && value is AttributeValue) field.value = (AttributeValue)value;
+                    else if (value != null && value is BrowserData)
+                    {
+                        field.value = new AttributeValue();
+                        field.value.oid = ((BrowserData)value).oid;
+                        field.value.name = ((BrowserData)value).name;
+                    }
+                }                
             }
             else if (writeOffField.isPeriod() && this.valueDatePicker.SelectedDate.HasValue)
             {
