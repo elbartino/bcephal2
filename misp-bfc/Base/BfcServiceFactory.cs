@@ -16,6 +16,7 @@ namespace Misp.Bfc.Base
         private BfcItemService schemeService;
         private BfcItemService platformService;
         private BfcItemService pmlService;
+        private BfcItemService debitCreditService;
 
         private AdvisementService prefundingAdvisementService;
         private AdvisementService memberAdvisementService;
@@ -57,6 +58,7 @@ namespace Misp.Bfc.Base
                 prefundingAdvisementService.SchemeService = GetSchemeService();
                 prefundingAdvisementService.PlatformService = GetPlatformService();
                 prefundingAdvisementService.PmlService = GetPmlService();
+                prefundingAdvisementService.DebitCreditService = GetDebitCreditService();
             }
             return prefundingAdvisementService;
         }
@@ -153,6 +155,16 @@ namespace Misp.Bfc.Base
             return pmlService;
         }
 
+        public BfcItemService GetDebitCreditService()
+        {
+            if (debitCreditService == null)
+            {
+                debitCreditService = new BfcItemService();
+                debitCreditService.ResourcePath = BfcResourcePath.BFC_DC_RESOURCE_PATH;
+                debitCreditService.RestClient = ApplicationManager.RestClient;
+            }
+            return debitCreditService;
+        }
 
     }
 }

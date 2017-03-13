@@ -104,6 +104,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" x:Name="MemberBankGrid">
@@ -189,7 +190,16 @@
             <dxe:TextEdit x:Name="BalanceTextEdit" x:FieldModifier="public" Style="{StaticResource ReadonlyTextEdit}" Background="#839BBB" Foreground="White" Grid.Column="1"/>
         </Grid>
 
-        <Grid Grid.Row="7" x:Name="ValueDateGrid">
+        <Grid Grid.Row="7" x:Name="DCGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="D/C" Style="{StaticResource label}" Grid.Column="0"/>
+            <ComboBox x:Name="DCComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
+        </Grid>
+
+        <Grid Grid.Row="8" x:Name="ValueDateGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="Auto"/>
@@ -198,7 +208,7 @@
             <DatePicker x:Name="ValueDatePicker" x:FieldModifier="public" Grid.Column="1" Margin="5" SelectedDate="{x:Static sys:DateTime.Now}"/>
         </Grid>
 
-        <Grid Grid.Row="8" x:Name="MessageGrid">
+        <Grid Grid.Row="9" x:Name="MessageGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="Auto"/>
@@ -207,7 +217,7 @@
             <TextBox x:Name="MessageTextBlock" x:FieldModifier="public" Style="{StaticResource EditableTextBox}" Height="60" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Grid.Column="1"/>
         </Grid>
 
-        <Grid Grid.Row="9" x:Name="StructuredMessageGrid">
+        <Grid Grid.Row="10" x:Name="StructuredMessageGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="Auto"/>
@@ -216,7 +226,7 @@
             <TextBox x:Name="StructuredMessageTextBox" x:FieldModifier="public" Style="{StaticResource EditableTextBox}" Grid.Column="1"/>
         </Grid>
 
-        <Grid Grid.Row="10" x:Name="CreatorGrid">
+        <Grid Grid.Row="11" x:Name="CreatorGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="Auto"/>
@@ -225,7 +235,7 @@
             <TextBox x:Name="CreatorTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="1"/>
         </Grid>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="11">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="12">
             <Button x:Name="OkButton" x:FieldModifier="public" Content="OK" Style="{StaticResource button}"/>
             <Button x:Name="CancelButton" x:FieldModifier="public" Content="Cancel" Style="{StaticResource button}"/>
         </StackPanel>

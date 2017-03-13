@@ -78,6 +78,7 @@ namespace Misp.Bfc.Advisements
             this.EditedObject.scheme = (BfcItem)this.SchemeComboBox.SelectedItem;
             this.EditedObject.pml = (BfcItem)this.PmlComboBox.SelectedItem;
             this.EditedObject.platform = (BfcItem)this.PlatformComboBox.SelectedItem;
+            this.EditedObject.dc = (BfcItem)this.DCComboBox.SelectedItem;
 
             if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) this.EditedObject.alreadyRequestedAmount = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
             if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) this.EditedObject.amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
@@ -98,6 +99,7 @@ namespace Misp.Bfc.Advisements
                 this.SchemeComboBox.SelectedItem = this.EditedObject.scheme;
                 this.PlatformComboBox.SelectedItem = this.EditedObject.platform;
                 this.PmlComboBox.SelectedItem = this.EditedObject.pml;
+                this.DCComboBox.SelectedItem = this.EditedObject.dc;
 
                 this.AlreadyRequestedPrefundingTextEdit.Text = this.EditedObject.alreadyRequestedAmount.HasValue ? this.EditedObject.alreadyRequestedAmount.Value.ToString() : "";
                 this.AmountTextEdit.Text = this.EditedObject.amount.HasValue ? this.EditedObject.amount.Value.ToString() : "";
@@ -114,6 +116,7 @@ namespace Misp.Bfc.Advisements
                     this.SchemeComboBox.IsEnabled = false;
                     this.PlatformComboBox.IsEnabled = false;
                     this.PmlComboBox.IsEnabled = false;
+                    this.DCComboBox.IsEnabled = false;
                     this.AmountTextEdit.IsEnabled = false;                    
                     this.ValueDatePicker.IsEnabled = false;
                     this.MessageTextBlock.IsEnabled = false;
@@ -126,6 +129,32 @@ namespace Misp.Bfc.Advisements
                 this.IsModify = !this.EditedObject.oid.HasValue;
             }
             throwHandlers = true;
+        }
+
+
+        protected void DisplayAlreadyRequestedPrefundingAmount()
+        {
+            if (this.Service != null && isPrefunding() && this.EditedObject != null && !this.EditedObject.oid.HasValue
+                && this.MemberBank != null && this.Scheme != null)
+            {
+                decimal amount = this.Service.getAlreadyRequestedPrefundingAmount(this.MemberBank.oid.Value, this.Scheme.oid.Value);
+                this.AlreadyRequestedPrefundingTextEdit.Text = amount.ToString();
+                DisplayBalanceAmount();
+            }
+        }
+
+        protected void DisplayBalanceAmount()
+        {
+            if (this.Service != null && isPrefunding() && this.EditedObject != null && !this.EditedObject.oid.HasValue
+                && this.MemberBank != null && this.Scheme != null)
+            {
+                decimal alreadyRequested = 0;
+                decimal amount = 0;
+                if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) alreadyRequested = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+                if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+                decimal balance = alreadyRequested - amount;                
+                this.BalanceTextEdit.Text = balance.ToString();
+            }
         }
 
         public bool validateEdition()
@@ -145,11 +174,6 @@ namespace Misp.Bfc.Advisements
             if (!ValueDatePicker.SelectedDate.HasValue)
             {
                 MessageDisplayer.DisplayWarning("Wrong Value Date", "Value Date can't be empty!");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(this.MessageTextBlock.Text))
-            {
-                MessageDisplayer.DisplayWarning("Wrong Message", "Message can't be empty!");
                 return false;
             }
             if (string.IsNullOrWhiteSpace(this.StructuredMessageTextBox.Text))
@@ -197,12 +221,14 @@ namespace Misp.Bfc.Advisements
                 this.PlatformGrid.Visibility = Visibility.Collapsed;
                 this.AlreadyRequestedPrefundingGrid.Visibility = Visibility.Collapsed;
                 this.BalanceGrid.Visibility = Visibility.Collapsed;
+                this.DCGrid.Visibility = Visibility.Collapsed;
             }
             else if (isMember())
             {
                 this.AmountLabel.Content = "Member Advisement Amount";
                 this.AlreadyRequestedPrefundingGrid.Visibility = Visibility.Collapsed;
                 this.BalanceGrid.Visibility = Visibility.Collapsed;
+                this.DCGrid.Visibility = Visibility.Collapsed;
             }
             else if (isSettlement())
             {
@@ -210,6 +236,7 @@ namespace Misp.Bfc.Advisements
                 this.MemberBankGrid.Visibility = Visibility.Collapsed;
                 this.AlreadyRequestedPrefundingGrid.Visibility = Visibility.Collapsed;
                 this.BalanceGrid.Visibility = Visibility.Collapsed;
+                this.DCGrid.Visibility = Visibility.Collapsed;
             }
             InitializeData();
             InitializeHandlers();
@@ -223,6 +250,9 @@ namespace Misp.Bfc.Advisements
                 {
                     List<BfcItem> banks = Service.MemberBankService.getAll();
                     this.MemberBankComboBox.ItemsSource = banks;
+
+                    List<BfcItem> dcs = Service.DebitCreditService.getAll();
+                    this.DCComboBox.ItemsSource = dcs;
                 }
 
                 List<BfcItem> schemes = Service.SchemeService.getAll();
@@ -271,6 +301,8 @@ namespace Misp.Bfc.Advisements
             if (!isSettlement())
             {
                 this.MemberBankComboBox.SelectionChanged += OnComboBoxSelectionChanged;
+                this.AmountTextEdit.EditValueChanged += OnAmountChanged;
+                this.DCComboBox.SelectionChanged += OnDCComboBoxSelectionChanged;
             }
 
             this.SchemeComboBox.SelectionChanged += OnComboBoxSelectionChanged;
@@ -283,6 +315,17 @@ namespace Misp.Bfc.Advisements
             {
                 this.PmlComboBox.SelectionChanged += OnComboBoxSelectionChanged;
             }
+            
+        }
+
+        private void OnDCComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (throwHandlers) DisplayBalanceAmount();
+        }
+
+        private void OnAmountChanged(object sender, DevExpress.Xpf.Editors.EditValueChangedEventArgs e)
+        {
+            if (throwHandlers) DisplayBalanceAmount();
         }
 
         private void OnComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -294,11 +337,13 @@ namespace Misp.Bfc.Advisements
                 {
                     this.MemberBank = item;
                     this.MemberBankTextBox.Text = item != null ? item.id : "";
+                    DisplayAlreadyRequestedPrefundingAmount();
                 }
                 else if (sender == this.SchemeComboBox)
                 {
                     this.Scheme = item;
                     this.SchemeTextBox.Text = item != null ? item.id : "";
+                    DisplayAlreadyRequestedPrefundingAmount();
                 }
                 else if (sender == this.PlatformComboBox)
                 {
@@ -314,7 +359,7 @@ namespace Misp.Bfc.Advisements
                 if (throwHandlers && SelectionChanged != null) SelectionChanged();                
             } 
         }
-
+        
         private void OnChange()
         {
             if (throwHandlers) this.IsModify = !this.EditedObject.oid.HasValue;

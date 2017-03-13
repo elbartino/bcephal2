@@ -17,6 +17,23 @@ namespace Misp.Bfc.Service
         public BfcItemService SchemeService { get; set; }
         public BfcItemService PlatformService { get; set; }
         public BfcItemService PmlService { get; set; }
+        public BfcItemService DebitCreditService { get; set; }
+
+        public decimal getAlreadyRequestedPrefundingAmount(int memberBankIdOid, int schemeIdOid){           
+            try
+            {
+                var request = new RestRequest(ResourcePath + "/already-requested-prefunding/" + memberBankIdOid + "/" + schemeIdOid, Method.POST);
+                request.RequestFormat = DataFormat.Json;                
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request);
+                decimal amount = RestSharp.SimpleJson.DeserializeObject<decimal>(queryResult.Content);
+                return amount;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve Already Requested Prefunding Amount.", e);
+                return 0;
+            }
+        }
 
         /// <summary>
         /// 
