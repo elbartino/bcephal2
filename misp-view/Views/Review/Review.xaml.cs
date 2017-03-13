@@ -114,10 +114,12 @@ namespace misp_view.Views.Review
             if (DataGridDetail.Visibility == Visibility.Hidden)
             {
                 DataGridDetail.Visibility = Visibility.Visible;
+                DataGridAgDetail.Visibility = Visibility.Visible;
             }
             else if(DataGridDetail.Visibility == Visibility.Visible)
             {
                 DataGridDetail.Visibility = Visibility.Hidden;
+                DataGridAgDetail.Visibility = Visibility.Hidden;
             }
         }
     }
