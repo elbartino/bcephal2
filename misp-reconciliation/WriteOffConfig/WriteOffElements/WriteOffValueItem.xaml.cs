@@ -139,9 +139,14 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.PossibleValues.setDateView();
         }
 
-        public void removeDateView(bool isIncremental= false) 
+        public void removeDateView() 
         {
-            this.PossibleValues.removeDateView(isIncremental);
+            this.PossibleValues.removeDateView();
+        }
+
+        public void setIncrementalView(bool isIncremental = false)
+        {
+            this.PossibleValues.setIncrementalView(isIncremental);
         }
 
 

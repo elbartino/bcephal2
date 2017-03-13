@@ -29,13 +29,15 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
         public event AddEventHandler OnAddField;
         public event DeleteEventHandler OnDeleteField;
 
-         public event ActivateEventHandler ActivateFiedValue;
+        public event ActivateEventHandler ActivateFiedValue;
 
-         public event ChangeItemEventHandler ItemChanged;
+        public event ChangeItemEventHandler ItemChanged;
 
-         public event DeleteEventHandler ItemDeleted;
+        public event DeleteEventHandler ItemDeleted;
 
-         public bool isDateView;
+        public bool isDateView;
+
+        public bool isIncremental;
 
         public PersistentListChangeHandler<WriteOffFieldValue> fieldValueListChangeHandler { get; set; }
 
@@ -92,7 +94,11 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                 if (element is WriteOffValueItem)
                 {
                     ((WriteOffValueItem)element).Visibility = System.Windows.Visibility.Visible;
-                    if (i == 0) ((WriteOffValueItem)element).removeDateView(isIncremental);
+                    if (i == 0)
+                    {
+                        ((WriteOffValueItem)element).removeDateView();
+                        ((WriteOffValueItem)element).setIncrementalView(isIncremental);
+                    }
                 }
             }
         }
@@ -134,6 +140,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                 item.Index = 0;
                 if (!showLabel) item.showRowLabel(showLabel);
                 if (this.isDateView) item.setDateView();
+                else item.setIncrementalView(this.isIncremental);
                 this.FieldValuePanel.Children.Add(item);
             }
         }

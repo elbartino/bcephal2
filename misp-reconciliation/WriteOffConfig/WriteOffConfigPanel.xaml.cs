@@ -85,7 +85,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             WriteOffFieldPanel wPanel = (WriteOffFieldPanel)item;
             if (wPanel.writeOffField != null)
             {
-                IsDuplicateLine(wPanel, wPanel.writeOffField.getSubjectType(), wPanel.writeOffField.getName(), true);
+                IsDuplicateLine(wPanel, wPanel.writeOffField.getSubjectType(), wPanel.writeOffField.getName(),wPanel.writeOffField.position, true);
             }
             DeleteAction(wPanel);
             if (ItemChanged != null && wPanel.writeOffField != null)
@@ -207,7 +207,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             if (writeofffield != null)
             {
                 string name = writeofffield.isAttribute() ? writeofffield.attributeField.name : writeofffield.periodField.name;
-                IsDuplicateLine(wpanel, writeofffield.isAttribute() ? SubjectType.ATTRIBUTE : SubjectType.PERIOD, name);
+                IsDuplicateLine(wpanel, writeofffield.isAttribute() ? SubjectType.ATTRIBUTE : SubjectType.PERIOD, name, wpanel.Index);
             }
             wpanel.display();
             nbreLigne++;
@@ -285,13 +285,13 @@ namespace Misp.Reconciliation.WriteOffConfig
             if (apanel is WriteOffFieldPanel)
             {
                 WriteOffFieldPanel fieldPanel = (WriteOffFieldPanel)apanel;
-                bool isDuplicate = IsDuplicateLine(fieldPanel, SubjectType.PERIOD, periodName.name);
+                bool isDuplicate = IsDuplicateLine(fieldPanel, SubjectType.PERIOD, periodName.name,fieldPanel.Index);
                 if (isDuplicate && ItemPresent != null) ItemPresent(new object[] { SubjectType.PERIOD, periodName.name });
                 else fieldPanel.setPeriodName(periodName);
             }
         }
 
-        private bool IsDuplicateLine(WriteOffFieldPanel fieldPanel,SubjectType subjectType,string name,bool remove= false) 
+        private bool IsDuplicateLine(WriteOffFieldPanel fieldPanel,SubjectType subjectType,string name,int index,bool remove= false) 
         {
                 if (itemDictionnary == null && remove) return false;
                 if (itemDictionnary == null) itemDictionnary = new Dictionary<string, Dictionary<string, int>>();
@@ -314,15 +314,17 @@ namespace Misp.Reconciliation.WriteOffConfig
                 if(!containsElement)
                 {
                    int position = dicolist.Count;
-                   dicolist.Add(name, position);
+                   bool shouldReplace = dicolist.ContainsValue(index);
+                   if (shouldReplace)
+                   {
+                       int ind = dicolist.Values.ToList().IndexOf(index);
+                       string oldname = dicolist.Keys.ToList()[ind];
+                       dicolist.Remove(oldname);
+                   }
+                   dicolist.Add(name, index);
                    return false;
                 }
-                else
-                {
-                    int position = -1;
-                    dicolist.TryGetValue(name, out position);
-                    return true;                    
-                }
+                return true;
         }
 
 
@@ -354,7 +356,7 @@ namespace Misp.Reconciliation.WriteOffConfig
                 {
                     Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)target;
                     WriteOffFieldPanel fieldPanel = (WriteOffFieldPanel)apanel;
-                    bool isDuplicate = IsDuplicateLine(fieldPanel, SubjectType.ATTRIBUTE, attribute.name);
+                    bool isDuplicate = IsDuplicateLine(fieldPanel, SubjectType.ATTRIBUTE, attribute.name, fieldPanel.Index);
                     if (isDuplicate && ItemPresent != null) ItemPresent(new object[] { SubjectType.ATTRIBUTE, attribute.name });
                     else fieldPanel.setAttribute(attribute);
                 }

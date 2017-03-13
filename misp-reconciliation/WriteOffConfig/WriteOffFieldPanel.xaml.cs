@@ -73,12 +73,14 @@ namespace Misp.Reconciliation.WriteOffConfig
 
             this.fieldsPanel.writeOffField = this.writeOffField;
             this.fieldsPanel.display();
-            this.MandatoryValue.mandatoryValue = this.writeOffField != null ? this.writeOffField.mandatory : false;
+            bool mandatory = this.writeOffField != null ? this.writeOffField.mandatory ? this.writeOffField.mandatory : this.writeOffField.isIncremental()  : false;
+            this.MandatoryValue.mandatoryValue = mandatory;
             this.MandatoryValue.display();
             this.DefaultValueCombo.display(this.writeOffField);
             InitializeHandlers();
             this.FieldValuePanel.fieldValueListChangeHandler = this.writeOffField != null ? writeOffField.writeOffFieldValueListChangeHandler : null;
             this.FieldValuePanel.isDateView = this.writeOffField != null && this.writeOffField.isPeriod();
+            this.FieldValuePanel.isIncremental = this.writeOffField != null && this.writeOffField.isIncremental();
             this.FieldValuePanel.display();
         }
 
@@ -221,7 +223,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             this.fieldsPanel.setAttribute(attribute);
             this.MandatoryValue.mandatoryValue = attribute.incremental;
             this.MandatoryValue.display();
-            this.DefaultValueCombo.Visibility = attribute.incremental ? Visibility.Hidden : Visibility.Visible;
+            this.DefaultValueCombo.DefaultValuesCombobox.Visibility = attribute.incremental ? Visibility.Hidden : Visibility.Visible;
             this.FieldValuePanel.removeDateView(attribute.incremental);
         }
         

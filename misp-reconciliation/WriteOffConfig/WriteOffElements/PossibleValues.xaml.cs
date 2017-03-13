@@ -118,15 +118,22 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             this.NewButton.Visibility = System.Windows.Visibility.Hidden;
         }
 
-        public void removeDateView(bool isIncremental = false)
+        public void removeDateView()
         {
-            this.ValueTypeTextBox.Visibility = isIncremental ? System.Windows.Visibility.Hidden:  System.Windows.Visibility.Visible;
-            this.DeleteButton.Visibility = isIncremental ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
-            this.NewButton.Visibility = isIncremental ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+            this.ValueTypeTextBox.Visibility = System.Windows.Visibility.Visible;
+            this.DeleteButton.Visibility = System.Windows.Visibility.Visible;
+            this.NewButton.Visibility = System.Windows.Visibility.Visible;
 
             this.ValueTypeTextBox.IsEnabled = true;
             this.NewButton.IsEnabled = true;
             this.DeleteButton.IsEnabled = true;
+        }
+
+        public void setIncrementalView(bool isIncremental = false) 
+        {
+            this.ValueTypeTextBox.Visibility = isIncremental ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+            this.DeleteButton.Visibility = isIncremental ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+            this.NewButton.Visibility = isIncremental ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
         }
     }
 }
