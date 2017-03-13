@@ -43,7 +43,9 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                 if (this.writeOffField.attributeField.incremental)
                 {
                     this.valueCombobox.IsEnabled = false;
-                    this.valueCombobox.SelectedValue = "Incremental...";
+                    this.incrementalValueTextBox.Visibility = System.Windows.Visibility.Visible;
+                    this.valueCombobox.Visibility = System.Windows.Visibility.Collapsed;
+                    this.valueDatePicker.Visibility = System.Windows.Visibility.Collapsed;
                 }
                 else
                 {
@@ -67,9 +69,9 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                     {
                         this.valueCombobox.IsEnabled = false;
                     }
+                    this.valueCombobox.Visibility = System.Windows.Visibility.Visible;
                 }
-                this.valueDatePicker.Visibility = System.Windows.Visibility.Collapsed;
-                this.valueCombobox.Visibility = System.Windows.Visibility.Visible;
+                this.valueDatePicker.Visibility = System.Windows.Visibility.Collapsed;                
             }
             else if (writeOffField.isPeriod())
             {
