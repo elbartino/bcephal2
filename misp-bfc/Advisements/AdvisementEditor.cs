@@ -1,4 +1,5 @@
 ﻿using Misp.Bfc.Model;
+using Misp.Bfc.Service;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Misp.Bfc.Advisements
         public AdvisementType AdvisementType { get; set; }
         public event OnRemoveNewPageEventHandler OnRemoveNewPage;
         public delegate void OnRemoveNewPageEventHandler(bool remove = false);
-        public Kernel.Service.GroupService GroupService { get; set; }
+        public AdvisementService Service { get; set; }
 
         public AdvisementEditor(Kernel.Domain.SubjectType subjectType, String functionality, AdvisementType advisementType)
             : base(subjectType, functionality)
@@ -29,7 +30,7 @@ namespace Misp.Bfc.Advisements
         /// <returns>Une nouvelle instance de EditorItem</returns>
         protected override EditorItem<Advisement> getNewPage()
         {
-            return new AdvisementEditorItem(this.SubjectType, this.AdvisementType); 
+            return new AdvisementEditorItem(this.SubjectType, this.AdvisementType, this.Service); 
         }
 
                

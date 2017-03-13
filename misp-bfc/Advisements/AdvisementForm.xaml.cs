@@ -1,5 +1,6 @@
 ﻿using DevExpress.Xpf.Core;
 using Misp.Bfc.Model;
+using Misp.Bfc.Service;
 using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
@@ -47,6 +48,7 @@ namespace Misp.Bfc.Advisements
         public BfcItem Platform { get; private set; }
         public BfcItem Pml { get; private set; }
 
+        public AdvisementService Service { get; set; }
 
         bool throwHandlers;
 
@@ -209,7 +211,34 @@ namespace Misp.Bfc.Advisements
                 this.AlreadyRequestedPrefundingGrid.Visibility = Visibility.Collapsed;
                 this.BalanceGrid.Visibility = Visibility.Collapsed;
             }
+            InitializeData();
             InitializeHandlers();
+        }
+
+        protected void InitializeData()
+        {
+            if (this.Service != null)
+            {
+                if (!isSettlement())
+                {
+                    List<BfcItem> banks = Service.MemberBankService.getAll();
+                    this.MemberBankComboBox.ItemsSource = banks;
+                }
+
+                List<BfcItem> schemes = Service.SchemeService.getAll();
+                this.SchemeComboBox.ItemsSource = schemes;
+
+                if (isSettlement() || isMember())
+                {
+                    List<BfcItem> platforms = Service.PlatformService.getAll();
+                    this.PlatformComboBox.ItemsSource = platforms;
+                }
+                if (!isPrefunding())
+                {
+                    List<BfcItem> pmls = Service.PmlService.getAll();
+                    this.PmlComboBox.ItemsSource = pmls;
+                }
+            }
         }
 
         protected bool isPrefunding()

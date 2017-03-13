@@ -1,4 +1,5 @@
 ﻿using Misp.Bfc.Model;
+using Misp.Bfc.Service;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
 using System;
@@ -14,13 +15,14 @@ namespace Misp.Bfc.Advisements
         
         public AdvisementType AdvisementType { get; set; }
 
-        public AdvisementEditorItem(Kernel.Domain.SubjectType subjectType, AdvisementType advisementType)
+        public AdvisementEditorItem(Kernel.Domain.SubjectType subjectType, AdvisementType advisementType, AdvisementService service)
             : base(subjectType)
         {
             this.AdvisementType = advisementType;
             if (getAdvisementForm() != null)
             {
                 getAdvisementForm().AdvisementType = advisementType;
+                getAdvisementForm().Service = service;
                 getAdvisementForm().CustomizeForType();
             }
         }

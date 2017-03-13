@@ -105,41 +105,25 @@ namespace Misp.Bfc.Advisements
 
         #region Initialization
 
+        public override OperationState Initialize()
+        {
+            base.Initialize();
+            getAdvisementEditor().Service = getAdvisementService();
+            return OperationState.CONTINUE;
+        }
+
         /// <summary>
         /// Initialisation des Handlers sur une nouvelle page.
         /// </summary>
         protected override void initializePageHandlers(EditorItem<Advisement> item)
         {
             AdvisementEditorItem page = (AdvisementEditorItem)item;
-            initializePageData(page);
             base.initializePageHandlers(page);
             page.getAdvisementForm().SelectionChanged += OnSelectionChanged;
             page.getAdvisementForm().OkButton.Click += OnOkClick;
             page.getAdvisementForm().CancelButton.Click += OnCancelClick;
         }
 
-        protected void initializePageData(AdvisementEditorItem page)
-        {
-            if (!isSettlement())
-            {
-                List<BfcItem> banks = getAdvisementService().MemberBankService.getAll();
-                page.getAdvisementForm().MemberBankComboBox.ItemsSource = banks;
-            }
-
-            List<BfcItem> schemes = getAdvisementService().SchemeService.getAll();
-            page.getAdvisementForm().SchemeComboBox.ItemsSource = schemes;
-
-            if (isSettlement() || isMember())
-            {
-                List<BfcItem> platforms = getAdvisementService().PlatformService.getAll();
-                page.getAdvisementForm().PlatformComboBox.ItemsSource = platforms;
-            }
-            if (!isPrefunding())
-            {
-                List<BfcItem> pmls = getAdvisementService().PmlService.getAll();
-                page.getAdvisementForm().PmlComboBox.ItemsSource = pmls;
-            }
-        }
 
         protected override void initializeSideBarData() { }
         
