@@ -18,7 +18,7 @@
 
         <dxg:GridControl Grid.Row="1" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True">
             <dxg:GridControl.View>
-                <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" ShowTotalSummary="True" AllowEditing="False" AllowGrouping="False" AllowColumnMoving="False" AllowResizing="False" AllowSorting="False"/>
+                <dxg:TableView AllowPerPixelScrolling="True" ShowIndicator="False" ShowGroupPanel="False" ShowTotalSummary="True" AllowEditing="False" AllowGrouping="False" AllowColumnMoving="False" AllowResizing="False" AllowSorting="False"/>
             </dxg:GridControl.View>
             <dxg:GridColumn FieldName="Member Advisement n°" Width="150">
                 <dxg:GridColumn.HeaderStyle>
@@ -36,7 +36,7 @@
                     </Style>
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Member Bank">
+            <dxg:GridColumn FieldName="Member Bank" Width="90">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>
@@ -52,7 +52,7 @@
                     </Style>
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Amount">
+            <dxg:GridColumn FieldName="PML" Width="50">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>
@@ -60,7 +60,7 @@
                     </Style>
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Value Date">
+            <dxg:GridColumn FieldName="Platform">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>
@@ -68,7 +68,7 @@
                     </Style>
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="PDF">
+            <dxg:GridColumn FieldName="Amount" Width="100">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>
@@ -76,7 +76,23 @@
                     </Style>
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Creator">
+            <dxg:GridColumn FieldName="Value Date" Width="100">
+                <dxg:GridColumn.HeaderStyle>
+                    <Style TargetType="{x:Type Control}">
+                        <Setter Property="Background" Value="#839BBB"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Style>
+                </dxg:GridColumn.HeaderStyle>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="PDF" Width="70">
+                <dxg:GridColumn.HeaderStyle>
+                    <Style TargetType="{x:Type Control}">
+                        <Setter Property="Background" Value="#839BBB"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Style>
+                </dxg:GridColumn.HeaderStyle>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="Creator" Width="*">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>
