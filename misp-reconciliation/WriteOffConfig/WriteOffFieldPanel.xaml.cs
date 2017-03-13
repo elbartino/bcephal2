@@ -219,7 +219,10 @@ namespace Misp.Reconciliation.WriteOffConfig
         public void setAttribute(Kernel.Domain.Attribute attribute)
         {
             this.fieldsPanel.setAttribute(attribute);
-            this.FieldValuePanel.removeDateView();
+            this.MandatoryValue.mandatoryValue = attribute.incremental;
+            this.MandatoryValue.display();
+            this.DefaultValueCombo.Visibility = attribute.incremental ? Visibility.Hidden : Visibility.Visible;
+            this.FieldValuePanel.removeDateView(attribute.incremental);
         }
         
         public void setAttributeValue(Kernel.Domain.AttributeValue attributeValue)

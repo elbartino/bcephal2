@@ -84,7 +84,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             }
         }
 
-        public void removeDateView()
+        public void removeDateView(bool isIncremental = false)
         {
             int i = 0;
             foreach (UIElement element in this.FieldValuePanel.Children)
@@ -92,7 +92,7 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
                 if (element is WriteOffValueItem)
                 {
                     ((WriteOffValueItem)element).Visibility = System.Windows.Visibility.Visible;
-                    if (i == 0) ((WriteOffValueItem)element).removeDateView();
+                    if (i == 0) ((WriteOffValueItem)element).removeDateView(isIncremental);
                 }
             }
         }

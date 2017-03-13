@@ -53,6 +53,13 @@ namespace Misp.Reconciliation.WriteOffConfig.WriteOffElements
             {
                 removeDateView();
                 RemoveHandlers();
+                if (field.isIncremental())
+                {
+                    this.DefaultValuesCombobox.Visibility = System.Windows.Visibility.Hidden;
+                    return;
+                }
+                else this.DefaultValuesCombobox.Visibility = System.Windows.Visibility.Visible;
+
                 this.DefaultValuesCombobox.SelectedItem = field.defaultValueTypeEnum != null ?
                 field.defaultValueTypeEnum : WriteOffFieldValueType.CUSTOM;
             }

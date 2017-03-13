@@ -83,6 +83,10 @@ namespace Misp.Reconciliation.WriteOffConfig
         {
             if (!(item is WriteOffFieldPanel)) return;
             WriteOffFieldPanel wPanel = (WriteOffFieldPanel)item;
+            if (wPanel.writeOffField != null)
+            {
+                IsDuplicateLine(wPanel, wPanel.writeOffField.getSubjectType(), wPanel.writeOffField.getName(), true);
+            }
             DeleteAction(wPanel);
             if (ItemChanged != null && wPanel.writeOffField != null)
             {
@@ -159,7 +163,6 @@ namespace Misp.Reconciliation.WriteOffConfig
             if (item is WriteOffFieldPanel)
             {
                 WriteOffFieldPanel panel = (WriteOffFieldPanel)item;
-
                 int lastIndex = panel.Index;
                 this.configPanel.Children.Remove(panel);
                 nbreLigne = 0;
@@ -204,7 +207,7 @@ namespace Misp.Reconciliation.WriteOffConfig
             if (writeofffield != null)
             {
                 string name = writeofffield.isAttribute() ? writeofffield.attributeField.name : writeofffield.periodField.name;
-                IsDuplicatiLine(wpanel, writeofffield.isAttribute() ? SubjectType.ATTRIBUTE : SubjectType.PERIOD, name);
+                IsDuplicateLine(wpanel, writeofffield.isAttribute() ? SubjectType.ATTRIBUTE : SubjectType.PERIOD, name);
             }
             wpanel.display();
             nbreLigne++;
@@ -282,23 +285,33 @@ namespace Misp.Reconciliation.WriteOffConfig
             if (apanel is WriteOffFieldPanel)
             {
                 WriteOffFieldPanel fieldPanel = (WriteOffFieldPanel)apanel;
-                bool isDuplicate = IsDuplicatiLine(fieldPanel, SubjectType.PERIOD, periodName.name);
+                bool isDuplicate = IsDuplicateLine(fieldPanel, SubjectType.PERIOD, periodName.name);
                 if (isDuplicate && ItemPresent != null) ItemPresent(new object[] { SubjectType.PERIOD, periodName.name });
                 else fieldPanel.setPeriodName(periodName);
             }
         }
 
-        private bool IsDuplicatiLine(WriteOffFieldPanel fieldPanel,SubjectType subjectType,string name) 
+        private bool IsDuplicateLine(WriteOffFieldPanel fieldPanel,SubjectType subjectType,string name,bool remove= false) 
         {
-            if (itemDictionnary == null) itemDictionnary = new Dictionary<string, Dictionary<string, int>>();
-
-                if (!itemDictionnary.ContainsKey(subjectType.label))
-                {
-                    itemDictionnary.Add(subjectType.label, new Dictionary<string, int>());
-                }
+                if (itemDictionnary == null && remove) return false;
+                if (itemDictionnary == null) itemDictionnary = new Dictionary<string, Dictionary<string, int>>();
+               
+                bool containsSubject = itemDictionnary.ContainsKey(subjectType.label);
+                if (!containsSubject && remove) return false;
+                if (!containsSubject) itemDictionnary.Add(subjectType.label, new Dictionary<string, int>());
+                
                 Dictionary<string, int> dicolist = null;
                 itemDictionnary.TryGetValue(subjectType.label, out dicolist);
-                if (!dicolist.ContainsKey(name))
+                
+                bool containsElement = dicolist.ContainsKey(name);
+                if (!containsElement && remove) return false;
+                if (remove)
+                { 
+                    dicolist.Remove(name);
+                    return false;
+                }
+                
+                if(!containsElement)
                 {
                    int position = dicolist.Count;
                    dicolist.Add(name, position);
@@ -308,8 +321,19 @@ namespace Misp.Reconciliation.WriteOffConfig
                 {
                     int position = -1;
                     dicolist.TryGetValue(name, out position);
-                    return true;
+                    return true;                    
                 }
+        }
+
+
+        private void RemoveFromDico(WriteOffFieldPanel fieldPanel,SubjectType subjectType,string name)
+        {
+            if (itemDictionnary == null) return;
+            if (!itemDictionnary.ContainsKey(subjectType.label)) return;
+            Dictionary<string, int> dicolist = null;
+            itemDictionnary.TryGetValue(subjectType.label, out dicolist);
+            if (!dicolist.ContainsKey(name)) return;
+            dicolist.Remove(name);
         }
 
         public void setPeriodName(PeriodInterval periodInterval)
@@ -330,7 +354,7 @@ namespace Misp.Reconciliation.WriteOffConfig
                 {
                     Kernel.Domain.Attribute attribute = (Kernel.Domain.Attribute)target;
                     WriteOffFieldPanel fieldPanel = (WriteOffFieldPanel)apanel;
-                    bool isDuplicate = IsDuplicatiLine(fieldPanel, SubjectType.ATTRIBUTE, attribute.name);
+                    bool isDuplicate = IsDuplicateLine(fieldPanel, SubjectType.ATTRIBUTE, attribute.name);
                     if (isDuplicate && ItemPresent != null) ItemPresent(new object[] { SubjectType.ATTRIBUTE, attribute.name });
                     else fieldPanel.setAttribute(attribute);
                 }

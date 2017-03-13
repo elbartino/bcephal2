@@ -176,5 +176,26 @@ namespace Misp.Kernel.Domain
         {
             return this.attributeField != null;
         }
+
+        public SubjectType getSubjectType()
+        {
+            if (isAttribute()) return SubjectType.ATTRIBUTE;
+            if (isPeriod()) return SubjectType.PERIOD;
+            return SubjectType.ATTRIBUTE;
+        }
+
+        public string getName()
+        {
+            if (isAttribute()) return this.attributeField.name;
+            if (isPeriod()) return this.periodField.name;
+            return "";
+        }
+
+        public bool isIncremental() 
+        {
+            if (isAttribute() && this.attributeField.incremental)
+            return true;
+            return false;
+        }
     }
 }
