@@ -5,228 +5,241 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib" 
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-             mc:Ignorable="d" HorizontalAlignment="Center" VerticalAlignment="Center"
+             mc:Ignorable="d" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
              d:DesignHeight="500" d:DesignWidth="700" Background="White">
 
-    <Grid.Resources>        
-        <Style x:Key="label" TargetType="{x:Type Label}">
-            <Setter Property="Margin" Value="0 0 5 0"/>
-            <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.Resources>        
+            <Style x:Key="label" TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="0 0 5 0"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
 
-        <Style x:Key="Combobox" TargetType="{x:Type ComboBox}">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="Height" Value="25"/>
-            <Setter Property="Width" Value="200"/>
-        </Style>
+            <Style x:Key="Combobox" TargetType="{x:Type ComboBox}">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Width" Value="200"/>
+            </Style>
 
-        <Style x:Key="EditableTextEdit" TargetType="{x:Type dxe:TextEdit}">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="Height" Value="25"/>
-            <Setter Property="Width" Value="200"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="MaskType" Value="Numeric"/>
-            <Setter Property="DisplayFormatString" Value="n2"/>
-        </Style>
+            <Style x:Key="EditableTextEdit" TargetType="{x:Type dxe:TextEdit}">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="MaskType" Value="Numeric"/>
+                <Setter Property="DisplayFormatString" Value="n2"/>
+            </Style>
 
-        <Style x:Key="ReadonlyTextEdit" TargetType="{x:Type dxe:TextEdit}">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="25"/>
-            <Setter Property="Width" Value="200"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="IsEnabled" Value="False"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="IsHitTestVisible" Value="False"/>
-            <Setter Property="MaskType" Value="Numeric"/>
-            <Setter Property="DisplayFormatString" Value="n2"/>            
-        </Style>
+            <Style x:Key="ReadonlyTextEdit" TargetType="{x:Type dxe:TextEdit}">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="IsEnabled" Value="False"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="IsHitTestVisible" Value="False"/>
+                <Setter Property="MaskType" Value="Numeric"/>
+                <Setter Property="DisplayFormatString" Value="n2"/>            
+            </Style>
 
-        <Style x:Key="EditableTextBox" TargetType="{x:Type TextBox}">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="Height" Value="25"/>
-            <Setter Property="Width" Value="200"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-        </Style>
-        <Style x:Key="ReadonlyTextBox" TargetType="{x:Type TextBox}">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="Height" Value="25"/>
-            <Setter Property="Width" Value="200"/>
-            <Setter Property="IsEnabled" Value="False"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-        </Style>
+            <Style x:Key="EditableTextBox" TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+            <Style x:Key="ReadonlyTextBox" TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="IsEnabled" Value="False"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            </Style>
 
-        <Style x:Key="button" TargetType="{x:Type Button}">
-            <Setter Property="Margin" Value="10 20"/>
-            <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="27"/>
-            <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#839BBB"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#FFCFD6E5"/>
-                    <Setter Property="Foreground" Value="Black"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Grid.Resources>
+            <Style x:Key="button" TargetType="{x:Type Button}">
+                <Setter Property="Margin" Value="10 20"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="Width" Value="100"/>
+                <Setter Property="Height" Value="27"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#839BBB"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#FFCFD6E5"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
 
-    <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-    <Grid Grid.Row="0" x:Name="MemberBankGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Select Member Bank" Style="{StaticResource label}" Grid.Column="0"/>
-        <ComboBox x:Name="MemberBankComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
-        <TextBox x:Name="MemberBankTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="2"/>
-    </Grid>
+        <Grid Grid.Row="0" x:Name="MemberBankGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Select Member Bank" Style="{StaticResource label}" Grid.Column="0"/>
+            <ComboBox x:Name="MemberBankComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
+            <TextBox x:Name="MemberBankTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="2"/>
+        </Grid>
 
-    <Grid Grid.Row="1" x:Name="SchemeGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Select Scheme" Style="{StaticResource label}" Grid.Column="0"/>
-        <ComboBox x:Name="SchemeComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
-        <TextBox x:Name="SchemeTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="2"/>
-    </Grid>
+        <Grid Grid.Row="1" x:Name="SchemeGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Select Scheme" Style="{StaticResource label}" Grid.Column="0"/>
+            <ComboBox x:Name="SchemeComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
+            <TextBox x:Name="SchemeTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="2"/>
+        </Grid>
 
-    <Grid Grid.Row="2" x:Name="PmlGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Select PML" Style="{StaticResource label}" Grid.Column="0"/>
-        <ComboBox x:Name="PmlComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
-        <TextBox x:Name="PmlTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="2"/>
-    </Grid>
+        <Grid Grid.Row="2" x:Name="PmlGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Select PML" Style="{StaticResource label}" Grid.Column="0"/>
+            <ComboBox x:Name="PmlComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
+            <TextBox x:Name="PmlTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="2"/>
+        </Grid>
 
-    <Grid Grid.Row="3" x:Name="PlatformGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Select Platform" Style="{StaticResource label}" Grid.Column="0"/>
-        <ComboBox x:Name="PlatformComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
-        <TextBox x:Name="PlatformTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="2"/>
-    </Grid>
+        <Grid Grid.Row="3" x:Name="PlatformGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Select Platform" Style="{StaticResource label}" Grid.Column="0"/>
+            <ComboBox x:Name="PlatformComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
+            <TextBox x:Name="PlatformTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="2"/>
+        </Grid>
 
-    <Grid Grid.Row="4" x:Name="AlreadyRequestedPrefundingGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Already Requested Pre-funding" Style="{StaticResource label}" Grid.Column="0"/>
-        <dxe:TextEdit x:Name="AlreadyRequestedPrefundingTextEdit" x:FieldModifier="public" Style="{StaticResource ReadonlyTextEdit}" Background="#839BBB" Foreground="White" Grid.Column="1"/>
+        <Grid Grid.Row="4" x:Name="AlreadyRequestedPrefundingGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Already Requested Pre-funding" Style="{StaticResource label}" Grid.Column="0"/>
+            <dxe:TextEdit x:Name="AlreadyRequestedPrefundingTextEdit" x:FieldModifier="public" Style="{StaticResource ReadonlyTextEdit}" Background="#839BBB" Foreground="White" Grid.Column="1"/>
         
-        <!--<TextBox x:Name="AlreadyRequestedPrefundingTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Background="#839BBB" Foreground="White" Grid.Column="1">
+            <!--<TextBox x:Name="AlreadyRequestedPrefundingTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Background="#839BBB" Foreground="White" Grid.Column="1">
             
-        </TextBox>-->
-        <TextBlock Grid.Column="2" Margin="5" VerticalAlignment="Center">
-            <Hyperlink>
-                <InlineUIContainer>
-                    <TextBlock Height="25" Text="See Prefunding Advisements issued"/>
-                </InlineUIContainer>
-            </Hyperlink>                
-        </TextBlock>
+            </TextBox>-->
+            <TextBlock Grid.Column="2" Margin="5" VerticalAlignment="Center">
+                <Hyperlink>
+                    <InlineUIContainer>
+                        <TextBlock Height="25" Text="See Prefunding Advisements issued"/>
+                    </InlineUIContainer>
+                </Hyperlink>                
+            </TextBlock>
+        </Grid>
+
+        <Grid Grid.Row="5" x:Name="AmountGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="AmountLabel" Content="New Pre-funding Requested" Style="{StaticResource label}" Grid.Column="0"/>
+            <dxe:TextEdit x:Name="AmountTextEdit" x:FieldModifier="public" Style="{StaticResource EditableTextEdit}" Grid.Column="1" />
+        </Grid>
+
+        <Grid Grid.Row="6" x:Name="BalanceGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="New Balance" Style="{StaticResource label}" Grid.Column="0"/>
+            <dxe:TextEdit x:Name="BalanceTextEdit" x:FieldModifier="public" Style="{StaticResource ReadonlyTextEdit}" Background="#839BBB" Foreground="White" Grid.Column="1"/>
+        </Grid>
+
+        <Grid Grid.Row="7" x:Name="DCGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="D/C" Style="{StaticResource label}" Grid.Column="0"/>
+            <ComboBox x:Name="DCComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
+        </Grid>
+
+        <Grid Grid.Row="8" x:Name="ValueDateGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="ValueDateLabel" Content="Value Date" Style="{StaticResource label}" Grid.Column="0"/>
+            <DatePicker x:Name="ValueDatePicker" x:FieldModifier="public" Grid.Column="1" Margin="5" SelectedDate="{x:Static sys:DateTime.Now}"/>
+        </Grid>
+
+        <Grid Grid.Row="9" x:Name="MessageGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Message" Style="{StaticResource label}" Grid.Column="0"/>
+            <TextBox x:Name="MessageTextBlock" x:FieldModifier="public" Style="{StaticResource EditableTextBox}" Height="60" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Grid.Column="1"/>
+        </Grid>
+
+        <Grid Grid.Row="10" x:Name="StructuredMessageGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Structured Message" Style="{StaticResource label}" Grid.Column="0"/>
+            <TextBox x:Name="StructuredMessageTextBox" x:FieldModifier="public" Style="{StaticResource EditableTextBox}" Grid.Column="1"/>
+        </Grid>
+
+        <Grid Grid.Row="11" x:Name="CreatorGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Creator" Style="{StaticResource label}" Grid.Column="0"/>
+            <TextBox x:Name="CreatorTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="1"/>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="12">
+            <Button x:Name="OkButton" x:FieldModifier="public" Content="OK" Style="{StaticResource button}"/>
+            <Button x:Name="CancelButton" x:FieldModifier="public" Content="Cancel" Style="{StaticResource button}"/>
+        </StackPanel>
+
     </Grid>
 
-    <Grid Grid.Row="5" x:Name="AmountGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label x:Name="AmountLabel" Content="New Pre-funding Requested" Style="{StaticResource label}" Grid.Column="0"/>
-        <dxe:TextEdit x:Name="AmountTextEdit" x:FieldModifier="public" Style="{StaticResource EditableTextEdit}" Grid.Column="1" />
-    </Grid>
-
-    <Grid Grid.Row="6" x:Name="BalanceGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="New Balance" Style="{StaticResource label}" Grid.Column="0"/>
-        <dxe:TextEdit x:Name="BalanceTextEdit" x:FieldModifier="public" Style="{StaticResource ReadonlyTextEdit}" Background="#839BBB" Foreground="White" Grid.Column="1"/>
-    </Grid>
-
-    <Grid Grid.Row="7" x:Name="ValueDateGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label x:Name="ValueDateLabel" Content="Value Date" Style="{StaticResource label}" Grid.Column="0"/>
-        <DatePicker x:Name="ValueDatePicker" x:FieldModifier="public" Grid.Column="1" Margin="5" SelectedDate="{x:Static sys:DateTime.Now}"/>
-    </Grid>
-
-    <Grid Grid.Row="8" x:Name="MessageGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Message" Style="{StaticResource label}" Grid.Column="0"/>
-        <TextBox x:Name="MessageTextBlock" x:FieldModifier="public" Style="{StaticResource EditableTextBox}" Height="60" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Grid.Column="1"/>
-    </Grid>
-
-    <Grid Grid.Row="9" x:Name="StructuredMessageGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Structured Message" Style="{StaticResource label}" Grid.Column="0"/>
-        <TextBox x:Name="StructuredMessageTextBox" x:FieldModifier="public" Style="{StaticResource EditableTextBox}" Grid.Column="1"/>
-    </Grid>
-
-    <Grid Grid.Row="10" x:Name="CreatorGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Creator" Style="{StaticResource label}" Grid.Column="0"/>
-        <TextBox x:Name="CreatorTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="1"/>
-    </Grid>
-
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="11">
-        <Button x:Name="OkButton" x:FieldModifier="public" Content="OK" Style="{StaticResource button}"/>
-        <Button x:Name="CancelButton" x:FieldModifier="public" Content="Cancel" Style="{StaticResource button}"/>
-    </StackPanel>
-    
 </Grid>

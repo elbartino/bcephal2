@@ -26,6 +26,7 @@ namespace Misp.Bfc.Base
         public static string BFC_SCHEME_RESOURCE_PATH = BFC_RESOURCE_PATH + "/scheme";
         public static string BFC_PML_RESOURCE_PATH = BFC_RESOURCE_PATH + "/pml";
         public static string BFC_PLATFORM_RESOURCE_PATH = BFC_RESOURCE_PATH + "/platform";
+        public static string BFC_DC_RESOURCE_PATH = BFC_RESOURCE_PATH + "/dc";
 
     }
 }
