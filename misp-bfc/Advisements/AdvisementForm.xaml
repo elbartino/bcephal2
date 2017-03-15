@@ -160,9 +160,6 @@
             <Label Content="Already Requested Pre-funding" Style="{StaticResource label}" Grid.Column="0"/>
             <dxe:TextEdit x:Name="AlreadyRequestedPrefundingTextEdit" x:FieldModifier="public" Style="{StaticResource ReadonlyTextEdit}" Background="#839BBB" Foreground="White" Grid.Column="1"/>
         
-            <!--<TextBox x:Name="AlreadyRequestedPrefundingTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Background="#839BBB" Foreground="White" Grid.Column="1">
-            
-            </TextBox>-->
             <TextBlock Grid.Column="2" Margin="5" VerticalAlignment="Center">
                 <Hyperlink>
                     <InlineUIContainer>
@@ -176,9 +173,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Label x:Name="AmountLabel" Content="New Pre-funding Requested" Style="{StaticResource label}" Grid.Column="0"/>
             <dxe:TextEdit x:Name="AmountTextEdit" x:FieldModifier="public" Style="{StaticResource EditableTextEdit}" Grid.Column="1" />
+            <ComboBox x:Name="DCComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="2" Width="100"/>
         </Grid>
 
         <Grid Grid.Row="6" x:Name="BalanceGrid">
@@ -190,16 +189,7 @@
             <dxe:TextEdit x:Name="BalanceTextEdit" x:FieldModifier="public" Style="{StaticResource ReadonlyTextEdit}" Background="#839BBB" Foreground="White" Grid.Column="1"/>
         </Grid>
 
-        <Grid Grid.Row="7" x:Name="DCGrid">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="160"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="D/C" Style="{StaticResource label}" Grid.Column="0"/>
-            <ComboBox x:Name="DCComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
-        </Grid>
-
-        <Grid Grid.Row="8" x:Name="ValueDateGrid">
+        <Grid Grid.Row="7" x:Name="ValueDateGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="Auto"/>
@@ -208,7 +198,7 @@
             <DatePicker x:Name="ValueDatePicker" x:FieldModifier="public" Grid.Column="1" Margin="5" SelectedDate="{x:Static sys:DateTime.Now}"/>
         </Grid>
 
-        <Grid Grid.Row="9" x:Name="MessageGrid">
+        <Grid Grid.Row="8" x:Name="MessageGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="Auto"/>
@@ -217,7 +207,7 @@
             <TextBox x:Name="MessageTextBlock" x:FieldModifier="public" Style="{StaticResource EditableTextBox}" Height="60" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Grid.Column="1"/>
         </Grid>
 
-        <Grid Grid.Row="10" x:Name="StructuredMessageGrid">
+        <Grid Grid.Row="9" x:Name="StructuredMessageGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="Auto"/>
@@ -226,7 +216,7 @@
             <TextBox x:Name="StructuredMessageTextBox" x:FieldModifier="public" Style="{StaticResource EditableTextBox}" Grid.Column="1"/>
         </Grid>
 
-        <Grid Grid.Row="11" x:Name="CreatorGrid">
+        <Grid Grid.Row="10" x:Name="CreatorGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="Auto"/>

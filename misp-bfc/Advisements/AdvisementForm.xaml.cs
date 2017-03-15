@@ -99,7 +99,8 @@ namespace Misp.Bfc.Advisements
                 this.SchemeComboBox.SelectedItem = this.EditedObject.scheme;
                 this.PlatformComboBox.SelectedItem = this.EditedObject.platform;
                 this.PmlComboBox.SelectedItem = this.EditedObject.pml;
-                this.DCComboBox.SelectedItem = this.EditedObject.dc;
+                if (this.EditedObject.dc != null) this.DCComboBox.SelectedItem = this.EditedObject.dc;
+                else this.DCComboBox.SelectedIndex = 0;
 
                 this.AlreadyRequestedPrefundingTextEdit.Text = this.EditedObject.alreadyRequestedAmount.HasValue ? this.EditedObject.alreadyRequestedAmount.Value.ToString() : "";
                 this.AmountTextEdit.Text = this.EditedObject.amount.HasValue ? this.EditedObject.amount.Value.ToString() : "";
@@ -221,14 +222,12 @@ namespace Misp.Bfc.Advisements
                 this.PlatformGrid.Visibility = Visibility.Collapsed;
                 this.AlreadyRequestedPrefundingGrid.Visibility = Visibility.Collapsed;
                 this.BalanceGrid.Visibility = Visibility.Collapsed;
-                this.DCGrid.Visibility = Visibility.Collapsed;
             }
             else if (isMember())
             {
                 this.AmountLabel.Content = "Member Advisement Amount";
                 this.AlreadyRequestedPrefundingGrid.Visibility = Visibility.Collapsed;
                 this.BalanceGrid.Visibility = Visibility.Collapsed;
-                this.DCGrid.Visibility = Visibility.Collapsed;
             }
             else if (isSettlement())
             {
@@ -236,7 +235,6 @@ namespace Misp.Bfc.Advisements
                 this.MemberBankGrid.Visibility = Visibility.Collapsed;
                 this.AlreadyRequestedPrefundingGrid.Visibility = Visibility.Collapsed;
                 this.BalanceGrid.Visibility = Visibility.Collapsed;
-                this.DCGrid.Visibility = Visibility.Collapsed;
             }
             InitializeData();
             InitializeHandlers();
@@ -246,18 +244,17 @@ namespace Misp.Bfc.Advisements
         {
             if (this.Service != null)
             {
-                if (!isSettlement())
-                {
-                    List<BfcItem> banks = Service.MemberBankService.getAll();
-                    this.MemberBankComboBox.ItemsSource = banks;
-
-                    List<BfcItem> dcs = Service.DebitCreditService.getAll();
-                    this.DCComboBox.ItemsSource = dcs;
-                }
+                List<BfcItem> dcs = Service.DebitCreditService.getAll();
+                this.DCComboBox.ItemsSource = dcs;
 
                 List<BfcItem> schemes = Service.SchemeService.getAll();
                 this.SchemeComboBox.ItemsSource = schemes;
 
+                if (!isSettlement())
+                {
+                    List<BfcItem> banks = Service.MemberBankService.getAll();
+                    this.MemberBankComboBox.ItemsSource = banks;
+                }
                 if (isSettlement() || isMember())
                 {
                     List<BfcItem> platforms = Service.PlatformService.getAll();

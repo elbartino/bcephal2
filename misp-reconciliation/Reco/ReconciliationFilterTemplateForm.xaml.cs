@@ -338,6 +338,7 @@ namespace Misp.Reconciliation.Reco
         private List<FormatCondition> BuildFormatConditions(GridBrowser grid, Measure leftMeasure, Measure rightMeasure)
         {
             List<FormatCondition> conditions = new List<FormatCondition>(0);
+            if (leftMeasure == null && rightMeasure == null) return conditions;
             if (this.EditedObject.useDebitCredit.Value)
             {
                 Misp.Kernel.Domain.ReconciliationContext context = ApplicationManager.Instance.ControllerFactory.ServiceFactory.GetReconciliationContextService().getReconciliationContext();
