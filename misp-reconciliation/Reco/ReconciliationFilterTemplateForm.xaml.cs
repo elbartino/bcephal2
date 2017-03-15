@@ -419,23 +419,29 @@ namespace Misp.Reconciliation.Reco
             WriteOffFieldValueType type = this.EditedObject.writeoffDefaultMeasureTypeEnum;
             if (type == WriteOffFieldValueType.CUSTOM) reco.writeOffMeasure = this.EditedObject.writeoffMeasure;
             else if (type == WriteOffFieldValueType.LEFT_SIDE) reco.writeOffMeasure = this.EditedObject.leftMeasure;
-            else if (type == WriteOffFieldValueType.RIGHT_SIDE) reco.writeOffMeasure = this.EditedObject.rightMeasure;            
-
-            bool result = this.Service.reconciliate(reco);
-            if (result)
+            else if (type == WriteOffFieldValueType.RIGHT_SIDE) reco.writeOffMeasure = this.EditedObject.rightMeasure;
+            try
             {
-                this.LeftGrid.Search(this.LeftGrid.EditedObject.GrilleFilter != null ? this.LeftGrid.EditedObject.GrilleFilter.page : 1);
-                this.RightGrid.Search(this.RightGrid.EditedObject.GrilleFilter != null ? this.RightGrid.EditedObject.GrilleFilter.page : 1);
-                this.BottomGrid.Clear();
-                this.BottomGrid.ReconciliateButton.IsEnabled = false;
-                this.BottomGrid.ResetButton.IsEnabled = false;
-                this.BottomGrid.ClearButton.IsEnabled = false;
-                dialog.ReconciliateButton.Click -= OnDialogReconciliate;
-                dialog.CancelButton.Click -= OnDialogCancel;
-                this.dialog.Close();
-                dialog = null;
-                BuildBalance(this.LeftGrid);
-                BuildBalance(this.RightGrid);
+                bool result = this.Service.reconciliate(reco);
+                if (result)
+                {
+                    this.LeftGrid.Search(this.LeftGrid.EditedObject.GrilleFilter != null ? this.LeftGrid.EditedObject.GrilleFilter.page : 1);
+                    this.RightGrid.Search(this.RightGrid.EditedObject.GrilleFilter != null ? this.RightGrid.EditedObject.GrilleFilter.page : 1);
+                    this.BottomGrid.Clear();
+                    this.BottomGrid.ReconciliateButton.IsEnabled = false;
+                    this.BottomGrid.ResetButton.IsEnabled = false;
+                    this.BottomGrid.ClearButton.IsEnabled = false;
+                    dialog.ReconciliateButton.Click -= OnDialogReconciliate;
+                    dialog.CancelButton.Click -= OnDialogCancel;
+                    this.dialog.Close();
+                    dialog = null;
+                    BuildBalance(this.LeftGrid);
+                    BuildBalance(this.RightGrid);
+                }
+            }
+            catch (Exception)
+            {
+                MessageDisplayer.DisplayWarning("Reconciliation Error", "An error occurred while trying to reconciliate!");
             }
         }
 
