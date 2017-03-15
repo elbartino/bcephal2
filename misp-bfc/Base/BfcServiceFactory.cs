@@ -74,6 +74,7 @@ namespace Misp.Bfc.Base
                 memberAdvisementService.SchemeService = GetSchemeService();
                 memberAdvisementService.PlatformService = GetPlatformService();
                 memberAdvisementService.PmlService = GetPmlService();
+                memberAdvisementService.DebitCreditService = GetDebitCreditService();
             }
             return memberAdvisementService;
         }
@@ -89,6 +90,7 @@ namespace Misp.Bfc.Base
                 exceptionalAdvisementService.SchemeService = GetSchemeService();
                 exceptionalAdvisementService.PlatformService = GetPlatformService();
                 exceptionalAdvisementService.PmlService = GetPmlService();
+                exceptionalAdvisementService.DebitCreditService = GetDebitCreditService();
             }
             return exceptionalAdvisementService;
         }
@@ -104,6 +106,7 @@ namespace Misp.Bfc.Base
                 settlementAdvisementService.SchemeService = GetSchemeService();
                 settlementAdvisementService.PlatformService = GetPlatformService();
                 settlementAdvisementService.PmlService = GetPmlService();
+                settlementAdvisementService.DebitCreditService = GetDebitCreditService();
             }
             return settlementAdvisementService;
         }
