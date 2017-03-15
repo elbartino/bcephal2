@@ -77,12 +77,14 @@ namespace Misp.Bfc.Advisements
             this.EditedObject.memberBank = (BfcItem)this.MemberBankComboBox.SelectedItem;
             this.EditedObject.scheme = (BfcItem)this.SchemeComboBox.SelectedItem;
             this.EditedObject.pml = (BfcItem)this.PmlComboBox.SelectedItem;
-            this.EditedObject.platform = (BfcItem)this.PlatformComboBox.SelectedItem;
+            this.EditedObject.platform = (BfcItem)this.PlatformComboBox.SelectedItem; 
             this.EditedObject.dc = (BfcItem)this.DCComboBox.SelectedItem;
 
-            if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) this.EditedObject.alreadyRequestedAmount = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
-            if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) this.EditedObject.amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
-            if (!string.IsNullOrWhiteSpace(this.BalanceTextEdit.Text)) this.EditedObject.balance = decimal.Parse(this.BalanceTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+            var format = new NumberFormatInfo();
+            format.NegativeSign = "-";
+            if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) this.EditedObject.alreadyRequestedAmount = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), format);
+            if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) this.EditedObject.amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), format);
+            if (!string.IsNullOrWhiteSpace(this.BalanceTextEdit.Text)) this.EditedObject.balance = decimal.Parse(this.BalanceTextEdit.Text.Trim(), format);
 
             this.EditedObject.valueDateTime = this.ValueDatePicker.SelectedDate;
             this.EditedObject.message = this.MessageTextBlock.Text;
@@ -149,10 +151,12 @@ namespace Misp.Bfc.Advisements
             if (this.Service != null && isPrefunding() && this.EditedObject != null && !this.EditedObject.oid.HasValue
                 && this.MemberBank != null && this.Scheme != null)
             {
+                var format = new NumberFormatInfo();
+                format.NegativeSign = "-";
                 decimal alreadyRequested = 0;
                 decimal amount = 0;
-                if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) alreadyRequested = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
-                if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+                if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) alreadyRequested = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), format);
+                if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), format);
                 if (DCComboBox.SelectedItem != null && DCComboBox.SelectedItem is BfcItem)
                 {
                     BfcItem item = (BfcItem)DCComboBox.SelectedItem;
@@ -174,7 +178,9 @@ namespace Misp.Bfc.Advisements
                 MessageDisplayer.DisplayWarning("Wrong " + AmountLabel.Content, AmountLabel.Content + " can't be empty!");
                 return false;
             }
-            decimal amount = decimal.Parse(amountText, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+            var format = new NumberFormatInfo();
+            format.NegativeSign = "-";
+            decimal amount = decimal.Parse(amountText, format);
             if (amount == 0)
             {
                 MessageDisplayer.DisplayWarning("Wrong " + AmountLabel.Content, AmountLabel.Content + " can't be 0!");
