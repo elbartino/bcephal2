@@ -70,10 +70,12 @@
             <Label Style="{StaticResource TitleLabel}"/>
             <Label Style="{StaticResource SimpleLabel}" x:Name="lSPrefund" Content="Sent Pre-funding"/>
             <Label Style="{StaticResource SimpleLabel}" x:Name="lSRepenishment" Content="Sent Replenishment"/>
+            <Label Style="{StaticResource SimpleLabel}" x:Name="OtherRecieveLabel" Content="Other Received"/>
             <Label Style="{StaticResource TotalLabel}" x:Name="lTTR" Content="Total to Receive"/>
             <Label Style="{StaticResource SeparatorLabel}"/>
             <Label Style="{StaticResource TitleLabel}"/>
             <Label Style="{StaticResource SimpleLabel}" x:Name="lSMAdvisement" Content="Sent Member Advisement"/>
+            <Label Style="{StaticResource SimpleLabel}" x:Name="OtherPaid" Content="Other Paid"/>
             <Label Style="{StaticResource TotalLabel}" x:Name="lTTPay" Content="Total to Pay"/>
             <Label Style="{StaticResource TotalLabel}" x:Name="lEPFBalance" Content="Expected PF Balance"/>
             <Label Style="{StaticResource SeparatorLabel}"/>
@@ -88,10 +90,12 @@
             <Label Style="{StaticResource TitleLabel}" Content="Reconcilied" />
             <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentPrefundingTextBox"/>
             <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentReplenishmentTextBox"/>
+            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherReceiveTextBox"/>
             <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToReceiveTextBox"/>
             <Label Style="{StaticResource SeparatorLabel}"/>
             <Label Style="{StaticResource TitleLabel}" Content="Reconcilied" />
             <TextBox Style="{StaticResource SimpleTextBox}" x:Name="MemberAdvisementTextBox"/>
+            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherPaidTextBox"/>
             <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToPayTextBox"/>
             <TextBox Style="{StaticResource TotalTextBox}" x:Name="ExpectedPFTextBox"/>
             <Label Style="{StaticResource SeparatorLabel}"/>
@@ -106,10 +110,12 @@
             <Label Style="{StaticResource TitleLabel}" Content="Not yet reconcilied" />
             <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentPrefundingNotRecoTextBox"/>
             <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentReplenishmentNotRecoTextBox"/>
+            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherReceiveNotRecoTextBox"/>
             <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToReceiveNotRecoTextBox"/>
             <Label Style="{StaticResource SeparatorLabel}"/>
             <Label Style="{StaticResource TitleLabel}" Content="Not yet reconcilied" />
             <TextBox Style="{StaticResource SimpleTextBox}" x:Name="MemberAdvisementNotRecoTextBox"/>
+            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherPaidNotRecoTextBox"/>
             <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToPayNotRecoTextBox"/>
             <TextBox Style="{StaticResource TotalTextBox}" x:Name="ExpectedPFNotRecoTextBox"/>
             <Label Style="{StaticResource SeparatorLabel}"/>
@@ -135,10 +141,12 @@
                         <TextBlock Height="25" Text="See Replenishment Instructions issued"/>
                     </InlineUIContainer>
                 </Hyperlink>
-            </TextBlock>    
+            </TextBlock>
+            <Label Style="{StaticResource SimpleLabel}"/>
             <Label Style="{StaticResource TotalLabel}"/>
             <Label Style="{StaticResource SimpleLabel}"/>
             <Label Style="{StaticResource TitleLabel}"/>
+            <Label Style="{StaticResource SimpleLabel}"/>
             <Label Style="{StaticResource SimpleLabel}"/>
             <Label Style="{StaticResource TotalLabel}"/>
             <Label Style="{StaticResource TotalLabel}"/>

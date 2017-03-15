@@ -35,11 +35,17 @@ namespace Misp.Bfc.Review
             this.SentReplenishmentTextBox.Text = NumberUtil.setGermanFormatter(data.sentReplenishmentReconcilied);
             this.SentReplenishmentNotRecoTextBox.Text = NumberUtil.setGermanFormatter(data.sentReplenishmentNotYetReconcilied);
 
+            this.OtherReceiveTextBox.Text = NumberUtil.setGermanFormatter(data.otherReceivedReconcilied);
+            this.OtherReceiveNotRecoTextBox.Text = NumberUtil.setGermanFormatter(data.otherReceivedNotYetReconcilied);
+
             this.TotalToReceiveTextBox.Text = NumberUtil.setGermanFormatter(data.totalToReceiveReconcilied);
             this.TotalToReceiveNotRecoTextBox.Text = NumberUtil.setGermanFormatter(data.totalToReceiveNotYetReconcilied);
 
             this.MemberAdvisementTextBox.Text = NumberUtil.setGermanFormatter(data.sentMemberAdvisementReconcilied);
             this.MemberAdvisementNotRecoTextBox.Text = NumberUtil.setGermanFormatter(data.sentMemberAdvisementNotYetReconcilied);
+
+            this.OtherPaidTextBox.Text = NumberUtil.setGermanFormatter(data.otherPaidReconcilied);
+            this.OtherPaidNotRecoTextBox.Text = NumberUtil.setGermanFormatter(data.otherPaidNotYetReconcilied);
 
             this.TotalToPayTextBox.Text =NumberUtil.setGermanFormatter(data.totalToPayReconcilied);
             this.TotalToPayNotRecoTextBox.Text = NumberUtil.setGermanFormatter(data.totalToPayNotYetReconcilied);
