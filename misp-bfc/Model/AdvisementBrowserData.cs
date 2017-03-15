@@ -21,6 +21,8 @@ namespace Misp.Bfc.Model
 	
 	    public decimal amount{ get; set; }
 
+        public String dc { get; set; }
+
         public string valueDate { get; set; }
 
         public String creator { get; set; }

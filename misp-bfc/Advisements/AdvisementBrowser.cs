@@ -71,65 +71,11 @@ namespace Misp.Bfc.Advisements
 
         protected override int getColumnCount()
         {
-            if (isExceptional() || isSettlement()) return 6;
-            return 7;
+            return 8;
         }
 
         protected override System.Windows.Controls.DataGridColumn getColumnAt(int index)
-        {
-            if (isPrefunding())
-            {
-                switch (index)
-                {
-                    case 0: return new DataGridTextColumn();
-                    case 1: return new DataGridTextColumn();
-                    case 2: return new DataGridTextColumn();
-                    case 3: return new DataGridTextColumn();
-                    case 4: return new DataGridTextColumn();
-                    case 5: return new DataGridTextColumn();
-                    default: return new DataGridTextColumn();
-                }
-            }
-            if (isMember())
-            {
-                switch (index)
-                {
-                    case 0: return new DataGridTextColumn();
-                    case 1: return new DataGridTextColumn();
-                    case 2: return new DataGridTextColumn();
-                    case 3: return new DataGridTextColumn();
-                    case 4: return new DataGridTextColumn();
-                    case 5: return new DataGridTextColumn();
-                    default: return new DataGridTextColumn();
-                }
-            }
-            if (isExceptional())
-            {
-                switch (index)
-                {
-                    case 0: return new DataGridTextColumn();
-                    case 1: return new DataGridTextColumn();
-                    case 2: return new DataGridTextColumn();
-                    case 3: return new DataGridTextColumn();
-                    case 4: return new DataGridTextColumn();
-                    case 5: return new DataGridTextColumn();
-                    default: return new DataGridTextColumn();
-                }
-            }
-
-            if (isSettlement())
-            {
-                switch (index)
-                {
-                    case 0: return new DataGridTextColumn();
-                    case 1: return new DataGridTextColumn();
-                    case 2: return new DataGridTextColumn();
-                    case 3: return new DataGridTextColumn();
-                    case 4: return new DataGridTextColumn();
-                    case 5: return new DataGridTextColumn();
-                    default: return new DataGridTextColumn();
-                }
-            }
+        {            
             return new DataGridTextColumn();
         }
 
@@ -145,8 +91,9 @@ namespace Misp.Bfc.Advisements
                     case 2: return "Member Bank";
                     case 3: return "Scheme";
                     case 4: return "Amount";
-                    case 5: return "Value date";
-                    case 6: return "Creator";
+                    case 5: return "D/C";
+                    case 6: return "Value date";
+                    case 7: return "Creator";
                     default: return "";
                 }
             }
@@ -159,8 +106,9 @@ namespace Misp.Bfc.Advisements
                     case 2: return "Member Bank";
                     case 3: return "Scheme";
                     case 4: return "Amount";
-                    case 5: return "Value Date";
-                    case 6: return "Creator";
+                    case 5: return "D/C";
+                    case 6: return "Value date";
+                    case 7: return "Creator";
                     default: return "";
                 }
             }
@@ -174,8 +122,9 @@ namespace Misp.Bfc.Advisements
                     case 2: return "Member Bank";
                     case 3: return "Scheme";
                     case 4: return "Amount";
-                    case 5: return "Value Date";
-                    case 6: return "Creator";
+                    case 5: return "D/C";
+                    case 6: return "Value date";
+                    case 7: return "Creator";
                     default: return "";
                 }
             }
@@ -187,9 +136,11 @@ namespace Misp.Bfc.Advisements
                     case 0: return "Settlement Advisement n°";
                     case 1: return "Date";
                     case 2: return "Scheme";
-                    case 3: return "Amount";
-                    case 4: return "Value Date";
-                    case 5: return "Creator";
+                    case 3: return "PML";
+                    case 4: return "Amount";
+                    case 5: return "D/C";
+                    case 6: return "Value date";
+                    case 7: return "Creator";
                     default: return "";
                 }
             }
@@ -201,11 +152,13 @@ namespace Misp.Bfc.Advisements
             switch (index)
             {
                 case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
-                case 1: return 150;
-                case 2: return 120;
-                case 3: return 120;
-                case 4: return 70;
-                case 5: return 70;
+                case 1: return 100;
+                case 2: return 150;
+                case 3: return 150;
+                case 4: return 100;
+                case 5: return 50;
+                case 6: return 100;
+                case 7: return 100;
                 default: return 100;
             }
         }
@@ -221,8 +174,9 @@ namespace Misp.Bfc.Advisements
                     case 2: return "memberBank";
                     case 3: return "scheme";
                     case 4: return "amount";
-                    case 5: return "valueDate";
-                    case 6: return "creator";
+                    case 6: return "dc";
+                    case 7: return "valueDate";
+                    case 8: return "creator";
                     default: return "oid";
                 }
             }
@@ -236,8 +190,9 @@ namespace Misp.Bfc.Advisements
                     case 2: return "memberBank";
                     case 3: return "scheme";
                     case 4: return "amount";
-                    case 5: return "valueDate";
-                    case 6: return "creator";
+                    case 6: return "dc";
+                    case 7: return "valueDate";
+                    case 8: return "creator";
                     default: return "oid";
                 }
             }
@@ -251,8 +206,9 @@ namespace Misp.Bfc.Advisements
                     case 2: return "memberBank";
                     case 3: return "scheme";
                     case 4: return "amount";
-                    case 5: return "valueDate";
-                    case 6: return "creator";
+                    case 6: return "dc";
+                    case 7: return "valueDate";
+                    case 8: return "creator";
                     default: return "oid";
                 }
             }
@@ -264,9 +220,11 @@ namespace Misp.Bfc.Advisements
                     case 0: return "name";
                     case 1: return "creationDateTime";
                     case 2: return "scheme";
-                    case 3: return "amount";
-                    case 4: return "valueDate";
-                    case 5: return "creator";
+                    case 3: return "pml";
+                    case 4: return "amount";
+                    case 5: return "dc";
+                    case 6: return "valueDate";
+                    case 7: return "creator";
                     default: return "oid";
                 }
             }
@@ -281,26 +239,12 @@ namespace Misp.Bfc.Advisements
         /// <returns></returns>
         protected override string getBindingStringFormatAt(int index)
         {
-            if (isSettlement() || isMember())
+            switch (index)
             {
-                switch (index)
-                {
-                    case 1: return "{0:dd/MM/yyyy HH:mm:ss}";
-                    case 4: return "{0:dd/MM/yyyy HH:mm:ss}";
-                    default: return null;
-                }
+                case 1: return "{0:dd/MM/yyyy}";
+                case 6: return "{0:dd/MM/yyyy}";
+                default: return null;
             }
-            if (isExceptional() ||isPrefunding())
-            {
-                switch (index)
-                {
-                    case 1: return "{0:dd/MM/yyyy HH:mm:ss}";
-                    case 5: return "{0:dd/MM/yyyy HH:mm:ss}";
-                    default: return null;
-                }
-            }
-            
-            return null;
         }
     }
 }
