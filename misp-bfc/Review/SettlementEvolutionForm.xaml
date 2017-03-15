@@ -57,7 +57,7 @@
                 <dxg:GridSummaryItem FieldName="cagr3Years" DisplayFormat="Min  = {0:N2}" SummaryType="Min"/>
                 <dxg:GridSummaryItem FieldName="cagr3Years" DisplayFormat="Avg  = {0:N2}" SummaryType="Average"/>-->
 
-                <dxg:GridSummaryItem FieldName="averageDayLast24Month" DisplayFormat="Total= {0:N2}" SummaryType="Sum"/>
+                <dxg:GridSummaryItem FieldName="averageDayLast24Month" DisplayFormat="{}{0:N2}" SummaryType="Sum"/>
                 <!--<dxg:GridSummaryItem FieldName="averageDayLast24Month" DisplayFormat="Max  = {0:N2}" SummaryType="Max"/>
                 <dxg:GridSummaryItem FieldName="averageDayLast24Month" DisplayFormat="Min  = {0:N2}" SummaryType="Min"/>
                 <dxg:GridSummaryItem FieldName="averageDayLast24Month" DisplayFormat="Avg  = {0:N2}" SummaryType="Average"/>-->
