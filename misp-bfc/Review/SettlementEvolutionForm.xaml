@@ -30,7 +30,7 @@
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="200"/>
+            <RowDefinition Height="250"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -41,9 +41,40 @@
         </StackPanel>
 
         <dxg:GridControl x:Name="Grid" x:FieldModifier="public" EnableSmartColumnsGeneration="True" Grid.Row="1" Margin="0 5" >
+            <dxg:GridControl.TotalSummary>
+                <dxg:GridSummaryItem FieldName="lastYear" DisplayFormat="{}{0:N2}" SummaryType="Sum" />
+                <!--<dxg:GridSummaryItem FieldName="lastYear" DisplayFormat="Max  = {0:N2}" SummaryType="Max"/>
+                <dxg:GridSummaryItem FieldName="lastYear" DisplayFormat="Min  = {0:N2}" SummaryType="Min"/>
+                <dxg:GridSummaryItem FieldName="lastYear" DisplayFormat="Avg  = {0:N2}" SummaryType="Average"/>-->
+
+                <dxg:GridSummaryItem FieldName="yearToDate" DisplayFormat="{}{0:N2}" SummaryType="Sum"/>
+                <!--<dxg:GridSummaryItem FieldName="yearToDate" DisplayFormat="Max  = {0:N2}" SummaryType="Max"/>
+                <dxg:GridSummaryItem FieldName="yearToDate" DisplayFormat="Min  = {0:N2}" SummaryType="Min"/>
+                <dxg:GridSummaryItem FieldName="yearToDate" DisplayFormat="Avg  = {0:N2}" SummaryType="Average"/>-->
+
+                <dxg:GridSummaryItem FieldName="cagr3Years" DisplayFormat="{}{0:N2}" SummaryType="Sum"/>
+                <!--<dxg:GridSummaryItem FieldName="cagr3Years" DisplayFormat="Max  = {0:N2}" SummaryType="Max"/>
+                <dxg:GridSummaryItem FieldName="cagr3Years" DisplayFormat="Min  = {0:N2}" SummaryType="Min"/>
+                <dxg:GridSummaryItem FieldName="cagr3Years" DisplayFormat="Avg  = {0:N2}" SummaryType="Average"/>-->
+
+                <dxg:GridSummaryItem FieldName="averageDayLast24Month" DisplayFormat="Total= {0:N2}" SummaryType="Sum"/>
+                <!--<dxg:GridSummaryItem FieldName="averageDayLast24Month" DisplayFormat="Max  = {0:N2}" SummaryType="Max"/>
+                <dxg:GridSummaryItem FieldName="averageDayLast24Month" DisplayFormat="Min  = {0:N2}" SummaryType="Min"/>
+                <dxg:GridSummaryItem FieldName="averageDayLast24Month" DisplayFormat="Avg  = {0:N2}" SummaryType="Average"/>-->
+
+                <dxg:GridSummaryItem FieldName="peakDayLast24Month" DisplayFormat="{}{0:N2}" SummaryType="Sum"/>
+                <!--<dxg:GridSummaryItem FieldName="peakDayLast24Month" DisplayFormat="Max  = {0:N2}" SummaryType="Max"/>
+                <dxg:GridSummaryItem FieldName="peakDayLast24Month" DisplayFormat="Min  = {0:N2}" SummaryType="Min"/>
+                <dxg:GridSummaryItem FieldName="peakDayLast24Month" DisplayFormat="Avg  = {0:N2}" SummaryType="Average"/>-->
+
+                <dxg:GridSummaryItem FieldName="todayMultilot" DisplayFormat="{}{0:N2}" SummaryType="Sum"/>
+                <!--<dxg:GridSummaryItem FieldName="todayMultilot" DisplayFormat="Max  = {0:N2}" SummaryType="Max"/>
+                <dxg:GridSummaryItem FieldName="todayMultilot" DisplayFormat="Min  = {0:N2}" SummaryType="Min"/>
+                <dxg:GridSummaryItem FieldName="todayMultilot" DisplayFormat="Avg  = {0:N2}" SummaryType="Average"/>-->
+            </dxg:GridControl.TotalSummary>
             <dxg:GridControl.View>
-                <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowColumnMoving="False" AllowResizing="False" AllowBestFit="False" BestFitMode="AllRows"/>
-            </dxg:GridControl.View> 
+                <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowBestFit="True" BestFitMode="AllRows" ShowTotalSummary="True" ShowFixedTotalSummary="True"/>
+            </dxg:GridControl.View>
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="80" Header="ID"  FieldName="platformID"  />
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="200" Header="Platform" FieldName="platformName"/>
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="120" Header="Last Year" FieldName="lastYear">
@@ -76,8 +107,12 @@
                     <dxe:TextEditSettings DisplayFormat="N2"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
+
         </dxg:GridControl>
 
+        <GridSplitter Height="5" ResizeDirection="Rows" Background="Transparent"
+                          VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>
+        
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

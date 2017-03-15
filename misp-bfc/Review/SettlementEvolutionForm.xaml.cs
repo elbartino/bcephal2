@@ -1,4 +1,5 @@
 ﻿using DevExpress.Xpf.Charts;
+using DevExpress.Xpf.Grid;
 using Misp.Bfc.Model;
 using Misp.Kernel.Ui.Base;
 using System;
@@ -43,6 +44,7 @@ namespace Misp.Bfc.Review
         {
             InitializeComponent();
             InitializeHandlers();
+            ((TableView)this.Grid.View).BestFitColumns();
             throwHandlers = true;
         }
 
