@@ -160,6 +160,9 @@
     <Compile Include="Models\NewSettlementAdvisementData.cs" />
     <Compile Include="Models\PrefundingAccountData.cs" />
     <Compile Include="Models\SettlementEvolutionData.cs" />
+    <Compile Include="PrefundingDataSet.cs">
+      <DependentUpon>PrefundingDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PrefundingDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -35,7 +35,7 @@
                     </Style>
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Scheme">
+            <dxg:GridColumn FieldName="PML" Width="50">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>
@@ -43,7 +43,7 @@
                     </Style>
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="PML" Width="50">
+            <dxg:GridColumn FieldName="Scheme">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>

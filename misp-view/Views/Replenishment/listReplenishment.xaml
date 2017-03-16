@@ -13,7 +13,7 @@
             <RowDefinition Height="350*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Label Margin="-35" Content="List Replenishment Instruction Notes" HorizontalAlignment="Center" FontSize="20"></Label>
+            <Label Margin="-35" Content="List Replenishment Instructions" HorizontalAlignment="Center" FontSize="20"></Label>
         </Grid>
 
         <dxg:GridControl AutoGenerateColumns="AddNew" Grid.Row="1" EnableSmartColumnsGeneration="True">
@@ -44,7 +44,7 @@
                     </Style>
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Scheme">
+            <dxg:GridColumn AllowMoving="False" FieldName="PML" Width="50">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>
@@ -52,7 +52,7 @@
                     </Style>
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
-            <dxg:GridColumn AllowMoving="False" FieldName="PML" Width="50">
+            <dxg:GridColumn FieldName="Scheme">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>

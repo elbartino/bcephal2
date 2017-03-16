@@ -100,8 +100,8 @@
                                     <Label x:Name="lEPFBalance" Content="Expected PF Balance  " HorizontalAlignment="Right" Height="25"/>
                                     <Label x:Name="lEmpty3" Height="25"/>
                                     <Label Content="" Height="25"/>
-                                    <Label x:Name="lPFADebit" Content="PF Account Debit  " HorizontalAlignment="Right" Height="25" FontWeight="Normal"/>
                                     <Label x:Name="lPFACredit" Content="PF Account Credit  " HorizontalAlignment="Right" Height="25" FontWeight="Normal"/>
+                                    <Label x:Name="lPFADebit" Content="PF Account Debit  " HorizontalAlignment="Right" Height="25" FontWeight="Normal"/>
                                     <Label Content="" Height="15"/>
                                     <Label x:Name="lBalance" Content="PF Account Balance  " HorizontalAlignment="Right" Height="25"/>
                                     <Label Content="" Height="15"/>
@@ -133,8 +133,8 @@
                                     <TextBox x:Name="tbEPFBalance" Text="0"  IsReadOnly="True" IsHitTestVisible="False" Height="25" Width="200" Foreground="White" Background="#839BBB" HorizontalAlignment="Left" BorderBrush="Transparent"/>
                                     <Label Content="" Height="25"/>
                                     <Label x:Name="lReconcilied3" Content="  Reconcilied" Height="25" IsHitTestVisible="False"/>
-                                    <TextBox x:Name="tbPFADebit" Text="100100" BorderBrush="Transparent" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left" Height="25" Width="200" IsReadOnly="True"/>
-                                    <TextBox x:Name="tbPFACredit" Text="100100" BorderBrush="Transparent" IsHitTestVisible="False" HorizontalAlignment="Left" IsReadOnly="True" Height="25" Width="200"/>
+                                    <TextBox x:Name="tbPFACredit" Text="100100" BorderBrush="Transparent" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left" Height="25" Width="200" IsReadOnly="True"/>
+                                    <TextBox x:Name="tbPFADebit" Text="100100" BorderBrush="Transparent" IsHitTestVisible="False" HorizontalAlignment="Left" IsReadOnly="True" Height="25" Width="200"/>
                                     <Label Content="" Height="15"/>
                                     <TextBox x:Name="tbBalance" Text="5000" IsHitTestVisible="False"  IsReadOnly="True" Height="25" Width="200" Foreground="White" Background="#839BBB" HorizontalAlignment="Left" BorderBrush="Transparent"/>
                                     <Label Content="" Height="15"/>
@@ -166,8 +166,8 @@
                                     <TextBox x:Name="tbNEPFBalance" IsHitTestVisible="False" Foreground="White" Background="#839BBB" Text="500" Width="200" IsReadOnly="True" Height="25" HorizontalAlignment="Left" BorderBrush="Transparent"/>
                                     <Label x:Name="lEmpty7" Content="" Height="25"/>
                                     <Label x:Name="lNReconcilied3" IsHitTestVisible="False" Content="  Not yet Reconcilied" Height="25"/>
-                                    <TextBox x:Name="tbNPFADebit" IsHitTestVisible="False" Text="0" HorizontalAlignment="Left" Height="25" Width="200" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent"/>
-                                    <TextBox x:Name="tbNPFACredit" IsHitTestVisible="False" Text="500" HorizontalAlignment="Left" IsReadOnly="True" Height="25" BorderBrush="Transparent" Width="200"/>
+                                    <TextBox x:Name="tbNPFACredit" IsHitTestVisible="False" Text="0" HorizontalAlignment="Left" Height="25" Width="200" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent"/>
+                                    <TextBox x:Name="tbNPFADebit" IsHitTestVisible="False" Text="500" HorizontalAlignment="Left" IsReadOnly="True" Height="25" BorderBrush="Transparent" Width="200"/>
                                     <Label Content="" Height="15"/>
                                     <TextBox x:Name="tbNBalance" IsHitTestVisible="False" Text="500"  IsReadOnly="True" Height="25" Width="200" Foreground="White" Background="#839BBB" HorizontalAlignment="Left" BorderBrush="Transparent"/>
                                     <Label Content="" Height="15"/>
@@ -193,11 +193,12 @@
                                     <Label Height="80"/>
                                     <TextBlock><Hyperlink/></TextBlock>
                                     <Label Height="115"/>
-                                    <TextBlock><Hyperlink><InlineUIContainer>
-                                                <TextBlock Height="25" Text="See PF Account Debit"/>
-                                            </InlineUIContainer></Hyperlink></TextBlock>
+                                    <Label Height="60"></Label>
                                     <TextBlock><Hyperlink><InlineUIContainer>
                                                 <TextBlock Height="25" Text="See PF Account Credit"/>
+                                            </InlineUIContainer></Hyperlink></TextBlock>
+                                    <TextBlock><Hyperlink><InlineUIContainer>
+                                                <TextBlock Height="25" Text="See PF Account Debit"/>
                                             </InlineUIContainer></Hyperlink></TextBlock>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="-40,155,66,29" >
@@ -415,15 +416,15 @@
                                         </Style>
                                     </DataGrid.ColumnHeaderStyle>
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Replenishment Instruction n°" IsReadOnly="True" Binding="{Binding Path=Total}" Width="100" Foreground="Black" FontWeight="Bold"></DataGridTextColumn>
-                                        <DataGridTextColumn Header="Sent Date" IsReadOnly="True" Width="80"></DataGridTextColumn>
-                                        <DataGridTextColumn Header="Value Date" IsReadOnly="True" Width="80"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Replenishment Instruction n°" IsReadOnly="True" Binding="{Binding Path=Total}" Width="89" Foreground="Black" FontWeight="Bold"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Sent Date" IsReadOnly="True" Width="73"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Value Date" IsReadOnly="True" Width="73"></DataGridTextColumn>
                                         <DataGridTextColumn Header="Member Bank" IsReadOnly="True" Width="90"></DataGridTextColumn>
-                                        <DataGridTextColumn Header="PML" IsReadOnly="True" Width="50">
-                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Header="PML" IsReadOnly="True" Width="50"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Scheme" IsReadOnly="True" Width="60"></DataGridTextColumn>
                                         <DataGridTextColumn Header="Amount" IsReadOnly="True" Width="100" Binding="{Binding Path=Amount}">
                                         </DataGridTextColumn>
-                                        <DataGridTextColumn Header="Late Collection Amount" IsReadOnly="True" Width="*"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Late Collection Amount" IsReadOnly="True" Width="63"></DataGridTextColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
@@ -452,7 +453,7 @@
                                         <DataGridTextColumn Header="2 Days" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=d}"></DataGridTextColumn>
                                         <DataGridTextColumn Header="3 Days" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=e}"></DataGridTextColumn>
                                         <DataGridTextColumn Header="4 Days" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=f}"></DataGridTextColumn>
-                                        <DataGridTextColumn Header=">4 Days  &lt;30 Days" IsReadOnly="True" CanUserSort="False" Width="79" Binding="{Binding Path=g}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="                  >4 Days  &lt;30 Days" IsReadOnly="True" CanUserSort="False" Width="79" Binding="{Binding Path=g}"></DataGridTextColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
@@ -475,15 +476,15 @@
                                         </Style>
                                     </DataGrid.ColumnHeaderStyle>
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Replenishment Instruction n°" IsReadOnly="True" Binding="{Binding Path=Total}" Width="100" Foreground="Black" FontWeight="Bold"></DataGridTextColumn>
-                                        <DataGridTextColumn Header="Sent Date" IsReadOnly="True" Width="80"></DataGridTextColumn>
-                                        <DataGridTextColumn Header="Value Date" IsReadOnly="True" Width="80"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Replenishment Instruction n°" IsReadOnly="True" Binding="{Binding Path=Total}" Width="89" Foreground="Black" FontWeight="Bold"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Sent Date" IsReadOnly="True" Width="73"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Value Date" IsReadOnly="True" Width="73"></DataGridTextColumn>
                                         <DataGridTextColumn Header="Member Bank" IsReadOnly="True" Width="90"></DataGridTextColumn>
-                                        <DataGridTextColumn Header="PML" IsReadOnly="True" Width="50">
-                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Header="PML" IsReadOnly="True" Width="50"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Scheme" IsReadOnly="True" Width="60"></DataGridTextColumn>
                                         <DataGridTextColumn Header="Amount" IsReadOnly="True" Width="100" Binding="{Binding Path=Amount}">
                                         </DataGridTextColumn>
-                                        <DataGridTextColumn Header="Late Collection Amount" IsReadOnly="True" Width="*"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Late Collection Amount" IsReadOnly="True" Width="63"></DataGridTextColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
                                 <DataGrid Visibility="Hidden"  AutoGenerateColumns="False" RowHeaderWidth="0" CanUserResizeColumns="False" CanUserReorderColumns="False"  CanUserResizeRows="False" Name="DataGridAgDetail" IsReadOnly="True" Margin="600,25,0,0" SelectionUnit="Cell" >
@@ -505,7 +506,7 @@
                                         <DataGridTextColumn Header="2 Days" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=d}"></DataGridTextColumn>
                                         <DataGridTextColumn Header="3 Days" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=e}"></DataGridTextColumn>
                                         <DataGridTextColumn Header="4 Days" IsReadOnly="True" CanUserSort="False" Width="Auto" Binding="{Binding Path=f}"></DataGridTextColumn>
-                                        <DataGridTextColumn Header=">4 Days  &lt;30 Days" IsReadOnly="True" CanUserSort="False" Width="79" Binding="{Binding Path=g}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="                  >4 Days  &lt;30 Days" IsReadOnly="True" CanUserSort="False" Width="79" Binding="{Binding Path=g}"></DataGridTextColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>

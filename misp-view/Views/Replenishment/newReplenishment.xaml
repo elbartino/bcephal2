@@ -13,13 +13,13 @@
             <RowDefinition Height="350*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Label Margin="-35" Content="New Replenishment Instruction Note" HorizontalAlignment="Center" FontSize="20"></Label>
+            <Label Margin="-35" Content="New Replenishment Instruction" HorizontalAlignment="Center" FontSize="20"></Label>
         </Grid>
         <Grid Margin="0,0,0,0" Grid.Row="1" >
             <StackPanel>
                 <Label Margin="65,0,0,0" Content="  Select Member Bank"></Label>
-                <Label Margin="95,10,0,0" Content="   Select Scheme"></Label>
-                <Label Margin="95,10,0,0" Content="        Select PML"></Label>
+                <Label Margin="123,10,0,0" Content="Select PML"></Label>
+                <Label Margin="105,10,0,0" Content="Select Scheme"></Label>
             </StackPanel>
             <StackPanel Margin="0,85,0,0">
                 <Label Margin="50,10,0,0" Content="  Replenishment Amount"></Label>

@@ -15,19 +15,20 @@
             <Label Margin="-35" Content="New Pre-funding Advisement" HorizontalAlignment="Center" FontSize="20"></Label>
         </Grid>
     <Grid Margin="0,0,0,0" Grid.Row="1" >
-        <StackPanel>
-            <Label Margin="65,0,0,0" Content="  Select Member Bank"></Label>
-            <Label Margin="100,5,0,0" Content=" Select Scheme"></Label>
-        </StackPanel>
-        <StackPanel Margin="0,60,0,0">
-            <Label Margin="14,0,0,0" Content="Already Requested Pre-funding"></Label>
+            <StackPanel>
+                <Label Margin="65,0,0,0" Content="  Select Member Bank"></Label>
+                <Label Margin="120,5,0,0" Content=" Select PML"></Label>
+                <Label Margin="105,5,0,0" Content="Select Scheme"></Label>
+            </StackPanel>
+            <StackPanel Margin="0,80,0,0">
+            <Label Margin="14,15,0,0" Content="Already Requested Pre-funding"></Label>
             <Label Margin="45,10,0,0" Content="New Pre-funding Amount"></Label>
         </StackPanel>
         <StackPanel Margin="0,120,0,0">
-            <Label Content="  New Balance" Margin="105,25,0,0"></Label>
-            <Label Content=" Value Date" Margin="120,25,0,0"></Label>
+            <Label Content="  New Balance" Margin="105,35,0,0"></Label>
+            <Label Content=" Value Date" Margin="120,35,0,0"></Label>
             <Label Content=" Message" Margin="130,40,0,0"></Label>
-            <Label Content=" Structured Message" Margin="70,40,0,0"></Label>
+            <Label Content="  Structured Message" Margin="70,40,0,0"></Label>
         </StackPanel>
         <StackPanel Margin="200,0,0,0">
             <ComboBox  Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-72,0,172,0">
@@ -36,33 +37,38 @@
             <ComboBox Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-14,5,229,0">
                 <ComboBoxItem Content="Name"></ComboBoxItem>
             </ComboBox>
-        </StackPanel>
-        <StackPanel Margin="200,60,0,0">
-            <TextBox Text="70000" x:Name="tbAlRequest" BorderBrush="Transparent" IsHitTestVisible="False" Background="#839BBB" Foreground="White" Margin="-72,0,172,0" IsReadOnly="True" Width="200"></TextBox>
+                <ComboBox Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-14,5,229,0">
+                    <ComboBoxItem Content="Name"></ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        <StackPanel Margin="200,80,0,0">
+            <TextBox Text="70000" x:Name="tbAlRequest" BorderBrush="Transparent" IsHitTestVisible="False" Background="#839BBB" Foreground="White" Margin="-72,15,172,0" IsReadOnly="True" Width="200"></TextBox>
             <TextBox x:Name="tbPrefRequest" Text="70000" Margin="-72,10,172,0" PreviewTextInput="tbPrefRequest_PreviewTextInput" Width="200"></TextBox>
         </StackPanel>
         <StackPanel Margin="200,120,0,0">
-            <TextBox x:Name="tbBalance" Margin="-72,25,172,0" BorderBrush="Transparent" IsHitTestVisible="False" IsReadOnly="True" Width="200" Text="10000" Background="#839BBB" Foreground="White"></TextBox>
-            <DatePicker x:Name="dpValueDate" Width="200" Margin="-72,25,172,0" SelectedDate="{x:Static sys:DateTime.Now}"></DatePicker>
+            <TextBox x:Name="tbBalance" Margin="-72,35,172,0" BorderBrush="Transparent" IsHitTestVisible="False" IsReadOnly="True" Width="200" Text="10000" Background="#839BBB" Foreground="White"></TextBox>
+            <DatePicker x:Name="dpValueDate" Width="200" Margin="-72,35,172,0" SelectedDate="{x:Static sys:DateTime.Now}"></DatePicker>
             <TextBox x:Name="tbMessage" MaxLines="4" VerticalScrollBarVisibility="Auto" Margin="-14,25,229,0" Width="200" SpellCheck.IsEnabled="True" Language="Fr-FR" TextWrapping="Wrap" AcceptsReturn="True" Height="54"></TextBox>
             <TextBox x:Name="tbStructured" Width="200" IsHitTestVisible="False" IsReadOnly="True" Margin="-14,20,229,0"></TextBox>
         </StackPanel>
         <StackPanel Margin="415,0,0,0">
             <TextBox x:Name="tbIDMember" Width="200" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID"></TextBox>
-            <TextBox Margin="0,5,0,0" x:Name="tbIDScheme" Width="200" BorderBrush="Transparent" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID"></TextBox>
-        </StackPanel>
-        <StackPanel Margin="415,60,0,0">
-            <TextBlock>
+            <TextBox Margin="0,5,0,0" x:Name="tbIDPML" Width="200" BorderBrush="Transparent" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID"></TextBox>
+
+                <TextBox Margin="0,5,0,0" x:Name="tbIDScheme" Width="200" BorderBrush="Transparent" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID"></TextBox>
+            </StackPanel>
+        <StackPanel Margin="415,80,0,0">
+            <TextBlock Margin="0,15,0,0">
                 <Hyperlink>
                     <TextBlock Margin="0,0,0,0" Text="See Prefunding Advisements issued"></TextBlock>
                 </Hyperlink>
             </TextBlock>
-            <ComboBox Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="0,15,0,0">
+            <ComboBox Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="0,16,0,0">
                 <ComboBoxItem Content="Debit"></ComboBoxItem>
                 <ComboBoxItem Content="Credit"></ComboBoxItem>
             </ComboBox>
         </StackPanel>
-        <StackPanel Margin="218,350,250,0" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Margin="218,360,250,0" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="btnOK" Foreground="White" Height="25" Width="70" Content="Ok" Click="btnClick">
                 <Button.Style>
                     <Style TargetType="Button">

@@ -17,8 +17,8 @@
     <Grid Margin="0,0,0,0" Grid.Row="1" >
         <StackPanel>
             <Label Margin="65,0,0,0" Content="  Select Member Bank"></Label>
-            <Label Margin="100,5,0,0" Content=" Select Scheme"></Label>
             <Label Margin="120,5,0,0" Content=" Select PML"></Label>
+            <Label Margin="104,5,0,0" Content="Select Scheme"></Label>
             <Label Margin="100,5,0,0" Content="Select Platform"></Label>
         </StackPanel>
         <StackPanel Margin="0,60,0,0">

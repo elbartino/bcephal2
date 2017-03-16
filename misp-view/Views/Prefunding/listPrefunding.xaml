@@ -21,7 +21,7 @@
             <Label Margin="-35" Content="List Pre-funding Advisements" HorizontalAlignment="Center" FontSize="20"/>
         </Grid>
 
-        <dxg:GridControl Grid.Row="1" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" ItemsSource="{Binding Data, Source={StaticResource TypedSimpleSource}}">
+        <dxg:GridControl Grid.Row="1" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True">
             <dxg:GridControl.View>
                 <dxg:TableView AllowPerPixelScrolling="True" ShowIndicator="False" ShowGroupPanel="False" ShowTotalSummary="True" AllowEditing="False" AllowGrouping="False" AllowColumnMoving="False" AllowResizing="False" AllowSorting="False"/>
             </dxg:GridControl.View>
@@ -33,7 +33,7 @@
                     </Style>
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Date">
+            <dxg:GridColumn FieldName="Date" Width="80">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>
@@ -42,6 +42,14 @@
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
             <dxg:GridColumn FieldName="Member Bank">
+                <dxg:GridColumn.HeaderStyle>
+                    <Style TargetType="{x:Type Control}">
+                        <Setter Property="Background" Value="#839BBB"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Style>
+                </dxg:GridColumn.HeaderStyle>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="PML" Width="50">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>

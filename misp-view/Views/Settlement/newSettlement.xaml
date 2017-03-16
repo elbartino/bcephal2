@@ -17,9 +17,9 @@
         </Grid>
         <Grid Margin="0,0,0,0" Grid.Row="1" >
             <StackPanel>
-                <Label Margin="100,5,0,0" Content=" Select Scheme"></Label>
-                <Label Margin="95,10,0,0" Content="        Select PML"></Label>
-                <Label Margin="95,5,0,0" Content="  Select Platform"></Label>
+                <Label Margin="100,5,0,0" Content="       Select PML"></Label>
+                <Label Margin="95,10,0,0" Content="   Select Scheme"></Label>
+                <Label Margin="95,10,0,0" Content="  Select Platform"></Label>
             </StackPanel>
             <StackPanel Margin="0,85,0,0">
                 <Label Margin="10,10,0,0" Content=" Settlement Advisement Amount"></Label>
