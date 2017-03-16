@@ -56,7 +56,7 @@
                     </dxg:GridColumn>
                 </dxg:GridControlBand>
                 <dxg:GridControlBand Header="Ageing Balance" Style="{StaticResource GridControlBand}">
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Not Reached" FieldName="pendingBalance"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Not Reached" FieldName="notReached"/>
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Today" FieldName="today">
                         <dxg:GridColumn.EditSettings>
                             <dxe:TextEditSettings DisplayFormat="N2"/>
@@ -94,11 +94,11 @@
                 <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowColumnMoving="False" AllowResizing="True" AllowCellMerge="True" BestFitMode="AllRows"/>
             </dxg:GridControl.View>
 
-            <!--<dxg:GridControl.DetailDescriptor>
+            <dxg:GridControl.DetailDescriptor>
                 <dxg:DataControlDetailDescriptor>
                     <dxg:GridControl />
                 </dxg:DataControlDetailDescriptor>
-            </dxg:GridControl.DetailDescriptor>-->
+            </dxg:GridControl.DetailDescriptor>
         </dxg:GridControl>
     </Grid>
 
