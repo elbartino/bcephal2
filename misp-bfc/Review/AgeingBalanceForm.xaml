@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"             
              mc:Ignorable="d" 
@@ -45,29 +46,57 @@
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Sent Date" FieldName="sentDate"/>
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Value Date" FieldName="valueDate"/>
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Member Bank" FieldName="memberBankName"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Amount" FieldName="toReceive"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Amount" FieldName="toReceive">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings DisplayFormat="N2"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Late Collection Amount" FieldName="paid"/>
                 </dxg:GridControlBand>
                 <dxg:GridControlBand Header="Ageing Balance" Style="{StaticResource GridControlBand}">
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Not Reached" FieldName="pendingBalance"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Today" FieldName="today"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="1 Day" FieldName="oneDay"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="2 Days" FieldName="twoDays"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="3 Days" FieldName="threeDays"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="4 Days" FieldName="fourDays"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header=">4 Days" FieldName="lessThanFourDays"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Today" FieldName="today">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings DisplayFormat="N2"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="1 Day" FieldName="oneDay">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings DisplayFormat="N2"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="2 Days" FieldName="twoDays">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings DisplayFormat="N2"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="3 Days" FieldName="threeDays">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings DisplayFormat="N2"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="4 Days" FieldName="fourDays">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings DisplayFormat="N2"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header=">4 Days" FieldName="moreThanFourDays">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings DisplayFormat="N2"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
                 </dxg:GridControlBand>
             </dxg:GridControl.Bands>
             
             <dxg:GridControl.View>
-                <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowColumnMoving="False" AllowResizing="True" AllowBestFit="False" BestFitMode="AllRows"/>
+                <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowColumnMoving="False" AllowResizing="True" AllowCellMerge="True" BestFitMode="AllRows"/>
             </dxg:GridControl.View>
 
-            <dxg:GridControl.DetailDescriptor>
+            <!--<dxg:GridControl.DetailDescriptor>
                 <dxg:DataControlDetailDescriptor>
                     <dxg:GridControl />
                 </dxg:DataControlDetailDescriptor>
-            </dxg:GridControl.DetailDescriptor>
+            </dxg:GridControl.DetailDescriptor>-->
         </dxg:GridControl>
     </Grid>
 

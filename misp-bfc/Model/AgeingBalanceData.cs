@@ -26,5 +26,7 @@ namespace Misp.Bfc.Model
         public decimal fourDays { get; set; }
         public decimal lessThanFourDays { get; set; }
 
+        public bool reconciliated { get; set; }
+
     }
 }
