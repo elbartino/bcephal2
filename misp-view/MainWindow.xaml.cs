@@ -17,6 +17,10 @@ using misp_view.Views.Prefunding;
 using misp_view.Views.Replenishment;
 using misp_view.Views.Member;
 using misp_view.Views.Settlement;
+using misp_view.Views.NewClient;
+using misp_view.Views.BankAccount;
+using misp_view.Views.Details;
+using DevExpress.Xpf.PdfViewer;
 
 namespace misp_view
 {
@@ -35,9 +39,14 @@ namespace misp_view
         listMember lm= new listMember();
         newSettlement s = new newSettlement();
         listSettlement ls = new listSettlement();
+        NewClient nc = new NewClient();
+        BankAccount ba = new BankAccount();
+        Detail d = new Detail();
         public MainWindow()
         {
             InitializeComponent();
+            //PdfViewerControl viewer = new PdfViewerControl();
+            //this.Content = viewer;
         }
         private void btnPrefunding_Click(object sender, RoutedEventArgs e)
         {
@@ -114,6 +123,28 @@ namespace misp_view
         {
             gridInfo.Children.Clear();
             gridInfo.Children.Add(ls);
+
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            gridInfo.Children.Clear();
+            gridInfo.Children.Add(nc);
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            gridInfo.Children.Clear();
+            gridInfo.Children.Add(ba);
+        }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            d.ShowDialog();
+        }
+
+        private void MenuItem_Click_5(object sender, RoutedEventArgs e)
+        {
 
         }
     }

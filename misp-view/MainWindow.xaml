@@ -30,6 +30,12 @@
 
         <Grid Grid.Row="0" Grid.Column="1">
             <Menu Name="spMenu" HorizontalAlignment="Right" Grid.Row="1" Margin="-500,0,0,-222" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="2">
+                <MenuItem Header="PDF" Click="MenuItem_Click_5"></MenuItem>
+                <MenuItem Header=" Initiation">
+                    <MenuItem Header="New Client" Click="MenuItem_Click_2"></MenuItem>
+                    <MenuItem Header="Bank Account" Click="MenuItem_Click_3"></MenuItem>
+                    <MenuItem Header="Detail" Click="MenuItem_Click_4"></MenuItem>
+                </MenuItem>
                 <MenuItem Header="Advisements">
                     <MenuItem Header="New Pre-funding Advisements" Click="MenuItem_Click" ></MenuItem>
                     <MenuItem Header="List Pre-funding Advisements" Click="MenuItem_Click2" ></MenuItem>

@@ -43,5 +43,26 @@ namespace misp_view.Properties {
                 return ((string)(this["ConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=YOUSSLUFFY;Initial Catalog=Test;Integrated Security=True")]
+        public string TestConnectionString {
+            get {
+                return ((string)(this["TestConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Views\\Prefund" +
+            "ing\\Prefunding.mdf;Integrated Security=True")]
+        public string PrefundingConnectionString {
+            get {
+                return ((string)(this["PrefundingConnectionString"]));
+            }
+        }
     }
 }

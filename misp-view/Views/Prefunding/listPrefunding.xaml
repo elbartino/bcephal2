@@ -3,18 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" x:Class="misp_view.Views.Prefunding.listPrefunding"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:PrefundingDataSetTableAdapters="clr-namespace:misp_view.PrefundingDataSetTableAdapters" xmlns:misp_view="clr-namespace:misp_view" x:Class="misp_view.Views.Prefunding.listPrefunding"
              mc:Ignorable="d" Width="1015" Height="430">
+    <UserControl.Resources>
+        <dx:TypedSimpleSource x:Key="TypedSimpleSource" AdapterType="{x:Type PrefundingDataSetTableAdapters:PrefundingTableAdapter}" ContextType="{x:Type misp_view:PrefundingDataSet}" Path="Prefunding">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:TypedSimpleSource>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="350*"></RowDefinition>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="350*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Label Margin="-35" Content="List Pre-funding Advisements" HorizontalAlignment="Center" FontSize="20"></Label>
+            <Label Margin="-35" Content="List Pre-funding Advisements" HorizontalAlignment="Center" FontSize="20"/>
         </Grid>
 
-        <dxg:GridControl Grid.Row="1" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True">
+        <dxg:GridControl Grid.Row="1" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" ItemsSource="{Binding Data, Source={StaticResource TypedSimpleSource}}">
             <dxg:GridControl.View>
                 <dxg:TableView AllowPerPixelScrolling="True" ShowIndicator="False" ShowGroupPanel="False" ShowTotalSummary="True" AllowEditing="False" AllowGrouping="False" AllowColumnMoving="False" AllowResizing="False" AllowSorting="False"/>
             </dxg:GridControl.View>
@@ -66,7 +73,7 @@
                     </Style>
                 </dxg:GridColumn.HeaderStyle>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="PDF">
+            <dxg:GridColumn FieldName="Pdf">
                 <dxg:GridColumn.HeaderStyle>
                     <Style TargetType="{x:Type Control}">
                         <Setter Property="Background" Value="#839BBB"/>

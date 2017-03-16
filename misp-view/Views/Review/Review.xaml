@@ -84,7 +84,7 @@
                                     </StackPanel.Resources>
                                     <Label x:Name="lEmpty" Content=""  Height="25"/>
                                     <Label x:Name="lSPrefund" FontWeight="Normal" Height="25" Content="Sent Pre-funding Advisements" HorizontalAlignment="Right" Margin="0,0,5,0"/>
-                                    <Label x:Name="lSRepenishment" FontWeight="Normal" Height="25" Content="Sent Replenishment Instruction Notes  " HorizontalAlignment="Right"/>
+                                    <Label x:Name="lSRepenishment" FontWeight="Normal" Height="25" Content="Sent Replenishment Instructions  " HorizontalAlignment="Right"/>
                                     <Label Content="" Height="5"/>
                                     <Label Content="Other Received  " Height="25" FontWeight="Normal" HorizontalAlignment="Right"></Label>
                                     <Label Height="5"></Label>
@@ -126,7 +126,7 @@
                                     <Label x:Name="lReconcilied2" Content="  Reconcilied" Height="25" IsHitTestVisible="False"/>
                                     <TextBox x:Name="tbSMAdvisement" Text="100000" Height="25" Width="200" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
                                     <Label Content="" Height="5"/>
-                                    <TextBox x:Name="tbOPaid" Text="{Binding sentPrefundingReconcilied}"  Height="25" Width="200" BorderBrush="Transparent"  IsReadOnly="True" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" IsHitTestVisible="False"/>
+                                    <TextBox x:Name="tbOPaid" Text="{Binding sentPrefundingReconcilied}"  Height="25" Width="200" BorderBrush="Transparent"  IsReadOnly="True" HorizontalAlignment="Left" IsHitTestVisible="False"/>
                                     <Label Height="5"></Label>
                                     <TextBox x:Name="tbTTPay" Text="100100" IsReadOnly="True" IsHitTestVisible="False" Height="25" Width="200" Foreground="White" Background="#839BBB" HorizontalAlignment="Left" BorderBrush="Transparent"/>
                                     <Label Content="" Height="15"/>
@@ -159,7 +159,7 @@
                                     <Label x:Name="lNReconcilied2" IsHitTestVisible="False" Content="  Not yet Reconcilied" Height="25"/>
                                     <TextBox x:Name="tbNSMAdvisement" IsHitTestVisible="False" Text="0" Height="25" Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" IsReadOnly="True" BorderBrush="Transparent" HorizontalAlignment="Left"/>
                                     <Label Content="" Height="5"/>
-                                    <TextBox x:Name="tbNOPaid" Text="{Binding sentPrefundingReconcilied}"  Height="25" Width="200" BorderBrush="Transparent"  IsReadOnly="True" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" IsHitTestVisible="False"/>
+                                    <TextBox x:Name="tbNOPaid" Text="{Binding sentPrefundingReconcilied}"  Height="25" Width="200" BorderBrush="Transparent"  IsReadOnly="True" HorizontalAlignment="Left" IsHitTestVisible="False"/>
                                     <Label Height="5"></Label>
                                     <TextBox x:Name="tbNTTPay" IsHitTestVisible="False" Text="500" IsReadOnly="True" Height="25" Width="200" Foreground="White" Background="#839BBB" HorizontalAlignment="Left" BorderBrush="Transparent"/>
                                     <Label Content="" Height="15"/>
@@ -206,8 +206,8 @@
                                             <Setter Property="FontWeight" Value="{StaticResource tblBold}"/>
                                         </Style>
                                     </StackPanel.Resources>
-                                    <Label Content="Ratio PF/Peak 24 months" />
-                                    <TextBox x:Name="tbRatio" Text="{Binding ratioPFPeak}"  Margin="-120,-285,0,0" TextAlignment="Center" Height="25" Width="50" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                    <Label Content="Ratio PF/Peak MA 24 months" Margin="0,5,0,0" />
+                                    <TextBox x:Name="tbRatio" Text="{Binding ratioPFPeak}"  Margin="-140,-287,0,0" TextAlignment="Center" Height="25" Width="50" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
                                 </StackPanel>
                             </Grid>
 
@@ -301,7 +301,7 @@
                                         </DataTemplate>
                                     </dxg:GridColumn.HeaderTemplate>
                                 </dxg:GridColumn>
-                                <dxg:GridColumn Width="120" AllowResizing="False" AllowMoving="False" FieldName="Average Day Last 24 Months" MinWidth="15">
+                                <dxg:GridColumn Width="120" AllowResizing="False" AllowMoving="False" FieldName="Average Day Last 24 months" MinWidth="15">
                                     <dxg:GridColumn.HeaderStyle>
                                         <Style TargetType="{x:Type Control}">
                                             <Setter Property="Background" Value="#839BBB"/>
@@ -315,7 +315,7 @@
                                         </DataTemplate>
                                     </dxg:GridColumn.HeaderTemplate>
                                 </dxg:GridColumn>
-                                <dxg:GridColumn AllowResizing="False" Width="120" AllowMoving="False" FieldName="Peak Day Last 24 Months">
+                                <dxg:GridColumn AllowResizing="False" Width="120" AllowMoving="False" FieldName="Peak Day Last 24 months">
                                     <dxg:GridColumn.HeaderStyle>
                                         <Style TargetType="{x:Type Control}">
                                             <Setter Property="Background" Value="#839BBB"/>
@@ -554,7 +554,7 @@
                     <Grid Background="Transparent" x:Name="gridCredit">
                         <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" ItemsSource="{Binding Data, Source={StaticResource TypedSimpleSource}}">
                             <dxg:GridControl.View>
-                                <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" ShowTotalSummary="True" AutoWidth="True" AllowGrouping="False" AllowEditing="False" AllowMoveColumnToDropArea="False" AllowColumnMoving="False" AllowResizing="False" AllowSorting="False" ShowColumnHeaders="True" IsRowCellMenuEnabled="False" IsGroupPanelMenuEnabled="False" IsColumnMenuEnabled="False" IsGroupRowMenuEnabled="False" IsGroupFooterMenuEnabled="False" IsTotalSummaryMenuEnabled="True"/>
+                                <dxg:TableView AllowPerPixelScrolling="True" ShowIndicator="False" ShowGroupPanel="False" ShowTotalSummary="True" AutoWidth="True" AllowGrouping="False" AllowEditing="False" AllowMoveColumnToDropArea="False" AllowColumnMoving="False" AllowResizing="False" AllowSorting="False" ShowColumnHeaders="True" IsRowCellMenuEnabled="False" IsGroupPanelMenuEnabled="False" IsColumnMenuEnabled="False" IsGroupRowMenuEnabled="False" IsGroupFooterMenuEnabled="False" IsTotalSummaryMenuEnabled="True"/>
                             </dxg:GridControl.View>
                         </dxg:GridControl>
                     </Grid>

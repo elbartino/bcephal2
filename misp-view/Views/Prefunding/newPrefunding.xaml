@@ -6,7 +6,7 @@
              xmlns:Test="clr-namespace:misp_view"
              mc:Ignorable="d" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib" Width="615" Height="455">
-    <Grid>
+    <Grid x:Name="gridMain">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="350*"></RowDefinition>
