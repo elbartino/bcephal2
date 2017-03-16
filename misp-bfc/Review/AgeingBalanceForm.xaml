@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"             
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="700">
 
@@ -39,6 +39,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="600"/>
         </Grid.RowDefinitions>
+
+
         <dxg:GridControl x:Name="Grid" x:FieldModifier="public" EnableSmartColumnsGeneration="True" Grid.Row="1" Margin="0 5" >
             <dxg:GridControl.Bands>
                 <dxg:GridControlBand>
@@ -46,12 +48,12 @@
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Sent Date" FieldName="sentDate"/>
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Value Date" FieldName="valueDate"/>
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Member Bank" FieldName="memberBankName"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Amount" FieldName="toReceive">
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Amount Type" FieldName="amountType"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Late Collection Amount" FieldName="lateCollectionAmount">
                         <dxg:GridColumn.EditSettings>
                             <dxe:TextEditSettings DisplayFormat="N2"/>
                         </dxg:GridColumn.EditSettings>
                     </dxg:GridColumn>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Late Collection Amount" FieldName="paid"/>
                 </dxg:GridControlBand>
                 <dxg:GridControlBand Header="Ageing Balance" Style="{StaticResource GridControlBand}">
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Not Reached" FieldName="pendingBalance"/>

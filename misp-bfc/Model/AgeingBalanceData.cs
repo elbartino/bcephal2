@@ -17,16 +17,28 @@ namespace Misp.Bfc.Model
         public decimal paid { get; set; }
         public decimal pendingBalance { get; set; }
         public decimal nrftx { get; set; }
-        public decimal lateCollectionAmount { get; set; }
+        
         public decimal notReached { get; set; }
         public decimal today { get; set; }
         public decimal oneDay { get; set; }
         public decimal twoDays { get; set; }
         public decimal threeDays { get; set; }
         public decimal fourDays { get; set; }
-        public decimal lessThanFourDays { get; set; }
+        public decimal moreThanFourDays { get; set; }
 
         public bool reconciliated { get; set; }
+
+
+        public decimal lateCollectionAmount { 
+            get { return oneDay + twoDays + threeDays + fourDays + moreThanFourDays; }
+            set { }
+        }
+
+        public String amountType
+        {
+            get { return reconciliated ? "Paid" : "To receive"; }
+            //set { }
+        }
 
     }
 }
