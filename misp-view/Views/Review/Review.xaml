@@ -126,7 +126,7 @@
                                     <Label x:Name="lReconcilied2" Content="  Reconcilied" Height="25" IsHitTestVisible="False"/>
                                     <TextBox x:Name="tbSMAdvisement" Text="100000" Height="25" Width="200" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
                                     <Label Content="" Height="5"/>
-                                    <TextBox x:Name="tbOPaid" Text="{Binding sentPrefundingReconcilied}"  Height="25" Width="200" BorderBrush="Transparent"  IsReadOnly="True" HorizontalAlignment="Left" IsHitTestVisible="False"/>
+                                    <TextBox x:Name="tbOPaid" Text="{Binding sentPrefundingReconcilied}" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="25" Width="200" BorderBrush="Transparent"  IsReadOnly="True" HorizontalAlignment="Left" IsHitTestVisible="False"/>
                                     <Label Height="5"></Label>
                                     <TextBox x:Name="tbTTPay" Text="100100" IsReadOnly="True" IsHitTestVisible="False" Height="25" Width="200" Foreground="White" Background="#839BBB" HorizontalAlignment="Left" BorderBrush="Transparent"/>
                                     <Label Content="" Height="15"/>
@@ -159,7 +159,7 @@
                                     <Label x:Name="lNReconcilied2" IsHitTestVisible="False" Content="  Not yet Reconcilied" Height="25"/>
                                     <TextBox x:Name="tbNSMAdvisement" IsHitTestVisible="False" Text="0" Height="25" Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" IsReadOnly="True" BorderBrush="Transparent" HorizontalAlignment="Left"/>
                                     <Label Content="" Height="5"/>
-                                    <TextBox x:Name="tbNOPaid" Text="{Binding sentPrefundingReconcilied}"  Height="25" Width="200" BorderBrush="Transparent"  IsReadOnly="True" HorizontalAlignment="Left" IsHitTestVisible="False"/>
+                                    <TextBox x:Name="tbNOPaid" Text="{Binding sentPrefundingReconcilied}" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"  Height="25" Width="200" BorderBrush="Transparent"  IsReadOnly="True" HorizontalAlignment="Left" IsHitTestVisible="False"/>
                                     <Label Height="5"></Label>
                                     <TextBox x:Name="tbNTTPay" IsHitTestVisible="False" Text="500" IsReadOnly="True" Height="25" Width="200" Foreground="White" Background="#839BBB" HorizontalAlignment="Left" BorderBrush="Transparent"/>
                                     <Label Content="" Height="15"/>
@@ -218,14 +218,20 @@
                 <dx:DXTabItem Header="Settlement Evolution" Height="22" VerticalAlignment="Bottom">
                     <Grid Background="Transparent">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="350"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="320"/>
                             <RowDefinition Height="170"/>
                         </Grid.RowDefinitions>
-                        <Grid x:Name="gridSelect" Grid.Row="0">
+                        <Grid x:Name="gridSelect" Grid.Row="0" Margin="0,25,0,0">
+                            <Label Content="Select Scheme" Margin="103,-60,0,0" Height="25"></Label>
+                            <TextBox x:Name="tbSchemeID" Text="ID" Background="LightGray" Height="25" Width="180" IsReadOnly="True" Margin="277,-60,0,0"/>
+                            <ComboBox x:Name="lSchemeName" Height="25" Width="180" SelectedValue="ING" Margin="-225,-60,0,0">
+                                <CheckBox Content="ING" />
+                                <CheckBox Content="Fortis" />
+                            </ComboBox>
                             <Label Content="Select Platform" Margin="100,0,0,0" Height="25"></Label>
-                            <TextBox x:Name="tbSchemeID" Text="ID" Background="LightGray" Height="25" Width="180" IsReadOnly="True" Margin="277,0,0,0"/>
-                            <ComboBox x:Name="lSchemeName" Height="25" Width="180" SelectedValue="ING" Margin="-225,0,0,0">
+                            <TextBox x:Name="tbPlatformID" Text="ID" Background="LightGray" Height="25" Width="180" IsReadOnly="True" Margin="277,0,0,0"/>
+                            <ComboBox x:Name="lPlatformName" Height="25" Width="180" SelectedValue="ING" Margin="-225,0,0,0">
                                 <CheckBox Content="ING" />
                                 <CheckBox Content="Fortis" />
                             </ComboBox>

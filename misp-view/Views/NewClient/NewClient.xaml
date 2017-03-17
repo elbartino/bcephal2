@@ -11,10 +11,10 @@
             <ColumnDefinition Width="300"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Margin="0,30,0,0">
-            <Label Content="Company" FontWeight="Bold"></Label>
+            <Label Content="Client" FontWeight="Bold"></Label>
             <StackPanel Margin="50,30,0,0">
                 <Label Content="Client ID " Height="30" HorizontalAlignment="Right"></Label>
-                <Label Content="Company Name " Height="30" HorizontalAlignment="Right"></Label>
+                <Label Content="Client Name " Height="30" HorizontalAlignment="Right"></Label>
                 <Label Content="Legal Form " Height="30" HorizontalAlignment="Right"></Label>
                 <Label Content="VAT n° " Height="30" HorizontalAlignment="Right"></Label>
                 <Label Content="Street " Height="30" HorizontalAlignment="Right"></Label>

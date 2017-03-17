@@ -383,6 +383,8 @@
     <Folder Include="ViewModels\ReplenishmentVModel\" />
     <Folder Include="ViewModels\ReviewVModel\" />
     <Folder Include="ViewModels\SettlementVModel\" />
+    <Folder Include="Views\PML\" />
+    <Folder Include="Views\Scheme\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

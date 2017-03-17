@@ -17,7 +17,6 @@
         </Grid>
         <Grid Margin="0,0,0,0" Grid.Row="1" >
             <StackPanel>
-                <Label Margin="100,5,0,0" Content="       Select PML"></Label>
                 <Label Margin="95,10,0,0" Content="   Select Scheme"></Label>
                 <Label Margin="95,10,0,0" Content="  Select Platform"></Label>
             </StackPanel>
@@ -30,9 +29,6 @@
                 <Label Content="  Structured Message" Margin="70,40,0,0"></Label>
             </StackPanel>
             <StackPanel Margin="200,0,0,0">
-                <ComboBox Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-14,5,229,0">
-                    <ComboBoxItem Content="Name"></ComboBoxItem>
-                </ComboBox>
                 <ComboBox  Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-72,10,172,0">
                     <ComboBoxItem Content="Name"/>
                 </ComboBox>
@@ -49,8 +45,7 @@
                 <TextBox x:Name="tbStructured" Width="200" IsHitTestVisible="False" IsReadOnly="True" Margin="-14,20,229,0"></TextBox>
             </StackPanel>
             <StackPanel Margin="415,0,0,0">
-                <TextBox Margin="0,5,0,0" x:Name="tbIDScheme" Width="200" BorderBrush="Transparent" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID"></TextBox>
-                <TextBox x:Name="tbIDPML" Width="200" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID" Margin="0,10,0,0"></TextBox>
+                <TextBox x:Name="tbIDScheme" Width="200" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID" Margin="0,10,0,0"></TextBox>
                 <TextBox x:Name="tbIDPlatform" Width="200" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Text="ID" Margin="0,10,0,0"></TextBox>
             </StackPanel>
             <StackPanel Margin="415,102,0,0">
