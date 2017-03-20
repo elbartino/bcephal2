@@ -11,7 +11,15 @@ namespace Misp.Kernel.Administration.Role
     {
 
 
-       public RoleEditorItem(Domain.SubjectType subjectType) : base(subjectType) { }
+       public RoleEditorItem(Domain.SubjectType subjectType) : base(subjectType) 
+       {
+           this.Title = "Role";
+           this.CanFloat = false;
+           CanRename = true;
+           CanSave = true;
+       }
+
+         
 
        /// <summary>
        /// UNe nouvelle instance de la form.

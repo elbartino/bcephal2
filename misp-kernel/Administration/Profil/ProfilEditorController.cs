@@ -418,6 +418,7 @@ namespace Misp.Kernel.Administration.Profil
             return ValidateEditedNewName() == OperationState.CONTINUE;
         }
 
+       
         private bool IsRenameOnDoubleClick = false;
         /// <summary>
         /// 

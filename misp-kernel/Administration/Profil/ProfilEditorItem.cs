@@ -17,6 +17,8 @@ namespace Misp.Kernel.Administration.Profil
         {
             this.Title = "Profil";
             this.CanFloat = false;
+            CanRename = true;
+            CanSave = true;
         }
 
         protected override IEditableView<Domain.Profil> getNewEditorItemForm()

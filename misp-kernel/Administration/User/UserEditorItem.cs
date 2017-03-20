@@ -17,6 +17,8 @@ namespace Misp.Kernel.Administration.User
         {
             this.Title = "User";
             this.CanFloat = false;
+            CanRename = true;
+            CanSave = true;
         }
 
         protected override IEditableView<Domain.User> getNewEditorItemForm()
