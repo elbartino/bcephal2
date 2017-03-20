@@ -68,6 +68,7 @@ namespace Misp.Kernel.Ui.Base
 
         public bool IsReadOnly { get; set; }
         public bool CanRename { get; set; }
+        public bool CanSave { get; set; }
 
         public TextBox RenameTextBox { get; set; }
         public Util.Dialog RenameDialog { get; set; }

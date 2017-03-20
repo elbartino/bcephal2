@@ -339,6 +339,7 @@ namespace Misp.Reporting.StructuredReport
         public override void OnPageSelected(EditorItem<Kernel.Domain.StructuredReport> page)
         {
             if (page == null) return;
+            base.OnPageSelected(page);
             StructuredReportForm form = ((StructuredReportEditorItem)page).getStructuredReportForm();
             StructuredReportPropertyBar bar = (StructuredReportPropertyBar)this.PropertyBar;
             bar.DesignLayoutAnchorable.Content = form.StructuredReportPropertiesPanel;

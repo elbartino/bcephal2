@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Sidebar;
 using Misp.Sourcing.CustomizedTarget;
 using System;
@@ -70,6 +71,12 @@ namespace Misp.Sourcing.Designer
 
         }
 
+        public override void Customize(List<Right> rights, bool readOnly = false)
+        {
+            this.EntityGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, rights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.MeasureGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, rights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.PeriodGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, rights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+        }
 
         #endregion
 

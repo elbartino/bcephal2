@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Sidebar;
 using System;
 using System.Collections.Generic;
@@ -71,7 +72,12 @@ namespace Misp.Reporting.StructuredReport
             this.AddGroup(this.PeriodGroup);
         }
 
-
+        public override void Customize(List<Right> rights, bool readOnly = false)
+        {
+            this.EntityGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, rights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.MeasureGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, rights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.PeriodGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, rights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+        }
         #endregion
 
     }

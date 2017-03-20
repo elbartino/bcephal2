@@ -273,6 +273,7 @@ namespace Misp.Sourcing.Designer
         public override void OnPageSelected(EditorItem<Design> page)
         {
             if (page == null) return;
+            base.OnPageSelected(page);
             DesignerForm form = ((DesignerEditorItem)page).getDesignerForm();
             DesignerPropertyBar bar = (DesignerPropertyBar)this.PropertyBar;
             if (bar.AdministratorLayoutAnchorable != null) bar.AdministratorLayoutAnchorable.Content = form.AdministrationBar;

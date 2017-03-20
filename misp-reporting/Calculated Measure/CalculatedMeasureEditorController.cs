@@ -322,6 +322,7 @@ namespace Misp.Reporting.Calculated_Measure
         public override void OnPageSelected(EditorItem<CalculatedMeasure> page)
         {
             if (page == null) return;
+            base.OnPageSelected(page);
             CalculatedMeasureForm form = ((CalculatedMeasureEditorItem)page).getCalculatedMeasureForm();
 
             CalculatedMeasurePropertyBar bar = (CalculatedMeasurePropertyBar)this.PropertyBar;

@@ -156,6 +156,24 @@ namespace Misp.Kernel.Administration.ObjectAdmin
                     AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
                     AddCheckBox(new RightCheckBox("Save as", RightType.SAVE_AS));
                 }
+                else if (ObjectType.Equals(SubjectType.TRANSFORMATION_TREE.label))
+                {
+                    AddCheckBox(new RightCheckBox("View", RightType.VIEW));
+                    AddCheckBox(new RightCheckBox("Edit", RightType.EDIT));                    
+                    AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
+                    AddCheckBox(new RightCheckBox("Load", RightType.LOAD));
+                    AddCheckBox(new RightCheckBox("Clear", RightType.CLEAR));
+                    AddCheckBox(new RightCheckBox("Save as", RightType.SAVE_AS));
+                }
+                else if (ObjectType.Equals(SubjectType.COMBINED_TRANSFORMATION_TREE.label))
+                {
+                    AddCheckBox(new RightCheckBox("View", RightType.VIEW));
+                    AddCheckBox(new RightCheckBox("Edit", RightType.EDIT));
+                    AddCheckBox(new RightCheckBox("Delete", RightType.DELETE));
+                    AddCheckBox(new RightCheckBox("Load", RightType.LOAD));
+                    AddCheckBox(new RightCheckBox("Clear", RightType.CLEAR));
+                    AddCheckBox(new RightCheckBox("Save as", RightType.SAVE_AS));
+                }
                 else if (ObjectType.Equals(SubjectType.TARGET.label))
                 {
                     AddCheckBox(new RightCheckBox("View", RightType.VIEW));

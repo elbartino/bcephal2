@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Misp.Kernel.Application;
+using Misp.Kernel.Domain;
+using Misp.Kernel.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +28,13 @@ namespace Misp.Planification.CombinedTransformationTree
             controls.Add(SaveButton);
             controls.Add(CloseButton);
             return controls;
+        }
+
+        public override void Customize(String fuctionality, PrivilegeObserver observer, List<Kernel.Domain.Right> rights, bool readOnly = false)
+        {
+            base.Customize(fuctionality, observer, rights, readOnly);
+            RunButton.Visibility = RightsUtil.HasRight(RightType.LOAD, rights) && !readOnly ? Visibility.Visible : Visibility.Collapsed;
+            ClearButton.Visibility = RightsUtil.HasRight(RightType.CLEAR, rights) && !readOnly ? Visibility.Visible : Visibility.Collapsed;
         }
         
         /// <summary>
