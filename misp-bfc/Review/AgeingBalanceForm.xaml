@@ -24,13 +24,13 @@
             <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
             <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
             <Setter Property="AllowResizing" Value="True"/>
-            <Setter Property="AllowMoving" Value="False"/>
+            <Setter Property="AllowMoving" Value="True"/>
         </Style>
         <Style x:Key="GridControlBand" TargetType="{x:Type dxg:GridControlBand}">
             <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
             <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
             <Setter Property="AllowResizing" Value="True"/>
-            <Setter Property="AllowMoving" Value="False"/>
+            <Setter Property="AllowMoving" Value="True"/>
         </Style>
     </ScrollViewer.Resources>
 
@@ -48,6 +48,7 @@
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Sent Date" FieldName="sentDate"/>
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Value Date" FieldName="valueDate"/>
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Member Bank" FieldName="memberBankName"/>
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="PML" FieldName="pml"/>
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Amount Type" FieldName="amountType"/>
                     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Late Collection Amount" FieldName="lateCollectionAmount">
                         <dxg:GridColumn.EditSettings>
@@ -82,7 +83,7 @@
                             <dxe:TextEditSettings DisplayFormat="N2"/>
                         </dxg:GridColumn.EditSettings>
                     </dxg:GridColumn>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header=">4 Days" FieldName="moreThanFourDays">
+                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header=">4 Days &lt;30 Days" FieldName="moreThanFourDays">
                         <dxg:GridColumn.EditSettings>
                             <dxe:TextEditSettings DisplayFormat="N2"/>
                         </dxg:GridColumn.EditSettings>
@@ -91,14 +92,14 @@
             </dxg:GridControl.Bands>
             
             <dxg:GridControl.View>
-                <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowColumnMoving="False" AllowResizing="True" AllowCellMerge="True" BestFitMode="AllRows"/>
+                <dxg:TableView AllowMoveColumnToDropArea="True" ShowGroupPanel="True" AllowColumnMoving="True" AllowResizing="True" AllowCellMerge="True" BestFitMode="AllRows"/>
             </dxg:GridControl.View>
 
-            <dxg:GridControl.DetailDescriptor>
+            <!--<dxg:GridControl.DetailDescriptor>
                 <dxg:DataControlDetailDescriptor>
                     <dxg:GridControl />
                 </dxg:DataControlDetailDescriptor>
-            </dxg:GridControl.DetailDescriptor>
+            </dxg:GridControl.DetailDescriptor>-->
         </dxg:GridControl>
     </Grid>
 

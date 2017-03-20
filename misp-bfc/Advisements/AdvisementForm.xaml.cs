@@ -138,9 +138,9 @@ namespace Misp.Bfc.Advisements
         protected void DisplayAlreadyRequestedPrefundingAmount()
         {
             if (this.Service != null && isPrefunding() && this.EditedObject != null && !this.EditedObject.oid.HasValue
-                && this.MemberBank != null && this.Scheme != null)
+                && this.MemberBank != null && this.Scheme != null && this.Pml != null)
             {
-                decimal amount = this.Service.getAlreadyRequestedPrefundingAmount(this.MemberBank.oid.Value, this.Scheme.oid.Value);
+                decimal amount = this.Service.getAlreadyRequestedPrefundingAmount(this.MemberBank.oid.Value, this.Pml.oid.Value, this.Scheme.oid.Value);
                 this.AlreadyRequestedPrefundingTextEdit.Text = amount.ToString();
                 DisplayBalanceAmount();
             }
@@ -227,7 +227,6 @@ namespace Misp.Bfc.Advisements
             if (isPrefunding())
             {
                 this.AmountLabel.Content = "New Pre-funding Requested";
-                this.PmlGrid.Visibility = Visibility.Collapsed;
                 this.PlatformGrid.Visibility = Visibility.Collapsed;
             }
             else if (isExceptional())
@@ -247,6 +246,7 @@ namespace Misp.Bfc.Advisements
             {
                 this.AmountLabel.Content = "Settlement Advisement Amount";
                 this.MemberBankGrid.Visibility = Visibility.Collapsed;
+                this.PmlGrid.Visibility = Visibility.Collapsed;
                 this.AlreadyRequestedPrefundingGrid.Visibility = Visibility.Collapsed;
                 this.BalanceGrid.Visibility = Visibility.Collapsed;
             }
@@ -268,16 +268,14 @@ namespace Misp.Bfc.Advisements
                 {
                     List<BfcItem> banks = Service.MemberBankService.getAll();
                     this.MemberBankComboBox.ItemsSource = banks;
+
+                    List<BfcItem> pmls = Service.PmlService.getAll();
+                    this.PmlComboBox.ItemsSource = pmls;
                 }
                 if (isSettlement() || isMember())
                 {
                     List<BfcItem> platforms = Service.PlatformService.getAll();
                     this.PlatformComboBox.ItemsSource = platforms;
-                }
-                if (!isPrefunding())
-                {
-                    List<BfcItem> pmls = Service.PmlService.getAll();
-                    this.PmlComboBox.ItemsSource = pmls;
                 }
             }
         }
@@ -312,21 +310,17 @@ namespace Misp.Bfc.Advisements
             if (!isSettlement())
             {
                 this.MemberBankComboBox.SelectionChanged += OnComboBoxSelectionChanged;
+                this.PmlComboBox.SelectionChanged += OnComboBoxSelectionChanged;
                 this.AmountTextEdit.EditValueChanged += OnAmountChanged;
                 this.DCComboBox.SelectionChanged += OnDCComboBoxSelectionChanged;
             }
 
-            this.SchemeComboBox.SelectionChanged += OnComboBoxSelectionChanged;
+            this.SchemeComboBox.SelectionChanged += OnComboBoxSelectionChanged;            
 
             if (isSettlement() || isMember())
             {
                 this.PlatformComboBox.SelectionChanged += OnComboBoxSelectionChanged;
-            }
-            if (!isPrefunding())
-            {
-                this.PmlComboBox.SelectionChanged += OnComboBoxSelectionChanged;
-            }
-            
+            }            
         }
 
         private void OnDCComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -365,6 +359,7 @@ namespace Misp.Bfc.Advisements
                 {
                     this.Pml = item;
                     this.PmlTextBox.Text = item != null ? item.id : "";
+                    DisplayAlreadyRequestedPrefundingAmount();
                 }
                 OnChange();
                 if (throwHandlers && SelectionChanged != null) SelectionChanged();                

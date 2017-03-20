@@ -13,6 +13,7 @@ namespace Misp.Bfc.Model
         public string sentDate { get; set; }
         public string valueDate { get; set; }
         public string memberBankName { get; set; }
+        public string pml { get; set; }
         public decimal toReceive { get; set; }
         public decimal paid { get; set; }
         public decimal pendingBalance { get; set; }
