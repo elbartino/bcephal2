@@ -153,8 +153,12 @@ namespace Misp.Kernel.Controller
             saveSuccess = true;
             foreach (EditorItem<T> page in getEditor().getPages())
             {
-                if (page.IsReadOnly) continue;
-                OperationState resultSave =  Save(page);
+                OperationState resultSave = OperationState.STOP;
+                if (page.CanSave)
+                {
+                    if (page.IsReadOnly) continue;
+                    resultSave = Save(page);
+                }
                 if (resultSave == OperationState.STOP) saveSuccess = false;
             }
         }
@@ -574,6 +578,7 @@ namespace Misp.Kernel.Controller
 
             bool edit = RightsUtil.HasRight(Domain.RightType.EDIT, rights);
             page.CanRename = edit && !page.IsReadOnly;
+            page.CanSave = edit ;
         }
 
         public virtual void CustomizeContexMenu(PrivilegeObserver observer, List<Right> rights, EditorItem<T> page)

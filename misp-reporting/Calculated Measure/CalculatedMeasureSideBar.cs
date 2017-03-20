@@ -1,4 +1,5 @@
 ﻿using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Sidebar;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,11 @@ namespace Misp.Reporting.Calculated_Measure
             this.AddGroup(this.MeasureGroup);
            
         }
-
+        public override void Customize(List<Right> rights, bool readOnly = false)
+        {
+            this.MeasureGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, rights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            //this.CalculatedMeasureGroup.Visibility = Kernel.Util.RightsUtil.HasRight(RightType.EDIT, rights) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+        }
         #endregion
     }
 }

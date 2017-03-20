@@ -186,6 +186,7 @@ namespace Misp.Planification.CombinedTransformationTree
         public override void OnPageSelected(EditorItem<Kernel.Domain.CombinedTransformationTree> page)
         {
             if (page == null) return;
+            base.OnPageSelected(page);
             CombinedTransformationTreeForm form = ((CombinedTransformationTreeEditorItem)page).getCombineTransformationTreeForm();
             ((CombinedTransformationTreePropertyBar)this.PropertyBar).TableLayoutAnchorable.Content = form.CombinedTransformationTreePropertiesPanel;
             CombinedTransformationTreePropertyBar bar = (CombinedTransformationTreePropertyBar)this.PropertyBar;
