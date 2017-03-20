@@ -149,14 +149,9 @@ namespace Misp.Reconciliation.ReconciliationContext
         /// <param name="page"></param>
         public override void OnPageSelected(EditorItem<Kernel.Domain.ReconciliationContext> page)
         {
-            if (page == null)
-            {
-                return;
-            }
+            if (page == null) return;
+            base.OnPageSelected(page);
             ReconciliationContexForm form = ((ReconciliationContextEditorItem)page).getReconciliationContextForm();
-            if (form.ReconciliationContextPanel != null)
-            {
-            }
         }
 
         
