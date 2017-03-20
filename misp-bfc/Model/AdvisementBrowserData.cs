@@ -11,6 +11,8 @@ namespace Misp.Bfc.Model
     public class AdvisementBrowserData : BrowserData
     {
 
+        public String code { get; set; }
+
         public String memberBank { get; set; }
 	
 	    public String scheme { get; set; }

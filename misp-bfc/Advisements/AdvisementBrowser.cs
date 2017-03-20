@@ -149,7 +149,7 @@ namespace Misp.Bfc.Advisements
             {
                 switch (index)
                 {
-                    case 0: return "name";
+                    case 0: return "code";
                     case 1: return "creationDateTime";
                     case 2: return "scheme";
                     case 3: return "amount";
@@ -161,7 +161,7 @@ namespace Misp.Bfc.Advisements
             }
             switch (index)
             {
-                case 0: return "name";
+                case 0: return "code";
                 case 1: return "creationDateTime";
                 case 2: return "memberBank";
                 case 3: return "pml";

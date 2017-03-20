@@ -24,6 +24,7 @@ namespace Misp.Bfc.Model
         public string structuredMessage { get; set; }
         public string advisementType { get; set; }
         public string creator { get; set; }
+        public string code { get; set; }
         
         [ScriptIgnore]
         public DateTime? valueDateTime
