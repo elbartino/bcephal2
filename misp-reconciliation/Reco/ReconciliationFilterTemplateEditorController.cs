@@ -141,6 +141,7 @@ namespace Misp.Reconciliation.Reco
         public override void OnPageSelected(EditorItem<ReconciliationFilterTemplate> page)
         {
             if (page == null) return;
+            base.OnPageSelected(page);
             ReconciliationFilterTemplateForm form = ((ReconciliationFilterTemplateEditorItem)page).getForm();
             ReconciliationFilterTemplatePropertyBar bar = (ReconciliationFilterTemplatePropertyBar)this.PropertyBar;
             if (bar.AdministratorLayoutAnchorable != null) bar.AdministratorLayoutAnchorable.Content = form.AdministrationBar;
