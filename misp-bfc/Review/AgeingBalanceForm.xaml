@@ -24,13 +24,13 @@
             <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
             <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
             <Setter Property="AllowResizing" Value="True"/>
-            <Setter Property="AllowMoving" Value="False"/>
+            <Setter Property="AllowMoving" Value="True"/>
         </Style>
         <Style x:Key="GridControlBand" TargetType="{x:Type dxg:GridControlBand}">
             <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
             <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
             <Setter Property="AllowResizing" Value="True"/>
-            <Setter Property="AllowMoving" Value="False"/>
+            <Setter Property="AllowMoving" Value="True"/>
         </Style>
     </ScrollViewer.Resources>
 
@@ -92,7 +92,7 @@
             </dxg:GridControl.Bands>
             
             <dxg:GridControl.View>
-                <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowColumnMoving="False" AllowResizing="True" AllowCellMerge="True" BestFitMode="AllRows"/>
+                <dxg:TableView AllowMoveColumnToDropArea="True" ShowGroupPanel="True" AllowColumnMoving="True" AllowResizing="True" AllowCellMerge="True" BestFitMode="AllRows"/>
             </dxg:GridControl.View>
 
             <!--<dxg:GridControl.DetailDescriptor>
