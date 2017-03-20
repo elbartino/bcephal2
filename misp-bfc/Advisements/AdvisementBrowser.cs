@@ -71,7 +71,8 @@ namespace Misp.Bfc.Advisements
 
         protected override int getColumnCount()
         {
-            return 8;
+            if (isSettlement()) return 7;
+            return 9;
         }
 
         protected override System.Windows.Controls.DataGridColumn getColumnAt(int index)
@@ -81,54 +82,6 @@ namespace Misp.Bfc.Advisements
 
         protected override string getColumnHeaderAt(int index)
         {
-            if (isPrefunding())
-            {
-                switch (index)
-                {
-                   
-                    case 0: return "Pre-funding n°";
-                    case 1: return "Date";
-                    case 2: return "Member Bank";
-                    case 3: return "Scheme";
-                    case 4: return "Amount";
-                    case 5: return "D/C";
-                    case 6: return "Value date";
-                    case 7: return "Creator";
-                    default: return "";
-                }
-            }
-            if (isExceptional())
-            {
-                switch (index)
-                {
-                    case 0: return "Replenishment Instruction n°";
-                    case 1: return "Date";
-                    case 2: return "Member Bank";
-                    case 3: return "Scheme";
-                    case 4: return "Amount";
-                    case 5: return "D/C";
-                    case 6: return "Value date";
-                    case 7: return "Creator";
-                    default: return "";
-                }
-            }
-
-            if (isMember())
-            {
-                switch (index)
-                {
-                    case 0: return "Member Advisement n°";
-                    case 1: return "Date";
-                    case 2: return "Member Bank";
-                    case 3: return "Scheme";
-                    case 4: return "Amount";
-                    case 5: return "D/C";
-                    case 6: return "Value date";
-                    case 7: return "Creator";
-                    default: return "";
-                }
-            }
-
             if (isSettlement())
             {
                 switch (index)
@@ -136,19 +89,45 @@ namespace Misp.Bfc.Advisements
                     case 0: return "Settlement Advisement n°";
                     case 1: return "Date";
                     case 2: return "Scheme";
-                    case 3: return "PML";
-                    case 4: return "Amount";
-                    case 5: return "D/C";
-                    case 6: return "Value date";
-                    case 7: return "Creator";
+                    case 3: return "Amount";
+                    case 4: return "D/C";
+                    case 5: return "Value date";
+                    case 6: return "Creator";
                     default: return "";
                 }
             }
-            return "";
+            switch (index)
+            {
+
+                case 0: return "Pre-funding n°";
+                case 1: return "Date";
+                case 2: return "Member Bank";
+                case 3: return "PML";
+                case 4: return "Scheme";
+                case 5: return "Amount";
+                case 6: return "D/C";
+                case 7: return "Value date";
+                case 8: return "Creator";
+                default: return "";
+            }
         }
 
         protected override System.Windows.Controls.DataGridLength getColumnWidthAt(int index)
         {
+            if (isSettlement())
+            {
+                switch (index)
+                {
+                    case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
+                    case 1: return 100;
+                    case 2: return 150;
+                    case 3: return 150;
+                    case 4: return 50;
+                    case 5: return 100;
+                    case 6: return 100;
+                    default: return 100;
+                }
+            }
             switch (index)
             {
                 case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
@@ -156,80 +135,43 @@ namespace Misp.Bfc.Advisements
                 case 2: return 150;
                 case 3: return 150;
                 case 4: return 100;
-                case 5: return 50;
-                case 6: return 100;
+                case 5: return 100;
+                case 6: return 50;
                 case 7: return 100;
+                case 8: return 100;
                 default: return 100;
             }
         }
 
         protected override string getBindingNameAt(int index)
         {
-            if (isPrefunding())
-            {
-                switch (index)
-                {
-                    case 0: return "name";
-                    case 1: return "creationDateTime";
-                    case 2: return "memberBank";
-                    case 3: return "scheme";
-                    case 4: return "amount";
-                    case 6: return "dc";
-                    case 7: return "valueDate";
-                    case 8: return "creator";
-                    default: return "oid";
-                }
-            }
-
-            if (isMember())
-            {
-                switch (index)
-                {
-                    case 0: return "name";
-                    case 1: return "creationDateTime";
-                    case 2: return "memberBank";
-                    case 3: return "scheme";
-                    case 4: return "amount";
-                    case 6: return "dc";
-                    case 7: return "valueDate";
-                    case 8: return "creator";
-                    default: return "oid";
-                }
-            }
-
-            if (isExceptional())
-            {
-                switch (index)
-                {
-                    case 0: return "name";
-                    case 1: return "creationDateTime";
-                    case 2: return "memberBank";
-                    case 3: return "scheme";
-                    case 4: return "amount";
-                    case 6: return "dc";
-                    case 7: return "valueDate";
-                    case 8: return "creator";
-                    default: return "oid";
-                }
-            }
-
-            if (isSettlement()) 
+            if (isSettlement())
             {
                 switch (index)
                 {
                     case 0: return "name";
                     case 1: return "creationDateTime";
                     case 2: return "scheme";
-                    case 3: return "pml";
-                    case 4: return "amount";
-                    case 5: return "dc";
-                    case 6: return "valueDate";
-                    case 7: return "creator";
+                    case 3: return "amount";
+                    case 4: return "dc";
+                    case 5: return "valueDate";
+                    case 6: return "creator";
                     default: return "oid";
                 }
             }
-
-            return "";
+            switch (index)
+            {
+                case 0: return "name";
+                case 1: return "creationDateTime";
+                case 2: return "memberBank";
+                case 3: return "pml";
+                case 4: return "scheme";
+                case 5: return "amount";
+                case 6: return "dc";
+                case 7: return "valueDate";
+                case 8: return "creator";
+                default: return "oid";
+            }
         }
 
         /// <summary>
@@ -239,10 +181,19 @@ namespace Misp.Bfc.Advisements
         /// <returns></returns>
         protected override string getBindingStringFormatAt(int index)
         {
+            if (isSettlement())
+            {
+                switch (index)
+                {
+                    case 1: return "{0:dd/MM/yyyy}";
+                    case 5: return "{0:dd/MM/yyyy}";
+                    default: return null;
+                }
+            }
             switch (index)
             {
                 case 1: return "{0:dd/MM/yyyy}";
-                case 6: return "{0:dd/MM/yyyy}";
+                case 7: return "{0:dd/MM/yyyy}";
                 default: return null;
             }
         }

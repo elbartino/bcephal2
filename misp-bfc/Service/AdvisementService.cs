@@ -19,10 +19,11 @@ namespace Misp.Bfc.Service
         public BfcItemService PmlService { get; set; }
         public BfcItemService DebitCreditService { get; set; }
 
-        public decimal getAlreadyRequestedPrefundingAmount(int memberBankIdOid, int schemeIdOid){           
+        public decimal getAlreadyRequestedPrefundingAmount(int memberBankIdOid, int pmlIDoid, int schemeIdOid)
+        {           
             try
             {
-                var request = new RestRequest(ResourcePath + "/already-requested-prefunding/" + memberBankIdOid + "/" + schemeIdOid, Method.POST);
+                var request = new RestRequest(ResourcePath + "/already-requested-prefunding/" + memberBankIdOid + "/" + pmlIDoid + "/" + schemeIdOid, Method.POST);
                 request.RequestFormat = DataFormat.Json;                
                 RestResponse queryResult = (RestResponse)RestClient.Execute(request);
                 decimal amount = RestSharp.SimpleJson.DeserializeObject<decimal>(queryResult.Content);

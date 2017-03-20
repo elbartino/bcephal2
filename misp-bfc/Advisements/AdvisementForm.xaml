@@ -118,18 +118,7 @@
             <TextBox x:Name="MemberBankTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="2"/>
         </Grid>
 
-        <Grid Grid.Row="1" x:Name="SchemeGrid">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="160"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="Select Scheme" Style="{StaticResource label}" Grid.Column="0"/>
-            <ComboBox x:Name="SchemeComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
-            <TextBox x:Name="SchemeTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="2"/>
-        </Grid>
-
-        <Grid Grid.Row="2" x:Name="PmlGrid">
+        <Grid Grid.Row="1" x:Name="PmlGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="Auto"/>
@@ -138,6 +127,17 @@
             <Label Content="Select PML" Style="{StaticResource label}" Grid.Column="0"/>
             <ComboBox x:Name="PmlComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
             <TextBox x:Name="PmlTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="2"/>
+        </Grid>
+        
+        <Grid Grid.Row="2" x:Name="SchemeGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Select Scheme" Style="{StaticResource label}" Grid.Column="0"/>
+            <ComboBox x:Name="SchemeComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
+            <TextBox x:Name="SchemeTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="2"/>
         </Grid>
 
         <Grid Grid.Row="3" x:Name="PlatformGrid">
