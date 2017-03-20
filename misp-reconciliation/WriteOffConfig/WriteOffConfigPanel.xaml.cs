@@ -206,7 +206,8 @@ namespace Misp.Reconciliation.WriteOffConfig
             wpanel.showRowLabel(nbreLigne == 0);
             if (writeofffield != null)
             {
-                string name = writeofffield.isAttribute() ? writeofffield.attributeField.name : writeofffield.periodField.name;
+                string name = writeofffield.isAttribute() ? writeofffield.attributeField.name : writeofffield.isPeriod() ? writeofffield.periodField.name : "";
+                if(!string.IsNullOrWhiteSpace(name))
                 IsDuplicateLine(wpanel, writeofffield.isAttribute() ? SubjectType.ATTRIBUTE : SubjectType.PERIOD, name, wpanel.Index);
             }
             wpanel.display();
