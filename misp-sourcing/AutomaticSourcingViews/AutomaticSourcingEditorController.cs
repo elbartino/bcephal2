@@ -1289,6 +1289,7 @@ namespace Misp.Sourcing.Base
         public override void OnPageSelected(EditorItem<Misp.Kernel.Domain.AutomaticSourcing> page)
         {
             if (page == null) return;
+            base.OnPageSelected(page);
             AutomaticSourcingForm form = ((AutomaticSourcingEditorItem)page).getAutomaticSourcingForm();
            ((AutomaticSourcingPropertyBar)this.PropertyBar).AutomaticSourcingLayoutAnchorable.Content = form.AutomaticSourcingPanel;
            bool canAddTableProperty = isAutomaticGrid() || isAutomaticTarget() || isEnrichmentTable();
