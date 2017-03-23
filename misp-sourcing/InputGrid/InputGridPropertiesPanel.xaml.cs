@@ -319,6 +319,7 @@ namespace Misp.Sourcing.InputGrid
             this.NameTextBox.IsEnabled = !readOnly;
             this.groupField.SetReadOnly(readOnly);
             this.visibleInShortcutCheckbox.IsEnabled = !readOnly;
+            this.showAllRowsCheckbox.IsEnabled = !readOnly;
             this.CommentTextBlock.IsEnabled = !readOnly;
             this.ColumnForms.SetReadOnly(readOnly);
         }
