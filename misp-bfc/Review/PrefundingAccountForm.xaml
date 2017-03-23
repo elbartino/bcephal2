@@ -145,8 +145,8 @@
             <Label Style="{StaticResource SimpleLabel}"/>
             <Label Style="{StaticResource TotalLabel}"/>
             <Label Style="{StaticResource SimpleLabel}"/>
-            <Label Style="{StaticResource TitleLabel}"/>
-            <Label Style="{StaticResource SimpleLabel}"/>
+            <Label Style="{StaticResource TitleLabel}" Content="Ratio PF/Peak MA 24 months"/>
+            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="RatioPFPeakDayTextBox" Width="55"/>
             <Label Style="{StaticResource SimpleLabel}"/>
             <Label Style="{StaticResource TotalLabel}"/>
             <Label Style="{StaticResource TotalLabel}"/>
@@ -171,7 +171,12 @@
 
         <StackPanel Grid.Column="4" Margin="10 0 0 0">
             <Label Style="{StaticResource TitleLabel}"/>
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="RatioPFPeakDayTextBox" Width="55"/>
+            <Label Style="{StaticResource SimpleLabel}"/>
+            <Label Style="{StaticResource SimpleLabel}"/>
+            <Label Style="{StaticResource SimpleLabel}"/>
+            <Label Style="{StaticResource TotalLabel}"/>
+            <Label Style="{StaticResource SimpleLabel}"/>
+            
         </StackPanel>
     </Grid>
     
