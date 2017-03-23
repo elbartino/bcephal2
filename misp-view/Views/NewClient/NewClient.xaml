@@ -1,78 +1,123 @@
-﻿<UserControl x:Class="misp_view.Views.NewClient.NewClient"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="misp_view.Views.NewClient.NewClient"
              mc:Ignorable="d" 
-             Width="615" Height="600">
+             xmlns:Condition="clr-namespace:misp_view.Views.NewClient"
+             Width="745" Height="605">
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"></ColumnDefinition>
-            <ColumnDefinition Width="300"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Margin="0,30,0,0">
-            <Label Content="Client" FontWeight="Bold"></Label>
-            <StackPanel Margin="50,30,0,0">
-                <Label Content="Client ID " Height="30" HorizontalAlignment="Right"></Label>
-                <Label Content="Client Name " Height="30" HorizontalAlignment="Right"></Label>
-                <Label Content="Legal Form " Height="30" HorizontalAlignment="Right"></Label>
-                <Label Content="VAT n° " Height="30" HorizontalAlignment="Right"></Label>
-                <Label Content="Street " Height="30" HorizontalAlignment="Right"></Label>
-                <Label Content="N° " Height="30" HorizontalAlignment="Right"></Label>
-                <Label Content="City Code " Height="30" HorizontalAlignment="Right"></Label>
-                <Label Content="City " Height="30" HorizontalAlignment="Right"></Label>
-            </StackPanel>
-            <Label Content="Contact Person" FontWeight="Bold" Margin="0,270,0,0"></Label>
-            <StackPanel Margin="50,300,0,0">
-                <Label Content="First Name " Height="30" HorizontalAlignment="Right"></Label>
-                <Label Content="Last Name " Height="30" HorizontalAlignment="Right"></Label>
-                <Label Content="Email " Height="30" HorizontalAlignment="Right"></Label>
-            </StackPanel>
-            <Label Content="Account" FontWeight="Bold" Margin="0,390,0,0"></Label>
-            <StackPanel Margin="30,420,0,0">
-                <Label Content="Scheme " Height="30" HorizontalAlignment="Right"></Label>
-                <TextBox HorizontalAlignment="Right" BorderBrush="Transparent" Width="50" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="25"></TextBox>
-            </StackPanel>
-            <Label Content="Status" FontWeight="Bold" Margin="0,490,0,0"></Label>
-            
-    </Grid>
-        <Grid Grid.Column="1" Margin="0,60,0,0">
-            <StackPanel Margin="20,0,0,0">
-                <TextBox Height="25" Width="200" BorderBrush="Transparent" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-                <Label Height="5"></Label>
-                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
-                <Label Height="5"></Label>
-                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
-                <Label Height="5"></Label>
-                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
-                <Label Height="5"></Label>
-                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
-                <Label Height="5"></Label>
-                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
-                <Label Height="5"></Label>
-                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
-                <Label Height="5"></Label>
-                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
-            </StackPanel>
-            <StackPanel Margin="20,265,0,0">
-                <Label Height="5"></Label>
-                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
-                <Label Height="5"></Label>
-                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
-                <Label Height="5"></Label>
-                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
-            </StackPanel>
-            <StackPanel Margin="20,390,0,0">
-                <Label Content="Pre-funding Account" Height="30"></Label>
-                <TextBox Height="25" Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent"  HorizontalAlignment="Left"/>
-            </StackPanel>
-            <ComboBox HorizontalAlignment="Left" Height="25" BorderBrush="Transparent" Width="200" Margin="20,400,0,0" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
-                <ComboBoxItem Content="Passive"></ComboBoxItem>
-                <ComboBoxItem Content="Active"></ComboBoxItem>
-                <ComboBoxItem Content="Under Risk Control"></ComboBoxItem>
-                <ComboBoxItem Content="Default"></ComboBoxItem>
-                <ComboBoxItem Content="Closed"></ComboBoxItem>
-            </ComboBox>
-        </Grid>
+        <dx:DXTabControl Margin="0,0,-229,-84" TabContentCacheMode="None">
+            <dx:DXTabControl.View>
+                <dx:TabControlStretchView HeaderLocation="Top" HideButtonShowMode="NoWhere" NewButtonShowMode="NoWhere" ShowHeaderMenu="False"/>
+            </dx:DXTabControl.View>
+
+            <dx:DXTabItem Header="Client">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,-2,0,0">
+                    <Grid x:Name="gridClient">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="240"/>
+                            <ColumnDefinition Width="240"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" Margin="0,30,0,0">
+                            <Label Content="Client" FontWeight="Bold"/>
+                            <StackPanel Margin="50,30,0,0">
+                                <Label Content="Client ID " Height="30" HorizontalAlignment="Right"/>
+                                <Label Content="Client Name " Height="30" HorizontalAlignment="Right"/>
+                                <Label Content="Legal Form " Height="30" HorizontalAlignment="Right"/>
+                                <Label Content="VAT n° " Height="30" HorizontalAlignment="Right"/>
+                                <Label Content="Street " Height="30" HorizontalAlignment="Right"/>
+                                <Label Content="N° " Height="30" HorizontalAlignment="Right"/>
+                                <Label Content="City Code " Height="30" HorizontalAlignment="Right"/>
+                                <Label Content="City " Height="30" HorizontalAlignment="Right"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Column="1" Margin="0,60,0,0">
+                            <StackPanel Margin="20,0,0,0">
+                                <TextBox Height="25" Width="200" BorderBrush="Transparent" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                <Label Height="5"/>
+                                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
+                                <Label Height="5"/>
+                                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
+                                <Label Height="5"/>
+                                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
+                                <Label Height="5"/>
+                                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
+                                <Label Height="5"/>
+                                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
+                                <Label Height="5"/>
+                                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
+                                <Label Height="5"/>
+                                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="Contact" Height="22" VerticalAlignment="Bottom">
+                <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" x:Name="gridNew">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="lNameClient" Content="Name" Margin="0,10,22,0" HorizontalAlignment="Right"></Label>
+                        <TextBox x:Name="tbNameClient" TextChanged="tbNameClient_TextChanged" x:FieldModifier="public"  IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" VerticalAlignment="Center" Margin="54,8,78,5" Grid.ColumnSpan="3" Height="26"/>
+                        <Label x:Name="lLastNameClient" Content="Last Name" x:FieldModifier="public" HorizontalAlignment="Right" Grid.Column="2" Margin="0,10,0,-1"/>
+                        <TextBox x:Name="tbLastNameClient" TextChanged="tbLastNameClient_TextChanged" x:FieldModifier="public" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Grid.Column="3" Margin="0,8,21,6" Grid.ColumnSpan="2"/>
+
+                        <Button x:Name="AddButton" x:FieldModifier="public" Margin="50,10,0,0" Width="15" Grid.Column="4">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="D:\bcephal-clent\misp-view\Resources\Icons\New.png"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button x:Name="DeleteButton" x:FieldModifier="public" ToolTip="Delete line" Margin="0,10,0,0" Width="15" Grid.Column="5">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="D:\bcephal-clent\misp-view\Resources\Icons\DeleteButton.png"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <ToggleButton x:Name="ShowDetailsButton" x:FieldModifier="public" Margin="0,10,0,0"  Width="15" Grid.Column="7">
+                            <ToggleButton.Template>
+                                <ControlTemplate>
+                                    <TextBlock Text="▼" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <ToggleButton x:Name="HideDetailsButton" x:FieldModifier="public" Margin="0,10,0,0" Width="15"  Grid.Column="7">
+                            <ToggleButton.Template>
+                                <ControlTemplate>
+                                    <TextBlock Text="▲" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton >
+                    </Grid>
+                    <Grid Grid.Row="1" Margin="0 10 0 0">
+                        <Condition:DetailClient x:Name="DClient" Margin="22,-12,626,2"/>
+                    </Grid>
+
+                </Grid>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="Guarantee">
+                
+            </dx:DXTabItem>
+
+        </dx:DXTabControl>
     </Grid>
 </UserControl>

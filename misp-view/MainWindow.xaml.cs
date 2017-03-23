@@ -147,5 +147,16 @@ namespace misp_view
         {
 
         }
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            gridInfo.Children.Clear();
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }      
+                
     }
 }

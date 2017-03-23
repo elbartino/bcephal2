@@ -200,6 +200,9 @@
     <Compile Include="Views\Member\newMember.xaml.cs">
       <DependentUpon>newMember.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NewClient\DetailClient.xaml.cs">
+      <DependentUpon>DetailClient.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NewClient\NewClient.xaml.cs">
       <DependentUpon>NewClient.xaml</DependentUpon>
     </Compile>
@@ -255,6 +258,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Member\newMember.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewClient\DetailClient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -401,11 +408,77 @@
       <Project>{04A9E6A9-9DC0-4D7B-AE43-D3B2C6DC2A43}</Project>
       <Name>DataGridFilterLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\misp-kernel\misp-kernel.csproj">
+      <Project>{31BC49E1-CEA7-41E9-A030-C99E180F235C}</Project>
+      <Name>misp-kernel</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Icons\add-link-white.png" />
+    <Resource Include="Resources\Icons\attribut-white.png" />
+    <Resource Include="Resources\Icons\attribut.png" />
+    <Resource Include="Resources\Icons\backgroungStartPage.jpg" />
+    <Resource Include="Resources\Icons\blank-file-white.png" />
+    <Resource Include="Resources\Icons\bouleModels.jpg" />
+    <Resource Include="Resources\Icons\cancel-circle.png" />
+    <Resource Include="Resources\Icons\cancel.png" />
+    <Resource Include="Resources\Icons\Check.png" />
+    <Resource Include="Resources\Icons\circle-outline-white.png" />
+    <Resource Include="Resources\Icons\circle-white.png" />
+    <Resource Include="Resources\Icons\close.png" />
+    <Resource Include="Resources\Icons\CommentButton.png" />
+    <Resource Include="Resources\Icons\Copy.png" />
+    <Resource Include="Resources\Icons\cube.jpg" />
+    <Resource Include="Resources\Icons\Cut.png" />
+    <Resource Include="Resources\Icons\delete-white.png" />
+    <Resource Include="Resources\Icons\Delete.png" />
+    <Resource Include="Resources\Icons\DeleteButton.png" />
+    <Resource Include="Resources\Icons\deleteButtonBlue.png" />
+    <Resource Include="Resources\Icons\DeleteButtonBlue1.png" />
+    <Resource Include="Resources\Icons\dossier.jpg" />
+    <Resource Include="Resources\Icons\Edit.png" />
+    <Resource Include="Resources\Icons\Edit1.png" />
+    <Resource Include="Resources\Icons\entity.png" />
+    <Resource Include="Resources\Icons\firstPage.png" />
+    <Resource Include="Resources\Icons\folder-white.png" />
+    <Resource Include="Resources\Icons\Ident.png" />
+    <Resource Include="Resources\Icons\indent-down-white.png" />
+    <Resource Include="Resources\Icons\indent-left-white.png" />
+    <Resource Include="Resources\Icons\indent-right-white.png" />
+    <Resource Include="Resources\Icons\indent-up-white.png" />
+    <Resource Include="Resources\Icons\Indent.png" />
+    <Resource Include="Resources\Icons\lastPage.png" />
+    <Resource Include="Resources\Icons\loader.gif" />
+    <Resource Include="Resources\Icons\loupe.png" />
+    <Resource Include="Resources\Icons\model.png" />
+    <Resource Include="Resources\Icons\Movedown.png" />
+    <Resource Include="Resources\Icons\Moveup.png" />
+    <Resource Include="Resources\Icons\New.png" />
+    <Resource Include="Resources\Icons\next.png" />
+    <Resource Include="Resources\Icons\NoCommentButton.png" />
+    <Resource Include="Resources\Icons\object-white.png" />
+    <Resource Include="Resources\Icons\Open.png" />
+    <Resource Include="Resources\Icons\Outdent.png" />
+    <Resource Include="Resources\Icons\Paste.png" />
+    <Resource Include="Resources\Icons\playRecoButton.png" />
+    <Resource Include="Resources\Icons\playRed.png" />
+    <Resource Include="Resources\Icons\previous.png" />
+    <Resource Include="Resources\Icons\quit-outline-white.png" />
+    <Resource Include="Resources\Icons\quit-white.png" />
+    <Resource Include="Resources\Icons\rectangle-white.png" />
+    <Resource Include="Resources\Icons\rename-white.png" />
+    <Resource Include="Resources\Icons\rIssue.png" />
+    <Resource Include="Resources\Icons\save-as-white.png" />
+    <Resource Include="Resources\Icons\save-white.png" />
+    <Resource Include="Resources\Icons\sort_decrease.png" />
+    <Resource Include="Resources\Icons\sort_incr.png" />
+    <Resource Include="Resources\Icons\StopButton.png" />
+    <Resource Include="Resources\Icons\triangle.jpg" />
+    <Resource Include="Resources\Icons\value-chain-white.png" />
+    <Resource Include="Resources\Icons\value.png" />
     <Content Include="Views\Prefunding\Prefunding.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

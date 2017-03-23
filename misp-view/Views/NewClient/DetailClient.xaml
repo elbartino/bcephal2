@@ -1,0 +1,32 @@
+﻿<Grid x:Class="misp_view.Views.NewClient.DetailClient"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:misp_view.Views.NewClient"
+        mc:Ignorable="d">
+    <Grid  Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" x:Name="LabelGrid">
+            <StackPanel>
+                <Label Content="First Name " Height="25" HorizontalAlignment="Right"></Label>
+                <Label Content="Last Name " Height="25" HorizontalAlignment="Right"></Label>
+                <Label Content="Role " Height="25" HorizontalAlignment="Right"></Label>
+                <Label Content="Email " Height="25" HorizontalAlignment="Right"></Label>
+                <Label Content="Phone " Height="25" HorizontalAlignment="Right"></Label>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1">
+            <StackPanel >
+                <TextBox x:Name="tbFirstName" TextChanged="tbFirstName_TextChanged" BorderBrush="Transparent"></TextBox>
+                <TextBox x:Name="tbLastName" TextChanged="tbLastName_TextChanged" BorderBrush="Transparent" Margin="0,3,0,0"></TextBox>
+                <TextBox BorderBrush="Transparent" Margin="0,3,0,0"></TextBox>
+                <TextBox BorderBrush="Transparent" Margin="0,3,0,0"></TextBox>
+                <TextBox BorderBrush="Transparent" Margin="0,3,0,0"></TextBox>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Grid>

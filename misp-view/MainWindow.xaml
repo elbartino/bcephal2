@@ -19,13 +19,17 @@
         <Grid x:Name="toolBarGrid" Background="#FFDEE0E0" Grid.Column="0" Grid.Row="0" Height="70" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="385*"/>
+                <ColumnDefinition Width="385"/>
                 <ColumnDefinition Width="173*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
             <Image x:Name="logo" Grid.Column="0" Grid.Row="0" Source="Resources/Images/Logo/bcephal.png" Margin="35,0,35,-59" Width="130" Height="80"/>
+
+            <Button x:Name="btnHome" Grid.Column="1" Grid.Row="0" Click="btnHome_Click"  Content="Home" Margin="60,21,200,-20" Height="20" VerticalAlignment="Top"/>
+            <Button x:Name="btnClose" Grid.Column="1" Grid.Row="0" Click="btnClose_Click"  Content="Close" Margin="205,21,55,-20" Height="20" VerticalAlignment="Top"/>
+
         </Grid>
 
         <Grid Grid.Row="0" Grid.Column="1">
@@ -47,7 +51,7 @@
                     <MenuItem Header="List Settlement Advisements" Click="MenuItem_ClicklistSettlement" ></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Review" Click="MenuItem_Click_1"></MenuItem>
-                
+
                 <!--<Button x:Name="btnPrefunding" Click="btnPrefunding_Click" Content="Prefunding"></Button>
                 <Button x:Name="btnReview" Click="btnReview_Click" Content="Review"/>
                 <Button x:Name="btnListPrefunding" Click="btnListPrefunding_Click" Content="List Prefunding"/>-->
