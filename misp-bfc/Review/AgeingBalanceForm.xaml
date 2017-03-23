@@ -1,4 +1,4 @@
-﻿<ScrollViewer x:Class="Misp.Bfc.Review.AgeingBalanceForm"
+﻿<Grid x:Class="Misp.Bfc.Review.AgeingBalanceForm"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,20 +7,18 @@
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
              xmlns:src="clr-namespace:Misp.Bfc.Review" 
-             mc:Ignorable="d" 
+             mc:Ignorable="d" HorizontalAlignment="Stretch"
              d:DesignHeight="500" d:DesignWidth="700">
 
-    <Grid HorizontalAlignment="Stretch">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
 
-        <src:AgeingBalanceGrid x:Name="TotalGrid" x:FieldModifier="public" Grid.Row="0" Margin="0 5"/>
-        <GridSplitter Height="5" ResizeDirection="Rows" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="0"/>
-        <Expander Grid.Row="1" Margin="0 5" IsExpanded="False" Header="Details">
-            <src:AgeingBalanceGrid x:Name="DetailGrid" x:FieldModifier="public" Margin="0 5"/>
-        </Expander>
-    </Grid>
+    <src:AgeingBalanceGrid x:Name="TotalGrid" x:FieldModifier="public" Grid.Row="0" Margin="0 5" Height="155"/>
 
-</ScrollViewer>
+    <Expander x:Name="DetailExpander" Grid.Row="1" Margin="0 5" IsExpanded="False" Header="Details">
+        <src:AgeingBalanceGrid x:Name="DetailGrid" x:FieldModifier="public" Margin="0 5"/>
+    </Expander>
+
+</Grid>

@@ -9,6 +9,8 @@ namespace Misp.Bfc.Model
 {
     public class ReviewFilter
     {
+        public bool details { get; set; }
+
         public List<int> memberBankIdOids { get; set; }
 
         public List<int> schemeIdOids { get; set; }
@@ -35,6 +37,7 @@ namespace Misp.Bfc.Model
         {
             memberBankIdOids = new List<int>(0);
             schemeIdOids = new List<int>(0);
+            details = false;
         }
 
     }

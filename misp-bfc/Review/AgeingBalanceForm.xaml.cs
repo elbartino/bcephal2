@@ -1,5 +1,6 @@
 ﻿using DevExpress.Xpf.Grid;
 using Misp.Bfc.Model;
+using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,12 @@ namespace Misp.Bfc.Review
     /// <summary>
     /// Interaction logic for AgeingBalanceForm.xaml
     /// </summary>
-    public partial class AgeingBalanceForm : ScrollViewer
+    public partial class AgeingBalanceForm : Grid
     {
         
         #region Properties
 
+        public ChangeEventHandler SearchDetail { get; set; }
         
         bool throwHandlers;
 
@@ -48,7 +50,8 @@ namespace Misp.Bfc.Review
         public void DisplayTotal(List<AgeingBalanceData> datas)
         {
             throwHandlers = false;
-            this.TotalGrid.ItemsSource = datas;            
+            this.TotalGrid.ItemsSource = datas;
+            this.DetailExpander.IsExpanded = false;
             throwHandlers = true;
         }
 
@@ -77,7 +80,12 @@ namespace Misp.Bfc.Review
 
         private void InitializeHandlers()
         {
-            
+            this.DetailExpander.Expanded += OnExpended;
+        }
+
+        private void OnExpended(object sender, RoutedEventArgs e)
+        {
+            if (throwHandlers && SearchDetail != null) SearchDetail();
         }
 
         #endregion

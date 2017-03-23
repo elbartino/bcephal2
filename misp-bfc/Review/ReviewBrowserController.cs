@@ -122,6 +122,19 @@ namespace Misp.Bfc.Review
             getReviewBrowser().Form.MemberBankChanged += OnMemberBankChanged;
             getReviewBrowser().Form.SettlementEvolutionForm.SchemeChanged += OnSettlementEvolutionSchemeChanged;
             getReviewBrowser().Form.SettlementEvolutionForm.PeriodChanged += OnSettlementEvolutionPeriodChanged;
+
+            getReviewBrowser().Form.AgeingBalanceForm.SearchDetail += OnAgeingBalanceSearchDetail;
+        }
+
+        private void OnAgeingBalanceSearchDetail()
+        {
+            ReviewFilter fil = getReviewBrowser().Form.GetFilter();
+            ReviewFilter filter = new ReviewFilter();
+            filter.details = true;
+            filter.memberBankIdOids = fil.memberBankIdOids;
+            filter.schemeIdOids = fil.schemeIdOids;
+            List<AgeingBalanceData> datas = getReviewService().getAgeingBalanceDatas(filter);
+            getReviewBrowser().Form.DisplayDetails(datas);
         }
 
         private void OnMemberBankChanged()
