@@ -149,12 +149,11 @@ namespace Misp.Bfc.Review
         {
             List<BfcItem> banks = getReviewService().MemberBankService.getAll();
             banks.Add(null);
-            getReviewBrowser().Form.MemberBankComboBox.ItemsSource = banks;
             getReviewBrowser().Form.MemberBankComboBoxEdit.ItemsSource = banks;
 
             List<BfcItem> schemes = getReviewService().SchemeService.getAll();
             schemes.Add(null);
-            getReviewBrowser().Form.SettlementEvolutionForm.SchemeComboBox.ItemsSource = schemes;
+            getReviewBrowser().Form.SettlementEvolutionForm.SchemeComboBoxEdit.ItemsSource = schemes;
         }
 
         protected override void initializeSideBarData() { }

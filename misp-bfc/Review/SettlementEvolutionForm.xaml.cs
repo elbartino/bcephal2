@@ -4,6 +4,7 @@ using Misp.Bfc.Model;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace Misp.Bfc.Review
 
         public ChangeEventHandler PeriodChanged { get; set; }
 
-        public BfcItem Scheme { get; private set; }
+        public List<BfcItem> Schemes { get; private set; }
 
         bool throwHandlers;
 
@@ -42,6 +43,7 @@ namespace Misp.Bfc.Review
 
         public SettlementEvolutionForm()
         {
+            this.Schemes = new List<BfcItem>(0);
             InitializeComponent();
             InitializeHandlers();
             ((TableView)this.Grid.View).BestFitColumns();
@@ -90,9 +92,9 @@ namespace Misp.Bfc.Review
         public void FillFilter(ReviewFilter filter)
         {
             if(filter == null) filter = new ReviewFilter();
-            if (this.Scheme != null)
+            foreach (BfcItem scheme in this.Schemes)
             {
-                filter.schemeIdOids.Add(this.Scheme.oid.Value);
+                filter.schemeIdOids.Add(scheme.oid.Value);
             }
             filter.startDateTime = this.StartDatePicker.SelectedDate;
             filter.endDateTime = this.EndDatePicker.SelectedDate;
@@ -105,33 +107,41 @@ namespace Misp.Bfc.Review
 
         private void InitializeHandlers()
         {
-            this.SchemeComboBox.SelectionChanged += OnselectScheme;
             this.StartDatePicker.SelectedDateChanged += OnselectPeriod;
             this.EndDatePicker.SelectedDateChanged += OnselectPeriod;
+            this.SchemeComboBoxEdit.PopupClosed += OnSchemePopupClosed;
+        }
+
+        private void OnSchemePopupClosed(object sender, DevExpress.Xpf.Editors.ClosePopupEventArgs e)
+        {
+            if (e.CloseMode == DevExpress.Xpf.Editors.PopupCloseMode.Normal)
+            {
+                this.Schemes = new List<BfcItem>(0);
+                SchemeTextBox.Text = "";
+                ObservableCollection<object> SelectedItems = this.SchemeComboBoxEdit.SelectedItems;
+                if (SelectedItems != null && SelectedItems.Count > 0)
+                {
+                    String coma = "";
+                    foreach (object obj in SelectedItems)
+                    {
+                        if (obj is BfcItem)
+                        {
+                            BfcItem item = (BfcItem)obj;
+                            this.Schemes.Add(item);
+                            SchemeTextBox.Text += coma + item.id;
+                            coma = ";";
+                        }
+                    }
+                }
+                if (throwHandlers && SchemeChanged != null) SchemeChanged();
+            }
         }
 
         private void OnselectPeriod(object sender, SelectionChangedEventArgs e)
         {
             if (throwHandlers && PeriodChanged != null) PeriodChanged();
         }
-
-        private void OnselectScheme(object sender, SelectionChangedEventArgs e)
-        {
-            Object obj = this.SchemeComboBox.SelectedItem;
-            if (obj != null && obj is BfcItem)
-            {
-                BfcItem item = (BfcItem)obj;
-                SchemeTextBox.Text = item.id;
-                this.Scheme = item;
-            }
-            else
-            {
-                this.Scheme = null;
-                SchemeTextBox.Text = "";
-            }
-            if (throwHandlers && SchemeChanged != null) SchemeChanged();
-        }
-
+        
         #endregion
 
     }

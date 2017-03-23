@@ -3,6 +3,7 @@ using Misp.Bfc.Model;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace Misp.Bfc.Review
 
         public ChangeEventHandler MemberBankChanged { get; set; }
 
-        public BfcItem MemberBank { get; private set; }
+        public List<BfcItem> MemberBanks { get; private set; }
         bool throwHandlers;
 
         #endregion
@@ -38,6 +39,7 @@ namespace Misp.Bfc.Review
 
         public ReviewForm()
         {
+            this.MemberBanks = new List<BfcItem>(0);
             ThemeManager.SetThemeName(this, "Office2016White");
             InitializeComponent();
             InitializeHandlers();
@@ -80,9 +82,9 @@ namespace Misp.Bfc.Review
         public ReviewFilter GetFilter()
         {
             ReviewFilter filter = new ReviewFilter();
-            if (this.MemberBank != null)
+            foreach (BfcItem bank in this.MemberBanks)
             {
-                filter.memberBankIdOids.Add(this.MemberBank.oid.Value);
+                filter.memberBankIdOids.Add(bank.oid.Value);
             }
             if (this.TabControl.SelectedIndex == 0) { }
             else if (this.TabControl.SelectedIndex == 1)
@@ -103,46 +105,34 @@ namespace Misp.Bfc.Review
 
         private void InitializeHandlers()
         {
-            this.MemberBankComboBox.SelectionChanged += OnselectMemberBank;
-            this.MemberBankComboBoxEdit.SelectedIndexChanged += OnselectMemberBank;
+            this.MemberBankComboBoxEdit.PopupClosed += OnMemberBankPopupClosed;
         }
 
-        private void OnselectMemberBank(object sender, RoutedEventArgs e)
+        private void OnMemberBankPopupClosed(object sender, DevExpress.Xpf.Editors.ClosePopupEventArgs e)
         {
-            foreach(object obj in this.MemberBankComboBoxEdit.SelectedItems)
+            if (e.CloseMode == DevExpress.Xpf.Editors.PopupCloseMode.Normal)
             {
-                if (obj != null && obj is BfcItem)
-                {
-                    BfcItem item = (BfcItem)obj;
-                    MemberBankTextBox.Text = item.id;
-                    this.MemberBank = item;
-                }
-                else
-                {
-                    this.MemberBank = null;
-                    MemberBankTextBox.Text = "";
-                }
-            }
-            if (throwHandlers && MemberBankChanged != null) MemberBankChanged();
-        }
-
-        private void OnselectMemberBank(object sender, SelectionChangedEventArgs e)
-        {
-            Object obj = this.MemberBankComboBox.SelectedItem;
-            if (obj != null && obj is BfcItem)
-            {
-                BfcItem item = (BfcItem)obj;
-                MemberBankTextBox.Text = item.id;
-                this.MemberBank = item;
-            }
-            else
-            {
-                this.MemberBank = null;
+                this.MemberBanks = new List<BfcItem>(0);
                 MemberBankTextBox.Text = "";
+                ObservableCollection<object> SelectedItems = this.MemberBankComboBoxEdit.SelectedItems;
+                if (SelectedItems != null && SelectedItems.Count > 0)
+                {
+                    String coma = "";
+                    foreach (object obj in SelectedItems)
+                    {
+                        if (obj is BfcItem)
+                        {
+                            BfcItem item = (BfcItem)obj;
+                            this.MemberBanks.Add(item);
+                            MemberBankTextBox.Text += coma + item.id;
+                            coma = ";";
+                        }
+                    }
+                }
+                if (throwHandlers && MemberBankChanged != null) MemberBankChanged();
             }
-            if (throwHandlers && MemberBankChanged != null) MemberBankChanged();
         }
-
+                
         #endregion
 
         

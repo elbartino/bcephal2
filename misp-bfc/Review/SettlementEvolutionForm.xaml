@@ -36,7 +36,11 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 5 0 10" HorizontalAlignment="Center">
             <Label x:Name="SchemeLabel" Content="Select Scheme" VerticalAlignment="Center" Margin=" 0 0 5 0"/>
-            <ComboBox x:Name="SchemeComboBox" Height="25" Width="180"/>
+            <dxe:ComboBoxEdit x:Name="SchemeComboBoxEdit" Height="25" Width="180">
+                <dxe:ComboBoxEdit.StyleSettings>
+                    <dxe:CheckedComboBoxStyleSettings/>
+                </dxe:ComboBoxEdit.StyleSettings>
+            </dxe:ComboBoxEdit>
             <TextBox x:Name="SchemeTextBox" Text="ID" Height="25" Width="180" IsEnabled="False" Margin="10 0 0 0"/>
         </StackPanel>
 
