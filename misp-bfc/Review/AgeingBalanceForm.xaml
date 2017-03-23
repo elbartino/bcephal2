@@ -6,101 +6,21 @@
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+             xmlns:src="clr-namespace:Misp.Bfc.Review" 
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="700">
 
-    <ScrollViewer.Resources>
-        <Style x:Key="GridHeader" TargetType="{x:Type Control}">
-            <Setter Property="Background" Value="#839BBB"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Height" Value="35"/>
-        </Style>
-        <DataTemplate x:Key="GridHeaderTemplate">
-            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
-                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
-        </DataTemplate>
-
-        <Style x:Key="GridColumn" TargetType="{x:Type dxg:GridColumn}">
-            <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
-            <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
-            <Setter Property="AllowResizing" Value="True"/>
-            <Setter Property="AllowMoving" Value="True"/>
-        </Style>
-        <Style x:Key="GridControlBand" TargetType="{x:Type dxg:GridControlBand}">
-            <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
-            <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
-            <Setter Property="AllowResizing" Value="True"/>
-            <Setter Property="AllowMoving" Value="True"/>
-        </Style>
-    </ScrollViewer.Resources>
-
-
     <Grid HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="600"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-        <dxg:GridControl x:Name="Grid" x:FieldModifier="public" EnableSmartColumnsGeneration="True" Grid.Row="1" Margin="0 5" >
-            <dxg:GridControl.Bands>
-                <dxg:GridControlBand>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Replenishment Instruction n°" FieldName="replenishmentInstruction"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Sent Date" FieldName="sentDate"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Value Date" FieldName="valueDate"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Member Bank" FieldName="memberBankName"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="PML" FieldName="pml"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Amount Type" FieldName="amountType"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Late Collection Amount" FieldName="lateCollectionAmount">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings DisplayFormat="N2"/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                </dxg:GridControlBand>
-                <dxg:GridControlBand Header="Ageing Balance" Style="{StaticResource GridControlBand}">
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Not Reached" FieldName="notReached"/>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Today" FieldName="today">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings DisplayFormat="N2"/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="1 Day" FieldName="oneDay">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings DisplayFormat="N2"/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="2 Days" FieldName="twoDays">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings DisplayFormat="N2"/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="3 Days" FieldName="threeDays">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings DisplayFormat="N2"/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="4 Days" FieldName="fourDays">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings DisplayFormat="N2"/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header=">4 Days &lt;30 Days" FieldName="moreThanFourDays">
-                        <dxg:GridColumn.EditSettings>
-                            <dxe:TextEditSettings DisplayFormat="N2"/>
-                        </dxg:GridColumn.EditSettings>
-                    </dxg:GridColumn>
-                </dxg:GridControlBand>
-            </dxg:GridControl.Bands>
-            
-            <dxg:GridControl.View>
-                <dxg:TableView AllowMoveColumnToDropArea="True" ShowGroupPanel="True" AllowColumnMoving="True" AllowResizing="True" AllowCellMerge="True" BestFitMode="AllRows"/>
-            </dxg:GridControl.View>
-
-            <!--<dxg:GridControl.DetailDescriptor>
-                <dxg:DataControlDetailDescriptor>
-                    <dxg:GridControl />
-                </dxg:DataControlDetailDescriptor>
-            </dxg:GridControl.DetailDescriptor>-->
-        </dxg:GridControl>
+        <src:AgeingBalanceGrid x:Name="TotalGrid" x:FieldModifier="public" Grid.Row="0" Margin="0 5"/>
+        <GridSplitter Height="5" ResizeDirection="Rows" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="0"/>
+        <Expander Grid.Row="1" Margin="0 5" IsExpanded="False" Header="Details">
+            <src:AgeingBalanceGrid x:Name="DetailGrid" x:FieldModifier="public" Margin="0 5"/>
+        </Expander>
     </Grid>
 
 </ScrollViewer>

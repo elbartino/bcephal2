@@ -27,7 +27,9 @@ namespace Misp.Bfc.Model
         public decimal fourDays { get; set; }
         public decimal moreThanFourDays { get; set; }
 
-        public bool reconciliated { get; set; }
+        public int reconciliated { get; set; }
+
+        public List<AgeingBalanceData> details { get; set; }
 
 
         public decimal lateCollectionAmount { 
@@ -37,8 +39,21 @@ namespace Misp.Bfc.Model
 
         public String amountType
         {
-            get { return reconciliated ? "Paid" : "To receive"; }
-            //set { }
+            get
+            {
+                switch (reconciliated)
+                {
+                    case 0: return "To receive";
+                    case 1: return "Paid";
+                    case 2: return "Balance";
+                    default: return "";
+                }
+            }
+        }
+
+        public AgeingBalanceData()
+        {
+            details = new List<AgeingBalanceData>(0);
         }
 
     }

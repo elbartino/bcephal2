@@ -124,6 +124,9 @@
     <Compile Include="Review\AgeingBalanceForm.xaml.cs">
       <DependentUpon>AgeingBalanceForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Review\AgeingBalanceGrid.xaml.cs">
+      <DependentUpon>AgeingBalanceGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Review\CreditRatingForm.xaml.cs">
       <DependentUpon>CreditRatingForm.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Review\AgeingBalanceForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Review\AgeingBalanceGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
