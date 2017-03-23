@@ -36,7 +36,7 @@
 
     <dxg:GridControl.Bands>
         <dxg:GridControlBand>
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Replenishment Instruction n°" FieldName="replenishmentInstruction"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Advisement N°" FieldName="replenishmentInstruction"/>
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Sent Date" FieldName="sentDate"/>
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Value Date" FieldName="valueDate"/>
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Member Bank" FieldName="memberBankName"/>
