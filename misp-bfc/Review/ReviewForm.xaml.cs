@@ -63,10 +63,17 @@ namespace Misp.Bfc.Review
             throwHandlers = true;
         }
 
-        public void Display(List<AgeingBalanceData> datas)
+        public void DisplayTotal(List<AgeingBalanceData> datas)
         {
             throwHandlers = false;
-            this.AgeingBalanceForm.Display(datas);
+            this.AgeingBalanceForm.DisplayTotal(datas);
+            throwHandlers = true;
+        }
+
+        public void DisplayDetails(List<AgeingBalanceData> datas)
+        {
+            throwHandlers = false;
+            this.AgeingBalanceForm.DisplayDetails(datas);
             throwHandlers = true;
         }
 
@@ -97,7 +104,26 @@ namespace Misp.Bfc.Review
         private void InitializeHandlers()
         {
             this.MemberBankComboBox.SelectionChanged += OnselectMemberBank;
+            this.MemberBankComboBoxEdit.SelectedIndexChanged += OnselectMemberBank;
+        }
 
+        private void OnselectMemberBank(object sender, RoutedEventArgs e)
+        {
+            foreach(object obj in this.MemberBankComboBoxEdit.SelectedItems)
+            {
+                if (obj != null && obj is BfcItem)
+                {
+                    BfcItem item = (BfcItem)obj;
+                    MemberBankTextBox.Text = item.id;
+                    this.MemberBank = item;
+                }
+                else
+                {
+                    this.MemberBank = null;
+                    MemberBankTextBox.Text = "";
+                }
+            }
+            if (throwHandlers && MemberBankChanged != null) MemberBankChanged();
         }
 
         private void OnselectMemberBank(object sender, SelectionChangedEventArgs e)

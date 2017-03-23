@@ -18,11 +18,11 @@ using System.Windows.Shapes;
 namespace Misp.Bfc.Review
 {
     /// <summary>
-    /// Interaction logic for AgeingBalanceForm.xaml
+    /// Interaction logic for AgeingBalanceGrid.xaml
     /// </summary>
-    public partial class AgeingBalanceForm : ScrollViewer
+    public partial class AgeingBalanceGrid : GridControl
     {
-        
+                
         #region Properties
 
         
@@ -33,8 +33,10 @@ namespace Misp.Bfc.Review
 
         #region Constructors
 
-        public AgeingBalanceForm()
+        public AgeingBalanceGrid()
         {
+            //AgeingBalanceGrid.AllowInfiniteGridSize = true;
+            this.MaxHeight = 400;            
             InitializeComponent();
             InitializeHandlers();
             throwHandlers = true;
@@ -45,17 +47,10 @@ namespace Misp.Bfc.Review
 
         #region Operations
 
-        public void DisplayTotal(List<AgeingBalanceData> datas)
+        public void Display(List<AgeingBalanceData> datas)
         {
             throwHandlers = false;
-            this.TotalGrid.ItemsSource = datas;            
-            throwHandlers = true;
-        }
-
-        public void DisplayDetails(List<AgeingBalanceData> datas)
-        {
-            throwHandlers = false;
-            this.DetailGrid.ItemsSource = datas;
+            this.ItemsSource = datas;            
             throwHandlers = true;
         }
 
@@ -81,6 +76,6 @@ namespace Misp.Bfc.Review
         }
 
         #endregion
-
+        
     }
 }
