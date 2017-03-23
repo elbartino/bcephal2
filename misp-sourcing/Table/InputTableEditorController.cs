@@ -638,8 +638,10 @@ namespace Misp.Sourcing.Table
                 page.IsModify = false;
                 if (closeEditorAfterSave)
                 {
+                    Mask(false);
                     HistoryHandler.Instance.OnClosePage(this);
                     closeEditorAfterSave = false;
+                  
                 }
                 return;
             }
