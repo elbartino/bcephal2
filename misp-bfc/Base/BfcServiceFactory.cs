@@ -43,6 +43,7 @@ namespace Misp.Bfc.Base
                 reviewService.RestClient = ApplicationManager.RestClient;
                 reviewService.MemberBankService = GetMemberBankService();
                 reviewService.SchemeService = GetSchemeService();
+                reviewService.PlatformService = GetPlatformService();
             }
             return reviewService;
         }

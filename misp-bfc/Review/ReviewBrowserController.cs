@@ -159,7 +159,7 @@ namespace Misp.Bfc.Review
         {
             getReviewBrowser().Form.TabControl.SelectionChanged += OnSelectTabChanged;
             getReviewBrowser().Form.MemberBankChanged += OnMemberBankChanged;
-            getReviewBrowser().Form.SettlementEvolutionForm.SchemeChanged += OnSettlementEvolutionSchemeChanged;
+            getReviewBrowser().Form.SettlementEvolutionForm.FilterChanged += OnSettlementEvolutionFilterChanged;
             getReviewBrowser().Form.SettlementEvolutionForm.PeriodChanged += OnSettlementEvolutionPeriodChanged;
 
             getReviewBrowser().Form.AgeingBalanceForm.SearchDetail += OnAgeingBalanceSearchDetail;
@@ -175,7 +175,7 @@ namespace Misp.Bfc.Review
             Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.Search()));            
         }
 
-        private void OnSettlementEvolutionSchemeChanged()
+        private void OnSettlementEvolutionFilterChanged()
         {
             Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.Search()));
         }
@@ -200,6 +200,10 @@ namespace Misp.Bfc.Review
             List<BfcItem> schemes = getReviewService().SchemeService.getAll();
             schemes.Add(null);
             getReviewBrowser().Form.SettlementEvolutionForm.SchemeComboBoxEdit.ItemsSource = schemes;
+
+            List<BfcItem> platforms = getReviewService().PlatformService.getAll();
+            schemes.Add(null);
+            getReviewBrowser().Form.SettlementEvolutionForm.PlatformComboBoxEdit.ItemsSource = platforms;
         }
 
         protected override void initializeSideBarData() { }

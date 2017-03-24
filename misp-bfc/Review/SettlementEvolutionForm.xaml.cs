@@ -28,11 +28,13 @@ namespace Misp.Bfc.Review
 
         #region Properties
 
-        public ChangeEventHandler SchemeChanged { get; set; }
+        public ChangeEventHandler FilterChanged { get; set; }
 
         public ChangeEventHandler PeriodChanged { get; set; }
 
         public List<BfcItem> Schemes { get; private set; }
+
+        public List<BfcItem> Platforms { get; private set; }
 
         bool throwHandlers;
 
@@ -50,8 +52,13 @@ namespace Misp.Bfc.Review
         public SettlementEvolutionForm()
         {
             this.Schemes = new List<BfcItem>(0);
+            this.Platforms = new List<BfcItem>(0);
             InitializeComponent();
             InitializeHandlers();
+
+            this.EndDatePicker.SelectedDate = DateTime.Now;
+            this.StartDatePicker.SelectedDate = DateTime.Now.AddMonths(-1);
+
             ((TableView)this.Grid.View).BestFitColumns();
             throwHandlers = true;
         }
@@ -102,6 +109,10 @@ namespace Misp.Bfc.Review
             {
                 filter.schemeIdOids.Add(scheme.oid.Value);
             }
+            foreach (BfcItem platform in this.Platforms)
+            {
+                filter.platformIdOids.Add(platform.oid.Value);
+            }
             filter.startDateTime = this.StartDatePicker.SelectedDate;
             filter.endDateTime = this.EndDatePicker.SelectedDate;
         }
@@ -116,6 +127,7 @@ namespace Misp.Bfc.Review
             this.StartDatePicker.SelectedDateChanged += OnselectPeriod;
             this.EndDatePicker.SelectedDateChanged += OnselectPeriod;
             this.SchemeComboBoxEdit.PopupClosed += OnSchemePopupClosed;
+            this.PlatformComboBoxEdit.PopupClosed += OnPlatformPopupClosed;
         }
 
         private void OnSchemePopupClosed(object sender, DevExpress.Xpf.Editors.ClosePopupEventArgs e)
@@ -139,7 +151,32 @@ namespace Misp.Bfc.Review
                         }
                     }
                 }
-                if (throwHandlers && SchemeChanged != null) SchemeChanged();
+                if (throwHandlers && FilterChanged != null) FilterChanged();
+            }
+        }
+
+        private void OnPlatformPopupClosed(object sender, DevExpress.Xpf.Editors.ClosePopupEventArgs e)
+        {
+            if (e.CloseMode == DevExpress.Xpf.Editors.PopupCloseMode.Normal)
+            {
+                this.Platforms = new List<BfcItem>(0);
+                PlatformTextBox.Text = "";
+                ObservableCollection<object> SelectedItems = this.PlatformComboBoxEdit.SelectedItems;
+                if (SelectedItems != null && SelectedItems.Count > 0)
+                {
+                    String coma = "";
+                    foreach (object obj in SelectedItems)
+                    {
+                        if (obj is BfcItem)
+                        {
+                            BfcItem item = (BfcItem)obj;
+                            this.Platforms.Add(item);
+                            PlatformTextBox.Text += coma + item.id;
+                            coma = ";";
+                        }
+                    }
+                }
+                if (throwHandlers && FilterChanged != null) FilterChanged();
             }
         }
 

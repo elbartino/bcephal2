@@ -15,6 +15,8 @@ namespace Misp.Bfc.Model
 
         public List<int> schemeIdOids { get; set; }
 
+        public List<int> platformIdOids { get; set; }
+
         public String startDate { get; set; }
 
         public String endDate { get; set; }
@@ -37,6 +39,7 @@ namespace Misp.Bfc.Model
         {
             memberBankIdOids = new List<int>(0);
             schemeIdOids = new List<int>(0);
+            platformIdOids = new List<int>(0);
             details = false;
         }
 

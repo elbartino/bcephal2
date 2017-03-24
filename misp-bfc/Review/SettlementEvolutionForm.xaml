@@ -31,6 +31,7 @@
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="250"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -45,7 +46,17 @@
             <TextBox x:Name="SchemeTextBox" Text="ID" Height="25" Width="180" IsEnabled="False" Margin="10 0 0 0"/>
         </StackPanel>
 
-        <dxg:GridControl x:Name="Grid" x:FieldModifier="public" EnableSmartColumnsGeneration="True" Grid.Row="1" Margin="0 5" >
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 5 0 10" HorizontalAlignment="Center">
+            <Label x:Name="PlatformLabel" Content="Select Platform" VerticalAlignment="Center" Margin=" 0 0 5 0"/>
+            <dxe:ComboBoxEdit x:Name="PlatformComboBoxEdit" Height="25" Width="180">
+                <dxe:ComboBoxEdit.StyleSettings>
+                    <dxe:CheckedComboBoxStyleSettings/>
+                </dxe:ComboBoxEdit.StyleSettings>
+            </dxe:ComboBoxEdit>
+            <TextBox x:Name="PlatformTextBox" Text="ID" Height="25" Width="180" IsEnabled="False" Margin="10 0 0 0"/>
+        </StackPanel>
+
+        <dxg:GridControl x:Name="Grid" x:FieldModifier="public" EnableSmartColumnsGeneration="True" Grid.Row="2" Margin="0 5" >
             <dxg:GridControl.TotalSummary>
                 <dxg:GridSummaryItem FieldName="lastYear" DisplayFormat="{}{0:N2}" SummaryType="Sum" />
                 <!--<dxg:GridSummaryItem FieldName="lastYear" DisplayFormat="Max  = {0:N2}" SummaryType="Max"/>
@@ -116,10 +127,10 @@
         </dxg:GridControl>
 
         <GridSplitter Height="5" ResizeDirection="Rows" Background="Transparent"
-                          VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>
+                          VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="2"/>
 
-        <dx:LoadingDecorator Grid.Row="2" x:Name="ChartLoadingDecorator" x:FieldModifier="public">
-            <Grid Grid.Row="2">
+        <dx:LoadingDecorator Grid.Row="3" x:Name="ChartLoadingDecorator" x:FieldModifier="public" BorderEffect="Default" BorderEffectColor="Blue">
+            <Grid >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>

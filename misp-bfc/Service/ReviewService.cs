@@ -15,6 +15,7 @@ namespace Misp.Bfc.Service
         
         public BfcItemService MemberBankService { get; set; }
         public BfcItemService SchemeService { get; set; }
+        public BfcItemService PlatformService { get; set; }
 
 
         public PrefundingAccountData getPrefundingAccountData(ReviewFilter filter)
