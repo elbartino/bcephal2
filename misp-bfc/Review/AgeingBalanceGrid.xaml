@@ -6,8 +6,9 @@
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
-             mc:Ignorable="d" SelectionMode="Row"
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d"  EnableSmartColumnsGeneration="True"
+             d:DesignHeight="300" d:DesignWidth="300"
+                 >
 
     <dxg:GridControl.Resources>
         <Style x:Key="GridHeader" TargetType="{x:Type Control}">
@@ -26,6 +27,13 @@
             <Setter Property="AllowResizing" Value="True"/>
             <Setter Property="AllowMoving" Value="True"/>
         </Style>
+        <Style x:Key="AgeingGridColumn" TargetType="{x:Type dxg:GridColumn}">
+            <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
+            <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
+            <Setter Property="AllowResizing" Value="True"/>
+            <Setter Property="AllowMoving" Value="False"/>
+            <Setter Property="AllowSorting" Value="False"/>
+        </Style>
         <Style x:Key="GridControlBand" TargetType="{x:Type dxg:GridControlBand}">
             <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
             <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
@@ -34,7 +42,59 @@
         </Style>
     </dxg:GridControl.Resources>
 
-    <dxg:GridControl.Bands>
+
+
+    <dxg:GridColumn Style="{StaticResource GridColumn}" AllowCellMerge="True" Width="100"  Header="Advisement N°" FieldName="replenishmentInstruction"/>
+    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Sent Date" FieldName="sentDate"/>
+    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Value Date" FieldName="valueDate"/>
+    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Member Bank" FieldName="memberBankName"/>
+    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="PML" FieldName="pml"/>
+    <dxg:GridColumn Style="{StaticResource AgeingGridColumn}" Width="100"  Header="Amount Type" FieldName="amountType"/>
+    <dxg:GridColumn Style="{StaticResource AgeingGridColumn}" Width="100"  Header="Late Collection Amount" FieldName="lateCollectionAmount">
+        <dxg:GridColumn.EditSettings>
+            <dxe:TextEditSettings DisplayFormat="N2"/>
+        </dxg:GridColumn.EditSettings>
+    </dxg:GridColumn>
+
+    <dxg:GridColumn Style="{StaticResource AgeingGridColumn}" Width="70"  Header="Not Reached" FieldName="notReached">
+        <dxg:GridColumn.EditSettings>
+            <dxe:TextEditSettings DisplayFormat="N2"/>
+        </dxg:GridColumn.EditSettings>
+    </dxg:GridColumn>
+    <dxg:GridColumn Style="{StaticResource AgeingGridColumn}" Width="70"  Header="Today" FieldName="today">
+        <dxg:GridColumn.EditSettings>
+            <dxe:TextEditSettings DisplayFormat="N2"/>
+        </dxg:GridColumn.EditSettings>
+    </dxg:GridColumn>
+    <dxg:GridColumn Style="{StaticResource AgeingGridColumn}" Width="70"  Header="1 Day" FieldName="oneDay">
+        <dxg:GridColumn.EditSettings>
+            <dxe:TextEditSettings DisplayFormat="N2"/>
+        </dxg:GridColumn.EditSettings>
+    </dxg:GridColumn>
+    <dxg:GridColumn Style="{StaticResource AgeingGridColumn}" Width="70"  Header="2 Days" FieldName="twoDays">
+        <dxg:GridColumn.EditSettings>
+            <dxe:TextEditSettings DisplayFormat="N2"/>
+        </dxg:GridColumn.EditSettings>
+    </dxg:GridColumn>
+    <dxg:GridColumn Style="{StaticResource AgeingGridColumn}" Width="70"  Header="3 Days" FieldName="threeDays">
+        <dxg:GridColumn.EditSettings>
+            <dxe:TextEditSettings DisplayFormat="N2"/>
+        </dxg:GridColumn.EditSettings>
+    </dxg:GridColumn>
+    <dxg:GridColumn Style="{StaticResource AgeingGridColumn}" Width="70"  Header="4 Days" FieldName="fourDays">
+        <dxg:GridColumn.EditSettings>
+            <dxe:TextEditSettings DisplayFormat="N2"/>
+        </dxg:GridColumn.EditSettings>
+    </dxg:GridColumn>
+    <dxg:GridColumn Style="{StaticResource AgeingGridColumn}" Width="70"  Header=">4 Days &lt;30 Days" FieldName="moreThanFourDays">
+        <dxg:GridColumn.EditSettings>
+            <dxe:TextEditSettings DisplayFormat="N2"/>
+        </dxg:GridColumn.EditSettings>
+    </dxg:GridColumn>
+
+
+
+    <!--<dxg:GridControl.Bands>
         <dxg:GridControlBand>
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Advisement N°" FieldName="replenishmentInstruction"/>
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Sent Date" FieldName="sentDate"/>
@@ -49,7 +109,11 @@
             </dxg:GridColumn>
         </dxg:GridControlBand>
         <dxg:GridControlBand Header="Ageing Balance" Style="{StaticResource GridControlBand}">
-            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Not Reached" FieldName="notReached"/>
+            <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Not Reached" FieldName="notReached">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="N2"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="70"  Header="Today" FieldName="today">
                 <dxg:GridColumn.EditSettings>
                     <dxe:TextEditSettings DisplayFormat="N2"/>
@@ -81,10 +145,10 @@
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
         </dxg:GridControlBand>
-    </dxg:GridControl.Bands>
+    </dxg:GridControl.Bands>-->
 
     <dxg:GridControl.View>
-        <dxg:TableView AllowEditing="False" AllowCellMerge="True" ShowGroupPanel="False" AllowResizing="True" UseIndicatorForSelection="True"/>
+        <dxg:TableView x:Name="TableView" CustomCellAppearance="OnCustomCellAppearance" CellMerge="OnCellMerge" AllowEditing="False" AllowCellMerge="True" AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowResizing="True"/>
     </dxg:GridControl.View>
 
 </dxg:GridControl>
