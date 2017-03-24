@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
@@ -116,36 +117,37 @@
 
         <GridSplitter Height="5" ResizeDirection="Rows" Background="Transparent"
                           VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>
-        
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            
-            <dxc:ChartControl x:Name="Chart" x:FieldModifier="public" Grid.Column="0" Width="1000">
-                <dxc:ChartControl.Legend>
-                    <dxc:Legend/>
-                </dxc:ChartControl.Legend>
-            </dxc:ChartControl>
 
-            <Grid Grid.Column="1" Margin="0 20">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+        <dx:LoadingDecorator Grid.Row="2" x:Name="ChartLoadingDecorator" x:FieldModifier="public">
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Start" Grid.Column="0" Grid.Row="0" Margin="5"/>
-                <DatePicker x:Name="StartDatePicker" x:FieldModifier="public" Grid.Column="1" Grid.Row="0" Margin="5"/>
-                <Label Content="End" Grid.Column="0" Grid.Row="1" Margin="5"/>
-                <DatePicker x:Name="EndDatePicker" x:FieldModifier="public" Grid.Column="1" Grid.Row="1" Margin="5"/>
+
+                <dxc:ChartControl x:Name="Chart" x:FieldModifier="public" Grid.Column="0" Width="1000">
+                    <dxc:ChartControl.Legend>
+                        <dxc:Legend/>
+                    </dxc:ChartControl.Legend>
+                </dxc:ChartControl>
+
+                <Grid Grid.Column="1" Margin="0 20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Start" Grid.Column="0" Grid.Row="0" Margin="5"/>
+                    <DatePicker x:Name="StartDatePicker" x:FieldModifier="public" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                    <Label Content="End" Grid.Column="0" Grid.Row="1" Margin="5"/>
+                    <DatePicker x:Name="EndDatePicker" x:FieldModifier="public" Grid.Column="1" Grid.Row="1" Margin="5"/>
+                </Grid>
+
             </Grid>
-            
-        </Grid>
-        
+        </dx:LoadingDecorator>
 
     </Grid>
 

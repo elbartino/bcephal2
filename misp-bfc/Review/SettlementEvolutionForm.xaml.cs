@@ -36,6 +36,12 @@ namespace Misp.Bfc.Review
 
         bool throwHandlers;
 
+        public bool IsChartBussy
+        {
+            set { this.ChartLoadingDecorator.IsSplashScreenShown = value; }
+            get { return this.ChartLoadingDecorator.IsSplashScreenShown.Value; }
+        }
+
         #endregion
 
 

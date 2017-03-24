@@ -18,7 +18,9 @@
     <src:AgeingBalanceGrid x:Name="TotalGrid" x:FieldModifier="public" Grid.Row="0" Margin="0 5" Height="155"/>
 
     <Expander x:Name="DetailExpander" Grid.Row="1" Margin="0 5" IsExpanded="False" Header="Details">
-        <src:AgeingBalanceGrid x:Name="DetailGrid" x:FieldModifier="public" Margin="0 5"/>
+        <dx:LoadingDecorator Grid.Row="2" x:Name="DetailGridLoadingDecorator" x:FieldModifier="public">
+            <src:AgeingBalanceGrid x:Name="DetailGrid" x:FieldModifier="public" Margin="0 5"/>
+        </dx:LoadingDecorator>
     </Expander>
 
 </Grid>

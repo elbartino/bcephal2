@@ -8,49 +8,51 @@
              xmlns:src="clr-namespace:Misp.Bfc.Review"
              mc:Ignorable="d" Background="White"
              d:DesignHeight="300" d:DesignWidth="700">
-    <Grid  HorizontalAlignment="Stretch">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <dx:LoadingDecorator Grid.Row="1" x:Name="LoadingDecorator" x:FieldModifier="public">
+        <Grid  HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 5 0 10" HorizontalAlignment="Center">
-            <Label x:Name="MemberBankLabel" Content="Select Member Bank" VerticalAlignment="Center" Margin=" 0 0 5 0"/>
-            <dxe:ComboBoxEdit x:Name="MemberBankComboBoxEdit" Height="25" Width="180">
-                <dxe:ComboBoxEdit.StyleSettings>
-                    <dxe:CheckedComboBoxStyleSettings/>
-                </dxe:ComboBoxEdit.StyleSettings>
-            </dxe:ComboBoxEdit>
-            <TextBox x:Name="MemberBankTextBox" Text="ID" Height="25" Width="180" IsEnabled="False" Margin="10 0 0 0"/>
-        </StackPanel>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 5 0 10" HorizontalAlignment="Center">
+                <Label x:Name="MemberBankLabel" Content="Select Member Bank" VerticalAlignment="Center" Margin=" 0 0 5 0"/>
+                <dxe:ComboBoxEdit x:Name="MemberBankComboBoxEdit" Height="25" Width="180">
+                    <dxe:ComboBoxEdit.StyleSettings>
+                        <dxe:CheckedComboBoxStyleSettings/>
+                    </dxe:ComboBoxEdit.StyleSettings>
+                </dxe:ComboBoxEdit>
+                <TextBox x:Name="MemberBankTextBox" Text="ID" Height="25" Width="180" IsEnabled="False" Margin="10 0 0 0"/>
+            </StackPanel>
 
-        <dx:DXTabControl Grid.Row="1" x:Name="TabControl" x:FieldModifier="public">
-            <dx:DXTabControl.View>
-                <dx:TabControlStretchView HeaderLocation="Top" HideButtonShowMode="NoWhere" NewButtonShowMode="NoWhere" ShowHeaderMenu="False"/>
-            </dx:DXTabControl.View>
+                
+            <dx:DXTabControl Grid.Row="1" x:Name="TabControl" x:FieldModifier="public">
+                <dx:DXTabControl.View>
+                    <dx:TabControlStretchView HeaderLocation="Top" HideButtonShowMode="NoWhere" NewButtonShowMode="NoWhere" ShowHeaderMenu="False"/>
+                </dx:DXTabControl.View>
         
-            <dx:DXTabItem Header="Pre-funding Account">
-                <src:PrefundingAccountForm x:Name="PrefundingAccountForm" x:FieldModifier="public"/>
-            </dx:DXTabItem>
+                <dx:DXTabItem Header="Pre-funding Account">
+                    <src:PrefundingAccountForm x:Name="PrefundingAccountForm" x:FieldModifier="public"/>
+                </dx:DXTabItem>
             
-            <dx:DXTabItem Header="Settlement Evolution" Height="22" VerticalAlignment="Bottom">
-                <src:SettlementEvolutionForm x:Name="SettlementEvolutionForm" x:FieldModifier="public"/>
-            </dx:DXTabItem>
+                <dx:DXTabItem Header="Settlement Evolution" Height="22" VerticalAlignment="Bottom">
+                    <src:SettlementEvolutionForm x:Name="SettlementEvolutionForm" x:FieldModifier="public"/>
+                </dx:DXTabItem>
             
-            <dx:DXTabItem Header="Ageing Balance">
-                <src:AgeingBalanceForm x:Name="AgeingBalanceForm" x:FieldModifier="public"/>
-            </dx:DXTabItem>
+                <dx:DXTabItem Header="Ageing Balance">
+                    <src:AgeingBalanceForm x:Name="AgeingBalanceForm" x:FieldModifier="public"/>
+                </dx:DXTabItem>
 
-            <dx:DXTabItem Header="Guarantee" Visibility="Collapsed">
-                <src:GuaranteeForm x:Name="GuaranteeForm" x:FieldModifier="public"/>
-            </dx:DXTabItem>
+                <dx:DXTabItem Header="Guarantee" Visibility="Collapsed">
+                    <src:GuaranteeForm x:Name="GuaranteeForm" x:FieldModifier="public"/>
+                </dx:DXTabItem>
             
-            <dx:DXTabItem Header="Credit Rating" Visibility="Collapsed">
-                <src:CreditRatingForm x:Name="CreditRatingForm" x:FieldModifier="public"/>
-            </dx:DXTabItem>
-
-        </dx:DXTabControl>
+                <dx:DXTabItem Header="Credit Rating" Visibility="Collapsed">
+                    <src:CreditRatingForm x:Name="CreditRatingForm" x:FieldModifier="public"/>
+                </dx:DXTabItem>
+            </dx:DXTabControl>
         
-    </Grid>
-    
+        </Grid>
+    </dx:LoadingDecorator>
+
 </UserControl>

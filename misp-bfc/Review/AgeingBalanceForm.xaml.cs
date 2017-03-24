@@ -30,6 +30,12 @@ namespace Misp.Bfc.Review
         
         bool throwHandlers;
 
+        public bool IsDetailGridBussy
+        {
+            set { this.DetailGridLoadingDecorator.IsSplashScreenShown = value; }
+            get { return this.DetailGridLoadingDecorator.IsSplashScreenShown.Value; }
+        }
+
         #endregion
 
 

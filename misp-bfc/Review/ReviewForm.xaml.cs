@@ -32,6 +32,11 @@ namespace Misp.Bfc.Review
         public List<BfcItem> MemberBanks { get; private set; }
         bool throwHandlers;
 
+        public bool IsBussy { 
+            set {this.LoadingDecorator.IsSplashScreenShown = value; }
+            get { return this.LoadingDecorator.IsSplashScreenShown.Value; }
+        }
+
         #endregion
 
 

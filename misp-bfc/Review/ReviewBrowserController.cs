@@ -10,7 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace Misp.Bfc.Review
 {
@@ -38,31 +40,68 @@ namespace Misp.Bfc.Review
 
         public override OperationState Search() 
         {
-            ReviewFilter filter = getReviewBrowser().Form.GetFilter();
-            if (getReviewBrowser().Form.TabControl.SelectedIndex == 0)
+            try
             {
-                PrefundingAccountData data = getReviewService().getPrefundingAccountData(filter);
-                getReviewBrowser().Form.Display(data);
+                getReviewBrowser().Form.IsBussy = true;
+                ReviewFilter filter = getReviewBrowser().Form.GetFilter();
+                if (getReviewBrowser().Form.TabControl.SelectedIndex == 0)
+                {               
+                    PrefundingAccountData data = getReviewService().getPrefundingAccountData(filter);
+                    getReviewBrowser().Form.Display(data);
+                }
+                else if (getReviewBrowser().Form.TabControl.SelectedIndex == 1)
+                {
+                    List<SettlementEvolutionData> datas = getReviewService().getSettlementEvolutionDatas(filter);
+                    getReviewBrowser().Form.Display(datas);
+                    UpdateSettlementEvolutionChart(filter);
+                }
+                else if (getReviewBrowser().Form.TabControl.SelectedIndex == 2)
+                {
+                    List<AgeingBalanceData> datas = getReviewService().getAgeingBalanceDatas(filter);
+                    getReviewBrowser().Form.DisplayTotal(datas);
+                }
+                getReviewBrowser().Form.IsBussy = false;
             }
-            else if (getReviewBrowser().Form.TabControl.SelectedIndex == 1)
+            catch (Exception)
             {
-                List<SettlementEvolutionData> datas = getReviewService().getSettlementEvolutionDatas(filter);
-                getReviewBrowser().Form.Display(datas);
-                UpdateSettlementEvolutionChart(filter);
-            }
-            else if (getReviewBrowser().Form.TabControl.SelectedIndex == 2)
-            {
-                List<AgeingBalanceData> datas = getReviewService().getAgeingBalanceDatas(filter);
-                getReviewBrowser().Form.DisplayTotal(datas);
+                getReviewBrowser().Form.IsBussy = false;
             }
             return OperationState.CONTINUE; 
         }
 
         private void UpdateSettlementEvolutionChart(ReviewFilter filter = null)
         {
-            if (filter == null) filter = getReviewBrowser().Form.GetFilter();
-            List<SettlementEvolutionChartData> datas = getReviewService().getSettlementEvolutionChartDatas(filter);
-            getReviewBrowser().Form.SettlementEvolutionForm.DisplayChart(datas);
+            try
+            {
+                getReviewBrowser().Form.SettlementEvolutionForm.IsChartBussy = true;
+                if (filter == null) filter = getReviewBrowser().Form.GetFilter();
+                List<SettlementEvolutionChartData> datas = getReviewService().getSettlementEvolutionChartDatas(filter);
+                getReviewBrowser().Form.SettlementEvolutionForm.DisplayChart(datas);
+                getReviewBrowser().Form.SettlementEvolutionForm.IsChartBussy = false;
+            }
+            catch(Exception){
+                getReviewBrowser().Form.SettlementEvolutionForm.IsChartBussy = false;
+            }
+        }
+
+        private void AgeingBalanceSearchDetail()
+        {
+            try
+            {
+                getReviewBrowser().Form.AgeingBalanceForm.IsDetailGridBussy = true;
+                ReviewFilter fil = getReviewBrowser().Form.GetFilter();
+                ReviewFilter filter = new ReviewFilter();
+                filter.details = true;
+                filter.memberBankIdOids = fil.memberBankIdOids;
+                filter.schemeIdOids = fil.schemeIdOids;
+                List<AgeingBalanceData> datas = getReviewService().getAgeingBalanceDatas(filter);
+                getReviewBrowser().Form.DisplayDetails(datas);
+                getReviewBrowser().Form.AgeingBalanceForm.IsDetailGridBussy = false;
+            }
+            catch (Exception)
+            {
+                getReviewBrowser().Form.AgeingBalanceForm.IsDetailGridBussy = false;
+            }
         }
 
         public override Kernel.Domain.SubjectType SubjectTypeFound()
@@ -128,33 +167,27 @@ namespace Misp.Bfc.Review
 
         private void OnAgeingBalanceSearchDetail()
         {
-            ReviewFilter fil = getReviewBrowser().Form.GetFilter();
-            ReviewFilter filter = new ReviewFilter();
-            filter.details = true;
-            filter.memberBankIdOids = fil.memberBankIdOids;
-            filter.schemeIdOids = fil.schemeIdOids;
-            List<AgeingBalanceData> datas = getReviewService().getAgeingBalanceDatas(filter);
-            getReviewBrowser().Form.DisplayDetails(datas);
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.AgeingBalanceSearchDetail()));
         }
 
         private void OnMemberBankChanged()
         {
-            Search();
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.Search()));            
         }
 
         private void OnSettlementEvolutionSchemeChanged()
         {
-            Search();
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.Search()));
         }
 
         private void OnSettlementEvolutionPeriodChanged()
         {
-            UpdateSettlementEvolutionChart();
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.UpdateSettlementEvolutionChart()));
         }
         
         private void OnSelectTabChanged(object sender, DevExpress.Xpf.Core.TabControlSelectionChangedEventArgs e)
         {
-            Search();
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.Search()));
         }
 
 
