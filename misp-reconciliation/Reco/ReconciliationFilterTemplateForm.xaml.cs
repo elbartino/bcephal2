@@ -607,7 +607,7 @@ namespace Misp.Reconciliation.Reco
                 return;
             }
 
-            MessageBoxResult result = MessageDisplayer.DisplayYesNoQuestion("Reset Reconciliation", "You're about to reset reconciliation.\nDou You want to continue?");
+            MessageBoxResult result = MessageDisplayer.DisplayYesNoQuestion("Reset Reconciliation", "You're about to reset reconciliation.\nDo You want to continue?");
             if (result == MessageBoxResult.Yes)
             {
                 ResetReconciliate();
