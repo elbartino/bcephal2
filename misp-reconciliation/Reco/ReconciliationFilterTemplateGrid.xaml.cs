@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Misp.Reconciliation.Reco
 {
@@ -39,6 +40,12 @@ namespace Misp.Reconciliation.Reco
         protected bool throwHandler = true;
 
         public ChangeEventHandler Changed { get; set; }
+
+        public bool IsBussy
+        {
+            set { this.LoadingDecorator.IsSplashScreenShown = value; }
+            get { return this.LoadingDecorator.IsSplashScreenShown.Value; }
+        }
 
         #endregion
 
@@ -76,9 +83,16 @@ namespace Misp.Reconciliation.Reco
         }
 
         public virtual void Search(int currentPage = 0)
-        {            
+        {
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.PerformSearch(currentPage)));
+        }
+
+
+        protected virtual void PerformSearch(int currentPage = 0)
+        {
             try
             {
+                this.IsBussy = true;
                 if (this.EditedObject.columnListChangeHandler.Items.Count > 0)
                 {
                     GrilleFilter filter = this.GrilleBrowserForm.filterForm.Fill();
@@ -111,13 +125,15 @@ namespace Misp.Reconciliation.Reco
                     GrillePage rows = new GrillePage();
                     rows.rows = new List<object[]>(0);
                     this.GrilleBrowserForm.displayPage(rows);
-                }               
+                }
+                this.IsBussy = false;
             }
             catch (ServiceExecption)
             {
                 GrillePage rows = new GrillePage();
                 rows.rows = new List<object[]>(0);
                 this.GrilleBrowserForm.displayPage(rows);
+                this.IsBussy = false;
             }
         }
 

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:gr="clr-namespace:Misp.Sourcing.GridViews;assembly=Misp.Sourcing" 
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="500">
@@ -33,7 +34,9 @@
         </ToggleButton >
     </Grid>
 
-    <gr:GrilleBrowserForm x:Name="GrilleBrowserForm" x:FieldModifier="public" Grid.Row="1"/>
+    <dx:LoadingDecorator Grid.Row="1" x:Name="LoadingDecorator" x:FieldModifier="public">
+        <gr:GrilleBrowserForm x:Name="GrilleBrowserForm" x:FieldModifier="public" Grid.Row="1"/>
+    </dx:LoadingDecorator>
 
     <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">
         <Label x:Name="CreditLabel" x:FieldModifier="public" Content="Credit: 0" Margin="5, 0"/>

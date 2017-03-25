@@ -19,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Misp.Reconciliation.Reco
 {
@@ -42,6 +43,12 @@ namespace Misp.Reconciliation.Reco
         public Decimal LeftAmount { get; set; }
         public Decimal RightAmount { get; set; }
         public Decimal BalanceAmount { get; set; }
+
+        public bool IsBussy
+        {
+            set { this.LoadingDecorator.IsSplashScreenShown = value; }
+            get { return this.LoadingDecorator.IsSplashScreenShown.Value; }
+        }
 
         #endregion
 
@@ -90,13 +97,15 @@ namespace Misp.Reconciliation.Reco
 
         public void AddLines(List<long> oids, String side)
         {
-            Search(oids, side);
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.Search(oids, side)));
+            //Search(oids, side);
         }
 
         private void Search(List<long> oids, String side)
         {
             try
             {
+                this.IsBussy = true;
                 GrilleFilter filter = new GrilleFilter();
                 filter.grid = new Grille();
                 filter.grid.columnListChangeHandler = this.EditedObject.columnListChangeHandler;
@@ -109,12 +118,14 @@ namespace Misp.Reconciliation.Reco
                 GrillePage rows = this.Service.getGridRows(filter);
                 this.GridBrowser.displayPage(rows, true, side);
                 this.GridBrowser.gridControl.SelectAll();
+                this.IsBussy = false;
             }
             catch (ServiceExecption)
             {
                 GrillePage rows = new GrillePage();
                 rows.rows = new List<object[]>(0);
                 this.GridBrowser.displayPage(rows);
+                this.IsBussy = false;
             }
         }
 
