@@ -98,7 +98,6 @@ namespace Misp.Reconciliation.Reco
         public void AddLines(List<long> oids, String side)
         {
             Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.Search(oids, side)));
-            //Search(oids, side);
         }
 
         private void Search(List<long> oids, String side)

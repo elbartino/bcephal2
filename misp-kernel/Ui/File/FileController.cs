@@ -12,6 +12,7 @@ using Misp.Kernel.Service;
 using Misp.Kernel.Util;
 using Misp.Kernel.Task;
 using Misp.Kernel.Ui.Sidebar;
+using System.Windows.Threading;
 
 namespace Misp.Kernel.Ui.File
 {
@@ -96,7 +97,8 @@ namespace Misp.Kernel.Ui.File
                 string pathDirectory = Kernel.Util.UserPreferencesUtil.GetFileOpeningRepository();
                 string filePath = openFileDialogForFolders("New Project", pathDirectory);
                 if (filePath == null || string.IsNullOrWhiteSpace(filePath)) return OperationState.STOP;
-                return OpenOrCreate(filePath, true);
+                Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.OpenOrCreate(filePath, true)));
+                return OperationState.CONTINUE;
             }
             catch(BcephalException e)
             {
@@ -164,7 +166,8 @@ namespace Misp.Kernel.Ui.File
                     MessageDisplayer.DisplayError("Error", "Directory not found: " + filePath);
                     return OperationState.STOP;
                 }
-                return OpenOrCreate(filePath, false);
+                Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.OpenOrCreate(filePath, false)));
+                return OperationState.CONTINUE;
             }
             catch (BcephalException e)
             {
@@ -172,6 +175,66 @@ namespace Misp.Kernel.Ui.File
                 return OperationState.STOP;
             }
         }
+
+
+        public void OpenOrCreate(string filePath, bool create)
+        {
+            try
+            {
+                ApplicationManager.MainWindow.IsBussy = true;
+                bool isMonouser = ApplicationManager.ApplcationConfiguration.IsMonouser();
+                
+                if (isMonouser && !System.IO.File.Exists(filePath) && !create && ApplicationManager.useZip())
+                {
+                    MessageDisplayer.DisplayError("Error", "File not found: " + filePath);
+                }
+                else if (isMonouser && !System.IO.Directory.Exists(filePath) && !create && !ApplicationManager.useZip())
+                {
+                    MessageDisplayer.DisplayError("Error", "Directory not found: " + filePath);
+                }
+                else
+                {
+                    string fileDir = System.IO.Path.GetDirectoryName(filePath);
+                    string fileName = System.IO.Path.GetFileName(filePath);
+
+                    Misp.Kernel.Domain.File file = create ?
+                        this.GetFileInfoService().CreateFile(fileDir, fileName) :
+                        this.GetFileInfoService().OpenFile(fileDir, fileName);
+                    
+                    if (file != null)
+                    {
+                        this.ApplicationManager.File = file;
+                        this.ApplicationManager.AllocationCount = this.GetFileInfoService().GetAllocationCount();
+                        Util.UserPreferencesUtil.AddRecentFile(filePath);
+                        Util.UserPreferencesUtil.SetFileOpeningRepository(filePath);
+
+                        string fileNameWithoutExtension = "";
+                        if (filePath.EndsWith(FILE_EXTENSION)) fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(filePath);
+                        else fileNameWithoutExtension = System.IO.Path.GetFileName(filePath);
+                        ApplicationManager.MainWindow.Title = fileNameWithoutExtension + " - B-Cephal";
+                        ApplicationManager.MainWindow.MenuBar.customizeForFileOpened();
+                        this.ToolBar.DisplayAllControls();
+                        ApplicationManager.MainWindow.MenuBar.GetFileMenu().lastFilePath = filePath;
+                        ApplicationManager.MainWindow.MenuBar.GetFileMenu().BuildSaveAsMenu();
+                        ApplicationManager.MainWindow.MenuBar.GetFileMenu().BuildRecentOpenedFiles();
+                        ApplicationManager.MainWindow.MenuBar.GetFileMenu().BackupSimpleMenu.IsEnabled = true;
+                        ApplicationManager.MainWindow.MenuBar.GetFileMenu().BackupAutomaticMenu.IsEnabled = true;
+                        RefreshDashboard();
+                    }
+                }
+            }
+            catch (BcephalException e)
+            {
+                MessageDisplayer.DisplayError(create ? "Create file" : "Open file", e.Message);                
+            }
+            finally
+            {
+                ApplicationManager.MainWindow.IsBussy = false;
+            }      
+        }
+
+
+
 
         BusyAction action;
 
@@ -181,96 +244,96 @@ namespace Misp.Kernel.Ui.File
         /// <param name="filePath">Chemin absolue vers le fichier à ouvrir ou à créer</param>
         /// <param name="create">Est ce la creation</param>
         /// <returns></returns>
-        public OperationState OpenOrCreate(string filePath, bool create)
-        {
-            action = new BusyAction(false)
-            {
-                DoWork = () =>
-                {
-                    try
-                    {
-                        bool isMonouser = ApplicationManager.ApplcationConfiguration.IsMonouser();
-                        String message = create ? "File creation..." : "File loading...";
-                        action.ReportProgress(0, message);
-                        if (isMonouser && !System.IO.File.Exists(filePath) && !create && ApplicationManager.useZip())
-                        {
-                            MessageDisplayer.DisplayError("Error", "File not found: " + filePath);
-                            return OperationState.STOP;
-                        }
-                        if (isMonouser && !System.IO.Directory.Exists(filePath) && !create && !ApplicationManager.useZip())
-                        {
-                            MessageDisplayer.DisplayError("Error", "Directory not found: " + filePath);
-                            return OperationState.STOP;
-                        }
+        //public OperationState OpenOrCreate(string filePath, bool create)
+        //{
+        //    action = new BusyAction(false)
+        //    {
+        //        DoWork = () =>
+        //        {
+        //            try
+        //            {
+        //                bool isMonouser = ApplicationManager.ApplcationConfiguration.IsMonouser();
+        //                String message = create ? "File creation..." : "File loading...";
+        //                action.ReportProgress(0, message);
+        //                if (isMonouser && !System.IO.File.Exists(filePath) && !create && ApplicationManager.useZip())
+        //                {
+        //                    MessageDisplayer.DisplayError("Error", "File not found: " + filePath);
+        //                    return OperationState.STOP;
+        //                }
+        //                if (isMonouser && !System.IO.Directory.Exists(filePath) && !create && !ApplicationManager.useZip())
+        //                {
+        //                    MessageDisplayer.DisplayError("Error", "Directory not found: " + filePath);
+        //                    return OperationState.STOP;
+        //                }
 
-                        string fileDir = System.IO.Path.GetDirectoryName(filePath);
-                        string fileName = System.IO.Path.GetFileName(filePath);
-                        //string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(filePath);
+        //                string fileDir = System.IO.Path.GetDirectoryName(filePath);
+        //                string fileName = System.IO.Path.GetFileName(filePath);
+        //                //string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(filePath);
 
-                        action.ReportProgress(10, message);
+        //                action.ReportProgress(10, message);
                         
-                        Misp.Kernel.Domain.File file = create ?
-                            this.GetFileInfoService().CreateFile(fileDir, fileName) :
-                            this.GetFileInfoService().OpenFile(fileDir, fileName);
+        //                Misp.Kernel.Domain.File file = create ?
+        //                    this.GetFileInfoService().CreateFile(fileDir, fileName) :
+        //                    this.GetFileInfoService().OpenFile(fileDir, fileName);
 
-                        message = create ? "File created!" : "File loaded!";
-                        action.ReportProgress(99, message);
+        //                message = create ? "File created!" : "File loaded!";
+        //                action.ReportProgress(99, message);
 
-                        if (file == null) return OperationState.STOP;
-                        this.ApplicationManager.File = file;
-                        this.ApplicationManager.AllocationCount = this.GetFileInfoService().GetAllocationCount();
+        //                if (file == null) return OperationState.STOP;
+        //                this.ApplicationManager.File = file;
+        //                this.ApplicationManager.AllocationCount = this.GetFileInfoService().GetAllocationCount();
                         
-                        Util.UserPreferencesUtil.AddRecentFile(filePath);
-                        Util.UserPreferencesUtil.SetFileOpeningRepository(filePath);
-                       action.ReportProgress(100, message);                       
-                    }
-                    catch (BcephalException e)
-                    {
-                        MessageDisplayer.DisplayError(create ? "Create file" : "Open file", e.Message);
-                        action = null;
-                        return OperationState.STOP;
-                    }
-                    return OperationState.CONTINUE;
-                },
+        //                Util.UserPreferencesUtil.AddRecentFile(filePath);
+        //                Util.UserPreferencesUtil.SetFileOpeningRepository(filePath);
+        //               action.ReportProgress(100, message);                       
+        //            }
+        //            catch (BcephalException e)
+        //            {
+        //                MessageDisplayer.DisplayError(create ? "Create file" : "Open file", e.Message);
+        //                action = null;
+        //                return OperationState.STOP;
+        //            }
+        //            return OperationState.CONTINUE;
+        //        },
 
 
-                EndWork = () =>
-                {
-                    try
-                    {
-                        string fileNameWithoutExtension = "";
-                        if (filePath.EndsWith(FILE_EXTENSION)) fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(filePath);
-                        else fileNameWithoutExtension = System.IO.Path.GetFileName(filePath);
-                        ApplicationManager.MainWindow.Title = fileNameWithoutExtension + " - B-Cephal";
-                        ApplicationManager.MainWindow.MenuBar.customizeForFileOpened();
-                        this.ToolBar.DisplayAllControls();
-                        ApplicationManager.MainWindow.MenuBar.GetFileMenu().lastFilePath = filePath;
-                        ApplicationManager.MainWindow.MenuBar.GetFileMenu().BuildSaveAsMenu(); 
-                        ApplicationManager.MainWindow.MenuBar.GetFileMenu().BuildRecentOpenedFiles();
-                        ApplicationManager.MainWindow.MenuBar.GetFileMenu().BackupSimpleMenu.IsEnabled = true;
-                        ApplicationManager.MainWindow.MenuBar.GetFileMenu().BackupAutomaticMenu.IsEnabled = true;
-                        RefreshDashboard();                        
-                    }
-                    catch (Exception e)
-                    {
-                        MessageDisplayer.DisplayError("Error", e.Message);
-                        return OperationState.STOP;
-                    }
-                    finally
-                    {
-                        action = null;
-                    }
+        //        EndWork = () =>
+        //        {
+        //            try
+        //            {
+        //                string fileNameWithoutExtension = "";
+        //                if (filePath.EndsWith(FILE_EXTENSION)) fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(filePath);
+        //                else fileNameWithoutExtension = System.IO.Path.GetFileName(filePath);
+        //                ApplicationManager.MainWindow.Title = fileNameWithoutExtension + " - B-Cephal";
+        //                ApplicationManager.MainWindow.MenuBar.customizeForFileOpened();
+        //                this.ToolBar.DisplayAllControls();
+        //                ApplicationManager.MainWindow.MenuBar.GetFileMenu().lastFilePath = filePath;
+        //                ApplicationManager.MainWindow.MenuBar.GetFileMenu().BuildSaveAsMenu(); 
+        //                ApplicationManager.MainWindow.MenuBar.GetFileMenu().BuildRecentOpenedFiles();
+        //                ApplicationManager.MainWindow.MenuBar.GetFileMenu().BackupSimpleMenu.IsEnabled = true;
+        //                ApplicationManager.MainWindow.MenuBar.GetFileMenu().BackupAutomaticMenu.IsEnabled = true;
+        //                RefreshDashboard();                        
+        //            }
+        //            catch (Exception e)
+        //            {
+        //                MessageDisplayer.DisplayError("Error", e.Message);
+        //                return OperationState.STOP;
+        //            }
+        //            finally
+        //            {
+        //                action = null;
+        //            }
 
-                    return OperationState.CONTINUE;
-                }
+        //            return OperationState.CONTINUE;
+        //        }
 
-            };
+        //    };
 
-            action.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(ApplicationManager.MainWindow.OnBusyPropertyChanged);
-            action.Run();
-            return OperationState.CONTINUE;
+        //    action.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(ApplicationManager.MainWindow.OnBusyPropertyChanged);
+        //    action.Run();
+        //    return OperationState.CONTINUE;
 
-        }
+        //}
 
         /// <summary>
         /// 

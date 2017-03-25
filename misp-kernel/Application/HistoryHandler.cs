@@ -15,6 +15,7 @@ using Misp.Kernel.Task;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Service;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Misp.Kernel.Application
 {
@@ -106,17 +107,11 @@ namespace Misp.Kernel.Application
                     }
                     else if (OpenedPages.Count > 0)
                     {
-                        /*Controllable pageOpened = OpenedPages[OpenedPages.Count - 1];
-                        if (pageOpened.Functionality.Contains("LIST"))
-                            openSearchPage(pageOpened.NavigationToken);
-                        else 
-                         */
                         openPage(OpenedPages[OpenedPages.Count - 1]);
                         return;
                     }
                     else
                     {
-                        //ApplicationManager.MainWindow.displayPage(null);
                         openHomePage();
                     }
                 }                
@@ -150,9 +145,6 @@ namespace Misp.Kernel.Application
                 return tryToCloseApplication();
             }
 
-            //Worker worker = new Worker("");
-            //worker.OnWorkWithParameter += OnOpenPage;
-            //worker.StartWork(token);
             OnOpenPage(token);
             return OperationState.CONTINUE ;
         }
@@ -214,17 +206,16 @@ namespace Misp.Kernel.Application
                     }
                     else if (viewType == ViewType.EDITION)
                     {
-                        openEditionPage(token);
+                        this.openEditionPage(token);
                         if (!String.IsNullOrEmpty(InternalErrorMessage))
                         {
                             MessageDisplayer.DisplayError("Error", InternalErrorMessage);
                             InternalErrorMessage = null;
                         }
-                        return;
                     }
                     else
                     {
-                        openSearchPage(token); return;
+                        openSearchPage(token);
                     }
                 }
             }
@@ -385,40 +376,6 @@ namespace Misp.Kernel.Application
             page = searchInOpenedPages(FunctionalitiesCode.PROJECT);
             if (page.SaveAs() == OperationState.STOP) return OperationState.STOP;
             return openPage(page);
-
-            
-            //Microsoft.Win32.SaveFileDialog fileDialog = new Microsoft.Win32.SaveFileDialog();
-            //fileDialog.Title = "B-cephal - Save File As";
-            //// Set filter for file extension and default file extension 
-            //fileDialog.DefaultExt = FileController.FILE_EXTENSION;
-            //fileDialog.Filter = "B-cephal files (*" + FileController.FILE_EXTENSION + ")|*" + FileController.FILE_EXTENSION;
-            //Nullable<bool> result = fileDialog.ShowDialog();
-            //var fileName = fileDialog.SafeFileName;
-            //var filePath = fileDialog.FileName;
-            //String copiedPath = ApplicationManager.Instance.MainWindow.MenuBar.GetFileMenu().lastFilePath;
-            
-            //if (filePath == null || string.IsNullOrWhiteSpace(filePath) || string.IsNullOrWhiteSpace(fileName)) return OperationState.STOP;
-            //if(saveFile(token) == OperationState.STOP) return OperationState.STOP;
-           
-            //for (int i = OpenedPages.Count - 1; i >= 0; i--)
-            //{
-            //    closePage(OpenedPages[i]);
-            //}
-            //if (filePath.EndsWith(FileController.FILE_EXTENSION))
-            //{
-            //    if (filePath.EndsWith(FileController.FILE_EXTENSION))
-            //    {
-            //        filePath = filePath.Substring(0, filePath.Length - FileController.FILE_EXTENSION.Length);
-            //    }
-            //}
-            //if (FileUtil.copy(copiedPath, filePath))
-            //{
-            //    NavigationToken token1 = NavigationToken.GetModifyViewToken(FunctionalitiesCode.FILE_FUNCTIONALITY,filePath);
-            //    openEditionPage(token1);
-            //    return OperationState.CONTINUE;
-            //}
-            //else MessageDisplayer.DisplayError("B-cephal - Save as", "Error while saving");
-            //return OperationState.CONTINUE;    
         }
 
         /// <summary>
@@ -704,7 +661,8 @@ namespace Misp.Kernel.Application
             {
                 ApplicationManager.Instance.MainWindow.LoginPanel.Visibility = Visibility.Visible;
                 ApplicationManager.Instance.MainWindow.LoginPanel.reset();
-                ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.Focus();
+                Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.Focus()));
+                
                 ApplicationManager.Instance.MainWindow.LoginPanel.LoginButton.Click += onLoginClicked;
                 ApplicationManager.Instance.MainWindow.LoginPanel.passwordTextBox.KeyUp += OnValidate;
                 ApplicationManager.Instance.MainWindow.LoginPanel.loginTextBox.KeyUp += OnLoginValidate;

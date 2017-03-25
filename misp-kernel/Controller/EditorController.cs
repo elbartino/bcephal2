@@ -13,6 +13,7 @@ using Misp.Kernel.Util;
 using Misp.Kernel.Task;
 using Misp.Kernel.Service;
 using Misp.Kernel.Domain;
+using System.Windows.Threading;
 
 namespace Misp.Kernel.Controller
 {
@@ -47,54 +48,30 @@ namespace Misp.Kernel.Controller
 
 
         #region Operations
-
-        BusyAction action;
-
+        
         public override OperationState Open(object oid)
         {
-            
-            action = new BusyAction(false)
-            {
-                DoWork = () =>
+
+            ApplicationManager.MainWindow.IsBussy = true;
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                new Action(() =>
                 {
                     try
-                    {                        
+                    {
                         T item = Service.getByOid((int)oid);
-                        System.Windows.Application.Current.Dispatcher.Invoke((Action)(() => Open(item)));
-                        return OperationState.CONTINUE;
+                        Open(item);
                     }
                     catch (Kernel.Service.ServiceExecption e)
                     {
                         MessageDisplayer.DisplayError("Error", e.Message);
-                        action = null;
-                        return OperationState.STOP;
-                    }
-                },
-                
-                EndWork = () =>
-                {
-                    try
-                    {
-
-                    }
-                    catch (Exception e)
-                    {
-                        MessageDisplayer.DisplayError("Error", e.Message);
-                        return OperationState.STOP;
                     }
                     finally
                     {
-                        action = null;
+                        ApplicationManager.MainWindow.IsBussy = false;
                     }
-                    return OperationState.CONTINUE;
-                }
-
-            };
-
-            action.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(ApplicationManager.MainWindow.OnBusyPropertyChanged);
-            action.Run();
-
-            return OperationState.STOP;
+                }));
+            
+            return OperationState.CONTINUE; 
         }
 
 

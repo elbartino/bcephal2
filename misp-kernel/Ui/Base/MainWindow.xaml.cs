@@ -31,6 +31,11 @@ namespace Misp.Kernel.Ui.Base
     public partial class MainWindow : Window
     {
 
+        public bool IsBussy
+        {
+            set { this.LoadingDecorator.IsSplashScreenShown = value; }
+            get { return this.LoadingDecorator.IsSplashScreenShown.Value; }
+        }
         
         public event OnCancelProgressionEventHandler OnCancelProgression;
         public delegate void OnCancelProgressionEventHandler();
@@ -355,7 +360,7 @@ namespace Misp.Kernel.Ui.Base
         }
 
          public void OnBusyPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
+         {
             BusyAction action = (BusyAction) sender;
             switch (e.PropertyName)
             {

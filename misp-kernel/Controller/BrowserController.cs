@@ -14,6 +14,7 @@ using Misp.Kernel.Domain;
 using Misp.Kernel.Util;
 using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Ui.Sidebar;
+using System.Windows.Threading;
 
 
 namespace Misp.Kernel.Controller
@@ -145,24 +146,31 @@ namespace Misp.Kernel.Controller
         /// <returns></returns>
         public override OperationState Search(object item)
         {
-            try
-            {
-                int p = 0;
-                BGroup group = null;
-                if (item != null && item is int) p = (int)item;
-                else if (item != null && item is Kernel.Domain.BGroup) group = (BGroup)item;
-                BrowserDataFilter filter = GetBrowser().BuildFilter(p);
-                if (group != null && group.oid.HasValue) filter.groupOid = group.oid;
-                BrowserDataPage<B> page = this.Service.getBrowserDatas(filter);
-                GetBrowser().DisplayPage(page);
-                return OperationState.CONTINUE;
-            }
-            catch (ServiceExecption e)
-            {
-                DisplayError("error", e.Message);
-            }
-
-            return OperationState.STOP;
+            ApplicationManager.MainWindow.IsBussy = true;
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+               new Action(() =>
+               {
+                   try
+                   {
+                       int p = 0;
+                       BGroup group = null;
+                       if (item != null && item is int) p = (int)item;
+                       else if (item != null && item is Kernel.Domain.BGroup) group = (BGroup)item;
+                       BrowserDataFilter filter = GetBrowser().BuildFilter(p);
+                       if (group != null && group.oid.HasValue) filter.groupOid = group.oid;
+                       BrowserDataPage<B> page = this.Service.getBrowserDatas(filter);
+                       GetBrowser().DisplayPage(page);                       
+                   }
+                   catch (ServiceExecption e)
+                   {
+                       DisplayError("error", e.Message);
+                   }
+                   finally
+                   {
+                       ApplicationManager.MainWindow.IsBussy = false;
+                   }
+               }));
+            return OperationState.CONTINUE;
         }
 
         public override OperationState SaveAs(string name)
