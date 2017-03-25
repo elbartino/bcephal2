@@ -51,7 +51,6 @@ namespace Misp.Kernel.Controller
         
         public override OperationState Open(object oid)
         {
-
             ApplicationManager.MainWindow.IsBussy = true;
             Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
                 new Action(() =>

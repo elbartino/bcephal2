@@ -74,10 +74,6 @@ namespace Misp.Kernel.Application
         {
             OperationState state = page.Close();
             if (state == OperationState.STOP) return OperationState.STOP;
-
-            //Worker worker = new Worker("Closing...");
-            //worker.OnWorkWithParameter += OnClosePage;
-            //worker.StartWork(page);
             OnClosePage(page);
             return OperationState.CONTINUE;
         }
@@ -93,8 +89,6 @@ namespace Misp.Kernel.Application
             if (page == null) return;
             try
             {
-                //OperationState state = page.Close();
-                //if (state == OperationState.STOP) return;
                 if (OpenedPages.Contains(page)) OpenedPages.Remove(page);
                 if (ActivePage != null && ActivePage.Equals(page))
                 {

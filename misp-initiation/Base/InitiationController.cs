@@ -12,6 +12,7 @@ using Misp.Kernel.Service;
 using Misp.Kernel.Util;
 using Misp.Initiation.Service;
 using Misp.Kernel.Ui.Sidebar;
+using System.Windows.Threading;
 
 namespace Misp.Initiation.Base
 {
@@ -109,11 +110,33 @@ namespace Misp.Initiation.Base
 
         public override OperationState Edit(object oid) 
         {
-            if (this.Search() == OperationState.STOP) return OperationState.STOP;
-            EditorItem<Kernel.Domain.Model> page = getModelController().getEditor().getPage((int)oid);
-            getModelController().getEditor().selectePage(page);
+            ApplicationManager.MainWindow.IsBussy = true;
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                new Action(() =>
+                {
+                    try
+                    {
+                        this.Search();
+                        ApplicationManager.MainWindow.IsBussy = true;
+                        EditorItem<Kernel.Domain.Model> page = getModelController().getEditor().getPage((int)oid);
+                        getModelController().getEditor().selectePage(page);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageDisplayer.DisplayError("Error", e.Message);
+                    }
+                    finally
+                    {
+                        ApplicationManager.MainWindow.IsBussy = false;
+                    }
+                }));
+
             return OperationState.CONTINUE;
-            //return getModelController().Edit(oid); 
+
+            //if (this.Search() == OperationState.STOP) return OperationState.STOP;
+            //EditorItem<Kernel.Domain.Model> page = getModelController().getEditor().getPage((int)oid);
+            //getModelController().getEditor().selectePage(page);
+            //return OperationState.CONTINUE;
         }
 
         public override OperationState Save() 
