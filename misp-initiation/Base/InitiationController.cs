@@ -132,11 +132,6 @@ namespace Misp.Initiation.Base
                 }));
 
             return OperationState.CONTINUE;
-
-            //if (this.Search() == OperationState.STOP) return OperationState.STOP;
-            //EditorItem<Kernel.Domain.Model> page = getModelController().getEditor().getPage((int)oid);
-            //getModelController().getEditor().selectePage(page);
-            //return OperationState.CONTINUE;
         }
 
         public override OperationState Save() 

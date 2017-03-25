@@ -16,6 +16,7 @@ using System.Windows.Input;
 using Misp.Kernel.Task;
 using Misp.Kernel.Util;
 using Misp.Kernel.Ui.Sidebar;
+using System.Windows.Threading;
 
 namespace Misp.Initiation.Model
 {
@@ -101,20 +102,31 @@ namespace Misp.Initiation.Model
         /// <returns>CONTINUE si la création du nouveau Model se termine avec succès. STOP sinon</returns>
         public override OperationState Create()
         {
-         
+            ApplicationManager.MainWindow.IsBussy = true;
+
             Misp.Kernel.Domain.Model model = new Misp.Kernel.Domain.Model();
             model.name = getNewPageName("Model");
             model.modelFilename = Misp.Kernel.Util.UserPreferencesUtil.GetRecentFiles()[0];
-            try
-            {
-                EditorItem<Misp.Kernel.Domain.Model> page = getModelEditor().addOrSelectPage(model);
-                initializePageHandlers(page);
-                page.Title = model.name;
-                getModelEditor().ListChangeHandler.AddNew(model);
-            }
-            catch (Exception)
-            {
-            }
+            EditorItem<Misp.Kernel.Domain.Model> page = getModelEditor().addOrSelectPage(model);
+
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                new Action(() =>
+                {                    
+                    try
+                    {                        
+                        initializePageHandlers(page);
+                        page.Title = model.name;
+                        getModelEditor().ListChangeHandler.AddNew(model);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    finally
+                    {
+                        ApplicationManager.MainWindow.IsBussy = false;
+                    }
+                }));
+
             return OperationState.CONTINUE;
         }
 

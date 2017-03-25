@@ -32,6 +32,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 
 namespace Misp.Sourcing.Table
 {
@@ -172,34 +173,51 @@ namespace Misp.Sourcing.Table
         /// </returns>
         public override OperationState Create()
         {
-            InputTable table = GetNewInputTable();
-            ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.AddInputTable(table);
-            InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().addOrSelectPage(table);
-            page.getInputTableForm().InputTableService = (InputTableService)this.Service;
+            ApplicationManager.MainWindow.IsBussy = true;
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                new Action(() =>
+                {
+                    try
+                    {
+                        InputTable table = GetNewInputTable();
+                        ((InputTableSideBar)SideBar).InputTableGroup.InputTableTreeview.AddInputTable(table);
+                        InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().addOrSelectPage(table);
+                        page.getInputTableForm().InputTableService = (InputTableService)this.Service;
 
-            page.DEFAULT_NAME = table.name;
-            String fileName = page.getInputTableForm().SpreadSheet.CreateNewExcelFile();
-            if (fileName == null)
-            {
-                MessageDisplayer.DisplayError("Bcephal - MS Excel Error", "Unable to create excel file!");
-                return OperationState.STOP;
-            }
-            table.excelFileName = table.name + this.ApplicationManager.DefaultExcelExtension;
+                        page.DEFAULT_NAME = table.name;
+                        String fileName = page.getInputTableForm().SpreadSheet.CreateNewExcelFile();
+                        if (fileName == null)
+                        {
+                            MessageDisplayer.DisplayError("Bcephal - MS Excel Error", "Unable to create excel file!");
+                            //return OperationState.STOP;
+                        }
+                        table.excelFileName = table.name + this.ApplicationManager.DefaultExcelExtension;
 
-            CustomizeSpreedSheet(page);
-            initializePageHandlers(page);
-            page.Title = table.name;
-            getInputTableEditor().ListChangeHandler.AddNew(table);
-            GetInputTableService().createTable(table);
-            Parameter parameter = new Parameter(table.name);
-            if (this.treeOid != null)
-            {
-                parameter.setTransformationTree(this.treeOid.Value);
-                GetInputTableService().parametrizeTable(parameter);
-            }
-            page.getInputTableForm().EditedObject = table;
-            page.getInputTableForm().displayObject();
-            //OnDisplayActiveCellData();
+                        CustomizeSpreedSheet(page);
+                        initializePageHandlers(page);
+                        page.Title = table.name;
+                        getInputTableEditor().ListChangeHandler.AddNew(table);
+                        GetInputTableService().createTable(table);
+                        Parameter parameter = new Parameter(table.name);
+                        if (this.treeOid != null)
+                        {
+                            parameter.setTransformationTree(this.treeOid.Value);
+                            GetInputTableService().parametrizeTable(parameter);
+                        }
+                        page.getInputTableForm().EditedObject = table;
+                        page.getInputTableForm().displayObject();
+                        //OnDisplayActiveCellData();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageDisplayer.DisplayError("Error", e.Message);
+                    }
+                    finally
+                    {
+                        ApplicationManager.MainWindow.IsBussy = false;
+                    }
+                }));
+
             return OperationState.CONTINUE;
         }
 

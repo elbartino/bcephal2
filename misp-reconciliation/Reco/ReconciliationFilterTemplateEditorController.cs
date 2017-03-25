@@ -5,6 +5,7 @@ using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Sidebar;
+using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Misp.Reconciliation.Reco
 {
@@ -69,13 +71,30 @@ namespace Misp.Reconciliation.Reco
         /// <returns>CONTINUE si la création du nouveau Model se termine avec succès. STOP sinon</returns>
         public override OperationState Create()
         {
-            ReconciliationFilterTemplate template = GetNewTemplate();
-            ((ReconciliationFilterTemplateSideBar)SideBar).TemplateGroup.TemplateTreeview.AddTemplate(template);
-            ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().addOrSelectPage(template);
-            initializePageHandlers(page);
-            page.Title = template.name;
-            getEditor().ListChangeHandler.AddNew(template);
-            page.SearchAll();
+            ApplicationManager.MainWindow.IsBussy = true;
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                new Action(() =>
+                {
+                    try
+                    {
+                        ReconciliationFilterTemplate template = GetNewTemplate();
+                        ((ReconciliationFilterTemplateSideBar)SideBar).TemplateGroup.TemplateTreeview.AddTemplate(template);
+                        ReconciliationFilterTemplateEditorItem page = (ReconciliationFilterTemplateEditorItem)getEditor().addOrSelectPage(template);
+                        initializePageHandlers(page);
+                        page.Title = template.name;
+                        getEditor().ListChangeHandler.AddNew(template);
+                        page.SearchAll();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageDisplayer.DisplayError("Error", e.Message);
+                    }
+                    finally
+                    {
+                        ApplicationManager.MainWindow.IsBussy = false;
+                    }
+                }));
+
             return OperationState.CONTINUE;
         }
 
