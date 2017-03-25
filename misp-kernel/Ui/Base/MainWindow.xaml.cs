@@ -21,6 +21,7 @@ using Xceed.Wpf.AvalonDock.Controls;
 using Misp.Kernel.Task;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Sidebar;
+using DevExpress.Xpf.Core;
 
 
 namespace Misp.Kernel.Ui.Base
@@ -45,6 +46,7 @@ namespace Misp.Kernel.Ui.Base
         /// </summary>
         public MainWindow()
         {
+            ThemeManager.SetThemeName(this, "Office2016White");
             InitializeComponent();
             dockingManager.MouseRightButtonDown += OnRightClick;
             this.closeProgressButton.Click += OnClick;
