@@ -16,6 +16,22 @@
     <Grid>
 
         <dx:LoadingDecorator Grid.Row="0" x:Name="LoadingDecorator" x:FieldModifier="public">
+
+            <!--<dx:LoadingDecorator.SplashScreenTemplate>
+                <DataTemplate>
+                    <dx:WaitIndicator DeferedVisibility="True" Content="Loading..." BorderBrush="Transparent">
+                        <dx:WaitIndicator.ContentTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Please Wait" FontSize="20"/>
+                                    <TextBlock Text="{Binding}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </dx:WaitIndicator.ContentTemplate>
+                    </dx:WaitIndicator>
+                </DataTemplate>
+            </dx:LoadingDecorator.SplashScreenTemplate>-->
+
             <Grid x:Name="mainGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="378*"/>
