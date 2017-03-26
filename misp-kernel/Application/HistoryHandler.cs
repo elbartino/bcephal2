@@ -506,16 +506,15 @@ namespace Misp.Kernel.Application
                 page.NavigationToken = token;
                 page.Initialize();                
             }
+            openPage(page);
             page.Search();
 
             if (token.ItemId != null)
             {
-                    int idmodel = int.Parse(token.ItemId.ToString());
-                    page.Search(idmodel);
-             }
-            
-
-            return openPage(page);
+                int idmodel = int.Parse(token.ItemId.ToString());
+                page.Search(idmodel);
+            }
+            return OperationState.CONTINUE;
         }
         
 

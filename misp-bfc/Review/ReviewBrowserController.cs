@@ -40,32 +40,38 @@ namespace Misp.Bfc.Review
 
         public override OperationState Search() 
         {
-            try
-            {
-                getReviewBrowser().Form.IsBussy = true;
-                ReviewFilter filter = getReviewBrowser().Form.GetFilter();
-                if (getReviewBrowser().Form.TabControl.SelectedIndex == 0)
-                {               
-                    PrefundingAccountData data = getReviewService().getPrefundingAccountData(filter);
-                    getReviewBrowser().Form.Display(data);
-                }
-                else if (getReviewBrowser().Form.TabControl.SelectedIndex == 1)
+            getReviewBrowser().Form.IsBussy = true;
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                new Action(() =>
                 {
-                    List<SettlementEvolutionData> datas = getReviewService().getSettlementEvolutionDatas(filter);
-                    getReviewBrowser().Form.Display(datas);
-                    UpdateSettlementEvolutionChart(filter);
-                }
-                else if (getReviewBrowser().Form.TabControl.SelectedIndex == 2)
-                {
-                    List<AgeingBalanceData> datas = getReviewService().getAgeingBalanceDatas(filter);
-                    getReviewBrowser().Form.DisplayTotal(datas);
-                }
-                getReviewBrowser().Form.IsBussy = false;
-            }
-            catch (Exception)
-            {
-                getReviewBrowser().Form.IsBussy = false;
-            }
+                    try
+                    {
+                        ReviewFilter filter = getReviewBrowser().Form.GetFilter();
+                        if (getReviewBrowser().Form.TabControl.SelectedIndex == 0)
+                        {
+                            PrefundingAccountData data = getReviewService().getPrefundingAccountData(filter);
+                            getReviewBrowser().Form.Display(data);
+                        }
+                        else if (getReviewBrowser().Form.TabControl.SelectedIndex == 1)
+                        {
+                            List<SettlementEvolutionData> datas = getReviewService().getSettlementEvolutionDatas(filter);
+                            getReviewBrowser().Form.Display(datas);
+                            UpdateSettlementEvolutionChart(filter);
+                        }
+                        else if (getReviewBrowser().Form.TabControl.SelectedIndex == 2)
+                        {
+                            List<AgeingBalanceData> datas = getReviewService().getAgeingBalanceDatas(filter);
+                            getReviewBrowser().Form.DisplayTotal(datas);
+                        }
+                        getReviewBrowser().Form.IsBussy = false;
+                    }
+                    catch (Exception)
+                    {
+                        getReviewBrowser().Form.IsBussy = false;
+                    }
+                    finally { getReviewBrowser().Form.IsBussy = false; }
+                }));
+            
             return OperationState.CONTINUE; 
         }
 
