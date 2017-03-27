@@ -78,6 +78,7 @@ namespace Misp.Reconciliation.Reco
                 this.CommentTextBlock.Text = this.EditedObject != null ? this.EditedObject.comment : "";
             //}
             CustomizeDC();
+            if (this.EditedObject != null) 
             Search(this.EditedObject.GrilleFilter != null ? this.EditedObject.GrilleFilter.page : 1);
             throwHandler = true;
         }
