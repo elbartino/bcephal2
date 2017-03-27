@@ -563,6 +563,7 @@ namespace Misp.Planification.Tranformation
                 ((TransformationTreeSideBar)SideBar).TransformationTreeGroup.TransformationTreeTreeview.RemoveTransformationTree(page.EditedObject);
             }
             base.OnPageClosed(sender, args);
+            if (page.EditedObject.oid.HasValue)
             GetTransformationTreeService().unlocked(ApplicationManager.Instance.File.oid.Value,page.EditedObject.oid.Value);
         }
 
