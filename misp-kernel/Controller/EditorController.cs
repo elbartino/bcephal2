@@ -536,6 +536,7 @@ namespace Misp.Kernel.Controller
         /// <param name="page"></param>
         public virtual void OnPageSelected(EditorItem<T> page)
         {
+            if (page == null) return;
             CustomizeForUser(page);
         }
 
