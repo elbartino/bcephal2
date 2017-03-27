@@ -98,6 +98,15 @@ namespace Misp.Sourcing.Base
                 return designerController;
             }
 
+            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
+            {
+                AutomaticSourcingBrowserController automaticSourcingController = new AutomaticSourcingBrowserController();
+                automaticSourcingController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                automaticSourcingController.FunctionalityCode = fonctionality;
+                automaticSourcingController.ApplicationManager = this.ApplicationManager;
+                automaticSourcingController.Service = ((SourcingServiceFactory)ServiceFactory).GetAutomaticSourcingService();
+                return automaticSourcingController;
+            }
             if ((fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_EDIT && editionMode.HasValue) || fonctionality == SourcingFunctionalitiesCode.UPLOAD_STRUCTURED_FILE_FUNCTIONALITY)
             {
                 AutomaticSourcingEditorController automaticSourcingController = new AutomaticSourcingEditorController();
@@ -108,16 +117,7 @@ namespace Misp.Sourcing.Base
                 automaticSourcingController.InputTableService = ((SourcingServiceFactory)ServiceFactory).GetInputTableService();
                 return automaticSourcingController;
             }
-
-            if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_SOURCING_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
-                {
-                AutomaticSourcingBrowserController automaticSourcingController = new AutomaticSourcingBrowserController();
-                automaticSourcingController.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                automaticSourcingController.FunctionalityCode = fonctionality;
-                automaticSourcingController.ApplicationManager = this.ApplicationManager;
-                automaticSourcingController.Service = ((SourcingServiceFactory)ServiceFactory).GetAutomaticSourcingService();
-                return automaticSourcingController;
-            }
+                        
 
             if (fonctionality == SourcingFunctionalitiesCode.INPUT_TABLE_GRID_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
             {
