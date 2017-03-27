@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Misp.Bfc.Advisements
 {
@@ -151,22 +152,33 @@ namespace Misp.Bfc.Advisements
             if (this.Service != null && isPrefunding() && this.EditedObject != null && !this.EditedObject.oid.HasValue
                 && this.MemberBank != null && this.Scheme != null)
             {
-                var format = new NumberFormatInfo();
-                format.NegativeSign = "-";
-                decimal alreadyRequested = 0;
-                decimal amount = 0;
-                if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) alreadyRequested = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), format);
-                if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), format);
-                if (DCComboBox.SelectedItem != null && DCComboBox.SelectedItem is BfcItem)
-                {
-                    BfcItem item = (BfcItem)DCComboBox.SelectedItem;
-                    bool isDebit = item.name.ToUpper().Equals("D", StringComparison.InvariantCultureIgnoreCase)
-                        || item.name.ToUpper().Equals("DEBIT", StringComparison.InvariantCultureIgnoreCase);
-                    amount = isDebit ? 0 - amount : amount;
-                }
-                
-                decimal balance = alreadyRequested + amount;                
-                this.BalanceTextEdit.Text = balance.ToString();
+                ApplicationManager.Instance.MainWindow.IsBussy = true;
+                Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                    new Action(() =>
+                    {
+                        try
+                        {
+                            var format = new NumberFormatInfo();
+                            format.NegativeSign = "-";
+                            decimal alreadyRequested = 0;
+                            decimal amount = 0;
+                            if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) alreadyRequested = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), format);
+                            if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), format);
+                            if (DCComboBox.SelectedItem != null && DCComboBox.SelectedItem is BfcItem)
+                            {
+                                BfcItem item = (BfcItem)DCComboBox.SelectedItem;
+                                bool isDebit = item.name.ToUpper().Equals("D", StringComparison.InvariantCultureIgnoreCase)
+                                    || item.name.ToUpper().Equals("DEBIT", StringComparison.InvariantCultureIgnoreCase);
+                                amount = isDebit ? 0 - amount : amount;
+                            }
+
+                            decimal balance = alreadyRequested + amount;
+                            this.BalanceTextEdit.Text = balance.ToString();
+                        }
+                        catch (Exception) { }
+                        finally { ApplicationManager.Instance.MainWindow.IsBussy = false; }
+
+                    }));
             }
         }
 
