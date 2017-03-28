@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Misp.Sourcing.Base
 {
@@ -1215,41 +1216,57 @@ namespace Misp.Sourcing.Base
 
         public override Kernel.Application.OperationState Create()
         {
-            string[] fileAttribute = openFileDialog("Open File To Upload", null);
-            if (fileAttribute == null)
-            {
-                if (this.ApplicationManager.HistoryHandler.ActivePage == this)
-                {
-                    if (getAutomaticSourcingEditor().ListChangeHandler.Items.Count > 1)
-                    {
-                        int last = getAutomaticSourcingEditor().getPages().Count - 1;
-                        this.OnPageSelected(getAutomaticSourcingEditor().getPages()[last]);
-                        return OperationState.STOP;
-                    }
-                    else
-                    {
-                        this.ApplicationManager.HistoryHandler.closePage(this);
-                        return OperationState.STOP;
-                    }
-                }
-            }
-            AutomaticSourcing automaticSourcing = GetNewAutomaticSourcing();
-            ((AutomaticSourcingSideBar)SideBar).AutomaticSourcingGroup.AutomaticSourcingTreeview.AddAutomaticSourcing(automaticSourcing);
-            AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().addOrSelectPage(automaticSourcing);
-            initializePageHandlers(page);
+            ApplicationManager.MainWindow.IsBussy = true;
+            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+               new Action(() =>
+               {
+                   try
+                   {
+                       string[] fileAttribute = openFileDialog("Open File To Upload", null);
+                       if (fileAttribute == null)
+                       {
+                           if (this.ApplicationManager.HistoryHandler.ActivePage == this)
+                           {
+                               if (getAutomaticSourcingEditor().ListChangeHandler.Items.Count > 1)
+                               {
+                                   int last = getAutomaticSourcingEditor().getPages().Count - 1;
+                                   this.OnPageSelected(getAutomaticSourcingEditor().getPages()[last]);
+                                   return;
+                               }
+                               else
+                               {
+                                   this.ApplicationManager.HistoryHandler.closePage(this);
+                                   return;
+                               }
+                           }
+                       }
+                       AutomaticSourcing automaticSourcing = GetNewAutomaticSourcing();
+                       ((AutomaticSourcingSideBar)SideBar).AutomaticSourcingGroup.AutomaticSourcingTreeview.AddAutomaticSourcing(automaticSourcing);
+                       AutomaticSourcingEditorItem page = (AutomaticSourcingEditorItem)getAutomaticSourcingEditor().addOrSelectPage(automaticSourcing);
+                       initializePageHandlers(page);
 
-            page.Title = automaticSourcing.name;
-            page.EditedObject = automaticSourcing;
-            page.EditedObject.excelFile = fileAttribute[1];
-            getAutomaticSourcingEditor().ListChangeHandler.AddNew(automaticSourcing);
+                       page.Title = automaticSourcing.name;
+                       page.EditedObject = automaticSourcing;
+                       page.EditedObject.excelFile = fileAttribute[1];
+                       getAutomaticSourcingEditor().ListChangeHandler.AddNew(automaticSourcing);
 
-            InitializeExcelFile(page.EditedObject.excelFile);
-            OnSheetActivated();
-            if (page.EditedObject.ActiveSheet != null)
-            {
-                if (page.EditedObject.ActiveSheet.listColumnToDisplay.Count > 0) page.getAutomaticSourcingForm().SetSelectedIndex(0);
-            }
-            OnChange();
+                       InitializeExcelFile(page.EditedObject.excelFile);
+                       OnSheetActivated();
+                       if (page.EditedObject.ActiveSheet != null)
+                       {
+                           if (page.EditedObject.ActiveSheet.listColumnToDisplay.Count > 0) page.getAutomaticSourcingForm().SetSelectedIndex(0);
+                       }
+                       OnChange();
+                   }
+                   catch (Exception e)
+                   {
+                       DisplayError("error", e.Message);
+                   }
+                   finally
+                   {
+                       ApplicationManager.MainWindow.IsBussy = false;
+                   }
+               }));
             return OperationState.CONTINUE;
 
         }
