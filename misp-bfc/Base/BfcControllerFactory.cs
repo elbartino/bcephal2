@@ -58,9 +58,9 @@ namespace Misp.Bfc.Base
             }
 
 
-            if (fonctionality == BfcFunctionalitiesCode.EXCEPTIONAL_ADVISEMENT)
+            if (fonctionality == BfcFunctionalitiesCode.REPLENISHMENT_INSTRUCTION_ADVISEMENT)
             {
-                AdvisementEditorController advisementEditorController = new AdvisementEditorController(AdvisementType.EXCEPTIONAL);
+                AdvisementEditorController advisementEditorController = new AdvisementEditorController(AdvisementType.REPLENISHMENT);
                 advisementEditorController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
                 advisementEditorController.ApplicationManager = this.ApplicationManager;
                 advisementEditorController.Service = ((BfcServiceFactory)ServiceFactory).GetExceptionalAdvisementService();
@@ -94,9 +94,9 @@ namespace Misp.Bfc.Base
                 return advisementBrowserController;
             }
 
-            if (fonctionality == BfcFunctionalitiesCode.EXCEPTIONAL_ADVISEMENT_LIST)
+            if (fonctionality == BfcFunctionalitiesCode.REPLENISHMENT_INSTRUCTION_ADVISEMENT_LIST)
             {
-                AdvisementBrowserController advisementBrowserController = new AdvisementBrowserController(AdvisementType.EXCEPTIONAL);
+                AdvisementBrowserController advisementBrowserController = new AdvisementBrowserController(AdvisementType.REPLENISHMENT);
                 advisementBrowserController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
                 advisementBrowserController.ApplicationManager = this.ApplicationManager;
                 advisementBrowserController.Service = ((BfcServiceFactory)ServiceFactory).GetExceptionalAdvisementService();

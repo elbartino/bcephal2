@@ -26,11 +26,11 @@ namespace Misp.Bfc.Base
         public static string NEW_MEMBER_ADVISEMENT_LABEL = "New member advisement";
         public static string LIST_MEMBER_ADVISEMENT_LABEL = "List member advisements";
 
-        public static string EXCEPTIONAL_ADVISEMENT_LABEL = "Exceptional advisement";
-        public static string RECENT_EXCEPTIONAL_ADVISEMENT_LABEL = "Recent exceptional advisements";
-        public static string EXCEPTIONAL_ADVISEMENT_DASHBOARD_LABEL = "Exceptional advisements";
-        public static string NEW_EXCEPTIONAL_ADVISEMENT_LABEL = "New exceptional advisement";
-        public static string LIST_EXCEPTIONAL_ADVISEMENT_LABEL = "List exceptional advisements";
+        public static string REPLENISHMENT_INSTRUCTION_ADVISEMENT_LABEL = "Replenishment Instruction";
+        public static string RECENT_REPLENISHMENT_INSTRUCTION_ADVISEMENT_LABEL = "Recent Replenishment Instructions";
+        public static string REPLENISHMENT_INSTRUCTION_ADVISEMENT_DASHBOARD_LABEL = "Replenishment Instructions";
+        public static string NEW_REPLENISHMENT_INSTRUCTION_ADVISEMENT_LABEL = "New replenishment instruction";
+        public static string LIST_REPLENISHMENT_INSTRUCTION_ADVISEMENT_LABEL = "List replenishment instructions";
 
         public static string SETTLEMENT_ADVISEMENT_LABEL = "Settlement advisement";
         public static string RECENT_SETTLEMENT_ADVISEMENT_LABEL = "Recent settlement advisements";

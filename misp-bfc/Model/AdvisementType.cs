@@ -10,7 +10,7 @@ namespace Misp.Bfc.Model
     {
         PREFUNDING,
         MEMBER,
-        EXCEPTIONAL,
+        REPLENISHMENT,
         SETTLEMENT
     }
 }

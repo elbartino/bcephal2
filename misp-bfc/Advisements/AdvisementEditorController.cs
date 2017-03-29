@@ -139,9 +139,9 @@ namespace Misp.Bfc.Advisements
             return this.AdvisementType == AdvisementType.MEMBER;
         }
 
-        protected bool isExceptional()
+        protected bool isReplenishment()
         {
-            return this.AdvisementType == AdvisementType.EXCEPTIONAL;
+            return this.AdvisementType == AdvisementType.REPLENISHMENT;
         }
 
         protected bool isSettlement()

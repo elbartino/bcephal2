@@ -64,9 +64,9 @@ namespace Misp.Bfc.Base
             MemberAdvisementMenu.Items.Add(NewMemberAdvisementMenu);
             MemberAdvisementMenu.Items.Add(ListMemberAdvisementMenu);
 
-            ExceptionalAdvisementMenu = BuildMenu(BfcFunctionalitiesCode.ADVISEMENT, BfcFunctionalitiesLabel.EXCEPTIONAL_ADVISEMENT_LABEL, BfcFunctionalitiesCode.ADVISEMENT);
-            NewExceptionalAdvisementMenu = BuildMenu(BfcFunctionalitiesCode.EXCEPTIONAL_ADVISEMENT, BfcFunctionalitiesLabel.NEW_EXCEPTIONAL_ADVISEMENT_LABEL, NavigationToken.GetCreateViewToken(BfcFunctionalitiesCode.EXCEPTIONAL_ADVISEMENT), Kernel.Domain.RightType.CREATE);
-            ListExceptionalAdvisementMenu = BuildMenu(BfcFunctionalitiesCode.EXCEPTIONAL_ADVISEMENT, BfcFunctionalitiesLabel.LIST_EXCEPTIONAL_ADVISEMENT_LABEL, NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.EXCEPTIONAL_ADVISEMENT_LIST), Kernel.Domain.RightType.VIEW);
+            ExceptionalAdvisementMenu = BuildMenu(BfcFunctionalitiesCode.ADVISEMENT, BfcFunctionalitiesLabel.REPLENISHMENT_INSTRUCTION_ADVISEMENT_LABEL, BfcFunctionalitiesCode.ADVISEMENT);
+            NewExceptionalAdvisementMenu = BuildMenu(BfcFunctionalitiesCode.REPLENISHMENT_INSTRUCTION_ADVISEMENT, BfcFunctionalitiesLabel.NEW_REPLENISHMENT_INSTRUCTION_ADVISEMENT_LABEL, NavigationToken.GetCreateViewToken(BfcFunctionalitiesCode.REPLENISHMENT_INSTRUCTION_ADVISEMENT), Kernel.Domain.RightType.CREATE);
+            ListExceptionalAdvisementMenu = BuildMenu(BfcFunctionalitiesCode.REPLENISHMENT_INSTRUCTION_ADVISEMENT, BfcFunctionalitiesLabel.LIST_REPLENISHMENT_INSTRUCTION_ADVISEMENT_LABEL, NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.REPLENISHMENT_INSTRUCTION_ADVISEMENT_LIST), Kernel.Domain.RightType.VIEW);
             ExceptionalAdvisementMenu.Items.Add(NewExceptionalAdvisementMenu);
             ExceptionalAdvisementMenu.Items.Add(ListExceptionalAdvisementMenu);
 

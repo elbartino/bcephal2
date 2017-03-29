@@ -241,7 +241,7 @@ namespace Misp.Bfc.Advisements
                 this.AmountLabel.Content = "New Pre-funding Requested";
                 this.PlatformGrid.Visibility = Visibility.Collapsed;
             }
-            else if (isExceptional())
+            else if (isReplenishment())
             {
                 this.AmountLabel.Content = "Replenishment Amount";
                 this.PlatformGrid.Visibility = Visibility.Collapsed;
@@ -302,9 +302,9 @@ namespace Misp.Bfc.Advisements
             return this.AdvisementType == AdvisementType.MEMBER;
         }
 
-        protected bool isExceptional()
+        protected bool isReplenishment()
         {
-            return this.AdvisementType == AdvisementType.EXCEPTIONAL;
+            return this.AdvisementType == AdvisementType.REPLENISHMENT;
         }
 
         protected bool isSettlement()

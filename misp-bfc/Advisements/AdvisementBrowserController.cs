@@ -33,7 +33,7 @@ namespace Misp.Bfc.Advisements
             if (advisementType == AdvisementType.SETTLEMENT) return BfcFunctionalitiesCode.SETTLEMENT_ADVISEMENT;
             if (advisementType == AdvisementType.MEMBER) return BfcFunctionalitiesCode.MEMBER_ADVISEMENT;
             if (advisementType == AdvisementType.PREFUNDING) return BfcFunctionalitiesCode.PREFUNDING_ADVISEMENT;
-            if (advisementType == AdvisementType.EXCEPTIONAL) return BfcFunctionalitiesCode.EXCEPTIONAL_ADVISEMENT;
+            if (advisementType == AdvisementType.REPLENISHMENT) return BfcFunctionalitiesCode.REPLENISHMENT_INSTRUCTION_ADVISEMENT;
             return BfcFunctionalitiesCode.ADVISEMENT;
         }
 

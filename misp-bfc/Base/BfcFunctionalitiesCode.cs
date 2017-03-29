@@ -17,9 +17,9 @@ namespace Misp.Bfc.Base
         
         public static string MEMBER_ADVISEMENT = "functionality.member.advisement";
         public static string MEMBER_ADVISEMENT_LIST = "functionality.member.advisement.list";
-        
-        public static string EXCEPTIONAL_ADVISEMENT = "functionality.exceptional.advisement";
-        public static string EXCEPTIONAL_ADVISEMENT_LIST = "functionality.exceptional.advisement.list";
+
+        public static string REPLENISHMENT_INSTRUCTION_ADVISEMENT = "functionality.replenishment.instruction.advisement";
+        public static string REPLENISHMENT_INSTRUCTION_ADVISEMENT_LIST = "functionality.replenishment.instruction.advisement.list";
 
         public static string SETTLEMENT_ADVISEMENT = "functionality.settlement.advisement";
         public static string SETTLEMENT_ADVISEMENT_LIST = "functionality.settlement.advisement.list";

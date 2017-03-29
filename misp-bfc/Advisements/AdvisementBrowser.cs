@@ -51,9 +51,9 @@ namespace Misp.Bfc.Advisements
             return this.AdvisementType == AdvisementType.MEMBER;
         }
 
-        protected bool isExceptional()
+        protected bool isReplenishment()
         {
-            return this.AdvisementType == AdvisementType.EXCEPTIONAL;
+            return this.AdvisementType == AdvisementType.REPLENISHMENT;
         }
 
         protected bool isSettlement()
@@ -63,10 +63,10 @@ namespace Misp.Bfc.Advisements
                 
         protected override string getTitle()
         {
-            if (isMember()) return "Member Advisement";
-            else if (isExceptional()) return "Exception Advisement";
-            else if (isSettlement()) return "Settlement Advisement";
-            return "Prefunding Advisement"; 
+            if (isMember()) return "Member Advisements";
+            else if (isReplenishment()) return "Replenishment Instructions";
+            else if (isSettlement()) return "Settlement Advisements";
+            return "Prefunding Advisements"; 
         }
 
         protected override int getColumnCount()
@@ -86,7 +86,7 @@ namespace Misp.Bfc.Advisements
             {
                 switch (index)
                 {
-                    case 0: return "Settlement Advisement n°";
+                    case 0: return "SA n°";
                     case 1: return "Date";
                     case 2: return "Scheme";
                     case 3: return "Amount";
@@ -99,7 +99,7 @@ namespace Misp.Bfc.Advisements
             switch (index)
             {
 
-                case 0: return "Pre-funding n°";
+                case 0: return isMember() ? "MA n°" : isReplenishment() ? "RI n°" : "PF n°";
                 case 1: return "Date";
                 case 2: return "Member Bank";
                 case 3: return "PML";

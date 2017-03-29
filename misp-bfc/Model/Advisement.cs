@@ -33,5 +33,18 @@ namespace Misp.Bfc.Model
             set { this.valueDate = value.HasValue ? value.Value.ToShortDateString() : null; }
         }
 
+        public override string ToString()
+        {
+            String name = "Advisement";
+            if(this.advisementType != null){
+                if (this.advisementType.Equals(AdvisementType.PREFUNDING.ToString())) name = "PF";
+                if (this.advisementType.Equals(AdvisementType.MEMBER.ToString())) name = "MA";
+                if (this.advisementType.Equals(AdvisementType.REPLENISHMENT.ToString())) name = "RI";
+                if (this.advisementType.Equals(AdvisementType.SETTLEMENT.ToString())) name = "SA";
+            }
+            if(code != null) name = name + " " + code;
+            return name;
+        }
+
     }
 }
