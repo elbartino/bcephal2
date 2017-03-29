@@ -41,11 +41,10 @@
                 <Setter Property="Height" Value="25"/>
                 <Setter Property="Width" Value="200"/>
                 <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="IsEnabled" Value="False"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
-                <Setter Property="IsHitTestVisible" Value="False"/>
                 <Setter Property="MaskType" Value="Numeric"/>
-                <Setter Property="DisplayFormatString" Value="n2"/>            
+                <Setter Property="DisplayFormatString" Value="n2"/>
+                <Setter Property="IsEnabled" Value="False"/>
             </Style>
 
             <Style x:Key="EditableTextBox" TargetType="{x:Type TextBox}">

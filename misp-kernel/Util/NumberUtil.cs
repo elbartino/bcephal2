@@ -14,7 +14,7 @@ namespace Misp.Kernel.Util
         /// coma as decimal separator
         /// </summary>
         /// <param name="numberValue"></param>
-        public static string setGermanFormatter(decimal? numberValue){
+        public static string ToGermanFormat(decimal? numberValue){
             if (numberValue == null) numberValue= 00;
             string formatedDecimal =  numberValue.Value.ToString("N", CultureInfo.CreateSpecificCulture("de-DE"));
             return formatedDecimal;

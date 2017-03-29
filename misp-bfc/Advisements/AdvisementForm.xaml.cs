@@ -105,9 +105,10 @@ namespace Misp.Bfc.Advisements
                 if (this.EditedObject.dc != null) this.DCComboBox.SelectedItem = this.EditedObject.dc;
                 else this.DCComboBox.SelectedIndex = 0;
 
-                this.AlreadyRequestedPrefundingTextEdit.Text = this.EditedObject.alreadyRequestedAmount.HasValue ? this.EditedObject.alreadyRequestedAmount.Value.ToString() : "";
-                this.AmountTextEdit.Text = this.EditedObject.amount.HasValue ? this.EditedObject.amount.Value.ToString() : "";
-                this.BalanceTextEdit.Text = this.EditedObject.balance.HasValue ? this.EditedObject.balance.Value.ToString() : "";
+
+                this.AlreadyRequestedPrefundingTextEdit.Text = this.EditedObject.alreadyRequestedAmount.HasValue ? NumberUtil.ToGermanFormat(this.EditedObject.alreadyRequestedAmount) : "";
+                this.AmountTextEdit.Text = this.EditedObject.amount.HasValue ? NumberUtil.ToGermanFormat(this.EditedObject.amount) : "";
+                this.BalanceTextEdit.Text = this.EditedObject.balance.HasValue ? NumberUtil.ToGermanFormat(this.EditedObject.balance) : "";
 
                 if (this.EditedObject.valueDateTime.HasValue) this.ValueDatePicker.SelectedDate = this.EditedObject.valueDateTime;
                 this.MessageTextBlock.Text = this.EditedObject.message != null ? this.EditedObject.message : "";
@@ -142,7 +143,7 @@ namespace Misp.Bfc.Advisements
                 && this.MemberBank != null && this.Scheme != null && this.Pml != null)
             {
                 decimal amount = this.Service.getAlreadyRequestedPrefundingAmount(this.MemberBank.oid.Value, this.Pml.oid.Value, this.Scheme.oid.Value);
-                this.AlreadyRequestedPrefundingTextEdit.Text = amount.ToString();
+                this.AlreadyRequestedPrefundingTextEdit.Text = NumberUtil.ToGermanFormat(amount);
                 DisplayBalanceAmount();
             }
         }
@@ -169,7 +170,7 @@ namespace Misp.Bfc.Advisements
                     }
 
                     decimal balance = alreadyRequested + amount;
-                    this.BalanceTextEdit.Text = balance.ToString();
+                    this.BalanceTextEdit.Text = NumberUtil.ToGermanFormat(balance);
                 }
                 catch (Exception) { }
             }
