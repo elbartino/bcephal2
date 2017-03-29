@@ -115,6 +115,7 @@
     <Compile Include="Model\AdvisementBrowserDataPage.cs" />
     <Compile Include="Model\AdvisementType.cs" />
     <Compile Include="Model\AgeingBalanceData.cs" />
+    <Compile Include="Model\AlreadyRequestedPrefundingData.cs" />
     <Compile Include="Model\BfcItem.cs" />
     <Compile Include="Model\ReviewFilter.cs" />
     <Compile Include="Model\SettlementEvolutionChartData.cs" />

@@ -142,7 +142,7 @@ namespace Misp.Bfc.Advisements
             if (this.Service != null && isPrefunding() && this.EditedObject != null && !this.EditedObject.oid.HasValue
                 && this.MemberBank != null && this.Scheme != null && this.Pml != null)
             {
-                decimal amount = this.Service.getAlreadyRequestedPrefundingAmount(this.MemberBank.oid.Value, this.Pml.oid.Value, this.Scheme.oid.Value);
+                decimal amount = this.Service.getAlreadyRequestedPrefundingAmount(this.MemberBank.oid, this.Pml.oid, this.Scheme.oid);
                 this.AlreadyRequestedPrefundingTextEdit.Text = NumberUtil.ToGermanFormat(amount);
                 DisplayBalanceAmount();
             }
@@ -252,7 +252,6 @@ namespace Misp.Bfc.Advisements
             {
                 this.AmountLabel.Content = "Settlement Advisement Amount";
                 this.MemberBankGrid.Visibility = Visibility.Collapsed;
-                this.PmlGrid.Visibility = Visibility.Collapsed;
                 this.AlreadyRequestedPrefundingGrid.Visibility = Visibility.Collapsed;
                 this.BalanceGrid.Visibility = Visibility.Collapsed;
             }
@@ -268,15 +267,17 @@ namespace Misp.Bfc.Advisements
                 this.DCComboBox.ItemsSource = dcs;
 
                 List<BfcItem> schemes = Service.SchemeService.getAll();
+                if (isPrefunding() || isReplenishment()) schemes.Insert(0, BfcItem.ALL);
                 this.SchemeComboBox.ItemsSource = schemes;
+
+                List<BfcItem> pmls = Service.PmlService.getAll();
+                if (!isMember()) pmls.Insert(0, BfcItem.ALL);
+                this.PmlComboBox.ItemsSource = pmls;
 
                 if (!isSettlement())
                 {
                     List<BfcItem> banks = Service.MemberBankService.getAll();
                     this.MemberBankComboBox.ItemsSource = banks;
-
-                    List<BfcItem> pmls = Service.PmlService.getAll();
-                    this.PmlComboBox.ItemsSource = pmls;
                 }
                 if (isSettlement() || isMember())
                 {

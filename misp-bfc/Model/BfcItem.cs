@@ -8,12 +8,18 @@ namespace Misp.Bfc.Model
 {
     public class BfcItem : IComparable
     {
+        public static BfcItem ALL = new BfcItem("ALL", "ALL");
+
         public int? oid { get; set; }
 
         public string id { get; set; }
 
         public string name { get; set; }
 
+
+        public BfcItem() { }
+
+        public BfcItem(string id, string name) { this.id = id; this.name = name;}
 
         public override string ToString()
         {
@@ -41,6 +47,11 @@ namespace Misp.Bfc.Model
                 if (objm.name != null && objm.name.Equals(this.name)) return true;
             }
             return false;
+        }
+
+        public bool IsAll()
+        {
+            return this.Equals(ALL);
         }
 
     }

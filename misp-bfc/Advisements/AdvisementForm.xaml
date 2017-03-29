@@ -113,7 +113,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Label Content="Select Member Bank" Style="{StaticResource label}" Grid.Column="0"/>
-            <ComboBox x:Name="MemberBankComboBox" x:FieldModifier="public" Style="{StaticResource Combobox}" Grid.Column="1"/>
+            <ComboBox x:Name="MemberBankComboBox" Style="{StaticResource Combobox}" x:FieldModifier="public"  Grid.Column="1"/>
             <TextBox x:Name="MemberBankTextBox" x:FieldModifier="public" Style="{StaticResource ReadonlyTextBox}" Grid.Column="2"/>
         </Grid>
 
