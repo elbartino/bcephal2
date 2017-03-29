@@ -1,0 +1,43 @@
+﻿<dxg:GridControl x:Class="Misp.Kernel.Ui.Base.BrowserUI.BrowserGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" SelectionMode="MultipleRow"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <dxg:GridControl.Resources>
+        <Style x:Key="GridHeader" TargetType="{x:Type Control}">
+            <Setter Property="Background" Value="#839BBB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
+        <DataTemplate x:Key="GridHeaderTemplate">
+            <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+        </DataTemplate>
+        <Style x:Key="GridColumn" TargetType="{x:Type dxg:GridColumn}">
+            <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
+            <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
+            <Setter Property="AllowResizing" Value="True"/>
+            <Setter Property="AllowMoving" Value="False"/>
+        </Style>
+        <Style x:Key="TableView" TargetType="{x:Type dxg:TableView}">
+            <Setter Property="ShowGroupPanel" Value="False"/>
+            <Setter Property="AllowResizing" Value="True"/>
+            <Setter Property="AllowMoving" Value="True"/>
+            <Setter Property="AllowFixedColumnMenu" Value="True"/>
+            <Setter Property="ShowAutoFilterRow" Value="True"/>
+            <Setter Property="ShowCriteriaInAutoFilterRow" Value="True"/>
+            <Setter Property="UseIndicatorForSelection" Value="False"/>
+            <Setter Property="ShowCheckBoxSelectorColumn" Value="True"/>
+            <Setter Property="NavigationStyle" Value="Cell"/>
+        </Style>
+    </dxg:GridControl.Resources>
+
+    <dxg:GridControl.View>
+        <dxg:TableView Style="{StaticResource TableView}"/>
+    </dxg:GridControl.View>
+
+</dxg:GridControl>

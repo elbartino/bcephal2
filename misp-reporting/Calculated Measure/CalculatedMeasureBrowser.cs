@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Domain.Browser;
+﻿using DevExpress.Xpf.Grid;
+using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
@@ -25,26 +26,7 @@ namespace Misp.Reporting.Calculated_Measure
         }
 
         protected override string getTitle() { return "CalculatedMeasures"; }
-
-        /// <summary>
-        /// Build and returns the column at index position
-        /// </summary>
-        /// <param name="index">The position of the column</param>
-        /// <returns></returns>
-        protected override DataGridColumn getColumnAt(int index)
-        {
-            switch (index)
-            {
-                case 0: return new DataGridTextColumn();
-                case 1: return new DataGridTextColumn();
-                case 2: return new DataGridTextColumn();
-                case 3: return new DataGridTextColumn();
-                case 4: return new DataGridCheckBoxColumn();
-                default: return new DataGridTextColumn();
-            }
-        }
-
-
+        
         /// <summary>
         /// Column Label
         /// </summary>
@@ -68,11 +50,11 @@ namespace Misp.Reporting.Calculated_Measure
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        protected override DataGridLength getColumnWidthAt(int index)
+        protected override GridColumnWidth getColumnWidthAt(int index)
         {
             switch (index)
             {
-                case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
+                case 0: return new GridColumnWidth(1, GridColumnUnitType.Star);
                 case 1: return 150;
                 case 2: return 120;
                 case 3: return 120;
@@ -86,7 +68,7 @@ namespace Misp.Reporting.Calculated_Measure
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        protected override string getBindingNameAt(int index)
+        protected override string getFieldNameAt(int index)
         {
             switch (index)
             {

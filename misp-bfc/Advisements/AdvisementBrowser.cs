@@ -1,4 +1,5 @@
-﻿using Misp.Bfc.Model;
+﻿using DevExpress.Xpf.Grid;
+using Misp.Bfc.Model;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
@@ -25,18 +26,11 @@ namespace Misp.Bfc.Advisements
 
         private void customizeGrid()
         {
-            grid.Columns.Clear();
+            this.Form.Grid.Columns.Clear();
             for (int i = 0; i < getColumnCount(); i++)
             {
-                DataGridColumn column = getColumnAt(i);
-                column.Header = getColumnHeaderAt(i);
-                column.Width = getColumnWidthAt(i);
-                column.IsReadOnly = isReadOnly(i);
-                if (column is DataGridBoundColumn)
-                {
-                    ((DataGridBoundColumn)column).Binding = getBindingAt(i);
-                }
-                grid.Columns.Add(column);
+                GridColumn column = getColumn(i);
+                this.Form.Grid.Columns.Add(column);
             }
             ((LayoutDocument)this.Children[0]).Title = getTitle();
         }
@@ -75,11 +69,6 @@ namespace Misp.Bfc.Advisements
             return 9;
         }
 
-        protected override System.Windows.Controls.DataGridColumn getColumnAt(int index)
-        {            
-            return new DataGridTextColumn();
-        }
-
         protected override string getColumnHeaderAt(int index)
         {
             if (isSettlement())
@@ -112,13 +101,13 @@ namespace Misp.Bfc.Advisements
             }
         }
 
-        protected override System.Windows.Controls.DataGridLength getColumnWidthAt(int index)
+        protected override GridColumnWidth getColumnWidthAt(int index)
         {
             if (isSettlement())
             {
                 switch (index)
                 {
-                    case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
+                    case 0: return new GridColumnWidth(1, GridColumnUnitType.Star);
                     case 1: return 100;
                     case 2: return 150;
                     case 3: return 150;
@@ -130,7 +119,7 @@ namespace Misp.Bfc.Advisements
             }
             switch (index)
             {
-                case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
+                case 0: return new GridColumnWidth(1, GridColumnUnitType.Star);
                 case 1: return 100;
                 case 2: return 150;
                 case 3: return 150;
@@ -143,7 +132,7 @@ namespace Misp.Bfc.Advisements
             }
         }
 
-        protected override string getBindingNameAt(int index)
+        protected override string getFieldNameAt(int index)
         {
             if (isSettlement())
             {

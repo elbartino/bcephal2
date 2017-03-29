@@ -69,9 +69,9 @@ namespace Misp.Planification.CombinedTransformationTree
 
         private void OnClear(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (this.GetBrowser().Grid.SelectedItems.Count == 0) return;
+            if (this.GetBrowser().Form.Grid.SelectedItems.Count == 0) return;
             TableActionData tableActionData = new TableActionData();
-            foreach (object tree in this.GetBrowser().Grid.SelectedItems)
+            foreach (object tree in this.GetBrowser().Form.Grid.SelectedItems)
             {
                 BrowserData bData = (BrowserData)tree;
                 int oid = (int)bData.oid;
@@ -85,10 +85,10 @@ namespace Misp.Planification.CombinedTransformationTree
 
         private void OnRun(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (this.GetBrowser().Grid.SelectedItems.Count == 0) return;
+            if (this.GetBrowser().Form.Grid.SelectedItems.Count == 0) return;
 
             List<int> listTreeToRun = new List<int>(0);
-            foreach (object obj in this.GetBrowser().Grid.SelectedItems)
+            foreach (object obj in this.GetBrowser().Form.Grid.SelectedItems)
             {
                 int oid = ((BrowserData)obj).oid;
                 listTreeToRun.AddRange(GetCombineTransformationTreeService().getByOid(oid).getTransformationTreesOids());

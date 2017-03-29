@@ -1,4 +1,5 @@
-﻿using Misp.Kernel.Domain.Browser;
+﻿using DevExpress.Xpf.Grid;
+using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
@@ -25,21 +26,6 @@ namespace Misp.Kernel.Administration.Profil
 
         protected override string getTitle() { return "Profils"; }
 
-        /// <summary>
-        /// Build and returns the column at index position
-        /// </summary>
-        /// <param name="index">The position of the column</param>
-        /// <returns></returns>
-        protected override DataGridColumn getColumnAt(int index)
-        {
-            switch (index)
-            {
-                case 0: return new DataGridTextColumn();
-                case 1: return new DataGridTextColumn();
-                case 2: return new DataGridCheckBoxColumn();
-                default: return new DataGridTextColumn();
-            }
-        }
 
 
         /// <summary>
@@ -63,11 +49,11 @@ namespace Misp.Kernel.Administration.Profil
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        protected override DataGridLength getColumnWidthAt(int index)
+        protected override GridColumnWidth getColumnWidthAt(int index)
         {
             switch (index)
             {
-                case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
+                case 0: return new GridColumnWidth(1, GridColumnUnitType.Star);
                 case 1: return 120;
                 case 2: return 100;
                 default: return 100;
@@ -79,13 +65,13 @@ namespace Misp.Kernel.Administration.Profil
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        protected override string getBindingNameAt(int index)
+        protected override string getFieldNameAt(int index)
         {
             switch (index)
             {
                 case 0: return "name";
                 case 1: return "creationDateTime";
-                case 3: return "active";
+                case 2: return "active";
                 default: return "oid";
             }
         }

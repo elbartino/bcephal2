@@ -32,9 +32,9 @@ namespace Misp.Kernel.Ui.Group
         protected override IView getNewView() 
         {
             GroupBrowser browser = new GroupBrowser(this.SubjectType, this.FunctionalityCode);
-            browser.Grid.BrowserGridContextMenu.Items.Remove(browser.Grid.BrowserGridContextMenu.NewMenuItem);
-            browser.Grid.BrowserGridContextMenu.Items.Remove(browser.Grid.BrowserGridContextMenu.SaveAsMenuItem);
-            browser.Grid.BrowserGridContextMenu.Items.Remove(browser.Grid.BrowserGridContextMenu.OpenMenuItem);
+            //browser.Form.BrowserGridContextMenu.Items.Remove(browser.Form.BrowserGridContextMenu.NewMenuItem);
+            //browser.Form.BrowserGridContextMenu.Items.Remove(browser.Form.BrowserGridContextMenu.SaveAsMenuItem);
+            //browser.Form.BrowserGridContextMenu.Items.Remove(browser.Form.BrowserGridContextMenu.OpenMenuItem);
             return browser;
         }
         
@@ -61,15 +61,15 @@ namespace Misp.Kernel.Ui.Group
 
         protected override void customizeContextMenu()
         {
-            this.GetBrowser().Grid.BrowserGridContextMenu.RenameMenuItem.IsEnabled = false;
-            this.GetBrowser().Grid.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = false;
-            object item = this.GetBrowser().Grid.SelectedItem;
-            if (item == null || !(item is BrowserData)) return;
-            int count = this.GetBrowser().Grid.SelectedItems.Count;
-            BrowserData data = (BrowserData) item;
-            bool isDefaultGroup = !String.IsNullOrEmpty(data.name) && data.name.Equals(BGroup.DEFAULT_GROUP_NAME);
-            this.GetBrowser().Grid.BrowserGridContextMenu.RenameMenuItem.IsEnabled = count == 1 && !isDefaultGroup;
-            this.GetBrowser().Grid.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = count > 1 || !isDefaultGroup;
+            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.RenameMenuItem.IsEnabled = false;
+            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = false;
+            //object item = this.GetBrowser().Form.Grid.SelectedItem;
+            //if (item == null || !(item is BrowserData)) return;
+            //int count = this.GetBrowser().Form.Grid.SelectedItems.Count;
+            //BrowserData data = (BrowserData) item;
+            //bool isDefaultGroup = !String.IsNullOrEmpty(data.name) && data.name.Equals(BGroup.DEFAULT_GROUP_NAME);
+            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.RenameMenuItem.IsEnabled = count == 1 && !isDefaultGroup;
+            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = count > 1 || !isDefaultGroup;
             
         }
 
@@ -126,7 +126,7 @@ namespace Misp.Kernel.Ui.Group
 
         public override OperationState RenameItem(string newName)
         {
-            Object selection = GetBrowser().Grid.SelectedItem;
+            Object selection = GetBrowser().Form.Grid.SelectedItem;
             if (selection == null) return OperationState.STOP;
             BrowserData data = (BrowserData)selection;
             BGroup group = ((GroupService)Service).getGroupByNameAndType(newName, data.group);
