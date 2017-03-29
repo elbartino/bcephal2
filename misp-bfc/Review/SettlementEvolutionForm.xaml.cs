@@ -97,8 +97,10 @@ namespace Misp.Bfc.Review
                     line.Points.Add(new SeriesPoint(data.date, data.value));
                 }
             }
-            diagram.ActualAxisX.Title = new AxisTitle() { Content = "Value Date" };
+            diagram.ActualAxisX.Title = new AxisTitle() { Content = "Value Date"};
+            
             diagram.ActualAxisY.Title = new AxisTitle() { Content = "Amount" };
+            diagram.ActualAxisY.Label = new AxisLabel() { TextPattern = "{V:C1}" };
             this.Chart.Diagram = diagram;
             
             throwHandlers = true;
