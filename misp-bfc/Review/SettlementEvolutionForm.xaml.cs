@@ -79,7 +79,7 @@ namespace Misp.Bfc.Review
         {
             throwHandlers = false;
             Dictionary<String, LineSeries2D> lines = new Dictionary<string, LineSeries2D>(0);
-            XYDiagram2D diagram = new XYDiagram2D();
+            XYDiagram2D diagram = new XYDiagram2D();            
             int i = 0;
             foreach (SettlementEvolutionChartData data in chartDatas)
             {
@@ -97,6 +97,8 @@ namespace Misp.Bfc.Review
                     line.Points.Add(new SeriesPoint(data.date, data.value));
                 }
             }
+            diagram.ActualAxisX.Title = new AxisTitle() { Content = "Value Date" };
+            diagram.ActualAxisY.Title = new AxisTitle() { Content = "Amount" };
             this.Chart.Diagram = diagram;
             
             throwHandlers = true;
