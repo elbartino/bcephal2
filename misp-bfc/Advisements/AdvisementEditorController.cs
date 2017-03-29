@@ -47,7 +47,7 @@ namespace Misp.Bfc.Advisements
             {
                 AdvisementEditorItem page = (AdvisementEditorItem)getAdvisementEditor().addOrSelectPage(advisement);
                 initializePageHandlers(page);
-                page.Title = AdvisementType.ToString();
+                page.Title = advisement.ToString();
                 getAdvisementEditor().ListChangeHandler.AddNew(advisement);
             }
             catch (Exception) { }

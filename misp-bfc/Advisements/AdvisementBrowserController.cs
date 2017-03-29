@@ -27,6 +27,12 @@ namespace Misp.Bfc.Advisements
             this.SubjectType = Kernel.Domain.SubjectType.ADVISEMENT;
         }
 
+        protected override void customizeContextMenu()
+        {
+            base.customizeContextMenu();            
+            this.GetBrowser().Grid.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = false;
+
+        }
 
         public override string GetEditorFuntionality()
         {
