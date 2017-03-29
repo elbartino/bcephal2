@@ -33,11 +33,12 @@
             <Setter Property="UseIndicatorForSelection" Value="False"/>
             <Setter Property="ShowCheckBoxSelectorColumn" Value="True"/>
             <Setter Property="NavigationStyle" Value="Cell"/>
+
         </Style>
     </dxg:GridControl.Resources>
 
     <dxg:GridControl.View>
-        <dxg:TableView Style="{StaticResource TableView}"/>
+        <dxg:TableView Style="{StaticResource TableView}" />
     </dxg:GridControl.View>
-
+    
 </dxg:GridControl>
