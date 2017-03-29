@@ -178,12 +178,12 @@ namespace Misp.Bfc.Review
 
         private void OnMemberBankChanged()
         {
-            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.Search()));            
+            this.Search();            
         }
 
         private void OnSettlementEvolutionFilterChanged()
         {
-            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.Search()));
+            this.Search();        
         }
 
         private void OnSettlementEvolutionPeriodChanged()
@@ -193,7 +193,7 @@ namespace Misp.Bfc.Review
         
         private void OnSelectTabChanged(object sender, DevExpress.Xpf.Core.TabControlSelectionChangedEventArgs e)
         {
-            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.Search()));
+            this.Search();        
         }
 
 
