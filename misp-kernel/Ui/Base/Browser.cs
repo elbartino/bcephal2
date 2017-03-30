@@ -201,14 +201,7 @@ namespace Misp.Kernel.Ui.Base
         /// </summary>
         /// <returns>Le nombre de colonnes dans la grille</returns>
         protected abstract int getColumnCount();
-
-        ///// <summary>
-        ///// Construit et retourne la colonne à la position indiquée.
-        ///// </summary>
-        ///// <param name="index">La position de la colonne à contruire</param>
-        ///// <returns>La colonne</returns>
-        //protected abstract DataGridColumn getColumnAt(int index);
-
+        
         /// <summary>
         /// Retourne l'entête de la colonne à la position indiquée.
         /// </summary>

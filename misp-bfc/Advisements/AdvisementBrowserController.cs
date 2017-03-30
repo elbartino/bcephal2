@@ -30,7 +30,7 @@ namespace Misp.Bfc.Advisements
         protected override void customizeContextMenu()
         {
             base.customizeContextMenu();            
-            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = false;
+            this.GetBrowser().Form.Grid.DeleteMenuItem.IsEnabled = false;
 
         }
 
