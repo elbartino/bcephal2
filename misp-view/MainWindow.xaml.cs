@@ -41,7 +41,6 @@ namespace misp_view
         listSettlement ls = new listSettlement();
         NewClient nc = new NewClient();
         BankAccount ba = new BankAccount();
-        Detail d = new Detail();
         public MainWindow()
         {
             InitializeComponent();
@@ -140,6 +139,7 @@ namespace misp_view
 
         private void MenuItem_Click_4(object sender, RoutedEventArgs e)
         {
+            Detail d = new Detail();
             d.ShowDialog();
         }
 

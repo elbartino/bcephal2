@@ -71,8 +71,10 @@
                         <Grid Background="Transparent">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="70"></RowDefinition>
-                                <RowDefinition/>
-                                <RowDefinition Height="9*"></RowDefinition>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
                                 <Label Content="Select PML" HorizontalAlignment="Right" Height="25" Margin="0,0,824,45" />
@@ -93,44 +95,57 @@
 
                             </Grid>
                             <Grid Grid.Row="1" x:Name="gridAdvisement">
-
-                                <ToggleButton x:Name="ShowDetailsButton" x:FieldModifier="public" Margin="10,0,906,214"  Width="15" Height="25">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ToggleButton x:Name="ShowDetailsButton" x:FieldModifier="public" Width="15" Grid.Column="0">
                                     <ToggleButton.Template>
                                         <ControlTemplate>
-                                            <TextBlock Text="▼" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="▼"/>
                                         </ControlTemplate>
                                     </ToggleButton.Template>
                                 </ToggleButton>
-                                <ToggleButton x:Name="HideDetailsButton" x:FieldModifier="public" Margin="10,30,906,244" Width="15" Height="25">
+                                <ToggleButton x:Name="HideDetailsButton" x:FieldModifier="public" Width="15" Grid.Column="0" Margin="-5,-10,0,0">
                                     <ToggleButton.Template>
                                         <ControlTemplate>
                                             <TextBlock Text="▲" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                         </ControlTemplate>
                                     </ToggleButton.Template>
                                 </ToggleButton >
-                                <TextBox Text="Advisements :" IsReadOnly="True" Foreground="White" IsHitTestVisible="False" Background="#839BBB" Height="25" Margin="30,10,34,222"></TextBox>
-                                <Condition:PFAdvisements x:Name="pfa" Margin="20,62,34,-62" />
+                                <TextBox Text="Advisements :" IsReadOnly="True" Foreground="White" IsHitTestVisible="False" Background="#839BBB" Grid.Column="1" Height="25" Margin="0,2,34,2"></TextBox>
                             </Grid>
-                            <Grid Grid.Row="2" x:Name="gridFinancial">
-                                <ToggleButton x:Name="ShowDetailsButtonFinancial" x:FieldModifier="public" Margin="10,54,906,178"  Width="15" Height="25">
+                            <Grid Grid.Row="2">
+                                <Condition:PFAdvisements  x:Name="pfa" Margin="10,0,21,0"/>
+                            </Grid>
+
+                            <Grid Grid.Row="3" x:Name="gridFinancial">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ToggleButton x:Name="ShowDetailsButtonFinancial" x:FieldModifier="public" Width="15" Grid.Column="0">
                                     <ToggleButton.Template>
                                         <ControlTemplate>
-                                            <TextBlock Text="▼" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="▼"/>
                                         </ControlTemplate>
                                     </ToggleButton.Template>
                                 </ToggleButton>
-                                <ToggleButton x:Name="HideDetailsButtonFinancial" x:FieldModifier="public" Margin="10,54,906,178" Width="15" Height="25">
+                                <ToggleButton x:Name="HideDetailsButtonFinancial" x:FieldModifier="public" Width="15" Grid.Column="0" Margin="-5,-10,0,0">
                                     <ToggleButton.Template>
                                         <ControlTemplate>
                                             <TextBlock Text="▲" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                         </ControlTemplate>
                                     </ToggleButton.Template>
                                 </ToggleButton >
-                                <TextBox Text="Financial Movements on PF Account :" IsReadOnly="True" Foreground="White" IsHitTestVisible="False" Background="#FFFAC090" Height="25" Margin="30,55,34,177"></TextBox>
-                                <Condition:FinancialMovement x:Name="fm" Margin="-28,120,59,-120"></Condition:FinancialMovement>
+                                <TextBox Text="Financial Movements on PF Account :" IsReadOnly="True" IsHitTestVisible="False" Background="#FFFAC090" Grid.Column="1" Height="25" Margin="0,2,34,2"></TextBox>
+                            </Grid>
+                            <Grid Grid.Row="4">
+                                <Condition:FinancialMovement x:Name="fm" Margin="-40,0,74,0"></Condition:FinancialMovement>
+                            </Grid>
                             </Grid>
 
-                        </Grid>
+                        
                     </ScrollViewer>
                 </dx:DXTabItem>
                 <dx:DXTabItem Header="Settlement Evolution" Height="22" VerticalAlignment="Bottom">

@@ -62,6 +62,7 @@ namespace misp_view.Views.Review
         private void HideDetailsView(bool hideDetails = true)
         {
             pfa.Visibility = hideDetails ? Visibility.Collapsed : System.Windows.Visibility.Visible;
+            
             this.HideDetailsButton.Visibility = hideDetails ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
             this.ShowDetailsButton.Visibility = hideDetails ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
         }
