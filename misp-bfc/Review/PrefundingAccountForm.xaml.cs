@@ -20,7 +20,7 @@ namespace Misp.Bfc.Review
     /// <summary>
     /// Interaction logic for PrefundingAccountForm.xaml
     /// </summary>
-    public partial class PrefundingAccountForm : ScrollViewer
+    public partial class PrefundingAccountForm : Grid
     {
         public PrefundingAccountForm()
         {
@@ -30,7 +30,7 @@ namespace Misp.Bfc.Review
         public void Display(PrefundingAccountData data)
         {
             this.SentPrefundingTextBox.Text = NumberUtil.ToGermanFormat(data.sentPrefundingReconcilied);
-            this.SentPrefundingNotRecoTextBox.Text =NumberUtil.ToGermanFormat(data.sentPrefundingNotYetReconcilied);
+            this.SentPrefundingNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.sentPrefundingNotYetReconcilied);
 
             this.SentReplenishmentTextBox.Text = NumberUtil.ToGermanFormat(data.sentReplenishmentReconcilied);
             this.SentReplenishmentNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.sentReplenishmentNotYetReconcilied);
@@ -47,23 +47,23 @@ namespace Misp.Bfc.Review
             this.OtherPaidTextBox.Text = NumberUtil.ToGermanFormat(data.otherPaidReconcilied);
             this.OtherPaidNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.otherPaidNotYetReconcilied);
 
-            this.TotalToPayTextBox.Text =NumberUtil.ToGermanFormat(data.totalToPayReconcilied);
+            this.TotalToPayTextBox.Text = NumberUtil.ToGermanFormat(data.totalToPayReconcilied);
             this.TotalToPayNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.totalToPayNotYetReconcilied);
 
             this.ExpectedPFTextBox.Text = NumberUtil.ToGermanFormat(data.expectedPFBalanceReconcilied);
             this.ExpectedPFNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.expectedPFBalanceNotYetReconcilied);
 
-            this.PFAccountDebitTextBox.Text = NumberUtil.ToGermanFormat(data.pfAccountDebitReconcilied);
-            this.PFAccountDebitNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.pfAccountDebitNotYetReconcilied);
+            //this.PFAccountDebitTextBox.Text = NumberUtil.ToGermanFormat(data.pfAccountDebitReconcilied);
+            //this.PFAccountDebitNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.pfAccountDebitNotYetReconcilied);
 
-            this.PFAccountCreditTextBox.Text = NumberUtil.ToGermanFormat(data.pfAccountCreditReconcilied);
-            this.PFAccountDebitNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.pfAccountCreditNotYetReconcilied);
+            //this.PFAccountCreditTextBox.Text = NumberUtil.ToGermanFormat(data.pfAccountCreditReconcilied);
+            //this.PFAccountDebitNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.pfAccountCreditNotYetReconcilied);
 
-            this.PFAccountBalanceTextBox.Text = NumberUtil.ToGermanFormat(data.pfAccountBalanceReconcilied);
-            this.PFAccountBalanceNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.pfAccountCreditNotYetReconcilied);
+            //this.PFAccountBalanceTextBox.Text = NumberUtil.ToGermanFormat(data.pfAccountBalanceReconcilied);
+            //this.PFAccountBalanceNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.pfAccountCreditNotYetReconcilied);
 
-            this.DeltaTextBox.Text = NumberUtil.ToGermanFormat(data.deltaReconcilied);
-            this.DeltaNotRecoTextBox.Text =NumberUtil.ToGermanFormat(data.deltaNotYetReconcilied);
+            //this.DeltaTextBox.Text = NumberUtil.ToGermanFormat(data.deltaReconcilied);
+            //this.DeltaNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.deltaNotYetReconcilied);
 
             this.RatioPFPeakDayTextBox.Text = NumberUtil.ToGermanFormat(data.ratioPFPeak);
         }
