@@ -476,8 +476,8 @@ namespace Misp.Kernel.Controller
             this.GetBrowser().Form.Grid.OpenMenuItem.IsEnabled = itemsSelected;
             this.GetBrowser().Form.Grid.RenameMenuItem.IsEnabled = saveAs && count == 1;
             this.GetBrowser().Form.Grid.SaveAsMenuItem.IsEnabled = saveAs && count == 1;
-            this.GetBrowser().Form.Grid.CopyMenuItem.IsEnabled = itemsSelected && create;
-            this.GetBrowser().Form.Grid.PasteMenuItem.IsEnabled = create;
+            //this.GetBrowser().Form.Grid.CopyMenuItem.IsEnabled = itemsSelected && create;
+            //this.GetBrowser().Form.Grid.PasteMenuItem.IsEnabled = create;
             this.GetBrowser().Form.Grid.DeleteMenuItem.IsEnabled = itemsSelected && delete;
             customizeContextMenu();
         }

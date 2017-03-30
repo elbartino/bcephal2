@@ -45,8 +45,8 @@
                 <dxb:BarButtonItem x:FieldModifier="public" x:Name="OpenMenuItem" Content="Open" Glyph="../../../Resources/Images/Icons/Open.png"/>
                 <dxb:BarButtonItem x:FieldModifier="public" x:Name="RenameMenuItem" Content="Rename" Glyph="../../../Resources/Images/Icons/Edit.png"/>
                 <dxb:BarButtonItem x:FieldModifier="public" x:Name="SaveAsMenuItem" Content="Save as" Glyph="../../../Resources/Images/Icons/Copy.png"/>
-                <dxb:BarButtonItem x:FieldModifier="public" x:Name="CopyMenuItem" Content="Copy" Glyph="../../../Resources/Images/Icons/Copy.png"/>
-                <dxb:BarButtonItem x:FieldModifier="public" x:Name="PasteMenuItem" Content="Paste" Glyph="../../../Resources/Images/Icons/Paste.png"/>
+                <!--<dxb:BarButtonItem x:FieldModifier="public" x:Name="CopyMenuItem" Content="Copy" Glyph="../../../Resources/Images/Icons/Copy.png"/>
+                <dxb:BarButtonItem x:FieldModifier="public" x:Name="PasteMenuItem" Content="Paste" Glyph="../../../Resources/Images/Icons/Paste.png"/>-->
                 <dxb:BarButtonItem x:FieldModifier="public" x:Name="DeleteMenuItem" Content="Delete" Glyph="../../../Resources/Images/Icons/Delete.png"/>
             </dxg:TableView.RowCellMenuCustomizations>
         </dxg:TableView>
