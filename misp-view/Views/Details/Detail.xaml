@@ -4,15 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Detail" Height="350" Width="400" WindowStartupLocation="CenterScreen"
-        WindowStyle="None" ShowInTaskbar="False" WindowState="Normal" ResizeMode="NoResize">
-    <Grid Height="250">
+        Title="Detail" Height="500" Width="575" WindowStartupLocation="CenterScreen"
+        WindowStyle="ToolWindow" ShowInTaskbar="False" WindowState="Normal" ResizeMode="NoResize">
+    <Grid Margin="0,125,0,10">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"></ColumnDefinition>
             <ColumnDefinition Width="200"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
+
         <Grid Grid.Column="0">
             <StackPanel Width="140">
                 <Label Content="DETAILS" Foreground="Orange" FontSize="20"></Label>
@@ -31,8 +31,8 @@
             </StackPanel>
 
         </Grid>
-        <Grid Grid.Column="1">
-            <StackPanel Width="250" >
+        <Grid Grid.Column="1" Margin="0,0,-158,0">
+            <StackPanel Width="250" Margin="0,0,-49,-95">
                 <Label Height="53"></Label>
                 <TextBox Height="25" IsReadOnly="True" Text="BE53 3630 6839 6053 YOUSS SPRL" IsHitTestVisible="False" BorderBrush="Transparent" Width="250" HorizontalAlignment="Left"></TextBox>
                 <Label Height="5"></Label>
@@ -45,9 +45,13 @@
                 <TextBox Height="25" Width="130" IsReadOnly="True" Text="8540,00 EUR" IsHitTestVisible="False" BorderBrush="Transparent"  HorizontalAlignment="Left"></TextBox>
                 <Label Height="5"></Label>
                 <TextBox Height="25" Width="130" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent"  HorizontalAlignment="Left"></TextBox>
-            </StackPanel>
-        </Grid>
+                <TextBox Height="20"></TextBox>
+                <Label></Label>
+                <Button Width="50" Height="20" x:Name="btnPrint" Click="btnPrint_Click" Content="Print" Margin="100,0"/>
 
+            </StackPanel>
+
+        </Grid>
     </Grid>
 
 </Window>

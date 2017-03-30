@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="misp_view.Views.Review.FinancialMovement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:misp_view.Views.Review"
+             mc:Ignorable="d" 
+             Height="300" Width="900">
+    <Grid>
+        <StackPanel Margin="135,20,605,0">
+            <Label Content="Pre-funding Advisements " HorizontalAlignment="Right"></Label>
+            <Label Height="5"></Label>
+            <Label Content="Replenishment Instructions " HorizontalAlignment="Right"></Label>
+            <Label Height="5"></Label>
+            <Label Content="Member Advisements " HorizontalAlignment="Right"></Label>
+            <Label Height="5"></Label>
+            <Label Content="Others " HorizontalAlignment="Right"></Label>
+            <Label Height="5"></Label>
+            <Label Content="Non-reconcilied Transactions " HorizontalAlignment="Right"></Label>
+            <Label Height="5"></Label>
+            <Label Content="Total " FontWeight="Bold" HorizontalAlignment="Right"></Label>
+        </StackPanel>
+        <StackPanel Margin="295,0,495,0">
+            <TextBox Text="        Credit" Height="20" BorderBrush="Transparent" Background="#FFFAC090" HorizontalAlignment="Right" Width="110" ></TextBox>
+            <Label Height="2"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" Text="152151215121" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Foreground="White"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="#FFFAC090" Foreground="White"/>
+        </StackPanel>
+        <StackPanel Margin="425,0,365,0">
+            <TextBox Text="          Debit" Height="20" BorderBrush="Transparent" Background="#FFFAC090" HorizontalAlignment="Right" Width="110" ></TextBox>
+            <Label Height="2"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" Text="152151215121" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Foreground="White"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="#FFFAC090" Foreground="White"/>
+        </StackPanel>
+        <StackPanel Margin="555,0,235,0">
+            <TextBox Text="        Balance" Height="20" BorderBrush="Transparent" Background="#FFFAC090" HorizontalAlignment="Right" Width="110" />
+            <Label Height="2"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" Text="152151215121" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Foreground="White"/>
+            <Label Height="5"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="Salmon" Foreground="White"/>
+        </StackPanel>
+        <StackPanel Margin="685,130,115,0">
+            <Label Content="∆ not Reconcilied" FontWeight="Bold"/>
+            <Label Height="5"></Label>
+            <Label Content="∆ Reconcilied" FontWeight="Bold"/>
+        </StackPanel>
+        <StackPanel Margin="790,130,10,-130">
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="Salmon" Foreground="White"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="Salmon" Foreground="White"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

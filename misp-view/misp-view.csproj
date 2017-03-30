@@ -218,6 +218,12 @@
     <Compile Include="Views\Replenishment\newReplenishment.xaml.cs">
       <DependentUpon>newReplenishment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Review\FinancialMovement.xaml.cs">
+      <DependentUpon>FinancialMovement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Review\PFAdvisements.xaml.cs">
+      <DependentUpon>PFAdvisements.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Review\Review.xaml.cs">
       <DependentUpon>Review.xaml</DependentUpon>
     </Compile>
@@ -282,6 +288,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Replenishment\newReplenishment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Review\FinancialMovement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Review\PFAdvisements.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

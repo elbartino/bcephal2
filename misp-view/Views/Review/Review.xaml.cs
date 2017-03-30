@@ -13,19 +13,65 @@ namespace misp_view.Views.Review
     {
         PrefundingAccountData pf = new PrefundingAccountData();
         SettlementEvolutionData se = new SettlementEvolutionData();
-
+        
         public Review()
         {
             InitializeComponent();
+            HideDetailsView();
+            HideDetailsFinancialView();
+            init();
             testFill();
             testFillAg();
-            
+
             this.DataContext = pf;
             displayPrefundingAccount(pf);
-            
+
         }
 
-       
+
+        protected void init()
+        {
+            this.ShowDetailsButton.Click += OnShowDetails;
+            this.HideDetailsButton.Click += OnHideDetails;
+            this.ShowDetailsButtonFinancial.Click += OnShowDetailsFinancial;
+            this.HideDetailsButtonFinancial.Click += OnHideDetailsFinancial;
+
+
+        }
+        private void OnHideDetails(object sender, RoutedEventArgs e)
+        {
+            HideDetailsView();
+        }
+
+        private void OnShowDetails(object sender, RoutedEventArgs e)
+        {
+            HideDetailsView(false);
+        }
+
+        private void OnShowDetailsFinancial(object sender, RoutedEventArgs e)
+        {
+            HideDetailsFinancialView(false);
+        }
+
+        private void OnHideDetailsFinancial(object sender, RoutedEventArgs e)
+        {
+            HideDetailsFinancialView();
+        }
+
+
+        private void HideDetailsView(bool hideDetails = true)
+        {
+            pfa.Visibility = hideDetails ? Visibility.Collapsed : System.Windows.Visibility.Visible;
+            this.HideDetailsButton.Visibility = hideDetails ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+            this.ShowDetailsButton.Visibility = hideDetails ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+        }
+
+        private void HideDetailsFinancialView(bool hideDetailsFinancial = true)
+        {
+            fm.Visibility = hideDetailsFinancial ? Visibility.Collapsed : Visibility.Visible;
+            this.HideDetailsButtonFinancial.Visibility = hideDetailsFinancial ? Visibility.Hidden : Visibility.Visible;
+            this.ShowDetailsButtonFinancial.Visibility = hideDetailsFinancial ? Visibility.Visible : Visibility.Hidden;
+        }
 
 
         private void testFill()

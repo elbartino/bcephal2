@@ -23,5 +23,12 @@ namespace misp_view.Views.Details
         {
             InitializeComponent();
         }
+
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog pd= new PrintDialog();
+            pd.PrintVisual(this, this.Title);
+            this.Close();
+        }
     }
 }

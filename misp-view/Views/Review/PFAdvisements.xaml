@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="misp_view.Views.Review.PFAdvisements"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:misp_view.Views.Review"
+        mc:Ignorable="d" Height="300" Width="900">
+    <Grid Margin="0,0,0,0">
+        <StackPanel Width="135" Margin="10,0,755,0">
+            <TextBox Text="Advisement Receivable" IsReadOnly="True" IsHitTestVisible="False" Foreground="White" Background="#839BBB"></TextBox>
+            <TextBox Text="Advisement Payable" IsReadOnly="True" IsHitTestVisible="False" Margin="0,130,0,0" Foreground="White" Background="#839BBB"/>
+        </StackPanel>
+        <StackPanel Width="140" Margin="150,20,610,0">
+            <Label Content="Pre-funding Sent " HorizontalAlignment="Right"></Label>
+            <Label Height="5"></Label>
+            <Label Content="Replenishment Sent " HorizontalAlignment="Right"></Label>
+            <Label Height="5"></Label>
+            <Label Content="Write-Off " HorizontalAlignment="Right"></Label>
+            <Label Height="5"></Label>
+            <Label Content="Total to Receive " FontWeight="Bold" HorizontalAlignment="Right"></Label>
+            <Label Height="50"></Label>
+            <Label Content="Member Sent Advisement " HorizontalAlignment="Right"></Label>
+            <Label Height="5"></Label>
+            <Label Content="Write-Off " HorizontalAlignment="Right"></Label>
+            <Label Height="5"></Label>
+            <Label Content="Total to Pay " FontWeight="Bold" HorizontalAlignment="Right"></Label>
+            <Label Height="5"></Label>
+            <Label Content="Expected PF Balance " FontWeight="Bold" HorizontalAlignment="Right"></Label>
+        </StackPanel>
+        <StackPanel Margin="295,0,480,0">
+            <Label Content="  Reconcilied" FontWeight="Bold" HorizontalAlignment="Left" Width="125"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" Text="152151215121" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="#839BBB" Foreground="White"/>
+            <Label Height="25"/>
+            <Label Content="  Reconcilied" FontWeight="Bold"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="#839BBB" Foreground="White" />
+            <Label Height="5"/>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="#839BBB" Foreground="White"/>
+        </StackPanel>
+        <StackPanel Margin="440,0,335,0">
+            <Label Content="  Not yet reconcilied" FontWeight="Bold" HorizontalAlignment="Left" Width="125" ></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"></Label>
+            <Label Height="22"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="#839BBB" Foreground="White"/>
+            <Label Height="25" Margin="0,0,220,0"></Label>
+            <Label Content="  Not yet reconcilied" FontWeight="Bold"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+            <Label Height="5"></Label>
+            <Label Height="22"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="#839BBB"/>
+            <Label Height="5"></Label>
+            <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" ToolTip="Test" Background="#839BBB" Foreground="White"/>
+        </StackPanel>
+        <StackPanel Margin="635,25,60,10">
+            <TextBlock><Hyperlink><InlineUIContainer>
+                                                <TextBlock Height="25" Text="See Pre-funding Advisements issued"/>
+                                            </InlineUIContainer></Hyperlink></TextBlock>
+            <TextBlock><Hyperlink><InlineUIContainer>
+                                                <TextBlock Height="25" Text="See Replenishment Instructions issued"/>
+                                            </InlineUIContainer></Hyperlink></TextBlock>
+            <TextBlock><Hyperlink/></TextBlock>
+            <Label Content="Ratio PF/Peak MA 24 months" FontWeight="Bold" Margin="0,60,0,0" />
+            <TextBox x:Name="tbRatio" Text="{Binding ratioPFPeak}"  Margin="-10,0,147,0" TextAlignment="Center" Width="50" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
