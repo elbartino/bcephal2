@@ -100,7 +100,7 @@ namespace Misp.Bfc.Review
             diagram.ActualAxisX.Title = new AxisTitle() { Content = "Value Date"};
             
             diagram.ActualAxisY.Title = new AxisTitle() { Content = "Amount" };
-            diagram.ActualAxisY.Label = new AxisLabel() { TextPattern = "{V:C1}" };
+            diagram.ActualAxisY.Label = new AxisLabel() { TextPattern = "{V:N2}" };
             this.Chart.Diagram = diagram;
             
             throwHandlers = true;
