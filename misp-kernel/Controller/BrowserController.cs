@@ -419,15 +419,15 @@ namespace Misp.Kernel.Controller
         /// </summary>
         protected override void initializeViewHandlers() 
         {
-            //this.GetBrowser().Form.Grid.SelectionChanged += new SelectionChangedEventHandler(OnSelectionChange);
+            this.GetBrowser().Form.Grid.SelectionChanged += OnSelectionChange;
             this.GetBrowser().Form.Grid.PreviewKeyDown += new KeyEventHandler(OnKeyPress);
             this.GetBrowser().Form.Grid.MouseDoubleClick += new MouseButtonEventHandler(OnDoubleClick);
             //this.GetBrowser().Form.Grid.CellEditEnding += new EventHandler<DataGridCellEditEndingEventArgs>(OnCellEditEnding);
             
             //this.GetBrowser().Form.Grid.FilterChanged += OnFilterChanged;
-            //this.GetBrowser().Form.NavigationBar.ChangeHandler += OnPageChange;
+            this.GetBrowser().Form.PaginationBar.ChangeHandler += OnPageChange;
         }
-
+        
 
         /// <summary>
         /// Initialisation des Handlers sur la ToolBar.
@@ -435,12 +435,56 @@ namespace Misp.Kernel.Controller
         protected override void initializeToolBarHandlers()
         {
             base.initializeToolBarHandlers();
-            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.NewMenuItem.Click += new RoutedEventHandler(toolBarHandlerBuilder.onNewButtonClic);
-            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.OpenMenuItem.Click += new RoutedEventHandler(toolBarHandlerBuilder.onOpenButtonClic);
-            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.RenameMenuItem.Click += new RoutedEventHandler(toolBarHandlerBuilder.onRenameButtonClic);
-            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.SaveAsMenuItem.Click += new RoutedEventHandler(toolBarHandlerBuilder.onSaveAsButtonClic);
-            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.DeleteMenuItem.Click += new RoutedEventHandler(toolBarHandlerBuilder.onDeleteButtonClic);
+            this.GetBrowser().Form.Grid.NewMenuItem.ItemClick += toolBarHandlerBuilder.onNewButtonClic;
+            this.GetBrowser().Form.Grid.OpenMenuItem.ItemClick += toolBarHandlerBuilder.onOpenButtonClic;
+            this.GetBrowser().Form.Grid.RenameMenuItem.ItemClick += toolBarHandlerBuilder.onRenameButtonClic;
+            this.GetBrowser().Form.Grid.SaveAsMenuItem.ItemClick += toolBarHandlerBuilder.onSaveAsButtonClic;
+            this.GetBrowser().Form.Grid.DeleteMenuItem.ItemClick += toolBarHandlerBuilder.onDeleteButtonClic;
 
+            this.GetBrowser().Form.Grid.View.ContextMenuOpening += OnContextMenuOpening;
+        }
+
+        private void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            customizeContextMenuForSelection();
+        }
+
+        private void customizeContextMenuForSelection()
+        {
+            int count = this.GetBrowser().Form.Grid.SelectedItems.Count;
+            bool itemsSelected = count > 0;
+
+            bool create = true;
+            bool saveAs = count == 1;
+            bool delete = count == 1;
+
+            if (count == 1)
+            {
+                BrowserData item = (BrowserData)this.GetBrowser().Form.Grid.SelectedItem;
+                List<Right> rights = null;
+                PrivilegeObserver observer = new PrivilegeObserver();
+                if (!ApplicationManager.User.IsAdmin())
+                {
+                    RightService service = ApplicationManager.ControllerFactory.ServiceFactory.GetRightService();
+                    rights = service.getUserRights(this.SubjectType.label, item.oid);
+                }
+                saveAs = RightsUtil.HasRight(Domain.RightType.SAVE_AS, rights);
+                delete = RightsUtil.HasRight(Domain.RightType.DELETE, rights);
+                create = observer.hasPrivilege(this.FunctionalityCode, Domain.RightType.CREATE);
+            }
+            this.GetBrowser().Form.Grid.NewMenuItem.IsEnabled = create;
+            this.GetBrowser().Form.Grid.OpenMenuItem.IsEnabled = itemsSelected;
+            this.GetBrowser().Form.Grid.RenameMenuItem.IsEnabled = saveAs && count == 1;
+            this.GetBrowser().Form.Grid.SaveAsMenuItem.IsEnabled = saveAs && count == 1;
+            this.GetBrowser().Form.Grid.CopyMenuItem.IsEnabled = itemsSelected && create;
+            this.GetBrowser().Form.Grid.PasteMenuItem.IsEnabled = create;
+            this.GetBrowser().Form.Grid.DeleteMenuItem.IsEnabled = itemsSelected && delete;
+            customizeContextMenu();
+        }
+
+        protected virtual void OnSelectionChange(object sender, DevExpress.Xpf.Grid.GridSelectionChangedEventArgs e)
+        {
+            customizeContextMenuForSelection();
         }
 
         /// <summary>
@@ -467,41 +511,7 @@ namespace Misp.Kernel.Controller
 
         protected override void initializePropertyBarHandlers() { }
 
-        protected virtual void OnSelectionChange(object sender, SelectionChangedEventArgs args)
-        {
-            int count = this.GetBrowser().Form.Grid.SelectedItems.Count;
-            bool itemsSelected = count > 0;
-            
-            bool create = true;
-            bool saveAs = count == 1;
-            bool delete = count == 1;
-
-            if(count == 1)
-            {
-                BrowserData item = (BrowserData)this.GetBrowser().Form.Grid.SelectedItem;
-                List<Right> rights = null;
-                PrivilegeObserver observer = new PrivilegeObserver();
-                if (!ApplicationManager.User.IsAdmin())
-                {
-                    RightService service = ApplicationManager.ControllerFactory.ServiceFactory.GetRightService();
-                    rights = service.getUserRights(this.SubjectType.label, item.oid);                
-                }               
-                saveAs = RightsUtil.HasRight(Domain.RightType.SAVE_AS, rights);
-                delete = RightsUtil.HasRight(Domain.RightType.DELETE, rights);
-                create = observer.hasPrivilege(this.FunctionalityCode, Domain.RightType.CREATE);
-            }
-
-            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.NewMenuItem.IsEnabled = create;
-            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.OpenMenuItem.IsEnabled = itemsSelected;
-            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.RenameMenuItem.IsEnabled = saveAs && count == 1;
-            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.SaveAsMenuItem.IsEnabled = saveAs && count == 1;
-            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.CopyMenuItem.IsEnabled = itemsSelected && create;
-            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.PasteMenuItem.IsEnabled = create;
-            //this.GetBrowser().Form.Grid.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = itemsSelected && delete;
-
-            customizeContextMenu();
-        }
-
+        
         private void OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             customizeContextMenu();
