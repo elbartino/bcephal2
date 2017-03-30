@@ -165,6 +165,7 @@ namespace Misp.Bfc.Review
         {
             getReviewBrowser().Form.TabControl.SelectionChanged += OnSelectTabChanged;
             getReviewBrowser().Form.MemberBankChanged += OnMemberBankChanged;
+            getReviewBrowser().Form.PrefundingAccountForm.FilterChanged += OnPrefundingAccountFilterChanged;
             getReviewBrowser().Form.SettlementEvolutionForm.FilterChanged += OnSettlementEvolutionFilterChanged;
             getReviewBrowser().Form.SettlementEvolutionForm.PeriodChanged += OnSettlementEvolutionPeriodChanged;
 
@@ -181,9 +182,14 @@ namespace Misp.Bfc.Review
             this.Search();            
         }
 
-        private void OnSettlementEvolutionFilterChanged()
+        private void OnPrefundingAccountFilterChanged()
         {
             this.Search();        
+        }
+
+        private void OnSettlementEvolutionFilterChanged()
+        {
+            this.Search();
         }
 
         private void OnSettlementEvolutionPeriodChanged()
@@ -203,8 +209,13 @@ namespace Misp.Bfc.Review
             banks.Add(null);
             getReviewBrowser().Form.MemberBankComboBoxEdit.ItemsSource = banks;
 
+            List<BfcItem> pmls = getReviewService().PmlService.getAll();
+            pmls.Add(null);
+            getReviewBrowser().Form.PrefundingAccountForm.PmlComboBoxEdit.ItemsSource = pmls;
+
             List<BfcItem> schemes = getReviewService().SchemeService.getAll();
             schemes.Add(null);
+            getReviewBrowser().Form.PrefundingAccountForm.SchemeComboBoxEdit.ItemsSource = schemes;
             getReviewBrowser().Form.SettlementEvolutionForm.SchemeComboBoxEdit.ItemsSource = schemes;
 
             List<BfcItem> platforms = getReviewService().PlatformService.getAll();

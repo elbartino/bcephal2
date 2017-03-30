@@ -42,6 +42,7 @@ namespace Misp.Bfc.Base
                 reviewService.ResourcePath = BfcResourcePath.BFC_REVIEW_RESOURCE_PATH;
                 reviewService.RestClient = ApplicationManager.RestClient;
                 reviewService.MemberBankService = GetMemberBankService();
+                reviewService.PmlService = GetPmlService();
                 reviewService.SchemeService = GetSchemeService();
                 reviewService.PlatformService = GetPlatformService();
             }

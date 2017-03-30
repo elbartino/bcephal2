@@ -1,7 +1,9 @@
 ﻿using Misp.Bfc.Model;
+using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,13 +24,38 @@ namespace Misp.Bfc.Review
     /// </summary>
     public partial class PrefundingAccountForm : Grid
     {
+        #region Properties
+
+        public ChangeEventHandler FilterChanged { get; set; }
+
+        public List<BfcItem> Schemes { get; private set; }
+
+        public List<BfcItem> Pmls { get; private set; }
+
+        bool throwHandlers;
+
+        #endregion
+
+
+        #region Constructors
+
         public PrefundingAccountForm()
         {
             InitializeComponent();
+            this.Schemes = new List<BfcItem>(0);
+            this.Pmls = new List<BfcItem>(0);
+            InitializeHandlers();
+            throwHandlers = true;
         }
+
+        #endregion
+
+
+        #region Operations
 
         public void Display(PrefundingAccountData data)
         {
+            throwHandlers = false;
             this.SentPrefundingTextBox.Text = NumberUtil.ToGermanFormat(data.sentPrefundingReconcilied);
             this.SentPrefundingNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.sentPrefundingNotYetReconcilied);
 
@@ -66,6 +93,84 @@ namespace Misp.Bfc.Review
             //this.DeltaNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.deltaNotYetReconcilied);
 
             this.RatioPFPeakDayTextBox.Text = NumberUtil.ToGermanFormat(data.ratioPFPeak);
+            throwHandlers = true;
         }
+
+        public void FillFilter(ReviewFilter filter)
+        {
+            if (filter == null) filter = new ReviewFilter();
+            foreach (BfcItem scheme in this.Schemes)
+            {
+                filter.schemeIdOids.Add(scheme.oid.Value);
+            }
+            foreach (BfcItem pml in this.Pmls)
+            {
+                filter.pmlIdOids.Add(pml.oid.Value);
+            }
+        }
+
+        #endregion
+
+
+        #region Handlers
+
+        private void InitializeHandlers()
+        {
+            this.SchemeComboBoxEdit.PopupClosed += OnSchemePopupClosed;
+            this.PmlComboBoxEdit.PopupClosed += OnPmlPopupClosed;
+        }
+
+        private void OnSchemePopupClosed(object sender, DevExpress.Xpf.Editors.ClosePopupEventArgs e)
+        {
+            if (e.CloseMode == DevExpress.Xpf.Editors.PopupCloseMode.Normal)
+            {
+                this.Schemes = new List<BfcItem>(0);
+                SchemeTextBox.Text = "";
+                ObservableCollection<object> SelectedItems = this.SchemeComboBoxEdit.SelectedItems;
+                if (SelectedItems != null && SelectedItems.Count > 0)
+                {
+                    String coma = "";
+                    foreach (object obj in SelectedItems)
+                    {
+                        if (obj is BfcItem)
+                        {
+                            BfcItem item = (BfcItem)obj;
+                            this.Schemes.Add(item);
+                            SchemeTextBox.Text += coma + item.id;
+                            coma = ";";
+                        }
+                    }
+                }
+                if (throwHandlers && FilterChanged != null) FilterChanged();
+            }
+        }
+
+        private void OnPmlPopupClosed(object sender, DevExpress.Xpf.Editors.ClosePopupEventArgs e)
+        {
+            if (e.CloseMode == DevExpress.Xpf.Editors.PopupCloseMode.Normal)
+            {
+                this.Pmls = new List<BfcItem>(0);
+                PmlTextBox.Text = "";
+                ObservableCollection<object> SelectedItems = this.PmlComboBoxEdit.SelectedItems;
+                if (SelectedItems != null && SelectedItems.Count > 0)
+                {
+                    String coma = "";
+                    foreach (object obj in SelectedItems)
+                    {
+                        if (obj is BfcItem)
+                        {
+                            BfcItem item = (BfcItem)obj;
+                            this.Pmls.Add(item);
+                            PmlTextBox.Text += coma + item.id;
+                            coma = ";";
+                        }
+                    }
+                }
+                if (throwHandlers && FilterChanged != null) FilterChanged();
+            }
+        }
+        
+        #endregion
+
     }
 }
