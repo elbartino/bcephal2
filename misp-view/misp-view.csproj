@@ -96,6 +96,9 @@
     <Reference Include="DevExpress.Xpf.Themes.DXStyle.v16.2, Version=16.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.MetropolisDark.v16.2, Version=16.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="DevExpress.Xpf.Themes.Office2016Colorful.v16.2, Version=16.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
@@ -421,6 +424,10 @@
     <ProjectReference Include="..\DataGridFilterLibrary\DataGridFilterLibrary.csproj">
       <Project>{04A9E6A9-9DC0-4D7B-AE43-D3B2C6DC2A43}</Project>
       <Name>DataGridFilterLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\misp-initiation\misp-initiation.csproj">
+      <Project>{BCF0B7CF-E3C5-49DE-9AFF-3366211DBAEC}</Project>
+      <Name>misp-initiation</Name>
     </ProjectReference>
     <ProjectReference Include="..\misp-kernel\misp-kernel.csproj">
       <Project>{31BC49E1-CEA7-41E9-A030-C99E180F235C}</Project>

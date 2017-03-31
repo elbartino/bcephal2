@@ -27,6 +27,7 @@
                                 <Label Content="Client ID " Height="30" HorizontalAlignment="Right"/>
                                 <Label Content="Client Name " Height="30" HorizontalAlignment="Right"/>
                                 <Label Content="Legal Form " Height="30" HorizontalAlignment="Right"/>
+                                <Label Content="Main Contact " Height="30" HorizontalAlignment="Right"/>
                                 <Label Content="VAT n° " Height="30" HorizontalAlignment="Right"/>
                                 <Label Content="Street " Height="30" HorizontalAlignment="Right"/>
                                 <Label Content="N° " Height="30" HorizontalAlignment="Right"/>
@@ -42,6 +43,10 @@
                                 <Label Height="5"/>
                                 <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
                                 <Label Height="5"/>
+                                <ComboBox Height="25" x:Name="cbMainContact" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left">
+                                    
+                                </ComboBox>
+                                <Label Height="5"/>
                                 <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
                                 <Label Height="5"/>
                                 <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
@@ -56,7 +61,7 @@
                     </Grid>
                 </ScrollViewer>
             </dx:DXTabItem>
-            <dx:DXTabItem Header="Contact" Height="22" VerticalAlignment="Bottom">
+            <dx:DXTabItem Header="Contact" Height="22" VerticalAlignment="Bottom" VisibleInHeaderMenu="False">
                 <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -75,9 +80,9 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="lNameClient" Content="Name" Margin="0,10,22,0" HorizontalAlignment="Right"></Label>
-                        <TextBox x:Name="tbNameClient" TextChanged="tbNameClient_TextChanged" x:FieldModifier="public"  IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" VerticalAlignment="Center" Margin="54,8,78,5" Grid.ColumnSpan="3" Height="26"/>
+                        <TextBox x:Name="tbNameClient" x:FieldModifier="public"  IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" VerticalAlignment="Center" Margin="54,8,78,5" Grid.ColumnSpan="3" Height="26"/>
                         <Label x:Name="lLastNameClient" Content="Last Name" x:FieldModifier="public" HorizontalAlignment="Right" Grid.Column="2" Margin="0,10,0,-1"/>
-                        <TextBox x:Name="tbLastNameClient" TextChanged="tbLastNameClient_TextChanged" x:FieldModifier="public" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Grid.Column="3" Margin="0,8,21,6" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="tbLastNameClient" x:FieldModifier="public" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Grid.Column="3" Margin="0,8,21,6" Grid.ColumnSpan="2"/>
 
                         <Button x:Name="AddButton" x:FieldModifier="public" Margin="50,10,0,0" Width="15" Grid.Column="4">
                             <Button.Template>
@@ -115,9 +120,45 @@
                 </Grid>
             </dx:DXTabItem>
             <dx:DXTabItem Header="Guarantee">
-                
-            </dx:DXTabItem>
+                <Grid Background="Transparent" Margin="0,50,0,0">
+                    <StackPanel>
+                        <Label x:Name="lBrand" Content="Select Scheme" Width="100" Margin="-687,0,0,0"/>
+                        <Label x:Name="lGuarantee" Width="100" Content="Guarantee" Margin="-650,50,0,0"/>
+                        <Label Margin="100,60,0,0">
+                            <TextBlock Text="Ratio Guarantee/Peak Day 24 Month" Width="60" TextWrapping="Wrap" />
+                        </Label>
+                    </StackPanel>
+                    <StackPanel Margin="150,0,0,0">
+                        <ComboBox  Width="180" Height="25" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-550,0,0,0">
+                            <ComboBoxItem x:Name="cbBrand" Content="Name"/>
+                        </ComboBox>
+                        <TextBox x:Name="tbGuaranteeSchemeID" Text="ID" Background="LightGray" Height="25" Width="180" IsReadOnly="True" Margin="-50,-24,0,0"/>
 
+
+                        <StackPanel Orientation="Horizontal" Margin="25,20,0,0">
+                            <Label Content="Amount"/>
+                            <Label Content="Currency" Margin="55,0,0,0"/>
+                            <Label Content="Type" Margin="55,0,0,0"/>
+                            <Label Content="Last Modification" Margin="152,0,0,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="25,7,0,0">
+                            <TextBox x:Name="tbAmount" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent" Width="80" Text="100000"/>
+                            <TextBox x:Name="tbCurrency" Margin="15,0,0,0" IsReadOnly="True" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent" Width="80" Text="EUR"/>
+                            <TextBox x:Name="tbType" IsReadOnly="True" Margin="25,0,0,0" Width="150" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent" Text="Pledge Account"/>
+                            <TextBox x:Name="tbModif" IsReadOnly="True" Margin="25,0,0,0" Width="150" IsHitTestVisible="False" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderBrush="Transparent" Text="01/01/2016"/>
+                            <TextBlock Margin="25,0,0,0"><Hyperlink><InlineUIContainer>
+                                            <TextBlock Text="See Guarantee History" Width="Auto"/>
+                                        </InlineUIContainer></Hyperlink></TextBlock>
+                        </StackPanel>
+                        <TextBox x:Name="tbRatioGuarantee" Text="5,5" TextAlignment="Center" Height="25" Width="50" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="-695,80,0,0"/>
+                    </StackPanel>
+
+
+                </Grid>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="Credit Rating">
+
+            </dx:DXTabItem>
         </dx:DXTabControl>
     </Grid>
 </UserControl>

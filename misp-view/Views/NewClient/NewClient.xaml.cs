@@ -42,7 +42,19 @@ namespace misp_view.Views.NewClient
             this.ShowDetailsButton.Click += OnShowDetails;
             this.HideDetailsButton.Click += OnHideDetails;
             //this.DClient.Activated += OnActivate;
+            DClient.btnAdd.Click += updateText;
 
+        }
+
+        private void updateText(object sender, RoutedEventArgs e)
+        {
+            if (DClient.tbLastName.Text != "" || DClient.tbLastName.Text != "")
+            {
+                tbNameClient.Text = DClient.tbFirstName.Text;
+                tbLastNameClient.Text = DClient.tbLastName.Text;
+                cbMainContact.Items.Add(new ComboBoxItem() { Content = DClient.tbFirstName.Text + ", " + DClient.tbLastName.Text });
+                DClient.btnAdd.Visibility = Visibility.Hidden;
+            }
         }
 
         public void display()
@@ -112,17 +124,7 @@ namespace misp_view.Views.NewClient
             //MessageBox.Show("CLick");
         }
 
-        private void tbNameClient_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-            DClient.tbFirstName.Text = tbNameClient.Text;
-            
-        }
 
-        private void tbLastNameClient_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
 
 
         //private void OnActivate(object item)
