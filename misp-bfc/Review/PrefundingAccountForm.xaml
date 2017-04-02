@@ -150,12 +150,12 @@
                         <Label Style="{StaticResource TitleLabel}" Content="Reconcilied" />
                         <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentPrefundingTextBox"/>
                         <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentReplenishmentTextBox"/>
-                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="writeoffReceivedTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="WriteOffReceiveTextBox"/>
                         <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToReceiveTextBox"/>
                         <Label Style="{StaticResource SeparatorLabel}"/>
                         <Label Style="{StaticResource TitleLabel}" Content="Reconcilied" />
                         <TextBox Style="{StaticResource SimpleTextBox}" x:Name="MemberAdvisementTextBox"/>
-                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherPaidTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="WriteOffPaidTextBox"/>
                         <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToPayTextBox"/>
                         <TextBox Style="{StaticResource TotalTextBox}" x:Name="ExpectedPFTextBox"/>
                     </StackPanel>
@@ -169,7 +169,7 @@
                         <Label Style="{StaticResource SeparatorLabel}"/>
                         <Label Style="{StaticResource TitleLabel}" Content="Not yet reconcilied" />
                         <TextBox Style="{StaticResource SimpleTextBox}" x:Name="MemberAdvisementNotRecoTextBox"/>
-                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherPaidNotRecoTextBox"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
                         <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToPayNotRecoTextBox"/>
                         <TextBox Style="{StaticResource TotalTextBox}" x:Name="ExpectedPFNotRecoTextBox"/>
                     </StackPanel>
