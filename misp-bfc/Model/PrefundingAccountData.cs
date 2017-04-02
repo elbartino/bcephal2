@@ -14,8 +14,7 @@ namespace Misp.Bfc.Model
         public decimal? sentPrefundingNotYetReconcilied { get; set; }
         public decimal? sentReplenishmentReconcilied { get; set; }
         public decimal? sentReplenishmentNotYetReconcilied { get; set; }
-        public decimal? otherReceivedReconcilied { get; set; }
-        public decimal? otherReceivedNotYetReconcilied { get; set; }
+        public decimal? writeoffReceived { get; set; }
         public decimal? totalToReceiveReconcilied { get; set; }
         public decimal? totalToReceiveNotYetReconcilied { get; set; }
         public decimal? sentMemberAdvisementReconcilied { get; set; }

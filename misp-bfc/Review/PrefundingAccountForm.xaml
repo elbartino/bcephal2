@@ -150,7 +150,7 @@
                         <Label Style="{StaticResource TitleLabel}" Content="Reconcilied" />
                         <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentPrefundingTextBox"/>
                         <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentReplenishmentTextBox"/>
-                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherReceiveTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="writeoffReceivedTextBox"/>
                         <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToReceiveTextBox"/>
                         <Label Style="{StaticResource SeparatorLabel}"/>
                         <Label Style="{StaticResource TitleLabel}" Content="Reconcilied" />
@@ -164,7 +164,7 @@
                         <Label Style="{StaticResource TitleLabel}" Content="Not yet reconcilied" />
                         <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentPrefundingNotRecoTextBox"/>
                         <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentReplenishmentNotRecoTextBox"/>
-                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherReceiveNotRecoTextBox"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
                         <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToReceiveNotRecoTextBox"/>
                         <Label Style="{StaticResource SeparatorLabel}"/>
                         <Label Style="{StaticResource TitleLabel}" Content="Not yet reconcilied" />

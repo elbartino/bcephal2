@@ -62,8 +62,7 @@ namespace Misp.Bfc.Review
             this.SentReplenishmentTextBox.Text = NumberUtil.ToGermanFormat(data.sentReplenishmentReconcilied);
             this.SentReplenishmentNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.sentReplenishmentNotYetReconcilied);
 
-            this.OtherReceiveTextBox.Text = NumberUtil.ToGermanFormat(data.otherReceivedReconcilied);
-            this.OtherReceiveNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.otherReceivedNotYetReconcilied);
+            this.writeoffReceivedTextBox.Text = NumberUtil.ToGermanFormat(data.writeoffReceived);
 
             this.TotalToReceiveTextBox.Text = NumberUtil.ToGermanFormat(data.totalToReceiveReconcilied);
             this.TotalToReceiveNotRecoTextBox.Text = NumberUtil.ToGermanFormat(data.totalToReceiveNotYetReconcilied);
