@@ -1117,6 +1117,12 @@ namespace Misp.Sourcing.Table
                 editorPage.getInputTableForm().TableCellParameterPanel.reportPeriodPanel.ItemChanged += OnCellPeriodChange;
                 editorPage.getInputTableForm().TableCellParameterPanel.reportPeriodPanel.ItemDeleted += OnCellPeriodDelete;
                 editorPage.getInputTableForm().TableCellParameterPanel.reportPeriodPanel.PeriodHyperlink.RequestNavigate += OnNewPeriodName;
+
+                editorPage.getInputTableForm().TablePropertiesPanel.reportTargetPanel.ItemChanged += OnFilterChange;
+                editorPage.getInputTableForm().TablePropertiesPanel.reportTargetPanel.ItemDeleted += OnFilterDelete;
+
+                editorPage.getInputTableForm().TableCellParameterPanel.reportTargetPanel.ItemChanged += OnCellScopeChange;
+                editorPage.getInputTableForm().TableCellParameterPanel.reportTargetPanel.ItemDeleted += OnCellScopeDelete;
             }
 
             editorPage.getInputTableForm().TablePropertiesPanel.groupField.GroupService = GetInputTableService().GroupService;
@@ -2219,16 +2225,20 @@ namespace Misp.Sourcing.Table
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
             if (page == null) return;
             InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
-            page.getInputTableForm().TablePropertiesPanel.filterScopePanel.ActiveItemPanel.inputTableService = this.GetInputTableService();
+            if (isReport()) page.getInputTableForm().TablePropertiesPanel.reportTargetPanel.ActiveItemPanel.inputTableService = this.GetInputTableService();
+            else page.getInputTableForm().TablePropertiesPanel.filterScopePanel.ActiveItemPanel.inputTableService = this.GetInputTableService();
+            
             if (propertyBar.Pane.SelectedContent == propertyBar.ParameterLayoutAnchorable)
             {
                 Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
                 if (currentRange == null) return;
-                page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetTargetValue((Target)target);
+                if (isReport()) page.getInputTableForm().TablePropertiesPanel.reportTargetPanel.SetTargetValue((Target)target);
+                else page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetTargetValue((Target)target);
             }
             else
             {
-                page.getInputTableForm().TablePropertiesPanel.filterScopePanel.SetTargetValue((Target)target);
+                if(isReport()) page.getInputTableForm().TablePropertiesPanel.reportTargetPanel.SetTargetValue((Target)target);
+                else page.getInputTableForm().TablePropertiesPanel.filterScopePanel.SetTargetValue((Target)target);
             }
         }
 
@@ -2412,16 +2422,21 @@ namespace Misp.Sourcing.Table
                 InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
                 if (page == null) return;                
                 InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
-                page.getInputTableForm().TablePropertiesPanel.filterScopePanel.ActiveItemPanel.inputTableService = this.GetInputTableService();
+                
+                if (isReport()) page.getInputTableForm().TablePropertiesPanel.reportTargetPanel.SetTargetValue(target);
+                else page.getInputTableForm().TablePropertiesPanel.filterScopePanel.ActiveItemPanel.inputTableService = this.GetInputTableService();
+
                 if (propertyBar.Pane.SelectedContent == propertyBar.ParameterLayoutAnchorable)
                 {
                     Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
                     if (currentRange == null) return;
-                    page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetTargetValue(target);
+                    if (isReport()) page.getInputTableForm().TablePropertiesPanel.reportTargetPanel.SetTargetValue(target);
+                    else page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetTargetValue(target);
                 }
                 else
                 {
-                    page.getInputTableForm().TablePropertiesPanel.filterScopePanel.SetTargetValue(target);
+                    if (isReport()) page.getInputTableForm().TablePropertiesPanel.reportTargetPanel.SetTargetValue(target);
+                    else page.getInputTableForm().TablePropertiesPanel.filterScopePanel.SetTargetValue(target);
                 }
             }
         }
@@ -2434,19 +2449,28 @@ namespace Misp.Sourcing.Table
                 InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
                 if (page == null) return;
                 InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
-                page.getInputTableForm().TablePropertiesPanel.filterScopePanel.ActiveItemPanel.inputTableService = this.GetInputTableService();
+                if (isReport()) page.getInputTableForm().TablePropertiesPanel.reportTargetPanel.ActiveItemPanel.inputTableService = this.GetInputTableService(); 
+                else page.getInputTableForm().TablePropertiesPanel.filterScopePanel.ActiveItemPanel.inputTableService = this.GetInputTableService();
                 
                 if (propertyBar.Pane.SelectedContent == propertyBar.ParameterLayoutAnchorable)
                 {
                     Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
                     if (currentRange == null) return;
 
-                    if (loop.IsScope) page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetLoopValue(loop);
+                    if (loop.IsScope)
+                    {
+                        if (isReport()) page.getInputTableForm().TableCellParameterPanel.reportTargetPanel.SetLoopValue(loop);
+                        page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetLoopValue(loop);
+                    }
                     else if (loop.IsPeriod) setCellPeriodLoop(page, loop);
                 }
                 else
                 {
-                    if (loop.IsScope) page.getInputTableForm().TablePropertiesPanel.filterScopePanel.SetLoopValue(loop);
+                    if (loop.IsScope)
+                    {
+                        if (isReport()) page.getInputTableForm().TablePropertiesPanel.reportTargetPanel.SetLoopValue(loop);
+                        page.getInputTableForm().TablePropertiesPanel.filterScopePanel.SetLoopValue(loop);
+                    }
                     else if (loop.IsPeriod) setTablePeriodLoop(page, loop);
                 }
             }

@@ -240,6 +240,12 @@
     <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableEditorController.cs" />
     <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableEditorItem.cs" />
     <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableForm.cs" />
+    <Compile Include="FilterScope\RTargetItemPanel.xaml.cs">
+      <DependentUpon>RTargetItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FilterScope\RTargetPanel.xaml.cs">
+      <DependentUpon>RTargetPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GridViews\AutomaticGridDataDialog.xaml.cs" />
     <Compile Include="GridViews\AutomaticSourcingGridBrowerController.cs" />
     <Compile Include="GridViews\AutomaticSourcingGridBrowser.cs" />
@@ -471,6 +477,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EnrichmentTableViews\AutomaticEnrichmentTableDataDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FilterScope\RTargetItemPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FilterScope\RTargetPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

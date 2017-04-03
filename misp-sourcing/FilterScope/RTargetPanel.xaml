@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="Misp.Sourcing.FilterScope.RTargetPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:src="clr-namespace:Misp.Sourcing.FilterScope"
+             mc:Ignorable="d">
+    <ScrollViewer Grid.Row="1" d:Height="Auto"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel x:Name="panel">
+            <src:RTargetItemPanel />
+            <src:RTargetItemPanel />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

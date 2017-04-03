@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misp.Sourcing.FilterScope;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,7 @@ namespace Misp.Sourcing.Table
         public bool thrawChange = true;
 
         public RPeriodPanel reportPeriodPanel;
+        public RTargetPanel reportTargetPanel;
 
         public TableCellParameterPanel()
         {
@@ -72,7 +74,9 @@ namespace Misp.Sourcing.Table
 
             if (reportPeriodPanel != null) this.reportPeriodPanel.DisplayPeriod(cellProperty != null ? cellProperty.period : null,false,readOnly);
             else this.periodPanel.DisplayPeriod(cellProperty != null ? cellProperty.period : null,false,readOnly);
-            this.filterScopePanel.DisplayScope((cellProperty != null ? cellProperty.cellScope : null),isNoAllocation,readOnly);
+
+            if (reportTargetPanel != null) this.reportTargetPanel.DisplayScope((cellProperty != null ? cellProperty.cellScope : null), isNoAllocation, readOnly);
+            else this.filterScopePanel.DisplayScope((cellProperty != null ? cellProperty.cellScope : null),isNoAllocation,readOnly);
            // this.allocationPanel.DisplayAllocationData(cellProperty != null ? cellProperty.cellAllocationData : null);
             thrawChange = true;
         }
@@ -93,6 +97,8 @@ namespace Misp.Sourcing.Table
             //AllocationGroupBox.Visibility = System.Windows.Visibility.Collapsed;
             if (reportPeriodPanel == null) reportPeriodPanel = new RPeriodPanel();
             periodGroupBox.Content = reportPeriodPanel;
+            if (reportTargetPanel == null) reportTargetPanel = new RTargetPanel();
+            filterGroupBox.Content = reportTargetPanel;
         }
 
         public void Expand(bool expand)
