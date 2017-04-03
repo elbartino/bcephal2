@@ -19,7 +19,7 @@
             <Label Height="5"></Label>
             <Label Content="Total to Receive " FontWeight="Bold" HorizontalAlignment="Right"></Label>
             <Label Height="50"></Label>
-            <Label Content="Member Sent Advisement " HorizontalAlignment="Right"></Label>
+            <Label Content="Member Advisement Sent " HorizontalAlignment="Right"></Label>
             <Label Height="5"></Label>
             <Label Content="Write-Off " HorizontalAlignment="Right"></Label>
             <Label Height="5"></Label>
@@ -47,7 +47,7 @@
             <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="#839BBB" Foreground="White"/>
         </StackPanel>
         <StackPanel Margin="440,0,335,0">
-            <Label Content="  Not yet reconcilied" FontWeight="Bold" HorizontalAlignment="Left" Width="125" ></Label>
+            <Label Content="  Not yet Reconcilied" FontWeight="Bold" HorizontalAlignment="Left" Width="125" ></Label>
             <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
             <Label Height="5"></Label>
             <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
@@ -56,7 +56,7 @@
             <Label Height="5"></Label>
             <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="#839BBB" Foreground="White"/>
             <Label Height="25" Margin="0,0,220,0"></Label>
-            <Label Content="  Not yet reconcilied" FontWeight="Bold"></Label>
+            <Label Content="  Not yet Reconcilied" FontWeight="Bold"></Label>
             <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
             <Label Height="5"></Label>
             <Label Height="22"/>

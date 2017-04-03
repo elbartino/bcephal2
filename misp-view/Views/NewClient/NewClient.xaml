@@ -6,15 +6,16 @@
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="misp_view.Views.NewClient.NewClient"
              mc:Ignorable="d" 
              xmlns:Condition="clr-namespace:misp_view.Views.NewClient"
+             xmlns:local="clr-namespace:misp_view.Views.NewClient"
              Width="745" Height="605">
 
     <Grid>
-        <dx:DXTabControl Margin="0,0,-229,-84" TabContentCacheMode="None">
+        <dx:DXTabControl Margin="0,0,-229,-84" x:Name="tabControl" TabContentCacheMode="None">
             <dx:DXTabControl.View>
                 <dx:TabControlStretchView HeaderLocation="Top" HideButtonShowMode="NoWhere" NewButtonShowMode="NoWhere" ShowHeaderMenu="False"/>
             </dx:DXTabControl.View>
 
-            <dx:DXTabItem Header="Client">
+            <dx:DXTabItem Header="Client" x:Name="clientTab">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,-2,0,0">
                     <Grid x:Name="gridClient">
                         <Grid.ColumnDefinitions>
@@ -43,8 +44,8 @@
                                 <Label Height="5"/>
                                 <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
                                 <Label Height="5"/>
-                                <ComboBox Height="25" x:Name="cbMainContact" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left">
-                                    
+                                <ComboBox Height="25" SelectionChanged="cbMainContact_SelectionChanged" x:Name="cbMainContact" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left">
+
                                 </ComboBox>
                                 <Label Height="5"/>
                                 <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
@@ -62,62 +63,13 @@
                 </ScrollViewer>
             </dx:DXTabItem>
             <dx:DXTabItem Header="Contact" Height="22" VerticalAlignment="Bottom" VisibleInHeaderMenu="False">
-                <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0" x:Name="gridNew">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="75"/>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Label x:Name="lNameClient" Content="Name" Margin="0,10,22,0" HorizontalAlignment="Right"></Label>
-                        <TextBox x:Name="tbNameClient" x:FieldModifier="public"  IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" VerticalAlignment="Center" Margin="54,8,78,5" Grid.ColumnSpan="3" Height="26"/>
-                        <Label x:Name="lLastNameClient" Content="Last Name" x:FieldModifier="public" HorizontalAlignment="Right" Grid.Column="2" Margin="0,10,0,-1"/>
-                        <TextBox x:Name="tbLastNameClient" x:FieldModifier="public" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Grid.Column="3" Margin="0,8,21,6" Grid.ColumnSpan="2"/>
-
-                        <Button x:Name="AddButton" x:FieldModifier="public" Margin="50,10,0,0" Width="15" Grid.Column="4">
-                            <Button.Template>
-                                <ControlTemplate>
-                                    <Image Source="D:\bcephal-clent\misp-view\Resources\Icons\New.png"/>
-                                </ControlTemplate>
-                            </Button.Template>
+                <ScrollViewer>
+                    <StackPanel x:Name="spAddContact">
+                        <Button x:Name="AddButton" Click="AddButton_Click" Margin="-830,0,0,0" x:FieldModifier="public" Content="Add Contact" Width="100" Height="25">
                         </Button>
-                        <Button x:Name="DeleteButton" x:FieldModifier="public" ToolTip="Delete line" Margin="0,10,0,0" Width="15" Grid.Column="5">
-                            <Button.Template>
-                                <ControlTemplate>
-                                    <Image Source="D:\bcephal-clent\misp-view\Resources\Icons\DeleteButton.png"/>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                        <ToggleButton x:Name="ShowDetailsButton" x:FieldModifier="public" Margin="0,10,0,0"  Width="15" Grid.Column="7">
-                            <ToggleButton.Template>
-                                <ControlTemplate>
-                                    <TextBlock Text="▼" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </ControlTemplate>
-                            </ToggleButton.Template>
-                        </ToggleButton>
-                        <ToggleButton x:Name="HideDetailsButton" x:FieldModifier="public" Margin="0,10,0,0" Width="15"  Grid.Column="7">
-                            <ToggleButton.Template>
-                                <ControlTemplate>
-                                    <TextBlock Text="▲" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </ControlTemplate>
-                            </ToggleButton.Template>
-                        </ToggleButton >
-                    </Grid>
-                    <Grid Grid.Row="1" Margin="0 10 0 0">
-                        <Condition:DetailClient x:Name="DClient" Margin="22,-12,626,2"/>
-                    </Grid>
-
-                </Grid>
+                        <local:AddContact x:Name="Contact"/>
+                    </StackPanel>
+                </ScrollViewer>
             </dx:DXTabItem>
             <dx:DXTabItem Header="Guarantee">
                 <Grid Background="Transparent" Margin="0,50,0,0">

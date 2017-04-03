@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:misp_view.Views.NewClient"
         mc:Ignorable="d">
-    <Grid Height="150" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+    <Grid Height="160" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"></ColumnDefinition>
             <ColumnDefinition Width="100"></ColumnDefinition>
@@ -21,13 +21,14 @@
         </Grid>
         <Grid Grid.Column="1">
             <StackPanel >
-                <TextBox x:Name="tbFirstName" TextChanged="tbFirstName_TextChanged" BorderBrush="Transparent"></TextBox>
-                <TextBox x:Name="tbLastName" TextChanged="tbLastName_TextChanged" BorderBrush="Transparent" Margin="0,3,0,0"></TextBox>
-                <TextBox BorderBrush="Transparent" Margin="0,3,0,0"></TextBox>
-                <TextBox BorderBrush="Transparent" Margin="0,3,0,0"></TextBox>
-                <TextBox BorderBrush="Transparent" Margin="0,3,0,0"></TextBox>
+                <TextBox x:Name="tbFirstName" TextChanged="tbFirstName_TextChanged" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"></TextBox>
+                <TextBox x:Name="tbLastName" TextChanged="tbLastName_TextChanged" BorderBrush="Transparent" Margin="0,3,0,0" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"></TextBox>
+                <TextBox BorderBrush="Transparent" Margin="0,3,0,0" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"></TextBox>
+                <TextBox BorderBrush="Transparent" Margin="0,3,0,0" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"></TextBox>
+                <TextBox BorderBrush="Transparent" Margin="0,3,0,0" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"></TextBox>
                 <Label></Label>
                 <Button Width="50" Height="20" Content="Add" x:Name="btnAdd" Margin="50,0,0,0"></Button>
+
             </StackPanel>
         </Grid>
     </Grid>

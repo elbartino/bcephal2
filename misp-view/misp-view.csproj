@@ -197,11 +197,15 @@
     <Compile Include="Views\Details\Detail.xaml.cs">
       <DependentUpon>Detail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ListContacts.cs" />
     <Compile Include="Views\Member\listMember.xaml.cs">
       <DependentUpon>listMember.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Member\newMember.xaml.cs">
       <DependentUpon>newMember.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewClient\AddContact.xaml.cs">
+      <DependentUpon>AddContact.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NewClient\DetailClient.xaml.cs">
       <DependentUpon>DetailClient.xaml</DependentUpon>
@@ -267,6 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Member\newMember.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewClient\AddContact.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

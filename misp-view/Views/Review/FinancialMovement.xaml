@@ -16,7 +16,7 @@
             <Label Height="5"></Label>
             <Label Content="Others " HorizontalAlignment="Right"></Label>
             <Label Height="5"></Label>
-            <Label Content="Non-reconcilied Transactions " HorizontalAlignment="Right"></Label>
+            <Label Content="Non-Reconcilied Transactions " HorizontalAlignment="Right"></Label>
             <Label Height="5"></Label>
             <Label Content="Total " FontWeight="Bold" HorizontalAlignment="Right"></Label>
         </StackPanel>
@@ -66,9 +66,9 @@
             <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="Salmon" Foreground="White"/>
         </StackPanel>
         <StackPanel Margin="685,130,115,0">
-            <Label Content="∆ not Reconcilied" FontWeight="Bold"/>
+            <Label Content="∆ not Reconcilied" HorizontalAlignment="Right" FontWeight="Bold"/>
             <Label Height="5"></Label>
-            <Label Content="∆ Reconcilied" FontWeight="Bold"/>
+            <Label Content="∆ Reconcilied" HorizontalAlignment="Right" FontWeight="Bold"/>
         </StackPanel>
         <StackPanel Margin="790,130,10,-130">
             <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="Salmon" Foreground="White"/>

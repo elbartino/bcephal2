@@ -90,7 +90,7 @@
                                 </TextBox>
                                 <Label Content="Ratio PF/Peak MA 24 months" HorizontalAlignment="Right" FontWeight="Bold" Margin="0,0,134,50"/>
                                 <Label Content="Total Balance PF Account" HorizontalAlignment="Right" FontWeight="Bold" Margin="0,25,134,25"/>
-                                <TextBox x:Name="tbRatio" Text="{Binding ratioPFPeak}"  Margin="802,0,24,50" TextAlignment="Center" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                <TextBox x:Name="tbRatio" Text="{Binding ratioPFPeak}"  Margin="802,0,79,50" TextAlignment="Center" IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
                                 <TextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="Transparent" Background="Salmon" Foreground="White" Margin="802,25,24,25"/>
 
                             </Grid>
