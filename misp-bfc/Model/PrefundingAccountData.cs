@@ -24,17 +24,37 @@ namespace Misp.Bfc.Model
         public decimal? totalToPayNotYetReconcilied { get; set; }
         public decimal? expectedPFBalanceReconcilied { get; set; }
         public decimal? expectedPFBalanceNotYetReconcilied { get; set; }
-        public decimal? pfAccountDebitReconcilied { get; set; }
-        public decimal? pfAccountDebitNotYetReconcilied { get; set; }
-        public decimal? pfAccountCreditReconcilied { get; set; }
-        public decimal? pfAccountCreditNotYetReconcilied { get; set; }
-        public decimal? pfAccountBalanceReconcilied { get; set; }
-        public decimal? pfAccountBalanceNotYetReconcilied { get; set; }
+
+        public decimal? pfAccountDebit { get; set; }
+        public decimal? pfAccountCredit { get; set; }
+        public decimal? pfAccountBalance { get; set; }
+
+        public decimal? riAccountDebit { get; set; }
+        public decimal? riAccountCredit { get; set; }
+        public decimal? riAccountBalance { get; set; }
+
+        public decimal? maAccountDebit { get; set; }
+        public decimal? maAccountCredit { get; set; }
+        public decimal? maAccountBalance { get; set; }
+
+        public decimal? otherAccountDebit { get; set; }
+        public decimal? otherAccountCredit { get; set; }
+        public decimal? otherAccountBalance { get; set; }
+
+        public decimal? notRecoTransactionDebit { get; set; }
+        public decimal? notRecoTransactionCredit { get; set; }
+        public decimal? notRecoTransactionBalance { get; set; }
+
+        public decimal? totalAccountDebit { get; set; }
+        public decimal? totalAccountCredit { get; set; }
+        public decimal? totalAccountBalance { get; set; }
+
         public decimal? deltaReconcilied { get; set; }
         public decimal? deltaNotYetReconcilied { get; set; }
         public decimal? balancePF { get; set; }
         public decimal? peakDayLast24 { get; set; }
         public decimal? ratioPFPeak { get; set; }
+        public decimal? totalBalancePFAccount { get; set; }
 
     }
 }
