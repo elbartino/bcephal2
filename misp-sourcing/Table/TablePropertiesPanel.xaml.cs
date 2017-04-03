@@ -125,6 +125,7 @@ namespace Misp.Sourcing.Table
             if (reportPeriodPanel != null) reportPeriodPanel.SetReadOnly(readOnly);
             if (periodPanel != null) periodPanel.SetReadOnly(readOnly);
             if (filterScopePanel != null) filterScopePanel.SetReadOnly(readOnly);
+            //if(reportTargetPanel != null) reportTargetPanel.SetReadOnly(readOnly);
             if (groupField != null) groupField.SetReadOnly(readOnly);
         }
     }

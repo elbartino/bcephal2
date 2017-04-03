@@ -1515,7 +1515,7 @@ namespace Misp.Sourcing.Table
             if (item == null || !(item is TargetItem)) return;
             TargetItem targetItem = (TargetItem)item;
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
-            Target scope = page.getInputTableForm().TablePropertiesPanel.filterScopePanel.Scope;
+            Target scope = isReport() ? page.getInputTableForm().TablePropertiesPanel.reportTargetPanel.Scope : page.getInputTableForm().TablePropertiesPanel.filterScopePanel.Scope;
             scope.SynchronizeDeleteTargetItem(targetItem);
 
             Kernel.Domain.Parameter parameter = new Parameter(page.EditedObject.name);
@@ -1537,7 +1537,8 @@ namespace Misp.Sourcing.Table
 
             //if (table.filter != null) table.filter.SynchronizeDeleteTargetItem(targetItem); //table.filter.targetItemListChangeHandler.Items = table.filter.targetItemListChangeHandler.getItems();
             //eleminateDeletedObjects(table.filter.targetItemListChangeHandler);
-            page.getInputTableForm().TablePropertiesPanel.filterScopePanel.DisplayScope(scope);
+            if (isReport()) page.getInputTableForm().TablePropertiesPanel.reportTargetPanel.DisplayScope(scope);
+            else  page.getInputTableForm().TablePropertiesPanel.filterScopePanel.DisplayScope(scope);
 
            // if (table.filter != null) table.filter = table.correctFilter();
            // page.EditedObject = table;
@@ -1971,6 +1972,10 @@ namespace Misp.Sourcing.Table
             {
                 isNoAllocation = data.type == CellPropertyAllocationData.AllocationType.NoAllocation.ToString();
                 page.getInputTableForm().TablePropertiesPanel.filterScopePanel.DisplayScope(page.EditedObject.correctFilter(), isNoAllocation);
+            }
+            else
+            {
+                page.getInputTableForm().TablePropertiesPanel.reportTargetPanel.DisplayScope(page.EditedObject.correctFilter(), isNoAllocation);
             }
             
             OnChange();
