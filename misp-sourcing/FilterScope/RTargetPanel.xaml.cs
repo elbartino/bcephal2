@@ -61,9 +61,9 @@ namespace Misp.Sourcing.FilterScope
             AddDefaultItem(isNoAllocation);
         }
 
-      
 
-        void DisplayScope(Target scope,bool isNoAllocation=false)
+
+        private void DisplayScope(Target scope, bool isNoAllocation = false)
         {
             this.Scope = scope;
             foreach (TargetItem item in scope.targetItemListChangeHandler.Items)
@@ -74,7 +74,7 @@ namespace Misp.Sourcing.FilterScope
             }
         }
 
-        void AddDefaultItem(bool isNoAllocation=false)
+        private void AddDefaultItem(bool isNoAllocation = false)
         {
             if (this.IsReadOnly) return;
             int index = this.panel.Children.Count + 1;
