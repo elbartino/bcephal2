@@ -51,12 +51,12 @@ namespace Misp.Bfc.Service
         public List<SettlementEvolutionData> getSettlementEvolutionDatas(ReviewFilter filter)
         {
             if (filter == null) return null;
-            Kernel.Util.FileUtil.buildTimeMeasurementFile();
+            //Kernel.Util.FileUtil.buildTimeMeasurementFile();
             try
             {
-                Console.Out.WriteLine(" ---------------- Evolution Data Measures of " + DateTime.Now + " -------------");
-                Console.Out.WriteLine();
-                DateTime begin = DateTime.Now;
+                //Console.Out.WriteLine(" ---------------- Evolution Data Measures of " + DateTime.Now + " -------------");
+                //Console.Out.WriteLine();
+                //DateTime begin = DateTime.Now;
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 var request = new RestRequest(ResourcePath + "/settlement-evolution", Method.POST);
                 request.RequestFormat = DataFormat.Json;
@@ -64,27 +64,27 @@ namespace Misp.Bfc.Service
                 string json = serializer.Serialize(filter);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
                 
-                DateTime requetTime = DateTime.Now;
+                //DateTime requetTime = DateTime.Now;
                 
                 var response = RestClient.ExecuteTaskAsync(request);
                 RestResponse queryResult = (RestResponse)response.Result;
                 
-                Console.Out.WriteLine("               Request duration " + (DateTime.Now - requetTime));
-                Console.Out.WriteLine();
+                //Console.Out.WriteLine("               Request duration " + (DateTime.Now - requetTime));
+                //Console.Out.WriteLine();
                 bool valid = ValidateResponse(queryResult);
                 JavaScriptSerializer Serializer = new JavaScriptSerializer();
                 Serializer.MaxJsonLength = int.MaxValue;
 
-                DateTime serialization = DateTime.Now;
+                //DateTime serialization = DateTime.Now;
                 List<SettlementEvolutionData> datas = Serializer.Deserialize<List<SettlementEvolutionData>>(queryResult.Content);
-                Console.Out.WriteLine("                 Serialization duration "+(DateTime.Now  - serialization));
-                Console.Out.WriteLine();
-                Console.Out.WriteLine();
-                Console.Out.WriteLine("                 Total duration " + (DateTime.Now - begin));
-                Console.Out.WriteLine(" ---------------- End Evolution Data Measures  -------------");
-                Console.Out.WriteLine();
-                Console.Out.WriteLine();
-                Kernel.Util.FileUtil.closeTimeMeasurementFile();
+                //Console.Out.WriteLine("                 Serialization duration "+(DateTime.Now  - serialization));
+                //Console.Out.WriteLine();
+                //Console.Out.WriteLine();
+                //Console.Out.WriteLine("                 Total duration " + (DateTime.Now - begin));
+                //Console.Out.WriteLine(" ---------------- End Evolution Data Measures  -------------");
+                //Console.Out.WriteLine();
+                //Console.Out.WriteLine();
+                //Kernel.Util.FileUtil.closeTimeMeasurementFile();
                 return datas;
             }
             catch (Exception e)
@@ -98,12 +98,12 @@ namespace Misp.Bfc.Service
         public List<SettlementEvolutionChartData> getSettlementEvolutionChartDatas(ReviewFilter filter)
         {
             if (filter == null) return null;
-            Kernel.Util.FileUtil.buildTimeMeasurementFile();
+            //Kernel.Util.FileUtil.buildTimeMeasurementFile();
             try
             {
-                Console.Out.WriteLine(" ---------------- Evolution Chart Measures of " + DateTime.Now + " -------------");
-                Console.Out.WriteLine();
-                DateTime begin = DateTime.Now;
+                //Console.Out.WriteLine(" ---------------- Evolution Chart Measures of " + DateTime.Now + " -------------");
+                //Console.Out.WriteLine();
+                //DateTime begin = DateTime.Now;
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 var request = new RestRequest(ResourcePath + "/settlement-evolution-chart", Method.POST);
                 request.RequestFormat = DataFormat.Json;
@@ -111,31 +111,31 @@ namespace Misp.Bfc.Service
                 string json = serializer.Serialize(filter);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
 
-                DateTime chartrequest = DateTime.Now;
+                //DateTime chartrequest = DateTime.Now;
 
                 var response = RestClient.ExecuteTaskAsync(request);
                 RestResponse queryResult = (RestResponse)response.Result;
                 bool valid = ValidateResponse(queryResult);
 
-                Console.Out.WriteLine("                 Chart data request " + (DateTime.Now - chartrequest));
-                Console.Out.WriteLine();
+                //Console.Out.WriteLine("                 Chart data request " + (DateTime.Now - chartrequest));
+                //Console.Out.WriteLine();
                 JavaScriptSerializer Serializer = new JavaScriptSerializer();
                 Serializer.MaxJsonLength = int.MaxValue;
 
-                DateTime chartSerialisation = DateTime.Now;
+                //DateTime chartSerialisation = DateTime.Now;
                 List<SettlementEvolutionChartData> datas = Serializer.Deserialize<List<SettlementEvolutionChartData>>(queryResult.Content);
                 
-                Console.Out.WriteLine("             Chart data serialization " + (DateTime.Now - chartSerialisation));
+                //Console.Out.WriteLine("             Chart data serialization " + (DateTime.Now - chartSerialisation));
                 
-                Console.Out.WriteLine();
-                Console.Out.WriteLine();
+                //Console.Out.WriteLine();
+                //Console.Out.WriteLine();
 
-                Console.Out.WriteLine("             Total Chart duration " + (DateTime.Now - begin));
-                Console.Out.WriteLine();
-                Console.Out.WriteLine(" --------------- End Evolution Chart -------------");
-                Console.Out.WriteLine();
-                Console.Out.WriteLine();
-                Kernel.Util.FileUtil.closeTimeMeasurementFile();
+                //Console.Out.WriteLine("             Total Chart duration " + (DateTime.Now - begin));
+                //Console.Out.WriteLine();
+                //Console.Out.WriteLine(" --------------- End Evolution Chart -------------");
+                //Console.Out.WriteLine();
+                //Console.Out.WriteLine();
+                //Kernel.Util.FileUtil.closeTimeMeasurementFile();
 
                 return datas;
             }
