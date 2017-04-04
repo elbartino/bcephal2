@@ -2237,7 +2237,7 @@ namespace Misp.Sourcing.Table
             {
                 Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
                 if (currentRange == null) return;
-                if (isReport()) page.getInputTableForm().TablePropertiesPanel.reportTargetPanel.SetTargetValue((Target)target);
+                if (isReport()) page.getInputTableForm().TableCellParameterPanel.reportTargetPanel.SetTargetValue((Target)target);
                 else page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetTargetValue((Target)target);
             }
             else

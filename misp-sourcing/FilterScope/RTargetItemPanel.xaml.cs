@@ -281,7 +281,6 @@ namespace Misp.Sourcing.FilterScope
             DisplayAttribute();
             DisplayValue();
             DisplayFormula();
-            DisplayFormula();
             update = true;
         }
 
