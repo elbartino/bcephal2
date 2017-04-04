@@ -250,6 +250,7 @@ namespace Misp.Sourcing.FilterScope
             bool showFilterText = !(selectedFilter == FilterScopeValues.IS_BLANCK
                     || selectedFilter == FilterScopeValues.NOT_BLANCK);
             this.filterTextBox.Visibility = showFilterText ? Visibility.Visible : Visibility.Collapsed;
+            setFilterTextBoxSize(this.filterTextBox);
         }
 
         private bool IsFilterViewVisible(Kernel.Domain.Attribute attribute)
@@ -260,6 +261,11 @@ namespace Misp.Sourcing.FilterScope
             return show;
         }
 
+        private void setFilterTextBoxSize(TextBox filtertextbox)
+        {
+            if (filtertextbox.IsVisible) filtertextbox.Width = 50;
+        }
+        
         private void showHeader(bool show) 
         {
              targetName.Visibility = show ? Visibility.Visible : System.Windows.Visibility.Collapsed; 
