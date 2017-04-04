@@ -151,10 +151,9 @@ namespace Misp.Bfc.Service
         {
             if (filter == null) return null;
 
-            Kernel.Util.FileUtil.buildTimeMeasurementFile();
-            
-            Console.Out.WriteLine(" ---------------- Ageing "+( filter.details ?"Details" : "")+" Measures of "+DateTime.Now +" -------------");
-            DateTime begin = DateTime.Now;
+            //Kernel.Util.FileUtil.buildTimeMeasurementFile();            
+            //Console.Out.WriteLine(" ---------------- Ageing "+( filter.details ?"Details" : "")+" Measures of "+DateTime.Now +" -------------");
+            //DateTime begin = DateTime.Now;
             try
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -165,27 +164,27 @@ namespace Misp.Bfc.Service
                 request.AddParameter("application/json", json, ParameterType.RequestBody);
                 var response = RestClient.ExecuteTaskAsync(request);
 
-                DateTime requesttime = DateTime.Now;
+                //DateTime requesttime = DateTime.Now;
                 RestResponse queryResult = (RestResponse)response.Result;
                 bool valid = ValidateResponse(queryResult);
-                Console.Out.WriteLine("             Ageing "+( filter.details ?"Details" : "")+" server quering duration " + (DateTime.Now - requesttime));
-                Console.Out.WriteLine();
+                //Console.Out.WriteLine("             Ageing "+( filter.details ?"Details" : "")+" server quering duration " + (DateTime.Now - requesttime));
+                //Console.Out.WriteLine();
                 JavaScriptSerializer Serializer = new JavaScriptSerializer();
                 Serializer.MaxJsonLength = int.MaxValue;
 
-                DateTime serialization = DateTime.Now;
+                //DateTime serialization = DateTime.Now;
                 List<AgeingBalanceData> datas = Serializer.Deserialize<List<AgeingBalanceData>>(queryResult.Content);
-                Console.Out.WriteLine("             Ageing "+( filter.details ?"Details" : "")+" serialisation duration " + (DateTime.Now - serialization));
-                Console.Out.WriteLine();
-                Console.Out.WriteLine("             Total Duration Ageing "+( filter.details ?"Details " : " ")+ (DateTime.Now - begin));
-                Console.Out.WriteLine();
-                Console.Out.WriteLine();
+                //Console.Out.WriteLine("             Ageing "+( filter.details ?"Details" : "")+" serialisation duration " + (DateTime.Now - serialization));
+                //Console.Out.WriteLine();
+                //Console.Out.WriteLine("             Total Duration Ageing "+( filter.details ?"Details " : " ")+ (DateTime.Now - begin));
+                //Console.Out.WriteLine();
+                //Console.Out.WriteLine();
 
 
-                Console.Out.WriteLine(" ------------End Ageing "+( filter.details ?"Details" : "")+" Measure -------------");
-                Console.Out.WriteLine();
-                Console.Out.WriteLine();
-                Kernel.Util.FileUtil.closeTimeMeasurementFile();
+                //Console.Out.WriteLine(" ------------End Ageing "+( filter.details ?"Details" : "")+" Measure -------------");
+                //Console.Out.WriteLine();
+                //Console.Out.WriteLine();
+                //Kernel.Util.FileUtil.closeTimeMeasurementFile();
                 return datas;
             }
             catch (Exception e)
