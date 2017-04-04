@@ -24,6 +24,10 @@ namespace misp_view.Views
         {
             listC.Add(value);
         }
+        public static void Remove(string value)
+        {
+            listC.Remove(value);
+        }
 
         public static void Display()
         {

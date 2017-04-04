@@ -64,10 +64,11 @@
             </dx:DXTabItem>
             <dx:DXTabItem Header="Contact" Height="22" VerticalAlignment="Bottom" VisibleInHeaderMenu="False">
                 <ScrollViewer>
-                    <StackPanel x:Name="spAddContact">
-                        <Button x:Name="AddButton" Click="AddButton_Click" Margin="-830,0,0,0" x:FieldModifier="public" Content="Add Contact" Width="100" Height="25">
+                    <StackPanel x:Name="spAddContact" Background="White">
+                        <Button x:Name="AddButton" Click="AddButton_Click" Margin="-819,0,0,0" x:FieldModifier="public" Content="Add Contact" Width="100" Height="25">
+                        
                         </Button>
-                        <local:AddContact x:Name="Contact"/>
+                        <!--<local:AddContact x:Name="Contact" Width="922"/>-->
                     </StackPanel>
                 </ScrollViewer>
             </dx:DXTabItem>

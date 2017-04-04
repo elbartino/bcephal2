@@ -21,7 +21,7 @@ namespace misp_view.Views.NewClient
     /// </summary>
     public partial class NewClient : UserControl
     {
-        
+
         public DetailClient detailC;
         //public ActivateEventHandler Activated;
         public Misp.Kernel.Ui.Base.ChangeItemEventHandler Deleted;
@@ -33,7 +33,7 @@ namespace misp_view.Views.NewClient
         {
             InitializeComponent();
             init();
-            
+
         }
 
         protected void init()
@@ -48,23 +48,18 @@ namespace misp_view.Views.NewClient
         private void OnDeleteButtonClick(object sender, RoutedEventArgs e)
         {
 
-           
         }
 
-
-
+        
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             AddContact ac = new AddContact();
             ac.Name = "Contact" + number;
+            //ac.Width = 922;
+            //ac.DeleteButton.Click += OnDeleteButtonClick;
             spAddContact.Children.Add(ac);
             number++;
-
-            
-
-
-
         }
 
         private void cbMainContact_SelectionChanged(object sender, SelectionChangedEventArgs e)

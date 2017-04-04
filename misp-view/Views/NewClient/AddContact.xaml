@@ -9,7 +9,7 @@
       d:DesignHeight="205" d:DesignWidth="500"
       >
 
-    <Grid Background="White">
+    <Grid Background="White" x:Name="gridMain" ButtonBase.Click="gridMain_Click">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

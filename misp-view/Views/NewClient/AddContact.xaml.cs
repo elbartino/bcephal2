@@ -50,9 +50,8 @@ namespace misp_view.Views.NewClient
                 tbNameClient.Text = DClient.tbFirstName.Text;
                 tbLastNameClient.Text = DClient.tbLastName.Text;
                 string s = DClient.tbFirstName.Text + ", " + DClient.tbLastName.Text;
-                //ListContacts.Record(s);
                 ListContacts.Record(s);
-                ListContacts.Display();
+                //ListContacts.Display();
                 DClient.btnAdd.Visibility = Visibility.Hidden;
             }
         }
@@ -74,19 +73,17 @@ namespace misp_view.Views.NewClient
             this.HideDetailsButton.Visibility = hideDetails ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
             this.ShowDetailsButton.Visibility = hideDetails ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
         }
+        
+        public void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {      
+            gridMain.Children.RemoveRange(0,10);
+            string s = DClient.tbFirstName.Text + ", " + DClient.tbLastName.Text;
+            ListContacts.Remove(s);
+        }
 
-
-        //static bool deleted = false;
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        public void gridMain_Click(object sender, RoutedEventArgs e)
         {
-            //if (deleted == false)
-            //{
-            //    deleted = true;
-            //}
-            //else if (deleted == true)
-            //{
-            //    deleted = false;
-            //}
+
         }
     }
 }
