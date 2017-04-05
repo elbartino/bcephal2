@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "misp-build", "misp-build\misp-build.csproj", "{26874D47-DCB7-4CA6-AE03-EFA44017E047}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "misp-diagram", "misp-diagram\misp-diagram.csproj", "{B437DF5F-20E0-4082-A92E-5C1D9C31A8E9}"
@@ -24,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGridFilterLibrary", "DataGridFilterLibrary\DataGridFilterLibrary.csproj", "{04A9E6A9-9DC0-4D7B-AE43-D3B2C6DC2A43}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "misp-view", "misp-view\misp-view.csproj", "{A05AEFC0-2F81-4291-AC94-204B85CCBF1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "misp-main", "misp-main\misp-main.csproj", "{823557E9-5545-4BA6-8F4F-601EB6B6F12B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +75,10 @@ Global
 		{A05AEFC0-2F81-4291-AC94-204B85CCBF1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A05AEFC0-2F81-4291-AC94-204B85CCBF1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A05AEFC0-2F81-4291-AC94-204B85CCBF1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{823557E9-5545-4BA6-8F4F-601EB6B6F12B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{823557E9-5545-4BA6-8F4F-601EB6B6F12B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{823557E9-5545-4BA6-8F4F-601EB6B6F12B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{823557E9-5545-4BA6-8F4F-601EB6B6F12B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

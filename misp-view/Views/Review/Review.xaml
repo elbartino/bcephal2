@@ -24,12 +24,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <dx:TypedSimpleSource x:Key="TypedSimpleSource" AdapterType="{x:Type SampleDatabaseDataSet1TableAdapters:CreditTableAdapter}" ContextType="{x:Type misp_view:SampleDatabaseDataSet1}" Path="Credit">
+        <dx:TypedSimpleSource x:Key="TypedSimpleSource" AdapterType="{x:Type SampleDatabaseDataSet1TableAdapters:CreditTableAdapter}" >
             <dx:DesignDataManager.DesignData>
                 <dx:DesignDataSettings RowCount="5"/>
             </dx:DesignDataManager.DesignData>
         </dx:TypedSimpleSource>
-        <dx:TypedSimpleSource x:Key="TypedSimpleSource1" AdapterType="{x:Type SampleDatabaseDataSet1TableAdapters:CreditTableAdapter}" ContextType="{x:Type misp_view:SampleDatabaseDataSet}" Path="Credit">
+        <dx:TypedSimpleSource x:Key="TypedSimpleSource1" AdapterType="{x:Type SampleDatabaseDataSet1TableAdapters:CreditTableAdapter}" ContextType="{x:Type misp_view:SampleDatabaseDataSet}" >
             <dx:DesignDataManager.DesignData>
                 <dx:DesignDataSettings RowCount="5"/>
             </dx:DesignDataManager.DesignData>
@@ -61,7 +61,7 @@
         </Grid>
 
         <Grid x:Name="tabGrid" Grid.Row="1">
-            <dx:DXTabControl Margin="0,0,-229,-30" TabContentCacheMode="None">
+            <dx:DXTabControl Margin="0,0,-229,-30" TabContentCacheMode="None" x:Name="tabControl" x:FieldModifier="public">
                 <dx:DXTabControl.View>
                     <dx:TabControlStretchView HeaderLocation="Top" HideButtonShowMode="NoWhere" NewButtonShowMode="NoWhere" ShowHeaderMenu="False"/>
                 </dx:DXTabControl.View>

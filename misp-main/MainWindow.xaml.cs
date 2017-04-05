@@ -154,23 +154,22 @@ namespace Moriset_Main_final
         }
         private void list_advisement_Click(object sender, EventArgs e)
         {
-            Tile list_advisements = new Tile();
+            Moriset_Main_final.View.Block list_advisements = new Moriset_Main_final.View.Block("list_advisements", "List Advisements");
             customTileLayout.Children.Add(list_advisements);
-            list_advisements.Content = "List Advisements";
-            list_advisements.Name = "list_advisements";
-            list_advisements.Height = 60;
-            list_advisements.Width = 142;
-            list_advisements.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
             list_advisements.MouseRightButtonDown += popmenu;
             list_advisements.Click += list_advisementScreen;
-            list_advisements_item.IsEnabled = false; 
         }
-////////////////////////Affichage du ruban(submenu)
+
+        #region Properties
+        ////////////////////////Affichage du ruban(submenu)
         private void dailyScreen(object sender, EventArgs e)
         {
             DailyControls_SubTile ds = new DailyControls_SubTile();
             ds.Show(); 
         }
+
+        #endregion
+
         private void reconciliationScreen(object sender, EventArgs e)
         {
             Reconciliation_SubTile ds = new Reconciliation_SubTile();
