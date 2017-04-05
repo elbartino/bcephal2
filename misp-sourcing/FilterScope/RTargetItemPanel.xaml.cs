@@ -250,27 +250,31 @@ namespace Misp.Sourcing.FilterScope
             bool showFilterText = !(selectedFilter == FilterScopeValues.IS_BLANCK
                     || selectedFilter == FilterScopeValues.NOT_BLANCK);
             this.filterTextBox.Visibility = showFilterText ? Visibility.Visible : Visibility.Collapsed;
-            setFilterTextBoxSize(this.filterTextBox);
+            showFormulaView(false);
+        }
+
+        private void showFilterHeader(bool show)
+        {
+            this.targetFormula.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private bool IsFilterViewVisible(Kernel.Domain.Attribute attribute)
         {
             bool show = attribute != null;
             this.FilterComboBox.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
-            this.targetFilter.Visibility = (show && Index <2) ? Visibility.Visible : Visibility.Collapsed;
+            this.filterTextBox.Visibility = System.Windows.Visibility.Collapsed;
             return show;
         }
 
-        private void setFilterTextBoxSize(TextBox filtertextbox)
+        private void showFormulaView(bool show)
         {
-            if (filtertextbox.IsVisible) filtertextbox.Width = 50;
+            this.formulaTextBox.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
         }
-        
+
         private void showHeader(bool show) 
         {
              targetName.Visibility = show ? Visibility.Visible : System.Windows.Visibility.Collapsed; 
              targetValue.Visibility = show ? Visibility.Visible : System.Windows.Visibility.Collapsed;
-             targetFilter.Visibility = show && targetFilter.IsVisible ? Visibility.Visible : System.Windows.Visibility.Collapsed;
              targetFormula.Visibility = show ? Visibility.Visible : System.Windows.Visibility.Collapsed; 
         }
 
@@ -287,6 +291,8 @@ namespace Misp.Sourcing.FilterScope
             DisplayAttribute();
             DisplayValue();
             DisplayFormula();
+            DisplayOperator();
+            DisplayFilterScope();
             update = true;
         }
 
@@ -311,9 +317,14 @@ namespace Misp.Sourcing.FilterScope
             this.FormulaTextBox.Text = this.TargetItem != null && this.TargetItem.formula != null ? this.TargetItem.formula : "";
         }
 
-        private void DisplayOperator(TargetItem item)
+        private void DisplayOperator()
         {
-            this.OperatorComboBox.SelectedItem = item != null && item.operatorType != null ? item.operatorType : TargetItem.Operator.AND.ToString();
+            this.OperatorComboBox.SelectedItem = this.TargetItem != null && this.TargetItem.operatorType != null ? this.TargetItem.operatorType : TargetItem.Operator.AND.ToString();
+        }
+
+        private void DisplayFilterScope()
+        {
+            //this.FilterComboBox.SelectedItem = this.TargetItem != null && this.TargetItem.DataFilter
         }
 
         #endregion

@@ -21,6 +21,10 @@ namespace Misp.Sourcing.InputGrid
                 getInputGridForm().InputGridSheetForm.InputGridPropertiesPanel.SetValue(target);
             else if (getInputGridForm().SelectedIndex != 1 && !(target is Kernel.Domain.Attribute))
                 getInputGridForm().SetTarget((Target)target);
+            else
+            {
+                getInputGridForm().SetTarget((Target)target);
+            }
         }
 
         public virtual void SetPeriod(object period)
