@@ -1,5 +1,4 @@
-﻿<Window
-       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
@@ -40,7 +39,7 @@
 
             <dxnav:TileNavPane x:Name="tileNavigationPanel" Width="auto" Background="#FF839BBB" ContinuousNavigation="True" ClipToBounds="True" CloseOnOuterClick="False" >
                 <dxnav:TileNavPane.NavButtons >
-                  <dxnav:NavButton  Content="  Standard  " IsMain="False" Background="#FF839BBB" IsManipulationEnabled="True">
+                    <dxnav:NavButton  Content="  Standard  " IsMain="False" Background="#FF839BBB" IsManipulationEnabled="True">
 
                         <dxnav:TileNavCategory x:Name="reconciliation_item" Content="Reconciliation" Background="#FF839BBB" Click="reconciliation_Click"/>
                         <dxnav:TileNavCategory x:Name="dailycontrols_item" Content="Daily Controls" Background="#FF839BBB" Click="dailycontrols_Click"/>

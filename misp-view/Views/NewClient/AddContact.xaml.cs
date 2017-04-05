@@ -22,7 +22,7 @@ namespace misp_view.Views.NewClient
     public partial class AddContact : Grid
     {
 
-        public Misp.Kernel.Ui.Base.ChangeItemEventHandler Added;
+       
         public AddContact()
         {
             InitializeComponent();
@@ -77,7 +77,7 @@ namespace misp_view.Views.NewClient
         public void DeleteButton_Click(object sender, RoutedEventArgs e)
         {      
             gridMain.Children.RemoveRange(0,10);
-            string s = DClient.tbFirstName.Text + ", " + DClient.tbLastName.Text;
+            string s = tbNameClient.Text + ", " + tbLastNameClient.Text;
             ListContacts.Remove(s);
         }
 

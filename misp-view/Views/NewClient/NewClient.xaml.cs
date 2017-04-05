@@ -24,8 +24,6 @@ namespace misp_view.Views.NewClient
 
         public DetailClient detailC;
         //public ActivateEventHandler Activated;
-        public Misp.Kernel.Ui.Base.ChangeItemEventHandler Deleted;
-        public Misp.Kernel.Ui.Base.ChangeItemEventHandler Added;
         public bool trow = false;
         static int number;
 
