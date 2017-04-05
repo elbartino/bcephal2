@@ -38,6 +38,8 @@ namespace Misp.Bfc.Review
 
         bool throwHandlers;
 
+        public bool IsAlreadyLoaded { get; private set; }
+
         public bool IsChartBussy
         {
             set { this.ChartLoadingDecorator.IsSplashScreenShown = value; }
@@ -51,6 +53,7 @@ namespace Misp.Bfc.Review
 
         public SettlementEvolutionForm()
         {
+            this.IsAlreadyLoaded = false;
             this.Schemes = new List<BfcItem>(0);
             this.Platforms = new List<BfcItem>(0);
             InitializeComponent();
@@ -73,6 +76,7 @@ namespace Misp.Bfc.Review
             throwHandlers = false;
             this.Grid.ItemsSource = datas;
             throwHandlers = true;
+            this.IsAlreadyLoaded = true;
         }
 
         public void DisplayChart(List<SettlementEvolutionChartData> chartDatas) 

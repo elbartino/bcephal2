@@ -45,11 +45,11 @@
 
 
     <dxg:GridColumn Style="{StaticResource GridColumn}" AllowCellMerge="True" Width="100"  Header="Advisement N°" FieldName="replenishmentInstruction"/>
-    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Sent Date" FieldName="sentDate"/>
-    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Value Date" FieldName="valueDate"/>
+    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="75"  Header="Sent Date" FieldName="sentDate"/>
+    <dxg:GridColumn Style="{StaticResource GridColumn}" Width="75"  Header="Value Date" FieldName="valueDate"/>
     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="Member Bank" FieldName="memberBankName"/>
     <dxg:GridColumn Style="{StaticResource GridColumn}" Width="100"  Header="PML" FieldName="pml"/>
-    <dxg:GridColumn Style="{StaticResource AgeingGridColumn}" Width="100"  Header="Amount Type" FieldName="amountType"/>
+    <dxg:GridColumn Style="{StaticResource AgeingGridColumn}" Width="80"  Header="Amount Type" FieldName="amountType"/>
     <dxg:GridColumn Style="{StaticResource AgeingGridColumn}" Width="100"  Header="Late Collection Amount" FieldName="lateCollectionAmount">
         <dxg:GridColumn.EditSettings>
             <dxe:TextEditSettings DisplayFormat="N2"/>
