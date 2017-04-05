@@ -37,6 +37,23 @@ namespace Misp.Bfc.Review
             return this.reviewService;
         }
 
+        public void SearchIfNotYetLoaded()
+        {
+            bool search = false;
+            if (getReviewBrowser().Form.TabControl.SelectedIndex == 0)
+            {
+                search = !getReviewBrowser().Form.PrefundingAccountForm.IsAlreadyLoaded;
+            }
+            else if (getReviewBrowser().Form.TabControl.SelectedIndex == 1)
+            {
+                search = !getReviewBrowser().Form.SettlementEvolutionForm.IsAlreadyLoaded;
+            }
+            else if (getReviewBrowser().Form.TabControl.SelectedIndex == 2)
+            {
+                search = !getReviewBrowser().Form.AgeingBalanceForm.IsAlreadyLoaded;
+            }
+            if (search) Search();
+        }
 
         public override OperationState Search() 
         {
@@ -199,7 +216,7 @@ namespace Misp.Bfc.Review
         
         private void OnSelectTabChanged(object sender, DevExpress.Xpf.Core.TabControlSelectionChangedEventArgs e)
         {
-            this.Search();        
+            SearchIfNotYetLoaded();
         }
 
 

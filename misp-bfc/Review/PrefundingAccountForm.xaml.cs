@@ -32,6 +32,8 @@ namespace Misp.Bfc.Review
 
         public List<BfcItem> Pmls { get; private set; }
 
+        public bool IsAlreadyLoaded { get; private set; }
+
         bool throwHandlers;
 
         #endregion
@@ -41,6 +43,7 @@ namespace Misp.Bfc.Review
 
         public PrefundingAccountForm()
         {
+            this.IsAlreadyLoaded = false;
             InitializeComponent();
             this.Schemes = new List<BfcItem>(0);
             this.Pmls = new List<BfcItem>(0);
@@ -113,6 +116,7 @@ namespace Misp.Bfc.Review
             this.RatioPFPeakMa24MonthsTextBox.Text = NumberUtil.ToGermanFormat(data.ratioPFPeak);
             this.TotalBalancePFAccountTextBox.Text = NumberUtil.ToGermanFormat(data.totalBalancePFAccount);
             throwHandlers = true;
+            this.IsAlreadyLoaded = true;
         }
 
         public void FillFilter(ReviewFilter filter)
