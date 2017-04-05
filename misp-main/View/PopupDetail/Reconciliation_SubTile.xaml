@@ -1,0 +1,28 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Moriset_Main_final.View.PoPupDetail"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" x:Class="Moriset_Main_final.View.PoPupDetail.Reconciliation_SubTile"
+        mc:Ignorable="d" WindowStyle="None" ShowInTaskbar="True" WindowState="Normal" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
+        Title="RecoTile" Height="68" Width="962.667" Deactivated="desactiv">
+    <Grid  Background="Transparent" x:Name="gridFile" Margin="0"  >
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Height="60" Width="142" Content="Reco 1" Click="Button_Click" x:Name="btn1"  Background="Red" dx:ThemeManager.ThemeName="None"  />
+            <Label Width="20"/>
+            <Button x:Name="btn2" Height="60" Width="142" Content="Reco 2"  Background="Red" dx:ThemeManager.ThemeName="None"/>
+            <Label Width="20"/>
+            <Button x:Name="btn3" Height="60" Width="142" Content="Reco 3" Background="Red" dx:ThemeManager.ThemeName="None"/>
+            <Label Width="20"/>
+            <Button x:Name="btn4" Height="60" Width="142" Content="Reco 4" Background="Red" dx:ThemeManager.ThemeName="None"/>
+            <Label Width="20"/>
+            <Button x:Name="btn5" Height="60" Width="142" Content="Reco 5" Background="Red" dx:ThemeManager.ThemeName="None"/>
+            <Label Width="20"/>
+            <Button x:Name="btn6" Height="60" Width="142" Content="Reco 6" Background="Green" dx:ThemeManager.ThemeName="None"/>
+        </StackPanel>
+
+    </Grid>
+
+</Window>

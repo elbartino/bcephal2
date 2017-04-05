@@ -1,0 +1,62 @@
+﻿<Window
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation"
+        xmlns:local="clr-namespace:Moriset_Main_final"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+        xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" 
+    xmlns:myControls="clr-namespace:misp_view.Views.Review;assembly=misp-view"
+        x:Class="Moriset_Main_final.MainWindow"
+        WindowState="Maximized"
+        Title="RCCP - B-Cephal" Height="600" Width="1000">
+
+
+
+    <Window.Resources>
+        <ContextMenu x:Key="cmButton" >
+            <MenuItem Header="Edit" x:Name="editMenu" Click="editMenu_Click"/>
+            <MenuItem Header="Hide"  x:Name="hideMenu" Click="hideMenu_Click"/>
+        </ContextMenu>
+    </Window.Resources>
+
+    <Grid Margin="0,0,0,0" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="toolBarGrid" Height="38" VerticalAlignment="Top">
+            <Image x:Name="Logo" Source="Resources\Images\Logo\bcephal.png" Stretch="Uniform" HorizontalAlignment="Left" Width="152" Margin="20,0,0,0" MouseDown="Logo_MouseDown"/>
+        </Grid>
+
+        <Grid Height="58"  Margin="0,43,0,0" VerticalAlignment="Top">
+
+            <dxnav:TileNavPane x:Name="tileNavigationPanel" Width="auto" Background="#FF839BBB" ContinuousNavigation="True" ClipToBounds="True" CloseOnOuterClick="False" >
+                <dxnav:TileNavPane.NavButtons >
+                  <dxnav:NavButton  Content="  Standard  " IsMain="False" Background="#FF839BBB" IsManipulationEnabled="True">
+
+                        <dxnav:TileNavCategory x:Name="reconciliation_item" Content="Reconciliation" Background="#FF839BBB" Click="reconciliation_Click"/>
+                        <dxnav:TileNavCategory x:Name="dailycontrols_item" Content="Daily Controls" Background="#FF839BBB" Click="dailycontrols_Click"/>
+                        <dxnav:TileNavCategory x:Name="pf_account_review_item" Content="PF Account Review" Background="#FF839BBB" Click="pf_account_review_Click"/>
+                        <dxnav:TileNavCategory x:Name="reconciliation_report_item" Content="Reconciliation Report" Background="#FF839BBB" Click="reconciliation_report_Click"/>
+                        <dxnav:TileNavCategory x:Name="settlement_evolution_item" Content="Settlement Evolution" Background="#FF839BBB" Click="settlement_evolution_Click"/>
+                        <dxnav:TileNavCategory x:Name="new_advisement_item" Content="New Advisement" Background="#FF839BBB" Click="new_advisement_Click"/>
+                        <dxnav:TileNavCategory x:Name="ageing_balance_item" Content="Ageing Balance" Background="#FF839BBB" Click="ageing_balance_Click"/>
+                        <dxnav:TileNavCategory x:Name="bank_account_item" Content="Bank Account" Background="#FF839BBB" Click="bank_account_Click"/>
+                        <dxnav:TileNavCategory x:Name="list_advisements_item" Content="List Advisements" Background="#FF839BBB" Click="list_advisement_Click"/>
+
+                    </dxnav:NavButton>
+                </dxnav:TileNavPane.NavButtons>
+            </dxnav:TileNavPane>
+        </Grid>
+        <dxlc:TileLayoutControl x:Name="customTileLayout" ShowLayerSeparators="True" Padding="4" MaximizedElementPosition="Left" AllowGroupHeaderEditing="True" DragScrolling="False" Margin="10,140,10,10" Background="{x:Null}" />
+
+    </Grid>
+</Window>

@@ -1,0 +1,33 @@
+﻿<Window x:Class="Moriset_Main_final.View.PopupDetail.ReconciliationReport_SubTile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Moriset_Main_final.View.PoPupDetail"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        mc:Ignorable="d" WindowStyle="None" ShowInTaskbar="True" WindowState="Normal" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
+        Title="ReconciliationReport" Height="70.667" Width="965.333" Deactivated="desactiv">
+
+    <Grid  Background="Transparent" x:Name="gridFile" Margin="0" >
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0" Width="1000">
+            <Label Width="20"/>
+            <Button x:Name="btn1" Height="60" Width="142" Content="Report Reco 1"/>
+            <Label Width="20"/>
+            <Button x:Name="btn2" Height="60" Width="142" Content="Report Reco 2"/>
+            <Label Width="20"/>
+            <Button x:Name="btn3" Height="60" Width="142" Content="Report Reco 3"/>
+            <Label Width="20"/>
+            <Button x:Name="btn4" Height="60" Width="142" Content="Report Reco 4"/>
+            <Label Width="20"/>
+            <Button x:Name="btn5" Height="60" Width="142" Content="Report Reco 5"/>
+            <Label Width="20"/>
+            <Button x:Name="btn6" Height="60" Width="142" Content="Report Reco 6"/>
+            <Label Width="20"/>
+        </StackPanel>
+
+    </Grid>
+</Window>
+
+
+
+  

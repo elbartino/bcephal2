@@ -1,0 +1,47 @@
+﻿<dx:DXWindow
+    x:Class="Moriset_Main_final.View.Edit"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    Title="Edit" Height="191.412" Width="442.08" ResizeMode="NoResize" WindowStyle="none"
+    >
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="195"/>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" x:Name="paGrid">
+
+                        <StackPanel>
+                            <Label x:Name="lSelectColor" Content="Select Shape Color " Height="25" HorizontalAlignment="Right"/>
+                            <Label Content="" Height="5"/>
+                            <Label x:Name="lSelectTextColor" Content="Select Text Color " HorizontalAlignment="Right" Height="25"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1" Margin="0.333,0,0,-37.667">
+                        <StackPanel HorizontalAlignment="Left" MaxWidth="200" Margin="0,0,0,-35.667">
+                            <dxe:PopupColorEdit x:Name="colorTile" Width="200" Color="#FF839BBB"/>
+                            <Label Content="" Height="10"/>
+                            <dxe:PopupColorEdit x:Name="textColorTile" Width="200" Color="White"/>
+                            <Label Height="10"/>
+                            <Button Content="OK" HorizontalAlignment="Right" Height="32" VerticalAlignment="Bottom" Width="121" Click="Button_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</dx:DXWindow>

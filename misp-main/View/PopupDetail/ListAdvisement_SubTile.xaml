@@ -1,0 +1,34 @@
+﻿<Window x:Class="Moriset_Main_final.View.PopupDetail.ListAdvisement_SubTile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Moriset_Main_final.View.PoPupDetail"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        mc:Ignorable="d" WindowStyle="None" ShowInTaskbar="True" WindowState="Normal" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
+        Title="List Advisement" Height="68" Width="646.333" x:Name="RubanListAdisement" Deactivated="desactiv">
+    <Grid  Background="Transparent" x:Name="gridFile" Margin="0,0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+        <StackPanel Orientation="Horizontal" Width="638" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Button x:Name="pf_advisements" Height="60" Width="142" Click="pf_advisements_Click">
+                <TextBlock Text="Pre-funding Advisements" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button>
+            <Label Width="20"/>
+            <Button x:Name="member_bank_advisements" Height="60" Width="142"  Click="member_bank_advisements_Click">
+                <TextBlock Text="Member Bank Advisements" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button>
+            <Label Width="20"/>
+            <Button x:Name="replenishment_instructions" Height="60" Width="142"  Click="replenishment_instructions_Click">
+                <TextBlock Text="Replenishment Instructions" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button>
+            <Label Width="20"/>
+            <Button x:Name="settlement_advisements" Height="60" Width="142"  Click="settlement_advisements_Click">
+                <TextBlock Text="Settlement Advisements" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button>
+            <Label Width="20"/>
+
+        </StackPanel>
+
+    </Grid>
+</Window>
+
