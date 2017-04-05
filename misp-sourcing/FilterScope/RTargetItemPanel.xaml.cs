@@ -250,7 +250,12 @@ namespace Misp.Sourcing.FilterScope
             bool showFilterText = !(selectedFilter == FilterScopeValues.IS_BLANCK
                     || selectedFilter == FilterScopeValues.NOT_BLANCK);
             this.filterTextBox.Visibility = showFilterText ? Visibility.Visible : Visibility.Collapsed;
-            this.formulaTextBox.Visibility = System.Windows.Visibility.Collapsed;
+            showFormulaView(false);
+        }
+
+        private void showFilterHeader(bool show)
+        {
+            this.targetFormula.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private bool IsFilterViewVisible(Kernel.Domain.Attribute attribute)
@@ -258,13 +263,12 @@ namespace Misp.Sourcing.FilterScope
             bool show = attribute != null;
             this.FilterComboBox.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
             this.filterTextBox.Visibility = System.Windows.Visibility.Collapsed;
-            showFormulaView(!show);
             return show;
         }
 
         private void showFormulaView(bool show)
         {
-            this.FormulaTextBox.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+            this.formulaTextBox.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void showHeader(bool show) 

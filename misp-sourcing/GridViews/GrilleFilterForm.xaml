@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:src="clr-namespace:Misp.Sourcing.Table" 
+             xmlns:filter="clr-namespace:Misp.Sourcing.FilterScope" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Background="White">
     <Grid.RowDefinitions>
@@ -29,7 +30,7 @@
                 <RowDefinition x:Name="PeriodFilter" Height="*"/>
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0" Grid.Column="0" x:Name="targetFilterGroupBox" Header="Filter">
-                <src:TargetPanel  x:Name="targetFilter" x:FieldModifier="public" />
+                <filter:RTargetPanel  x:Name="targetFilter" x:FieldModifier="public" />
             </GroupBox>
             <GroupBox Grid.Row="1" Grid.Column="0" x:Name="periodfFilterGroupBox" Header="Period"  >
                 <src:RPeriodPanel x:Name="periodFilter" x:FieldModifier="public" />
