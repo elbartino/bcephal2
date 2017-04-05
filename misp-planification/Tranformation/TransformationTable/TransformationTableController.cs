@@ -26,6 +26,8 @@ namespace Misp.Planification.Tranformation.TransformationTable
             ((StructuredReportSideBar)SideBar).StructuredReportGroup.StructuredReportTreeview.AddStructuredReport(report);
             StructuredReportEditorItem page = (StructuredReportEditorItem)getEditor().addOrSelectPage(report);
             initializePageHandlers(page);
+            page.CanRename = true;
+            page.CanSave = true;
             page.Title = report.name;
             page.IsModify = true;
             getEditor().ListChangeHandler.AddNew(report);
@@ -35,6 +37,11 @@ namespace Misp.Planification.Tranformation.TransformationTable
             return OperationState.CONTINUE;
         }
 
+        public override void CustomizeForUser(EditorItem<Misp.Kernel.Domain.StructuredReport> page)
+        {            
+            page.CanRename = true;
+            page.CanSave = true;
+        }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.
