@@ -68,6 +68,12 @@ namespace Misp.Planification.PresentationView
 
         #endregion
 
+        public override void CustomizeForUser(EditorItem<Presentation> page)
+        {
+            page.CanRename = true;
+            page.CanSave = true;
+        }
+
         public void RemoveMenuCommands()
         {
             RemoveCommands();
