@@ -24,7 +24,6 @@ namespace Misp.Sourcing.Table
     {
 
         public RPeriodPanel reportPeriodPanel;
-        public RTargetPanel reportTargetPanel;
         public bool isReport;
         public bool thowEvent = false;
 
@@ -62,8 +61,7 @@ namespace Misp.Sourcing.Table
             if (reportPeriodPanel != null) this.reportPeriodPanel.DisplayPeriod(table.period, true,readOnly);
             else periodPanel.DisplayPeriod(table.period, true,readOnly);
             
-            if(reportTargetPanel != null) this.reportTargetPanel.DisplayScope(table.correctFilter(),isNoAllocation,readOnly);
-            else filterScopePanel.DisplayScope(table.correctFilter(),isNoAllocation,readOnly);
+            filterScopePanel.DisplayScope(table.correctFilter(),isNoAllocation,readOnly);
             thowEvent = true;
         }
 
@@ -106,8 +104,6 @@ namespace Misp.Sourcing.Table
         {
             if (reportPeriodPanel == null) reportPeriodPanel = new RPeriodPanel();
             periodGroupBox.Content = reportPeriodPanel;
-            if (reportTargetPanel == null) reportTargetPanel = new RTargetPanel();
-            filterGroupBox.Content = reportTargetPanel;
         }
         
         public void Expand(bool expand)
