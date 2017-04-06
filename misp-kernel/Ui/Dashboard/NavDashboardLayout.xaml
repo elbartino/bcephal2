@@ -8,5 +8,5 @@
              DragScrolling="False" Margin="10,140,10,10" Background="{x:Null}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    
+
 </dxlc:TileLayoutControl>

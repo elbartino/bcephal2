@@ -26,6 +26,8 @@ namespace Misp.Kernel.Ui.Dashboard
         #region Properties
 
         public ChangeItemEventHandler Selection { get; set; }
+        public ChangeItemEventHandler Hide { get; set; }
+        public ChangeItemEventHandler Edit { get; set; }
 
         #endregion
 
@@ -59,6 +61,27 @@ namespace Misp.Kernel.Ui.Dashboard
         private void OnClick(object sender, EventArgs e)
         {
             if (Selection != null) Selection(this);
+        }
+
+        private void OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is NavDashboardBlock)
+            {
+                NavDashboardBlock block = (NavDashboardBlock)sender;
+                ContextMenu contextMenu = this.FindResource("block_context_menu") as ContextMenu;
+                contextMenu.PlacementTarget = block;
+                contextMenu.IsOpen = true;
+            }
+        }
+
+        private void OnEdit(object sender, RoutedEventArgs e)
+        {
+            if (Edit != null) Edit(this);
+        }
+
+        private void OnHide(object sender, RoutedEventArgs e)
+        {
+            if (Hide != null) Hide(this);
         }
 
         #endregion
