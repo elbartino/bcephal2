@@ -26,6 +26,7 @@ namespace Misp.Kernel.Ui.Dashboard
         #region Properties
 
         public ChangeItemEventHandler Selection { get; set; }
+        public ChangeItemEventHandler BlockHide { get; set; }
 
         #endregion
 
@@ -59,6 +60,7 @@ namespace Misp.Kernel.Ui.Dashboard
             block.Hide -= OnBlockHided;
             block.Edit -= OnBlockEdited;
             this.Children.Remove(block);
+            block.Dispose();
         }
 
         #endregion
@@ -88,55 +90,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         private void OnBlockHided(object item)
         {
-            if (item != null && item is NavDashboardBlock)
-            {
-                NavDashboardBlock block = (NavDashboardBlock)item;
-                //current.RemoveFromVisualTree();
-                //string s = current.Name;
-                //s = s + "_item";
-                //if (s == "reconciliation_item")
-                //{
-                //    reconciliation_item.IsEnabled = true;
-                //}
-                //if (s == "dailycontrols_item")
-                //{
-                //    dailycontrols_item.IsEnabled = true;
-                //}
-                //if (s == "pf_account_review_item")
-                //{
-                //    pf_account_review_item.IsEnabled = true;
-                //}
-                //if (s == "reconciliation_report_item")
-                //{
-                //    reconciliation_report_item.IsEnabled = true;
-                //}
-                //if (s == "settlement_evolution_item")
-                //{
-                //    settlement_evolution_item.IsEnabled = true;
-                //}
-                //if (s == "new_advisement_item")
-                //{
-                //    new_advisement_item.IsEnabled = true;
-                //}
-                //if (s == "ageing_balance_item")
-                //{
-                //    ageing_balance_item.IsEnabled = true;
-                //}
-                //if (s == "bank_account_item")
-                //{
-                //    bank_account_item.IsEnabled = true;
-                //}
-                //if (s == "list_advisements_item")
-                //{
-                //    list_advisements_item.IsEnabled = true;
-                //}
-
-                //cpt--;
-                //if (cpt == 0)
-                //{
-                //    current.Visibility = Visibility.Hidden;
-                //}
-            }
+            if (BlockHide != null) BlockHide(item);
         }
 
         #endregion

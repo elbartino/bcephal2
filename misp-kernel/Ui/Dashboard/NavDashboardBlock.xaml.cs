@@ -25,6 +25,8 @@ namespace Misp.Kernel.Ui.Dashboard
         
         #region Properties
 
+        public NavDashboardCategory Category { get; set; }
+
         public ChangeItemEventHandler Selection { get; set; }
         public ChangeItemEventHandler Hide { get; set; }
         public ChangeItemEventHandler Edit { get; set; }
@@ -51,7 +53,11 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Operations
 
-
+        public void Dispose()
+        {
+            this.Click -= OnClick;
+            this.MouseRightButtonDown -= OnMouseRightButtonDown;
+        }
 
         #endregion
 

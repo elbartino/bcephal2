@@ -40,7 +40,6 @@ namespace Misp.Kernel.Ui.Dashboard
         private void UserInit()
         {
             this.DashboardBar.AddCategory(new NavDashboardCategory("reconciliation_item", "Reconciliation"));
-            this.DashboardBar.AddCategory(new NavDashboardCategory("reconciliation_item", "Reconciliation"));
             this.DashboardBar.AddCategory(new NavDashboardCategory("dailycontrols_item", "Daily Controls"));
             this.DashboardBar.AddCategory(new NavDashboardCategory("pf_account_review_item", "PF Account Review"));
             this.DashboardBar.AddCategory(new NavDashboardCategory("reconciliation_report_item", "Reconciliation Report"));
@@ -67,6 +66,7 @@ namespace Misp.Kernel.Ui.Dashboard
         {
             this.DashboardBar.Selection += OnCategorySelected;
             this.DashboardLayout.Selection += OnBlockSelected;
+            this.DashboardLayout.BlockHide += OnBlockHided;
         }
 
         private void OnCategorySelected(object item)
@@ -75,7 +75,9 @@ namespace Misp.Kernel.Ui.Dashboard
             {
                 NavDashboardCategory category = (NavDashboardCategory)item;
                 NavDashboardBlock block = new NavDashboardBlock(category.Name, category.Content.ToString());
+                block.Category = category;
                 this.DashboardLayout.AddBlock(block);
+                category.IsEnabled = false;
             }
         }
 
@@ -84,6 +86,16 @@ namespace Misp.Kernel.Ui.Dashboard
             if (item != null && item is NavDashboardBlock)
             {
                 NavDashboardBlock block = (NavDashboardBlock)item;
+            }
+        }
+
+        private void OnBlockHided(object item)
+        {
+            if (item != null && item is NavDashboardBlock)
+            {
+                NavDashboardBlock block = (NavDashboardBlock)item;
+                this.DashboardLayout.RemoveBlock(block);
+                if (block.Category != null) block.Category.IsEnabled = true;
             }
         }
 
