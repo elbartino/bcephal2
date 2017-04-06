@@ -31,9 +31,6 @@ namespace misp_view.Views
 
         public static void Display()
         {
-            //
-            // Write out the results.
-            //
             foreach (var value in listC)
             {
                 //Console.WriteLine(value);

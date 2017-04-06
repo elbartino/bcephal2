@@ -35,6 +35,21 @@
                                 <Label Content="City Code " Height="30" HorizontalAlignment="Right"/>
                                 <Label Content="City " Height="30" HorizontalAlignment="Right"/>
                             </StackPanel>
+                            <StackPanel Margin="0,315,0,0">
+                                <Label Content="Account" FontWeight="Bold"></Label>
+                                <Label Content="Scheme " Height="30" HorizontalAlignment="Right"/>
+                                <TextBox Height="25" Width="113" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left" Margin="127,0,0,0"/>
+                            </StackPanel>
+                            <StackPanel Margin="0,400,0,0">
+                                <Label Content="Status" FontWeight="Bold"></Label>
+                                <ComboBox Height="25" Width="113" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left" Margin="127,0,0,0">
+                                    <ComboBoxItem Content="Passif (no PF)"></ComboBoxItem>
+                                    <ComboBoxItem Content="Actif"></ComboBoxItem>
+                                    <ComboBoxItem Content="Under Risk Control"></ComboBoxItem>
+                                    <ComboBoxItem Content="Default"></ComboBoxItem>
+                                    <ComboBoxItem Content="Closed"></ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
                         </Grid>
                         <Grid Grid.Column="1" Margin="0,60,0,0">
                             <StackPanel Margin="20,0,0,0">
@@ -58,6 +73,10 @@
                                 <Label Height="5"/>
                                 <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
                             </StackPanel>
+                            <StackPanel Margin="0,307,0,0">
+                                <Label Content="Pre-funding Account" Height="30" HorizontalAlignment="Center"></Label>
+                                <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                            </StackPanel>
                         </Grid>
                     </Grid>
                 </ScrollViewer>
@@ -66,7 +85,7 @@
                 <ScrollViewer>
                     <StackPanel x:Name="spAddContact" Background="White">
                         <Button x:Name="AddButton" Click="AddButton_Click" Margin="-819,0,0,0" x:FieldModifier="public" Content="Add Contact" Width="100" Height="25">
-                        
+
                         </Button>
                         <!--<local:AddContact x:Name="Contact" Width="922"/>-->
                     </StackPanel>
