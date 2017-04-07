@@ -33,6 +33,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public NavDashboardBlockPropertiesDialog()
         {
+            ThemeManager.SetThemeName(this, "Office2016White");
             this.Owner = Application.ApplicationManager.Instance.MainWindow;
             InitializeComponent();
         }
