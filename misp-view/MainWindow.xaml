@@ -37,6 +37,7 @@
                 <MenuItem Header="PDF" Click="MenuItem_Click_5"></MenuItem>
                 <MenuItem Header=" Initiation">
                     <MenuItem Header="New Client" Click="MenuItem_Click_2"></MenuItem>
+                    <MenuItem Header="List Clients" Click="MenuItem_Click_6"></MenuItem>
                     <MenuItem Header="Bank Account" Click="MenuItem_Click_3"></MenuItem>
                     <MenuItem Header="Detail" Click="MenuItem_Click_4"></MenuItem>
                 </MenuItem>

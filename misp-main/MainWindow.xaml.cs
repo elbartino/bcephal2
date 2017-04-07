@@ -36,7 +36,7 @@ namespace Moriset_Main_final
 
         static int cpt = 0;
         static Tile current;
-        static int i = 1;
+
         static String[] tabTileNav = new String[50];
         
         Review a = new Review();
@@ -44,285 +44,257 @@ namespace Moriset_Main_final
         public MainWindow()
         {
             InitializeComponent();
-        }   
-////////////////////////Creation de block sur le GridLayout
-        private void reconciliation_Click(object sender, EventArgs e)
-        {
-            Tile reconciliation = new Tile();
-            
-            customTileLayout.Children.Add(reconciliation);
-            reconciliation.Content = "Reconciliation";
-            reconciliation.Name = "reconciliation";
-            reconciliation.Height = 60;
-            reconciliation.Width = 142;
-            reconciliation.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
-            reconciliation.Click += reconciliationScreen;
-            reconciliation.MouseRightButtonDown += popmenu;
-            reconciliation_item.IsEnabled = false;
-            
         }
-        private void dailycontrols_Click(object sender, EventArgs e)
-        {
-            Tile dailycontrols = new Tile();
-            customTileLayout.Children.Add(dailycontrols);
-            dailycontrols.Content = "Daily Controls";
-            dailycontrols.Name = "dailycontrols";
-            dailycontrols.Height = 60;
-            dailycontrols.Width = 142;
-            dailycontrols.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
-            dailycontrols.Click += dailyScreen;
-            dailycontrols.MouseRightButtonDown += popmenu;
-            dailycontrols_item.IsEnabled = false;
-        }
-        private void pf_account_review_Click(object sender, EventArgs e)
-        {
-            Tile pf_account_review = new Tile();
-            customTileLayout.Children.Add(pf_account_review);
-            pf_account_review.Content = "PF Account Review";
-            pf_account_review.Name = "pf_account_review";
-            pf_account_review.Height = 60;
-            pf_account_review.Width = 142;
-            pf_account_review.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
-            pf_account_review.MouseRightButtonDown += popmenu;
-            pf_account_review.Click += pf_account_reviewScreen;
-            pf_account_review_item.IsEnabled = false;
-        }
-        private void reconciliation_report_Click(object sender, EventArgs e)
-        {
-            Tile reconciliation_report = new Tile();
-            customTileLayout.Children.Add(reconciliation_report);
-            reconciliation_report.Content = "Reconciliation Report";
-            reconciliation_report.Name = "reconciliation_report";
-            reconciliation_report.Height = 60;
-            reconciliation_report.Width = 142;
-            reconciliation_report.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
-            reconciliation_report.Click += reconciliation_reportScreen;
-            reconciliation_report.MouseRightButtonDown += popmenu;
-            reconciliation_report_item.IsEnabled = false;
-        }
-        private void settlement_evolution_Click(object sender, EventArgs e)
-        {
-            Tile settlement_evolution = new Tile();
-            customTileLayout.Children.Add(settlement_evolution);
-            settlement_evolution.Content = "Settlement Evolution";
-            settlement_evolution.Name = "settlement_evolution";
-            settlement_evolution.Height = 60;
-            settlement_evolution.Width = 142;
-            settlement_evolution.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
-            settlement_evolution.MouseRightButtonDown += popmenu;
-            settlement_evolution.Click += settlement_evolutionScreen;
-            settlement_evolution_item.IsEnabled = false;
-        }
-        private void new_advisement_Click(object sender, EventArgs e)
-        {
-            Tile new_advisement = new Tile();
-            customTileLayout.Children.Add(new_advisement);
-            new_advisement.Content = "New Advisement";
-            new_advisement.Name = "new_advisement";
-            new_advisement.Height = 60;
-            new_advisement.Width = 142;
-            new_advisement.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
-            new_advisement.Click += new_advisementScreen;
-            new_advisement.MouseRightButtonDown += popmenu;
-            new_advisement_item.IsEnabled = false;
-        }
-        private void ageing_balance_Click(object sender, EventArgs e)
-        {
-            Tile ageing_balance = new Tile();
-            customTileLayout.Children.Add(ageing_balance);
-            ageing_balance.Content = "Ageing Balance";
-            ageing_balance.Name = "ageing_balance";
-            ageing_balance.Height = 60;
-            ageing_balance.Width = 142;
-            ageing_balance.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
-            ageing_balance.MouseRightButtonDown += popmenu;
-            ageing_balance.Click += ageing_balanceScreen;
-            ageing_balance_item.IsEnabled = false;
-        }
-        private void bank_account_Click(object sender, EventArgs e)
-        {
-            Tile bank_account = new Tile();
-            customTileLayout.Children.Add(bank_account);
-            bank_account.Content = "Bank Account";
-            bank_account.Name = "bank_account";
-            bank_account.Height = 60;
-            bank_account.Width = 142;
-            bank_account.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
-            bank_account.Click += bank_accountScreen;
-            bank_account.MouseRightButtonDown += popmenu;
-            bank_account_item.IsEnabled = false;
-        }
-        private void list_advisement_Click(object sender, EventArgs e)
-        {
-            Moriset_Main_final.View.Block list_advisements = new Moriset_Main_final.View.Block("list_advisements", "List Advisements");
-            customTileLayout.Children.Add(list_advisements);
-            list_advisements.MouseRightButtonDown += popmenu;
-            list_advisements.Click += list_advisementScreen;
-        }
+        #region Initialize Block
 
-        #region Properties
-        ////////////////////////Affichage du ruban(submenu)
-        private void dailyScreen(object sender, EventArgs e)
-        {
-            DailyControls_SubTile ds = new DailyControls_SubTile();
-            ds.Show(); 
-        }
-
-        #endregion
-
-        private void reconciliationScreen(object sender, EventArgs e)
-        {
-            Reconciliation_SubTile ds = new Reconciliation_SubTile();
-            ds.Show();
-        }
-        private void reconciliation_reportScreen(object sender, EventArgs e)
-        {
-            ReconciliationReport_SubTile ds = new ReconciliationReport_SubTile();
-            ds.Show();
-        }
-        private void new_advisementScreen(object sender, EventArgs e)
-        {
-            NewAdvisement_SubTile ds = new NewAdvisement_SubTile();
-            ds.Show();
-      
-        }
-        private void list_advisementScreen(object sender, EventArgs e)
-        {
-            ListAdvisement_SubTile ds = new ListAdvisement_SubTile();
-            ds.Show();
-        }
-       
-////////////////////////Affichage des fenetres(submenu)
-        private void bank_accountScreen(object sender, EventArgs e)
-        {
-            Window w = new Window();
-            BankAccount ds = new BankAccount();
-            Grid g = new Grid();
-            w.Content = g;
-            g.Children.Add(ds);
-            w.Show();
-            w.WindowState = WindowState.Maximized; 
-        }
-        private void pf_account_reviewScreen(object sender, EventArgs e)
-        {
-            Window w = new Window();
-            Review ds = new Review();
-            
-            Grid g = new Grid();
-            w.Content = g;
-            g.Children.Add(ds);
-            w.Show();
-            w.WindowState = WindowState.Maximized;
-            
-        }
-        private void settlement_evolutionScreen(object sender, EventArgs e)
-        {
-            Window w = new Window();
-            Review d = new Review();
-            Grid g = new Grid();
-            w.Content = g;
-
-            d.tabControl.SelectedIndex = 1;
-            g.Children.Add(d);
-            w.Show();
-            w.WindowState = WindowState.Maximized;
-            
-        }
-        private void ageing_balanceScreen(object sender, EventArgs e)
-        {
-            Window w = new Window();
-            Review d = new Review();
-            Grid g = new Grid();
-            w.Content = g;
-
-            d.tabControl.SelectedIndex = 2;
-            g.Children.Add(d);
-            w.Show();
-            w.WindowState = WindowState.Maximized;
-            
-        }
-////////////////////////Right_Click ContextMenu
-        private void popmenu(object sender, EventArgs e)
-        {
-            if (sender is Tile)
-            {
-                ContextMenu cm = this.FindResource("cmButton") as ContextMenu;
-                cm.PlacementTarget = sender as Button;
-                cm.IsOpen = true;
-                current = sender as Tile;
-            }
-        }
-        private void editMenu_Click(object sender, RoutedEventArgs e)
-        {
-            Edit edit = new Edit();
-            edit.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            edit.ShowDialog();
-            Color tileColor = edit.colorTile.Color;
-            Color textColor = edit.textColorTile.Color;
-            current.Background = new SolidColorBrush(tileColor);
-            current.Foreground = new SolidColorBrush(textColor);        
-        }
-        private void hideMenu_Click(object sender, RoutedEventArgs e)
-        {
-            current.RemoveFromVisualTree();
-            string s = current.Name;
-            s = s + "_item";
-            if (s == "reconciliation_item")
-            {
-                reconciliation_item.IsEnabled = true;
-            }
-            if (s == "dailycontrols_item")
-            {
-                dailycontrols_item.IsEnabled = true; 
-            }
-            if (s == "pf_account_review_item")
-            {
-                pf_account_review_item.IsEnabled = true;
-            }
-            if (s == "reconciliation_report_item")
-            {
-                reconciliation_report_item.IsEnabled = true;
-            }
-            if (s == "settlement_evolution_item")
-            {
-                settlement_evolution_item.IsEnabled = true; 
-            }
-            if (s == "new_advisement_item")
-            {
-                new_advisement_item.IsEnabled = true;
-            }
-            if (s == "ageing_balance_item")
-            {
-                ageing_balance_item.IsEnabled = true; 
-            }
-            if (s == "bank_account_item")
-            {
-                bank_account_item.IsEnabled = true;
-            }
-            if (s == "list_advisements_item")
-            {
-                list_advisements_item.IsEnabled = true; 
-            }
-
-            cpt--;
-            if (cpt == 0)
-            {
-               current.Visibility = Visibility.Hidden;
-            }
-        }
-///Others
-        private void Logo_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-                if(cpt==0)
+                private void reconciliation_Click(object sender, EventArgs e)
                 {
-                    tileNavigationPanel.Visibility = Visibility.Hidden;
-                    ++cpt;                   
+                    Moriset_Main_final.View.Block block_layout = new Moriset_Main_final.View.Block("reconciliation", "Reconciliation");
+                    customTileLayout.Children.Add(block_layout);
+                    block_layout.Click += reconciliationScreen;
+                    reconciliation_item.IsEnabled = false;
+                    bool HasSubMenu = true;
+            
                 }
-                else if (cpt ==1 ){
-                    tileNavigationPanel.Visibility = Visibility.Visible;
-                    cpt = 0;
-                }  
-            }
+                private void dailycontrols_Click(object sender, EventArgs e)
+                {
+                    Moriset_Main_final.View.Block block_layout = new Moriset_Main_final.View.Block("dailycontrols", "Daily Controls");
+                    customTileLayout.Children.Add(block_layout);
+                    block_layout.MouseRightButtonDown += popmenu;
+                    block_layout.Click += dailyScreen;
+                    dailycontrols_item.IsEnabled = false;
+                    bool HasSubMenu = true;
+                }
+                private void pf_account_review_Click(object sender, EventArgs e)
+                {
+                    Moriset_Main_final.View.Block block_layout = new Moriset_Main_final.View.Block("pf_account_review", "PF Account Review");
+                    customTileLayout.Children.Add(block_layout);
+                    block_layout.MouseRightButtonDown += popmenu;
+                    block_layout.Click += pf_account_reviewScreen;
+                    pf_account_review_item.IsEnabled = false;
+                    bool HasSubMenu = false;
+                }
+                private void reconciliation_report_Click(object sender, EventArgs e)
+                {
+                    Moriset_Main_final.View.Block block_layout = new Moriset_Main_final.View.Block("reconciliation_report", "Reconciliation Report");
+                    customTileLayout.Children.Add(block_layout);
+                    block_layout.MouseRightButtonDown += popmenu;
+                    block_layout.Click += reconciliation_reportScreen;
+                    reconciliation_report_item.IsEnabled = false;
+                    bool HasSubMenu = true;
+                }
+                private void settlement_evolution_Click(object sender, EventArgs e)
+                {
+                    Moriset_Main_final.View.Block block_layout = new Moriset_Main_final.View.Block("settlement_evolution", "Settlement Evolution");
+                    customTileLayout.Children.Add(block_layout);
+                    block_layout.MouseRightButtonDown += popmenu;
+                    block_layout.Click += settlement_evolutionScreen;
+                    settlement_evolution_item.IsEnabled = false;
+                    bool HasSubMenu = false;
+                }
+                private void new_advisement_Click(object sender, EventArgs e)
+                {
+                    Moriset_Main_final.View.Block block_layout = new Moriset_Main_final.View.Block("new_advisement", "New Advisement");
+                    customTileLayout.Children.Add(block_layout);
+                    block_layout.MouseRightButtonDown += popmenu;
+                    block_layout.Click += new_advisementScreen;
+                    new_advisement_item.IsEnabled = false;
+                    bool HasSubMenu = true;
+                }
+                private void ageing_balance_Click(object sender, EventArgs e)
+                {
+                    Moriset_Main_final.View.Block block_layout = new Moriset_Main_final.View.Block("ageing_balance", "Ageing Balance");
+                    customTileLayout.Children.Add(block_layout);
+                    block_layout.MouseRightButtonDown += popmenu;
+                    block_layout.Click += ageing_balanceScreen;
+                    ageing_balance_item.IsEnabled = false;
+                    bool HasSubMenu = false;
+                }
+                private void bank_account_Click(object sender, EventArgs e)
+                {
+                    Moriset_Main_final.View.Block block_layout = new Moriset_Main_final.View.Block("bank_account", "Bank Account");
+                    customTileLayout.Children.Add(block_layout);
+                    block_layout.MouseRightButtonDown += popmenu;
+                    block_layout.Click += bank_accountScreen;
+                    bank_account_item.IsEnabled = false;
+                    bool HasSubMenu = false;
+                }
+                private void list_advisement_Click(object sender, EventArgs e)
+                {
+                    Moriset_Main_final.View.Block block_layout = new Moriset_Main_final.View.Block("list_advisements", "List Advisements");
+                    customTileLayout.Children.Add(block_layout);
+                    block_layout.MouseRightButtonDown += popmenu;
+                    block_layout.Click += list_advisementScreen;
+                    list_advisements_item.IsEnabled = false;
+                    bool HasSubMenu = true;
+                  
+                }
+                #endregion
+        #region Properties SubMenu
+
+                private void dailyScreen(object sender, EventArgs e)
+                {
+                    DailyControls_SubTile ds = new DailyControls_SubTile();
+                    ds.Show(); 
+                }
+
+                private void reconciliationScreen(object sender, EventArgs e)
+                {
+                    Reconciliation_SubTile ds = new Reconciliation_SubTile();
+                    ds.Show();
+                }
+                private void reconciliation_reportScreen(object sender, EventArgs e)
+                {
+                    ReconciliationReport_SubTile ds = new ReconciliationReport_SubTile();
+                    ds.Show();
+                }
+                private void new_advisementScreen(object sender, EventArgs e)
+                {
+                    NewAdvisement_SubTile ds = new NewAdvisement_SubTile();
+                    ds.Show();
+      
+                }
+                private void list_advisementScreen(object sender, EventArgs e)
+                {
+                    ListAdvisement_SubTile ds = new ListAdvisement_SubTile();
+                    ds.Show();
+                }
+       
+                #endregion
+        #region Properties Fenetres
+
+                private void bank_accountScreen(object sender, EventArgs e)
+                {
+                    Window w = new Window();
+                    BankAccount ds = new BankAccount();
+                    Grid g = new Grid();
+                    w.Content = g;
+                    g.Children.Add(ds);
+                    w.Show();
+                    w.WindowState = WindowState.Maximized; 
+                }
+                private void pf_account_reviewScreen(object sender, EventArgs e)
+                {
+                    Window w = new Window();
+                    Review ds = new Review();
+            
+                    Grid g = new Grid();
+                    w.Content = g;
+                    g.Children.Add(ds);
+                    w.Show();
+                    w.WindowState = WindowState.Maximized;
+            
+                }
+                private void settlement_evolutionScreen(object sender, EventArgs e)
+                {
+                    Window w = new Window();
+                    Review d = new Review();
+                    Grid g = new Grid();
+                    w.Content = g;
+
+                    d.tabControl.SelectedIndex = 1;
+                    g.Children.Add(d);
+                    w.Show();
+                    w.WindowState = WindowState.Maximized;
+            
+                }
+                private void ageing_balanceScreen(object sender, EventArgs e)
+                {
+                    Window w = new Window();
+                    Review d = new Review();
+                    Grid g = new Grid();
+                    w.Content = g;
+
+                    d.tabControl.SelectedIndex = 2;
+                    g.Children.Add(d);
+                    w.Show();
+                    w.WindowState = WindowState.Maximized;
+            
+                }
+                #endregion
+        #region Operations
+        
+                private void popmenu(object sender, EventArgs e)
+                {
+                    if (sender is Tile)
+                    {
+                        ContextMenu cm = this.FindResource("cmButton") as ContextMenu;
+                        cm.PlacementTarget = sender as Button;
+                        cm.IsOpen = true;
+                        current = sender as Tile;
+                    }
+                }
+                private void editMenu_Click(object sender, RoutedEventArgs e)
+                {
+                    Edit edit = new Edit();
+                    edit.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    edit.ShowDialog();
+                    Color tileColor = edit.colorTile.Color;
+                    Color textColor = edit.textColorTile.Color;
+                    current.Background = new SolidColorBrush(tileColor);
+                    current.Foreground = new SolidColorBrush(textColor);        
+                }
+                private void hideMenu_Click(object sender, RoutedEventArgs e)
+                {
+                    current.RemoveFromVisualTree();
+                    string s = current.Name;
+                    s = s + "_item";
+                    if (s == "reconciliation_item")
+                    {
+                        reconciliation_item.IsEnabled = true;
+                    }
+                    if (s == "dailycontrols_item")
+                    {
+                        dailycontrols_item.IsEnabled = true; 
+                    }
+                    if (s == "pf_account_review_item")
+                    {
+                        pf_account_review_item.IsEnabled = true;
+                    }
+                    if (s == "reconciliation_report_item")
+                    {
+                        reconciliation_report_item.IsEnabled = true;
+                    }
+                    if (s == "settlement_evolution_item")
+                    {
+                        settlement_evolution_item.IsEnabled = true; 
+                    }
+                    if (s == "new_advisement_item")
+                    {
+                        new_advisement_item.IsEnabled = true;
+                    }
+                    if (s == "ageing_balance_item")
+                    {
+                        ageing_balance_item.IsEnabled = true; 
+                    }
+                    if (s == "bank_account_item")
+                    {
+                        bank_account_item.IsEnabled = true;
+                    }
+                    if (s == "list_advisements_item")
+                    {
+                        list_advisements_item.IsEnabled = true; 
+                    }
+
+                    cpt--;
+                    if (cpt == 0)
+                    {
+                       current.Visibility = Visibility.Hidden;
+                    }
+                }
+                private void Logo_MouseDown(object sender, MouseButtonEventArgs e)
+                {
+                        if(cpt==0)
+                        {
+                            tileNavigationPanel.Visibility = Visibility.Hidden;
+                            ++cpt;                   
+                        }
+                        else if (cpt ==1 ){
+                            tileNavigationPanel.Visibility = Visibility.Visible;
+                            cpt = 0;
+                        }
+                }
+        #endregion
     }     
   }
 

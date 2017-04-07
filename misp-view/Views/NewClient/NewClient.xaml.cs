@@ -1,5 +1,7 @@
-﻿using System;
+﻿using misp_view.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +23,7 @@ namespace misp_view.Views.NewClient
     /// </summary>
     public partial class NewClient : UserControl
     {
-
+        public ObservableCollection<Client> client { get; set; }
         public DetailClient detailC;
         //public ActivateEventHandler Activated;
         public bool trow = false;
@@ -29,7 +31,13 @@ namespace misp_view.Views.NewClient
 
         public NewClient()
         {
+            
             InitializeComponent();
+            Client c = new Client();
+            client = new ObservableCollection<Client>();
+            c.ClientID = "Bobar";
+            c.Number = "1248";
+            client.Add(c);
             init();
 
         }

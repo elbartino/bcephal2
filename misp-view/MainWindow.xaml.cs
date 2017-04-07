@@ -21,6 +21,7 @@ using misp_view.Views.NewClient;
 using misp_view.Views.BankAccount;
 using misp_view.Views.Details;
 using DevExpress.Xpf.PdfViewer;
+using misp_view.Views.PDF;
 
 namespace misp_view
 {
@@ -40,6 +41,7 @@ namespace misp_view
         newSettlement s = new newSettlement();
         listSettlement ls = new listSettlement();
         NewClient nc = new NewClient();
+        ListClient lc = new ListClient();
         BankAccount ba = new BankAccount();
         public MainWindow()
         {
@@ -145,7 +147,10 @@ namespace misp_view
 
         private void MenuItem_Click_5(object sender, RoutedEventArgs e)
         {
-
+            PDFView pdf = new PDFView();
+            //pdf.CommandBarStyle = DevExpress.Xpf.DocumentViewer.CommandBarStyle.None;
+            pdf.OpenDocument("C://TEMP/Test.pdf");
+            pdf.Show();
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
@@ -156,7 +161,12 @@ namespace misp_view
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
-        }      
-                
+        }
+
+        private void MenuItem_Click_6(object sender, RoutedEventArgs e)
+        {
+            gridInfo.Children.Clear();
+            gridInfo.Children.Add(lc);
+        }
     }
 }
