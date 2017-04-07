@@ -60,9 +60,7 @@ namespace Misp.Bfc.Advisements
         protected override void initializeCommands()
         {
             base.initializeCommands();
-            ApplicationManager.MainWindow.dockingManager.DocumentContextMenu.Items.Remove(SaveAsMenuItem);
-            ApplicationManager.MainWindow.dockingManager.DocumentContextMenu.Items.Remove(DeleteMenuItem);
-            ApplicationManager.MainWindow.dockingManager.DocumentContextMenu.Items.Remove(RenameMenuItem);
+            ApplicationManager.MainWindow.dockingManager.DocumentContextMenu.Items.Clear();
         }
 
 

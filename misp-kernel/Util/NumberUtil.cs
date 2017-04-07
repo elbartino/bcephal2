@@ -15,17 +15,18 @@ namespace Misp.Kernel.Util
         /// coma as decimal separator
         /// </summary>
         /// <param name="numberValue"></param>
-        //public static string ToGermanFormat(decimal? numberValue){
+        public static string ToGermanFormat(decimal? numberValue){
+            if (numberValue == null) numberValue= 00;
+           string formatedDecimal =  numberValue.Value.ToString("N2", CultureInfo.InvariantCulture);
+           //string formatedDecimal =  numberValue.Value.ToString("N", CultureInfo.CreateSpecificCulture("de-DE"));
+          return formatedDecimal;
+        }
+
+        //public static string ToStandardFormat(decimal? numberValue){
         //    if (numberValue == null) numberValue= 00;
-        //    string formatedDecimal =  numberValue.Value.ToString("N", CultureInfo.CreateSpecificCulture("de-DE"));
+        //    string formatedDecimal =  numberValue.Value.ToString("N2", CultureInfo.InvariantCulture);
         //    return formatedDecimal;
         //}
-
-        public static string ToStandardFormat(decimal? numberValue){
-            if (numberValue == null) numberValue= 00;
-            string formatedDecimal =  numberValue.Value.ToString("N2", CultureInfo.InvariantCulture);
-            return formatedDecimal;
-        }
 
         public static string ToNormalString(string formatedString)
         {

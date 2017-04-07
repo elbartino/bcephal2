@@ -116,9 +116,9 @@ namespace Misp.Bfc.Advisements
                 else this.DCComboBox.SelectedIndex = 0;
 
 
-                this.AlreadyRequestedPrefundingTextEdit.Text = this.EditedObject.alreadyRequestedAmount.HasValue ? NumberUtil.ToStandardFormat(this.EditedObject.alreadyRequestedAmount) : "";
-                this.AmountTextEdit.Text = this.EditedObject.amount.HasValue ? NumberUtil.ToStandardFormat(this.EditedObject.amount) : "";
-                this.BalanceTextEdit.Text = this.EditedObject.balance.HasValue ? NumberUtil.ToStandardFormat(this.EditedObject.balance) : "";
+                this.AlreadyRequestedPrefundingTextEdit.Text = this.EditedObject.alreadyRequestedAmount.HasValue ? NumberUtil.ToGermanFormat(this.EditedObject.alreadyRequestedAmount) : "";
+                this.AmountTextEdit.Text = this.EditedObject.amount.HasValue ? NumberUtil.ToGermanFormat(this.EditedObject.amount) : "";
+                this.BalanceTextEdit.Text = this.EditedObject.balance.HasValue ? NumberUtil.ToGermanFormat(this.EditedObject.balance) : "";
 
                 if (this.EditedObject.valueDateTime.HasValue) this.ValueDatePicker.SelectedDate = this.EditedObject.valueDateTime;
                 this.MessageTextBlock.Text = this.EditedObject.message != null ? this.EditedObject.message : "";
@@ -153,7 +153,7 @@ namespace Misp.Bfc.Advisements
                 && this.MemberBank != null && this.Scheme != null && this.Pml != null)
             {
                 decimal amount = this.Service.getAlreadyRequestedPrefundingAmount(this.MemberBank.oid, this.Pml.oid, this.Scheme.oid);
-                this.AlreadyRequestedPrefundingTextEdit.Text = NumberUtil.ToStandardFormat(amount);
+                this.AlreadyRequestedPrefundingTextEdit.Text = NumberUtil.ToGermanFormat(amount);
                 DisplayBalanceAmount();
             }
         }
@@ -180,7 +180,7 @@ namespace Misp.Bfc.Advisements
                     }
 
                     decimal balance = alreadyRequested + amount;
-                    this.BalanceTextEdit.Text = NumberUtil.ToStandardFormat(balance);
+                    this.BalanceTextEdit.Text = NumberUtil.ToGermanFormat(balance);
                 }
                 catch (Exception) { }
             }
