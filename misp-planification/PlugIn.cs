@@ -2,6 +2,7 @@
 using Misp.Kernel.Domain;
 using Misp.Kernel.Plugin;
 using Misp.Kernel.Ui.Base.Menu;
+using Misp.Kernel.Ui.Dashboard;
 using Misp.Planification.Base;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,17 @@ namespace Misp.Planification
             List<Functionality> functionalities = new List<Functionality>(0);
             functionalities.Add(new PlanificationFunctionality());
             return functionalities;
+        }
+
+        /// <summary>
+        /// Les DashboardCategories du plugin
+        /// </summary>
+        /// <returns></returns>
+        protected override List<NavDashboardCategory> GetNavDashboardCategories()
+        {
+            List<NavDashboardCategory> categories = new List<NavDashboardCategory>(0);
+
+            return categories;
         }
 
         /// <summary>

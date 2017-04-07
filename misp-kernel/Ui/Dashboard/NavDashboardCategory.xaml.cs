@@ -26,6 +26,9 @@ namespace Misp.Kernel.Ui.Dashboard
         #region Properties
 
         public ChangeItemEventHandler Selection { get; set; }
+        public String FunctionalityCode { get; set; }
+
+        public NavDashboardBlock Block { get; set; }
 
         #endregion
 
@@ -37,11 +40,11 @@ namespace Misp.Kernel.Ui.Dashboard
             InitializeComponent();
         }
 
-        public NavDashboardCategory(String name, String title)
+        public NavDashboardCategory(String title, String functionalityCode = null)
             : this()
         {            
             this.Content = title;
-            this.Name = name;            
+            this.FunctionalityCode = functionalityCode;
         }
 
         #endregion
@@ -49,7 +52,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Operations
 
-
+        
 
         #endregion
 

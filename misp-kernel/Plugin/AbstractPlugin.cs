@@ -8,6 +8,7 @@ using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Base.Menu;
 using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Dashboard;
 
 namespace Misp.Kernel.Plugin
 {
@@ -25,6 +26,7 @@ namespace Misp.Kernel.Plugin
             this.Priority = GetPluinPriority();
             this.Menus = GetPluinMenus();
             this.Functionalities = GetPluinFunctionalities();
+            this.NavDashboardCategories = GetNavDashboardCategories();
             this.ControllerFactory = GetPluinControllerFactory();
 		}
 
@@ -53,6 +55,12 @@ namespace Misp.Kernel.Plugin
         protected abstract List<Functionality> GetPluinFunctionalities();
 
         /// <summary>
+        /// Les DashboardCategories du plugin
+        /// </summary>
+        /// <returns></returns>
+        protected abstract List<NavDashboardCategory> GetNavDashboardCategories();
+
+        /// <summary>
         /// Le ControllerFactory du plugin
         /// </summary>
         /// <returns></returns>
@@ -63,6 +71,7 @@ namespace Misp.Kernel.Plugin
         public ControllerFactory ControllerFactory { get; set; }
         public List<ApplicationMenu> Menus { get; set; }
         public List<Functionality> Functionalities { get; set; }
+        public List<NavDashboardCategory> NavDashboardCategories { get; set; }
 
 		public IPluginHost Host
 		{
@@ -79,5 +88,19 @@ namespace Misp.Kernel.Plugin
             if (obj == null || !(obj is IPlugin)) return 1;
             return this.Priority.CompareTo(((IPlugin)obj).Priority);
         }
+
+
+        protected NavDashboardCategory BuildCategory(String title, String functionality)
+        {
+            NavDashboardCategory category = new NavDashboardCategory(title, functionality);
+            return category;
+        }
+
+        protected NavDashboardBlock BuildBlock(String title, NavigationToken token = null)
+        {
+            NavDashboardBlock block = new NavDashboardBlock(title, token);
+            return block;
+        }
+
     }
 }

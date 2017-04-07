@@ -48,8 +48,12 @@ namespace Misp.Kernel.Ui.File
             this.ApplicationManager.MainWindow.NavDashboardView.Visibility = ApplicationManager.Instance.File != null && !isAdmin ? Visibility.Visible : Visibility.Collapsed;
             if (ApplicationManager.Instance.File != null)
             {
-                this.ApplicationManager.MainWindow.DashboardView.InitializeBlocks();
-                this.ApplicationManager.MainWindow.DashboardView.Refresh();
+                if (isAdmin)
+                {
+                    this.ApplicationManager.MainWindow.DashboardView.InitializeBlocks();
+                    this.ApplicationManager.MainWindow.DashboardView.Refresh();
+                }
+                else this.ApplicationManager.MainWindow.NavDashboardView.BuildCategories();
             }
         }
 

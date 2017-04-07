@@ -1,4 +1,5 @@
 ﻿using DevExpress.Xpf.LayoutControl;
+using Misp.Kernel.Application;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
@@ -26,11 +27,20 @@ namespace Misp.Kernel.Ui.Dashboard
         #region Properties
 
         public NavDashboardCategory Category { get; set; }
+        public NavDashboardBlock ParentBlock { get; set; }
+        public List<NavDashboardBlock> Children { get; set; }
+
+        public NavigationToken NavigationToken { get; set; }
 
         public ChangeItemEventHandler Selection { get; set; }
         public ChangeItemEventHandler Hide { get; set; }
         public ChangeItemEventHandler Edit { get; set; }
 
+        public bool IsLeaf { get { return this.Children.Count == 0; } }
+        public bool HasChildren { get { return this.Children.Count > 0; } }
+        public bool IsSearch { get { return this.NavigationToken != null && this.NavigationToken.ViewType == ViewType.SEARCH; } }
+        public bool IsCreation { get { return this.NavigationToken != null && this.NavigationToken.EditionMode == EditionMode.CREATE; } }
+        public bool IsEdition { get { return this.NavigationToken != null && this.NavigationToken.EditionMode == EditionMode.MODIFY; } }
 
         public Color BackgroundColor 
         { 
@@ -50,22 +60,24 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public NavDashboardBlock()
         {
+            this.Children = new List<NavDashboardBlock>(0);
             InitializeComponent();
             this.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
             this.Foreground = Brushes.White;
         }
 
-        public NavDashboardBlock(String name, String title) : this()
+        public NavDashboardBlock(String title, NavigationToken navigationToken = null)
+            : this()
         {            
             this.Content = title;
-            this.Name = name;            
+            this.NavigationToken = navigationToken;            
         }
 
         #endregion
 
 
         #region Operations
-
+        
         public void Dispose()
         {
             this.Click -= OnClick;
