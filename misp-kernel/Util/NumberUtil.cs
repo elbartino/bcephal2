@@ -11,13 +11,34 @@ namespace Misp.Kernel.Util
     public class NumberUtil
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static decimal ToDecimal(String text)
+        {
+            var format = new NumberFormatInfo();
+            format.NegativeSign = "-";
+            decimal amount = 0;
+            try 
+            {
+                if (!string.IsNullOrWhiteSpace(text)) amount = decimal.Parse(text.Trim());
+            }
+            catch(Exception e)
+            {
+                
+            }            
+            return amount;
+        }
+
+        /// <summary>
         /// dot as thousand separator, 
         /// coma as decimal separator
         /// </summary>
         /// <param name="numberValue"></param>
         public static string ToGermanFormat(decimal? numberValue){
             if (numberValue == null) numberValue= 00;
-           string formatedDecimal =  numberValue.Value.ToString("N2", CultureInfo.InvariantCulture);
+           string formatedDecimal =  numberValue.Value.ToString("N2");
            //string formatedDecimal =  numberValue.Value.ToString("N", CultureInfo.CreateSpecificCulture("de-DE"));
           return formatedDecimal;
         }
