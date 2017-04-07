@@ -54,6 +54,11 @@ namespace Misp.Bfc.Advisements
             return OperationState.CONTINUE;
         }
 
+        public override void CustomizeForUser(EditorItem<Advisement> page)
+        {
+            page.CanRename = false;
+        }
+
         /// <summary>
         /// Remove Commands
         /// </summary>
