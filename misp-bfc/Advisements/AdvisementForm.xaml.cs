@@ -311,12 +311,12 @@ namespace Misp.Bfc.Advisements
             if (!isSettlement())
             {
                 this.MemberBankComboBox.SelectionChanged += OnComboBoxSelectionChanged;
-                this.PmlComboBox.SelectionChanged += OnComboBoxSelectionChanged;
                 this.AmountTextEdit.EditValueChanged += OnAmountChanged;
                 this.DCComboBox.SelectionChanged += OnDCComboBoxSelectionChanged;
             }
 
-            this.SchemeComboBox.SelectionChanged += OnComboBoxSelectionChanged;            
+            this.SchemeComboBox.SelectionChanged += OnComboBoxSelectionChanged;
+            this.PmlComboBox.SelectionChanged += OnComboBoxSelectionChanged;           
 
             if (isSettlement() || isMember())
             {
