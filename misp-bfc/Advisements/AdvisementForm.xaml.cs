@@ -85,7 +85,17 @@ namespace Misp.Bfc.Advisements
             format.NegativeSign = "-";
             if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) this.EditedObject.alreadyRequestedAmount = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), format);
             if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) this.EditedObject.amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), format);
-            if (!string.IsNullOrWhiteSpace(this.BalanceTextEdit.Text)) this.EditedObject.balance = decimal.Parse(this.BalanceTextEdit.Text.Trim(), format);
+            if (!string.IsNullOrWhiteSpace(this.BalanceTextEdit.Text))
+            {
+                try
+                {
+                    this.EditedObject.balance = decimal.Parse(this.BalanceTextEdit.Text.Trim(), format);
+                }
+                catch (Exception e)
+                {
+                    this.EditedObject.balance = decimal.Parse(NumberUtil.ToNormalString(this.BalanceTextEdit.Text.Trim()), format);
+                }
+            }
 
             this.EditedObject.valueDateTime = this.ValueDatePicker.SelectedDate;
             this.EditedObject.message = this.MessageTextBlock.Text;
@@ -106,9 +116,9 @@ namespace Misp.Bfc.Advisements
                 else this.DCComboBox.SelectedIndex = 0;
 
 
-                this.AlreadyRequestedPrefundingTextEdit.Text = this.EditedObject.alreadyRequestedAmount.HasValue ? NumberUtil.ToGermanFormat(this.EditedObject.alreadyRequestedAmount) : "";
-                this.AmountTextEdit.Text = this.EditedObject.amount.HasValue ? NumberUtil.ToGermanFormat(this.EditedObject.amount) : "";
-                this.BalanceTextEdit.Text = this.EditedObject.balance.HasValue ? NumberUtil.ToGermanFormat(this.EditedObject.balance) : "";
+                this.AlreadyRequestedPrefundingTextEdit.Text = this.EditedObject.alreadyRequestedAmount.HasValue ? NumberUtil.ToStandardFormat(this.EditedObject.alreadyRequestedAmount) : "";
+                this.AmountTextEdit.Text = this.EditedObject.amount.HasValue ? NumberUtil.ToStandardFormat(this.EditedObject.amount) : "";
+                this.BalanceTextEdit.Text = this.EditedObject.balance.HasValue ? NumberUtil.ToStandardFormat(this.EditedObject.balance) : "";
 
                 if (this.EditedObject.valueDateTime.HasValue) this.ValueDatePicker.SelectedDate = this.EditedObject.valueDateTime;
                 this.MessageTextBlock.Text = this.EditedObject.message != null ? this.EditedObject.message : "";
@@ -143,7 +153,7 @@ namespace Misp.Bfc.Advisements
                 && this.MemberBank != null && this.Scheme != null && this.Pml != null)
             {
                 decimal amount = this.Service.getAlreadyRequestedPrefundingAmount(this.MemberBank.oid, this.Pml.oid, this.Scheme.oid);
-                this.AlreadyRequestedPrefundingTextEdit.Text = NumberUtil.ToGermanFormat(amount);
+                this.AlreadyRequestedPrefundingTextEdit.Text = NumberUtil.ToStandardFormat(amount);
                 DisplayBalanceAmount();
             }
         }
@@ -170,7 +180,7 @@ namespace Misp.Bfc.Advisements
                     }
 
                     decimal balance = alreadyRequested + amount;
-                    this.BalanceTextEdit.Text = NumberUtil.ToGermanFormat(balance);
+                    this.BalanceTextEdit.Text = NumberUtil.ToStandardFormat(balance);
                 }
                 catch (Exception) { }
             }

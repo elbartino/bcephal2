@@ -54,6 +54,18 @@ namespace Misp.Bfc.Advisements
             return OperationState.CONTINUE;
         }
 
+        /// <summary>
+        /// Remove Commands
+        /// </summary>
+        protected override void initializeCommands()
+        {
+            base.initializeCommands();
+            ApplicationManager.MainWindow.dockingManager.DocumentContextMenu.Items.Remove(SaveAsMenuItem);
+            ApplicationManager.MainWindow.dockingManager.DocumentContextMenu.Items.Remove(DeleteMenuItem);
+            ApplicationManager.MainWindow.dockingManager.DocumentContextMenu.Items.Remove(RenameMenuItem);
+        }
+
+
         public override Kernel.Application.OperationState Delete() { return OperationState.CONTINUE; }
 
         #endregion
