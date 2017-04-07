@@ -31,6 +31,18 @@ namespace Misp.Kernel.Ui.Dashboard
         public ChangeItemEventHandler Hide { get; set; }
         public ChangeItemEventHandler Edit { get; set; }
 
+
+        public Color BackgroundColor 
+        { 
+            get { return ((SolidColorBrush)this.Background).Color; }
+            set { this.Background = new SolidColorBrush(value); }
+        }
+        public Color ForegroundColor 
+        { 
+            get { return ((SolidColorBrush)this.Foreground).Color; }
+            set { this.Foreground = new SolidColorBrush(value); }
+        }
+
         #endregion
 
 
@@ -40,6 +52,7 @@ namespace Misp.Kernel.Ui.Dashboard
         {
             InitializeComponent();
             this.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
+            this.Foreground = Brushes.White;
         }
 
         public NavDashboardBlock(String name, String title) : this()

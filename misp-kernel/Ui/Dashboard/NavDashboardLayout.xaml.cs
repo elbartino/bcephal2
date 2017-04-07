@@ -78,13 +78,8 @@ namespace Misp.Kernel.Ui.Dashboard
             if (item != null && item is NavDashboardBlock)
             {
                 NavDashboardBlock block = (NavDashboardBlock)item;
-                //Edit edit = new Edit();
-                //edit.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                //edit.ShowDialog();
-                //Color tileColor = edit.colorTile.Color;
-                //Color textColor = edit.textColorTile.Color;
-                //current.Background = new SolidColorBrush(tileColor);
-                //current.Foreground = new SolidColorBrush(textColor);
+                NavDashboardBlockPropertiesDialog dialog = new NavDashboardBlockPropertiesDialog();
+                dialog.EditBlock(block);
             }            
         }
 

@@ -1,0 +1,61 @@
+﻿<dx:DXWindow x:Class="Misp.Kernel.Ui.Dashboard.NavDashboardBlockPropertiesDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+        Title="Properties" ResizeMode="NoResize" WindowStyle="ToolWindow"
+        Height="150" Width="350">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.Resources>            
+            <Style x:Key="SimpleLabel" TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="0 0 5 5"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Width" Value="100"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+            </Style>
+
+            <Style x:Key="ColorEdit" TargetType="{x:Type dxe:PopupColorEdit}">
+                <Setter Property="Margin" Value="0 0 0 5"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Width" Value="200"/>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="ShapeColorLabel" Content="Select Shape Color" Grid.Column="0" Style="{StaticResource SimpleLabel}"/>
+                <dxe:PopupColorEdit x:Name="ShapePopupColorEdit" Color="#FF839BBB" Grid.Column="1" Style="{StaticResource ColorEdit}"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="TextColorLabel" Content="Select Text Color" Grid.Column="0" Style="{StaticResource SimpleLabel}"/>
+                <dxe:PopupColorEdit x:Name="TextPopupColorEdit" Color="White" Grid.Column="1" Style="{StaticResource ColorEdit}"/>
+            </Grid>
+        </StackPanel>
+
+        <Grid Grid.Row="1" HorizontalAlignment="Right" Margin="0 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="OkButton" Content="OK" Width="80" Margin="0 0 5 0" Click="OnOk"/>
+            <Button x:Name="CancelButton" Content="Cancel" Width="80" Grid.Column="1" Margin="5 0 0 0" Click="OnCancel"/>
+        </Grid>
+    </Grid>
+
+</dx:DXWindow>
