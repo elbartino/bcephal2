@@ -40,7 +40,7 @@ namespace Misp.Bfc.Advisements
         public override Kernel.Application.OperationState Create()
         {
             Advisement advisement = new Advisement();
-            advisement.advisementType = AdvisementType.ToString();
+            advisement.advisementType = getNewPageName(AdvisementType.ToString());
             advisement.creator = ApplicationManager.User.login;
             advisement.valueDateTime = DateTime.Now;
             try
@@ -58,6 +58,12 @@ namespace Misp.Bfc.Advisements
         {
             page.CanRename = false;
         }
+
+        protected override string getNewPageName(string prefix)
+        {
+            return getAdvisementService().getNewAdvisementName(prefix);
+        }
+
 
         /// <summary>
         /// Remove Commands
