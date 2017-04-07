@@ -114,13 +114,13 @@ namespace Misp.Kernel.Ui.Dashboard
         public void BuildCategories()
         {
             observer = new PrivilegeObserver();
-            this.DashboardBar.NavButton.Items.Clear();
+            this.DashboardBar.ClearStandard();
 
             foreach (Plugin.IPlugin plugin in ApplicationManager.Instance.Plugins)
             {
                 foreach (NavDashboardCategory category in plugin.NavDashboardCategories)
                 {
-                    if (CheckUserRights(category)) this.DashboardBar.AddCategory(category);
+                    if (CheckUserRights(category)) this.DashboardBar.AddStandardCategory(category);
                 }
             }
         }

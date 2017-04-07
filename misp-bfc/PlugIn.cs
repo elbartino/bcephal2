@@ -76,10 +76,10 @@ namespace Misp.Bfc
 
             NavDashboardCategory listAdvisementCategory = BuildCategory("List Advisements", BfcFunctionalitiesCode.ADVISEMENT);
             listAdvisementCategory.Block = BuildBlock("List Advisement");
-            listAdvisementCategory.Block.Children.Add(BuildBlock("List Prefunding Advisements", NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.PREFUNDING_ADVISEMENT)));
-            listAdvisementCategory.Block.Children.Add(BuildBlock("List Memeber Advisements", NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.MEMBER_ADVISEMENT)));
-            listAdvisementCategory.Block.Children.Add(BuildBlock("List Replenishment Instructions", NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.REPLENISHMENT_INSTRUCTION_ADVISEMENT)));
-            listAdvisementCategory.Block.Children.Add(BuildBlock("List Settlement Advisements", NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.SETTLEMENT_ADVISEMENT)));
+            listAdvisementCategory.Block.Children.Add(BuildBlock("List Prefunding Advisements", NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.PREFUNDING_ADVISEMENT_LIST)));
+            listAdvisementCategory.Block.Children.Add(BuildBlock("List Memeber Advisements", NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.MEMBER_ADVISEMENT_LIST)));
+            listAdvisementCategory.Block.Children.Add(BuildBlock("List Replenishment Instructions", NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.REPLENISHMENT_INSTRUCTION_ADVISEMENT_LIST)));
+            listAdvisementCategory.Block.Children.Add(BuildBlock("List Settlement Advisements", NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.SETTLEMENT_ADVISEMENT_LIST)));
             categories.Add(listAdvisementCategory);
 
             return categories;
