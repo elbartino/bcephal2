@@ -9,6 +9,7 @@ using Misp.Initiation.Base;
 using Misp.Kernel.Ui.Base.Menu;
 using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Dashboard;
 
 
 namespace Misp.Initiation
@@ -51,6 +52,17 @@ namespace Misp.Initiation
             List<Functionality> functionalities = new List<Functionality>(0);
             functionalities.Add(new InitiationFunctionality());
             return functionalities;
+        }
+
+        /// <summary>
+        /// Les DashboardCategories du plugin
+        /// </summary>
+        /// <returns></returns>
+        protected override List<NavDashboardCategory> GetNavDashboardCategories()
+        {
+            List<NavDashboardCategory> categories = new List<NavDashboardCategory>(0);
+
+            return categories;
         }
 
         /// <summary>

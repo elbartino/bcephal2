@@ -63,7 +63,19 @@ namespace Misp.Kernel.Ui.Dashboard
             block.Dispose();
         }
 
-        #endregion
+        public void Clear()
+        {
+            int count = this.Children.Count;
+            while(count > 0)
+            {
+                UIElement elt = this.Children[0];
+                if(elt is NavDashboardBlock) this.RemoveBlock((NavDashboardBlock)elt);
+                else this.Children.Remove(elt);
+                count--;
+            }
+        }
+
+        #endregion>
 
 
         #region Handlers
