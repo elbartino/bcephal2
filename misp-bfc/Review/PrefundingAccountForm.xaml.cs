@@ -100,7 +100,7 @@ namespace Misp.Bfc.Review
 
             this.NonRecoTransactionsCreditTextBox.Text = NumberUtil.ToGermanFormat(data.notRecoTransactionCredit);
             this.NonRecoTransactionsDebitTextBox.Text = NumberUtil.ToGermanFormat(data.notRecoTransactionDebit);
-            this.NonRecoTransactionsBalanceTextBox.Text = NumberUtil.ToGermanFormat(data.notRecoTransactionBalance);                       
+            this.NonRecoTransactionsBalanceTextBox.Text = NumberUtil.ToGermanFormat(data.notRecoTransactionBalance);
 
             this.TotalCreditTextBox.Text = NumberUtil.ToGermanFormat(data.totalAccountCredit);
             this.TotalDebitTextBox.Text = NumberUtil.ToGermanFormat(data.totalAccountDebit);
@@ -110,7 +110,7 @@ namespace Misp.Bfc.Review
             this.DeltaNotReconciliatedTextBox.Text = NumberUtil.ToGermanFormat(data.deltaNotYetReconcilied);
             this.DeltaReconciliatedTextBox.Text = NumberUtil.ToGermanFormat(data.deltaReconcilied);
 
-            
+
             this.RatioPFPeakDayTextBox.Text = NumberUtil.ToGermanFormat(data.ratioPFPeak);
 
             this.RatioPFPeakMa24MonthsTextBox.Text = NumberUtil.ToGermanFormat(data.ratioPFPeak);

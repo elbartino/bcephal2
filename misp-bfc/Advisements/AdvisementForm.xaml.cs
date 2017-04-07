@@ -85,7 +85,17 @@ namespace Misp.Bfc.Advisements
             format.NegativeSign = "-";
             if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) this.EditedObject.alreadyRequestedAmount = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), format);
             if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) this.EditedObject.amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), format);
-            if (!string.IsNullOrWhiteSpace(this.BalanceTextEdit.Text)) this.EditedObject.balance = decimal.Parse(this.BalanceTextEdit.Text.Trim(), format);
+            if (!string.IsNullOrWhiteSpace(this.BalanceTextEdit.Text))
+            {
+                try
+                {
+                    this.EditedObject.balance = decimal.Parse(this.BalanceTextEdit.Text.Trim(), format);
+                }
+                catch (Exception e)
+                {
+                    this.EditedObject.balance = decimal.Parse(NumberUtil.ToNormalString(this.BalanceTextEdit.Text.Trim()), format);
+                }
+            }
 
             this.EditedObject.valueDateTime = this.ValueDatePicker.SelectedDate;
             this.EditedObject.message = this.MessageTextBlock.Text;

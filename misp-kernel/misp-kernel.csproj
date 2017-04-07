@@ -83,7 +83,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Spreadsheet.v16.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Xpf.Controls.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Controls.v16.1">
+      <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Controls.v16.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Xpf.Core.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Core.v16.1.dll</HintPath>
@@ -94,7 +96,9 @@
     <Reference Include="DevExpress.Xpf.Grid.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Grid.v16.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Xpf.LayoutControl.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.LayoutControl.v16.1">
+      <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.LayoutControl.v16.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Xpf.Ribbon.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Ribbon.v16.1.dll</HintPath>
