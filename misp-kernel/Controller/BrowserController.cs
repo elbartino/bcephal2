@@ -183,7 +183,7 @@ namespace Misp.Kernel.Controller
                 List<B> items = (List<B>)GetBrowser().Form.Grid.ItemsSource;
                 foreach (B item in items)
                 {
-                    if (item.name.ToUpper().Equals(name.ToUpper()) && item != ((B)selection))
+                    if ((item.name == null || item.name.ToUpper().Equals(name.ToUpper())) && item != selection)
                     {
                         DisplayError("Save as", "There is another item named : " + name);
                         return OperationState.STOP;
