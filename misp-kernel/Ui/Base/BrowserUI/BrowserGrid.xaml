@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              mc:Ignorable="d" SelectionMode="MultipleRow"
              d:DesignHeight="300" d:DesignWidth="300" >
 
@@ -38,6 +39,12 @@
             <Setter Property="RetainSelectionOnClickOutsideCheckBoxSelector" Value="False"/>
         </Style>
 
+        <Style x:Key="DecimalEditSettings" TargetType="{x:Type dxe:TextEditSettings}">
+            <Setter Property="MaskType" Value="Numeric"/>
+            <Setter Property="DisplayFormat" Value="N2"/>
+            <Setter Property="MaskUseAsDisplayFormat" Value="True"/>
+        </Style>
+        
         <DataTemplate x:Key="PdfHyperlinkDataTemplate">
             <TextBlock>
                 <Hyperlink NavigateUri="{Binding Data.oid}" TargetName="_blank">                            
