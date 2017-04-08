@@ -38,6 +38,14 @@
             <Setter Property="RetainSelectionOnClickOutsideCheckBoxSelector" Value="False"/>
         </Style>
 
+        <DataTemplate x:Key="PdfHyperlinkDataTemplate">
+            <TextBlock>
+                <Hyperlink NavigateUri="{Binding Data.oid}" TargetName="_blank">                            
+                    <TextBlock Text="{Binding Data.pdf}" />
+                </Hyperlink>
+            </TextBlock>
+        </DataTemplate>
+
     </dxg:GridControl.Resources>
 
     <dxg:GridControl.View>

@@ -1,4 +1,5 @@
 ﻿using DevExpress.Xpf.Editors;
+using DevExpress.Xpf.Editors.Settings;
 using DevExpress.Xpf.Grid;
 using Misp.Bfc.Model;
 using Misp.Kernel.Ui.Base;
@@ -69,10 +70,13 @@ namespace Misp.Bfc.Advisements
         protected override GridColumn getColumn(int index)
         {
             GridColumn column = base.getColumn(index);
-            
+            if ((index == 6 && isSettlement()) || index == 8)
+            {
+                column.CellTemplate = this.Form.Grid.FindResource("PdfHyperlinkDataTemplate") as DataTemplate;
+            }
             return column;
         }
-
+        
         protected override int getColumnCount()
         {
             if (isSettlement()) return 8;

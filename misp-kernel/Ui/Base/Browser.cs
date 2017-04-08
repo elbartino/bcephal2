@@ -15,6 +15,7 @@ using DataGridFilterLibrary.Support;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base.BrowserUI;
 using DevExpress.Xpf.Grid;
+using DevExpress.Xpf.Editors.Settings;
 
 namespace Misp.Kernel.Ui.Base
 {
@@ -183,7 +184,7 @@ namespace Misp.Kernel.Ui.Base
             column.Style = this.Form.Grid.FindResource("GridColumn") as Style;
             return column;
         }
-
+        
 
         protected abstract string getFieldNameAt(int index);
 
