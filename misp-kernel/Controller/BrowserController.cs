@@ -15,6 +15,8 @@ using Misp.Kernel.Util;
 using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Ui.Sidebar;
 using System.Windows.Threading;
+using DevExpress.Xpf.Grid;
+using DevExpress.Xpf.Editors.Settings;
 
 
 namespace Misp.Kernel.Controller
@@ -421,13 +423,34 @@ namespace Misp.Kernel.Controller
         {
             this.GetBrowser().Form.Grid.SelectionChanged += OnSelectionChange;
             this.GetBrowser().Form.Grid.PreviewKeyDown += new KeyEventHandler(OnKeyPress);
-            this.GetBrowser().Form.Grid.MouseDoubleClick += new MouseButtonEventHandler(OnDoubleClick);
-            //this.GetBrowser().Form.Grid.CellEditEnding += new EventHandler<DataGridCellEditEndingEventArgs>(OnCellEditEnding);
-            
+            this.GetBrowser().Form.Grid.MouseDoubleClick += new MouseButtonEventHandler(OnDoubleClick); 
+            ((TableView)this.GetBrowser().Form.Grid.View).ValidateCell += OnValidateCell;
+
             //this.GetBrowser().Form.Grid.FilterChanged += OnFilterChanged;
             this.GetBrowser().Form.PaginationBar.ChangeHandler += OnPageChange;
         }
-        
+
+        private void OnValidateCell(object sender, GridCellValidationEventArgs e)
+        {
+            if (e.Row != null)
+            {
+                if (e.CellValue != e.Value)
+                {
+                    if (e.Value == null)
+                    {
+                        e.Handled = false;
+                        e.SetError(e.Column.Header + " can't be empty!", DevExpress.XtraEditors.DXErrorProvider.ErrorType.Critical);
+                    }
+                    else if (e.Row is BrowserData)
+                    {
+                        B item = (B)e.Row;
+                        e.Handled = EditProperty(item, e);
+                    }
+                }
+                else e.Handled = true;
+            }
+        }
+                
 
         /// <summary>
         /// Initialisation des Handlers sur la ToolBar.
@@ -443,6 +466,8 @@ namespace Misp.Kernel.Controller
 
             this.GetBrowser().Form.Grid.View.ShowGridMenu += OnShowGridMenu;
         }
+
+        
 
         private void OnShowGridMenu(object sender, DevExpress.Xpf.Grid.GridMenuEventArgs e)
         {
@@ -556,26 +581,17 @@ namespace Misp.Kernel.Controller
             if (itemsSelected) this.Open();
         }
 
-        protected virtual void OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs args)
-        {
-            B item = (B)this.GetBrowser().Form.Grid.SelectedItem;
-            if(args.EditAction == DataGridEditAction.Commit) EditProperty(item, args);            
-        }
-
-        private void EditProperty(B item, DataGridCellEditEndingEventArgs args)
+        private bool EditProperty(B item, GridCellValidationEventArgs args)
         {
             String header = args.Column.Header.ToString();
-            Object value = null;
-            if (args.EditingElement is TextBox) value = ((TextBox)args.EditingElement).Text;
-            else if (args.EditingElement is CheckBox) value = ((CheckBox)args.EditingElement).IsChecked;
-            else if (args.EditingElement is ComboBox) value = ((ComboBox)args.EditingElement).SelectedItem;
+            Object value = args.Value;
             OperationState state = EditProperty(item, header, value);
             if (state == OperationState.STOP)
             {
-                args.Cancel = true;
-                //GetBrowser().Grid.CancelEdit();
-                if (args.EditingElement is TextBox) ((TextBox)args.EditingElement).SelectAll();
-            }            
+                args.Handled = false;
+                return false;
+            }
+            return true;
         }
 
         protected virtual OperationState EditProperty(B item, String header, Object value)
