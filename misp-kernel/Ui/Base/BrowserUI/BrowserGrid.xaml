@@ -6,7 +6,7 @@
              xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              mc:Ignorable="d" SelectionMode="MultipleRow"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" >
 
     <dxg:GridControl.Resources>
         <Style x:Key="GridHeader" TargetType="{x:Type Control}">
@@ -34,16 +34,17 @@
             <Setter Property="UseIndicatorForSelection" Value="False"/>
             <Setter Property="ShowCheckBoxSelectorColumn" Value="True"/>
             <Setter Property="NavigationStyle" Value="Cell"/>
-
+            <Setter Property="AlternateRowBackground" Value="#f5f9fd"/>
+            <Setter Property="RetainSelectionOnClickOutsideCheckBoxSelector" Value="False"/>
         </Style>
     </dxg:GridControl.Resources>
 
     <dxg:GridControl.View>
-        <dxg:TableView Style="{StaticResource TableView}" >
+        <dxg:TableView Style="{StaticResource TableView}">
             <dxg:TableView.RowCellMenuCustomizations>
                 <dxb:BarButtonItem x:FieldModifier="public" x:Name="NewMenuItem" Content="New" Glyph="../../../Resources/Images/Icons/New.png"/>
                 <dxb:BarButtonItem x:FieldModifier="public" x:Name="OpenMenuItem" Content="Open" Glyph="../../../Resources/Images/Icons/Open.png"/>
-                <dxb:BarButtonItem x:FieldModifier="public" x:Name="RenameMenuItem" Content="Rename" Glyph="../../../Resources/Images/Icons/Edit.png"/>
+                <!--<dxb:BarButtonItem x:FieldModifier="public" x:Name="RenameMenuItem" Content="Rename" Glyph="../../../Resources/Images/Icons/Edit.png"/>-->
                 <dxb:BarButtonItem x:FieldModifier="public" x:Name="SaveAsMenuItem" Content="Save as" Glyph="../../../Resources/Images/Icons/Copy.png"/>
                 <!--<dxb:BarButtonItem x:FieldModifier="public" x:Name="CopyMenuItem" Content="Copy" Glyph="../../../Resources/Images/Icons/Copy.png"/>
                 <dxb:BarButtonItem x:FieldModifier="public" x:Name="PasteMenuItem" Content="Paste" Glyph="../../../Resources/Images/Icons/Paste.png"/>-->

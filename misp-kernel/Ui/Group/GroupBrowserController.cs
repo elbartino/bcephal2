@@ -61,14 +61,14 @@ namespace Misp.Kernel.Ui.Group
 
         protected override void customizeContextMenu()
         {
-            this.GetBrowser().Form.Grid.RenameMenuItem.IsEnabled = false;
+            //this.GetBrowser().Form.Grid.RenameMenuItem.IsEnabled = false;
             this.GetBrowser().Form.Grid.DeleteMenuItem.IsEnabled = false;
             object item = this.GetBrowser().Form.Grid.SelectedItem;
             if (item == null || !(item is BrowserData)) return;
             int count = this.GetBrowser().Form.Grid.SelectedItems.Count;
             BrowserData data = (BrowserData)item;
             bool isDefaultGroup = !String.IsNullOrEmpty(data.name) && data.name.Equals(BGroup.DEFAULT_GROUP_NAME);
-            this.GetBrowser().Form.Grid.RenameMenuItem.IsEnabled = count == 1 && !isDefaultGroup;
+            //this.GetBrowser().Form.Grid.RenameMenuItem.IsEnabled = count == 1 && !isDefaultGroup;
             this.GetBrowser().Form.Grid.DeleteMenuItem.IsEnabled = count > 1 || !isDefaultGroup;
             
         }

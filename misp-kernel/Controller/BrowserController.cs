@@ -437,18 +437,18 @@ namespace Misp.Kernel.Controller
             base.initializeToolBarHandlers();
             this.GetBrowser().Form.Grid.NewMenuItem.ItemClick += toolBarHandlerBuilder.onNewButtonClic;
             this.GetBrowser().Form.Grid.OpenMenuItem.ItemClick += toolBarHandlerBuilder.onOpenButtonClic;
-            this.GetBrowser().Form.Grid.RenameMenuItem.ItemClick += toolBarHandlerBuilder.onRenameButtonClic;
+            //this.GetBrowser().Form.Grid.RenameMenuItem.ItemClick += toolBarHandlerBuilder.onRenameButtonClic;
             this.GetBrowser().Form.Grid.SaveAsMenuItem.ItemClick += toolBarHandlerBuilder.onSaveAsButtonClic;
             this.GetBrowser().Form.Grid.DeleteMenuItem.ItemClick += toolBarHandlerBuilder.onDeleteButtonClic;
 
-            this.GetBrowser().Form.Grid.View.ContextMenuOpening += OnContextMenuOpening;
+            this.GetBrowser().Form.Grid.View.ShowGridMenu += OnShowGridMenu;
         }
 
-        private void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+        private void OnShowGridMenu(object sender, DevExpress.Xpf.Grid.GridMenuEventArgs e)
         {
             customizeContextMenuForSelection();
         }
-
+        
         private void customizeContextMenuForSelection()
         {
             int count = this.GetBrowser().Form.Grid.SelectedItems.Count;
@@ -474,7 +474,7 @@ namespace Misp.Kernel.Controller
             }
             this.GetBrowser().Form.Grid.NewMenuItem.IsEnabled = create;
             this.GetBrowser().Form.Grid.OpenMenuItem.IsEnabled = itemsSelected;
-            this.GetBrowser().Form.Grid.RenameMenuItem.IsEnabled = saveAs && count == 1;
+            //this.GetBrowser().Form.Grid.RenameMenuItem.IsEnabled = saveAs && count == 1;
             this.GetBrowser().Form.Grid.SaveAsMenuItem.IsEnabled = saveAs && count == 1;
             //this.GetBrowser().Form.Grid.CopyMenuItem.IsEnabled = itemsSelected && create;
             //this.GetBrowser().Form.Grid.PasteMenuItem.IsEnabled = create;
