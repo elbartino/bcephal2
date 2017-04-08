@@ -37,6 +37,7 @@
             <Setter Property="AlternateRowBackground" Value="#f5f9fd"/>
             <Setter Property="RetainSelectionOnClickOutsideCheckBoxSelector" Value="False"/>
         </Style>
+
     </dxg:GridControl.Resources>
 
     <dxg:GridControl.View>

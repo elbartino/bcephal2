@@ -1,4 +1,5 @@
-﻿using DevExpress.Xpf.Grid;
+﻿using DevExpress.Xpf.Editors;
+using DevExpress.Xpf.Grid;
 using Misp.Bfc.Model;
 using Misp.Kernel.Ui.Base;
 using System;
@@ -6,7 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Misp.Bfc.Advisements
@@ -63,10 +66,17 @@ namespace Misp.Bfc.Advisements
             return "Prefunding Advisements"; 
         }
 
+        protected override GridColumn getColumn(int index)
+        {
+            GridColumn column = base.getColumn(index);
+            
+            return column;
+        }
+
         protected override int getColumnCount()
         {
-            if (isSettlement()) return 7;
-            return 9;
+            if (isSettlement()) return 8;
+            return 10;
         }
 
         protected override string getColumnHeaderAt(int index)
@@ -81,7 +91,8 @@ namespace Misp.Bfc.Advisements
                     case 3: return "Amount";
                     case 4: return "D/C";
                     case 5: return "Value date";
-                    case 6: return "Creator";
+                    case 6: return "PDF";
+                    case 7: return "Creator";
                     default: return "";
                 }
             }
@@ -96,7 +107,8 @@ namespace Misp.Bfc.Advisements
                 case 5: return "Amount";
                 case 6: return "D/C";
                 case 7: return "Value date";
-                case 8: return "Creator";
+                case 8: return "PDF";
+                case 9: return "Creator";
                 default: return "";
             }
         }
@@ -113,7 +125,8 @@ namespace Misp.Bfc.Advisements
                     case 3: return 150;
                     case 4: return 50;
                     case 5: return 100;
-                    case 6: return 100;
+                    case 6: return 50;
+                    case 7: return 100;
                     default: return 100;
                 }
             }
@@ -127,7 +140,8 @@ namespace Misp.Bfc.Advisements
                 case 5: return 100;
                 case 6: return 50;
                 case 7: return 100;
-                case 8: return 100;
+                case 8: return 50;
+                case 9: return 100;
                 default: return 100;
             }
         }
@@ -144,7 +158,8 @@ namespace Misp.Bfc.Advisements
                     case 3: return "amount";
                     case 4: return "dc";
                     case 5: return "valueDate";
-                    case 6: return "creator";
+                    case 6: return "pdf";
+                    case 7: return "creator";
                     default: return "oid";
                 }
             }
@@ -158,7 +173,8 @@ namespace Misp.Bfc.Advisements
                 case 5: return "amount";
                 case 6: return "dc";
                 case 7: return "valueDate";
-                case 8: return "creator";
+                case 8: return "pdf";
+                case 9: return "creator";
                 default: return "oid";
             }
         }
