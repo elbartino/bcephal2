@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:src="clr-namespace:Misp.Sourcing.Table" 
              xmlns:filter="clr-namespace:Misp.Sourcing.FilterScope" 
+             xmlns:gvs="clr-namespace:Misp.Sourcing.GridViews"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Background="White">
     <Grid.RowDefinitions>
@@ -29,9 +30,12 @@
                 <RowDefinition x:Name="TargetFilter" Height="*"/>
                 <RowDefinition x:Name="PeriodFilter" Height="*"/>
             </Grid.RowDefinitions>
-            <GroupBox Grid.Row="0" Grid.Column="0" x:Name="targetFilterGroupBox" Header="Filter">
-                <filter:RTargetPanel  x:Name="targetFilter" x:FieldModifier="public" />
+            <GroupBox Grid.Row="0" Grid.Column="0" x:Name="TargetPanelGroupBox" Header="Filter">
+                <gvs:GrilleFilterTargetPanel  x:Name="TargetPanel" x:FieldModifier="public" />
             </GroupBox>
+            <!--<GroupBox Grid.Row="0" Grid.Column="0" x:Name="targetFilterGroupBox" Header="Filter" Visibility="Collapsed">
+                <filter:RTargetPanel  x:Name="targetFilter" x:FieldModifier="public" />
+            </GroupBox>-->
             <GroupBox Grid.Row="1" Grid.Column="0" x:Name="periodfFilterGroupBox" Header="Period"  >
                 <src:RPeriodPanel x:Name="periodFilter" x:FieldModifier="public" />
             </GroupBox>

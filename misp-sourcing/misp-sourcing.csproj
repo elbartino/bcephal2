@@ -259,6 +259,12 @@
     <Compile Include="GridViews\GridTableView.cs" />
     <Compile Include="GridViews\GrilleBrowserForm.xaml.cs" />
     <Compile Include="GridViews\GrilleFilterForm.xaml.cs" />
+    <Compile Include="GridViews\GrilleFilterTargetItemPanel.xaml.cs">
+      <DependentUpon>GrilleFilterTargetItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GridViews\GrilleFilterTargetPanel.xaml.cs">
+      <DependentUpon>GrilleFilterTargetPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GridViews\GrilleGroup.cs" />
     <Compile Include="InputGrid\InputGridBrowser.cs" />
     <Compile Include="InputGrid\InputGridBrowserController.cs" />
@@ -505,6 +511,14 @@
     <Page Include="GridViews\GrilleFilterForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GridViews\GrilleFilterTargetItemPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GridViews\GrilleFilterTargetPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InputGrid\InputGridColumnForm.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -148,12 +148,12 @@ namespace Misp.Reconciliation.Reco
             }
             else if (this.SelectedIndex == 2)
             {
-                if (setToFilter) this.LeftGrid.GrilleBrowserForm.filterForm.targetFilter.SetTargetValue(target);
+                if (setToFilter) this.LeftGrid.GrilleBrowserForm.filterForm.TargetPanel.SetTargetValue(target);
                 else if(target is Kernel.Domain.Attribute) this.LeftGridProperties.InputGridPropertiesPanel.SetValue(target);
             }
             else if (this.SelectedIndex == 3)
             {
-                if (setToFilter) this.RightGrid.GrilleBrowserForm.filterForm.targetFilter.SetTargetValue(target);
+                if (setToFilter) this.RightGrid.GrilleBrowserForm.filterForm.TargetPanel.SetTargetValue(target);
                 else if (target is Kernel.Domain.Attribute) this.RightGridProperties.InputGridPropertiesPanel.SetValue(target);
             }
             else if (this.SelectedIndex == 4)

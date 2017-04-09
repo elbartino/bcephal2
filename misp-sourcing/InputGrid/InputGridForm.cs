@@ -73,7 +73,7 @@ namespace Misp.Sourcing.InputGrid
 
         public virtual void SetTarget(Target target)
         {
-            this.GridForm.filterForm.targetFilter.SetTargetValue(target);
+            this.GridForm.filterForm.TargetPanel.SetTargetValue(target);
         }
 
         public virtual void SetPeriodInterval(PeriodInterval interval)

@@ -1,0 +1,14 @@
+﻿<ScrollViewer x:Class="Misp.Sourcing.GridViews.GrilleFilterTargetPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:src="clr-namespace:Misp.Sourcing.GridViews"
+             mc:Ignorable="d" 
+             VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+             d:DesignHeight="150" d:DesignWidth="400">
+    <StackPanel x:Name="panel">
+        <src:GrilleFilterTargetItemPanel />
+        <src:GrilleFilterTargetItemPanel />
+    </StackPanel>
+</ScrollViewer>
