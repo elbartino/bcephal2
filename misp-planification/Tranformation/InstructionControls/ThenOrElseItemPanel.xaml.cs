@@ -321,6 +321,7 @@ namespace Misp.Planification.Tranformation.InstructionControls
             }
 
             this.TransformationTableDialog.TransformationTable = table;
+            if (BlockPanel.Loops == null) BlockPanel.Loops = new List<TransformationTreeItem>(0);
             this.TransformationTableDialog.initializeSideBarData(new ObservableCollection<TransformationTreeItem>(BlockPanel.Loops));
             this.TransformationTableDialog.DisplayItem();
             if (this.TransformationSlideDialog != null)
