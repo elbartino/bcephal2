@@ -69,9 +69,18 @@ namespace Misp.Bfc
             newAdvisementCategory.Block.Children.Add(BuildBlock("New Settlement Advisement", NavigationToken.GetCreateViewToken(BfcFunctionalitiesCode.SETTLEMENT_ADVISEMENT)));
             categories.Add(newAdvisementCategory);
 
-            categories.Add(BuildCategory("PF Account Review", BfcFunctionalitiesCode.REVIEW));
-            categories.Add(BuildCategory("Settlement Evolution", BfcFunctionalitiesCode.REVIEW));
-            categories.Add(BuildCategory("Ageing Balance", BfcFunctionalitiesCode.REVIEW));
+            NavDashboardCategory pfAccountReviewCategory = BuildCategory("PF Account Review", BfcFunctionalitiesCode.REVIEW);
+            pfAccountReviewCategory.Block = BuildBlock("PF Account Review", NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.REVIEW));
+            categories.Add(pfAccountReviewCategory);
+            
+            NavDashboardCategory settlementEvolutionCategory = BuildCategory("Settlement Evolution", BfcFunctionalitiesCode.REVIEW);
+            settlementEvolutionCategory.Block = BuildBlock("Settlement Evolution", NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.REVIEW));
+            categories.Add(settlementEvolutionCategory);
+
+            NavDashboardCategory ageingBalanceCategory = BuildCategory("Ageing Balance", BfcFunctionalitiesCode.REVIEW);
+            ageingBalanceCategory.Block = BuildBlock("Ageing Balance", NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.REVIEW));
+            categories.Add(ageingBalanceCategory);
+
             categories.Add(BuildCategory("Bank Account", BfcFunctionalitiesCode.REVIEW));
 
             NavDashboardCategory listAdvisementCategory = BuildCategory("List Advisements", BfcFunctionalitiesCode.ADVISEMENT);
