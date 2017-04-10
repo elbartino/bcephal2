@@ -14,7 +14,10 @@
         </Grid.RowDefinitions>
         <recogrid:ReconciliationFilterTemplateBottomGrid x:Name="ReconciliationGrid" Grid.Row="0"/>
 
-        <wo:WriteOffBlock Grid.Row="1" Orientation="Vertical" x:FieldModifier="public" x:Name="WriteOffBlock"/>
+        <StackPanel x:Name="WriteOffGroupBox" x:FieldModifier="public" Grid.Row="1">
+            <Label x:Name="WriteOffLabel"  Content="This reconcilation will produice a write off:" Margin="10 5"/>
+            <wo:WriteOffBlock  Orientation="Vertical" x:FieldModifier="public" x:Name="WriteOffBlock"/>
+        </StackPanel>        
 
         <Label x:FieldModifier="public" x:Name="confirmationMessageLabel" Grid.Row="2" Content="Do you confirm operation? " Margin="10 0"/>
 
