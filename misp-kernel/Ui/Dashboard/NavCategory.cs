@@ -5,46 +5,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Misp.Kernel.Ui.Dashboard
 {
-    /// <summary>
-    /// Interaction logic for NavDashboardCategory.xaml
-    /// </summary>
-    public partial class NavDashboardCategory : TileNavCategory
-    {        
+    public class NavCategory : TileNavCategory
+    {
         
         #region Properties
 
         public ChangeItemEventHandler Selection { get; set; }
         public String FunctionalityCode { get; set; }
 
-        public NavDashboardBlock Block { get; set; }
+        public NavBlock Block { get; set; }
 
         #endregion
 
 
         #region Constructors
 
-        public NavDashboardCategory()
+        public NavCategory(Object content = null, String functionalityCode = null)
         {
-            InitializeComponent();
-        }
-
-        public NavDashboardCategory(String title, String functionalityCode = null)
-            : this()
-        {            
-            this.Content = title;
+            this.Content = content;
             this.FunctionalityCode = functionalityCode;
+            this.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
+            this.Foreground = Brushes.White;
+            InitHandlers();
         }
 
         #endregion
@@ -52,12 +38,25 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Operations
 
-        
+        public void Dispose()
+        {
+            RemoveHandlers();
+        }
 
         #endregion
 
 
         #region Handlers
+
+        protected virtual void InitHandlers()
+        {
+            this.Click += OnClick;
+        }
+
+        protected virtual void RemoveHandlers()
+        {
+            this.Click -= OnClick;
+        }
 
         private void OnClick(object sender, EventArgs e)
         {

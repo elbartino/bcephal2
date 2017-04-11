@@ -17,6 +17,6 @@
 
     <src:NavDashboardBar x:Name="DashboardBar" x:FieldModifier="public" Grid.Row="0"/>
     <src:NavDashboardLayout x:Name="DashboardLayout" x:FieldModifier="public" Grid.Row="1"/>
-    <src:NavDashboardLayout x:Name="SubDashboardLayout" x:FieldModifier="public" Grid.Row="2" Height="60"/>
+    <src:NavDashboardLayout x:Name="SubDashboardLayout" x:FieldModifier="public" Grid.Row="2" Height="65"/>
 
 </Grid>

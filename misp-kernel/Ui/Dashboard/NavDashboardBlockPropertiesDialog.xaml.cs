@@ -24,7 +24,7 @@ namespace Misp.Kernel.Ui.Dashboard
         
         #region Properties
 
-        public NavDashboardBlock Block {get; protected set;}
+        public NavBlock Block {get; protected set;}
         
         #endregion
 
@@ -43,7 +43,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Operations
 
-        public void EditBlock(NavDashboardBlock block)
+        public void EditBlock(NavBlock block)
         {
             this.Block = block;
             this.Title = block.Content.ToString() + " - Properties";

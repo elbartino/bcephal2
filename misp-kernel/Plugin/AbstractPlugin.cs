@@ -58,7 +58,7 @@ namespace Misp.Kernel.Plugin
         /// Les DashboardCategories du plugin
         /// </summary>
         /// <returns></returns>
-        protected abstract List<NavDashboardCategory> GetNavDashboardCategories();
+        protected abstract List<NavCategory> GetNavDashboardCategories();
 
         /// <summary>
         /// Le ControllerFactory du plugin
@@ -71,7 +71,7 @@ namespace Misp.Kernel.Plugin
         public ControllerFactory ControllerFactory { get; set; }
         public List<ApplicationMenu> Menus { get; set; }
         public List<Functionality> Functionalities { get; set; }
-        public List<NavDashboardCategory> NavDashboardCategories { get; set; }
+        public List<NavCategory> NavDashboardCategories { get; set; }
 
 		public IPluginHost Host
 		{
@@ -90,15 +90,15 @@ namespace Misp.Kernel.Plugin
         }
 
 
-        protected NavDashboardCategory BuildCategory(String title, String functionality)
+        protected NavCategory BuildCategory(String title, String functionality)
         {
-            NavDashboardCategory category = new NavDashboardCategory(title, functionality);
+            NavCategory category = new NavCategory(title, functionality);
             return category;
         }
 
-        protected NavDashboardBlock BuildBlock(String title, NavigationToken token = null)
+        protected NavBlock BuildBlock(String title, NavigationToken token = null)
         {
-            NavDashboardBlock block = new NavDashboardBlock(title, token);
+            NavBlock block = new NavBlock(title, token);
             return block;
         }
 

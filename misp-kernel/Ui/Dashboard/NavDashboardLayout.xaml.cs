@@ -43,7 +43,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Operations
 
-        public void AddBlock(NavDashboardBlock block)
+        public void AddBlock(NavBlock block)
         {
             block.Selection -= OnBlockSelected;
             block.Hide -= OnBlockHided;
@@ -54,7 +54,7 @@ namespace Misp.Kernel.Ui.Dashboard
             this.Children.Add(block);
         }
 
-        public void RemoveBlock(NavDashboardBlock block)
+        public void RemoveBlock(NavBlock block)
         {
             block.Selection -= OnBlockSelected;
             block.Hide -= OnBlockHided;
@@ -69,7 +69,7 @@ namespace Misp.Kernel.Ui.Dashboard
             while(count > 0)
             {
                 UIElement elt = this.Children[0];
-                if(elt is NavDashboardBlock) this.RemoveBlock((NavDashboardBlock)elt);
+                if (elt is NavBlock) this.RemoveBlock((NavBlock)elt);
                 else this.Children.Remove(elt);
                 count--;
             }
@@ -87,9 +87,9 @@ namespace Misp.Kernel.Ui.Dashboard
 
         private void OnBlockEdited(object item)
         {
-            if (item != null && item is NavDashboardBlock)
+            if (item != null && item is NavBlock)
             {
-                NavDashboardBlock block = (NavDashboardBlock)item;
+                NavBlock block = (NavBlock)item;
                 NavDashboardBlockPropertiesDialog dialog = new NavDashboardBlockPropertiesDialog();
                 dialog.EditBlock(block);
             }            

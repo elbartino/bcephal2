@@ -532,17 +532,14 @@
     <Compile Include="Ui\Base\ProcessPopup.xaml.cs">
       <DependentUpon>ProcessPopup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\Dashboard\NavBlock.cs" />
+    <Compile Include="Ui\Dashboard\NavBlockContextMenu.cs" />
+    <Compile Include="Ui\Dashboard\NavCategory.cs" />
     <Compile Include="Ui\Dashboard\NavDashboardBar.xaml.cs">
       <DependentUpon>NavDashboardBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Dashboard\NavDashboardBlock.xaml.cs">
-      <DependentUpon>NavDashboardBlock.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Ui\Dashboard\NavDashboardBlockPropertiesDialog.xaml.cs">
       <DependentUpon>NavDashboardBlockPropertiesDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Ui\Dashboard\NavDashboardCategory.xaml.cs">
-      <DependentUpon>NavDashboardCategory.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Dashboard\NavDashboardLayout.xaml.cs">
       <DependentUpon>NavDashboardLayout.xaml</DependentUpon>
@@ -1004,15 +1001,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Dashboard\NavDashboardBlock.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Ui\Dashboard\NavDashboardBlockPropertiesDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Ui\Dashboard\NavDashboardCategory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -7,28 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Misp.Kernel.Ui.Dashboard
 {
-    /// <summary>
-    /// Interaction logic for NavDashboardBlock.xaml
-    /// </summary>
-    public partial class NavDashboardBlock : Tile
+    public class NavBlock : Tile
     {
         
         #region Properties
 
-        public NavDashboardCategory Category { get; set; }
-        public NavDashboardBlock ParentBlock { get; set; }
-        public List<NavDashboardBlock> Children { get; set; }
+        public NavCategory Category { get; set; }
+        public NavBlock ParentBlock { get; set; }
+        public List<NavBlock> Children { get; set; }
 
         public NavigationToken NavigationToken { get; set; }
 
@@ -58,30 +49,31 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Constructors
 
-        public NavDashboardBlock()
+        public NavBlock(Object content = null, NavigationToken navigationToken = null)
         {
-            this.Children = new List<NavDashboardBlock>(0);
-            InitializeComponent();
+            this.Children = new List<NavBlock>(0);
             this.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
             this.Foreground = Brushes.White;
+            this.Height = 55;
+            this.Width = 140;
+            this.Content = content;
+            this.NavigationToken = navigationToken;
+            InitHandlers();
         }
-
-        public NavDashboardBlock(String title, NavigationToken navigationToken = null)
-            : this()
-        {            
-            this.Content = title;
-            this.NavigationToken = navigationToken;            
-        }
-
+        
         #endregion
 
 
         #region Operations
+
+        public virtual void BeforeSelection()
+        {
+
+        }
         
         public void Dispose()
         {
-            this.Click -= OnClick;
-            this.MouseRightButtonDown -= OnMouseRightButtonDown;
+            RemoveHandlers();
         }
 
         #endregion
@@ -89,18 +81,30 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Handlers
 
+        protected virtual void InitHandlers()
+        {
+            this.Click += OnClick;
+            this.MouseRightButtonDown += OnMouseRightButtonDown;
+        }
+
+        protected virtual void RemoveHandlers()
+        {
+            this.Click -= OnClick;
+            this.MouseRightButtonDown -= OnMouseRightButtonDown;
+        }
+
         private void OnClick(object sender, EventArgs e)
         {
+            BeforeSelection();
             if (Selection != null) Selection(this);
         }
 
         private void OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (sender is NavDashboardBlock)
+            if (sender is NavBlock)
             {
-                NavDashboardBlock block = (NavDashboardBlock)sender;
-                ContextMenu contextMenu = this.FindResource("block_context_menu") as ContextMenu;
-                contextMenu.PlacementTarget = block;
+                NavBlockContextMenu contextMenu = new NavBlockContextMenu();
+                contextMenu.PlacementTarget = (NavBlock)sender;
                 contextMenu.IsOpen = true;
             }
         }
@@ -116,6 +120,7 @@ namespace Misp.Kernel.Ui.Dashboard
         }
 
         #endregion
-                
+            
+
     }
 }

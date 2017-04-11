@@ -58,9 +58,9 @@ namespace Misp.Allocation
         /// Les DashboardCategories du plugin
         /// </summary>
         /// <returns></returns>
-        protected override List<NavDashboardCategory> GetNavDashboardCategories()
+        protected override List<NavCategory> GetNavDashboardCategories()
         {
-            List<NavDashboardCategory> categories = new List<NavDashboardCategory>(0);
+            List<NavCategory> categories = new List<NavCategory>(0);
 
             return categories;
         }

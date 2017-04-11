@@ -61,9 +61,9 @@ namespace Misp.Kernel.Ui.Dashboard
 
         private void OnCategorySelected(object item)
         {
-            if (item != null && item is NavDashboardCategory)
+            if (item != null && item is NavCategory)
             {
-                NavDashboardCategory category = (NavDashboardCategory)item;
+                NavCategory category = (NavCategory)item;
                 if (category.Block != null)
                 {
                     category.Block.Category = category;
@@ -75,9 +75,9 @@ namespace Misp.Kernel.Ui.Dashboard
 
         private void OnBlockSelected(object item)
         {
-            if (item != null && item is NavDashboardBlock)
+            if (item != null && item is NavBlock)
             {
-                NavDashboardBlock block = (NavDashboardBlock)item;
+                NavBlock block = (NavBlock)item;
                 if (block.IsLeaf)
                 {
                     if(block.IsSearch) HistoryHandler.Instance.openPage(block.NavigationToken);
@@ -86,7 +86,7 @@ namespace Misp.Kernel.Ui.Dashboard
                 else
                 {
                     this.SubDashboardLayout.Clear();
-                    foreach(NavDashboardBlock child in block.Children)
+                    foreach (NavBlock child in block.Children)
                     {
                         child.ParentBlock = block;
                         this.SubDashboardLayout.AddBlock(child);
@@ -97,9 +97,9 @@ namespace Misp.Kernel.Ui.Dashboard
 
         private void OnBlockHided(object item)
         {
-            if (item != null && item is NavDashboardBlock)
+            if (item != null && item is NavBlock)
             {
-                NavDashboardBlock block = (NavDashboardBlock)item;
+                NavBlock block = (NavBlock)item;
                 this.DashboardLayout.RemoveBlock(block);
                 if (block.Category != null) block.Category.IsEnabled = true;
             }
@@ -118,14 +118,14 @@ namespace Misp.Kernel.Ui.Dashboard
 
             foreach (Plugin.IPlugin plugin in ApplicationManager.Instance.Plugins)
             {
-                foreach (NavDashboardCategory category in plugin.NavDashboardCategories)
+                foreach (NavCategory category in plugin.NavDashboardCategories)
                 {
                     if (CheckUserRights(category)) this.DashboardBar.AddStandardCategory(category);
                 }
             }
         }
 
-        private bool CheckUserRights(NavDashboardCategory category)
+        private bool CheckUserRights(NavCategory category)
         {            
             List<Right> rights = new List<Right>(0);
             bool hasPrivilage = true;

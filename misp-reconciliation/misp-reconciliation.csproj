@@ -82,6 +82,7 @@
     <Compile Include="Base\ReconciliationResourcePath.cs" />
     <Compile Include="Base\ReconciliationServiceFactory.cs" />
     <Compile Include="Base\ReconciliationFunctionality.cs" />
+    <Compile Include="Dashboard\ReconciliationBlock.cs" />
     <Compile Include="PlugIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

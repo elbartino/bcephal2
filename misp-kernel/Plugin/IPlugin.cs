@@ -49,7 +49,7 @@ namespace Misp.Kernel.Plugin
         /// <summary>
         /// NavDashboardCategories
         /// </summary>
-        List<NavDashboardCategory> NavDashboardCategories { get; set; }
+        List<NavCategory> NavDashboardCategories { get; set; }
 
     }
 }

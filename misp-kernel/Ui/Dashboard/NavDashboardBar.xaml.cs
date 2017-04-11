@@ -42,14 +42,14 @@ namespace Misp.Kernel.Ui.Dashboard
 
         #region Operations
 
-        public void AddStandardCategory(NavDashboardCategory category)
+        public void AddStandardCategory(NavCategory category)
         {
             category.Selection -= OnCategorySelected;
             category.Selection += OnCategorySelected;
             this.StandardNavButton.Items.Add(category);
         }
 
-        public void RemoveStandardCategory(NavDashboardCategory category)
+        public void RemoveStandardCategory(NavCategory category)
         {
             category.Selection -= OnCategorySelected;
             this.StandardNavButton.Items.Remove(category);
@@ -61,7 +61,7 @@ namespace Misp.Kernel.Ui.Dashboard
             while (count > 0)
             {
                 INavElement elt = this.StandardNavButton.Items[0];
-                if (elt is NavDashboardCategory) this.RemoveStandardCategory((NavDashboardCategory)elt);
+                if (elt is NavCategory) this.RemoveStandardCategory((NavCategory)elt);
                 else this.StandardNavButton.Items.Remove(elt);
                 count--;
             }

@@ -4,6 +4,7 @@ using Misp.Kernel.Plugin;
 using Misp.Kernel.Ui.Base.Menu;
 using Misp.Kernel.Ui.Dashboard;
 using Misp.Reconciliation.Base;
+using Misp.Reconciliation.Dashboard;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,11 +57,12 @@ namespace Misp.Reconciliation
         /// Les DashboardCategories du plugin
         /// </summary>
         /// <returns></returns>
-        protected override List<NavDashboardCategory> GetNavDashboardCategories()
+        protected override List<NavCategory> GetNavDashboardCategories()
         {
-            List<NavDashboardCategory> categories = new List<NavDashboardCategory>(0);
-            NavDashboardCategory recoCategory = BuildCategory("Reconciliation", ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER);
+            List<NavCategory> categories = new List<NavCategory>(0);
+            NavCategory recoCategory = BuildCategory("Reconciliation", ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER);
             recoCategory.Block = BuildBlock("Reconciliation", NavigationToken.GetSearchViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER));
+            recoCategory.Block = new ReconciliationBlock();
             categories.Add(recoCategory);
             return categories;
         }
