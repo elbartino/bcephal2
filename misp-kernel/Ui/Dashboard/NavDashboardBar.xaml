@@ -7,22 +7,11 @@
              xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation"             
              xmlns:src="clr-namespace:Misp.Kernel.Ui.Dashboard"
              Width="auto" Background="#FF839BBB" ContinuousNavigation="True" ClipToBounds="False" CloseOnOuterClick="True"                   
-             mc:Ignorable="d" d:DesignHeight="80" d:DesignWidth="500">
+             mc:Ignorable="d" d:DesignHeight="60" d:DesignWidth="500">
 
     <dxnav:TileNavPane.NavButtons >
         <dxnav:NavButton x:Name="StandardNavButton" Content="Standard" AllowGlyphTheming="True" Glyph="{dx:DXImageGrayscale Image=Customization_32x32.png}"/>
 
-
-        <dxnav:NavButton Content="Create..." HorizontalAlignment="Right" AllowGlyphTheming="True" Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}">
-            <dxnav:TileNavItem Content="Staff">
-                <dxnav:TileNavSubItem Content="Manager"/>
-                <dxnav:TileNavSubItem Content="Seller"/>
-            </dxnav:TileNavItem>
-            <dxnav:TileNavItem Content="Client"/>
-        </dxnav:NavButton>
-        <dxnav:NavButton Content="Settings" GlyphAlignment="Right" Glyph="{dx:DXImageGrayscale Image=Customization_32x32.png}" AllowGlyphTheming="True" HorizontalAlignment="Right" />
-        <dxnav:NavButton HorizontalAlignment="Right" Glyph="{dx:DXImageGrayscale Image=Cancel_32x32.png}" AllowGlyphTheming="True" />
-    
     </dxnav:TileNavPane.NavButtons>
 
 </dxnav:TileNavPane>
