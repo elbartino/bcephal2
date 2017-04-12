@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              ShowLayerSeparators="True" Padding="4" MaximizedElementPosition="Left" AllowGroupHeaderEditing="True" 
-             DragScrolling="False" Margin="10,140,10,10" Background="{x:Null}"
+             DragScrolling="False"  Background="{x:Null}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 

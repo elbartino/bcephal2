@@ -27,6 +27,8 @@ namespace Misp.Kernel.Ui.Dashboard
         public NavCategory(Object content = null, String functionalityCode = null)
         {
             this.Content = content;
+            this.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center;
+            this.VerticalContentAlignment = System.Windows.VerticalAlignment.Center;
             this.FunctionalityCode = functionalityCode;
             this.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x83, 0x9b, 0xbb));
             this.Foreground = Brushes.White;

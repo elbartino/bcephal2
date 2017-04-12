@@ -11,12 +11,14 @@
     
     <Grid.RowDefinitions>
         <RowDefinition Height="60"/>
-        <RowDefinition Height="*"/>
-        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="1*"/>
+        <RowDefinition Height="0.3*"/>
     </Grid.RowDefinitions>
 
     <src:NavDashboardBar x:Name="DashboardBar" x:FieldModifier="public" Grid.Row="0"/>
-    <src:NavDashboardLayout x:Name="DashboardLayout" x:FieldModifier="public" Grid.Row="1"/>
-    <src:NavDashboardLayout x:Name="SubDashboardLayout" x:FieldModifier="public" Grid.Row="2" Height="65"/>
+    <src:NavDashboardLayout x:Name="DashboardLayout" x:FieldModifier="public" Grid.Row="1" Padding="100 50"/>
+    <GridSplitter Height="4" ResizeDirection="Rows" Background="#fdfdfd"
+                          VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>
+    <src:NavDashboardLayout x:Name="SubDashboardLayout" x:FieldModifier="public" Grid.Row="2" Background="#f7f6f6" Padding="20 10"/>
 
 </Grid>

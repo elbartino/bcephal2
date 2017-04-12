@@ -77,8 +77,14 @@ namespace Misp.Kernel.Ui.Dashboard
             if (Selection != null) Selection(item);
         }
 
+        private void OnStandardNavButtonLostFocus(object sender, RoutedEventArgs e)
+        {
+            this.StandardNavButton.Visibility = System.Windows.Visibility.Collapsed;
+        }
 
         #endregion
+
+        
 
 
         

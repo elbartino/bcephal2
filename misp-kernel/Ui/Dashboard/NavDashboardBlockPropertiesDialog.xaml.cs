@@ -46,7 +46,7 @@ namespace Misp.Kernel.Ui.Dashboard
         public void EditBlock(NavBlock block)
         {
             this.Block = block;
-            this.Title = block.Content.ToString() + " - Properties";
+            this.Title = ((TextBlock)block.Content).Text + " - Properties";
             this.ShapePopupColorEdit.Color = block.BackgroundColor;
             this.TextPopupColorEdit.Color = block.ForegroundColor;
             WindowPositioner.ShowCenteredToMouse(this);

@@ -89,6 +89,7 @@ namespace Misp.Kernel.Ui.Dashboard
                     foreach (NavBlock child in block.Children)
                     {
                         child.ParentBlock = block;
+                        child.AllowContextMEnu = false;
                         this.SubDashboardLayout.AddBlock(child);
                     }
                 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -44,6 +45,8 @@ namespace Misp.Kernel.Ui.Dashboard
             set { this.Foreground = new SolidColorBrush(value); }
         }
 
+        public Boolean AllowContextMEnu { get; set; }
+
         #endregion
 
 
@@ -56,8 +59,17 @@ namespace Misp.Kernel.Ui.Dashboard
             this.Foreground = Brushes.White;
             this.Height = 55;
             this.Width = 140;
+            //TextBlock text = new TextBlock();
+            //text.Text = content.ToString();
+            //text.TextWrapping = TextWrapping.Wrap;
+            //this.Content = text;
             this.Content = content;
+            this.ContentTemplate = this.FindResource("NavBlockDataTemplate") as DataTemplate;
+            this.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center;
+            this.VerticalContentAlignment = System.Windows.VerticalAlignment.Center;     
+            
             this.NavigationToken = navigationToken;
+            this.AllowContextMEnu = true;
             InitHandlers();
         }
         
@@ -101,9 +113,11 @@ namespace Misp.Kernel.Ui.Dashboard
 
         private void OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (sender is NavBlock)
+            if (this.AllowContextMEnu && sender is NavBlock)
             {
                 NavBlockContextMenu contextMenu = new NavBlockContextMenu();
+                contextMenu.EditMenuItem.Click += OnEdit;
+                contextMenu.HideMenuItem.Click += OnHide;
                 contextMenu.PlacementTarget = (NavBlock)sender;
                 contextMenu.IsOpen = true;
             }
