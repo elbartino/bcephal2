@@ -23,7 +23,7 @@ namespace Misp.Bfc.Review
     /// <summary>
     /// Interaction logic for SettlementEvolutionForm.xaml
     /// </summary>
-    public partial class SettlementEvolutionForm : ScrollViewer
+    public partial class SettlementEvolutionForm : Grid
     {
 
         #region Properties

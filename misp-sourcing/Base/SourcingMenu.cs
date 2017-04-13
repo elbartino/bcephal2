@@ -37,7 +37,9 @@ namespace Misp.Sourcing.Base
         public ApplicationMenu NewAutomaticGridMenu { get; private set; }
         public ApplicationMenu ListAutomaticGridMenu { get; private set; }
         public ApplicationMenu ListInputGridMenu { get; private set; }
-
+        
+        public ApplicationMenu LinkedAttributeGridMenu { get; private set; }
+        
         public ApplicationMenu EnrichmentTableMenu { get; private set; }
         public ApplicationMenu NewEnrichmentTableMenu { get; private set; }
         public ApplicationMenu NewAutomaticEnrichmentTableMenu { get; private set; }
@@ -57,6 +59,7 @@ namespace Misp.Sourcing.Base
             List<Control> menus = new List<Control>(0); 
             menus.Add(InputTableMenu);
             menus.Add(GridMenu);
+            menus.Add(LinkedAttributeGridMenu);
             menus.Add(EnrichmentTableMenu);
             menus.Add(TargetMenu);
             menus.Add(DesignMenu);
@@ -98,6 +101,8 @@ namespace Misp.Sourcing.Base
             GridMenu.Items.Add(new Separator());
             GridMenu.Items.Add(NewAutomaticGridMenu);
             GridMenu.Items.Add(ListAutomaticGridMenu);
+
+            LinkedAttributeGridMenu = BuildMenu(ApplicationMenu.SOURCING_MENU_CODE, FunctionalitiesLabel.LINKED_ATTRIBUTE_GRID_LABEL, NavigationToken.GetSearchViewToken(SourcingFunctionalitiesCode.LINKED_ATTRIBUTE_GRID_LIST), Kernel.Domain.RightType.VIEW);
 
 
 

@@ -21,10 +21,13 @@ namespace Misp.Bfc.Review
 
         ReviewService reviewService;
 
+        public int DefaultActiveTab { get; set; }
+
         public ReviewBrowserController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
             this.SubjectType = Kernel.Domain.SubjectType.REVIEW;
+            this.DefaultActiveTab = 0;
         }
 
         public ReviewService getReviewService()
@@ -145,7 +148,7 @@ namespace Misp.Bfc.Review
 
         protected override IView getNewView()
         {
-            return new ReviewBrowser();
+            return new ReviewBrowser(this.DefaultActiveTab);
         }
                       
         protected override Kernel.Ui.Base.ToolBar getNewToolBar()

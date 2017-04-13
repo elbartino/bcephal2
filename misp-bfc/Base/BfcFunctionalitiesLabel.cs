@@ -11,6 +11,10 @@ namespace Misp.Bfc.Base
     {
 
         public static string REVIEW_LABEL = "Review";
+        public static string REVIEW_PF_ACCOUNT_LABEL = "Pre-funding Account";
+        public static string REVIEW_SETTLEMENT_EVOLUTION_LABEL = "Settlement Evolution";
+        public static string REVIEW_AGEING_BALANCE_LABEL = "Ageing Balance";
+
 
         public static string ADVISEMENT_LABEL = "Advisements";
 
@@ -22,7 +26,7 @@ namespace Misp.Bfc.Base
 
         public static string MEMBER_ADVISEMENT_LABEL = "Member Advisement";
         public static string RECENT_MEMBER_ADVISEMENT_LABEL = "Recent Member Advisements";
-        public static string NEW_MEMBER_ADVISEMENT_LABEL = "New member Advisement";
+        public static string NEW_MEMBER_ADVISEMENT_LABEL = "New Member Advisement";
         public static string LIST_MEMBER_ADVISEMENT_LABEL = "List Member Advisements";
 
         public static string REPLENISHMENT_INSTRUCTION_ADVISEMENT_LABEL = "Replenishment Instruction";

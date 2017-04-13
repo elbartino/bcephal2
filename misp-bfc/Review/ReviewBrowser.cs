@@ -15,9 +15,11 @@ namespace Misp.Bfc.Review
     {
 
         public ReviewForm Form { get; private set; }
+        public int DefaultActiveTab { get; set; }
 
-        public ReviewBrowser()
+        public ReviewBrowser(int defaultTab = 0)
         {
+            this.DefaultActiveTab = defaultTab;
             InitializeComponent();
             InitializeHandlers();
         }
@@ -30,6 +32,7 @@ namespace Misp.Bfc.Review
         public void InitializeComponent()
         {
             this.Form = new ReviewForm();
+            this.Form.TabControl.SelectedIndex = this.DefaultActiveTab;
             LayoutDocument page = new LayoutDocument();
             page.CanClose = false;
             page.CanFloat = false;

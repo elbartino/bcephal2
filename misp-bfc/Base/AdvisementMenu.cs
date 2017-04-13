@@ -12,6 +12,9 @@ namespace Misp.Bfc.Base
     public class AdvisementMenu : ApplicationMenu
     {
         public ApplicationMenu ReviewMenu { get; private set; }
+        public ApplicationMenu ReviewPFAccountMenu { get; private set; }
+        public ApplicationMenu ReviewSettlementEvolutionMenu { get; private set; }
+        public ApplicationMenu ReviewAgeingBalanceMenu { get; private set; }
 
         public ApplicationMenu PrefundingAdvisementMenu { get; private set; }
         public ApplicationMenu NewPrefundingAdvisementMenu { get; private set; }
@@ -76,8 +79,13 @@ namespace Misp.Bfc.Base
             SettlementAdvisementMenu.Items.Add(NewSettlementAdvisementMenu);
             SettlementAdvisementMenu.Items.Add(ListSettlementAdvisementMenu);
 
-            ReviewMenu = BuildMenu(BfcFunctionalitiesCode.REVIEW, BfcFunctionalitiesLabel.REVIEW_LABEL, NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.REVIEW), Kernel.Domain.RightType.VIEW);
-            
+            ReviewMenu = BuildMenu(BfcFunctionalitiesCode.REVIEW, BfcFunctionalitiesLabel.REVIEW_LABEL, BfcFunctionalitiesCode.ADVISEMENT);
+            ReviewPFAccountMenu = BuildMenu(BfcFunctionalitiesCode.REVIEW, BfcFunctionalitiesLabel.REVIEW_PF_ACCOUNT_LABEL, NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.REVIEW_PF_ACCOUNT));
+            ReviewSettlementEvolutionMenu = BuildMenu(BfcFunctionalitiesCode.REVIEW, BfcFunctionalitiesLabel.REVIEW_SETTLEMENT_EVOLUTION_LABEL, NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.REVIEW_SETTLEMENT_EVOLUTION));
+            ReviewAgeingBalanceMenu = BuildMenu(BfcFunctionalitiesCode.REVIEW, BfcFunctionalitiesLabel.REVIEW_AGEING_BALANCE_LABEL, NavigationToken.GetSearchViewToken(BfcFunctionalitiesCode.REVIEW_AGEING_BALANCE));
+            ReviewMenu.Items.Add(ReviewPFAccountMenu);
+            ReviewMenu.Items.Add(ReviewSettlementEvolutionMenu);
+            ReviewMenu.Items.Add(ReviewAgeingBalanceMenu);
         }
     }
 }

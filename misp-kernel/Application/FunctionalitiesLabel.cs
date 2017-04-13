@@ -111,6 +111,9 @@ namespace Misp.Kernel.Application
 
 
         //GRID
+
+        public static string LINKED_ATTRIBUTE_GRID_LABEL = "Linked Attribute Grids";
+
         public static string GRID_LABEL = "Grid";
         public static string INPUT_GRID_LABEL = "Input Grid";
         public static string REPORT_GRID_LABEL = "Report Grid";

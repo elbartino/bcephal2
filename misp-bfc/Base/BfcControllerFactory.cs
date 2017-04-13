@@ -31,12 +31,30 @@ namespace Misp.Bfc.Base
         /// <returns></returns>
         public override Controllable GetController(string fonctionality, ViewType? viewType = null, EditionMode? editionMode = null)
         {
-            if (fonctionality == BfcFunctionalitiesCode.REVIEW)
+            if (fonctionality == BfcFunctionalitiesCode.REVIEW_PF_ACCOUNT)
             {
                 ReviewBrowserController reviewController = new ReviewBrowserController();
                 reviewController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
                 reviewController.ApplicationManager = this.ApplicationManager;
-                //reviewController.Service = ((BfcServiceFactory)ServiceFactory).GetReviewService();
+                reviewController.DefaultActiveTab = 0;
+                return reviewController;
+            }
+
+            if (fonctionality == BfcFunctionalitiesCode.REVIEW_SETTLEMENT_EVOLUTION)
+            {
+                ReviewBrowserController reviewController = new ReviewBrowserController();
+                reviewController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
+                reviewController.ApplicationManager = this.ApplicationManager;
+                reviewController.DefaultActiveTab = 1;
+                return reviewController;
+            }
+
+            if (fonctionality == BfcFunctionalitiesCode.REVIEW_AGEING_BALANCE)
+            {
+                ReviewBrowserController reviewController = new ReviewBrowserController();
+                reviewController.FunctionalityCode = Misp.Bfc.PlugIn.MODULE_NAME;
+                reviewController.ApplicationManager = this.ApplicationManager;
+                reviewController.DefaultActiveTab = 2;
                 return reviewController;
             }
 
