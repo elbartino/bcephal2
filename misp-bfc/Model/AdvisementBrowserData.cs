@@ -27,6 +27,9 @@ namespace Misp.Bfc.Model
 
         public string valueDate { get; set; }
 
+        [ScriptIgnore]
+        public String pdf { get { return "pdf" + code; }}
+
         public String creator { get; set; }
 
         [ScriptIgnore]

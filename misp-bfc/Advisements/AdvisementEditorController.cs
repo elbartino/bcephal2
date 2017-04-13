@@ -40,7 +40,7 @@ namespace Misp.Bfc.Advisements
         public override Kernel.Application.OperationState Create()
         {
             Advisement advisement = new Advisement();
-            advisement.advisementType = AdvisementType.ToString();
+            advisement.advisementType = getNewPageName(AdvisementType.ToString());
             advisement.creator = ApplicationManager.User.login;
             advisement.valueDateTime = DateTime.Now;
             try
@@ -53,6 +53,27 @@ namespace Misp.Bfc.Advisements
             catch (Exception) { }
             return OperationState.CONTINUE;
         }
+
+        public override void CustomizeForUser(EditorItem<Advisement> page)
+        {
+            page.CanRename = false;
+        }
+
+        protected override string getNewPageName(string prefix)
+        {
+            return getAdvisementService().getNewAdvisementName(prefix);
+        }
+
+
+        /// <summary>
+        /// Remove Commands
+        /// </summary>
+        protected override void initializeCommands()
+        {
+            base.initializeCommands();
+            ApplicationManager.MainWindow.dockingManager.DocumentContextMenu.Items.Clear();
+        }
+
 
         public override Kernel.Application.OperationState Delete() { return OperationState.CONTINUE; }
 

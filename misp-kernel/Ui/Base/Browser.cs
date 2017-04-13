@@ -13,6 +13,9 @@ using Xceed.Wpf.AvalonDock.Layout;
 using Misp.Kernel.Domain.Browser;
 using DataGridFilterLibrary.Support;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Base.BrowserUI;
+using DevExpress.Xpf.Grid;
+using DevExpress.Xpf.Editors.Settings;
 
 namespace Misp.Kernel.Ui.Base
 {
@@ -25,12 +28,8 @@ namespace Misp.Kernel.Ui.Base
     {
 
         #region Attributes
-
-        /// <summary>
-        /// La grille du navigateur
-        /// </summary>
-        protected BrowserGrid grid;
-        protected BrowserGridNavigationBar navigationBar;
+        
+        protected BrowserForm form;
 
         #endregion
 
@@ -74,9 +73,9 @@ namespace Misp.Kernel.Ui.Base
         /// <summary>
         /// Retourne la grille du navigateur
         /// </summary>
-        public BrowserGrid Grid { get { return grid; } }
+        public BrowserForm Form { get { return form; } }
 
-        public BrowserGridNavigationBar NavigationBar { get { return navigationBar; } }
+        public PaginationBar NavigationBar { get { return Form.PaginationBar; } }
 
         /// <summary>
         /// Assigne ou retourne la liste d'objets dans le navigateur.
@@ -91,7 +90,7 @@ namespace Misp.Kernel.Ui.Base
         public virtual void SetReadOnly(bool readOnly)
         {
             this.IsReadOnly = readOnly;
-            if (Grid != null) Grid.SetReadOnly(readOnly);
+            if (this.Form != null) this.Form.SetReadOnly(readOnly);
         }
 
         /// <summary>
@@ -108,13 +107,13 @@ namespace Misp.Kernel.Ui.Base
         {
             BrowserDataFilter filter = new BrowserDataFilter();
             filter.page = page;            
-            filter.pageSize = (int)navigationBar.pageSizeComboBox.SelectedItem;
+            filter.pageSize = (int)NavigationBar.pageSizeComboBox.SelectedItem;
             if (filter.pageSize <= 0) filter.pageSize = BrowserDataFilter.DEFAULT_PAGE_SIZE;
-            foreach (FilterData data in grid.FilterData.Datas)
-            {
-                if (data.IsEmpty()) continue;
-                filter.items.Add(new BrowserDataFilterItem(data.ValuePropertyBindingPath, data.QueryString, data.Operator));                
-            }
+            //foreach (FilterData data in Grid.FilterData.Datas)
+            //{
+            //    if (data.IsEmpty()) continue;
+            //    filter.items.Add(new BrowserDataFilterItem(data.ValuePropertyBindingPath, data.QueryString, data.Operator));                
+            //}
             return filter;
         }
 
@@ -124,16 +123,16 @@ namespace Misp.Kernel.Ui.Base
         /// <param name="datas">La collection d'objet à afficher dans le navigateur</param>
         public void DisplayPage(BrowserDataPage<B> page)
         {
-            this.grid.ItemsSource = new ObservableCollection<B>();
+            this.Form.Grid.ItemsSource = new ObservableCollection<B>();
             if (page != null)
             {
-                this.grid.ItemsSource = page.rows;
-                this.navigationBar.displayPage(page.pageSize, page.pageFirstItem, page.pageLastItem, page.totalItemCount, page.pageCount, page.currentPage);
+                this.Form.Grid.ItemsSource = page.rows;
+                this.NavigationBar.displayPage(page.pageSize, page.pageFirstItem, page.pageLastItem, page.totalItemCount, page.pageCount, page.currentPage);
             }
             else
             {
-                this.grid.ItemsSource = new ObservableCollection<B>();
-                this.navigationBar.displayPage(10, 0, 0, 0, 0, 0);
+                this.Form.Grid.ItemsSource = new ObservableCollection<B>();
+                this.NavigationBar.displayPage(10, 0, 0, 0, 0, 0);
             }
         }
 
@@ -144,7 +143,7 @@ namespace Misp.Kernel.Ui.Base
         public void DisplayDatas(ObservableCollection<B> datas)
         {
             Datas = datas;
-            this.grid.ItemsSource = Datas;
+            this.Form.Grid.ItemsSource = Datas;
         }
 
         #endregion
@@ -157,55 +156,39 @@ namespace Misp.Kernel.Ui.Base
         /// </summary>
         protected virtual void initializeGrid()
         {
-            grid = new BrowserGrid();
-
-            var gridFactory = new FrameworkElementFactory(typeof(Grid));
-            var checkboxFactory = new FrameworkElementFactory(typeof(CheckBox));
-            checkboxFactory.SetBinding(CheckBox.IsCheckedProperty, new Binding("IsSelected") { RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(DataGridRow), 1) });
-            gridFactory.AppendChild(checkboxFactory);
-            DataTemplate template = new DataTemplate();
-            template.VisualTree = gridFactory;
-            grid.RowHeaderTemplate = template;
-            
-            var brushConverter = new System.Windows.Media.BrushConverter();
-            System.Windows.Media.Brush bruch = (System.Windows.Media.Brush)brushConverter.ConvertFrom(System.Windows.Media.Brushes.LightBlue.Color.ToString());
-            grid.AlternatingRowBackground = bruch;
-            grid.AlternatingRowBackground.Opacity = 0.3;
-
+            form = new BrowserForm();
             for (int i = 0; i < getColumnCount(); i++)
             {
-                DataGridColumn column = getColumnAt(i);
-                column.Header = getColumnHeaderAt(i);
-                column.Width = getColumnWidthAt(i);
-                column.IsReadOnly = isReadOnly(i);
-                if (column is DataGridBoundColumn)
-                {
-                    ((DataGridBoundColumn)column).Binding = getBindingAt(i);
-                }
-                grid.Columns.Add(column);
+                GridColumn column = getColumn(i);
+                form.Grid.Columns.Add(column);
             }
 
-            navigationBar = new BrowserGridNavigationBar();
-
-            Grid panel = new Grid();
-            panel.Background = Brushes.White;
-            panel.RowDefinitions.Add(new RowDefinition());
-            panel.RowDefinitions.Add(new RowDefinition());
-
-            panel.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Star);
-            panel.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Auto);
-            System.Windows.Controls.Grid.SetRow(grid, 0);
-            panel.Children.Add(grid);
-            System.Windows.Controls.Grid.SetRow(navigationBar, 1);
-            panel.Children.Add(navigationBar);
-            
             LayoutDocument page = new LayoutDocument();
             page.CanClose = false;
             page.CanFloat = false;
             page.Title = getTitle();
-            page.Content = panel;
+            page.Content = form;
             this.Children.Add(page);            
         }
+
+
+        protected virtual GridColumn getColumn(int index)
+        {
+            GridColumn column = new GridColumn();
+            column.Header = getColumnHeaderAt(index);
+            column.FieldName = getFieldNameAt(index);
+            column.Width = getColumnWidthAt(index);
+            column.IsSmart = true;
+            column.ReadOnly = isReadOnly(index);
+            column.ColumnFilterMode = ColumnFilterMode.DisplayText;
+            column.Style = this.Form.Grid.FindResource("GridColumn") as Style;
+            return column;
+        }
+        
+
+        protected abstract string getFieldNameAt(int index);
+
+
 
 
         /// <summary>
@@ -219,14 +202,7 @@ namespace Misp.Kernel.Ui.Base
         /// </summary>
         /// <returns>Le nombre de colonnes dans la grille</returns>
         protected abstract int getColumnCount();
-
-        /// <summary>
-        /// Construit et retourne la colonne à la position indiquée.
-        /// </summary>
-        /// <param name="index">La position de la colonne à contruire</param>
-        /// <returns>La colonne</returns>
-        protected abstract DataGridColumn getColumnAt(int index);
-
+        
         /// <summary>
         /// Retourne l'entête de la colonne à la position indiquée.
         /// </summary>
@@ -239,28 +215,8 @@ namespace Misp.Kernel.Ui.Base
         /// </summary>
         /// <param name="index">La position de la colonne</param>
         /// <returns>La largeur de colonne</returns>
-        protected abstract DataGridLength getColumnWidthAt(int index);
-
-        /// <summary>
-        /// Retourne le nom de la propiété à rattacher à la colonne d'index spécifié.
-        /// </summary>
-        /// <param name="index">La position de la colonne</param>
-        /// <returns>Le nom de la propiété à rattacher à la colonne</returns>
-        protected abstract string getBindingNameAt(int index);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        protected virtual System.Windows.Data.Binding getBindingAt(int index)
-        {
-            Binding binding = new Binding(getBindingNameAt(index));
-            String format = getBindingStringFormatAt(index);
-            if (!string.IsNullOrWhiteSpace(format)) binding.StringFormat = format;
-            return binding;
-        }
-
+        protected abstract GridColumnWidth getColumnWidthAt(int index);
+        
         /// <summary>
         /// 
         /// </summary>

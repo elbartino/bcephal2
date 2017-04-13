@@ -59,13 +59,13 @@ namespace Misp.Planification.Tranformation
         /// <returns></returns>
         public override OperationState Delete()
         {
-            System.Collections.IList items = GetBrowser().Grid.SelectedItems;
+            System.Collections.IList items = GetBrowser().Form.Grid.SelectedItems;
             if (items == null || items.Count == 0) return OperationState.STOP;
             int count = items.Count;
             string message = "You are about to delete " + count + " trees.\nDo you want to continue?";
             if (count == 1)
             {
-                object item = GetBrowser().Grid.SelectedItem;
+                object item = GetBrowser().Form.Grid.SelectedItem;
                 if (item != null) message = "You are about to delete " + item.ToString() + " .\nDo you want to continue?";
             }
             MessageBoxResult result = Kernel.Util.MessageDisplayer.DisplayYesNoQuestion("Delete", message);

@@ -48,6 +48,7 @@ namespace Misp.Kernel.Domain.Browser
             }
         }
 
+        public bool ok;
 
         public BrowserData() { }
 

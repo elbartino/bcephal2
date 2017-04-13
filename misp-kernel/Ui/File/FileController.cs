@@ -41,14 +41,19 @@ namespace Misp.Kernel.Ui.File
                 //this.ApplicationManager.MainWindow.FileOpenedView.BuildRecentOpenedContols();
             }
             catch (Exception) { }
+            bool isAdmin = Application.ApplicationManager.Instance.User != null && Application.ApplicationManager.Instance.User.IsAdmin();
             this.ApplicationManager.MainWindow.FileClosedView.Visibility = ApplicationManager.Instance.File == null ? Visibility.Visible : Visibility.Collapsed;
-            //this.ApplicationManager.MainWindow.FileOpenedView.Visibility = ApplicationManager.Instance.File != null ? Visibility.Visible : Visibility.Collapsed;
             this.ApplicationManager.MainWindow.DashboardView.DashBoardService = this.GetFileInfoService().DashBoardService;
-            this.ApplicationManager.MainWindow.DashboardView.Visibility = ApplicationManager.Instance.File != null ? Visibility.Visible : Visibility.Collapsed;
+            this.ApplicationManager.MainWindow.DashboardView.Visibility = ApplicationManager.Instance.File != null && isAdmin ? Visibility.Visible : Visibility.Collapsed;
+            this.ApplicationManager.MainWindow.NavDashboardView.Visibility = ApplicationManager.Instance.File != null && !isAdmin ? Visibility.Visible : Visibility.Collapsed;
             if (ApplicationManager.Instance.File != null)
             {
-                this.ApplicationManager.MainWindow.DashboardView.InitializeBlocks();
-                this.ApplicationManager.MainWindow.DashboardView.Refresh();
+                if (isAdmin)
+                {
+                    this.ApplicationManager.MainWindow.DashboardView.InitializeBlocks();
+                    this.ApplicationManager.MainWindow.DashboardView.Refresh();
+                }
+                else this.ApplicationManager.MainWindow.NavDashboardView.BuildCategories();
             }
         }
 
@@ -465,8 +470,8 @@ namespace Misp.Kernel.Ui.File
             this.ApplicationManager.File = null;
             this.ApplicationManager.AllocationCount = 0;
             this.ApplicationManager.MainWindow.MenuBar.GetFileMenu().BuildRecentOpenedFiles();
-            //this.ApplicationManager.MainWindow.FileOpenedView.Visibility = Visibility.Collapsed;
             this.ApplicationManager.MainWindow.DashboardView.Visibility = Visibility.Collapsed;
+            this.ApplicationManager.MainWindow.NavDashboardView.Visibility = Visibility.Collapsed;
             this.ApplicationManager.MainWindow.FileClosedView.Visibility = Visibility.Visible;
             this.ApplicationManager.MainWindow.MenuBar.GetFileMenu().BackupSimpleMenu.IsEnabled = false;
             this.ApplicationManager.MainWindow.MenuBar.GetFileMenu().BackupAutomaticMenu.IsEnabled = false;
@@ -491,7 +496,7 @@ namespace Misp.Kernel.Ui.File
             }
         }
 
-        protected override IView getNewView() { return new DashBoard(); }
+        protected override IView getNewView() { return null;/* new DashBoard();*/ }
 
         /// <summary>
         /// The tool bar used to manage file.

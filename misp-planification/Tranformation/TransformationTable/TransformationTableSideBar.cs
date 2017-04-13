@@ -40,6 +40,7 @@ namespace Misp.Planification.Tranformation.TransformationTable
             this.AddGroup(this.TreeLoopGroup); 
             this.AddGroup(this.EntityGroup); 
             this.AddGroup(this.MeasureGroup);
+            this.AddGroup(this.PeriodGroup);
         }
         #endregion
     }

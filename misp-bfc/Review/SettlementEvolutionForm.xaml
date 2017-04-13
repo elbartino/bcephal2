@@ -89,7 +89,7 @@
                 <dxg:GridSummaryItem FieldName="todayMultilot" DisplayFormat="Avg  = {0:N2}" SummaryType="Average"/>-->
             </dxg:GridControl.TotalSummary>
             <dxg:GridControl.View>
-                <dxg:TableView AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowBestFit="True" BestFitMode="AllRows" ShowTotalSummary="True" />
+                <dxg:TableView AllowEditing="False" AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowBestFit="True" BestFitMode="AllRows" ShowTotalSummary="True" />
             </dxg:GridControl.View>
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="80" Header="ID"  FieldName="platformID"  />
             <dxg:GridColumn Style="{StaticResource GridColumn}" Width="200" Header="Platform" FieldName="platformName"/>

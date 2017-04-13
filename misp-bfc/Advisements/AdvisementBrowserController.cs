@@ -29,9 +29,9 @@ namespace Misp.Bfc.Advisements
 
         protected override void customizeContextMenu()
         {
-            base.customizeContextMenu();            
-            this.GetBrowser().Grid.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = false;
-
+            base.customizeContextMenu();
+            this.GetBrowser().Form.Grid.View.RowCellMenuCustomizations.Remove(this.GetBrowser().Form.Grid.DeleteMenuItem);
+            this.GetBrowser().Form.Grid.View.RowCellMenuCustomizations.Remove(this.GetBrowser().Form.Grid.SaveAsMenuItem);
         }
 
         public override string GetEditorFuntionality()

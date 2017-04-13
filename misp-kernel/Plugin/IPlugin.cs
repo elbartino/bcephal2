@@ -8,6 +8,7 @@ using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Base.Menu;
 using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
+using Misp.Kernel.Ui.Dashboard;
 
 
 namespace Misp.Kernel.Plugin
@@ -44,6 +45,11 @@ namespace Misp.Kernel.Plugin
         /// Functionalities
         /// </summary>
         List<Functionality> Functionalities { get; set; }
+
+        /// <summary>
+        /// NavDashboardCategories
+        /// </summary>
+        List<NavCategory> NavDashboardCategories { get; set; }
 
     }
 }

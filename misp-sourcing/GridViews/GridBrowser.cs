@@ -518,6 +518,16 @@ namespace Misp.Sourcing.GridViews
             Binding b = new Binding(getBindingName(grilleColumn));
             b.Mode = BindingMode.TwoWay;
             column.Binding = b;
+
+            if(grilleColumn.type.Equals(ParameterType.MEASURE.ToString()))
+            {
+                TextEditSettings settings = new TextEditSettings();
+                settings.DisplayFormat = "N2";
+                settings.ValidateOnTextInput = true;
+                settings.AllowNullInput = true;
+                column.EditSettings = settings;
+            }
+
             if (!this.Grille.report && grilleColumn.type.Equals(ParameterType.SCOPE.ToString()))
             {
                 try
@@ -533,7 +543,7 @@ namespace Misp.Sourcing.GridViews
                 combo.AllowNullInput = true;
                 column.EditSettings = combo;
             }
-            if (!this.Grille.report && grilleColumn.type.Equals(ParameterType.PERIOD.ToString()))
+            else if (!this.Grille.report && grilleColumn.type.Equals(ParameterType.PERIOD.ToString()))
             {
                 DateEditSettings dateSetting = new DateEditSettings();
                 dateSetting.IsTextEditable = true;
@@ -542,13 +552,14 @@ namespace Misp.Sourcing.GridViews
                 dateSetting.AllowNullInput = true;
                 column.EditSettings = dateSetting;
             }
+            
             if (grilleColumn.type.Equals(ParameterType.PERIOD.ToString()) 
                 || grilleColumn.type.Equals(ParameterType.MEASURE.ToString())
                 || grilleColumn.type.Equals(ParameterType.SPECIAL_MEASURE.ToString()))
             {
                 column.ColumnFilterMode = ColumnFilterMode.Value;
             }
-
+            
             return column;        
         }
 

@@ -109,6 +109,9 @@ namespace Misp.Kernel.Domain
         
         public Attribute attribute { get; set; }
         public String formula { get; set; }
+        public String filterOperator { get; set; }
+        public String filterValue1 { get; set; }
+        public String filterValue2 { get; set; }
 
         public int position
         {
@@ -135,6 +138,7 @@ namespace Misp.Kernel.Domain
         public override int CompareTo(object obj)
         {
             if (obj == null || !(obj is TargetItem)) return 1;
+            if (obj == this) return 0;
             return this.position.CompareTo(((TargetItem)obj).position);
         }
 

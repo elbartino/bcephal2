@@ -13,6 +13,8 @@ namespace Misp.Bfc.Model
 
         public List<int> memberBankIdOids { get; set; }
 
+        public List<int> pmlIdOids { get; set; }
+
         public List<int> schemeIdOids { get; set; }
 
         public List<int> platformIdOids { get; set; }
@@ -38,6 +40,7 @@ namespace Misp.Bfc.Model
         public ReviewFilter() 
         {
             memberBankIdOids = new List<int>(0);
+            pmlIdOids = new List<int>(0);
             schemeIdOids = new List<int>(0);
             platformIdOids = new List<int>(0);
             details = false;

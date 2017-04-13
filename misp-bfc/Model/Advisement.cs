@@ -37,10 +37,10 @@ namespace Misp.Bfc.Model
         {
             String name = "Advisement";
             if(this.advisementType != null){
-                if (this.advisementType.Equals(AdvisementType.PREFUNDING.ToString())) name = "PF";
-                if (this.advisementType.Equals(AdvisementType.MEMBER.ToString())) name = "MA";
-                if (this.advisementType.Equals(AdvisementType.REPLENISHMENT.ToString())) name = "RI";
-                if (this.advisementType.Equals(AdvisementType.SETTLEMENT.ToString())) name = "SA";
+                if (this.advisementType.Equals(AdvisementType.PREFUNDING.ToString())) name = "Pre-funding Advisement";
+                if (this.advisementType.Equals(AdvisementType.MEMBER.ToString())) name = "Member Advisement";
+                if (this.advisementType.Equals(AdvisementType.REPLENISHMENT.ToString())) name = "Replenishment Instruction";
+                if (this.advisementType.Equals(AdvisementType.SETTLEMENT.ToString())) name = "Settlement Advisement";
             }
             if(code != null) name = name + " " + code;
             return name;

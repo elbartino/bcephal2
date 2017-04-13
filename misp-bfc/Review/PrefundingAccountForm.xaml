@@ -1,12 +1,13 @@
-﻿<ScrollViewer x:Class="Misp.Bfc.Review.PrefundingAccountForm"
+﻿<Grid x:Class="Misp.Bfc.Review.PrefundingAccountForm"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
-             d:DesignHeight="500" d:DesignWidth="1200">
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1200">
 
-    <ScrollViewer.Resources>
+    <Grid.Resources>
         <Style x:Key="TitleLabel" TargetType="{x:Type Label}">
             <Setter Property="Margin" Value="7 10 0 0"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -54,130 +55,226 @@
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
             <Setter Property="Text" Value="0,00"/>
         </Style>
-    </ScrollViewer.Resources>
+    </Grid.Resources>
 
-    <Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
 
+
+    <Grid Grid.Row="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="280"/>
-            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-               
+
         <StackPanel Grid.Column="0">
-            <Label Style="{StaticResource TitleLabel}"/>
-            <Label Style="{StaticResource SimpleLabel}" x:Name="lSPrefund" Content="Sent Pre-funding"/>
-            <Label Style="{StaticResource SimpleLabel}" x:Name="lSRepenishment" Content="Sent Replenishment"/>
-            <Label Style="{StaticResource SimpleLabel}" x:Name="OtherRecieveLabel" Content="Other Received"/>
-            <Label Style="{StaticResource TotalLabel}" x:Name="lTTR" Content="Total to Receive"/>
-            <Label Style="{StaticResource SeparatorLabel}"/>
-            <Label Style="{StaticResource TitleLabel}"/>
-            <Label Style="{StaticResource SimpleLabel}" x:Name="lSMAdvisement" Content="Sent Member Advisement"/>
-            <Label Style="{StaticResource SimpleLabel}" x:Name="OtherPaid" Content="Other Paid"/>
-            <Label Style="{StaticResource TotalLabel}" x:Name="lTTPay" Content="Total to Pay"/>
-            <Label Style="{StaticResource TotalLabel}" x:Name="lEPFBalance" Content="Expected PF Balance"/>
-            <Label Style="{StaticResource SeparatorLabel}"/>
-            <Label Style="{StaticResource TitleLabel}"/>
-            <Label Style="{StaticResource SimpleLabel}" x:Name="lPFADebit" Content="PF Account Debit"/>
-            <Label Style="{StaticResource SimpleLabel}" x:Name="lPFACredit" Content="PF Account Credit"/>
-            <Label Style="{StaticResource TotalLabel}" x:Name="lBalance" Content="PF Account Balance"/>
-            <Label Style="{StaticResource TotalLabel}" x:Name="lDelta" Content="Delta"/>
+            <Label x:Name="PmlLabel" Content="Select PML" Style="{StaticResource SimpleLabel}" Margin="5"/>
+            <Label x:Name="SchemeLabel" Content="Select Scheme" Style="{StaticResource SimpleLabel}" Margin="5"/>
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-            <Label Style="{StaticResource TitleLabel}" Content="Reconcilied" />
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentPrefundingTextBox"/>
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentReplenishmentTextBox"/>
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherReceiveTextBox"/>
-            <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToReceiveTextBox"/>
-            <Label Style="{StaticResource SeparatorLabel}"/>
-            <Label Style="{StaticResource TitleLabel}" Content="Reconcilied" />
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="MemberAdvisementTextBox"/>
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherPaidTextBox"/>
-            <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToPayTextBox"/>
-            <TextBox Style="{StaticResource TotalTextBox}" x:Name="ExpectedPFTextBox"/>
-            <Label Style="{StaticResource SeparatorLabel}"/>
-            <Label Style="{StaticResource TitleLabel}" Content="Reconcilied" />
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="PFAccountDebitTextBox"/>
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="PFAccountCreditTextBox"/>
-            <TextBox Style="{StaticResource TotalTextBox}" x:Name="PFAccountBalanceTextBox"/>
-            <TextBox Style="{StaticResource TotalTextBox}" x:Name="DeltaTextBox"/>
+            <dxe:ComboBoxEdit x:Name="PmlComboBoxEdit" Height="25" Width="180" Margin="0 5">
+                <dxe:ComboBoxEdit.StyleSettings>
+                    <dxe:CheckedComboBoxStyleSettings/>
+                </dxe:ComboBoxEdit.StyleSettings>
+            </dxe:ComboBoxEdit>
+            <dxe:ComboBoxEdit x:Name="SchemeComboBoxEdit" Height="25" Width="180" Margin="0 5">
+                <dxe:ComboBoxEdit.StyleSettings>
+                    <dxe:CheckedComboBoxStyleSettings/>
+                </dxe:ComboBoxEdit.StyleSettings>
+            </dxe:ComboBoxEdit>
         </StackPanel>
-
         <StackPanel Grid.Column="2">
-            <Label Style="{StaticResource TitleLabel}" Content="Not yet reconcilied" />
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentPrefundingNotRecoTextBox"/>
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentReplenishmentNotRecoTextBox"/>
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherReceiveNotRecoTextBox"/>
-            <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToReceiveNotRecoTextBox"/>
-            <Label Style="{StaticResource SeparatorLabel}"/>
-            <Label Style="{StaticResource TitleLabel}" Content="Not yet reconcilied" />
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="MemberAdvisementNotRecoTextBox"/>
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherPaidNotRecoTextBox"/>
-            <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToPayNotRecoTextBox"/>
-            <TextBox Style="{StaticResource TotalTextBox}" x:Name="ExpectedPFNotRecoTextBox"/>
-            <Label Style="{StaticResource SeparatorLabel}"/>
-            <Label Style="{StaticResource TitleLabel}" Content="Not yet reconcilied" />
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="PFAccountDebitNotRecoTextBox"/>
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="PFAccountCreditNotRecoTextBox"/>
-            <TextBox Style="{StaticResource TotalTextBox}" x:Name="PFAccountBalanceNotRecoTextBox"/>
-            <TextBox Style="{StaticResource TotalTextBox}" x:Name="DeltaNotRecoTextBox"/>
+            <TextBox x:Name="PmlTextBox" Text="ID" Height="25" Width="180" IsEnabled="False" Margin="10 5"/>
+            <TextBox x:Name="SchemeTextBox" Text="ID" Height="25" Width="180" IsEnabled="False" Margin="10 5"/>
         </StackPanel>
 
         <StackPanel Grid.Column="3">
-            <Label Style="{StaticResource TitleLabel}"/>
-            <TextBlock>
-                <Hyperlink>
-                    <InlineUIContainer>
-                        <TextBlock Height="25" Text="See Pre-funding Advisements issued"/>
-                    </InlineUIContainer>
-                </Hyperlink>
-            </TextBlock>
-            <TextBlock>
-                <Hyperlink>
-                    <InlineUIContainer>
-                        <TextBlock Height="25" Text="See Replenishment Instructions issued"/>
-                    </InlineUIContainer>
-                </Hyperlink>
-            </TextBlock>
-            <Label Style="{StaticResource SimpleLabel}"/>
-            <Label Style="{StaticResource TotalLabel}"/>
-            <Label Style="{StaticResource SimpleLabel}"/>
-            <Label Style="{StaticResource TitleLabel}" Content="Ratio PF/Peak MA 24 months"/>
-            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="RatioPFPeakDayTextBox" Width="55"/>
-            <Label Style="{StaticResource SimpleLabel}"/>
-            <Label Style="{StaticResource TotalLabel}"/>
-            <Label Style="{StaticResource TotalLabel}"/>
-            <Label Style="{StaticResource SimpleLabel}"/>
-            <Label Style="{StaticResource TitleLabel}"/>
-            <TextBlock>
-                <Hyperlink>
-                    <InlineUIContainer>
-                        <TextBlock Height="25" Text="See PF Account Debit"/>
-                    </InlineUIContainer>
-                </Hyperlink>
-            </TextBlock>
-
-            <TextBlock>
-                <Hyperlink>
-                    <InlineUIContainer>
-                        <TextBlock Height="25" Text="See PF Account Credit"/>
-                    </InlineUIContainer>
-                </Hyperlink>
-            </TextBlock>
+            <Label Style="{StaticResource SimpleLabel}" FontWeight="Bold" Content="Ratio PF/Peak MA 24 months" Margin="5"/>
+            <Label Style="{StaticResource SimpleLabel}" FontWeight="Bold" Content="Total Balance PF Account" Margin="5"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="4" Margin="10 0 0 0">
-            <Label Style="{StaticResource TitleLabel}"/>
-            <Label Style="{StaticResource SimpleLabel}"/>
-            <Label Style="{StaticResource SimpleLabel}"/>
-            <Label Style="{StaticResource SimpleLabel}"/>
-            <Label Style="{StaticResource TotalLabel}"/>
-            <Label Style="{StaticResource SimpleLabel}"/>
-            
+        <StackPanel Grid.Column="4">
+            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="RatioPFPeakMa24MonthsTextBox" Width="200"  Margin="0 5"/>
+            <TextBox Style="{StaticResource SimpleTextBox}" x:Name="TotalBalancePFAccountTextBox" Width="200"  Margin="0 5" Background="Salmon"/>
         </StackPanel>
     </Grid>
-    
-</ScrollViewer>
+
+    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Expander Grid.Row="0" Header="Advisements :" Background="#839BBB" Margin="0 20 0 5" IsExpanded="True">
+                <Grid Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBox Style="{StaticResource TotalTextBox}" Text="Advisement Receivable"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <Label Style="{StaticResource TotalLabel}"/>
+                        <Label Style="{StaticResource SeparatorLabel}"/>
+                        <TextBox Style="{StaticResource TotalTextBox}" Text="Advisement Payable"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <Label Style="{StaticResource TitleLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}" Content="Sent Pre-funding"/>
+                        <Label Style="{StaticResource SimpleLabel}" Content="Sent Replenishment"/>
+                        <Label Style="{StaticResource SimpleLabel}" Content="Write-Off"/>
+                        <Label Style="{StaticResource TotalLabel}"  Content="Total to Receive"/>
+                        <Label Style="{StaticResource SeparatorLabel}"/>
+                        <Label Style="{StaticResource TitleLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}" Content="Sent Member Advisement"/>
+                        <Label Style="{StaticResource SimpleLabel}" Content="Write-Off"/>
+                        <Label Style="{StaticResource TotalLabel}"  Content="Total to Pay"/>
+                        <Label Style="{StaticResource TotalLabel}"  Content="Expected PF Balance"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <Label Style="{StaticResource TitleLabel}" Content="Reconcilied" />
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentPrefundingTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentReplenishmentTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="WriteOffReceiveTextBox"/>
+                        <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToReceiveTextBox"/>
+                        <Label Style="{StaticResource SeparatorLabel}"/>
+                        <Label Style="{StaticResource TitleLabel}" Content="Reconcilied" />
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="MemberAdvisementTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="WriteOffPaidTextBox"/>
+                        <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToPayTextBox"/>
+                        <TextBox Style="{StaticResource TotalTextBox}" x:Name="ExpectedPFTextBox"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="3">
+                        <Label Style="{StaticResource TitleLabel}" Content="Not yet reconcilied" />
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentPrefundingNotRecoTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="SentReplenishmentNotRecoTextBox"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToReceiveNotRecoTextBox"/>
+                        <Label Style="{StaticResource SeparatorLabel}"/>
+                        <Label Style="{StaticResource TitleLabel}" Content="Not yet reconcilied" />
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="MemberAdvisementNotRecoTextBox"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalToPayNotRecoTextBox"/>
+                        <TextBox Style="{StaticResource TotalTextBox}" x:Name="ExpectedPFNotRecoTextBox"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="4" Margin="20 0 0 0">
+                        <Label Style="{StaticResource TitleLabel}"/>
+                        <TextBlock>
+                            <Hyperlink>
+                                <InlineUIContainer>
+                                    <TextBlock Height="25" Text="See Pre-funding Advisements issued"/>
+                                </InlineUIContainer>
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock>
+                            <Hyperlink>
+                                <InlineUIContainer>
+                                    <TextBlock Height="25" Text="See Replenishment Instructions issued"/>
+                                </InlineUIContainer>
+                            </Hyperlink>
+                        </TextBlock>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <Label Style="{StaticResource TotalLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <Label Style="{StaticResource TitleLabel}" Content="Ratio PF/Peak MA 24 months"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="RatioPFPeakDayTextBox" Width="55"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <Label Style="{StaticResource TotalLabel}"/>
+                        <Label Style="{StaticResource TotalLabel}"/>
+                    </StackPanel>
+                </Grid>
+            </Expander>
+
+            <Expander Grid.Row="1" Header="Financial Movements on PF Account :" Background="#FFFAC090" Margin="0 10 0 5"  IsExpanded="True">
+                <Grid Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="130"/>
+                        <ColumnDefinition Width="180"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <Label Style="{StaticResource TotalLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}" Content="Pre-funding Advisements"/>
+                        <Label Style="{StaticResource SimpleLabel}" Content="Replenishment Instructions"/>
+                        <Label Style="{StaticResource SimpleLabel}" Content="Member Advisements"/>
+                        <Label Style="{StaticResource SimpleLabel}" Content="Others"/>
+                        <Label Style="{StaticResource SimpleLabel}" Content="Non-reconciliated Transactions"/>
+                        <Label Style="{StaticResource TotalLabel}" Content="Total"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBox Style="{StaticResource TotalTextBox}" Text="Credit" Background="#FFFAC090"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="PFCreditTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="RICreditTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="MACreditTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherCreditTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="NonRecoTransactionsCreditTextBox"/>
+                        <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalCreditTextBox" Background="#FFFAC090"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBox Style="{StaticResource TotalTextBox}" Text="Debit" Background="#FFFAC090"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="PFDebitTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="RIDebitTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="MADebitTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherDebitTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="NonRecoTransactionsDebitTextBox"/>
+                        <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalDebitTextBox" Background="#FFFAC090"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="3">
+                        <TextBox Style="{StaticResource TotalTextBox}" Text="Balance" Background="#FFFAC090"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="PFBalanceTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="RIBalanceTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="MABalanceTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="OtherBalanceTextBox"/>
+                        <TextBox Style="{StaticResource SimpleTextBox}" x:Name="NonRecoTransactionsBalanceTextBox"/>
+                        <TextBox Style="{StaticResource TotalTextBox}" x:Name="TotalBalanceTextBox" Background="Salmon"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="4">
+                        <Label Style="{StaticResource TotalLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}" Content="▲ not reconciliated" FontWeight="Bold"/>
+                        <Label Style="{StaticResource TotalLabel}"  Content="▲ reconciliated"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="5">
+                        <Label Style="{StaticResource TotalLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <Label Style="{StaticResource SimpleLabel}"/>
+                        <TextBox Style="{StaticResource TotalTextBox}" x:Name="DeltaNotReconciliatedTextBox" Background="Salmon" Margin="0"/>
+                        <TextBox Style="{StaticResource TotalTextBox}" x:Name="DeltaReconciliatedTextBox" Background="Salmon"/>
+                    </StackPanel>
+
+                </Grid>
+            </Expander>
+        </Grid>
+    </ScrollViewer>
+</Grid>

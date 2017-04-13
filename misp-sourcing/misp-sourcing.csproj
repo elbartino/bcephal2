@@ -54,6 +54,7 @@
     <Reference Include="DevExpress.Spreadsheet.v16.1.Core">
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Spreadsheet.v16.1.Core.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Xpf.Controls.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Core.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Core.v16.1.dll</HintPath>
     </Reference>
@@ -63,6 +64,7 @@
     <Reference Include="DevExpress.Xpf.Grid.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Grid.v16.1.Core.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Xpf.LayoutControl.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="EO.Wpf, Version=3.0.21.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\EO.Wpf.dll</HintPath>
@@ -240,6 +242,12 @@
     <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableEditorController.cs" />
     <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableEditorItem.cs" />
     <Compile Include="EnrichmentTableViews\AutomaticEnrichmentTableForm.cs" />
+    <Compile Include="FilterScope\RTargetItemPanel.xaml.cs">
+      <DependentUpon>RTargetItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FilterScope\RTargetPanel.xaml.cs">
+      <DependentUpon>RTargetPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GridViews\AutomaticGridDataDialog.xaml.cs" />
     <Compile Include="GridViews\AutomaticSourcingGridBrowerController.cs" />
     <Compile Include="GridViews\AutomaticSourcingGridBrowser.cs" />
@@ -251,6 +259,12 @@
     <Compile Include="GridViews\GridTableView.cs" />
     <Compile Include="GridViews\GrilleBrowserForm.xaml.cs" />
     <Compile Include="GridViews\GrilleFilterForm.xaml.cs" />
+    <Compile Include="GridViews\GrilleFilterTargetItemPanel.xaml.cs">
+      <DependentUpon>GrilleFilterTargetItemPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GridViews\GrilleFilterTargetPanel.xaml.cs">
+      <DependentUpon>GrilleFilterTargetPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GridViews\GrilleGroup.cs" />
     <Compile Include="InputGrid\InputGridBrowser.cs" />
     <Compile Include="InputGrid\InputGridBrowserController.cs" />
@@ -474,6 +488,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FilterScope\RTargetItemPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FilterScope\RTargetPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GridViews\AutomaticGridDataDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -489,6 +511,14 @@
     <Page Include="GridViews\GrilleFilterForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GridViews\GrilleFilterTargetItemPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GridViews\GrilleFilterTargetPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InputGrid\InputGridColumnForm.xaml">
       <Generator>MSBuild:Compile</Generator>

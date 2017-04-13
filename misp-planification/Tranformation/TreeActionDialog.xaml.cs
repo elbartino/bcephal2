@@ -359,7 +359,7 @@ namespace Misp.Planification.Tranformation
         public void DisplayItem()
         {
             if (Action == null) { Reset(); return; }
-
+            BlockPanel.Loops = this.loops;
             if (this.ReportEditorController == null) this.initializeReport();
             Report report = null;
             if (Action.reportOid.HasValue)
@@ -402,7 +402,7 @@ namespace Misp.Planification.Tranformation
             {
                 Action.Instruction = TransformationTreeService.getInstructionObject(Action.conditions);
             }
-            BlockPanel.Loops = this.loops;
+           
             
             this.InstructionsPanel.Display(Action.Instruction);           
         }

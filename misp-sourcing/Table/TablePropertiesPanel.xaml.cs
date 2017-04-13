@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Misp.Kernel.Domain;
+using Misp.Sourcing.FilterScope;
 
 namespace Misp.Sourcing.Table
 {
@@ -59,6 +60,7 @@ namespace Misp.Sourcing.Table
 
             if (reportPeriodPanel != null) this.reportPeriodPanel.DisplayPeriod(table.period, true,readOnly);
             else periodPanel.DisplayPeriod(table.period, true,readOnly);
+            
             filterScopePanel.DisplayScope(table.correctFilter(),isNoAllocation,readOnly);
             thowEvent = true;
         }
@@ -119,6 +121,7 @@ namespace Misp.Sourcing.Table
             if (reportPeriodPanel != null) reportPeriodPanel.SetReadOnly(readOnly);
             if (periodPanel != null) periodPanel.SetReadOnly(readOnly);
             if (filterScopePanel != null) filterScopePanel.SetReadOnly(readOnly);
+            //if(reportTargetPanel != null) reportTargetPanel.SetReadOnly(readOnly);
             if (groupField != null) groupField.SetReadOnly(readOnly);
         }
     }

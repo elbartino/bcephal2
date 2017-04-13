@@ -63,7 +63,7 @@ namespace Misp.Sourcing.GridViews
             this.SubjectType = subjectType;
             InitializeComponent();
             filterForm = new GrilleFilterForm();
-            filterForm.periodFilter.DisplayPeriod(null);
+            //filterForm.periodFilter.DisplayPeriod(null);
             gridBrowser.SortEventHandler += OnSort;
             gridBrowser.EditEventHandler += OnEdit;
             gridBrowser.FilterEventHandler += OnFilter;
