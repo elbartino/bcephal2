@@ -23,7 +23,12 @@ namespace Misp.Bfc.Base
 
         public static string SETTLEMENT_ADVISEMENT = "functionality.settlement.advisement";
         public static string SETTLEMENT_ADVISEMENT_LIST = "functionality.settlement.advisement.list";
+        
+        
         public static string REVIEW = "functionality.review";
+        public static string REVIEW_PF_ACCOUNT = "functionality.review.pf.account";
+        public static string REVIEW_SETTLEMENT_EVOLUTION = "functionality.review.settlement.evolution";
+        public static string REVIEW_AGEING_BALANCE = "functionality.review.ageing.balance";
 
     }
 }

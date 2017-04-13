@@ -638,7 +638,7 @@ namespace Misp.Reconciliation.Reco
         private void OnBottomGridSelectionChange()
         {
             int count = this.BottomGrid.GridBrowser.gridControl.SelectedItems.Count;
-            this.BottomGrid.ReconciliateButton.IsEnabled = count > 1;
+            this.BottomGrid.ReconciliateButton.IsEnabled = count > 0;
             this.BottomGrid.ResetButton.IsEnabled = count > 0;
             this.BottomGrid.ClearButton.IsEnabled = this.BottomGrid.GetRowCount() > 0;
 
