@@ -173,6 +173,7 @@ namespace Misp.Sourcing.LinkedAttribute
             b.Mode = BindingMode.TwoWay;
             gridColumn.Binding = b;
             gridColumn.Style = this.Grid.FindResource("GridColumn") as Style;
+            gridColumn.Width = new GridColumnWidth(1, GridColumnUnitType.Star);
 
             if (column.attribute.related && !column.isKey)
             {
