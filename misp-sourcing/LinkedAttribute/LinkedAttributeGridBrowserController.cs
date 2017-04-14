@@ -42,7 +42,6 @@ namespace Misp.Sourcing.LinkedAttribute
             return Misp.Kernel.Domain.SubjectType.LINKED_ATTRIBUTE_GRID;
         }
 
-        protected override SideBar getNewSideBar() { return new SideBar(); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.
