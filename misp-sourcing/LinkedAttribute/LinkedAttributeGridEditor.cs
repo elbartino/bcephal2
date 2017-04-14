@@ -38,5 +38,10 @@ namespace Misp.Sourcing.LinkedAttribute
                     this.Children[i].CanClose = true;
         }
 
+        protected override void InitializeNewPage(String functionality)
+        {
+            
+        }
+
     }
 }
