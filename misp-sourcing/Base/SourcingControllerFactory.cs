@@ -14,6 +14,7 @@ using Misp.Sourcing.AutomaticTargetViews;
 using Misp.Sourcing.GridViews;
 using Misp.Sourcing.InputGrid;
 using Misp.Sourcing.EnrichmentTableViews;
+using Misp.Sourcing.LinkedAttribute;
 
 namespace Misp.Sourcing.Base
 {
@@ -137,6 +138,25 @@ namespace Misp.Sourcing.Base
                 controller.ApplicationManager = this.ApplicationManager;
                 controller.Service = ((SourcingServiceFactory)ServiceFactory).GetInputGridService();
                 return controller;
+            }
+
+            if (fonctionality == SourcingFunctionalitiesCode.LINKED_ATTRIBUTE_GRID_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
+            {
+                LinkedAttributeGridBrowserController controller = new LinkedAttributeGridBrowserController();
+                controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                controller.FunctionalityCode = fonctionality;
+                controller.ApplicationManager = this.ApplicationManager;
+                controller.Service = ((SourcingServiceFactory)ServiceFactory).GetLinkedAttributeGrilleService();
+                return controller;
+            }
+            if (fonctionality == SourcingFunctionalitiesCode.LINKED_ATTRIBUTE_GRID_EDIT && editionMode.HasValue)
+            {
+                //LinkedAttributeGridEditorController controller = new LinkedAttributeGridEditorController();
+                //controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                //controller.FunctionalityCode = fonctionality;
+                //controller.ApplicationManager = this.ApplicationManager;
+                //controller.Service = ((SourcingServiceFactory)ServiceFactory).GetLinkedAttributeGrilleService();
+                //return controller;
             }
 
             if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)

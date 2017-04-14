@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Misp.Kernel.Domain
 {
-    public class LinkedAttributeGrille : Persistent
+    public class LinkedAttributeGrid : Persistent
     {
 
         public Attribute attribute { get; set; }

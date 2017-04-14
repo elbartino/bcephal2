@@ -44,6 +44,9 @@ namespace Misp.Kernel.Service
         public static string REPORT_GRID_RESOURCE_PATH = "/report-grid";
         public static string SOCKET_GRID_RESOURCE_PATH = ApplicationManager.Instance.ServerWebSocketUri + "grid";
 
+        public static string LINKED_ATTRIBUTE_GRID_RESOURCE_PATH = "/linked-attribute-grid";
+        public static string SOCKET_LINKED_ATTRIBUTE_GRID_RESOURCE_PATH = ApplicationManager.Instance.ServerWebSocketUri + "linked-attribute-grid";
+
 
         public static string AUTOMATIC_TARGET_RESOURCE_PATH     = AUTOMATIC_SOURCING_RESOURCE_PATH + "/target";
         public static string UPLOAD_MULTIPE_FILES_RESOURCE_PATH = "/upload";

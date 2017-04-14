@@ -52,6 +52,8 @@ namespace Misp.Kernel.Domain
 
         public static SubjectType GRID = new SubjectType("Grid");
 
+        public static SubjectType LINKED_ATTRIBUTE_GRID = new SubjectType("Linked Attribute");
+
         public static SubjectType INPUT_GRID = new SubjectType("Input Grid","Grid");
 
         public static SubjectType REPORT_GRID = new SubjectType("Report Grid");

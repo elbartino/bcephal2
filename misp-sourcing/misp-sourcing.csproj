@@ -287,6 +287,8 @@
     <Compile Include="InputGrid\Relation\RelationshipPanel.xaml.cs">
       <DependentUpon>RelationshipPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LinkedAttribute\LinkedAttributeGridBrowser.cs" />
+    <Compile Include="LinkedAttribute\LinkedAttributeGridBrowserController.cs" />
     <Compile Include="MultipleFilesUpload\Step1.xaml.cs" />
     <Compile Include="MultipleFilesUpload\Step2.xaml.cs" />
     <Compile Include="MultipleFilesUpload\Step3.xaml.cs" />
