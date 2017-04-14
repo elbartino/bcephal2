@@ -293,6 +293,7 @@
     <Compile Include="Domain\GrilleRelationship.cs" />
     <Compile Include="Domain\GrilleRelationshipItem.cs" />
     <Compile Include="Domain\LinkedAttributeGrid.cs" />
+    <Compile Include="Domain\LinkedAttributeGridColumn.cs" />
     <Compile Include="Domain\LoopCondition.cs" />
     <Compile Include="Domain\LoopUserDialogTemplate.cs" />
     <Compile Include="Domain\Functionality.cs" />

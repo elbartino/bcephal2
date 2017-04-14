@@ -289,6 +289,12 @@
     </Compile>
     <Compile Include="LinkedAttribute\LinkedAttributeGridBrowser.cs" />
     <Compile Include="LinkedAttribute\LinkedAttributeGridBrowserController.cs" />
+    <Compile Include="LinkedAttribute\LinkedAttributeGridEditor.cs" />
+    <Compile Include="LinkedAttribute\LinkedAttributeGridEditorController.cs" />
+    <Compile Include="LinkedAttribute\LinkedAttributeGridEditorItem.cs" />
+    <Compile Include="LinkedAttribute\LinkedAttributeGridForm.xaml.cs">
+      <DependentUpon>LinkedAttributeGridForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MultipleFilesUpload\Step1.xaml.cs" />
     <Compile Include="MultipleFilesUpload\Step2.xaml.cs" />
     <Compile Include="MultipleFilesUpload\Step3.xaml.cs" />
@@ -539,6 +545,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InputGrid\Relation\RelationshipPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LinkedAttribute\LinkedAttributeGridForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

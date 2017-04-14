@@ -3,6 +3,7 @@ using Misp.Kernel.Controller;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.Sidebar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,8 @@ namespace Misp.Sourcing.LinkedAttribute
         {
             return Misp.Kernel.Domain.SubjectType.LINKED_ATTRIBUTE_GRID;
         }
+
+        protected override SideBar getNewSideBar() { return new SideBar(); }
 
         /// <summary>
         /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.

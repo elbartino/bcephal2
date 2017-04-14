@@ -151,12 +151,12 @@ namespace Misp.Sourcing.Base
             }
             if (fonctionality == SourcingFunctionalitiesCode.LINKED_ATTRIBUTE_GRID_EDIT && editionMode.HasValue)
             {
-                //LinkedAttributeGridEditorController controller = new LinkedAttributeGridEditorController();
-                //controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
-                //controller.FunctionalityCode = fonctionality;
-                //controller.ApplicationManager = this.ApplicationManager;
-                //controller.Service = ((SourcingServiceFactory)ServiceFactory).GetLinkedAttributeGrilleService();
-                //return controller;
+                LinkedAttributeGridEditorController controller = new LinkedAttributeGridEditorController();
+                controller.ModuleName = Misp.Sourcing.PlugIn.MODULE_NAME;
+                controller.FunctionalityCode = fonctionality;
+                controller.ApplicationManager = this.ApplicationManager;
+                controller.Service = ((SourcingServiceFactory)ServiceFactory).GetLinkedAttributeGrilleService();
+                return controller;
             }
 
             if (fonctionality == SourcingFunctionalitiesCode.AUTOMATIC_INPUT_TABLE_GRID_LIST && viewType.HasValue && viewType.Value == ViewType.SEARCH)
