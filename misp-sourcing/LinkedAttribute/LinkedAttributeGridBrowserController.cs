@@ -41,5 +41,24 @@ namespace Misp.Sourcing.LinkedAttribute
             return Misp.Kernel.Domain.SubjectType.LINKED_ATTRIBUTE_GRID;
         }
 
+        /// <summary>
+        /// Crée et retourne une nouvelle instance de la ToolBar liée à ce controller.
+        /// </summary>
+        /// <returns>Une nouvelle instance de la ToolBar</returns>
+        protected override Misp.Kernel.Ui.Base.ToolBar getNewToolBar() 
+        {
+            Misp.Kernel.Ui.Base.ToolBar toolbar = base.getNewToolBar();
+            toolbar.Children.Remove(toolbar.NewButton);
+            return toolbar; 
+        }
+
+        protected override void customizeContextMenu()
+        {
+            base.customizeContextMenu();
+            this.GetBrowser().Form.Grid.View.RowCellMenuCustomizations.Remove(this.GetBrowser().Form.Grid.NewMenuItem);
+            this.GetBrowser().Form.Grid.View.RowCellMenuCustomizations.Remove(this.GetBrowser().Form.Grid.DeleteMenuItem);
+            this.GetBrowser().Form.Grid.View.RowCellMenuCustomizations.Remove(this.GetBrowser().Form.Grid.SaveAsMenuItem);
+        }
+
     }
 }
