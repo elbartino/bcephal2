@@ -79,7 +79,7 @@ namespace Misp.Sourcing.LinkedAttribute
                 bool isKey = column.position == 0;
 
                 if (isKey && string.IsNullOrWhiteSpace(newValue)) {
-                    MessageDisplayer.DisplayError("Wromg value", column.name + " can't be empty!");
+                    MessageDisplayer.DisplayError("Wrong value", column.name + " can't be empty!");
                     args.Handled = true;
                     //args.Value = oldValue;
                     return;
