@@ -3,6 +3,7 @@ using DevExpress.Xpf.Grid;
 using Misp.Kernel.Administration.ObjectAdmin;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Sourcing.GridViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -137,6 +138,32 @@ namespace Misp.Sourcing.LinkedAttribute
             }
         }
 
+        public void DisplayPage(GrillePage page)
+        {
+            if (page != null)
+            {
+                this.DisplayRows(page.rows);
+                this.Toolbar.displayPage(page);
+            }
+        }
+
+        protected void DisplayRows(List<object[]> rows)
+        {
+            List<GridItem> items = new List<GridItem>(0);
+            foreach (object[] row in rows)
+            {
+                items.Add(new GridItem(row));
+            }
+            if (!this.IsReadOnly)
+            {
+                items.Add(new GridItem(new object[this.EditedObject.attribute.childrenListChangeHandler.Items.Count + 1]));
+            }
+            this.Grid.ItemsSource = items;
+
+            //this.Grid.View.FocusedRowHandle = GridControl.AutoFilterRowHandle;
+            //this.Grid.View.ShowEditor();
+        }
+
         public List<object> getEditableControls()
         {
             List<object> controls = new List<object>(0);
@@ -148,12 +175,16 @@ namespace Misp.Sourcing.LinkedAttribute
             if (this.EditedObject != null && RebuildGrid) 
             {
                 int position = 0;
-                LinkedAttributeGridColumn column = new LinkedAttributeGridColumn(this.EditedObject.attribute, position++, true);
+                GrilleColumn column = new GrilleColumn(this.EditedObject.attribute, position++);
+                this.EditedObject.AddColumn(column);
+                column.valueOid = this.EditedObject.attribute.oid;
                 GridColumn gridColumn = getColumn(column);
+                gridColumn.ReadOnly = true;
                 this.Grid.Columns.Add(gridColumn);
                 foreach (Kernel.Domain.Attribute attribute in this.EditedObject.attribute.childrenListChangeHandler.Items)
                 {
-                    column = new LinkedAttributeGridColumn(attribute, position++);
+                    column = new GrilleColumn(attribute, position++);
+                    this.EditedObject.AddColumn(column);
                     gridColumn = getColumn(column);
                     this.Grid.Columns.Add(gridColumn);
                 }
@@ -162,7 +193,7 @@ namespace Misp.Sourcing.LinkedAttribute
         }
 
 
-        private GridColumn getColumn(LinkedAttributeGridColumn column)
+        private GridColumn getColumn(GrilleColumn column)
         {
             DevExpress.Xpf.Grid.GridColumn gridColumn = new DevExpress.Xpf.Grid.GridColumn();
             gridColumn.Header = column.ToString();
@@ -175,7 +206,7 @@ namespace Misp.Sourcing.LinkedAttribute
             gridColumn.Style = this.Grid.FindResource("GridColumn") as Style;
             gridColumn.Width = new GridColumnWidth(1, GridColumnUnitType.Star);
 
-            if (column.attribute.related && !column.isKey)
+            if (column.attribute.related /*&& !column.isKey*/)
             {
                 //try
                 //{
@@ -195,7 +226,7 @@ namespace Misp.Sourcing.LinkedAttribute
             return gridColumn;
         }
 
-        private String getBindingName(LinkedAttributeGridColumn column)
+        private String getBindingName(GrilleColumn column)
         {
             return "Datas[" + column.position + "]";
         }

@@ -62,6 +62,34 @@ namespace Misp.Sourcing.LinkedAttribute
             return OperationState.CONTINUE;
         }
 
+        public virtual void Search(int currentPage = 0)
+        {
+            LinkedAttributeGridEditorItem page = (LinkedAttributeGridEditorItem)getEditor().getActivePage();
+            try
+            {
+                GrilleFilter filter = new GrilleFilter(); // page.getLinkedAttributeGridForm().GridForm.filterForm.Fill();
+                filter.attribute = page.EditedObject.attribute;
+                filter.grid = new Grille();
+                //filter.grid.code = page.EditedObject.code;
+                filter.grid.columnListChangeHandler = page.EditedObject.columnListChangeHandler;
+                filter.grid.report = page.EditedObject.report;
+                filter.grid.oid = page.EditedObject.oid;
+                filter.grid.name = page.EditedObject.name;
+                filter.page = currentPage;
+                filter.pageSize = (int)page.getLinkedAttributeGridForm().Toolbar.pageSizeComboBox.SelectedItem;
+                filter.showAll = page.getLinkedAttributeGridForm().Toolbar.showAllCheckBox.IsChecked.Value;
+                GrillePage rows = this.GetLinkedAttributeGridService().getGridRows(filter);
+                page.getLinkedAttributeGridForm().DisplayPage(rows);
+                
+            }
+            catch (ServiceExecption)
+            {
+                GrillePage rows = new GrillePage();
+                rows.rows = new List<object[]>(0);
+                page.getLinkedAttributeGridForm().DisplayPage(rows);
+            }
+        }
+
         public override OperationState Create() { return OperationState.CONTINUE; }
 
         public override OperationState Delete() { return OperationState.CONTINUE; }
