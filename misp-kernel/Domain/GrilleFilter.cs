@@ -12,6 +12,8 @@ namespace Misp.Kernel.Domain
 
         public Grille grid { get; set; }
 
+        public Attribute attribute { get; set; }
+
         public Target filterScope { get; set; }
 
         public Period filterPeriod { get; set; }

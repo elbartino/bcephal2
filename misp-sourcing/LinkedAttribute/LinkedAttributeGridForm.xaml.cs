@@ -3,6 +3,7 @@ using DevExpress.Xpf.Grid;
 using Misp.Kernel.Administration.ObjectAdmin;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Sourcing.GridViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,8 +38,12 @@ namespace Misp.Sourcing.LinkedAttribute
         public bool IsModify { get; set; }
 
         public LinkedAttributeGrid EditedObject { get; set; }
+        public GrilleFilter Filter { get; set; }
 
-        public Misp.Kernel.Ui.Base.ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
+        public ChangeEventHandlerBuilder ChangeEventHandler { get; set; }
+        public ChangeEventHandler FilterChangeHandler;
+        public Misp.Sourcing.GridViews.GridBrowser.EditCellEventHandler EditEventHandler { get; set; }
+        
 
         protected bool RebuildGrid = true;
 
@@ -50,6 +55,7 @@ namespace Misp.Sourcing.LinkedAttribute
         public LinkedAttributeGridForm()
         {
             InitializeComponent();
+            InitializeHandlers();
         }
 
         public LinkedAttributeGridForm(SubjectType SubjectType)
@@ -117,6 +123,12 @@ namespace Misp.Sourcing.LinkedAttribute
             
         }
 
+        public GrilleFilter FillFilter()
+        {
+            if (this.Filter == null) this.Filter = new GrilleFilter();
+            return this.Filter;
+        }
+
         /// <summary>
         /// Cette méthode permet d'afficher les données de l'objet à éditer 
         /// pour les afficher dans la vue.
@@ -124,18 +136,22 @@ namespace Misp.Sourcing.LinkedAttribute
         public virtual void displayObject()
         {
             buildColumns();
-            //this.InputGridSheetForm.EditedObject = this.EditedObject;
-            //this.InputGridSheetForm.displayObject();
-
-            //this.GridForm.EditedObject = this.EditedObject;
-            //this.GridForm.displayObject();
-
             if (this.AdministrationBar != null)
             {
                 this.AdministrationBar.EditedObject = this.EditedObject;
                 this.AdministrationBar.Display();
             }
         }
+
+        public void DisplayPage(GrillePage page)
+        {
+            if (page != null)
+            {
+                this.Grid.displayPage(page);
+                this.Toolbar.displayPage(page);
+            }
+        }
+
 
         public List<object> getEditableControls()
         {
@@ -147,61 +163,41 @@ namespace Misp.Sourcing.LinkedAttribute
         {
             if (this.EditedObject != null && RebuildGrid) 
             {
-                int position = 0;
-                LinkedAttributeGridColumn column = new LinkedAttributeGridColumn(this.EditedObject.attribute, position++, true);
-                GridColumn gridColumn = getColumn(column);
-                this.Grid.Columns.Add(gridColumn);
-                foreach (Kernel.Domain.Attribute attribute in this.EditedObject.attribute.childrenListChangeHandler.Items)
-                {
-                    column = new LinkedAttributeGridColumn(attribute, position++);
-                    gridColumn = getColumn(column);
-                    this.Grid.Columns.Add(gridColumn);
-                }
+                this.Grid.RebuildGrid = true;
+                this.Grid.buildColumns(this.EditedObject);
                 RebuildGrid = false;
             }
         }
 
+        #endregion
 
-        private GridColumn getColumn(LinkedAttributeGridColumn column)
+
+        #region Handlers
+
+        private void InitializeHandlers()
         {
-            DevExpress.Xpf.Grid.GridColumn gridColumn = new DevExpress.Xpf.Grid.GridColumn();
-            gridColumn.Header = column.ToString();
-            gridColumn.IsSmart = true;
-            gridColumn.ReadOnly = this.IsReadOnly;
-            gridColumn.ColumnFilterMode = ColumnFilterMode.DisplayText;
-            Binding b = new Binding(getBindingName(column));
-            b.Mode = BindingMode.TwoWay;
-            gridColumn.Binding = b;
-            gridColumn.Style = this.Grid.FindResource("GridColumn") as Style;
-            gridColumn.Width = new GridColumnWidth(1, GridColumnUnitType.Star);
-
-            if (column.attribute.related && !column.isKey)
-            {
-                //try
-                //{
-                //    column.values = Service.ModelService.getLeafAttributeValues(grilleColumn.valueOid.Value);
-                //}
-                //catch (Exception) { }
-                //ComboBoxEditSettings combo = new ComboBoxEditSettings();
-                //combo.ItemsSource = column.Items;
-                //combo.IsTextEditable = true;
-                //combo.ShowText = true;
-                //combo.ValidateOnTextInput = true;
-                //combo.AllowNullInput = true;
-                //gridColumn.EditSettings = combo;
-            }
-
-            
-            return gridColumn;
+            this.Grid.SortEventHandler += OnSort;
+            this.Grid.EditEventHandler += OnEdit;
+            this.Grid.FilterEventHandler += OnFilter;
         }
 
-        private String getBindingName(LinkedAttributeGridColumn column)
+        private void OnFilter()
         {
-            return "Datas[" + column.position + "]";
+            if (FilterChangeHandler != null) FilterChangeHandler();
+        }
+
+        private void OnSort(object col)
+        {            
+            if (FilterChangeHandler != null) FilterChangeHandler();            
+        }
+
+        private Object[] OnEdit(GrilleEditedElement element)
+        {
+            if (this.EditEventHandler != null) return EditEventHandler(element);
+            return null;
         }
 
         #endregion
-
 
     }
 }

@@ -62,6 +62,34 @@ namespace Misp.Sourcing.LinkedAttribute
             return OperationState.CONTINUE;
         }
 
+        public virtual void Search(int currentPage = 0)
+        {
+            LinkedAttributeGridEditorItem page = (LinkedAttributeGridEditorItem)getEditor().getActivePage();
+            try
+            {
+                GrilleFilter filter = page.getLinkedAttributeGridForm().FillFilter();
+                filter.attribute = page.EditedObject.attribute;
+                filter.grid = new Grille();
+                //filter.grid.code = page.EditedObject.code;
+                filter.grid.columnListChangeHandler = page.EditedObject.columnListChangeHandler;
+                filter.grid.report = page.EditedObject.report;
+                filter.grid.oid = page.EditedObject.oid;
+                filter.grid.name = page.EditedObject.name;
+                filter.page = currentPage;
+                filter.pageSize = (int)page.getLinkedAttributeGridForm().Toolbar.pageSizeComboBox.SelectedItem;
+                filter.showAll = page.getLinkedAttributeGridForm().Toolbar.showAllCheckBox.IsChecked.Value;
+                GrillePage rows = this.GetLinkedAttributeGridService().getGridRows(filter);
+                page.getLinkedAttributeGridForm().DisplayPage(rows);
+                
+            }
+            catch (ServiceExecption)
+            {
+                GrillePage rows = new GrillePage();
+                rows.rows = new List<object[]>(0);
+                page.getLinkedAttributeGridForm().DisplayPage(rows);
+            }
+        }
+
         public override OperationState Create() { return OperationState.CONTINUE; }
 
         public override OperationState Delete() { return OperationState.CONTINUE; }
@@ -151,7 +179,50 @@ namespace Misp.Sourcing.LinkedAttribute
                 editorPage.getLinkedAttributeGridForm().AdministrationBar.Changed += OnChangeEventHandler;
             }
 
+            initializeGridFormHandlers(editorPage.getLinkedAttributeGridForm());
+
         }
+
+        protected virtual void initializeGridFormHandlers(LinkedAttributeGridForm form)
+        {
+            form.FilterChangeHandler += OnFilterChange;
+            form.Toolbar.ChangeHandler += OnPageChange;
+            form.EditEventHandler += OnEditColumn;
+        }
+
+        private void OnFilterChange()
+        {
+            Search();
+            OnChange();
+        }
+
+        private void OnPageChange(object item)
+        {
+            Search((int)item);
+        }
+
+        private Object[] OnEditColumn(GrilleEditedElement element)
+        {
+            try
+            {
+                EditorItem<LinkedAttributeGrid> page = getEditor().getActivePage();
+                Grille grid = page.EditedObject;
+                
+                element.grid = new Grille();
+                element.attribute = page.EditedObject.attribute;
+                element.grid.code = page.EditedObject.code;
+                element.grid.columnListChangeHandler.originalList = page.EditedObject.columnListChangeHandler.Items.ToList();
+                element.grid.report = page.EditedObject.report;
+                element.grid.oid = page.EditedObject.oid;
+                element.grid.name = page.EditedObject.name;
+                element.grid.reconciliation = page.EditedObject.reconciliation;
+                element.grid.report = page.EditedObject.report;
+                return this.GetLinkedAttributeGridService().editCell(element);
+            }
+            catch (ServiceExecption) { }
+            return null;
+        }
+
 
         protected override void initializeSideBarData()
         {

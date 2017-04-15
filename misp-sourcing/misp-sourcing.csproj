@@ -289,6 +289,7 @@
     </Compile>
     <Compile Include="LinkedAttribute\LinkedAttributeGridBrowser.cs" />
     <Compile Include="LinkedAttribute\LinkedAttributeGridBrowserController.cs" />
+    <Compile Include="LinkedAttribute\LinkedAttributeGridControl.cs" />
     <Compile Include="LinkedAttribute\LinkedAttributeGridEditor.cs" />
     <Compile Include="LinkedAttribute\LinkedAttributeGridEditorController.cs" />
     <Compile Include="LinkedAttribute\LinkedAttributeGridEditorItem.cs" />

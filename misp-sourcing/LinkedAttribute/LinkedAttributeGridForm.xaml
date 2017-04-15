@@ -7,6 +7,7 @@
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
              xmlns:bgv="clr-namespace:Misp.Sourcing.GridViews"
+             xmlns:src="clr-namespace:Misp.Sourcing.LinkedAttribute"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
@@ -15,8 +16,9 @@
         <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
-    <dxg:GridControl x:Name="Grid" x:FieldModifier="public" Grid.Row="0">
-        <dxg:GridControl.Resources>
+
+    <src:LinkedAttributeGridControl x:Name="Grid" x:FieldModifier="public" Grid.Row="0">
+        <src:LinkedAttributeGridControl.Resources>
             <Style x:Key="GridHeader" TargetType="{x:Type Control}">
                 <Setter Property="Background" Value="#839BBB"/>
                 <Setter Property="Foreground" Value="White"/>
@@ -46,14 +48,9 @@
                 <Setter Property="AllowResizing" Value="True"/>
                 <Setter Property="AllowMoving" Value="True"/>
             </Style>
-        </dxg:GridControl.Resources>
-
-        <dxg:GridControl.View>
-            <dxg:TableView x:Name="TableView" AllowEditing="True"  AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowResizing="True"/>
-        </dxg:GridControl.View>
-        
-    </dxg:GridControl>
-
+        </src:LinkedAttributeGridControl.Resources>
+    </src:LinkedAttributeGridControl>
+    
     <bgv:GridBrowserToolbar x:Name="Toolbar" x:FieldModifier="public" Grid.Row="1"/>
     
 </Grid>

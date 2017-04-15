@@ -26,6 +26,8 @@ namespace Misp.Kernel.Domain
 
         public bool? orderAsc { get; set; }
 
+        public Attribute attribute { get; set; }
+
         [ScriptIgnore]
         public bool isAdded { get; set; }
 
@@ -37,6 +39,15 @@ namespace Misp.Kernel.Domain
         {
             show = true;
             values = new List<BrowserData>(0);
+        }
+
+        public GrilleColumn(Attribute attribute, int position) : this()
+        {
+            this.valueOid = attribute.oid;
+            this.name = attribute.name;
+            this.type = ParameterType.SCOPE.ToString();
+            this.position = position;
+            this.attribute = attribute;
         }
 
         public void SetValue(object value)
@@ -108,7 +119,6 @@ namespace Misp.Kernel.Domain
             }
         }
 
-        
 
     }
 }
