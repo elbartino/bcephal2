@@ -504,6 +504,11 @@ namespace Misp.Kernel.Ui.Dashboard
             return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.ENRICHMENT_TABLE_EDIT);
         }
 
+        public Boolean isLinkedAttribute()
+        {
+            return !string.IsNullOrWhiteSpace(FunctionalityCode) && FunctionalityCode.Equals(FunctionalitiesCode.LINKED_ATTRIBUTE_GRID);
+        }
+
         public string GetParam()
         {
             if (isTable()) return DashBoardService.TABLES;
@@ -524,6 +529,7 @@ namespace Misp.Kernel.Ui.Dashboard
             if (isAutomaticTarget()) return DashBoardService.AUTOMATIC_TARGET;
             if (isAutomaticEnrichmentTable()) return DashBoardService.AUTOMATIC_ENRICHMENT_TABLE;
             if (isEnrichmentTable()) return DashBoardService.ENRICHMENT_TABLE;
+            if (isLinkedAttribute()) return DashBoardService.LINKED_ATTRIBUTE;
 
             return null;
         }
