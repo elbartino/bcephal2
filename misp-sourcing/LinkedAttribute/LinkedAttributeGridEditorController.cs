@@ -67,7 +67,7 @@ namespace Misp.Sourcing.LinkedAttribute
             LinkedAttributeGridEditorItem page = (LinkedAttributeGridEditorItem)getEditor().getActivePage();
             try
             {
-                GrilleFilter filter = new GrilleFilter(); // page.getLinkedAttributeGridForm().GridForm.filterForm.Fill();
+                GrilleFilter filter = page.getLinkedAttributeGridForm().FillFilter();
                 filter.attribute = page.EditedObject.attribute;
                 filter.grid = new Grille();
                 //filter.grid.code = page.EditedObject.code;
@@ -179,7 +179,50 @@ namespace Misp.Sourcing.LinkedAttribute
                 editorPage.getLinkedAttributeGridForm().AdministrationBar.Changed += OnChangeEventHandler;
             }
 
+            initializeGridFormHandlers(editorPage.getLinkedAttributeGridForm());
+
         }
+
+        protected virtual void initializeGridFormHandlers(LinkedAttributeGridForm form)
+        {
+            form.FilterChangeHandler += OnFilterChange;
+            form.Toolbar.ChangeHandler += OnPageChange;
+            form.EditEventHandler += OnEditColumn;
+        }
+
+        private void OnFilterChange()
+        {
+            Search();
+            OnChange();
+        }
+
+        private void OnPageChange(object item)
+        {
+            Search((int)item);
+        }
+
+        private Object[] OnEditColumn(GrilleEditedElement element)
+        {
+            try
+            {
+                EditorItem<LinkedAttributeGrid> page = getEditor().getActivePage();
+                Grille grid = page.EditedObject;
+                
+                element.grid = new Grille();
+                element.attribute = page.EditedObject.attribute;
+                element.grid.code = page.EditedObject.code;
+                element.grid.columnListChangeHandler.originalList = page.EditedObject.columnListChangeHandler.Items.ToList();
+                element.grid.report = page.EditedObject.report;
+                element.grid.oid = page.EditedObject.oid;
+                element.grid.name = page.EditedObject.name;
+                element.grid.reconciliation = page.EditedObject.reconciliation;
+                element.grid.report = page.EditedObject.report;
+                return this.GetLinkedAttributeGridService().editCell(element);
+            }
+            catch (ServiceExecption) { }
+            return null;
+        }
+
 
         protected override void initializeSideBarData()
         {
