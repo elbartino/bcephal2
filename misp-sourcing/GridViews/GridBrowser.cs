@@ -88,6 +88,7 @@ namespace Misp.Sourcing.GridViews
                 gridControl.FilterChanged -= OnFilterChanged;
                 gridControl.SelectionChanged -= OnSelectionChanged;
                 ((GridTableView)gridControl.View).CellValueChanged -= OnCellValueChanged;
+                ((GridTableView)gridControl.View).ValidateCell -= OnValidateCell;
                 ((GridTableView)gridControl.View).SortEventHandler -= OnSort;
                 ((GridTableView)gridControl.View).Menu.DeleteItem.ItemClick -= OnDelete;
                 ((GridTableView)gridControl.View).Menu.DuplicateItem.ItemClick -= OnDuplicate;
@@ -108,6 +109,7 @@ namespace Misp.Sourcing.GridViews
             gridControl.SelectionChanged += OnSelectionChanged;
             view.SortEventHandler += OnSort;
             view.CellValueChanged += OnCellValueChanged;
+            view.ValidateCell += OnValidateCell;
             
             view.Menu.DeleteItem.ItemClick += OnDelete;
             view.Menu.DuplicateItem.ItemClick += OnDuplicate;
@@ -127,6 +129,8 @@ namespace Misp.Sourcing.GridViews
             }
 
         }
+
+        
 
         private bool allowSort = true;
         private void OnEndSorting(object sender, RoutedEventArgs e)
@@ -286,7 +290,10 @@ namespace Misp.Sourcing.GridViews
             }
         }
 
-        
+        protected virtual void OnValidateCell(object sender, GridCellValidationEventArgs e)
+        {
+            
+        }
 
 
 
