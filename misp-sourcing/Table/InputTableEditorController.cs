@@ -651,12 +651,13 @@ namespace Misp.Sourcing.Table
             InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
             if (page != null && table != null && table is InputTable)
             {
+                Mask(false);
                 page.EditedObject = (InputTable)table;
                 page.displayObject();
                 page.IsModify = false;
                 if (closeEditorAfterSave)
                 {
-                    Mask(false);
+                   
                     HistoryHandler.Instance.OnClosePage(this);
                     closeEditorAfterSave = false;
                   
@@ -3059,8 +3060,8 @@ namespace Misp.Sourcing.Table
         /// </summary>
         protected override void AfterClose()
         {
+            Mask(false);
             base.AfterClose();
-
             foreach (InputTableEditorItem page in getInputTableEditor().getPages())
             {
                 if (page.getInputTableForm().SpreadSheet != null)
@@ -3073,6 +3074,7 @@ namespace Misp.Sourcing.Table
             ApplicationManager.MainWindow.StatusLabel.Content = "";
             Kernel.Util.ClipbordUtil.ClearClipboard();
             GetInputTableService().closeAllTables();
+            
         }
 
         /// <summary>
