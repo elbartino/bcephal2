@@ -40,6 +40,7 @@ namespace Misp.Kernel.Service
         
         public static String AUTOMATIC_ENRICHMENT_TABLE = "automaticenrichmenttable";
         public static String ENRICHMENT_TABLE = "enrichmenttable";
+        public static String LINKED_ATTRIBUTE = "linkedattribute";
 
         /// <summary>
         /// 

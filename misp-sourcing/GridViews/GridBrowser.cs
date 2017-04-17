@@ -57,6 +57,9 @@ namespace Misp.Sourcing.GridViews
 
         public bool IsReadOnly { get; set; }
 
+        public bool AllowEmptyValue = false;
+        public bool AllowUnknowValueForScope = false;
+
         public GridBrowser()
         {
             ThemeManager.SetThemeName(this, "Office2016White");
@@ -210,7 +213,7 @@ namespace Misp.Sourcing.GridViews
             if (DeleteEventHandler != null) DeleteEventHandler(GetSelectedOis());
         }
                         
-        protected void OnCellValueChanged(object sender, CellValueChangedEventArgs args)
+        protected virtual void OnCellValueChanged(object sender, CellValueChangedEventArgs args)
         {
             GridItem item = (GridItem)this.gridControl.SelectedItem;
             if (item == null) item = (GridItem)this.gridControl.CurrentItem;
@@ -235,7 +238,7 @@ namespace Misp.Sourcing.GridViews
                     else if (decimal.TryParse(newValue.Replace(".", ","), out val)) element.measure = val;
                     else
                     {
-                        MessageDisplayer.DisplayError("Wromg measure", "'" + newValue + "'" + " is not a decimal!");
+                        MessageDisplayer.DisplayError("Wrong measure", "'" + newValue + "'" + " is not a decimal!");
                         args.Handled = true;
                         //args.Value = args.OldValue;
                         return;
@@ -247,14 +250,13 @@ namespace Misp.Sourcing.GridViews
                     else
                     {
                         BrowserData data = column.getValue(newValue);
-                        if (data == null)
+                        if (!AllowUnknowValueForScope && data == null)
                         {
-                            MessageDisplayer.DisplayError("Wromg value", "Unknow value : '" + newValue + "'");
+                            MessageDisplayer.DisplayError("Wrong value", "Unknow value : '" + newValue + "'");
                             args.Handled = true;                            
                             return;
                         }
                         else element.value = data;
-                        
                     }
                 }
                 if (column.type.Equals(ParameterType.PERIOD.ToString()))
@@ -414,7 +416,7 @@ namespace Misp.Sourcing.GridViews
             displayRows(rows);
         }
 
-        public void buildColumns(Grille grid)
+        public virtual void buildColumns(Grille grid)
         {
             this.Grille = grid;
             buildGrid();
@@ -497,27 +499,37 @@ namespace Misp.Sourcing.GridViews
             this.gridControl.ItemsSource = items;
         }
 
-        public void AddColumn(GrilleColumn grilleColumn)
+        public void AddColumn(GrilleColumn grilleColumn, bool readOnly = false)
         {
-            DevExpress.Xpf.Grid.GridColumn column = getColumn(grilleColumn);
+            DevExpress.Xpf.Grid.GridColumn column = getColumn(grilleColumn, readOnly);
             gridControl.Columns.Add(column);
         }
 
-        private String getBindingName(GrilleColumn grilleColumn)
+        protected String getBindingName(GrilleColumn grilleColumn)
         {
             return "Datas[" + grilleColumn.position + "]";
         }
 
-        private GridColumn getColumn(GrilleColumn grilleColumn) 
+        protected virtual GridColumn getColumn(GrilleColumn grilleColumn, bool readOnly = false) 
         {
             DevExpress.Xpf.Grid.GridColumn column = new DevExpress.Xpf.Grid.GridColumn();
             column.FieldName = grilleColumn.name;
             column.IsSmart = true;
-            column.ReadOnly = this.IsReadOnly || this.Grille.IsReadOnly();
+            column.ReadOnly = this.IsReadOnly || this.Grille.IsReadOnly() || readOnly;
             column.ColumnFilterMode = ColumnFilterMode.DisplayText;
             Binding b = new Binding(getBindingName(grilleColumn));
             b.Mode = BindingMode.TwoWay;
             column.Binding = b;
+
+            if(grilleColumn.type.Equals(ParameterType.MEASURE.ToString()))
+            {
+                TextEditSettings settings = new TextEditSettings();
+                settings.DisplayFormat = "N2";
+                settings.ValidateOnTextInput = true;
+                settings.AllowNullInput = true;
+                column.EditSettings = settings;
+            }
+
             if (!this.Grille.report && grilleColumn.type.Equals(ParameterType.SCOPE.ToString()))
             {
                 try
@@ -533,7 +545,7 @@ namespace Misp.Sourcing.GridViews
                 combo.AllowNullInput = true;
                 column.EditSettings = combo;
             }
-            if (!this.Grille.report && grilleColumn.type.Equals(ParameterType.PERIOD.ToString()))
+            else if (!this.Grille.report && grilleColumn.type.Equals(ParameterType.PERIOD.ToString()))
             {
                 DateEditSettings dateSetting = new DateEditSettings();
                 dateSetting.IsTextEditable = true;
@@ -542,13 +554,14 @@ namespace Misp.Sourcing.GridViews
                 dateSetting.AllowNullInput = true;
                 column.EditSettings = dateSetting;
             }
+            
             if (grilleColumn.type.Equals(ParameterType.PERIOD.ToString()) 
                 || grilleColumn.type.Equals(ParameterType.MEASURE.ToString())
                 || grilleColumn.type.Equals(ParameterType.SPECIAL_MEASURE.ToString()))
             {
                 column.ColumnFilterMode = ColumnFilterMode.Value;
             }
-
+            
             return column;        
         }
 

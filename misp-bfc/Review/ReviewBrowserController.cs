@@ -21,10 +21,13 @@ namespace Misp.Bfc.Review
 
         ReviewService reviewService;
 
+        public int DefaultActiveTab { get; set; }
+
         public ReviewBrowserController() 
         {
             ModuleName = PlugIn.MODULE_NAME;
             this.SubjectType = Kernel.Domain.SubjectType.REVIEW;
+            this.DefaultActiveTab = 0;
         }
 
         public ReviewService getReviewService()
@@ -37,6 +40,23 @@ namespace Misp.Bfc.Review
             return this.reviewService;
         }
 
+        public void SearchIfNotYetLoaded()
+        {
+            bool search = false;
+            if (getReviewBrowser().Form.TabControl.SelectedIndex == 0)
+            {
+                search = !getReviewBrowser().Form.PrefundingAccountForm.IsAlreadyLoaded;
+            }
+            else if (getReviewBrowser().Form.TabControl.SelectedIndex == 1)
+            {
+                search = !getReviewBrowser().Form.SettlementEvolutionForm.IsAlreadyLoaded;
+            }
+            else if (getReviewBrowser().Form.TabControl.SelectedIndex == 2)
+            {
+                search = !getReviewBrowser().Form.AgeingBalanceForm.IsAlreadyLoaded;
+            }
+            if (search) Search();
+        }
 
         public override OperationState Search() 
         {
@@ -128,7 +148,7 @@ namespace Misp.Bfc.Review
 
         protected override IView getNewView()
         {
-            return new ReviewBrowser();
+            return new ReviewBrowser(this.DefaultActiveTab);
         }
                       
         protected override Kernel.Ui.Base.ToolBar getNewToolBar()
@@ -165,6 +185,7 @@ namespace Misp.Bfc.Review
         {
             getReviewBrowser().Form.TabControl.SelectionChanged += OnSelectTabChanged;
             getReviewBrowser().Form.MemberBankChanged += OnMemberBankChanged;
+            getReviewBrowser().Form.PrefundingAccountForm.FilterChanged += OnPrefundingAccountFilterChanged;
             getReviewBrowser().Form.SettlementEvolutionForm.FilterChanged += OnSettlementEvolutionFilterChanged;
             getReviewBrowser().Form.SettlementEvolutionForm.PeriodChanged += OnSettlementEvolutionPeriodChanged;
 
@@ -178,12 +199,17 @@ namespace Misp.Bfc.Review
 
         private void OnMemberBankChanged()
         {
-            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.Search()));            
+            this.Search();            
+        }
+
+        private void OnPrefundingAccountFilterChanged()
+        {
+            this.Search();        
         }
 
         private void OnSettlementEvolutionFilterChanged()
         {
-            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.Search()));
+            this.Search();
         }
 
         private void OnSettlementEvolutionPeriodChanged()
@@ -193,7 +219,7 @@ namespace Misp.Bfc.Review
         
         private void OnSelectTabChanged(object sender, DevExpress.Xpf.Core.TabControlSelectionChangedEventArgs e)
         {
-            Kernel.Application.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.Search()));
+            SearchIfNotYetLoaded();
         }
 
 
@@ -203,8 +229,13 @@ namespace Misp.Bfc.Review
             banks.Add(null);
             getReviewBrowser().Form.MemberBankComboBoxEdit.ItemsSource = banks;
 
+            List<BfcItem> pmls = getReviewService().PmlService.getAll();
+            pmls.Add(null);
+            getReviewBrowser().Form.PrefundingAccountForm.PmlComboBoxEdit.ItemsSource = pmls;
+
             List<BfcItem> schemes = getReviewService().SchemeService.getAll();
             schemes.Add(null);
+            getReviewBrowser().Form.PrefundingAccountForm.SchemeComboBoxEdit.ItemsSource = schemes;
             getReviewBrowser().Form.SettlementEvolutionForm.SchemeComboBoxEdit.ItemsSource = schemes;
 
             List<BfcItem> platforms = getReviewService().PlatformService.getAll();

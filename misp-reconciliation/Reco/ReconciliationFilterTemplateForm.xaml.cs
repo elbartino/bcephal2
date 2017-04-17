@@ -148,12 +148,12 @@ namespace Misp.Reconciliation.Reco
             }
             else if (this.SelectedIndex == 2)
             {
-                if (setToFilter) this.LeftGrid.GrilleBrowserForm.filterForm.targetFilter.SetTargetValue(target);
+                if (setToFilter) this.LeftGrid.GrilleBrowserForm.filterForm.TargetPanel.SetTargetValue(target);
                 else if(target is Kernel.Domain.Attribute) this.LeftGridProperties.InputGridPropertiesPanel.SetValue(target);
             }
             else if (this.SelectedIndex == 3)
             {
-                if (setToFilter) this.RightGrid.GrilleBrowserForm.filterForm.targetFilter.SetTargetValue(target);
+                if (setToFilter) this.RightGrid.GrilleBrowserForm.filterForm.TargetPanel.SetTargetValue(target);
                 else if (target is Kernel.Domain.Attribute) this.RightGridProperties.InputGridPropertiesPanel.SetValue(target);
             }
             else if (this.SelectedIndex == 4)
@@ -518,6 +518,12 @@ namespace Misp.Reconciliation.Reco
 
         private void OnReconciliate(object sender, RoutedEventArgs e)
         {
+            if (this.BottomGrid.GridBrowser.gridControl.SelectedItems.Count == 0)
+            {
+                MessageDisplayer.DisplayWarning("Reconciliation", "You can't create a new reconciliation with just one row.");
+                return;
+            }
+
             if (this.EditedObject.reconciliationType == null)
             {
                 MessageDisplayer.DisplayWarning("Reconciliation", "The reconciliation type is not specified!");
@@ -566,13 +572,13 @@ namespace Misp.Reconciliation.Reco
             dialog.ReconciliationGrid.SetBalance(this.BottomGrid.LeftAmount, this.BottomGrid.RightAmount, this.BottomGrid.BalanceAmount);
             if (this.BottomGrid.BalanceAmount != 0)
             {
-                dialog.WriteOffBlock.Visibility = Visibility.Visible;
+                dialog.WriteOffGroupBox.Visibility = Visibility.Visible;
                 dialog.WriteOffBlock.WriteOffConfiguration = this.EditedObject.writeOffConfig;
                 dialog.WriteOffBlock.display();
             }
             else
             {
-                dialog.WriteOffBlock.Visibility = Visibility.Collapsed;
+                dialog.WriteOffGroupBox.Visibility = Visibility.Collapsed;
             }
             
             dialog.ReconciliateButton.Click += OnDialogReconciliate;
@@ -631,9 +637,9 @@ namespace Misp.Reconciliation.Reco
 
         private void OnBottomGridSelectionChange()
         {
-            bool enable = this.BottomGrid.GridBrowser.gridControl.SelectedItems.Count > 0;
-            this.BottomGrid.ReconciliateButton.IsEnabled = enable;
-            this.BottomGrid.ResetButton.IsEnabled = enable;
+            int count = this.BottomGrid.GridBrowser.gridControl.SelectedItems.Count;
+            this.BottomGrid.ReconciliateButton.IsEnabled = count > 0;
+            this.BottomGrid.ResetButton.IsEnabled = count > 0;
             this.BottomGrid.ClearButton.IsEnabled = this.BottomGrid.GetRowCount() > 0;
 
             Decimal[] balances = BuildBottomBalance(this.BottomGrid.EditedObject, this.BottomGrid.GridBrowser);

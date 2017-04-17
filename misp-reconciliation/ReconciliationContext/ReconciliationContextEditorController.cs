@@ -28,7 +28,7 @@ namespace Misp.Reconciliation.ReconciliationContext
         public ReconciliationContextEditorController()
         {
             ModuleName = PlugIn.MODULE_NAME;
-            //this.SubjectType = Kernel.Domain.SubjectType.rec;
+            this.SubjectType = Kernel.Domain.SubjectType.RECONCILIATION;
         }
         
 

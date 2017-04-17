@@ -65,6 +65,11 @@ namespace Misp.Kernel.Application
         //SOURCING
         public static string SOURCING = "functionality.sourcing";
 
+        public static string LINKED_ATTRIBUTE_GRID = "functionality.linked.attribute.grid";
+        public static string LINKED_ATTRIBUTE_GRID_EDIT = LINKED_ATTRIBUTE_GRID;
+        public static string LINKED_ATTRIBUTE_GRID_VIEW = LINKED_ATTRIBUTE_GRID;
+        public static string LINKED_ATTRIBUTE_GRID_LIST = LINKED_ATTRIBUTE_GRID;
+
         public static string INPUT_TABLE        = "functionality.input.table";
         public static string INPUT_TABLE_EDIT = INPUT_TABLE;//"functionality.input.table.edit";
         public static string INPUT_TABLE_VIEW = INPUT_TABLE;//"functionality.input.table.view";

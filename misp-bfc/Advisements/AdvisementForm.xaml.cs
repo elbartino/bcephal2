@@ -81,12 +81,10 @@ namespace Misp.Bfc.Advisements
             this.EditedObject.platform = (BfcItem)this.PlatformComboBox.SelectedItem; 
             this.EditedObject.dc = (BfcItem)this.DCComboBox.SelectedItem;
 
-            var format = new NumberFormatInfo();
-            format.NegativeSign = "-";
-            if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) this.EditedObject.alreadyRequestedAmount = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), format);
-            if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) this.EditedObject.amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), format);
-            if (!string.IsNullOrWhiteSpace(this.BalanceTextEdit.Text)) this.EditedObject.balance = decimal.Parse(this.BalanceTextEdit.Text.Trim(), format);
-
+            this.EditedObject.alreadyRequestedAmount = NumberUtil.ToDecimal(this.AlreadyRequestedPrefundingTextEdit.Text.Trim());
+            this.EditedObject.amount = NumberUtil.ToDecimal(this.AmountTextEdit.Text.Trim());
+            this.EditedObject.balance = NumberUtil.ToDecimal(this.BalanceTextEdit.Text.Trim());
+            
             this.EditedObject.valueDateTime = this.ValueDatePicker.SelectedDate;
             this.EditedObject.message = this.MessageTextBlock.Text;
             this.EditedObject.structuredMessage = this.StructuredMessageTextBox.Text;
@@ -155,12 +153,8 @@ namespace Misp.Bfc.Advisements
             {
                 try
                 {
-                    var format = new NumberFormatInfo();
-                    format.NegativeSign = "-";
-                    decimal alreadyRequested = 0;
-                    decimal amount = 0;
-                    if (!string.IsNullOrWhiteSpace(this.AlreadyRequestedPrefundingTextEdit.Text)) alreadyRequested = decimal.Parse(this.AlreadyRequestedPrefundingTextEdit.Text.Trim(), format);
-                    if (!string.IsNullOrWhiteSpace(this.AmountTextEdit.Text)) amount = decimal.Parse(this.AmountTextEdit.Text.Trim(), format);
+                    decimal alreadyRequested = NumberUtil.ToDecimal(this.AlreadyRequestedPrefundingTextEdit.Text);
+                    decimal amount = NumberUtil.ToDecimal(this.AmountTextEdit.Text);
                     if (DCComboBox.SelectedItem != null && DCComboBox.SelectedItem is BfcItem)
                     {
                         BfcItem item = (BfcItem)DCComboBox.SelectedItem;
@@ -317,12 +311,12 @@ namespace Misp.Bfc.Advisements
             if (!isSettlement())
             {
                 this.MemberBankComboBox.SelectionChanged += OnComboBoxSelectionChanged;
-                this.PmlComboBox.SelectionChanged += OnComboBoxSelectionChanged;
                 this.AmountTextEdit.EditValueChanged += OnAmountChanged;
                 this.DCComboBox.SelectionChanged += OnDCComboBoxSelectionChanged;
             }
 
-            this.SchemeComboBox.SelectionChanged += OnComboBoxSelectionChanged;            
+            this.SchemeComboBox.SelectionChanged += OnComboBoxSelectionChanged;
+            this.PmlComboBox.SelectionChanged += OnComboBoxSelectionChanged;           
 
             if (isSettlement() || isMember())
             {

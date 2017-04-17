@@ -7,6 +7,7 @@ using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Domain.Browser;
 using System.Windows.Controls;
 using Misp.Kernel.Application;
+using DevExpress.Xpf.Grid;
 
 namespace Misp.Sourcing.Table
 {
@@ -31,27 +32,7 @@ namespace Misp.Sourcing.Table
         }
 
         protected override string getTitle() { return "Input Tables"; }
-
-        /// <summary>
-        /// Build and returns the column at index position
-        /// </summary>
-        /// <param name="index">The position of the column</param>
-        /// <returns></returns>
-        protected override DataGridColumn getColumnAt(int index)
-        {
-            switch (index)
-            {
-                case 0: return new DataGridTextColumn();
-                case 1: return new DataGridTextColumn();
-                case 2: return new DataGridTextColumn();
-                case 3: return new DataGridTextColumn();
-                case 4: return new DataGridCheckBoxColumn();
-                case 5: return new DataGridCheckBoxColumn();
-                case 6: return new DataGridCheckBoxColumn();
-                default: return new DataGridTextColumn();
-            }
-        }
-
+        
 
         /// <summary>
         /// Column Label
@@ -78,11 +59,11 @@ namespace Misp.Sourcing.Table
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        protected override DataGridLength getColumnWidthAt(int index)
+        protected override GridColumnWidth getColumnWidthAt(int index)
         {
             switch (index)
             {
-                case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
+                case 0: return new GridColumnWidth(1, GridColumnUnitType.Star);
                 case 1: return 150;
                 case 2: return 120;
                 case 3: return 120;
@@ -98,7 +79,7 @@ namespace Misp.Sourcing.Table
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        protected override string getBindingNameAt(int index)
+        protected override string getFieldNameAt(int index)
         {
             switch (index)
             {

@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Misp.Sourcing.FilterScope.RTargetItemPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="57" d:DesignWidth="350">
+    <Grid x:Name="grid" Background="White" Margin="1">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="56"/>
+            <ColumnDefinition Width="45"/>
+            <ColumnDefinition x:Name="AttributeCol" Width="*"/>
+            <ColumnDefinition x:Name="FilterValueCol" Width="1*"/>
+            <ColumnDefinition x:Name="FormulaCol" Width="1*"/>
+            <ColumnDefinition Width="15"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="targetName" Grid.Row="0" Grid.Column="2" Content="Attribut" FontSize="9" />
+        <Label x:Name="targetValue"  Grid.Row="0" Grid.Column="3" Content="Filter/Value" FontSize="9"/>
+        <Label x:Name="targetFormula" Grid.Row="0" Grid.Column="4" Content="Filter Text" FontSize="9"/>
+        
+        
+        <Label x:Name="label" Grid.Row="1"  Grid.Column="0" Content="Value 12"  HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <ComboBox x:Name="comboBox"   Grid.Row="1" Grid.Column="1" Margin="1" FontSize="9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="AttributeNameTextBox" Grid.Row="1" IsEnabled="False" Grid.Column="2" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+        <Grid Grid.Column="3" Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="valueTextBox"  IsEnabled="False"  Margin="1" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                 ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"   />
+            <ComboBox x:Name="filterComboBox" Visibility="Collapsed"  Margin="1" FontSize="9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
+        </Grid>
+
+        <Grid Grid.Column="4" Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="formulaTextBox" Visibility="Collapsed"  IsEnabled="False"  Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
+            <TextBox x:Name="filterTextBox"   Visibility="Collapsed"  IsEnabled="True"  Margin="1" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                 ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"   />
+        </Grid>
+
+      
+        <Button x:Name="button" Grid.Row="1" Grid.Column="5" ToolTip="Remove row" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
+            <Button.Template>
+                <ControlTemplate>
+                    <Image Source="/bcephal;Component/Resources/Images/Icons/DeleteButton.png"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </Grid>
+</UserControl>

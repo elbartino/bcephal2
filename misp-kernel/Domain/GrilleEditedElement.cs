@@ -21,6 +21,8 @@ namespace Misp.Kernel.Domain
 
         public string date { get; set; }
 
+        public Attribute attribute { get; set; }
+
         public Grille grid;
     }
 }

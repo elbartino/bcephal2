@@ -62,6 +62,7 @@ namespace Misp.Planification.Tranformation.TransformationTable
                 this.TransformationTableController.Open(TransformationTable);
                 StructuredReportEditorItem page = (StructuredReportEditorItem)this.TransformationTableController.getStructuredReportEditor().getActivePage();
                 page.getStructuredReportForm().StructuredReportPropertiesPanel.checkboxAllocateEach.IsChecked = ((Kernel.Domain.TransformationTable)page.EditedObject).allocateEachLoop;
+                this.TransformationTableController.CustomizeForUser(page);
                 SaveButton.IsEnabled = false;
             }
             else
@@ -73,6 +74,7 @@ namespace Misp.Planification.Tranformation.TransformationTable
                 }
                 ((StructuredReportEditorItem)this.TransformationTableController.getStructuredReportEditor().getActivePage()).getStructuredReportForm().SpreadSheet.DeleteExcelSheet();
                 ApplicationManager.Instance.MainWindow.StatusLabel.Content = "";
+                this.TransformationTableController.CustomizeForUser(this.TransformationTableController.getStructuredReportEditor().getActivePage());
                 SaveButton.IsEnabled = true;
             }
         }

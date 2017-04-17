@@ -95,5 +95,35 @@ namespace Misp.Kernel.Util
             else
                 return (false);
         }
+        static System.IO.FileStream fileStream = null;
+        public static void buildTimeMeasurementFile(string filePathAndName = null) 
+        {
+            closeTimeMeasurementFile();
+            if (filePathAndName == null) filePathAndName = "D:\\BcephalDuration.txt";
+            try
+            {
+                Path.GetFullPath(filePathAndName);                
+            }
+            catch (Exception e) 
+            {
+                filePathAndName = "D:\\BcephalDuration.txt";
+            }
+            
+            fileStream = new System.IO.FileStream(filePathAndName,System.IO.FileMode.Append);
+            var streamwriter = new System.IO.StreamWriter(fileStream);
+            streamwriter.AutoFlush = true;
+            Console.SetOut(streamwriter);
+            //Console.SetError(streamwriter);
+            
+        }
+
+        public static void closeTimeMeasurementFile()
+        {
+            try
+            {
+                fileStream.Close();
+            }catch(Exception){
+            }
+        }
     }
 }

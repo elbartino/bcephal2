@@ -36,6 +36,8 @@ namespace Misp.Bfc.Review
             get { return this.DetailGridLoadingDecorator.IsSplashScreenShown.Value; }
         }
 
+        public bool IsAlreadyLoaded { get; private set; }
+
         #endregion
 
 
@@ -43,6 +45,7 @@ namespace Misp.Bfc.Review
 
         public AgeingBalanceForm()
         {
+            this.IsAlreadyLoaded = false;
             InitializeComponent();
             InitializeHandlers();
             throwHandlers = true;
@@ -59,6 +62,7 @@ namespace Misp.Bfc.Review
             this.TotalGrid.ItemsSource = datas;
             this.DetailExpander.IsExpanded = false;
             throwHandlers = true;
+            this.IsAlreadyLoaded = true;
         }
 
         public void DisplayDetails(List<AgeingBalanceData> datas)

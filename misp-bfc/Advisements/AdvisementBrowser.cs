@@ -1,11 +1,16 @@
-﻿using Misp.Bfc.Model;
+﻿using DevExpress.Xpf.Editors;
+using DevExpress.Xpf.Editors.Settings;
+using DevExpress.Xpf.Grid;
+using Misp.Bfc.Model;
 using Misp.Kernel.Ui.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Misp.Bfc.Advisements
@@ -25,18 +30,11 @@ namespace Misp.Bfc.Advisements
 
         private void customizeGrid()
         {
-            grid.Columns.Clear();
+            this.Form.Grid.Columns.Clear();
             for (int i = 0; i < getColumnCount(); i++)
             {
-                DataGridColumn column = getColumnAt(i);
-                column.Header = getColumnHeaderAt(i);
-                column.Width = getColumnWidthAt(i);
-                column.IsReadOnly = isReadOnly(i);
-                if (column is DataGridBoundColumn)
-                {
-                    ((DataGridBoundColumn)column).Binding = getBindingAt(i);
-                }
-                grid.Columns.Add(column);
+                GridColumn column = getColumn(i);
+                this.Form.Grid.Columns.Add(column);
             }
             ((LayoutDocument)this.Children[0]).Title = getTitle();
         }
@@ -69,15 +67,20 @@ namespace Misp.Bfc.Advisements
             return "Prefunding Advisements"; 
         }
 
+        protected override GridColumn getColumn(int index)
+        {
+            GridColumn column = base.getColumn(index);
+            if ((index == 6 && isSettlement()) || index == 8)
+            {
+                column.CellTemplate = this.Form.Grid.FindResource("PdfHyperlinkDataTemplate") as DataTemplate;
+            }
+            return column;
+        }
+        
         protected override int getColumnCount()
         {
-            if (isSettlement()) return 7;
-            return 9;
-        }
-
-        protected override System.Windows.Controls.DataGridColumn getColumnAt(int index)
-        {            
-            return new DataGridTextColumn();
+            if (isSettlement()) return 8;
+            return 10;
         }
 
         protected override string getColumnHeaderAt(int index)
@@ -92,7 +95,8 @@ namespace Misp.Bfc.Advisements
                     case 3: return "Amount";
                     case 4: return "D/C";
                     case 5: return "Value date";
-                    case 6: return "Creator";
+                    case 6: return "PDF";
+                    case 7: return "Creator";
                     default: return "";
                 }
             }
@@ -107,30 +111,32 @@ namespace Misp.Bfc.Advisements
                 case 5: return "Amount";
                 case 6: return "D/C";
                 case 7: return "Value date";
-                case 8: return "Creator";
+                case 8: return "PDF";
+                case 9: return "Creator";
                 default: return "";
             }
         }
 
-        protected override System.Windows.Controls.DataGridLength getColumnWidthAt(int index)
+        protected override GridColumnWidth getColumnWidthAt(int index)
         {
             if (isSettlement())
             {
                 switch (index)
                 {
-                    case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
+                    case 0: return new GridColumnWidth(1, GridColumnUnitType.Star);
                     case 1: return 100;
                     case 2: return 150;
                     case 3: return 150;
                     case 4: return 50;
                     case 5: return 100;
-                    case 6: return 100;
+                    case 6: return 50;
+                    case 7: return 100;
                     default: return 100;
                 }
             }
             switch (index)
             {
-                case 0: return new DataGridLength(1, DataGridLengthUnitType.Star);
+                case 0: return new GridColumnWidth(1, GridColumnUnitType.Star);
                 case 1: return 100;
                 case 2: return 150;
                 case 3: return 150;
@@ -138,12 +144,13 @@ namespace Misp.Bfc.Advisements
                 case 5: return 100;
                 case 6: return 50;
                 case 7: return 100;
-                case 8: return 100;
+                case 8: return 50;
+                case 9: return 100;
                 default: return 100;
             }
         }
 
-        protected override string getBindingNameAt(int index)
+        protected override string getFieldNameAt(int index)
         {
             if (isSettlement())
             {
@@ -155,7 +162,8 @@ namespace Misp.Bfc.Advisements
                     case 3: return "amount";
                     case 4: return "dc";
                     case 5: return "valueDate";
-                    case 6: return "creator";
+                    case 6: return "pdf";
+                    case 7: return "creator";
                     default: return "oid";
                 }
             }
@@ -169,7 +177,8 @@ namespace Misp.Bfc.Advisements
                 case 5: return "amount";
                 case 6: return "dc";
                 case 7: return "valueDate";
-                case 8: return "creator";
+                case 8: return "pdf";
+                case 9: return "creator";
                 default: return "oid";
             }
         }

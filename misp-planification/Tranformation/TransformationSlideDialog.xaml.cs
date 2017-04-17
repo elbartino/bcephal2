@@ -90,6 +90,7 @@ namespace Misp.Planification.Tranformation
             {
                 this.PresentationEditorController.Open(TransformationSlide);
                 PresentationEditorItem page = (PresentationEditorItem)this.PresentationEditorController.getPresentationEditor().getActivePage();
+                this.PresentationEditorController.CustomizeForUser(page);
                 SaveButton.IsEnabled = false;
             }
             else
@@ -101,6 +102,7 @@ namespace Misp.Planification.Tranformation
                 }
                 this.PresentationEditorController.customiseSlideMenu(this.dockingManager);
                 ApplicationManager.Instance.MainWindow.StatusLabel.Content = "";
+                this.PresentationEditorController.CustomizeForUser(this.PresentationEditorController.getPresentationEditor().getActivePage());
                 SaveButton.IsEnabled = true;
                 this.PresentationEditorController.OnChange();
             }

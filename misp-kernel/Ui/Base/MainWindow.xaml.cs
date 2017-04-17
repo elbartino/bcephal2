@@ -327,8 +327,8 @@ namespace Misp.Kernel.Ui.Base
                 dockingManager.Visibility = Visibility.Collapsed;
                 FileClosedView.Visibility = Visibility.Visible;
                 DashboardView.Visibility = Visibility.Collapsed;
+                NavDashboardView.Visibility = Visibility.Collapsed;
                 LoginPanel.Visibility = Visibility.Collapsed;
-                //FileOpenedView.Visibility = Visibility.Collapsed;
                 return;
             }
             displayToolBar(page.ToolBar);
@@ -346,18 +346,19 @@ namespace Misp.Kernel.Ui.Base
             }
             else if (page.FunctionalityCode == FunctionalitiesCode.HOME_PAGE)
             {
+                bool isAdmin = Application.ApplicationManager.Instance.User != null && Application.ApplicationManager.Instance.User.IsAdmin();
                 dockingManager.Visibility = Visibility.Collapsed;
                 FileClosedView.Visibility = ApplicationManager.Instance.File == null ? Visibility.Visible : Visibility.Collapsed;
-                DashboardView.Visibility = ApplicationManager.Instance.File != null ? Visibility.Visible : Visibility.Collapsed;
-                //FileOpenedView.Visibility = ApplicationManager.Instance.File != null ? Visibility.Visible : Visibility.Collapsed;
+                DashboardView.Visibility = ApplicationManager.Instance.File != null && isAdmin ? Visibility.Visible : Visibility.Collapsed;
+                NavDashboardView.Visibility = ApplicationManager.Instance.File != null && !isAdmin ? Visibility.Visible : Visibility.Collapsed;                
             }
             else
             {
                 dockingManager.Visibility = Visibility.Visible;
                 FileClosedView.Visibility = Visibility.Collapsed;
                 DashboardView.Visibility = Visibility.Collapsed;
+                NavDashboardView.Visibility = Visibility.Collapsed;
                 LoginPanel.Visibility = Visibility.Collapsed;
-                //FileOpenedView.Visibility = Visibility.Collapsed;
             }
         }
 

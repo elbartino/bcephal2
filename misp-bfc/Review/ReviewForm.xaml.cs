@@ -91,7 +91,10 @@ namespace Misp.Bfc.Review
             {
                 filter.memberBankIdOids.Add(bank.oid.Value);
             }
-            if (this.TabControl.SelectedIndex == 0) { }
+            if (this.TabControl.SelectedIndex == 0) 
+            {
+                this.PrefundingAccountForm.FillFilter(filter);
+            }
             else if (this.TabControl.SelectedIndex == 1)
             {
                 this.SettlementEvolutionForm.FillFilter(filter);

@@ -246,7 +246,7 @@ namespace Misp.Kernel.Ui.Sidebar.Tree
                 if (parent is Domain.Attribute)
                 {
                     Domain.Attribute attribute = (Domain.Attribute)parent;
-                    foreach (Domain.AttributeValue value in attribute.Items.ToArray())
+                    foreach (Target value in attribute.Items.ToArray())
                     {
                         if (value.IsDefault) attribute.Items.Remove(value);
                     }

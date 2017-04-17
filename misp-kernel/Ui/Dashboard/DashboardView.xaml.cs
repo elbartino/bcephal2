@@ -52,7 +52,7 @@ namespace Misp.Kernel.Ui.Dashboard
 
         public DashboardBlock AutomaticEnrichmentTableBlock { get; set; }
         public DashboardBlock EnrichmentTableBlock { get; set; }
-        
+        public DashboardBlock LinkedAttributeGridBlock { get; set; }
         public int? userOid
         { 
             get  
@@ -263,7 +263,8 @@ namespace Misp.Kernel.Ui.Dashboard
 
             this.AutomaticEnrichmentTableBlock = buildBlock(FunctionalitiesLabel.AUTOMATIC_ENRICHMENT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_AUTOMATIC_ENRICHMENT_TABLE_LABEL, FunctionalitiesLabel.RECENT_AUTOMATIC_ENRICHMENT_TABLE_LABEL, FunctionalitiesCode.AUTOMATIC_ENRICHMENT_TABLE_EDIT);
             this.EnrichmentTableBlock = buildBlock(FunctionalitiesLabel.ENRICHMENT_TABLE_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_ENRICHMENT_TABLE_LABEL, FunctionalitiesLabel.RECENT_ENRICHMENT_TABLE_LABEL, FunctionalitiesCode.ENRICHMENT_TABLE_EDIT);
-            
+            this.LinkedAttributeGridBlock = buildBlock(FunctionalitiesLabel.LINKED_ATTRIBUTE_GRID_LABEL, FunctionalitiesLabel.LINKED_ATTRIBUTE_GRID_LABEL, FunctionalitiesLabel.RECENT_LINKED_ATTRIBUTE_GRID_LABEL, FunctionalitiesCode.LINKED_ATTRIBUTE_GRID);
+
             if (ApplicationManager.Instance.ApplcationConfiguration.IsReconciliationDomain())
             {
                 this.ReconciliationFilterBlock = buildBlock(FunctionalitiesLabel.RECONCILIATION_FILTER_DASHBOARD_LABEL, FunctionalitiesLabel.NEW_RECONCILIATION_FILTER_LABEL, FunctionalitiesLabel.RECENT_RECONCILIATION_LABEL, FunctionalitiesCode.RECONCILIATION_FILTER_EDIT);
@@ -288,7 +289,7 @@ namespace Misp.Kernel.Ui.Dashboard
             if (this.ReconciliationFilterBlock != null) dico.Add(this.ReconciliationFilterBlock.TitleLabel.Content.ToString(), this.TreeBlock);
             if (this.AutomaticEnrichmentTableBlock != null) dico.Add(this.AutomaticEnrichmentTableBlock.TitleLabel.Content.ToString(), this.TreeBlock);
             if (this.EnrichmentTableBlock != null) dico.Add(this.EnrichmentTableBlock.TitleLabel.Content.ToString(), this.TreeBlock);
-            
+            if (this.LinkedAttributeGridBlock != null) dico.Add(this.LinkedAttributeGridBlock.TitleLabel.Content.ToString(), this.LinkedAttributeGridBlock);
             this.MultiSelectorCombobox.ItemsSource = dico;
             this.MultiSelectorCombobox.checkBoxHandler -= OnSelectionChanged;
             this.MultiSelectorCombobox.checkBoxHandler += OnSelectionChanged;
@@ -492,6 +493,7 @@ namespace Misp.Kernel.Ui.Dashboard
             if (this.AutomaticTargetBlock != null && this.AutomaticTargetBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticTargetBlock;
             if (this.AutomaticEnrichmentTableBlock != null && this.AutomaticEnrichmentTableBlock.TitleLabel.Content.Equals(configuration.name)) return this.AutomaticEnrichmentTableBlock;
             if (this.EnrichmentTableBlock != null && this.EnrichmentTableBlock.TitleLabel.Content.Equals(configuration.name)) return this.EnrichmentTableBlock;
+            if (this.LinkedAttributeGridBlock != null && this.LinkedAttributeGridBlock.TitleLabel.Content.Equals(configuration.name)) return this.LinkedAttributeGridBlock;
             return null;
         }
 
@@ -563,6 +565,7 @@ namespace Misp.Kernel.Ui.Dashboard
             if (this.AutomaticTargetBlock != null && name.Equals(this.AutomaticTargetBlock.TitleLabel.Content)) return this.AutomaticTargetBlock;
             if (this.AutomaticEnrichmentTableBlock != null && name.Equals(this.AutomaticEnrichmentTableBlock.TitleLabel.Content)) return this.AutomaticEnrichmentTableBlock;
             if (this.EnrichmentTableBlock != null && name.Equals(this.EnrichmentTableBlock.TitleLabel.Content)) return this.EnrichmentTableBlock;
+            if (this.LinkedAttributeGridBlock != null && name.Equals(this.LinkedAttributeGridBlock.TitleLabel.Content)) return this.LinkedAttributeGridBlock;
             return null;
         }
 

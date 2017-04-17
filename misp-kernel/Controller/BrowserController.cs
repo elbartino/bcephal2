@@ -15,6 +15,8 @@ using Misp.Kernel.Util;
 using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Ui.Sidebar;
 using System.Windows.Threading;
+using DevExpress.Xpf.Grid;
+using DevExpress.Xpf.Editors.Settings;
 
 
 namespace Misp.Kernel.Controller
@@ -94,7 +96,7 @@ namespace Misp.Kernel.Controller
         public override OperationState Open()
         {
             List<object> ids = new List<object>(0);
-            foreach (Object item in GetBrowser().Grid.SelectedItems)
+            foreach (Object item in GetBrowser().Form.Grid.SelectedItems)
             {
                 ids.Add(((B)item).oid);
                
@@ -175,13 +177,13 @@ namespace Misp.Kernel.Controller
 
         public override OperationState SaveAs(string name)
         {
-            Object selection = GetBrowser().Grid.SelectedItem;
-            if (GetBrowser().Grid.ItemsSource != null && GetBrowser().Grid.ItemsSource is List<B>)
+            Object selection = GetBrowser().Form.Grid.SelectedItem;
+            if (GetBrowser().Form.Grid.ItemsSource != null && GetBrowser().Form.Grid.ItemsSource is List<B>)
             {
-                List<B> items = (List<B>)GetBrowser().Grid.ItemsSource;
+                List<B> items = (List<B>)GetBrowser().Form.Grid.ItemsSource;
                 foreach (B item in items)
                 {
-                    if (item.name.ToUpper().Equals(name.ToUpper()) && item != ((B)selection))
+                    if ((item.name == null || item.name.ToUpper().Equals(name.ToUpper())) && item != selection)
                     {
                         DisplayError("Save as", "There is another item named : " + name);
                         return OperationState.STOP;
@@ -238,10 +240,10 @@ namespace Misp.Kernel.Controller
 
         public override OperationState RenameItem(string newName)
         {
-            Object selection = GetBrowser().Grid.SelectedItem;
-            if (GetBrowser().Grid.ItemsSource != null && GetBrowser().Grid.ItemsSource is List<B>)
+            Object selection = GetBrowser().Form.Grid.SelectedItem;
+            if (GetBrowser().Form.Grid.ItemsSource != null && GetBrowser().Form.Grid.ItemsSource is List<B>)
             {
-                List<B> items = (List<B>)GetBrowser().Grid.ItemsSource;
+                List<B> items = (List<B>)GetBrowser().Form.Grid.ItemsSource;
                 foreach (B item in items)
                 {
                     if (item.name.ToUpper().Equals(newName.ToUpper()) && item != ((B)selection))
@@ -278,7 +280,7 @@ namespace Misp.Kernel.Controller
             try
             {
                 List<B> items = this.Service.getBrowserDatasByGroup(groupOid);
-                GetBrowser().Grid.ItemsSource = items;
+                GetBrowser().Form.Grid.ItemsSource = items;
                 return OperationState.CONTINUE;
             }
             catch (ServiceExecption e)
@@ -295,10 +297,10 @@ namespace Misp.Kernel.Controller
         /// <returns></returns>
         public override OperationState Rename()
         {
-            Object selection = GetBrowser().Grid.SelectedItem;
-            if (selection == null) return OperationState.STOP;
-            GetBrowser().Grid.IsReadOnly = false;
-            GetBrowser().Grid.BeginEdit();
+            //Object selection = GetBrowser().Form.Grid.SelectedItem;
+            //if (selection == null) return OperationState.STOP;
+            //GetBrowser().Form.Grid.IsReadOnly = false;
+            //GetBrowser().Form.Grid.BeginEdit();
             return OperationState.CONTINUE;
         }
 
@@ -310,13 +312,13 @@ namespace Misp.Kernel.Controller
         /// <returns></returns>
         public override OperationState Delete()
         {
-            System.Collections.IList items = GetBrowser().Grid.SelectedItems;
+            System.Collections.IList items = GetBrowser().Form.Grid.SelectedItems;
             if (items == null || items.Count == 0) return OperationState.STOP;
             int count = items.Count;
             string message = "You are about to delete " + count + " items.\nDo you want to continue?";
             if (count == 1)
             {
-                object item = GetBrowser().Grid.SelectedItem;
+                object item = GetBrowser().Form.Grid.SelectedItem;
                 if(item != null) message = "You are about to delete " + item.ToString() + " .\nDo you want to continue?";
             }
             MessageBoxResult result = Kernel.Util.MessageDisplayer.DisplayYesNoQuestion("Delete", message);
@@ -419,16 +421,36 @@ namespace Misp.Kernel.Controller
         /// </summary>
         protected override void initializeViewHandlers() 
         {
-            this.GetBrowser().Grid.SelectionChanged += new SelectionChangedEventHandler(OnSelectionChange);
-            this.GetBrowser().Grid.PreviewKeyDown += new KeyEventHandler(OnKeyPress);
-            this.GetBrowser().Grid.MouseDoubleClick += new MouseButtonEventHandler(OnDoubleClick);
-            this.GetBrowser().Grid.CellEditEnding += new EventHandler<DataGridCellEditEndingEventArgs>(OnCellEditEnding);
-            //this.GetBrowser().Grid.PreviewMouseRightButtonDown += OnPreviewMouseRightButtonDown;
+            this.GetBrowser().Form.Grid.SelectionChanged += OnSelectionChange;
+            this.GetBrowser().Form.Grid.PreviewKeyDown += new KeyEventHandler(OnKeyPress);
+            this.GetBrowser().Form.Grid.MouseDoubleClick += new MouseButtonEventHandler(OnDoubleClick); 
+            ((TableView)this.GetBrowser().Form.Grid.View).ValidateCell += OnValidateCell;
 
-            this.GetBrowser().Grid.FilterChanged += OnFilterChanged;
-            this.GetBrowser().NavigationBar.ChangeHandler += OnPageChange;
+            //this.GetBrowser().Form.Grid.FilterChanged += OnFilterChanged;
+            this.GetBrowser().Form.PaginationBar.ChangeHandler += OnPageChange;
         }
 
+        private void OnValidateCell(object sender, GridCellValidationEventArgs e)
+        {
+            if (e.Row != null)
+            {
+                if (e.CellValue != e.Value)
+                {
+                    if (e.Value == null)
+                    {
+                        e.Handled = false;
+                        e.SetError(e.Column.Header + " can't be empty!", DevExpress.XtraEditors.DXErrorProvider.ErrorType.Critical);
+                    }
+                    else if (e.Row is BrowserData)
+                    {
+                        B item = (B)e.Row;
+                        e.Handled = EditProperty(item, e);
+                    }
+                }
+                else e.Handled = true;
+            }
+        }
+                
 
         /// <summary>
         /// Initialisation des Handlers sur la ToolBar.
@@ -436,14 +458,58 @@ namespace Misp.Kernel.Controller
         protected override void initializeToolBarHandlers()
         {
             base.initializeToolBarHandlers();
-            this.GetBrowser().Grid.BrowserGridContextMenu.NewMenuItem.Click += new RoutedEventHandler(toolBarHandlerBuilder.onNewButtonClic);
-            this.GetBrowser().Grid.BrowserGridContextMenu.OpenMenuItem.Click += new RoutedEventHandler(toolBarHandlerBuilder.onOpenButtonClic);
-            this.GetBrowser().Grid.BrowserGridContextMenu.RenameMenuItem.Click += new RoutedEventHandler(toolBarHandlerBuilder.onRenameButtonClic);
-            this.GetBrowser().Grid.BrowserGridContextMenu.SaveAsMenuItem.Click += new RoutedEventHandler(toolBarHandlerBuilder.onSaveAsButtonClic);
-            //this.GetBrowser().Grid.BrowserGridContextMenu.CopyMenuItem.Click += new RoutedEventHandler(toolBarHandlerBuilder.onco);
-            //this.GetBrowser().Grid.BrowserGridContextMenu.PasteMenuItem.Click += new RoutedEventHandler(toolBarHandlerBuilder.onNewButtonClic);
-            this.GetBrowser().Grid.BrowserGridContextMenu.DeleteMenuItem.Click += new RoutedEventHandler(toolBarHandlerBuilder.onDeleteButtonClic);
+            this.GetBrowser().Form.Grid.NewMenuItem.ItemClick += toolBarHandlerBuilder.onNewButtonClic;
+            this.GetBrowser().Form.Grid.OpenMenuItem.ItemClick += toolBarHandlerBuilder.onOpenButtonClic;
+            //this.GetBrowser().Form.Grid.RenameMenuItem.ItemClick += toolBarHandlerBuilder.onRenameButtonClic;
+            this.GetBrowser().Form.Grid.SaveAsMenuItem.ItemClick += toolBarHandlerBuilder.onSaveAsButtonClic;
+            this.GetBrowser().Form.Grid.DeleteMenuItem.ItemClick += toolBarHandlerBuilder.onDeleteButtonClic;
 
+            this.GetBrowser().Form.Grid.View.ShowGridMenu += OnShowGridMenu;
+        }
+
+        
+
+        private void OnShowGridMenu(object sender, DevExpress.Xpf.Grid.GridMenuEventArgs e)
+        {
+            customizeContextMenuForSelection();
+        }
+        
+        private void customizeContextMenuForSelection()
+        {
+            int count = this.GetBrowser().Form.Grid.SelectedItems.Count;
+            bool itemsSelected = count > 0;
+
+            bool create = true;
+            bool saveAs = count == 1;
+            bool delete = count == 1;
+
+            if (count == 1)
+            {
+                BrowserData item = (BrowserData)this.GetBrowser().Form.Grid.SelectedItem;
+                List<Right> rights = null;
+                PrivilegeObserver observer = new PrivilegeObserver();
+                if (!ApplicationManager.User.IsAdmin())
+                {
+                    RightService service = ApplicationManager.ControllerFactory.ServiceFactory.GetRightService();
+                    rights = service.getUserRights(this.SubjectType.label, item.oid);
+                }
+                saveAs = RightsUtil.HasRight(Domain.RightType.SAVE_AS, rights);
+                delete = RightsUtil.HasRight(Domain.RightType.DELETE, rights);
+                create = observer.hasPrivilege(this.FunctionalityCode, Domain.RightType.CREATE);
+            }
+            this.GetBrowser().Form.Grid.NewMenuItem.IsEnabled = create;
+            this.GetBrowser().Form.Grid.OpenMenuItem.IsEnabled = itemsSelected;
+            //this.GetBrowser().Form.Grid.RenameMenuItem.IsEnabled = saveAs && count == 1;
+            this.GetBrowser().Form.Grid.SaveAsMenuItem.IsEnabled = saveAs && count == 1;
+            //this.GetBrowser().Form.Grid.CopyMenuItem.IsEnabled = itemsSelected && create;
+            //this.GetBrowser().Form.Grid.PasteMenuItem.IsEnabled = create;
+            this.GetBrowser().Form.Grid.DeleteMenuItem.IsEnabled = itemsSelected && delete;
+            customizeContextMenu();
+        }
+
+        protected virtual void OnSelectionChange(object sender, DevExpress.Xpf.Grid.GridSelectionChangedEventArgs e)
+        {
+            customizeContextMenuForSelection();
         }
 
         /// <summary>
@@ -470,41 +536,7 @@ namespace Misp.Kernel.Controller
 
         protected override void initializePropertyBarHandlers() { }
 
-        protected virtual void OnSelectionChange(object sender, SelectionChangedEventArgs args)
-        {
-            int count = this.GetBrowser().Grid.SelectedItems.Count;
-            bool itemsSelected = count > 0;
-            
-            bool create = true;
-            bool saveAs = count == 1;
-            bool delete = count == 1;
-
-            if(count == 1)
-            {
-                BrowserData item = (BrowserData)this.GetBrowser().Grid.SelectedItem;
-                List<Right> rights = null;
-                PrivilegeObserver observer = new PrivilegeObserver();
-                if (!ApplicationManager.User.IsAdmin())
-                {
-                    RightService service = ApplicationManager.ControllerFactory.ServiceFactory.GetRightService();
-                    rights = service.getUserRights(this.SubjectType.label, item.oid);                
-                }               
-                saveAs = RightsUtil.HasRight(Domain.RightType.SAVE_AS, rights);
-                delete = RightsUtil.HasRight(Domain.RightType.DELETE, rights);
-                create = observer.hasPrivilege(this.FunctionalityCode, Domain.RightType.CREATE);
-            }
-
-            this.GetBrowser().Grid.BrowserGridContextMenu.NewMenuItem.IsEnabled = create;
-            this.GetBrowser().Grid.BrowserGridContextMenu.OpenMenuItem.IsEnabled = itemsSelected;
-            this.GetBrowser().Grid.BrowserGridContextMenu.RenameMenuItem.IsEnabled = saveAs && count == 1;
-            this.GetBrowser().Grid.BrowserGridContextMenu.SaveAsMenuItem.IsEnabled = saveAs && count == 1;
-            this.GetBrowser().Grid.BrowserGridContextMenu.CopyMenuItem.IsEnabled = itemsSelected && create;
-            this.GetBrowser().Grid.BrowserGridContextMenu.PasteMenuItem.IsEnabled = create;
-            this.GetBrowser().Grid.BrowserGridContextMenu.DeleteMenuItem.IsEnabled = itemsSelected && delete;
-
-            customizeContextMenu();
-        }
-
+        
         private void OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             customizeContextMenu();
@@ -527,8 +559,8 @@ namespace Misp.Kernel.Controller
 
         protected virtual void OnKeyPress(object sender, KeyEventArgs args)
         {
-            bool itemsSelected = this.GetBrowser().Grid.SelectedItems.Count > 0;
-            if (this.GetBrowser().Grid.IsReadOnly)
+            bool itemsSelected = this.GetBrowser().Form.Grid.SelectedItems.Count > 0;
+            if (this.GetBrowser().IsReadOnly)
             {
                 if (itemsSelected && args.Key == Key.Enter)
                 {
@@ -545,30 +577,21 @@ namespace Misp.Kernel.Controller
 
         protected virtual void OnDoubleClick(object sender, MouseButtonEventArgs args)
         {
-            bool itemsSelected = this.GetBrowser().Grid.SelectedItems.Count > 0;
+            bool itemsSelected = this.GetBrowser().Form.Grid.SelectedItems.Count > 0;
             if (itemsSelected) this.Open();
         }
 
-        protected virtual void OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs args)
-        {
-            B item = (B)this.GetBrowser().Grid.SelectedItem;
-            if(args.EditAction == DataGridEditAction.Commit) EditProperty(item, args);            
-        }
-
-        private void EditProperty(B item, DataGridCellEditEndingEventArgs args)
+        private bool EditProperty(B item, GridCellValidationEventArgs args)
         {
             String header = args.Column.Header.ToString();
-            Object value = null;
-            if (args.EditingElement is TextBox) value = ((TextBox)args.EditingElement).Text;
-            else if (args.EditingElement is CheckBox) value = ((CheckBox)args.EditingElement).IsChecked;
-            else if (args.EditingElement is ComboBox) value = ((ComboBox)args.EditingElement).SelectedItem;
+            Object value = args.Value;
             OperationState state = EditProperty(item, header, value);
             if (state == OperationState.STOP)
             {
-                args.Cancel = true;
-                //GetBrowser().Grid.CancelEdit();
-                if (args.EditingElement is TextBox) ((TextBox)args.EditingElement).SelectAll();
-            }            
+                args.Handled = false;
+                return false;
+            }
+            return true;
         }
 
         protected virtual OperationState EditProperty(B item, String header, Object value)

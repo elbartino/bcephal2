@@ -50,6 +50,8 @@ namespace Misp.Kernel.Application
 
         private ReconciliationFilterTemplateService reconciliationFilterTemplateServcie;
 
+        private LinkedAttributeGridService linkedAttributeGrilleService;
+
         /// <summary>
         /// Build a new instance of ServiceFactory.
         /// </summary>
@@ -77,6 +79,18 @@ namespace Misp.Kernel.Application
                 configureService(fileTransferService);
             }
             return fileTransferService;
+        }
+
+        public LinkedAttributeGridService GetLinkedAttributeGrilleService()
+        {
+            if (inputGridService == null)
+            {
+                linkedAttributeGrilleService = new LinkedAttributeGridService();
+                linkedAttributeGrilleService.ResourcePath = ResourcePath.LINKED_ATTRIBUTE_GRID_RESOURCE_PATH;
+                linkedAttributeGrilleService.SocketResourcePath = ResourcePath.SOCKET_LINKED_ATTRIBUTE_GRID_RESOURCE_PATH;                
+                configureService(linkedAttributeGrilleService);
+            }
+            return linkedAttributeGrilleService;
         }
 
 		public InputGridService GetInputGridService()

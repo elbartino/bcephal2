@@ -1,0 +1,56 @@
+﻿<Grid x:Class="Misp.Sourcing.LinkedAttribute.LinkedAttributeGridForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+             xmlns:bgv="clr-namespace:Misp.Sourcing.GridViews"
+             xmlns:src="clr-namespace:Misp.Sourcing.LinkedAttribute"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+
+    <src:LinkedAttributeGridControl x:Name="Grid" x:FieldModifier="public" Grid.Row="0">
+        <src:LinkedAttributeGridControl.Resources>
+            <Style x:Key="GridHeader" TargetType="{x:Type Control}">
+                <Setter Property="Background" Value="#839BBB"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Height" Value="35"/>
+            </Style>
+            <DataTemplate x:Key="GridHeaderTemplate">
+                <TextBlock Text="{Binding}" TextWrapping="Wrap" 
+                       MinWidth="{Binding Width, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:GridColumnHeader}}}" />
+            </DataTemplate>
+
+            <Style x:Key="GridColumn" TargetType="{x:Type dxg:GridColumn}">
+                <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
+                <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
+                <Setter Property="AllowResizing" Value="True"/>
+                <Setter Property="AllowMoving" Value="True"/>
+            </Style>
+            <Style x:Key="AgeingGridColumn" TargetType="{x:Type dxg:GridColumn}">
+                <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
+                <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
+                <Setter Property="AllowResizing" Value="True"/>
+                <Setter Property="AllowMoving" Value="False"/>
+                <Setter Property="AllowSorting" Value="False"/>
+            </Style>
+            <Style x:Key="GridControlBand" TargetType="{x:Type dxg:GridControlBand}">
+                <Setter Property="HeaderStyle" Value="{StaticResource GridHeader}"/>
+                <Setter Property="HeaderTemplate" Value="{StaticResource GridHeaderTemplate}"/>
+                <Setter Property="AllowResizing" Value="True"/>
+                <Setter Property="AllowMoving" Value="True"/>
+            </Style>
+        </src:LinkedAttributeGridControl.Resources>
+    </src:LinkedAttributeGridControl>
+    
+    <bgv:GridBrowserToolbar x:Name="Toolbar" x:FieldModifier="public" Grid.Row="1"/>
+    
+</Grid>

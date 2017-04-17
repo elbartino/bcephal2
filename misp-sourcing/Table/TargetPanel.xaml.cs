@@ -45,7 +45,6 @@ namespace Misp.Sourcing.Table
 
         public Target Scope { get; set; }
 
-        //public ScopeItemPanel ActiveItemPanel { get; set; }
         public TargetItemPanel ActiveItemPanel { get; set; }
 
         public bool IsReadOnly { get; set; }
@@ -65,7 +64,6 @@ namespace Misp.Sourcing.Table
                 {
                 this.ActiveItemPanel = new TargetItemPanel(index);
                 this.ActiveItemPanel.SetReadOnly(readOnly);
-                //this.ActiveItemPanel = new ScopeItemPanel(index);
                 AddItemPanel(this.ActiveItemPanel);
                 }
                 return;

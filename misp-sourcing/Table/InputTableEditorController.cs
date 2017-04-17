@@ -1117,7 +1117,7 @@ namespace Misp.Sourcing.Table
                 editorPage.getInputTableForm().TableCellParameterPanel.reportPeriodPanel.ItemChanged += OnCellPeriodChange;
                 editorPage.getInputTableForm().TableCellParameterPanel.reportPeriodPanel.ItemDeleted += OnCellPeriodDelete;
                 editorPage.getInputTableForm().TableCellParameterPanel.reportPeriodPanel.PeriodHyperlink.RequestNavigate += OnNewPeriodName;
-            }
+             }
 
             editorPage.getInputTableForm().TablePropertiesPanel.groupField.GroupService = GetInputTableService().GroupService;
             editorPage.getInputTableForm().TablePropertiesPanel.groupField.subjectType = SubjectTypeFound();
@@ -2220,6 +2220,7 @@ namespace Misp.Sourcing.Table
             if (page == null) return;
             InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
             page.getInputTableForm().TablePropertiesPanel.filterScopePanel.ActiveItemPanel.inputTableService = this.GetInputTableService();
+            
             if (propertyBar.Pane.SelectedContent == propertyBar.ParameterLayoutAnchorable)
             {
                 Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
@@ -2412,7 +2413,9 @@ namespace Misp.Sourcing.Table
                 InputTableEditorItem page = (InputTableEditorItem)getInputTableEditor().getActivePage();
                 if (page == null) return;                
                 InputTablePropertyBar propertyBar = (InputTablePropertyBar)this.PropertyBar;
+                
                 page.getInputTableForm().TablePropertiesPanel.filterScopePanel.ActiveItemPanel.inputTableService = this.GetInputTableService();
+
                 if (propertyBar.Pane.SelectedContent == propertyBar.ParameterLayoutAnchorable)
                 {
                     Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
@@ -2421,7 +2424,7 @@ namespace Misp.Sourcing.Table
                 }
                 else
                 {
-                    page.getInputTableForm().TablePropertiesPanel.filterScopePanel.SetTargetValue(target);
+                   page.getInputTableForm().TablePropertiesPanel.filterScopePanel.SetTargetValue(target);
                 }
             }
         }
@@ -2441,12 +2444,18 @@ namespace Misp.Sourcing.Table
                     Range currentRange = page.getInputTableForm().SpreadSheet.GetSelectedRange();
                     if (currentRange == null) return;
 
-                    if (loop.IsScope) page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetLoopValue(loop);
+                    if (loop.IsScope)
+                    {
+                        page.getInputTableForm().TableCellParameterPanel.filterScopePanel.SetLoopValue(loop);
+                    }
                     else if (loop.IsPeriod) setCellPeriodLoop(page, loop);
                 }
                 else
                 {
-                    if (loop.IsScope) page.getInputTableForm().TablePropertiesPanel.filterScopePanel.SetLoopValue(loop);
+                    if (loop.IsScope)
+                    {
+                        page.getInputTableForm().TablePropertiesPanel.filterScopePanel.SetLoopValue(loop);
+                    }
                     else if (loop.IsPeriod) setTablePeriodLoop(page, loop);
                 }
             }

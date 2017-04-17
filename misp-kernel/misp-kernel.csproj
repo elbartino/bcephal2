@@ -69,6 +69,7 @@
     <Reference Include="DevExpress.Mvvm.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Mvvm.v16.1.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.Office.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -82,6 +83,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Spreadsheet.v16.1.Core.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Xpf.Controls.v16.1">
+      <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Controls.v16.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Xpf.Core.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Core.v16.1.dll</HintPath>
@@ -91,6 +95,9 @@
     </Reference>
     <Reference Include="DevExpress.Xpf.Grid.v16.1.Core, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.Grid.v16.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.LayoutControl.v16.1">
+      <HintPath>..\misp-build\libs\dotnet\DevExpress.Xpf.LayoutControl.v16.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Xpf.Ribbon.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -281,9 +288,12 @@
     <Compile Include="Domain\DebitCreditFormula.cs" />
     <Compile Include="Domain\EnrichmentTable.cs" />
     <Compile Include="Domain\EnrichmentTableData.cs" />
+    <Compile Include="Domain\FilterScopeValues.cs" />
     <Compile Include="Domain\GrilleColumnFilter.cs" />
     <Compile Include="Domain\GrilleRelationship.cs" />
     <Compile Include="Domain\GrilleRelationshipItem.cs" />
+    <Compile Include="Domain\LinkedAttributeGrid.cs" />
+    <Compile Include="Domain\LinkedAttributeGridColumn.cs" />
     <Compile Include="Domain\LoopCondition.cs" />
     <Compile Include="Domain\LoopUserDialogTemplate.cs" />
     <Compile Include="Domain\Functionality.cs" />
@@ -363,6 +373,7 @@
     <Compile Include="Service\CombineTransformationTreeService.cs" />
     <Compile Include="Service\AutomaticPostingGridService.cs" />
     <Compile Include="Service\EnrichmentTableService.cs" />
+    <Compile Include="Service\LinkedAttributeGridService.cs" />
     <Compile Include="Service\ReconciliationFilterTemplateService.cs" />
     <Compile Include="Service\RelationShipService.cs" />
     <Compile Include="Service\RightService.cs" />
@@ -509,11 +520,35 @@
     <Compile Include="Ui\Base\BrowserGridNavigationBar.xaml.cs">
       <DependentUpon>BrowserGridNavigationBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\Base\BrowserUI\BrowserForm.xaml.cs">
+      <DependentUpon>BrowserForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\BrowserUI\BrowserGrid.xaml.cs">
+      <DependentUpon>BrowserGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Base\BrowserUI\PaginationBar.xaml.cs">
+      <DependentUpon>PaginationBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\Base\PaginationPanel.xaml.cs">
       <DependentUpon>PaginationPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Base\ProcessPopup.xaml.cs">
       <DependentUpon>ProcessPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Dashboard\NavBlock.cs" />
+    <Compile Include="Ui\Dashboard\NavBlockContextMenu.cs" />
+    <Compile Include="Ui\Dashboard\NavCategory.cs" />
+    <Compile Include="Ui\Dashboard\NavDashboardBar.xaml.cs">
+      <DependentUpon>NavDashboardBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Dashboard\NavDashboardBlockPropertiesDialog.xaml.cs">
+      <DependentUpon>NavDashboardBlockPropertiesDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Dashboard\NavDashboardLayout.xaml.cs">
+      <DependentUpon>NavDashboardLayout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Dashboard\NavDashboardView.xaml.cs">
+      <DependentUpon>NavDashboardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\EditableTree\AttributeDialog.xaml.cs">
       <DependentUpon>AttributeDialog.xaml</DependentUpon>
@@ -566,9 +601,6 @@
     <Compile Include="Ui\Base\CalculatedMeasureGroup.cs" />
     <Compile Include="Ui\Base\CellPropertyGrid.cs" />
     <Compile Include="Ui\Base\ChangeEventHandlerBuilder.cs" />
-    <Compile Include="Ui\Base\DashBoard.xaml.cs">
-      <DependentUpon>DashBoard.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Ui\Base\DialogAllocationRun.xaml.cs">
       <DependentUpon>DialogAllocationRun.xaml</DependentUpon>
     </Compile>
@@ -586,9 +618,6 @@
     <Compile Include="Ui\Base\EventHandlers.cs" />
     <Compile Include="Ui\Base\FileClosedView.xaml.cs">
       <DependentUpon>FileClosedView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Ui\Base\FileOpenedView.xaml.cs">
-      <DependentUpon>FileOpenedView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Base\GroupGroup.cs" />
     <Compile Include="Ui\Base\HiperlinkPanel.xaml.cs">
@@ -951,6 +980,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ui\Base\BrowserUI\BrowserForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\BrowserUI\BrowserGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Base\BrowserUI\PaginationBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ui\Base\PaginationPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -958,6 +999,22 @@
     <Page Include="Ui\Base\ProcessPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\Dashboard\NavDashboardBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Dashboard\NavDashboardBlockPropertiesDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Dashboard\NavDashboardLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Dashboard\NavDashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\EditableTree\AttributeDialog.xaml">
       <SubType>Designer</SubType>
@@ -1011,10 +1068,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Base\DashBoard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Ui\Base\DialogAllocationRun.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1032,10 +1085,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\Base\FileClosedView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Ui\Base\FileOpenedView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

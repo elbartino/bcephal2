@@ -31,7 +31,7 @@ namespace Misp.Sourcing.GridViews
             InitializeComponent();
             this.periodFilter.CustomizeForReport();
             this.periodFilter.NewPeriodTextBlock.Visibility = System.Windows.Visibility.Collapsed;
-            reset();
+            //reset();
             IntializeHandlers();     
         }
         
@@ -41,7 +41,7 @@ namespace Misp.Sourcing.GridViews
         private void IntializeHandlers()
         {
             this.resetButton.Click += OnReset;
-            this.targetFilter.Changed += OnChange;
+            this.TargetPanel.Changed += OnChange;
             //this.periodFilter.Changed += OnChange;
 
             this.creditCheckBox.Checked += OnChange;
@@ -52,9 +52,9 @@ namespace Misp.Sourcing.GridViews
             this.includeRecoCheckBox.Unchecked += OnChange;
 
             this.periodFilter.ItemChanged += OnPeriodItemChanged;
-            this.targetFilter.ItemChanged += OnTargetItemChanged;
+            //this.TargetPanel.ItemChanged += OnTargetItemChanged;
             this.periodFilter.ItemDeleted += OnPeriodItemDeleted;
-            this.targetFilter.ItemDeleted += OnTargetItemDeleted;
+            //this.TargetPanel.ItemDeleted += OnTargetItemDeleted;
         }
 
         private void OnPeriodItemDeleted(object item)
@@ -111,16 +111,16 @@ namespace Misp.Sourcing.GridViews
         public void Display(GrilleFilter filter)
         {
             this.GrilleFilter = filter;
-            thrawChange = false;
-            reset();
+            thrawChange = false;            
             if (filter != null)
             {
-                targetFilter.DisplayScope(filter.filterScope);
+                TargetPanel.DisplayScope(filter.filterScope);
                 periodFilter.DisplayPeriod(filter.filterPeriod);
                 this.creditCheckBox.IsChecked = filter.creditChecked;
                 this.debitCheckBox.IsChecked = filter.debitChecked;
                 this.includeRecoCheckBox.IsChecked = filter.includeRecoChecked;
             }
+            else reset();
             thrawChange = true;
         }
 
@@ -131,8 +131,8 @@ namespace Misp.Sourcing.GridViews
         public GrilleFilter Fill()
         {
             if (this.GrilleFilter == null) this.GrilleFilter = new GrilleFilter();
-            if (targetFilter.Scope != null) targetFilter.Scope.targetItemListChangeHandler.resetOriginalList();
-            this.GrilleFilter.filterScope = targetFilter.Scope;
+            if (TargetPanel.Scope != null) TargetPanel.Scope.targetItemListChangeHandler.resetOriginalList();
+            this.GrilleFilter.filterScope = TargetPanel.Scope;
             if (periodFilter.Period != null) periodFilter.Period.itemListChangeHandler.resetOriginalList();
             this.GrilleFilter.filterPeriod = periodFilter.Period;
             this.GrilleFilter.creditChecked = this.creditCheckBox.IsChecked.Value;
@@ -147,7 +147,7 @@ namespace Misp.Sourcing.GridViews
         /// <param name="bankReco"></param>
         public void reset()
         {
-            targetFilter.DisplayScope(null);
+            TargetPanel.DisplayScope(null);
             periodFilter.DisplayPeriod(null);
         }
         
@@ -175,7 +175,7 @@ namespace Misp.Sourcing.GridViews
 
         public virtual void SetReadOnly(bool readOnly)
         {
-            targetFilter.DisplayScope(null, false, readOnly);
+            //TargetPanel.DisplayScope(null, false, readOnly);
             periodFilter.SetReadOnly(readOnly);
             resetButton.Visibility = readOnly ? Visibility.Collapsed : Visibility.Visible;
         }

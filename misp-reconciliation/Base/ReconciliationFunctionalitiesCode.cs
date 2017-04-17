@@ -10,10 +10,5 @@ namespace Misp.Reconciliation.Base
     public class ReconciliationFunctionalitiesCode : FunctionalitiesCode
     {
 
-        
-        
-
-        
-
     }
 }

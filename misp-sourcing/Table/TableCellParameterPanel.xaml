@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:src="clr-namespace:Misp.Sourcing.Table" 
+             xmlns:report="clr-namespace:Misp.Sourcing.FilterScope" 
              xmlns:base="clr-namespace:Misp.Sourcing.Base" 
              mc:Ignorable="d" Background="White" VerticalScrollBarVisibility="Auto"
              d:DesignHeight="300" d:DesignWidth="310">
@@ -60,7 +61,7 @@
                           VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="2"/>
 
         <GroupBox x:Name="filterGroupBox" Header="Filter" Margin="5,5,5,10" Grid.Row="3">
-            <src:TargetPanel x:Name="filterScopePanel" />
+              <src:TargetPanel x:Name="filterScopePanel" />
         </GroupBox>
         <GridSplitter Height="5" ResizeDirection="Rows" Background="#FFFBF8F8"
                           VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="3"  Visibility="Collapsed"/>

@@ -45,7 +45,10 @@ namespace Misp.Sourcing.Base
             */
             this.Children.Add(grid);
             this.Children.Add(autoGrid);
-                        
+
+            Functionality linkedAttrGrid = new Functionality(this, FunctionalitiesCode.LINKED_ATTRIBUTE_GRID, "Linked Attribute Grid", true, RightType.VIEW, RightType.EDIT);
+            this.Children.Add(linkedAttrGrid);     
+       
             Functionality target = new Functionality(this, FunctionalitiesCode.TARGET, "Target", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
             Functionality autoTargetTable = new Functionality(this, FunctionalitiesCode.AUTOMATIC_TARGET, "Automatic Sourcing for Target", true, RightType.VIEW, RightType.EDIT, RightType.CREATE);
             /*
