@@ -21,7 +21,7 @@ namespace Misp.Sourcing.LinkedAttribute
         protected override EditorItem<LinkedAttributeGrid> getNewPage() 
         {
             LinkedAttributeGridEditorItem item = new LinkedAttributeGridEditorItem(this.SubjectType);
-            //item.getLinkedAttributeGridForm().GridForm.gridBrowser.Service = this.Service;
+            item.getLinkedAttributeGridForm().Grid.Service = this.Service.InputGridService;
             return item;
         }
         

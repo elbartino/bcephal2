@@ -528,7 +528,21 @@ namespace Misp.Sourcing.GridViews
             b.Mode = BindingMode.TwoWay;
             column.Binding = b;
 
-            if(grilleColumn.type.Equals(ParameterType.MEASURE.ToString()))
+            setColumnEditSettings(column, grilleColumn, readOnly);
+            
+            if (grilleColumn.type.Equals(ParameterType.PERIOD.ToString()) 
+                || grilleColumn.type.Equals(ParameterType.MEASURE.ToString())
+                || grilleColumn.type.Equals(ParameterType.SPECIAL_MEASURE.ToString()))
+            {
+                column.ColumnFilterMode = ColumnFilterMode.Value;
+            }
+            
+            return column;        
+        }
+
+        protected virtual void setColumnEditSettings(GridColumn column, GrilleColumn grilleColumn, bool readOnly = false)
+        {
+            if (grilleColumn.type.Equals(ParameterType.MEASURE.ToString()))
             {
                 TextEditSettings settings = new TextEditSettings();
                 settings.DisplayFormat = "N2";
@@ -561,15 +575,6 @@ namespace Misp.Sourcing.GridViews
                 dateSetting.AllowNullInput = true;
                 column.EditSettings = dateSetting;
             }
-            
-            if (grilleColumn.type.Equals(ParameterType.PERIOD.ToString()) 
-                || grilleColumn.type.Equals(ParameterType.MEASURE.ToString())
-                || grilleColumn.type.Equals(ParameterType.SPECIAL_MEASURE.ToString()))
-            {
-                column.ColumnFilterMode = ColumnFilterMode.Value;
-            }
-            
-            return column;        
         }
 
         public void RemoveColumn(String name, int position = -1)

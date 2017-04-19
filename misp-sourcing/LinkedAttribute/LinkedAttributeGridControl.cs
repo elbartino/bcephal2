@@ -1,4 +1,5 @@
-﻿using DevExpress.Xpf.Grid;
+﻿using DevExpress.Xpf.Editors.Settings;
+using DevExpress.Xpf.Grid;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Util;
 using Misp.Sourcing.GridViews;
@@ -56,9 +57,39 @@ namespace Misp.Sourcing.LinkedAttribute
 
             column.Style = this.gridControl.FindResource("GridColumn") as Style;
             column.Width = new GridColumnWidth(1, GridColumnUnitType.Star);
-            
+
+            setColumnEditSettings(column, grilleColumn, readOnly);
+
             return column;
         }
+
+        protected override void setColumnEditSettings(GridColumn column, GrilleColumn grilleColumn, bool readOnly = false)
+        {
+            bool isIncremental = grilleColumn.attribute.incremental;
+            bool isKey = ((LinkedAttributeGrid)Grille).attribute.oid == grilleColumn.attribute.oid;
+            if (!isIncremental)
+            {
+                try
+                {
+                    grilleColumn.values = Service.ModelService.getLeafAttributeValues(grilleColumn.valueOid.Value);
+                }
+                catch (Exception) { }
+                ComboBoxEditSettings combo = new ComboBoxEditSettings();
+                combo.ItemsSource = grilleColumn.Items;
+                combo.IsTextEditable = true;
+                combo.ShowText = true;
+                combo.ValidateOnTextInput = true;
+
+                combo.AllowNullInput = !isKey; 
+                combo.AutoComplete = true;
+                combo.IncrementalFiltering = true;
+                combo.ImmediatePopup = true;
+
+                column.AllowIncrementalSearch = true;
+                column.EditSettings = combo;
+            }
+        }
+
 
         protected override void OnCellValueChanged(object sender, CellValueChangedEventArgs args)
         {

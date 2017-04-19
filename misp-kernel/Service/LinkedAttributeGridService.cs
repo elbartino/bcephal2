@@ -11,6 +11,8 @@ namespace Misp.Kernel.Service
     public class LinkedAttributeGridService : Service<LinkedAttributeGrid, Misp.Kernel.Domain.Browser.BrowserData>
     {
 
+        public InputGridService InputGridService { get; set; }
+
         public GrillePage getGridRows(GrilleFilter filter)
         {
             try
