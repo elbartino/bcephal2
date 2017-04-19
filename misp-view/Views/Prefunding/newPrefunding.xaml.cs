@@ -37,10 +37,12 @@ namespace misp_view.Views.Prefunding
 
         private void btnClick(object sender, RoutedEventArgs e)
         {
-           
-
+            int random = 0;
+           Random r = new Random();
+            random = r.Next(1, 1592002);
+            string test = "test"+random;
             // A path to export a report.
-            string reportPath = @"c:\\Temp\Test.pdf";
+            string reportPath = @"c:\\Temp\"+test+".pdf";
 
             using (XtraReport1 report = new XtraReport1())
             {

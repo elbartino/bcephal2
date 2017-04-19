@@ -11,16 +11,17 @@
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
         xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" 
-    xmlns:myControls="clr-namespace:misp_view.Views.Review;assembly=misp-view"
+        xmlns:myControls="clr-namespace:misp_view.Views.Review;assembly=misp-view"
         x:Class="Moriset_Main_final.MainWindow"
         WindowState="Maximized"
-        Title="RCCP - B-Cephal" Height="600" Width="1000">
+        Title="RCCP - B-Cephal" Height="600" Width="1000" Closed="Window_Closed">
 
 
 
     <Window.Resources>
         <ContextMenu x:Key="cmButton" >
             <MenuItem Header="Edit" x:Name="editMenu" Click="editMenu_Click"/>
+            <MenuItem Header="DynamicEdit" x:Name="dyanmicEditMenu" Click="dyanmicEditMenu_Click"></MenuItem>
             <MenuItem Header="Hide"  x:Name="hideMenu" Click="hideMenu_Click"/>
         </ContextMenu>
     </Window.Resources>
@@ -41,21 +42,27 @@
                 <dxnav:TileNavPane.NavButtons >
                     <dxnav:NavButton  Content="  Standard  " IsMain="False" Background="#FF839BBB" IsManipulationEnabled="True">
 
-                        <dxnav:TileNavCategory x:Name="reconciliation_item" Content="Reconciliation" Background="#FF839BBB" Click="reconciliation_Click"/>
-                        <dxnav:TileNavCategory x:Name="dailycontrols_item" Content="Daily Controls" Background="#FF839BBB" Click="dailycontrols_Click"/>
-                        <dxnav:TileNavCategory x:Name="pf_account_review_item" Content="PF Account Review" Background="#FF839BBB" Click="pf_account_review_Click"/>
-                        <dxnav:TileNavCategory x:Name="reconciliation_report_item" Content="Reconciliation Report" Background="#FF839BBB" Click="reconciliation_report_Click"/>
-                        <dxnav:TileNavCategory x:Name="settlement_evolution_item" Content="Settlement Evolution" Background="#FF839BBB" Click="settlement_evolution_Click"/>
-                        <dxnav:TileNavCategory x:Name="new_advisement_item" Content="New Advisement" Background="#FF839BBB" Click="new_advisement_Click"/>
-                        <dxnav:TileNavCategory x:Name="ageing_balance_item" Content="Ageing Balance" Background="#FF839BBB" Click="ageing_balance_Click"/>
-                        <dxnav:TileNavCategory x:Name="bank_account_item" Content="Bank Account" Background="#FF839BBB" Click="bank_account_Click"/>
-                        <dxnav:TileNavCategory x:Name="list_advisements_item" Content="List Advisements" Background="#FF839BBB" Click="list_advisement_Click"/>
+                        <dxnav:TileNavCategory x:Name="reconciliation_item" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Reconciliation" Background="#FF839BBB" Click="reconciliation_Click"/>
+                        <dxnav:TileNavCategory x:Name="dailycontrols_item" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Daily Controls" Background="#FF839BBB" Click="dailycontrols_Click"/>
+                        <dxnav:TileNavCategory x:Name="pf_account_review_item" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="PF Account Review" Background="#FF839BBB" Click="pf_account_review_Click"/>
+                        <dxnav:TileNavCategory x:Name="reconciliation_report_item" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Reconciliation Report" Background="#FF839BBB" Click="reconciliation_report_Click"/>
+                        <dxnav:TileNavCategory x:Name="settlement_evolution_item" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Settlement Evolution" Background="#FF839BBB" Click="settlement_evolution_Click"/>
+                        <dxnav:TileNavCategory x:Name="new_advisement_item" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="New Advisement" Background="#FF839BBB" Click="new_advisement_Click"/>
+                        <dxnav:TileNavCategory x:Name="ageing_balance_item" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Ageing Balance" Background="#FF839BBB" Click="ageing_balance_Click"/>
+                        <dxnav:TileNavCategory x:Name="bank_account_item" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Bank Account" Background="#FF839BBB" Click="bank_account_Click"/>
+                        <dxnav:TileNavCategory x:Name="list_advisements_item" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="List Advisements" Background="#FF839BBB" Click="list_advisement_Click"/>
 
                     </dxnav:NavButton>
+                    <dxnav:NavButton Content="Customised" x:Name="customisedTile" Click="customisedTile_Click">
+                        
+                    </dxnav:NavButton>
+                    <dxnav:NavButton Content="New" x:Name="createButton" Click="createTile_Click" HorizontalAlignment="Right">
+                    </dxnav:NavButton>
+                    <dxnav:NavButton Content="Create Screen" HorizontalAlignment="Right" x:Name="createScreen" Click="createScreen_Click"></dxnav:NavButton>
                 </dxnav:TileNavPane.NavButtons>
             </dxnav:TileNavPane>
         </Grid>
-        <dxlc:TileLayoutControl x:Name="customTileLayout" ShowLayerSeparators="True" Padding="4" MaximizedElementPosition="Left" AllowGroupHeaderEditing="True" DragScrolling="False" Margin="10,140,10,10" Background="{x:Null}" />
-
+        <dxlc:FlowLayoutControl x:Name="customTileLayout" ScrollBars="Auto" ItemSpace="10" Padding="4" MaximizedElementPosition="Left" AllowItemMoving="True" Margin="10,140,10,10" Background="{x:Null}" AllowDrop="True" AnimateItemMoving="False" AllowAddFlowBreaksDuringItemMoving="True"  />
+        
     </Grid>
 </Window>

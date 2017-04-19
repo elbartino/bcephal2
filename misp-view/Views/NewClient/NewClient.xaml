@@ -16,7 +16,7 @@
             </dx:DXTabControl.View>
 
             <dx:DXTabItem Header="Client" x:Name="clientTab">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,-2,0,0">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,-2,0,0" >
                     <Grid x:Name="gridClient">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="240"/>
@@ -48,7 +48,7 @@
                         </Grid>
                         <Grid Grid.Column="1" Margin="0,60,0,0">
                             <StackPanel Margin="20,0,0,0">
-                                <TextBox Height="25" Width="200" BorderBrush="Transparent" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                <TextBox Height="25" Width="200"  BorderBrush="Transparent" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
                                 <Label Height="5"/>
                                 <TextBox Height="25" Width="200" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
                                 <Label Height="5"/>

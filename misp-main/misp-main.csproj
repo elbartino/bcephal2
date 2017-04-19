@@ -79,6 +79,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="View\Block.cs" />
+    <Compile Include="View\DialogBoxName.xaml.cs">
+      <DependentUpon>DialogBoxName.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DynamicEdit.xaml.cs">
+      <DependentUpon>DynamicEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Edit.xaml.cs">
       <DependentUpon>Edit.xaml</DependentUpon>
     </Compile>
@@ -97,6 +103,9 @@
     <Compile Include="View\PopupDetail\Reconciliation_SubTile.xaml.cs">
       <DependentUpon>Reconciliation_SubTile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ScreenDynamic.xaml.cs">
+      <DependentUpon>ScreenDynamic.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -109,6 +118,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\DialogBoxName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DynamicEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Edit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +149,10 @@
     <Page Include="View\PopupDetail\Reconciliation_SubTile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ScreenDynamic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

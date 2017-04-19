@@ -5,42 +5,143 @@
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
-    Title="Edit" Height="191.412" Width="442.08" ResizeMode="NoResize" WindowStyle="none"
+    Title="Edit" Height="650" Width="1000" ResizeMode="NoResize" WindowStyle="SingleBorderWindow"
     >
 
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="550"></RowDefinition>
             </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <StackPanel Orientation="Horizontal" Margin="300,0,0,0">
+                    <Label x:Name="lName" Height="25" Content="Name: " Width="50"/>
+                    <TextBox x:Name="tbNameTile" Text="Input Data"  Height="25" Width="200" BorderBrush="Transparent" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                </StackPanel>
+            </Grid>
             <Grid Grid.Row="1">
+                <dx:DXTabControl>
+                    <dx:DXTabControl.View>
+                        <dx:TabControlStretchView HeaderLocation="Bottom"></dx:TabControlStretchView>
+                    </dx:DXTabControl.View>
+                    <dx:DXTabItem Header="Properties">
+                        <Grid Grid.Row="1" Margin="0,65,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="195"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="425"/>
+                            </Grid.ColumnDefinitions>
 
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="195"/>
-                        <ColumnDefinition Width="250"/>
-                    </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" x:Name="paGrid">
 
-                    <Grid Grid.Column="0" x:Name="paGrid">
+                                <StackPanel>
+                                    <Label x:Name="lEmpty" Content=""  Height="30"/>
+                                    <Label x:Name="lSPrefund" Content="Select what to show: " Height="25" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+                                    <Label Height="5"/>
+                                    <Label x:Name="lSRepenishment" FontWeight="Normal" Height="25" Content="Allow Selection: " HorizontalAlignment="Right"/>
+                                    <Label Content="" Height="5"/>
+                                    <Label x:Name="lSelectColor" Content="Select Shape Color " Height="25" HorizontalAlignment="Right"/>
+                                    <Label Content="" Height="5"/>
+                                    <Label x:Name="lSelectTextColor" Content="Select Text Color " HorizontalAlignment="Right" Height="25"/>
+                                    <Label Height="5"/>
+                                    <Label x:Name="lOrganize" Content="Organize " Height="25" FontWeight="Normal" HorizontalAlignment="Right"/>
+                                    <Label Content="" Height="37"/>
+                                    <Label x:Name="lNewBtn" Content="New Button " HorizontalAlignment="Right" Height="25"/>
+                                    <Label Content="" Height="10"/>
+                                    <Label x:Name="lDAClick" Content="Double Action Click " HorizontalAlignment="Right" Height="25"/>
+                                    <Label Content="" Height="5"/>
+                                    <Label x:Name="lShowPanelUser" Content="Show on Panel New User " HorizontalAlignment="Right" Height="25"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <StackPanel HorizontalAlignment="Left" MaxWidth="200">
+                                    <Label x:Name="lNamesd" Content="" Height="25" IsHitTestVisible="False"/>
+                                    <Label Height="5"/>
+                                    <ComboBox x:Name="cbSelection" Height="25" Width="200" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+                                        <ComboBoxItem Content="Type"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Height="5"></Label>
+                                    <ComboBox x:Name="cbSelections" Height="25" Width="200" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+                                        <ComboBoxItem Content="Type"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="" Height="5"/>
+                                    <dxe:PopupColorEdit x:Name="colorTile" Width="200" Color="Red"/>
+                                    <Label Content="" Height="5"/>
+                                    <dxe:PopupColorEdit x:Name="textColorTile"  Width="200" Color="White"/>
+                                    <Label Height="5"/>
+                                    <ComboBox x:Name="tbOrganize" Height="25" HorizontalAlignment="Left" Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                    <Label Content="" Height="5"/>
+                                    <ComboBox x:Name="tbOrganizeDes" Height="25" Width="200" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
+                                    <Label Height="5"/>
+                                    <CheckBox>
+                                        <ComboBox Height="25" Width="182" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
+                                    </CheckBox>
+                                    <Label Height="5"/>
+                                    <CheckBox>
+                                        <ComboBox Height="25" Width="182" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
+                                    </CheckBox>
+                                    <CheckBox x:Name="cbShow"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="2">
 
-                        <StackPanel>
-                            <Label x:Name="lSelectColor" Content="Select Shape Color " Height="25" HorizontalAlignment="Right"/>
-                            <Label Content="" Height="5"/>
-                            <Label x:Name="lSelectTextColor" Content="Select Text Color " HorizontalAlignment="Right" Height="25"/>
-                        </StackPanel>
-                    </Grid>
-                    <Grid Grid.Column="1" Margin="0.333,0,0,-37.667">
-                        <StackPanel HorizontalAlignment="Left" MaxWidth="200" Margin="0,0,0,-35.667">
-                            <dxe:PopupColorEdit x:Name="colorTile" Width="200" Color="#FF839BBB"/>
-                            <Label Content="" Height="10"/>
-                            <dxe:PopupColorEdit x:Name="textColorTile" Width="200" Color="White"/>
-                            <Label Height="10"/>
-                            <Button Content="OK" HorizontalAlignment="Right" Height="32" VerticalAlignment="Bottom" Width="121" Click="Button_Click"/>
-                        </StackPanel>
-                    </Grid>
+                                <StackPanel Width="450" HorizontalAlignment="Left">
+                                    <Label Height="30" IsHitTestVisible="False"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox x:Name="cbGroup" Height="25" Width="200" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                        <Label Width="20"/>
+                                        <ComboBox x:Name="cbGroup2" Height="25" Width="200" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                    </StackPanel>
+                                    <Label Height="158">
+                                    </Label>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox  Height="25" Width="130" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
+                                        <Label Width="15"/>
+                                        <ComboBox  Height="25" Width="130" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
+                                        <Label Width="15"/>
+                                        <ComboBox  Height="25" Width="130" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalAlignment="Left"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </dx:DXTabItem>
+                    <dx:DXTabItem Header="User Rights">
+                        <Grid Margin="0,65,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="320"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="425"/>
+                            </Grid.ColumnDefinitions>
 
-                </Grid>
+                            <Grid Grid.Column="0" x:Name="paGridd">
+
+                                <StackPanel Margin="65,0,0,0">
+                                    <Label x:Name="lEmptdy" Content=""  Height="25"/>
+                                    <Label Height="5"/>
+                                    <Label x:Name="lSRepenishmdent" FontWeight="Normal" Height="25" Content="Select profile that can see and select the box: " HorizontalAlignment="Right"/>
+                                    <Label Content="" Height="5"/>
+                                    <ComboBox  Height="25" Width="180" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                    <Label Content="" Height="5"/>
+                                    <Label Height="5"/>
+                                    <Label Content="" Height="37"/>
+                                    <Label x:Name="lUserSelection" Content="Select users that can see and select the box: " HorizontalAlignment="Right" Height="25"/>
+                                    <Label Content="" Height="5"/>
+                                    <ComboBox  Height="25" Width="180" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <StackPanel HorizontalAlignment="Left" MaxWidth="200">
+                                    <Label x:Name="lNames" Content="" Height="25" IsHitTestVisible="False"/>
+                                    <Label Height="5"/>
+
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+
+                    </dx:DXTabItem>
+                </dx:DXTabControl>
             </Grid>
         </Grid>
     </Grid>

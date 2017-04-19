@@ -16,7 +16,7 @@
             <Label Margin="-35" Content="List Clients" HorizontalAlignment="Center" FontSize="20"></Label>
         </Grid>
 
-        <dxg:GridControl Grid.Row="1" ItemsSource="{Binding cl}" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True">
+        <dxg:GridControl Grid.Row="1" ItemsSource="{Binding cl, Mode=OneWay}"  AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True">
             <dxg:GridControl.View>
                 <dxg:TableView AllowPerPixelScrolling="True" ShowIndicator="False" ShowGroupPanel="False" ShowTotalSummary="True" AllowEditing="False" AllowGrouping="False" AllowColumnMoving="False" AllowResizing="False" AllowSorting="False"/>
             </dxg:GridControl.View>
