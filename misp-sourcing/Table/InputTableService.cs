@@ -774,5 +774,28 @@ namespace Misp.Sourcing.Table
                 throw new ServiceExecption("Unable to retrieve object from server.", e);
             }
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>List of BrowserData</returns>
+        public virtual List<BrowserData> getNavBrowserDatas()
+        {
+            try
+            {
+                var request1 = new RestRequest(ResourcePath + "/nav-browserdatas", Method.GET);
+                RestResponse queryResult = (RestResponse)RestClient.Execute(request1);
+                List<BrowserData> objects = RestSharp.SimpleJson.DeserializeObject<List<BrowserData>>(queryResult.Content);
+                return objects;
+            }
+            catch (Exception e)
+            {
+                logger.Error("Unable to retrieve list of BrowserData.", e);
+                throw new ServiceExecption("Unable to retrieve list of BrowserData.", e);
+            }
+        }
+
+
     }
 }

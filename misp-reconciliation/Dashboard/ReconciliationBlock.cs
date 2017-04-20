@@ -29,7 +29,7 @@ namespace Misp.Reconciliation.Dashboard
             foreach(BrowserData data in datas)
             {
                 NavBlock block = new NavBlock(data.name, NavigationToken.GetModifyViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_EDIT, data.oid));
-                block.Background = data.ok ? Brushes.Green : Brushes.Red;
+                block.Background = data.ok ? Brushes.Green : (SolidColorBrush)new BrushConverter().ConvertFrom("#dfe3ee");
                 this.Children.Add(block);
             }            
         }
