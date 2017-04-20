@@ -30,6 +30,7 @@ namespace Misp.Reconciliation.Dashboard
             {
                 NavBlock block = new NavBlock(data.name, NavigationToken.GetModifyViewToken(ReconciliationFunctionalitiesCode.RECONCILIATION_FILTER_EDIT, data.oid));
                 block.Background = data.ok ? Brushes.Green : (SolidColorBrush)new BrushConverter().ConvertFrom("#555555");
+                block.AllowRemoveHandlersWhenDispose = true;
                 this.Children.Add(block);
             }            
         }
