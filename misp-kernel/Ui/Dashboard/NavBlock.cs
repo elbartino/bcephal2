@@ -46,6 +46,7 @@ namespace Misp.Kernel.Ui.Dashboard
         }
 
         public Boolean AllowContextMEnu { get; set; }
+        public Boolean AllowRemoveHandlersWhenDispose { get; set; }
 
         #endregion
 
@@ -70,6 +71,7 @@ namespace Misp.Kernel.Ui.Dashboard
             
             this.NavigationToken = navigationToken;
             this.AllowContextMEnu = true;
+            this.AllowRemoveHandlersWhenDispose = false;
             InitHandlers();
         }
         
@@ -85,7 +87,7 @@ namespace Misp.Kernel.Ui.Dashboard
         
         public void Dispose()
         {
-            RemoveHandlers();
+            if(this.AllowRemoveHandlersWhenDispose) RemoveHandlers();
         }
 
         #endregion
@@ -100,7 +102,7 @@ namespace Misp.Kernel.Ui.Dashboard
         }
 
         protected virtual void RemoveHandlers()
-        {
+        {            
             this.Click -= OnClick;
             this.MouseRightButtonDown -= OnMouseRightButtonDown;
         }

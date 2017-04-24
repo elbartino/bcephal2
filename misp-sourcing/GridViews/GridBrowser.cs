@@ -88,6 +88,7 @@ namespace Misp.Sourcing.GridViews
                 gridControl.FilterChanged -= OnFilterChanged;
                 gridControl.SelectionChanged -= OnSelectionChanged;
                 ((GridTableView)gridControl.View).CellValueChanged -= OnCellValueChanged;
+                ((GridTableView)gridControl.View).ValidateCell -= OnValidateCell;
                 ((GridTableView)gridControl.View).SortEventHandler -= OnSort;
                 ((GridTableView)gridControl.View).Menu.DeleteItem.ItemClick -= OnDelete;
                 ((GridTableView)gridControl.View).Menu.DuplicateItem.ItemClick -= OnDuplicate;
@@ -108,6 +109,7 @@ namespace Misp.Sourcing.GridViews
             gridControl.SelectionChanged += OnSelectionChanged;
             view.SortEventHandler += OnSort;
             view.CellValueChanged += OnCellValueChanged;
+            view.ValidateCell += OnValidateCell;
             
             view.Menu.DeleteItem.ItemClick += OnDelete;
             view.Menu.DuplicateItem.ItemClick += OnDuplicate;
@@ -127,6 +129,8 @@ namespace Misp.Sourcing.GridViews
             }
 
         }
+
+        
 
         private bool allowSort = true;
         private void OnEndSorting(object sender, RoutedEventArgs e)
@@ -286,7 +290,10 @@ namespace Misp.Sourcing.GridViews
             }
         }
 
-        
+        protected virtual void OnValidateCell(object sender, GridCellValidationEventArgs e)
+        {
+            
+        }
 
 
 
@@ -521,7 +528,21 @@ namespace Misp.Sourcing.GridViews
             b.Mode = BindingMode.TwoWay;
             column.Binding = b;
 
-            if(grilleColumn.type.Equals(ParameterType.MEASURE.ToString()))
+            setColumnEditSettings(column, grilleColumn, readOnly);
+            
+            if (grilleColumn.type.Equals(ParameterType.PERIOD.ToString()) 
+                || grilleColumn.type.Equals(ParameterType.MEASURE.ToString())
+                || grilleColumn.type.Equals(ParameterType.SPECIAL_MEASURE.ToString()))
+            {
+                column.ColumnFilterMode = ColumnFilterMode.Value;
+            }
+            
+            return column;        
+        }
+
+        protected virtual void setColumnEditSettings(GridColumn column, GrilleColumn grilleColumn, bool readOnly = false)
+        {
+            if (grilleColumn.type.Equals(ParameterType.MEASURE.ToString()))
             {
                 TextEditSettings settings = new TextEditSettings();
                 settings.DisplayFormat = "N2";
@@ -554,15 +575,6 @@ namespace Misp.Sourcing.GridViews
                 dateSetting.AllowNullInput = true;
                 column.EditSettings = dateSetting;
             }
-            
-            if (grilleColumn.type.Equals(ParameterType.PERIOD.ToString()) 
-                || grilleColumn.type.Equals(ParameterType.MEASURE.ToString())
-                || grilleColumn.type.Equals(ParameterType.SPECIAL_MEASURE.ToString()))
-            {
-                column.ColumnFilterMode = ColumnFilterMode.Value;
-            }
-            
-            return column;        
         }
 
         public void RemoveColumn(String name, int position = -1)

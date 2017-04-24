@@ -1,4 +1,5 @@
-﻿using DevExpress.Xpf.Grid;
+﻿using DevExpress.Xpf.Editors.Settings;
+using DevExpress.Xpf.Grid;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Util;
 using Misp.Sourcing.GridViews;
@@ -31,12 +32,12 @@ namespace Misp.Sourcing.LinkedAttribute
                 int position = 0;
                 GrilleColumn column = new GrilleColumn(grid.attribute, position++);
                 grid.AddColumn(column);
-                this.AddColumn(column, true);
+                this.AddColumn(column, grid.attribute.incremental);
                 foreach (Kernel.Domain.Attribute attribute in grid.attribute.childrenListChangeHandler.Items)
                 {
                     column = new GrilleColumn(attribute, position++);
                     grid.AddColumn(column);
-                    this.AddColumn(column);
+                    this.AddColumn(column, attribute.incremental);
                 }
                 this.Children.Add(this.gridControl);
                 RebuildGrid = false;
@@ -56,9 +57,39 @@ namespace Misp.Sourcing.LinkedAttribute
 
             column.Style = this.gridControl.FindResource("GridColumn") as Style;
             column.Width = new GridColumnWidth(1, GridColumnUnitType.Star);
-            
+
+            setColumnEditSettings(column, grilleColumn, readOnly);
+
             return column;
         }
+
+        protected override void setColumnEditSettings(GridColumn column, GrilleColumn grilleColumn, bool readOnly = false)
+        {
+            bool isIncremental = grilleColumn.attribute.incremental;
+            bool isKey = ((LinkedAttributeGrid)Grille).attribute.oid == grilleColumn.attribute.oid;
+            if (!isIncremental)
+            {
+                try
+                {
+                    grilleColumn.values = Service.ModelService.getLeafAttributeValues(grilleColumn.valueOid.Value);
+                }
+                catch (Exception) { }
+                ComboBoxEditSettings combo = new ComboBoxEditSettings();
+                combo.ItemsSource = grilleColumn.Items;
+                combo.IsTextEditable = true;
+                combo.ShowText = true;
+                combo.ValidateOnTextInput = true;
+
+                combo.AllowNullInput = !isKey; 
+                combo.AutoComplete = true;
+                combo.IncrementalFiltering = true;
+                combo.ImmediatePopup = true;
+
+                column.AllowIncrementalSearch = true;
+                column.EditSettings = combo;
+            }
+        }
+
 
         protected override void OnCellValueChanged(object sender, CellValueChangedEventArgs args)
         {
@@ -66,39 +97,76 @@ namespace Misp.Sourcing.LinkedAttribute
             if (item == null) item = (GridItem)this.gridControl.CurrentItem;
             if (item != null)
             {
-                int? oid = item.GetOid();
                 GridColumn col = args.Column;
                 GrilleColumn column = this.Grille.GetColumn(col.FieldName);
-                string oldValue = item.Datas[column.position] != null ? item.Datas[column.position].ToString() : "";
                 string newValue = args.Value != null ? args.Value.ToString() : "";
 
                 GrilleEditedElement element = new GrilleEditedElement();
                 element.column = column;
-                element.oid = oid;
-
-                bool isKey = column.position == 0;
-
-                if (isKey && string.IsNullOrWhiteSpace(newValue)) {
-                    MessageDisplayer.DisplayError("Wrong value", column.name + " can't be empty!");
-                    args.Handled = true;
-                    //args.Value = oldValue;
-                    return;
-                }
-                else
+                element.oid = item.GetOid();
+                element.value = new Kernel.Domain.Browser.BrowserData();
+                element.value.name = newValue;
+                if (this.EditEventHandler != null)
                 {
-                    element.value = new Kernel.Domain.Browser.BrowserData();
-                    element.value.name = newValue;
-                    if (this.EditEventHandler != null)
-                    {
-                        Object[] row = EditEventHandler(element);
-                        if (row == null) args.Handled = true;
-                        else item.Datas = row;
-                        Refresh();
-                    }
+                    Object[] row = EditEventHandler(element);
+                    if (row == null) args.Handled = true;
+                    else item.Datas = row;
+                    Refresh();
                 }
-                
             }
         }
+
+        protected override void OnValidateCell(object sender, GridCellValidationEventArgs args)
+        {
+            GridItem item = (GridItem)this.gridControl.SelectedItem;
+            if (item == null) item = (GridItem)this.gridControl.CurrentItem;
+            if (item != null)
+            {
+                ColumnBase col = args.Column;
+                GrilleColumn column = this.Grille.GetColumn(col.FieldName);
+                string oldValue = item.Datas[column.position] != null ? item.Datas[column.position].ToString() : "";
+                string newValue = args.Value != null ? args.Value.ToString() : "";
+
+                if (!IsEditionValid(item, column, oldValue, newValue, args))
+                {                    
+                    args.Handled = true;
+                    args.IsValid = false;
+                    return;
+                }
+            }
+        }
+
+        protected bool IsEditionValid(GridItem item, GrilleColumn column, string oldValue, string newValue, GridCellValidationEventArgs args)
+        {
+            int? oid = item.GetOid();
+            bool isKey = column.position == 0;
+            if (isKey)
+            {
+                if (string.IsNullOrWhiteSpace(newValue))
+                {
+                    args.ErrorContent = column.name + " can't be empty!";
+                    args.IsValid = false;
+                    return false;
+                }
+            }
+
+            else if (!oid.HasValue)
+            {
+                
+                LinkedAttributeGrid grid = (LinkedAttributeGrid)this.Grille;
+                Object keyValue = item.Datas[0];
+                bool emptyKeyValue = keyValue == null || string.IsNullOrWhiteSpace(keyValue.ToString());
+                if (emptyKeyValue && !grid.attribute.incremental)
+                {
+                    args.ErrorContent = "You have to set " + grid.attribute.name + " before set " + column.name;
+                    args.IsValid = false;
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
 
     }
 }

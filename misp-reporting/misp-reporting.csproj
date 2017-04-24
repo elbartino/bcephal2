@@ -114,6 +114,7 @@
     <Compile Include="Calculated Measure\CalculatedMeasurePanel.xaml.cs">
       <DependentUpon>CalculatedMeasurePanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dashboard\ReportBlock.cs" />
     <Compile Include="PlugIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

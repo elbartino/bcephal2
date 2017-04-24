@@ -10,6 +10,7 @@ using Misp.Kernel.Ui.Base.Menu;
 using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Dashboard;
+using Misp.Reporting.Dashboard;
 
 
 namespace Misp.Reporting
@@ -61,7 +62,10 @@ namespace Misp.Reporting
         protected override List<NavCategory> GetNavDashboardCategories()
         {
             List<NavCategory> categories = new List<NavCategory>(0);
-
+            NavCategory reportCategory = BuildCategory("Daily Controls", FunctionalitiesCode.REPORT);
+            reportCategory.Block = BuildBlock("Daily Controls", NavigationToken.GetSearchViewToken(FunctionalitiesCode.REPORT));
+            reportCategory.Block = new ReportBlock();
+            categories.Add(reportCategory);
             return categories;
         }
 
