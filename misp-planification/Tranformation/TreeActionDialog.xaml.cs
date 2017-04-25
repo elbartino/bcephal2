@@ -216,6 +216,7 @@ namespace Misp.Planification.Tranformation
         {
             if (!IsActionReportView) return true;
             if (this.ReportEditorController == null) return true;
+            Boolean isModify = false;
             foreach (ReportEditorItem page in this.ReportEditorController.getEditor().getAllPages())
             {
                 if (page.EditedObject != null)
@@ -223,10 +224,11 @@ namespace Misp.Planification.Tranformation
                     Parameter parameter = new Parameter(page.EditedObject.name);
                     parameter.setTransformationTree(1);
                     InputTable table = this.ReportEditorController.GetInputTableService().parametrizeTable(parameter);
+                    page.IsModify = true;
+                    isModify = true;
                 }
             }
             this.ReportEditorController.GetInputTableService().SaveTableHandler += UpdateSaveInfo;
-            Boolean isModify = this.ReportEditorController.IsModify;
             if(isModify) this.ReportEditorController.Save();
             else if (SaveEndedEventHandler != null) SaveEndedEventHandler(true);
             return true;
