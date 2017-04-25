@@ -10,8 +10,7 @@
              mc:Ignorable="d" d:DesignHeight="60" d:DesignWidth="500">
 
     <dxnav:TileNavPane.NavButtons >
-        <dxnav:NavButton x:Name="StandardNavButton" Content="Standard" AllowGlyphTheming="True" />
-
+        <dxnav:NavButton x:Name="StandardNavButton" Content="Standard" AllowGlyphTheming="True"  Glyph="{dx:DXImageGrayscale Image=Customization_32x32.png}" />
     </dxnav:TileNavPane.NavButtons>
 
 </dxnav:TileNavPane>
