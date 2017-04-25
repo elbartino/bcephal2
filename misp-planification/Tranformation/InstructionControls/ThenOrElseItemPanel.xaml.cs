@@ -280,11 +280,11 @@ namespace Misp.Planification.Tranformation.InstructionControls
             editedTableName = this.TableComboBox.SelectedItem.ToString();
             if (isSlideOption)
             {
-                displayTransformationSlide(this.TableComboBox.SelectedItem.ToString());
+                displayTransformationSlide(editedTableName);
             }
             else
             {
-                displayTransformationTable(this.TableComboBox.SelectedItem.ToString());
+                displayTransformationTable(editedTableName);
             }
         }
 
