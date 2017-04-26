@@ -209,7 +209,7 @@ namespace Moriset_Main_final
             {
                 ContextMenu cm = this.FindResource("cmButton") as ContextMenu;
                 cm.PlacementTarget = sender as Button;
-                cm.IsOpen = true;
+                cm.IsOpen = true;   
                 current = sender as Tile;
             }
         }
@@ -372,7 +372,8 @@ namespace Moriset_Main_final
 
         private void dyanmicEditMenu_Click(object sender, RoutedEventArgs e)
         {
-
+            DynamicEdit de = new DynamicEdit();
+            de.ShowDialog();
         }
 
         private void customisedTile_Click(object sender, EventArgs e)
@@ -390,12 +391,27 @@ namespace Moriset_Main_final
 
         private void createScreen_Click(object sender, EventArgs e)
         {
-            String s = "Screen_"+counterWindow;
+            string s = "Screen_"+counterWindow;
             Window w = new Window();
             w.Name = s;
             tabWindow[counterWindow] = w;
             MessageBox.Show("Window "+counterWindow+" created");
             counterWindow++;
+        }
+
+        private void deleteScreen_Click(object sender, EventArgs e)
+        {
+            if (tabWindow[0] != null)
+            {
+                tabWindow[counterWindow-1] = null;
+                int n = counterWindow-1;
+                MessageBox.Show("Window "+n+" deleted");
+                counterWindow--;
+            }
+            else
+            {
+                MessageBox.Show("No screen created");
+            }
         }
     }
 }

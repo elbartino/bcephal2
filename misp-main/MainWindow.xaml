@@ -59,7 +59,9 @@
                     <dxnav:NavButton Content="New" x:Name="createButton" Click="createTile_Click" HorizontalAlignment="Right">
                     </dxnav:NavButton>
                     <dxnav:NavButton Content="Create Screen" HorizontalAlignment="Right" x:Name="createScreen" Click="createScreen_Click"></dxnav:NavButton>
+                    <dxnav:NavButton Content="Delete Screen" HorizontalAlignment="Right" x:Name="deleteScreen" Click="deleteScreen_Click"></dxnav:NavButton>
                 </dxnav:TileNavPane.NavButtons>
+                
             </dxnav:TileNavPane>
         </Grid>
         <dxlc:FlowLayoutControl x:Name="customTileLayout" ScrollBars="Auto" ItemSpace="10" Padding="4" MaximizedElementPosition="Left" AllowItemMoving="True" Margin="10,140,10,10" Background="{x:Null}" AllowDrop="True" AnimateItemMoving="False" AllowAddFlowBreaksDuringItemMoving="True"  />
