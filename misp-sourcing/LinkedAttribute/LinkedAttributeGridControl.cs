@@ -108,10 +108,19 @@ namespace Misp.Sourcing.LinkedAttribute
                 element.value.name = newValue;
                 if (this.EditEventHandler != null)
                 {
-                    Object[] row = EditEventHandler(element);
-                    if (row == null) args.Handled = true;
-                    else item.Datas = row;
-                    Refresh();
+                    GrilleEditedResult result = EditEventHandler(element);
+                    if (result.isError)
+                    {
+                        MessageDisplayer.DisplayError("Wrong value", result.error);
+                        args.Handled = true;
+                        return;
+                    }
+                    else
+                    {
+                        if (result.datas == null) args.Handled = true;
+                        else item.Datas = result.datas;
+                        Refresh();
+                    } 
                 }
             }
         }

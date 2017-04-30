@@ -191,7 +191,7 @@ namespace Misp.Sourcing.LinkedAttribute
             if (FilterChangeHandler != null) FilterChangeHandler();            
         }
 
-        private Object[] OnEdit(GrilleEditedElement element)
+        private GrilleEditedResult OnEdit(GrilleEditedElement element)
         {
             if (this.EditEventHandler != null) return EditEventHandler(element);
             return null;

@@ -35,7 +35,7 @@ namespace Misp.Sourcing.GridViews
 
         public ChangeItemEventHandler SortEventHandler { get; set; }
 
-        public delegate Object[] EditCellEventHandler(GrilleEditedElement element);
+        public delegate GrilleEditedResult EditCellEventHandler(GrilleEditedElement element);
         public EditCellEventHandler EditEventHandler { get; set; }
 
         public DeleteEventHandler DeleteEventHandler { get; set; }
@@ -273,7 +273,7 @@ namespace Misp.Sourcing.GridViews
                     }
                     else
                     {
-                        MessageDisplayer.DisplayError("Wromg date", "'" + newValue + "'" + " is not a date!");
+                        MessageDisplayer.DisplayError("Wrong date", "'" + newValue + "'" + " is not a date!");
                         args.Handled = true;
                         return;
                     }
@@ -281,11 +281,20 @@ namespace Misp.Sourcing.GridViews
 
                 if (this.EditEventHandler != null)
                 {
-                    Object[] row = EditEventHandler(element);
-                    if (row == null) args.Handled = true;
-                    else item.Datas = row;
-                    Refresh();
-                    //this.grid.SelectedItem = item;
+                    GrilleEditedResult result = EditEventHandler(element);
+                    if (result.isError)
+                    {
+                        MessageDisplayer.DisplayError("Wrong value", result.error);
+                        args.Handled = true;
+                        return;
+                    }
+                    else
+                    {
+                        if (result.datas == null) args.Handled = true;
+                        else item.Datas = result.datas;
+                        Refresh();
+                        //this.grid.SelectedItem = item;
+                    }                    
                 }
             }
         }

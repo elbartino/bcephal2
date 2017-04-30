@@ -559,7 +559,7 @@ namespace Misp.Sourcing.InputGrid
             }
         }
 
-        private Object[] OnEditColumn(GrilleEditedElement element)
+        private GrilleEditedResult OnEditColumn(GrilleEditedElement element)
         {
             try
             {

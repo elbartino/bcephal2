@@ -201,7 +201,7 @@ namespace Misp.Sourcing.LinkedAttribute
             Search((int)item);
         }
 
-        private Object[] OnEditColumn(GrilleEditedElement element)
+        private GrilleEditedResult OnEditColumn(GrilleEditedElement element)
         {
             try
             {
@@ -217,7 +217,8 @@ namespace Misp.Sourcing.LinkedAttribute
                 element.grid.name = page.EditedObject.name;
                 element.grid.reconciliation = page.EditedObject.reconciliation;
                 element.grid.report = page.EditedObject.report;
-                return this.GetLinkedAttributeGridService().editCell(element);
+                GrilleEditedResult result = this.GetLinkedAttributeGridService().editCell(element);
+                return result;
             }
             catch (ServiceExecption) { }
             return null;

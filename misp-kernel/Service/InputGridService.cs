@@ -112,7 +112,7 @@ namespace Misp.Kernel.Service
         }
 
 
-        public Object[] editCell(GrilleEditedElement element)
+        public GrilleEditedResult editCell(GrilleEditedElement element)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace Misp.Kernel.Service
 
                 var response = RestClient.ExecuteTaskAsync(request);
                 RestResponse queryResult = (RestResponse)response.Result;
-                Object[] objects = RestSharp.SimpleJson.DeserializeObject<Object[]>(queryResult.Content);
+                GrilleEditedResult objects = RestSharp.SimpleJson.DeserializeObject<GrilleEditedResult>(queryResult.Content);
                 return objects;
             }
             catch (Exception e)

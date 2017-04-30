@@ -290,6 +290,7 @@
     <Compile Include="Domain\EnrichmentTableData.cs" />
     <Compile Include="Domain\FilterScopeValues.cs" />
     <Compile Include="Domain\GrilleColumnFilter.cs" />
+    <Compile Include="Domain\GrilleEditedResult.cs" />
     <Compile Include="Domain\GrilleRelationship.cs" />
     <Compile Include="Domain\GrilleRelationshipItem.cs" />
     <Compile Include="Domain\LinkedAttributeGrid.cs" />
