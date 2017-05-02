@@ -58,12 +58,12 @@ namespace Misp.Kernel.Service
             }
         }
 
-        public bool deleteGridRows(List<long> oids)
+        public bool deleteRows(int attributeOid, List<long> oids)
         {
             try
             {
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                var request = new RestRequest(ResourcePath + "/delete-rows", Method.POST);
+                var request = new RestRequest(ResourcePath + "/delete-rows/" + attributeOid, Method.POST);
                 serializer.MaxJsonLength = int.MaxValue;
                 string json = serializer.Serialize(oids);
                 request.AddParameter("application/json", json, ParameterType.RequestBody);

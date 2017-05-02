@@ -5,11 +5,13 @@ using Misp.Kernel.Domain.Browser;
 using Misp.Kernel.Service;
 using Misp.Kernel.Ui.Base;
 using Misp.Kernel.Ui.Sidebar;
+using Misp.Kernel.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Misp.Sourcing.LinkedAttribute
 {
@@ -188,6 +190,9 @@ namespace Misp.Sourcing.LinkedAttribute
             form.FilterChangeHandler += OnFilterChange;
             form.Toolbar.ChangeHandler += OnPageChange;
             form.EditEventHandler += OnEditColumn;
+
+            form.Grid.DuplicateEventHandler += OnDuplicateRows;
+            form.Grid.DeleteEventHandler += OnDeleteRows;
         }
 
         private void OnFilterChange()
@@ -222,6 +227,33 @@ namespace Misp.Sourcing.LinkedAttribute
             }
             catch (ServiceExecption) { }
             return null;
+        }
+
+        private void OnDuplicateRows(object obj)
+        {
+            //String message = "You are about to duplicate " + ((List<long>)obj).Count + " row(s).\nDo you want to continue?";
+            //if (MessageDisplayer.DisplayYesNoQuestion("Duplicate", message) == MessageBoxResult.Yes)
+            //{
+            //    var list = ((List<long>)obj).ConvertAll(i => (int)i).ToList();
+            //    if (this.GetLinkedAttributeGridService().duplicateGridRows(list))
+            //    {
+            //        LinkedAttributeGridEditorItem page = (LinkedAttributeGridEditorItem)getEditor().getActivePage();
+            //        Search(page.getLinkedAttributeGridForm().Toolbar.total + 1);
+            //    }
+            //}
+        }
+
+        private void OnDeleteRows(object obj)
+        {
+            String message = "You are about to delete " + ((List<long>)obj).Count + " row(s).\nDo you want to continue?";
+            if (MessageDisplayer.DisplayYesNoQuestion("Delete", message) == MessageBoxResult.Yes)
+            {
+                LinkedAttributeGridEditorItem page = (LinkedAttributeGridEditorItem)getEditor().getActivePage();                
+                if (this.GetLinkedAttributeGridService().deleteRows(page.EditedObject.oid.Value, (List<long>)obj))
+                {
+                    Search(page.getLinkedAttributeGridForm().Toolbar.current);
+                }
+            }
         }
 
 

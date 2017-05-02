@@ -93,36 +93,6 @@ namespace Misp.Sourcing.LinkedAttribute
 
         protected override void OnCellValueChanged(object sender, CellValueChangedEventArgs args)
         {
-            GridItem item = (GridItem)this.gridControl.SelectedItem;
-            if (item == null) item = (GridItem)this.gridControl.CurrentItem;
-            if (item != null)
-            {
-                GridColumn col = args.Column;
-                GrilleColumn column = this.Grille.GetColumn(col.FieldName);
-                string newValue = args.Value != null ? args.Value.ToString() : "";
-
-                GrilleEditedElement element = new GrilleEditedElement();
-                element.column = column;
-                element.oid = item.GetOid();
-                element.value = new Kernel.Domain.Browser.BrowserData();
-                element.value.name = newValue;
-                if (this.EditEventHandler != null)
-                {
-                    GrilleEditedResult result = EditEventHandler(element);
-                    if (result.isError)
-                    {
-                        MessageDisplayer.DisplayError("Wrong value", result.error);
-                        args.Handled = true;
-                        return;
-                    }
-                    else
-                    {
-                        if (result.datas == null) args.Handled = true;
-                        else item.Datas = result.datas;
-                        Refresh();
-                    } 
-                }
-            }
         }
 
         protected override void OnValidateCell(object sender, GridCellValidationEventArgs args)
@@ -141,6 +111,29 @@ namespace Misp.Sourcing.LinkedAttribute
                     args.Handled = true;
                     args.IsValid = false;
                     return;
+                }
+
+                GrilleEditedElement element = new GrilleEditedElement();
+                element.column = column;
+                element.oid = item.GetOid();
+                element.value = new Kernel.Domain.Browser.BrowserData();
+                element.value.name = newValue;
+                if (this.EditEventHandler != null)
+                {
+                    GrilleEditedResult result = EditEventHandler(element);
+                    if (result.isError)
+                    {
+                        args.Handled = true;
+                        args.IsValid = false;
+                        args.ErrorContent = result.error;
+                        return;
+                    }
+                    else
+                    {
+                        if (result.datas == null) args.Handled = true;
+                        else item.Datas = result.datas;
+                        Refresh();
+                    }
                 }
             }
         }
