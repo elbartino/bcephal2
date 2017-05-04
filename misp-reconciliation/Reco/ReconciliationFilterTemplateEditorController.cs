@@ -130,6 +130,36 @@ namespace Misp.Reconciliation.Reco
 
 
         #region Handles
+
+        protected override void AfterClose()
+        {
+            base.AfterClose();
+            foreach(EditorItem<ReconciliationFilterTemplate> page in getEditor().getPages()){
+                removePageHandlers(page);
+            }
+            getEditor().Children.Clear();
+            removeViewHandlers();
+        }
+
+        protected virtual void removePageHandlers(EditorItem<ReconciliationFilterTemplate> page)
+        {
+            //base.removePageHandlers(page);
+            ReconciliationFilterTemplateEditorItem editorPage = (ReconciliationFilterTemplateEditorItem)page;
+            editorPage.getForm().SelectionChanged -= OnSelectedTabChange;
+            if (ApplicationManager.User != null && ApplicationManager.User.IsAdmin())
+            {
+                editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.groupField.Changed -= onGroupFieldChange;
+                editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.ItemChanged -= OnConfigurationChanged;
+                editorPage.getForm().ConfigurationPanel.WriteOffConfigPanel.ItemChanged -= OnConfigurationChanged;
+                editorPage.getForm().ConfigurationPanel.ItemChanged -= OnConfigurationChanged;
+                editorPage.getForm().ConfigurationPanel.ConfigurationPropertiesPanel.NameTextBox.KeyUp -= onNameTextChange;
+                editorPage.getForm().FormChanged -= OnFormChanged;
+            }
+            if (editorPage.getForm().AdministrationBar != null)
+            {
+                editorPage.getForm().AdministrationBar.Changed -= OnChangeEventHandler;
+            }
+        }
         
         protected override void initializePageHandlers(EditorItem<ReconciliationFilterTemplate> page)
         {

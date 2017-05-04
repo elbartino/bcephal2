@@ -472,12 +472,13 @@ namespace Misp.Kernel.Controller
         /// </summary>
         protected override void initializeViewHandlers()
         {
-            getEditor().ActivePageChangedEventHandler = new EventHandler(OnPageSelected);
-           /* getEditor().getEditorContextMenu().DeleteItemMenu.Click+= new RoutedEventHandler(DeleteItemMenu_Click);
-            getEditor().getEditorContextMenu().RenameItemMenu.Click += new RoutedEventHandler(RenameItemMenu_Click);
-            getEditor().getEditorContextMenu().SaveItemMenu.Click += new RoutedEventHandler(SaveItemMenu_Click);
-            getEditor().getEditorContextMenu().SaveAsItemMenu.Click += new RoutedEventHandler(SaveAsItemMenu_Click);
-            */
+            getEditor().ActivePageChangedEventHandler += OnPageSelected;
+        }
+
+        protected virtual void removeViewHandlers()
+        {
+            getEditor().ActivePageChangedEventHandler -= OnPageSelected;
+            getEditor().ActivePageChangedEventHandler = null;
         }
 
 
