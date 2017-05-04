@@ -372,21 +372,25 @@ namespace Misp.Planification.Tranformation
             }
             else
             {
-                
                 if (this.ReportEditorController.getEditor().getPages().Count == 0)
                 {
                     this.ReportEditorController.listeTotalReport = new ObservableCollection<Kernel.Domain.Browser.InputTableBrowserData>(this.ReportEditorController.GetReportService().getAllBrowserDatas());
                     this.ReportEditorController.Create();
                     this.ReportEditorController.listeTotalReport = null;
-                    report = (Report)this.ReportEditorController.getInputTableEditor().getActivePage().EditedObject;
+                    ReportEditorItem reportPage = (ReportEditorItem)this.ReportEditorController.getInputTableEditor().getActivePage();
+                    if (reportPage != null) report = (Report)reportPage.EditedObject;
                     SaveButton.IsEnabled = true;
                 }
-                
-                ((ReportEditorItem)this.ReportEditorController.getEditor().getActivePage()).getReportForm().SpreadSheet.DeleteExcelSheet();
-                Range range = ((ReportEditorItem)this.ReportEditorController.getEditor().getActivePage()).getReportForm().SpreadSheet.GetSelectedRange();
 
-                Cell activeCell = ((ReportEditorItem)this.ReportEditorController.getEditor().getActivePage()).getReportForm().SpreadSheet.getActiveCell();
-                ApplicationManager.Instance.MainWindow.StatusLabel.Content = "";
+                ReportEditorItem page = (ReportEditorItem)this.ReportEditorController.getInputTableEditor().getActivePage();
+                if (page != null)
+                {
+                    page.getReportForm().SpreadSheet.DeleteExcelSheet();
+                    Range range = page.getReportForm().SpreadSheet.GetSelectedRange();
+
+                    Cell activeCell = page.getReportForm().SpreadSheet.getActiveCell();
+                    ApplicationManager.Instance.MainWindow.StatusLabel.Content = "";
+                }
             }
 
             if (report != null && IsReadOnly) this.ReportEditorController.getEditor().getActivePage().SetReadOnly(IsReadOnly);
@@ -395,8 +399,8 @@ namespace Misp.Planification.Tranformation
 
             BlockPanel.listeTotalReport.Add(new Kernel.Domain.Browser.InputTableBrowserData() 
             {
-                name = report.name,
-                oid = report.oid != null ? report.oid.Value : 0,
+                name = report != null ? report.name : "",
+                oid = report != null && report.oid != null ? report.oid.Value : 0,
                 isReport = true
             });
             this.NameTextBox.Text = Action.name;

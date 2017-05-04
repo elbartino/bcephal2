@@ -328,6 +328,9 @@ namespace Misp.Reporting.Report
             dockingManager.DocumentContextMenu.CommandBindings.Add(SaveCommandBinding);
             dockingManager.DocumentContextMenu.CommandBindings.Add(SaveAsCommandBinding);
             dockingManager.DocumentContextMenu.CommandBindings.Add(RenameCommandBinding);
+
+            InputTablePropertyBar bar = (InputTablePropertyBar)this.PropertyBar;
+            bar.Pane.Children.Remove(bar.AdministratorLayoutAnchorable);
         }
 
         public void RemoveMenuForTree(DockingManager dockingManager)

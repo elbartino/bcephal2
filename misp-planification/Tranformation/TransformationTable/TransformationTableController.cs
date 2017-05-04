@@ -57,6 +57,12 @@ namespace Misp.Planification.Tranformation.TransformationTable
         }
 
 
+        protected override PropertyBar getNewPropertyBar() 
+        {
+            StructuredReportPropertyBar bar = new StructuredReportPropertyBar();
+            bar.Pane.Children.Remove(bar.AdministratorLayoutAnchorable);
+            return bar; 
+        }
         
         /// <summary>
         /// Crée et retourne une nouvelle instance de la vue gérée par ce controller.
