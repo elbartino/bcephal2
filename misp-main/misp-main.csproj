@@ -78,9 +78,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="View\AddTile.xaml.cs">
+      <DependentUpon>AddTile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Block.cs" />
     <Compile Include="View\DialogBoxName.xaml.cs">
       <DependentUpon>DialogBoxName.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DialogBoxWindow.xaml.cs">
+      <DependentUpon>DialogBoxWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DynamicEdit.xaml.cs">
       <DependentUpon>DynamicEdit.xaml</DependentUpon>
@@ -88,6 +94,7 @@
     <Compile Include="View\Edit.xaml.cs">
       <DependentUpon>Edit.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ListScreens.cs" />
     <Compile Include="View\PopupDetail\DailyControls_SubTile.xaml.cs">
       <DependentUpon>DailyControls_SubTile.xaml</DependentUpon>
     </Compile>
@@ -118,7 +125,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\AddTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\DialogBoxName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DialogBoxWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

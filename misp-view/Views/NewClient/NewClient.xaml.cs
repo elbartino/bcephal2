@@ -45,7 +45,7 @@ namespace misp_view.Views.NewClient
         protected void init()
         {
             //cbMainContact.Items.Refresh();
-            cbMainContact.ItemsSource = (ListContacts.listC);
+            cbMainContact.ItemsSource = ListContacts.listC;
         }
 
 

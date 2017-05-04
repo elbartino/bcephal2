@@ -11,7 +11,7 @@ using Moriset_Main_final.View.PoPupDetail;
 using Moriset_Main_final.View.PopupDetail;
 using misp_view.Views.Review;
 using misp_view.Views.BankAccount;
-
+using System.Collections.Generic;
 
 namespace Moriset_Main_final
 {
@@ -25,14 +25,27 @@ namespace Moriset_Main_final
         // static String[] tabTileNav = new String[50];
         TileNavCategory[]tabNavCategory = new TileNavCategory[50];
         Window[]tabWindow = new Window[20];
+        string[]tabSelectedWindow = new string[20];
+        List<string> listWindows = new List<string>();
         static int counterWindow = 0;
         Review a = new Review();
         static ListAdvisement_SubTile lasCurrent = new ListAdvisement_SubTile();
+        DynamicEdit des = new DynamicEdit();
+        List <string>listFolder1 = new List<string>();
+        List<string> listFolder2 = new List<string>();
+        List<string> listFolder3 = new List<string>();
+        List<string> listFolder4 = new List<string>();
+
         public MainWindow()
         {
             InitializeComponent();
         }
+
+       
+        
+
         #region Initialize Block
+
 
         private void reconciliation_Click(object sender, EventArgs e)
         {
@@ -321,7 +334,7 @@ namespace Moriset_Main_final
 
         private void createTile_Click(object sender, EventArgs e)
         {
-            
+
             DialogBoxName dbn = new DialogBoxName();
             dbn.ShowDialog();
             Block custom = new Block("custom", "Custom");
@@ -339,27 +352,30 @@ namespace Moriset_Main_final
             cat.IsEnabled = false;
             counterTab++;
 
+
         }
 
         private void dynamicScreen(object sender, EventArgs e)
         {
             ScreenDynamic sd = new ScreenDynamic();
-            if (tabWindow[0] == null)
+            if (tabSelectedWindow[0] == null)
             {
-                MessageBox.Show("No screen created");
+                MessageBox.Show("No screen(s) selected");
             }
             else
             {
-                for (int i = 0; i < tabWindow.Length; i++)
+                for (int i = 0; i < tabSelectedWindow.Length; i++)
                 {
-                    if (tabWindow[i] != null)
+                    if (tabSelectedWindow[i] != null)
                     {
+
+
                         Button b = new Button();
                         Label l = new Label();
                         l.Width = 20;
                         b.Width = 142;
-                        b.Content = tabWindow[i].Name;
                         b.Height = 60;
+                        b.Content = tabSelectedWindow[i];
                         sd.spDynamic.Children.Add(l);
                         sd.spDynamic.Children.Add(b);
                     }
@@ -369,12 +385,19 @@ namespace Moriset_Main_final
         }
 
         
+        
 
         private void dyanmicEditMenu_Click(object sender, RoutedEventArgs e)
-        {
+        {   
             DynamicEdit de = new DynamicEdit();
+            //de.d.cbSelection.Items.Refresh();ç
+            //List<string> selectedWindow = new List<string>();
+            //listWindows = selectedWindow;
             de.ShowDialog();
+            //tabSelectedWindow =  de.tabSelected;
         }
+
+        
 
         private void customisedTile_Click(object sender, EventArgs e)
         {
@@ -391,26 +414,57 @@ namespace Moriset_Main_final
 
         private void createScreen_Click(object sender, EventArgs e)
         {
-            string s = "Screen_"+counterWindow;
-            Window w = new Window();
-            w.Name = s;
-            tabWindow[counterWindow] = w;
-            MessageBox.Show("Window "+counterWindow+" created");
-            counterWindow++;
+            if (counterWindow == 11)
+            {
+                MessageBox.Show("Limit reached !!!");
+            }
+            else
+            {
+                DialogBoxWindow dbw = new DialogBoxWindow();
+                dbw.ShowDialog();
+                string s = "Screen_" + counterWindow;
+                Window w = new Window();
+                w.Name = s;
+                tabWindow[counterWindow] = w;
+                MessageBox.Show("Window " + counterWindow + " created");
+                ListScreens.Record(s);
+                //ListScreens.Display();
+                counterWindow++;
+                string folder = dbw.cbTileFolder.Text;
+                switch (folder)
+                {
+                    case "folder1":
+                        listFolder1.Add(s);
+                        
+                        break;
+                    case "folder2":
+                        listFolder2.Add(s);
+                        break;
+                    case "folder3":
+                        listFolder3.Add(s);
+                        break;
+                    case "folder4":
+                        listFolder3.Add(s);
+                        break;
+
+                }
+            }
         }
 
         private void deleteScreen_Click(object sender, EventArgs e)
         {
-            if (tabWindow[0] != null)
+            if (tabSelectedWindow[0] != null)
             {
-                tabWindow[counterWindow-1] = null;
-                int n = counterWindow-1;
-                MessageBox.Show("Window "+n+" deleted");
+                string s = tabWindow[counterWindow - 1].Name;
+                tabSelectedWindow[counterWindow - 1] = null;
+                int n = counterWindow - 1;
+                MessageBox.Show("Window " + n + " deleted");
+                ListScreens.Remove(s);
                 counterWindow--;
             }
             else
             {
-                MessageBox.Show("No screen created");
+                MessageBox.Show("No screen selected");
             }
         }
     }
