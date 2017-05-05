@@ -12,6 +12,7 @@ using Moriset_Main_final.View.PopupDetail;
 using misp_view.Views.Review;
 using misp_view.Views.BankAccount;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Moriset_Main_final
 {
@@ -25,16 +26,16 @@ namespace Moriset_Main_final
         // static String[] tabTileNav = new String[50];
         TileNavCategory[]tabNavCategory = new TileNavCategory[50];
         Window[]tabWindow = new Window[20];
-        string[]tabSelectedWindow = new string[20];
+        static List<string>tabSelectedWindow = new List <string>();
         List<string> listWindows = new List<string>();
         static int counterWindow = 0;
         Review a = new Review();
         static ListAdvisement_SubTile lasCurrent = new ListAdvisement_SubTile();
         DynamicEdit des = new DynamicEdit();
-        List <string>listFolder1 = new List<string>();
-        List<string> listFolder2 = new List<string>();
-        List<string> listFolder3 = new List<string>();
-        List<string> listFolder4 = new List<string>();
+        static List<string>listFolder1 = new List<string>();
+        static List<string>listFolder2 = new List<string>();
+        static List<string>listFolder3 = new List<string>();
+        static List<string>listFolder4 = new List<string>();
 
         public MainWindow()
         {
@@ -228,7 +229,7 @@ namespace Moriset_Main_final
         }
         private void editMenu_Click(object sender, RoutedEventArgs e)
         {
-            int counter  = 0;
+            int counter = 0;
             while (tabNavCategory[counter].Name != current.Name)
             {
                 counter++;
@@ -358,13 +359,13 @@ namespace Moriset_Main_final
         private void dynamicScreen(object sender, EventArgs e)
         {
             ScreenDynamic sd = new ScreenDynamic();
-            if (tabSelectedWindow[0] == null)
+            if (tabSelectedWindow.Count == 0)
             {
                 MessageBox.Show("No screen(s) selected");
             }
             else
             {
-                for (int i = 0; i < tabSelectedWindow.Length; i++)
+                for (int i = 0; i < tabSelectedWindow.Count; i++)
                 {
                     if (tabSelectedWindow[i] != null)
                     {
@@ -393,8 +394,33 @@ namespace Moriset_Main_final
             //de.d.cbSelection.Items.Refresh();ç
             //List<string> selectedWindow = new List<string>();
             //listWindows = selectedWindow;
+            //ListScreens.RemoveAll();
             de.ShowDialog();
             //tabSelectedWindow =  de.tabSelected;
+            string folder = de.d.cbFolder.Text;
+            MessageBox.Show(folder);
+            switch (folder)
+            {
+                case "Folder1":
+                    
+                    tabSelectedWindow = listFolder1; 
+                    //listFolder1.Add(s);
+                    break;
+                case "Folder2":
+                    tabSelectedWindow = listFolder2;
+                    //listFolder2.Add(s);
+                    break;
+                case "Folder3":
+                    tabSelectedWindow = listFolder3;
+                    //listFolder3.Add(s);
+                    break;
+                case "Folder4":
+                    tabSelectedWindow = listFolder4;
+                    //listFolder3.Add(s);
+                    break;
+
+            }
+
         }
 
         
@@ -426,24 +452,24 @@ namespace Moriset_Main_final
                 Window w = new Window();
                 w.Name = s;
                 tabWindow[counterWindow] = w;
+                
                 MessageBox.Show("Window " + counterWindow + " created");
-                ListScreens.Record(s);
+                //ListScreens.Record(s);
                 //ListScreens.Display();
                 counterWindow++;
                 string folder = dbw.cbTileFolder.Text;
                 switch (folder)
                 {
-                    case "folder1":
+                    case "Folder1":
                         listFolder1.Add(s);
-                        
                         break;
-                    case "folder2":
+                    case "Folder2":
                         listFolder2.Add(s);
                         break;
-                    case "folder3":
+                    case "Folder3":
                         listFolder3.Add(s);
                         break;
-                    case "folder4":
+                    case "Folder4":
                         listFolder3.Add(s);
                         break;
 

@@ -82,6 +82,9 @@
       <DependentUpon>AddTile.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Block.cs" />
+    <Compile Include="View\ConfigurationTile.xaml.cs">
+      <DependentUpon>ConfigurationTile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DialogBoxName.xaml.cs">
       <DependentUpon>DialogBoxName.xaml</DependentUpon>
     </Compile>
@@ -126,6 +129,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\AddTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ConfigurationTile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

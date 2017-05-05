@@ -1,0 +1,34 @@
+﻿<Grid x:Class="Moriset_Main_final.View.AddTile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Moriset_Main_final.View"
+        mc:Ignorable="d"
+         d:DesignHeight="50" d:DesignWidth="620">
+    
+        <Grid x:Name="gridNewTile" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+            <TextBlock Text="Select what to show  "  Height="18" Grid.Column="1"></TextBlock>
+        <ComboBox x:Name="cbSelection" Height="25" Width="200" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.Column="2"/>
+        <ComboBox x:Name="cbFolder" Height="25" Width="200" HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.Column="3">
+            <ComboBoxItem x:Name="Folder1" Content="Folder 1"></ComboBoxItem>
+            <ComboBoxItem x:Name="Folder2" Content="Folder 2"></ComboBoxItem>
+            <ComboBoxItem x:Name="Folder3" Content="Folder 3"></ComboBoxItem>
+            <ComboBoxItem x:Name="Folder4" Content="Folder 4"></ComboBoxItem>
+        </ComboBox>
+        <Button x:Name="DeleteButton" x:FieldModifier="public" ToolTip="Delete Selection" Grid.Column="0" Width="15">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Image Source="D:\bcephal-clent\misp-view\Resources\Icons\DeleteButton.png"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+    </Grid>
+</Grid>
