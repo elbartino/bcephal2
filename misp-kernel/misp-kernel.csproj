@@ -563,6 +563,9 @@
     <Compile Include="Ui\EditableTree\MeasureTreeList.xaml.cs">
       <DependentUpon>MeasureTreeList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\EditableTree\PeriodNameTreeList.xaml.cs">
+      <DependentUpon>PeriodNameTreeList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\File\FileNameDialog.xaml.cs">
       <DependentUpon>FileNameDialog.xaml</DependentUpon>
     </Compile>
@@ -1030,6 +1033,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\EditableTree\MeasureTreeList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\EditableTree\PeriodNameTreeList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

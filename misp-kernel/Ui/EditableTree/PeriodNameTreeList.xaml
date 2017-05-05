@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="Misp.Kernel.Ui.EditableTree.PeriodNameTreeList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <dxg:TreeListControl x:FieldModifier="public" Name="treeList" ShowBorder="False" ContextMenuOpening="contextMenuOpening" SelectionMode="Row">
+        <dxg:TreeListControl.Columns>
+            <dxg:TreeListColumn FieldName="name"/>
+        </dxg:TreeListControl.Columns>
+        <dxg:TreeListControl.View>
+            <dxg:TreeListView Name="treeListView" KeyFieldName="name" ParentFieldName="parentId" 
+                              AutoWidth="True" AllowPerPixelScrolling="True" AutoExpandAllNodes="False" ShowColumnHeaders="False"
+                              ShowNodeImages="True" AllowScrollAnimation="True" PrintNodeImages="True" ShowIndicator="False" EditorShowMode="MouseUpFocused"  
+                              CellValueChanged="OnCellValueChanged" ShownEditor="OnShownEditor" ShowHorizontalLines="False" ShowVerticalLines="False" 
+                              CustomCellAppearance="OnCustomCellAppearance" />
+        </dxg:TreeListControl.View>
+
+        <dxg:TreeListControl.ContextMenu>
+            <ContextMenu x:Name="contextMenu">
+                <MenuItem x:Name="newMenuItem" Header="New" Click="OnNewClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/New.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="deleteMenuItem" Header="Delete" Click="OnDeleteClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/Delete.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem x:Name="moveUpMenuItem" Header="Move up" Click="OnMoveupClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/Moveup.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="moveDownMenuItem" Header="Move down" Click="OnMovedownClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/Movedown.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>                
+                <Separator/>
+                <MenuItem x:Name="propertiesMenuItem" Header="Properties" x:FieldModifier="public">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Images/Icons/entity.png" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </ContextMenu>
+        </dxg:TreeListControl.ContextMenu>
+
+    </dxg:TreeListControl>
+
+</UserControl>

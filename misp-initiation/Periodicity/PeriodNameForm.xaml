@@ -8,6 +8,7 @@
              xmlns:PeriodIntervalTree="clr-namespace:Misp.Kernel.Ui.PeriodicityTree;assembly=bcephal"
              xmlns:list="clr-namespace:Misp.Kernel.Ui.ListView;assembly=bcephal"
              xmlns:base="clr-namespace:Misp.Initiation.Periodicity"
+             xmlns:etv="clr-namespace:Misp.Kernel.Ui.EditableTree;assembly=bcephal"
              Background="White" >
     
     <Grid.ColumnDefinitions>
@@ -15,7 +16,7 @@
         <ColumnDefinition Width="0.3*"/>
     </Grid.ColumnDefinitions>
 
-    <base:PeriodNameTreeView x:Name="periodTree" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+    <etv:PeriodNameTreeList x:Name="periodTree" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     <GridSplitter Width="5" ResizeDirection="Columns" Background="#FFFBF8F8"
                           VerticalAlignment="Stretch" HorizontalAlignment="Right" Grid.Column="0"/>
     

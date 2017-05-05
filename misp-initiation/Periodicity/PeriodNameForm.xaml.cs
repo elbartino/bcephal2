@@ -1,6 +1,7 @@
 ﻿using Misp.Kernel.Application;
 using Misp.Kernel.Domain;
 using Misp.Kernel.Ui.Base;
+using Misp.Kernel.Ui.EditableTree;
 using Misp.Kernel.Ui.TreeView;
 using System;
 using System.Collections.Generic;
@@ -72,8 +73,8 @@ namespace Misp.Initiation.Periodicity
             hyperLink.RequestNavigate += OnShowPeriodIntervalParams;
             this.periodTree.propertiesMenuItem.Click += OnPropertiesMenuItemClicked;
             this.periodTree.Changed += OnPeriodTreeChanged;
+            this.periodTree.treeList.SelectionChanged += OnSelectionChanged;
             this.PeriodIntervalleTree.Changed += OnPeriodIntervalTreeChanged;
-            this.periodTree.tree.SelectedItemChanged += OnSelectionChanged;
         }
 
         /// <summary>
@@ -115,7 +116,7 @@ namespace Misp.Initiation.Periodicity
         /// </summary>
         public void fillObject() 
         {
-            if (EditedObject != null) EditedObject.ForgetChild(PeriodTree.defaultValue);
+            //if (EditedObject != null) EditedObject.ForgetChild(PeriodTree.defaultValue);
         }
         
         /// <summary>
@@ -123,7 +124,7 @@ namespace Misp.Initiation.Periodicity
         /// pour les afficher dans la vue.
         /// </summary>
         public void displayObject() {
-            this.PeriodTree.DisplayRoot(this.EditedObject);
+            this.PeriodTree.DisplayPeriod(this.EditedObject);
             PeriodName name = null;
             if (selectedPeriodNamePosition > -1) name = this.EditedObject.getPeriodNameByPosition(selectedPeriodNamePosition);
             else if (this.EditedObject.childrenListChangeHandler.Items.Count > 0) name = this.EditedObject.childrenListChangeHandler.Items[0];
@@ -141,7 +142,7 @@ namespace Misp.Initiation.Periodicity
             return controls;
         }
 
-        public PeriodNameTreeView PeriodTree
+        public PeriodNameTreeList PeriodTree
         {
             get { return periodTree; } 
         }
@@ -169,7 +170,7 @@ namespace Misp.Initiation.Periodicity
 
         private void OnShowPeriodIntervalParams(object sender, RequestNavigateEventArgs e)
         {
-            editedPeriodName = this.periodTree.GetSelectedPeriod();
+            editedPeriodName = this.periodTree.GetSelectedValue();
             if (!editedPeriodName.name.Equals(PeriodNameTreeView.Label_DEFAULT_PERIOD) 
                 && sender is Hyperlink) showStandartPeriodEditor();            
         }
@@ -178,7 +179,7 @@ namespace Misp.Initiation.Periodicity
         {
             StandardPeriodEditorDialog standardPeriodEditorController = new StandardPeriodEditorDialog();
             standardPeriodEditorController.OnValidateChange += OnValidateChange;
-            editedPeriodName = this.periodTree.GetSelectedPeriod();
+            editedPeriodName = this.periodTree.GetSelectedValue();
             if (editedPeriodName == null) return;
             if (editedPeriodName.IsDefault) return;
             standardPeriodEditorController.periodName = editedPeriodName;
@@ -192,9 +193,9 @@ namespace Misp.Initiation.Periodicity
             {
                 this.EditedObject.UpdateChild(editedPeriodName);
                 this.PeriodIntervalleTree.DisplayPeriodInterval(editedPeriodName.GetRootPeriodInterval());
-                this.periodTree.DisplayRoot(this.EditedObject);
-                this.periodTree.SetSelectedPeriod(editedPeriodName);
-                this.PeriodTree.tree.Items.Refresh();
+                //this.periodTree.DisplayPeriod(this.EditedObject);
+                this.PeriodTree.treeList.RefreshData();
+                this.periodTree.SetSelectedValue(editedPeriodName);                
                 if (Changed != null) Changed();
             }
         }
@@ -208,7 +209,7 @@ namespace Misp.Initiation.Periodicity
 
         private void OnPeriodIntervalTreeChanged()
         {
-            PeriodName periodName = this.periodTree.GetSelectedPeriod();
+            PeriodName periodName = this.periodTree.GetSelectedValue();
             if (periodName == null || periodName.IsDefault) return;
             periodName.parent.UpdateChild(periodName);
             if (Changed != null) Changed();
@@ -218,11 +219,11 @@ namespace Misp.Initiation.Periodicity
         {
             if (Changed != null) Changed();
         }
-
-        private void OnSelectionChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        
+        private void OnSelectionChanged(object sender, DevExpress.Xpf.Grid.TreeList.TreeListSelectionChangedEventArgs e)
         {
-            PeriodName periodName = this.periodTree.GetSelectedPeriod();
-            if(periodName != null && !periodName.Equals(this.periodTree.defaultValue)) selectedPeriodNamePosition = periodName.position;
+            PeriodName periodName = this.periodTree.GetSelectedValue();
+            if (periodName != null && !periodName.IsDefault) selectedPeriodNamePosition = periodName.position;
             this.PeriodIntervalleTree.DisplayPeriodInterval(periodName != null ? periodName.GetRootPeriodInterval() : null);
             if (periodName != null) e.Handled = true; 
         }
