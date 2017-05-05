@@ -404,9 +404,14 @@ namespace Misp.Kernel.Ui.EditableTree
             List<Domain.Measure> selectedItems = GetSelectedValues();
             if (selectedItems.Count == 0) this.contextMenu.Visibility = Visibility.Collapsed;
             else if (Root != null)
-            {
-                this.contextMenu.Visibility = Visibility.Visible;
+            {                
                 bool containsDefault = isContainsDefault(selectedItems);
+                if (containsDefault)
+                {
+                    this.contextMenu.Visibility = Visibility.Collapsed;
+                    return;
+                }
+                this.contextMenu.Visibility = Visibility.Visible;
                 bool isContiguousSelection = isContiguous(selectedItems);
                 int slectionCount = selectedItems.Count;
 

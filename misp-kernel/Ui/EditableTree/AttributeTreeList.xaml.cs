@@ -433,9 +433,15 @@ namespace Misp.Kernel.Ui.EditableTree
             List<Domain.Attribute> selectedItems = GetSelectedValues();
             if (selectedItems.Count == 0) this.contextMenu.Visibility = Visibility.Collapsed;
             else if (Root != null)
-            {
-                this.contextMenu.Visibility = Visibility.Visible;
+            {                
                 bool containsDefault = isContainsDefault(selectedItems);
+                if (containsDefault)
+                {
+                    this.contextMenu.Visibility = Visibility.Collapsed;
+                    return;
+                }
+
+                this.contextMenu.Visibility = Visibility.Visible;
                 bool isContiguousSelection = isContiguous(selectedItems);
                 int slectionCount = selectedItems.Count;
 
@@ -646,6 +652,7 @@ namespace Misp.Kernel.Ui.EditableTree
                 }
                 AddDefaultAttributes(grandParent);
             }
+            treeList.RefreshData();
             treeList.SelectedItems = attributes;
             if (Changed != null) Changed();
         }
